@@ -22,6 +22,9 @@
   "dependencies": {
     "@rgrove/parse-xml": "^4.0.1",
     "glfw-raub": "^4.6.2",
+    "json-6": "^1.1.4",
+    "json5": "^2.2.1",
+    "jsox": "^1.2.116",
     "parse-xml": "^1.0.1"
   },
   "devDependencies": {
