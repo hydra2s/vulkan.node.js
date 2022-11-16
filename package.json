@@ -1,0 +1,22 @@
+{
+  "name": "node-vulkan-api",
+  "version": "1.0.0",
+  "description": "Implement Vulkan API bridge for node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "node-gyp rebuild"
+  },
+  "keywords": [
+    "vulkan",
+    "api",
+    "bridge"
+  ],
+  "author": "hydra2s",
+  "license": "MIT",
+  "gypfile": true,
+  "dependencies": {
+    "@rgrove/parse-xml": "^4.0.1",
+    "parse-xml": "^1.0.1"
+  }
+}
