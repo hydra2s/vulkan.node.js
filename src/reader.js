@@ -20,18 +20,19 @@
     
     // unlock assign and trim operations
     let cloneObj = (obj)=>{
-        return JSON5.parse(JSON5.stringify(obj));
+        //return JSON5.parse(JSON5.stringify(obj));
+        return Array.isArray(obj) ? [...obj] : {...obj};
     };
     
     //
-    let filterNoSpaced = (xml)=>{ let xmc = cloneObj(xml); if (xmc.children) { xmc.children = xmc.children.map(cloneObj).filter(noSpaces).map(filterNoSpaced); }; return xmc; };
+    let filterNoSpaced = (xml)=>{ let xmc = xml; if (xmc.children && xmc.children.length > 0) { xmc.children = xmc.children.filter(noSpaces).map(filterNoSpaced); } else { delete xmc.children; }; return xmc; };
 
     // 
     let getComponents = (doc)=>{
-        let registry = doc.children.find((e,i)=>{ return e.type == "element" && e.name == "registry"; });
-        let types = registry.children.find((e,i)=>{ return e.type == "element" && e.name == "types"; });
-        let structs = types.children.filter((e,i)=>{ return e.type == "element" && e.name == "type" && e.attributes["category"] == "struct"; }).map(cloneObj).filter(noSpaces);
-        let extensions = registry.children.find((e,i)=>{ return e.type == "element" && e.name == "extensions"; });
+        let registry = filterNoSpaced(JSON5.parse(JSON5.stringify(doc.children.find((e,i)=>{ return e.type == "element" && e.name == "registry"; }))));
+        let types = filterNoSpaced(registry.children.find((e,i)=>{ return e.type == "element" && e.name == "types"; }));
+        let structs = types.children.filter((e,i)=>{ return e.type == "element" && e.name == "type" && e.attributes["category"] == "struct"; }).map(filterNoSpaced).filter(noSpaces);
+        let extensions = filterNoSpaced(registry.children.find((e,i)=>{ return e.type == "element" && e.name == "extensions"; }));
         let commands = registry.children.filter((e,i)=>{ return e.type == "element" && e.name == "commands"; }).map(filterNoSpaced);
         return { registry, types, structs, extensions, commands };
     };
@@ -43,7 +44,7 @@
 
     // 
     let memberByName = (e,name)=>{
-        return e.children.find((em,im)=>{
+        return e.children ? e.children.find((em,im)=>{
             if (em.type == "element" && em.name == "member") {
 
                 return !!em.children.find((ec,ic)=>{ 
@@ -52,7 +53,7 @@
 
             };
             return false;
-        });
+        }) : null;
     };
 
     // 
@@ -93,7 +94,7 @@
 
     // 
     let parseDocs = (path = "../../Vulkan-Docs/xml/vk.xml")=>{
-        let docs = getDocs(path); fs.writeFileSync("vulkan.json", JSON.stringify(docs, null, 2).trim(), "utf8");
+        let docs = getDocs(path); fs.writeFileSync("vulkan.json", JSON.stringify(filterNoSpaced(JSON5.parse(JSON5.stringify(docs))), null, 2).trim(), "utf8");
         let loaded = getComponents(docs); fs.writeFileSync("commands.json", JSON.stringify(loaded.commands, null, 2).trim(), "utf8");
         let usedBy = formExtensionTypeMap(loaded.extensions);
         let sTypeMap = formSTypeMap(filterSType(loaded.structs));

@@ -7499,8 +7499,7 @@
         "attributes": {
           "name": "vkResetQueryPoolEXT",
           "alias": "vkResetQueryPool"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -31798,8 +31797,7 @@
         "attributes": {
           "name": "vkGetPhysicalDeviceFeatures2KHR",
           "alias": "vkGetPhysicalDeviceFeatures2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -31905,8 +31903,7 @@
         "attributes": {
           "name": "vkGetPhysicalDeviceProperties2KHR",
           "alias": "vkGetPhysicalDeviceProperties2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -32041,8 +32038,7 @@
         "attributes": {
           "name": "vkGetPhysicalDeviceFormatProperties2KHR",
           "alias": "vkGetPhysicalDeviceFormatProperties2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -32188,8 +32184,7 @@
         "attributes": {
           "name": "vkGetPhysicalDeviceImageFormatProperties2KHR",
           "alias": "vkGetPhysicalDeviceImageFormatProperties2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -32333,8 +32328,7 @@
         "attributes": {
           "name": "vkGetPhysicalDeviceQueueFamilyProperties2KHR",
           "alias": "vkGetPhysicalDeviceQueueFamilyProperties2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -32440,8 +32434,7 @@
         "attributes": {
           "name": "vkGetPhysicalDeviceMemoryProperties2KHR",
           "alias": "vkGetPhysicalDeviceMemoryProperties2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -32622,8 +32615,7 @@
         "attributes": {
           "name": "vkGetPhysicalDeviceSparseImageFormatProperties2KHR",
           "alias": "vkGetPhysicalDeviceSparseImageFormatProperties2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -32985,8 +32977,7 @@
         "attributes": {
           "name": "vkTrimCommandPoolKHR",
           "alias": "vkTrimCommandPool"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -33129,8 +33120,7 @@
         "attributes": {
           "name": "vkGetPhysicalDeviceExternalBufferPropertiesKHR",
           "alias": "vkGetPhysicalDeviceExternalBufferProperties"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -34302,8 +34292,7 @@
         "attributes": {
           "name": "vkGetPhysicalDeviceExternalSemaphorePropertiesKHR",
           "alias": "vkGetPhysicalDeviceExternalSemaphoreProperties"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -35175,8 +35164,7 @@
         "attributes": {
           "name": "vkGetPhysicalDeviceExternalFencePropertiesKHR",
           "alias": "vkGetPhysicalDeviceExternalFenceProperties"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -37231,8 +37219,7 @@
         "attributes": {
           "name": "vkEnumeratePhysicalDeviceGroupsKHR",
           "alias": "vkEnumeratePhysicalDeviceGroups"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -37425,8 +37412,7 @@
         "attributes": {
           "name": "vkGetDeviceGroupPeerMemoryFeaturesKHR",
           "alias": "vkGetDeviceGroupPeerMemoryFeatures"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -37570,8 +37556,7 @@
         "attributes": {
           "name": "vkBindBufferMemory2KHR",
           "alias": "vkBindBufferMemory2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -37715,8 +37700,7 @@
         "attributes": {
           "name": "vkBindImageMemory2KHR",
           "alias": "vkBindImageMemory2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -37826,8 +37810,7 @@
         "attributes": {
           "name": "vkCmdSetDeviceMaskKHR",
           "alias": "vkCmdSetDeviceMask"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -38454,8 +38437,7 @@
         "attributes": {
           "name": "vkCmdDispatchBaseKHR",
           "alias": "vkCmdDispatchBase"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -38810,8 +38792,7 @@
         "attributes": {
           "name": "vkCreateDescriptorUpdateTemplateKHR",
           "alias": "vkCreateDescriptorUpdateTemplate"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -38955,8 +38936,7 @@
         "attributes": {
           "name": "vkDestroyDescriptorUpdateTemplateKHR",
           "alias": "vkDestroyDescriptorUpdateTemplate"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -39126,8 +39106,7 @@
         "attributes": {
           "name": "vkUpdateDescriptorSetWithTemplateKHR",
           "alias": "vkUpdateDescriptorSetWithTemplate"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -42044,8 +42023,7 @@
         "attributes": {
           "name": "vkGetBufferMemoryRequirements2KHR",
           "alias": "vkGetBufferMemoryRequirements2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -42188,8 +42166,7 @@
         "attributes": {
           "name": "vkGetImageMemoryRequirements2KHR",
           "alias": "vkGetImageMemoryRequirements2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -42370,8 +42347,7 @@
         "attributes": {
           "name": "vkGetImageSparseMemoryRequirements2KHR",
           "alias": "vkGetImageSparseMemoryRequirements2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -42514,8 +42490,7 @@
         "attributes": {
           "name": "vkGetDeviceBufferMemoryRequirementsKHR",
           "alias": "vkGetDeviceBufferMemoryRequirements"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -42658,8 +42633,7 @@
         "attributes": {
           "name": "vkGetDeviceImageMemoryRequirementsKHR",
           "alias": "vkGetDeviceImageMemoryRequirements"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -42840,8 +42814,7 @@
         "attributes": {
           "name": "vkGetDeviceImageSparseMemoryRequirementsKHR",
           "alias": "vkGetDeviceImageSparseMemoryRequirements"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -43026,8 +42999,7 @@
         "attributes": {
           "name": "vkCreateSamplerYcbcrConversionKHR",
           "alias": "vkCreateSamplerYcbcrConversion"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -43171,8 +43143,7 @@
         "attributes": {
           "name": "vkDestroySamplerYcbcrConversionKHR",
           "alias": "vkDestroySamplerYcbcrConversion"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -44098,8 +44069,7 @@
         "attributes": {
           "name": "vkGetDescriptorSetLayoutSupportKHR",
           "alias": "vkGetDescriptorSetLayoutSupport"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -47331,8 +47301,7 @@
         "attributes": {
           "name": "vkCreateRenderPass2KHR",
           "alias": "vkCreateRenderPass2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -47486,8 +47455,7 @@
         "attributes": {
           "name": "vkCmdBeginRenderPass2KHR",
           "alias": "vkCmdBeginRenderPass2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -47641,8 +47609,7 @@
         "attributes": {
           "name": "vkCmdNextSubpass2KHR",
           "alias": "vkCmdNextSubpass2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -47759,8 +47726,7 @@
         "attributes": {
           "name": "vkCmdEndRenderPass2KHR",
           "alias": "vkCmdEndRenderPass2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -47898,8 +47864,7 @@
         "attributes": {
           "name": "vkGetSemaphoreCounterValueKHR",
           "alias": "vkGetSemaphoreCounterValue"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -48041,8 +48006,7 @@
         "attributes": {
           "name": "vkWaitSemaphoresKHR",
           "alias": "vkWaitSemaphores"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -48155,8 +48119,7 @@
         "attributes": {
           "name": "vkSignalSemaphoreKHR",
           "alias": "vkSignalSemaphore"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -48690,8 +48653,7 @@
         "attributes": {
           "name": "vkCmdDrawIndirectCountKHR",
           "alias": "vkCmdDrawIndirectCount"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -48699,8 +48661,7 @@
         "attributes": {
           "name": "vkCmdDrawIndirectCountAMD",
           "alias": "vkCmdDrawIndirectCount"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -48954,8 +48915,7 @@
         "attributes": {
           "name": "vkCmdDrawIndexedIndirectCountKHR",
           "alias": "vkCmdDrawIndexedIndirectCount"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -48963,8 +48923,7 @@
         "attributes": {
           "name": "vkCmdDrawIndexedIndirectCountAMD",
           "alias": "vkCmdDrawIndexedIndirectCount"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -56195,8 +56154,7 @@
         "attributes": {
           "name": "vkGetRayTracingShaderGroupHandlesNV",
           "alias": "vkGetRayTracingShaderGroupHandlesKHR"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -59457,8 +59415,7 @@
         "attributes": {
           "name": "vkGetBufferOpaqueCaptureAddressKHR",
           "alias": "vkGetBufferOpaqueCaptureAddress"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -59568,8 +59525,7 @@
         "attributes": {
           "name": "vkGetBufferDeviceAddressKHR",
           "alias": "vkGetBufferDeviceAddress"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -59577,8 +59533,7 @@
         "attributes": {
           "name": "vkGetBufferDeviceAddressEXT",
           "alias": "vkGetBufferDeviceAddress"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -60972,8 +60927,7 @@
         "attributes": {
           "name": "vkGetDeviceMemoryOpaqueCaptureAddressKHR",
           "alias": "vkGetDeviceMemoryOpaqueCaptureAddress"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -61778,8 +61732,7 @@
         "attributes": {
           "name": "vkGetPhysicalDeviceToolPropertiesEXT",
           "alias": "vkGetPhysicalDeviceToolProperties"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -63374,8 +63327,7 @@
         "attributes": {
           "name": "vkCmdSetCullModeEXT",
           "alias": "vkCmdSetCullMode"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -63484,8 +63436,7 @@
         "attributes": {
           "name": "vkCmdSetFrontFaceEXT",
           "alias": "vkCmdSetFrontFace"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -63594,8 +63545,7 @@
         "attributes": {
           "name": "vkCmdSetPrimitiveTopologyEXT",
           "alias": "vkCmdSetPrimitiveTopology"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -63743,8 +63693,7 @@
         "attributes": {
           "name": "vkCmdSetViewportWithCountEXT",
           "alias": "vkCmdSetViewportWithCount"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -63892,8 +63841,7 @@
         "attributes": {
           "name": "vkCmdSetScissorWithCountEXT",
           "alias": "vkCmdSetScissorWithCount"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -64190,8 +64138,7 @@
         "attributes": {
           "name": "vkCmdBindVertexBuffers2EXT",
           "alias": "vkCmdBindVertexBuffers2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -64300,8 +64247,7 @@
         "attributes": {
           "name": "vkCmdSetDepthTestEnableEXT",
           "alias": "vkCmdSetDepthTestEnable"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -64410,8 +64356,7 @@
         "attributes": {
           "name": "vkCmdSetDepthWriteEnableEXT",
           "alias": "vkCmdSetDepthWriteEnable"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -64520,8 +64465,7 @@
         "attributes": {
           "name": "vkCmdSetDepthCompareOpEXT",
           "alias": "vkCmdSetDepthCompareOp"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -64630,8 +64574,7 @@
         "attributes": {
           "name": "vkCmdSetDepthBoundsTestEnableEXT",
           "alias": "vkCmdSetDepthBoundsTestEnable"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -64740,8 +64683,7 @@
         "attributes": {
           "name": "vkCmdSetStencilTestEnableEXT",
           "alias": "vkCmdSetStencilTestEnable"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -64966,8 +64908,7 @@
         "attributes": {
           "name": "vkCmdSetStencilOpEXT",
           "alias": "vkCmdSetStencilOp"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -65177,8 +65118,7 @@
         "attributes": {
           "name": "vkCmdSetRasterizerDiscardEnableEXT",
           "alias": "vkCmdSetRasterizerDiscardEnable"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -65287,8 +65227,7 @@
         "attributes": {
           "name": "vkCmdSetDepthBiasEnableEXT",
           "alias": "vkCmdSetDepthBiasEnable"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -65498,8 +65437,7 @@
         "attributes": {
           "name": "vkCmdSetPrimitiveRestartEnableEXT",
           "alias": "vkCmdSetPrimitiveRestartEnable"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -69235,8 +69173,7 @@
         "attributes": {
           "name": "vkCreatePrivateDataSlotEXT",
           "alias": "vkCreatePrivateDataSlot"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -69380,8 +69317,7 @@
         "attributes": {
           "name": "vkDestroyPrivateDataSlotEXT",
           "alias": "vkDestroyPrivateDataSlot"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -69575,8 +69511,7 @@
         "attributes": {
           "name": "vkSetPrivateDataEXT",
           "alias": "vkSetPrivateData"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -69771,8 +69706,7 @@
         "attributes": {
           "name": "vkGetPrivateDataEXT",
           "alias": "vkGetPrivateData"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -69889,8 +69823,7 @@
         "attributes": {
           "name": "vkCmdCopyBuffer2KHR",
           "alias": "vkCmdCopyBuffer2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -70007,8 +69940,7 @@
         "attributes": {
           "name": "vkCmdCopyImage2KHR",
           "alias": "vkCmdCopyImage2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -70125,8 +70057,7 @@
         "attributes": {
           "name": "vkCmdBlitImage2KHR",
           "alias": "vkCmdBlitImage2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -70243,8 +70174,7 @@
         "attributes": {
           "name": "vkCmdCopyBufferToImage2KHR",
           "alias": "vkCmdCopyBufferToImage2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -70361,8 +70291,7 @@
         "attributes": {
           "name": "vkCmdCopyImageToBuffer2KHR",
           "alias": "vkCmdCopyImageToBuffer2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -70479,8 +70408,7 @@
         "attributes": {
           "name": "vkCmdResolveImage2KHR",
           "alias": "vkCmdResolveImage2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -71606,8 +71534,7 @@
         "attributes": {
           "name": "vkCmdSetEvent2KHR",
           "alias": "vkCmdSetEvent2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -71748,8 +71675,7 @@
         "attributes": {
           "name": "vkCmdResetEvent2KHR",
           "alias": "vkCmdResetEvent2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -71937,8 +71863,7 @@
         "attributes": {
           "name": "vkCmdWaitEvents2KHR",
           "alias": "vkCmdWaitEvents2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -72056,8 +71981,7 @@
         "attributes": {
           "name": "vkCmdPipelineBarrier2KHR",
           "alias": "vkCmdPipelineBarrier2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -72237,8 +72161,7 @@
         "attributes": {
           "name": "vkQueueSubmit2KHR",
           "alias": "vkQueueSubmit2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -72408,8 +72331,7 @@
         "attributes": {
           "name": "vkCmdWriteTimestamp2KHR",
           "alias": "vkCmdWriteTimestamp2"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -77110,8 +77032,7 @@
         "attributes": {
           "name": "vkCmdBeginRenderingKHR",
           "alias": "vkCmdBeginRendering"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
@@ -77191,8 +77112,7 @@
         "attributes": {
           "name": "vkCmdEndRenderingKHR",
           "alias": "vkCmdEndRendering"
-        },
-        "children": []
+        }
       },
       {
         "type": "element",
