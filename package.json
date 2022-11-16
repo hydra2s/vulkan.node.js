@@ -21,6 +21,8 @@
   "gypfile": true,
   "dependencies": {
     "@rgrove/parse-xml": "^4.0.1",
+    "asciidoctor": "^2.2.6",
+    "fast-xml-parser": "^4.0.11",
     "glfw-raub": "^4.6.2",
     "json-6": "^1.1.4",
     "json5": "^2.2.1",

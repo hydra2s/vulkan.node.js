@@ -3,19 +3,37 @@
     const { parseXml }  = (await import('@rgrove/parse-xml'));
     const fs = await import('fs');
     const JSON5  = (await import('json5')).default;
+    const JSON6  = (await import('json-6')).default;
+    const {JSOX}  = (await import('jsox'));
 
     // 
     let getDocs = (path = "../Vulkan-Docs/xml/vk.xml") => {
         return parseXml(fs.readFileSync(path,"utf8").replace(/\r?\n|\r/g, " ").replace(/\s+/g,' ').trim());
     };
 
+    //
+    let noSpaces = (xml)=>{
+        let text = xml.text ? xml.text.trim() : "";
+        if (text) { xml.text = text; };
+        return xml.type == "text" ? !!text : true;
+    };
+    
+    // unlock assign and trim operations
+    let cloneObj = (obj)=>{
+        return JSON5.parse(JSON5.stringify(obj));
+    };
+    
+    //
+    let filterNoSpaced = (xml)=>{ let xmc = cloneObj(xml); if (xmc.children) { xmc.children = xmc.children.map(cloneObj).filter(noSpaces).map(filterNoSpaced); }; return xmc; };
+
     // 
     let getComponents = (doc)=>{
         let registry = doc.children.find((e,i)=>{ return e.type == "element" && e.name == "registry"; });
         let types = registry.children.find((e,i)=>{ return e.type == "element" && e.name == "types"; });
-        let structs = types.children.filter((e,i)=>{ return e.type == "element" && e.name == "type" && e.attributes["category"] == "struct"; });
+        let structs = types.children.filter((e,i)=>{ return e.type == "element" && e.name == "type" && e.attributes["category"] == "struct"; }).map(cloneObj).filter(noSpaces);
         let extensions = registry.children.find((e,i)=>{ return e.type == "element" && e.name == "extensions"; });
-        return { registry, types, structs, extensions };
+        let commands = registry.children.filter((e,i)=>{ return e.type == "element" && e.name == "commands"; }).map(filterNoSpaced);
+        return { registry, types, structs, extensions, commands };
     };
 
     // 
@@ -75,8 +93,8 @@
 
     // 
     let parseDocs = (path = "../../Vulkan-Docs/xml/vk.xml")=>{
-        let docs = getDocs(path); fs.writeFileSync("vulkan.json5", JSON5.stringify(docs, null, 2).trim(), "utf8");
-        let loaded = getComponents(docs);
+        let docs = getDocs(path); fs.writeFileSync("vulkan.json", JSON.stringify(docs, null, 2).trim(), "utf8");
+        let loaded = getComponents(docs); fs.writeFileSync("commands.json", JSON.stringify(loaded.commands, null, 2).trim(), "utf8");
         let usedBy = formExtensionTypeMap(loaded.extensions);
         let sTypeMap = formSTypeMap(filterSType(loaded.structs));
         return {usedBy, sTypeMap};
