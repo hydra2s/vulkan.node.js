@@ -17,6 +17,7 @@
   "gypfile": true,
   "dependencies": {
     "@rgrove/parse-xml": "^4.0.1",
+    "glfw-raub": "^4.6.2",
     "parse-xml": "^1.0.1"
   }
 }
