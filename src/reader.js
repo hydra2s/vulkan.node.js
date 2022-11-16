@@ -17,15 +17,29 @@
         if (text) { xml.text = text; };
         return xml.type == "text" ? !!text : true;
     };
-    
+
     // unlock assign and trim operations
     let cloneObj = (obj)=>{
         //return JSON5.parse(JSON5.stringify(obj));
         return Array.isArray(obj) ? [...obj] : {...obj};
     };
-    
+
     //
     let filterNoSpaced = (xml)=>{ let xmc = xml; if (xmc.children && xmc.children.length > 0) { xmc.children = xmc.children.filter(noSpaces).map(filterNoSpaced); } else { delete xmc.children; }; return xmc; };
+
+    // TODO: more details
+    let parseTypes = (types)=>{
+        return types.map((T)=>{
+            let parsed = {};
+            if (T.children) {
+                    T.children.forEach((d)=>{
+                    if (d.type == "element" && d.name == "type") { parsed.type = d.children[0].text; };
+                    if (d.type == "element" && d.name == "name") { parsed.name = d.children[0].text; };
+                });
+            };
+            return parsed;
+        }).filter((obj)=>(Object.keys(obj).length > 0));
+    };
 
     // 
     let getComponents = (doc)=>{
@@ -36,6 +50,39 @@
         let commands = registry.children.filter((e,i)=>{ return e.type == "element" && e.name == "commands"; }).map(filterNoSpaced);
         return { registry, types, structs, extensions, commands };
     };
+
+    //
+    let parseParam = (e)=>{
+        let parsed = { name: "", type: "void", isPointer: false, isConst: false };
+        if (e) {
+            e.forEach((p)=>{
+                if (p.type == "text" && p.text == "*") { parsed.isPointer = true; };
+                if (p.type == "text" && p.text == "const") { parsed.isConst = true; };
+                if (p.type == "element" && p.name == "type") { parsed.type = p.children[0].text; };
+                if (p.type == "element" && p.name == "name") { parsed.name = p.children[0].text; };
+            });
+            return parsed;
+        }
+        return parsed;
+    }
+
+    //
+    let extractChildren = (e)=>{
+        return e.children;
+    }
+
+    //
+    let commandParse = (command)=>{
+        let cmds = [...(command.children||[])];
+        let proto = parseParam(cmds.shift()?.children||[]);
+        let params = cmds.map(extractChildren).map(parseParam);
+        return { proto, params };
+    };
+
+    //
+    let parseCommands = (commands)=>{
+        return commands.map(commandParse);
+    }
 
     // 
     let extract = (ec)=>{
@@ -95,7 +142,13 @@
     // 
     let parseDocs = (path = "../../Vulkan-Docs/xml/vk.xml")=>{
         let docs = getDocs(path); fs.writeFileSync("vulkan.json", JSON.stringify(filterNoSpaced(JSON5.parse(JSON5.stringify(docs))), null, 2).trim(), "utf8");
-        let loaded = getComponents(docs); fs.writeFileSync("commands.json", JSON.stringify(loaded.commands, null, 2).trim(), "utf8");
+        let loaded = getComponents(docs); 
+        fs.writeFileSync("commands.json", JSON.stringify(loaded.commands, null, 2).trim(), "utf8");
+        fs.writeFileSync("types.json", JSON.stringify(loaded.types, null, 2).trim(), "utf8");
+        let parsed = parseCommands(loaded.commands[0].children);
+        fs.writeFileSync("parsed-commands.json", JSON.stringify(parsed, null, 2).trim(), "utf8");
+        let parsedTypes = parseTypes(loaded.types.children);
+        fs.writeFileSync("parsed-types.json", JSON.stringify(parsedTypes, null, 2).trim(), "utf8");
         let usedBy = formExtensionTypeMap(loaded.extensions);
         let sTypeMap = formSTypeMap(filterSType(loaded.structs));
         return {usedBy, sTypeMap};

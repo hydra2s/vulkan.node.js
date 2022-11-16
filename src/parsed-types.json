@@ -1,0 +1,1045 @@
+[
+  {
+    "name": "VK_MAKE_VERSION"
+  },
+  {
+    "name": "VK_VERSION_MAJOR"
+  },
+  {
+    "name": "VK_VERSION_MINOR"
+  },
+  {
+    "name": "VK_VERSION_PATCH"
+  },
+  {
+    "name": "VK_MAKE_API_VERSION"
+  },
+  {
+    "name": "VK_API_VERSION_VARIANT"
+  },
+  {
+    "name": "VK_API_VERSION_MAJOR"
+  },
+  {
+    "name": "VK_API_VERSION_MINOR"
+  },
+  {
+    "name": "VK_API_VERSION_PATCH"
+  },
+  {
+    "name": "VK_API_VERSION",
+    "type": "VK_MAKE_VERSION"
+  },
+  {
+    "name": "VK_API_VERSION_1_0",
+    "type": "VK_MAKE_API_VERSION"
+  },
+  {
+    "name": "VK_API_VERSION_1_1",
+    "type": "VK_MAKE_API_VERSION"
+  },
+  {
+    "name": "VK_API_VERSION_1_2",
+    "type": "VK_MAKE_API_VERSION"
+  },
+  {
+    "name": "VK_API_VERSION_1_3",
+    "type": "VK_MAKE_API_VERSION"
+  },
+  {
+    "name": "VK_HEADER_VERSION"
+  },
+  {
+    "name": "VK_HEADER_VERSION_COMPLETE",
+    "type": "VK_MAKE_API_VERSION"
+  },
+  {
+    "name": "VK_DEFINE_HANDLE"
+  },
+  {
+    "name": "ANativeWindow"
+  },
+  {
+    "name": "AHardwareBuffer"
+  },
+  {
+    "name": "CAMetalLayer"
+  },
+  {
+    "name": "MTLDevice_id"
+  },
+  {
+    "name": "MTLCommandQueue_id"
+  },
+  {
+    "name": "MTLBuffer_id"
+  },
+  {
+    "name": "MTLTexture_id"
+  },
+  {
+    "name": "MTLSharedEvent_id"
+  },
+  {
+    "name": "IOSurfaceRef"
+  },
+  {
+    "type": "uint32_t",
+    "name": "VkSampleMask"
+  },
+  {
+    "type": "uint32_t",
+    "name": "VkBool32"
+  },
+  {
+    "type": "uint32_t",
+    "name": "VkFlags"
+  },
+  {
+    "type": "uint64_t",
+    "name": "VkFlags64"
+  },
+  {
+    "type": "uint64_t",
+    "name": "VkDeviceSize"
+  },
+  {
+    "type": "uint64_t",
+    "name": "VkDeviceAddress"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkFramebufferCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkQueryPoolCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkRenderPassCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkSamplerCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineLayoutCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineCacheCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineDepthStencilStateCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineDynamicStateCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineColorBlendStateCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineMultisampleStateCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineRasterizationStateCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineViewportStateCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineTessellationStateCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineInputAssemblyStateCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineVertexInputStateCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineShaderStageCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDescriptorSetLayoutCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkBufferViewCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkInstanceCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDeviceCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDeviceQueueCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkQueueFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkMemoryPropertyFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkMemoryHeapFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkAccessFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkBufferUsageFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkBufferCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkShaderStageFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkImageUsageFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkImageCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkImageViewCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkColorComponentFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkFenceCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkSemaphoreCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkFormatFeatureFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkQueryControlFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkQueryResultFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkShaderModuleCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkEventCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkCommandPoolCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkCommandPoolResetFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkCommandBufferResetFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkCommandBufferUsageFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkQueryPipelineStatisticFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkMemoryMapFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkImageAspectFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkSparseMemoryBindFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkSparseImageFormatFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkSubpassDescriptionFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineStageFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkSampleCountFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkAttachmentDescriptionFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkStencilFaceFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkCullModeFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDescriptorPoolCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDescriptorPoolResetFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDependencyFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkSubgroupFeatureFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkIndirectCommandsLayoutUsageFlagsNV"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkIndirectStateFlagsNV"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkGeometryFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkGeometryInstanceFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkBuildAccelerationStructureFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPrivateDataSlotCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkAccelerationStructureCreateFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDescriptorUpdateTemplateCreateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineCreationFeedbackFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPerformanceCounterDescriptionFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkAcquireProfilingLockFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkSemaphoreWaitFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineCompilerControlFlagsAMD"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkShaderCorePropertiesFlagsAMD"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDeviceDiagnosticsConfigFlagsNV"
+  },
+  {
+    "type": "VkFlags64",
+    "name": "VkAccessFlags2"
+  },
+  {
+    "type": "VkFlags64",
+    "name": "VkPipelineStageFlags2"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkAccelerationStructureMotionInfoFlagsNV"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkAccelerationStructureMotionInstanceFlagsNV"
+  },
+  {
+    "type": "VkFlags64",
+    "name": "VkFormatFeatureFlags2"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkRenderingFlags"
+  },
+  {
+    "type": "VkFlags64",
+    "name": "VkMemoryDecompressionMethodFlagsNV"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkBuildMicromapFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkMicromapCreateFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkCompositeAlphaFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDisplayPlaneAlphaFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkSurfaceTransformFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkSwapchainCreateFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDisplayModeCreateFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDisplaySurfaceCreateFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkAndroidSurfaceCreateFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkViSurfaceCreateFlagsNN"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkWaylandSurfaceCreateFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkWin32SurfaceCreateFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkXlibSurfaceCreateFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkXcbSurfaceCreateFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDirectFBSurfaceCreateFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkIOSSurfaceCreateFlagsMVK"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkMacOSSurfaceCreateFlagsMVK"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkMetalSurfaceCreateFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkImagePipeSurfaceCreateFlagsFUCHSIA"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkStreamDescriptorSurfaceCreateFlagsGGP"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkHeadlessSurfaceCreateFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkScreenSurfaceCreateFlagsQNX"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPeerMemoryFeatureFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkMemoryAllocateFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDeviceGroupPresentModeFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDebugReportFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkCommandPoolTrimFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkExternalMemoryHandleTypeFlagsNV"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkExternalMemoryFeatureFlagsNV"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkExternalMemoryHandleTypeFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkExternalMemoryFeatureFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkExternalSemaphoreHandleTypeFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkExternalSemaphoreFeatureFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkSemaphoreImportFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkExternalFenceHandleTypeFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkExternalFenceFeatureFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkFenceImportFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkSurfaceCounterFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineViewportSwizzleStateCreateFlagsNV"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineDiscardRectangleStateCreateFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineCoverageToColorStateCreateFlagsNV"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineCoverageModulationStateCreateFlagsNV"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineCoverageReductionStateCreateFlagsNV"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkValidationCacheCreateFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDebugUtilsMessageSeverityFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDebugUtilsMessageTypeFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDebugUtilsMessengerCreateFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDebugUtilsMessengerCallbackDataFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDeviceMemoryReportFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineRasterizationConservativeStateCreateFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDescriptorBindingFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkConditionalRenderingFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkResolveModeFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineRasterizationStateStreamCreateFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPipelineRasterizationDepthClipStateCreateFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkSwapchainImageUsageFlagsANDROID"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkToolPurposeFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkSubmitFlags"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkImageFormatConstraintsFlagsFUCHSIA"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkImageConstraintsInfoFlagsFUCHSIA"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkGraphicsPipelineLibraryFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkImageCompressionFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkImageCompressionFixedRateFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkExportMetalObjectTypeFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkDeviceAddressBindingFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkOpticalFlowGridSizeFlagsNV"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkOpticalFlowUsageFlagsNV"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkOpticalFlowSessionCreateFlagsNV"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkOpticalFlowExecuteFlagsNV"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoCodecOperationFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoCapabilityFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoSessionCreateFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoSessionParametersCreateFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoBeginCodingFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoEndCodingFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoCodingControlFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoDecodeUsageFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoDecodeCapabilityFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoDecodeFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoDecodeH264PictureLayoutFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoEncodeFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoEncodeUsageFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoEncodeContentFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoEncodeCapabilityFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoEncodeRateControlFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoEncodeRateControlModeFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoChromaSubsamplingFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoComponentBitDepthFlagsKHR"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoEncodeH264CapabilityFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoEncodeH264InputModeFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoEncodeH264OutputModeFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoEncodeH265CapabilityFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoEncodeH265InputModeFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoEncodeH265OutputModeFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoEncodeH265CtbSizeFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkVideoEncodeH265TransformBlockSizeFlagsEXT"
+  },
+  {
+    "type": "VK_DEFINE_HANDLE",
+    "name": "VkInstance"
+  },
+  {
+    "type": "VK_DEFINE_HANDLE",
+    "name": "VkPhysicalDevice"
+  },
+  {
+    "type": "VK_DEFINE_HANDLE",
+    "name": "VkDevice"
+  },
+  {
+    "type": "VK_DEFINE_HANDLE",
+    "name": "VkQueue"
+  },
+  {
+    "type": "VK_DEFINE_HANDLE",
+    "name": "VkCommandBuffer"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkDeviceMemory"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkCommandPool"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkBuffer"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkBufferView"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkImage"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkImageView"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkShaderModule"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkPipeline"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkPipelineLayout"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkSampler"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkDescriptorSet"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkDescriptorSetLayout"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkDescriptorPool"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkFence"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkSemaphore"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkEvent"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkQueryPool"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkFramebuffer"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkRenderPass"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkPipelineCache"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkIndirectCommandsLayoutNV"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkDescriptorUpdateTemplate"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkSamplerYcbcrConversion"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkValidationCacheEXT"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkAccelerationStructureKHR"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkAccelerationStructureNV"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkPerformanceConfigurationINTEL"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkBufferCollectionFUCHSIA"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkDeferredOperationKHR"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkPrivateDataSlot"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkCuModuleNVX"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkCuFunctionNVX"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkOpticalFlowSessionNV"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkMicromapEXT"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkDisplayKHR"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkDisplayModeKHR"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkSurfaceKHR"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkSwapchainKHR"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkDebugReportCallbackEXT"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkDebugUtilsMessengerEXT"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkVideoSessionKHR"
+  },
+  {
+    "type": "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
+    "name": "VkVideoSessionParametersKHR"
+  },
+  {
+    "name": "PFN_vkInternalAllocationNotification",
+    "type": "VkSystemAllocationScope"
+  },
+  {
+    "name": "PFN_vkInternalFreeNotification",
+    "type": "VkSystemAllocationScope"
+  },
+  {
+    "name": "PFN_vkReallocationFunction",
+    "type": "VkSystemAllocationScope"
+  },
+  {
+    "name": "PFN_vkAllocationFunction",
+    "type": "VkSystemAllocationScope"
+  },
+  {
+    "name": "PFN_vkFreeFunction",
+    "type": "void"
+  },
+  {
+    "name": "PFN_vkVoidFunction"
+  },
+  {
+    "name": "PFN_vkDebugReportCallbackEXT",
+    "type": "void"
+  },
+  {
+    "name": "PFN_vkDebugUtilsMessengerCallbackEXT",
+    "type": "void"
+  },
+  {
+    "name": "PFN_vkDeviceMemoryReportCallbackEXT",
+    "type": "void"
+  },
+  {
+    "type": "void",
+    "name": "VkRemoteAddressNV"
+  }
+]
