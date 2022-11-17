@@ -301,7 +301,7 @@ NODE_API_MODULE(native, Init)
     await fs.promises.writeFile("./vulkan-API.js", `
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
-const native = require('../build/Debug/node-vulkan-api')('native');
+const native = require('bindings')('native');
 
 console.log(native);
 
