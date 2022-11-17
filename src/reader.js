@@ -29,15 +29,16 @@
 
     //
     let parseParam = (e)=>{
-        let parsed = { name: "", type: "void", isPointer: false, isConst: false };
+        let parsed = { name: "", type: "void", isPointer: false, isConst: false, isPointerSet: false };
         if (e) {
             e.forEach((p)=>{
-                if (p.type == "text" && p.text == "*") { parsed.isPointer = true; };
-                if (p.type == "text" && p.text == "const") { parsed.isConst = true; };
+                if (p.type == "text" && p.text.indexOf("[") >= 0 && p.text.indexOf("]") >= 0) { if (parsed.isPointer) {parsed.isPointerSet = true;}; parsed.isPointer = true; };
+                if (p.type == "text" && p.text.match(/\*/gi)?.length == 1) { if (parsed.isPointer) {parsed.isPointerSet = true;}; parsed.isPointer = true; };
+                if (p.type == "text" && p.text.match(/\*/gi)?.length == 2) { parsed.isPointerSet = true; parsed.isPointer = true; };
+                if (p.type == "text" && p.text.indexOf("const") >= 0) { parsed.isConst = true; };
                 if (p.type == "element" && p.name == "type") { parsed.type = p.children[0].text; };
                 if (p.type == "element" && p.name == "name") { parsed.name = p.children[0].text; };
             });
-            return parsed;
         }
         return parsed;
     }
@@ -58,7 +59,7 @@
                 });
             };
 
-            
+            parsed.params = parsed.params.filter((p)=>!!p.name);
 
             return parsed;
         }).filter((obj)=>(Object.keys(obj).length > 0));
@@ -113,7 +114,7 @@
         let cmds = [...(command.children||[])];
         let proto = parseParam(cmds.shift()?.children||[]);
         let params = cmds.map(extractChildren).map(parseParam);
-        return { proto, params };
+        return { proto, params: params.filter((p)=>!!p.name) };
     };
 
     //
@@ -168,7 +169,7 @@
         }).map((e,i)=>{
             let extName = e.attributes["name"];
             e.children.filter((ec,ic)=>{  return ec.type == "element" && ec.name == "require"; }).map((ec,ic)=>{
-                ec.children.filter((em,im)=>{ return em.type == "element" && em.name == "type"; }).map((em,im)=>{
+                ec.children.filter((em,im)=>{ return em.type == "element" && !!em.name; }).map((em,im)=>{
                     usedBy[em.attributes["name"]] = extName;
                 });
             });
@@ -184,36 +185,47 @@
 
     //
     let passArg = (param, I) => {
+        if (param.isPointerSet) {
+            return `
+    if (!info[${I}].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
+    ${param.type}** ${param.name} = (${param.type}**)info[${I}].As<Napi::BigInt>().Uint64Value(&lossless);`;
+        } else
+
         if (param.isPointer) {
             return `
     if (!info[${I}].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    ${param.type}* ${param.name} = (${param.type}*)info[${I}].As<Napi::BigInt>().Uint64Value();`;
+    ${param.type}* ${param.name} = (${param.type}*)info[${I}].As<Napi::BigInt>().Uint64Value(&lossless);`;
         } else
+
         if (param.type == "float") {
             return `
     if (!info[${I}].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
     ${param.type} ${param.name} = (${param.type})info[${I}].As<Napi::Number>().FloatValue();`;
         } else
+
         if (param.type == "double") {
             return `
     if (!info[${I}].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
     ${param.type} ${param.name} = (${param.type})info[${I}].As<Napi::Number>().DoubleValue();`;
         } else
+
         if (U32Types.indexOf(param.type) >= 0) {
             return `
     if (!info[${I}].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
     ${param.type} ${param.name} = (${param.type})info[${I}].As<Napi::Number>().Uint32Value();`;
         } else
+
         if (param.type == "int32_t") {
             return `
     if (!info[${I}].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
     ${param.type} ${param.name} = (${param.type})info[${I}].As<Napi::Number>().Int32Value();`;
         } else 
+
         //if (U64Types.indexOf(param.type) >= 0) 
         {   // any other is 64-bit number handlers
             return `
     if (!info[${I}].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    ${param.type} ${param.name} = (${param.type})info[${I}].As<Napi::BigInt>().Uint64Value();`;
+    ${param.type} ${param.name} = (${param.type})info[${I}].As<Napi::BigInt>().Uint64Value(&lossless);`;
         }
     };
 
@@ -240,13 +252,16 @@
     };
 
     //
-    let makeCommand = (command)=>{
-return `
+    let makeCommand = (command,i,map)=>{
+        let by = map.usedBy[command.proto.name];
+return `${by ? `#ifdef ${by}` : ``}
 #ifdef __cplusplus
 inline 
 #endif
 Napi::Value ${command.proto.name.replace(/^vk/, "raw")}(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
+
+    bool lossless = true;
 
     if (info.Length() < ${command.params.length}) {
         Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
@@ -255,8 +270,8 @@ Napi::Value ${command.proto.name.replace(/^vk/, "raw")}(const Napi::CallbackInfo
     ${command.params.map(passArg).join(`
 `)}
     ${passDispatch(command.proto, command.params)}
-        
 }
+${by ? `#endif ${by}` : ``}
 `
     }
     
@@ -284,6 +299,7 @@ Napi::Value ${command.proto.name.replace(/^vk/, "raw")}(const Napi::CallbackInfo
         //
         let usedBy = formExtensionTypeMap(loaded.extensions);
         let sTypeMap = formSTypeMap(filterSType(loaded.structs));
+        fs.writeFileSync("used-by.json", JSON.stringify(usedBy, null, 2).trim(), "utf8");
         return {usedBy, sTypeMap, parsed};
     };
 
@@ -312,8 +328,7 @@ Napi::Value ${command.proto.name.replace(/^vk/, "raw")}(const Napi::CallbackInfo
     let genHeader = ()=>{
         let map = parseDocs();
 
-        fs.writeFileSync("./vulkan-API.cpp", `
-#ifdef __cplusplus
+        fs.writeFileSync("./vulkan-API.cpp", `#ifdef __cplusplus
 #pragma once 
 #endif
 
@@ -338,7 +353,7 @@ Napi::Value ${command.proto.name.replace(/^vk/, "raw")}(const Napi::CallbackInfo
 #include <napi.h>
 
     
-${map.parsed.map(makeCommand).join(`
+${map.parsed.map((cmd,i)=>makeCommand(cmd,i,map)).join(`
 `)}
 
     
@@ -348,8 +363,7 @@ ${map.parsed.map(makeCommand).join(`
 
     fs.writeFileSync("./vulkan-API.js", `export default require('bindings')('native');
 `);
-    fs.writeFileSync("./sizes.h", `
-#ifdef __cplusplus
+    fs.writeFileSync("./sizes.h", `#ifdef __cplusplus
 #pragma once 
 #endif
 

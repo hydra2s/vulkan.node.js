@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node tests",
-    "install": "node-gyp rebuild",
+    "install": "cmake-js compile",
     "asbuild:debug": "asc assembly/index.ts --target debug",
     "asbuild:release": "asc assembly/index.ts --target release",
     "asbuild": "npm run asbuild:debug && npm run asbuild:release",
@@ -22,6 +22,7 @@
   "dependencies": {
     "@rgrove/parse-xml": "^4.0.1",
     "asciidoctor": "^2.2.6",
+    "cmake-js": "^7.0.0",
     "fast-xml-parser": "^4.0.11",
     "glfw-raub": "^4.6.2",
     "json-6": "^1.1.4",
