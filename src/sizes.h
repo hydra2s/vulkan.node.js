@@ -1,34 +1,34 @@
 
-    #ifdef __cplusplus
-    #pragma once 
-    #endif
+#ifdef __cplusplus
+#pragma once 
+#endif
 
-    // 
-    #ifndef VULKAN_SIZES_H
-    #define VULKAN_SIZES_H
+// 
+#ifndef VULKAN_SIZES_H
+#define VULKAN_SIZES_H
 
-    //
-    #ifdef _WIN32
-    #ifndef VK_USE_PLATFORM_WIN32_KHR
-    #define VK_USE_PLATFORM_WIN32_KHR
-    #include <windows.h>
-    #endif
-    #else
-    #ifdef __linux__ 
-    //FD defaultly
-    #endif
-    #endif
+//
+#ifdef _WIN32
+#ifndef VK_USE_PLATFORM_WIN32_KHR
+#define VK_USE_PLATFORM_WIN32_KHR
+#include <windows.h>
+#endif
+#else
+#ifdef __linux__ 
+//FD defaultly
+#endif
+#endif
 
-    //
-    #include <vulkan/vulkan.h>
+//
+#include <vulkan/vulkan.h>
 
-    // 
-    #ifdef __cplusplus
-    inline 
-    #endif
-    size_t vkGetStructureSizeBySType(VkStructureType sType) {
-        switch(sType) {
-            case VK_STRUCTURE_TYPE_APPLICATION_INFO: return sizeof(VkApplicationInfo); break;
+// 
+#ifdef __cplusplus
+inline 
+#endif
+size_t vkGetStructureSizeBySType(VkStructureType sType) {
+    switch(sType) {
+        case VK_STRUCTURE_TYPE_APPLICATION_INFO: return sizeof(VkApplicationInfo); break;
         case VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO: return sizeof(VkDeviceQueueCreateInfo); break;
         case VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO: return sizeof(VkDeviceCreateInfo); break;
         case VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO: return sizeof(VkInstanceCreateInfo); break;
@@ -1769,9 +1769,9 @@
 #ifdef VK_NV_ray_tracing_invocation_reorder
         case VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV: return sizeof(VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV); break;
 #endif
-            //default: 
-        };
-        return 0ull;
+        //default: 
     };
-    #endif
+    return 0ull;
+};
+#endif
     

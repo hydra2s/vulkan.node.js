@@ -27,6 +27,7 @@
     "json-6": "^1.1.4",
     "json5": "^2.2.1",
     "jsox": "^1.2.116",
+    "node-gyp": "^9.3.0",
     "parse-xml": "^1.0.1"
   },
   "devDependencies": {

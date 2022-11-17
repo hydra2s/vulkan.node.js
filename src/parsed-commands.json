@@ -1559,15 +1559,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCreateBuffer",
       "type": "VkResult",
       "isPointer": false,
@@ -6496,15 +6487,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkGetPhysicalDeviceProperties2",
       "type": "void",
       "isPointer": false,
@@ -6524,15 +6506,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -6564,15 +6537,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkGetPhysicalDeviceImageFormatProperties2",
       "type": "VkResult",
       "isPointer": false,
@@ -6598,15 +6562,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -6638,15 +6593,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkGetPhysicalDeviceMemoryProperties2",
       "type": "void",
       "isPointer": false,
@@ -6666,15 +6612,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -6709,15 +6646,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -6795,15 +6723,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkGetPhysicalDeviceExternalBufferProperties",
       "type": "void",
       "isPointer": false,
@@ -6829,15 +6748,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -7083,15 +6993,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkGetSemaphoreWin32HandleKHR",
       "type": "VkResult",
       "isPointer": false,
@@ -7267,15 +7168,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -7705,15 +7597,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkGetDeviceGroupPeerMemoryFeatures",
       "type": "void",
       "isPointer": false,
@@ -7754,15 +7637,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkBindBufferMemory2",
       "type": "VkResult",
       "isPointer": false,
@@ -7788,15 +7662,6 @@
         "isConst": true
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -7828,15 +7693,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdSetDeviceMask",
       "type": "void",
       "isPointer": false,
@@ -7856,15 +7712,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -7998,15 +7845,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkGetPhysicalDevicePresentRectanglesKHR",
       "type": "VkResult",
       "isPointer": false,
@@ -8075,15 +7913,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkDestroyDescriptorUpdateTemplate",
       "type": "void",
       "isPointer": false,
@@ -8109,15 +7938,6 @@
         "isConst": true
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -8152,15 +7972,6 @@
         "isConst": true
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -8750,15 +8561,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkGetImageMemoryRequirements2",
       "type": "void",
       "isPointer": false,
@@ -8784,15 +8586,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -8830,15 +8623,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkGetDeviceBufferMemoryRequirements",
       "type": "void",
       "isPointer": false,
@@ -8867,15 +8651,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkGetDeviceImageMemoryRequirements",
       "type": "void",
       "isPointer": false,
@@ -8901,15 +8676,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -8947,15 +8713,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCreateSamplerYcbcrConversion",
       "type": "VkResult",
       "isPointer": false,
@@ -8990,15 +8747,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkDestroySamplerYcbcrConversion",
       "type": "void",
       "isPointer": false,
@@ -9024,15 +8772,6 @@
         "isConst": true
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -9219,15 +8958,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -9901,15 +9631,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdBeginRenderPass2",
       "type": "void",
       "isPointer": false,
@@ -9935,15 +9656,6 @@
         "isConst": true
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -9975,15 +9687,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdEndRenderPass2",
       "type": "void",
       "isPointer": false,
@@ -10003,15 +9706,6 @@
         "isConst": true
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -10043,15 +9737,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkWaitSemaphores",
       "type": "VkResult",
       "isPointer": false,
@@ -10080,15 +9765,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkSignalSemaphore",
       "type": "VkResult",
       "isPointer": false,
@@ -10108,15 +9784,6 @@
         "isConst": true
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -10228,24 +9895,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdDrawIndexedIndirectCount",
       "type": "void",
       "isPointer": false,
@@ -10295,24 +9944,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -11792,15 +11423,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkGetRayTracingCaptureReplayShaderGroupHandlesKHR",
       "type": "VkResult",
       "isPointer": false,
@@ -12471,15 +12093,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkGetBufferDeviceAddress",
       "type": "VkDeviceAddress",
       "isPointer": false,
@@ -12499,24 +12112,6 @@
         "isConst": true
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -12808,15 +12403,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkGetPipelineExecutablePropertiesKHR",
       "type": "VkResult",
       "isPointer": false,
@@ -12972,15 +12558,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -13304,15 +12881,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdSetFrontFace",
       "type": "void",
       "isPointer": false,
@@ -13335,15 +12903,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdSetPrimitiveTopology",
       "type": "void",
       "isPointer": false,
@@ -13363,15 +12922,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -13403,15 +12953,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdSetScissorWithCount",
       "type": "void",
       "isPointer": false,
@@ -13437,15 +12978,6 @@
         "isConst": true
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -13501,15 +13033,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdSetDepthTestEnable",
       "type": "void",
       "isPointer": false,
@@ -13529,15 +13052,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -13563,15 +13077,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdSetDepthCompareOp",
       "type": "void",
       "isPointer": false,
@@ -13591,15 +13096,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -13625,15 +13121,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdSetStencilTestEnable",
       "type": "void",
       "isPointer": false,
@@ -13653,15 +13140,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -13711,15 +13189,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdSetPatchControlPointsEXT",
       "type": "void",
       "isPointer": false,
@@ -13764,15 +13233,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdSetDepthBiasEnable",
       "type": "void",
       "isPointer": false,
@@ -13792,15 +13252,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -13845,15 +13296,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -14645,15 +14087,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkDestroyPrivateDataSlot",
       "type": "void",
       "isPointer": false,
@@ -14679,15 +14112,6 @@
         "isConst": true
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -14731,15 +14155,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkGetPrivateData",
       "type": "void",
       "isPointer": false,
@@ -14780,15 +14195,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdCopyBuffer2",
       "type": "void",
       "isPointer": false,
@@ -14808,15 +14214,6 @@
         "isConst": true
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -14842,15 +14239,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdBlitImage2",
       "type": "void",
       "isPointer": false,
@@ -14870,15 +14258,6 @@
         "isConst": true
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -14904,15 +14283,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdCopyImageToBuffer2",
       "type": "void",
       "isPointer": false,
@@ -14935,15 +14305,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdResolveImage2",
       "type": "void",
       "isPointer": false,
@@ -14963,15 +14324,6 @@
         "isConst": true
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -15195,15 +14547,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdResetEvent2",
       "type": "void",
       "isPointer": false,
@@ -15229,15 +14572,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -15275,15 +14609,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdPipelineBarrier2",
       "type": "void",
       "isPointer": false,
@@ -15303,15 +14628,6 @@
         "isConst": true
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -15349,15 +14665,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdWriteTimestamp2",
       "type": "void",
       "isPointer": false,
@@ -15389,15 +14696,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
@@ -16361,15 +15659,6 @@
   },
   {
     "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
-  },
-  {
-    "proto": {
       "name": "vkCmdEndRendering",
       "type": "void",
       "isPointer": false,
@@ -16383,15 +15672,6 @@
         "isConst": false
       }
     ]
-  },
-  {
-    "proto": {
-      "name": "",
-      "type": "void",
-      "isPointer": false,
-      "isConst": false
-    },
-    "params": []
   },
   {
     "proto": {
