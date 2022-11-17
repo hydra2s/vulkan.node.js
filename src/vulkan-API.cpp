@@ -46,8 +46,8 @@ Napi::Value rawCreateInstance(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkInstance* pInstance = (VkInstance*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateInstance(pCreateInfo, pAllocator, pInstance);
-    return env.Null();
+    auto result = ::vkCreateInstance(pCreateInfo, pAllocator, pInstance);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -101,8 +101,8 @@ Napi::Value rawEnumeratePhysicalDevices(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPhysicalDevice* pPhysicalDevices = (VkPhysicalDevice*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkEnumeratePhysicalDevices(instance, pPhysicalDeviceCount, pPhysicalDevices);
-    return env.Null();
+    auto result = ::vkEnumeratePhysicalDevices(instance, pPhysicalDeviceCount, pPhysicalDevices);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -330,8 +330,8 @@ Napi::Value rawGetPhysicalDeviceImageFormatProperties(const Napi::CallbackInfo& 
     if (!info[6].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkImageFormatProperties* pImageFormatProperties = (VkImageFormatProperties*)info[6].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceImageFormatProperties(physicalDevice, format, type, tiling, usage, flags, pImageFormatProperties);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceImageFormatProperties(physicalDevice, format, type, tiling, usage, flags, pImageFormatProperties);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -362,8 +362,8 @@ Napi::Value rawCreateDevice(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDevice* pDevice = (VkDevice*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateDevice(physicalDevice, pCreateInfo, pAllocator, pDevice);
-    return env.Null();
+    auto result = ::vkCreateDevice(physicalDevice, pCreateInfo, pAllocator, pDevice);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -411,8 +411,8 @@ Napi::Value rawEnumerateInstanceVersion(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     uint32_t* pApiVersion = (uint32_t*)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkEnumerateInstanceVersion(pApiVersion);
-    return env.Null();
+    auto result = ::vkEnumerateInstanceVersion(pApiVersion);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -437,8 +437,8 @@ Napi::Value rawEnumerateInstanceLayerProperties(const Napi::CallbackInfo& info) 
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkLayerProperties* pProperties = (VkLayerProperties*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkEnumerateInstanceLayerProperties(pPropertyCount, pProperties);
-    return env.Null();
+    auto result = ::vkEnumerateInstanceLayerProperties(pPropertyCount, pProperties);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -466,8 +466,8 @@ Napi::Value rawEnumerateInstanceExtensionProperties(const Napi::CallbackInfo& in
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkExtensionProperties* pProperties = (VkExtensionProperties*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkEnumerateInstanceExtensionProperties(pLayerName, pPropertyCount, pProperties);
-    return env.Null();
+    auto result = ::vkEnumerateInstanceExtensionProperties(pLayerName, pPropertyCount, pProperties);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -495,8 +495,8 @@ Napi::Value rawEnumerateDeviceLayerProperties(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkLayerProperties* pProperties = (VkLayerProperties*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkEnumerateDeviceLayerProperties(physicalDevice, pPropertyCount, pProperties);
-    return env.Null();
+    auto result = ::vkEnumerateDeviceLayerProperties(physicalDevice, pPropertyCount, pProperties);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -527,8 +527,8 @@ Napi::Value rawEnumerateDeviceExtensionProperties(const Napi::CallbackInfo& info
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkExtensionProperties* pProperties = (VkExtensionProperties*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkEnumerateDeviceExtensionProperties(physicalDevice, pLayerName, pPropertyCount, pProperties);
-    return env.Null();
+    auto result = ::vkEnumerateDeviceExtensionProperties(physicalDevice, pLayerName, pPropertyCount, pProperties);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -591,8 +591,8 @@ Napi::Value rawQueueSubmit(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkFence fence = (VkFence)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkQueueSubmit(queue, submitCount, pSubmits, fence);
-    return env.Null();
+    auto result = ::vkQueueSubmit(queue, submitCount, pSubmits, fence);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -614,8 +614,8 @@ Napi::Value rawQueueWaitIdle(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkQueue queue = (VkQueue)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkQueueWaitIdle(queue);
-    return env.Null();
+    auto result = ::vkQueueWaitIdle(queue);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -637,8 +637,8 @@ Napi::Value rawDeviceWaitIdle(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDevice device = (VkDevice)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkDeviceWaitIdle(device);
-    return env.Null();
+    auto result = ::vkDeviceWaitIdle(device);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -669,8 +669,8 @@ Napi::Value rawAllocateMemory(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDeviceMemory* pMemory = (VkDeviceMemory*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkAllocateMemory(device, pAllocateInfo, pAllocator, pMemory);
-    return env.Null();
+    auto result = ::vkAllocateMemory(device, pAllocateInfo, pAllocator, pMemory);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -736,8 +736,8 @@ Napi::Value rawMapMemory(const Napi::CallbackInfo& info) {
     if (!info[5].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     void** ppData = (void**)info[5].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkMapMemory(device, memory, offset, size, flags, ppData);
-    return env.Null();
+    auto result = ::vkMapMemory(device, memory, offset, size, flags, ppData);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -791,8 +791,8 @@ Napi::Value rawFlushMappedMemoryRanges(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkMappedMemoryRange* pMemoryRanges = (VkMappedMemoryRange*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkFlushMappedMemoryRanges(device, memoryRangeCount, pMemoryRanges);
-    return env.Null();
+    auto result = ::vkFlushMappedMemoryRanges(device, memoryRangeCount, pMemoryRanges);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -820,8 +820,8 @@ Napi::Value rawInvalidateMappedMemoryRanges(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkMappedMemoryRange* pMemoryRanges = (VkMappedMemoryRange*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkInvalidateMappedMemoryRanges(device, memoryRangeCount, pMemoryRanges);
-    return env.Null();
+    auto result = ::vkInvalidateMappedMemoryRanges(device, memoryRangeCount, pMemoryRanges);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -910,8 +910,8 @@ Napi::Value rawBindBufferMemory(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDeviceSize memoryOffset = (VkDeviceSize)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkBindBufferMemory(device, buffer, memory, memoryOffset);
-    return env.Null();
+    auto result = ::vkBindBufferMemory(device, buffer, memory, memoryOffset);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -971,8 +971,8 @@ Napi::Value rawBindImageMemory(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDeviceSize memoryOffset = (VkDeviceSize)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkBindImageMemory(device, image, memory, memoryOffset);
-    return env.Null();
+    auto result = ::vkBindImageMemory(device, image, memory, memoryOffset);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1079,8 +1079,8 @@ Napi::Value rawQueueBindSparse(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkFence fence = (VkFence)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkQueueBindSparse(queue, bindInfoCount, pBindInfo, fence);
-    return env.Null();
+    auto result = ::vkQueueBindSparse(queue, bindInfoCount, pBindInfo, fence);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1111,8 +1111,8 @@ Napi::Value rawCreateFence(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkFence* pFence = (VkFence*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateFence(device, pCreateInfo, pAllocator, pFence);
-    return env.Null();
+    auto result = ::vkCreateFence(device, pCreateInfo, pAllocator, pFence);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1169,8 +1169,8 @@ Napi::Value rawResetFences(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkFence* pFences = (VkFence*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkResetFences(device, fenceCount, pFences);
-    return env.Null();
+    auto result = ::vkResetFences(device, fenceCount, pFences);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1195,8 +1195,8 @@ Napi::Value rawGetFenceStatus(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkFence fence = (VkFence)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetFenceStatus(device, fence);
-    return env.Null();
+    auto result = ::vkGetFenceStatus(device, fence);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1224,14 +1224,14 @@ Napi::Value rawWaitForFences(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkFence* pFences = (VkFence*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 waitAll = (VkBool32)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[3].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 waitAll = (VkBool32)info[3].As<Napi::Number>().Uint32Value();
 
     if (!info[4].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     uint64_t timeout = (uint64_t)info[4].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkWaitForFences(device, fenceCount, pFences, waitAll, timeout);
-    return env.Null();
+    auto result = ::vkWaitForFences(device, fenceCount, pFences, waitAll, timeout);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1262,8 +1262,8 @@ Napi::Value rawCreateSemaphore(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSemaphore* pSemaphore = (VkSemaphore*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateSemaphore(device, pCreateInfo, pAllocator, pSemaphore);
-    return env.Null();
+    auto result = ::vkCreateSemaphore(device, pCreateInfo, pAllocator, pSemaphore);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1323,8 +1323,8 @@ Napi::Value rawCreateEvent(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkEvent* pEvent = (VkEvent*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateEvent(device, pCreateInfo, pAllocator, pEvent);
-    return env.Null();
+    auto result = ::vkCreateEvent(device, pCreateInfo, pAllocator, pEvent);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1378,8 +1378,8 @@ Napi::Value rawGetEventStatus(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkEvent event = (VkEvent)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetEventStatus(device, event);
-    return env.Null();
+    auto result = ::vkGetEventStatus(device, event);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1404,8 +1404,8 @@ Napi::Value rawSetEvent(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkEvent event = (VkEvent)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkSetEvent(device, event);
-    return env.Null();
+    auto result = ::vkSetEvent(device, event);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1430,8 +1430,8 @@ Napi::Value rawResetEvent(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkEvent event = (VkEvent)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkResetEvent(device, event);
-    return env.Null();
+    auto result = ::vkResetEvent(device, event);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1462,8 +1462,8 @@ Napi::Value rawCreateQueryPool(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkQueryPool* pQueryPool = (VkQueryPool*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateQueryPool(device, pCreateInfo, pAllocator, pQueryPool);
-    return env.Null();
+    auto result = ::vkCreateQueryPool(device, pCreateInfo, pAllocator, pQueryPool);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1535,8 +1535,8 @@ Napi::Value rawGetQueryPoolResults(const Napi::CallbackInfo& info) {
     if (!info[7].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkQueryResultFlags flags = (VkQueryResultFlags)info[7].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetQueryPoolResults(device, queryPool, firstQuery, queryCount, dataSize, pData, stride, flags);
-    return env.Null();
+    auto result = ::vkGetQueryPoolResults(device, queryPool, firstQuery, queryCount, dataSize, pData, stride, flags);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1599,8 +1599,8 @@ Napi::Value rawCreateBuffer(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkBuffer* pBuffer = (VkBuffer*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateBuffer(device, pCreateInfo, pAllocator, pBuffer);
-    return env.Null();
+    auto result = ::vkCreateBuffer(device, pCreateInfo, pAllocator, pBuffer);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1660,8 +1660,8 @@ Napi::Value rawCreateBufferView(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkBufferView* pView = (VkBufferView*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateBufferView(device, pCreateInfo, pAllocator, pView);
-    return env.Null();
+    auto result = ::vkCreateBufferView(device, pCreateInfo, pAllocator, pView);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1721,8 +1721,8 @@ Napi::Value rawCreateImage(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkImage* pImage = (VkImage*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateImage(device, pCreateInfo, pAllocator, pImage);
-    return env.Null();
+    auto result = ::vkCreateImage(device, pCreateInfo, pAllocator, pImage);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1814,8 +1814,8 @@ Napi::Value rawCreateImageView(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkImageView* pView = (VkImageView*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateImageView(device, pCreateInfo, pAllocator, pView);
-    return env.Null();
+    auto result = ::vkCreateImageView(device, pCreateInfo, pAllocator, pView);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1875,8 +1875,8 @@ Napi::Value rawCreateShaderModule(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkShaderModule* pShaderModule = (VkShaderModule*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateShaderModule(device, pCreateInfo, pAllocator, pShaderModule);
-    return env.Null();
+    auto result = ::vkCreateShaderModule(device, pCreateInfo, pAllocator, pShaderModule);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1936,8 +1936,8 @@ Napi::Value rawCreatePipelineCache(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPipelineCache* pPipelineCache = (VkPipelineCache*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreatePipelineCache(device, pCreateInfo, pAllocator, pPipelineCache);
-    return env.Null();
+    auto result = ::vkCreatePipelineCache(device, pCreateInfo, pAllocator, pPipelineCache);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -1997,8 +1997,8 @@ Napi::Value rawGetPipelineCacheData(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     void* pData = (void*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPipelineCacheData(device, pipelineCache, pDataSize, pData);
-    return env.Null();
+    auto result = ::vkGetPipelineCacheData(device, pipelineCache, pDataSize, pData);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2029,8 +2029,8 @@ Napi::Value rawMergePipelineCaches(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPipelineCache* pSrcCaches = (VkPipelineCache*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkMergePipelineCaches(device, dstCache, srcCacheCount, pSrcCaches);
-    return env.Null();
+    auto result = ::vkMergePipelineCaches(device, dstCache, srcCacheCount, pSrcCaches);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2067,8 +2067,8 @@ Napi::Value rawCreateGraphicsPipelines(const Napi::CallbackInfo& info) {
     if (!info[5].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPipeline* pPipelines = (VkPipeline*)info[5].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateGraphicsPipelines(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
-    return env.Null();
+    auto result = ::vkCreateGraphicsPipelines(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2105,8 +2105,8 @@ Napi::Value rawCreateComputePipelines(const Napi::CallbackInfo& info) {
     if (!info[5].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPipeline* pPipelines = (VkPipeline*)info[5].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateComputePipelines(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
-    return env.Null();
+    auto result = ::vkCreateComputePipelines(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2134,11 +2134,11 @@ Napi::Value rawGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(const Napi::Callbac
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkExtent2D* pMaxWorkgroupSize = (VkExtent2D*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(device, renderpass, pMaxWorkgroupSize);
-    return env.Null();
+    auto result = ::vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(device, renderpass, pMaxWorkgroupSize);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_HUAWEI_subpass_shading
+#endif
 
 
 #ifdef __cplusplus
@@ -2195,8 +2195,8 @@ Napi::Value rawCreatePipelineLayout(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPipelineLayout* pPipelineLayout = (VkPipelineLayout*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreatePipelineLayout(device, pCreateInfo, pAllocator, pPipelineLayout);
-    return env.Null();
+    auto result = ::vkCreatePipelineLayout(device, pCreateInfo, pAllocator, pPipelineLayout);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2256,8 +2256,8 @@ Napi::Value rawCreateSampler(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSampler* pSampler = (VkSampler*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateSampler(device, pCreateInfo, pAllocator, pSampler);
-    return env.Null();
+    auto result = ::vkCreateSampler(device, pCreateInfo, pAllocator, pSampler);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2317,8 +2317,8 @@ Napi::Value rawCreateDescriptorSetLayout(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDescriptorSetLayout* pSetLayout = (VkDescriptorSetLayout*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateDescriptorSetLayout(device, pCreateInfo, pAllocator, pSetLayout);
-    return env.Null();
+    auto result = ::vkCreateDescriptorSetLayout(device, pCreateInfo, pAllocator, pSetLayout);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2378,8 +2378,8 @@ Napi::Value rawCreateDescriptorPool(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDescriptorPool* pDescriptorPool = (VkDescriptorPool*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateDescriptorPool(device, pCreateInfo, pAllocator, pDescriptorPool);
-    return env.Null();
+    auto result = ::vkCreateDescriptorPool(device, pCreateInfo, pAllocator, pDescriptorPool);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2436,8 +2436,8 @@ Napi::Value rawResetDescriptorPool(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDescriptorPoolResetFlags flags = (VkDescriptorPoolResetFlags)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkResetDescriptorPool(device, descriptorPool, flags);
-    return env.Null();
+    auto result = ::vkResetDescriptorPool(device, descriptorPool, flags);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2465,8 +2465,8 @@ Napi::Value rawAllocateDescriptorSets(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDescriptorSet* pDescriptorSets = (VkDescriptorSet*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkAllocateDescriptorSets(device, pAllocateInfo, pDescriptorSets);
-    return env.Null();
+    auto result = ::vkAllocateDescriptorSets(device, pAllocateInfo, pDescriptorSets);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2497,8 +2497,8 @@ Napi::Value rawFreeDescriptorSets(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDescriptorSet* pDescriptorSets = (VkDescriptorSet*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkFreeDescriptorSets(device, descriptorPool, descriptorSetCount, pDescriptorSets);
-    return env.Null();
+    auto result = ::vkFreeDescriptorSets(device, descriptorPool, descriptorSetCount, pDescriptorSets);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2564,8 +2564,8 @@ Napi::Value rawCreateFramebuffer(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkFramebuffer* pFramebuffer = (VkFramebuffer*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateFramebuffer(device, pCreateInfo, pAllocator, pFramebuffer);
-    return env.Null();
+    auto result = ::vkCreateFramebuffer(device, pCreateInfo, pAllocator, pFramebuffer);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2625,8 +2625,8 @@ Napi::Value rawCreateRenderPass(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkRenderPass* pRenderPass = (VkRenderPass*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateRenderPass(device, pCreateInfo, pAllocator, pRenderPass);
-    return env.Null();
+    auto result = ::vkCreateRenderPass(device, pCreateInfo, pAllocator, pRenderPass);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2715,8 +2715,8 @@ Napi::Value rawCreateCommandPool(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandPool* pCommandPool = (VkCommandPool*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateCommandPool(device, pCreateInfo, pAllocator, pCommandPool);
-    return env.Null();
+    auto result = ::vkCreateCommandPool(device, pCreateInfo, pAllocator, pCommandPool);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2773,8 +2773,8 @@ Napi::Value rawResetCommandPool(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandPoolResetFlags flags = (VkCommandPoolResetFlags)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkResetCommandPool(device, commandPool, flags);
-    return env.Null();
+    auto result = ::vkResetCommandPool(device, commandPool, flags);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2802,8 +2802,8 @@ Napi::Value rawAllocateCommandBuffers(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer* pCommandBuffers = (VkCommandBuffer*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkAllocateCommandBuffers(device, pAllocateInfo, pCommandBuffers);
-    return env.Null();
+    auto result = ::vkAllocateCommandBuffers(device, pAllocateInfo, pCommandBuffers);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2860,8 +2860,8 @@ Napi::Value rawBeginCommandBuffer(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBufferBeginInfo* pBeginInfo = (VkCommandBufferBeginInfo*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkBeginCommandBuffer(commandBuffer, pBeginInfo);
-    return env.Null();
+    auto result = ::vkBeginCommandBuffer(commandBuffer, pBeginInfo);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2883,8 +2883,8 @@ Napi::Value rawEndCommandBuffer(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkEndCommandBuffer(commandBuffer);
-    return env.Null();
+    auto result = ::vkEndCommandBuffer(commandBuffer);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -2909,8 +2909,8 @@ Napi::Value rawResetCommandBuffer(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBufferResetFlags flags = (VkCommandBufferResetFlags)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkResetCommandBuffer(commandBuffer, flags);
-    return env.Null();
+    auto result = ::vkResetCommandBuffer(commandBuffer, flags);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -3428,7 +3428,7 @@ Napi::Value rawCmdDrawMultiEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_multi_draw
+#endif
 
 #ifdef VK_EXT_multi_draw
 #ifdef __cplusplus
@@ -3469,7 +3469,7 @@ Napi::Value rawCmdDrawMultiIndexedEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_multi_draw
+#endif
 
 
 #ifdef __cplusplus
@@ -3623,7 +3623,7 @@ Napi::Value rawCmdSubpassShadingHUAWEI(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_HUAWEI_subpass_shading
+#endif
 
 
 #ifdef __cplusplus
@@ -3851,7 +3851,7 @@ Napi::Value rawCmdCopyMemoryIndirectNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_copy_memory_indirect
+#endif
 
 #ifdef VK_NV_copy_memory_indirect
 #ifdef __cplusplus
@@ -3892,7 +3892,7 @@ Napi::Value rawCmdCopyMemoryToImageIndirectNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_copy_memory_indirect
+#endif
 
 
 #ifdef __cplusplus
@@ -4362,7 +4362,7 @@ Napi::Value rawCmdBeginConditionalRenderingEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_conditional_rendering
+#endif
 
 #ifdef VK_EXT_conditional_rendering
 #ifdef __cplusplus
@@ -4385,7 +4385,7 @@ Napi::Value rawCmdEndConditionalRenderingEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_conditional_rendering
+#endif
 
 
 #ifdef __cplusplus
@@ -4666,11 +4666,11 @@ Napi::Value rawCreateAndroidSurfaceKHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceKHR* pSurface = (VkSurfaceKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateAndroidSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
-    return env.Null();
+    auto result = ::vkCreateAndroidSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_android_surface
+#endif
 
 #ifdef VK_KHR_display
 #ifdef __cplusplus
@@ -4695,11 +4695,11 @@ Napi::Value rawGetPhysicalDeviceDisplayPropertiesKHR(const Napi::CallbackInfo& i
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayPropertiesKHR* pProperties = (VkDisplayPropertiesKHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceDisplayPropertiesKHR(physicalDevice, pPropertyCount, pProperties);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceDisplayPropertiesKHR(physicalDevice, pPropertyCount, pProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_display
+#endif
 
 #ifdef VK_KHR_display
 #ifdef __cplusplus
@@ -4724,11 +4724,11 @@ Napi::Value rawGetPhysicalDeviceDisplayPlanePropertiesKHR(const Napi::CallbackIn
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayPlanePropertiesKHR* pProperties = (VkDisplayPlanePropertiesKHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice, pPropertyCount, pProperties);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice, pPropertyCount, pProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_display
+#endif
 
 #ifdef VK_KHR_display
 #ifdef __cplusplus
@@ -4756,11 +4756,11 @@ Napi::Value rawGetDisplayPlaneSupportedDisplaysKHR(const Napi::CallbackInfo& inf
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayKHR* pDisplays = (VkDisplayKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetDisplayPlaneSupportedDisplaysKHR(physicalDevice, planeIndex, pDisplayCount, pDisplays);
-    return env.Null();
+    auto result = ::vkGetDisplayPlaneSupportedDisplaysKHR(physicalDevice, planeIndex, pDisplayCount, pDisplays);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_display
+#endif
 
 #ifdef VK_KHR_display
 #ifdef __cplusplus
@@ -4788,11 +4788,11 @@ Napi::Value rawGetDisplayModePropertiesKHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayModePropertiesKHR* pProperties = (VkDisplayModePropertiesKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetDisplayModePropertiesKHR(physicalDevice, display, pPropertyCount, pProperties);
-    return env.Null();
+    auto result = ::vkGetDisplayModePropertiesKHR(physicalDevice, display, pPropertyCount, pProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_display
+#endif
 
 #ifdef VK_KHR_display
 #ifdef __cplusplus
@@ -4823,11 +4823,11 @@ Napi::Value rawCreateDisplayModeKHR(const Napi::CallbackInfo& info) {
     if (!info[4].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayModeKHR* pMode = (VkDisplayModeKHR*)info[4].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateDisplayModeKHR(physicalDevice, display, pCreateInfo, pAllocator, pMode);
-    return env.Null();
+    auto result = ::vkCreateDisplayModeKHR(physicalDevice, display, pCreateInfo, pAllocator, pMode);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_display
+#endif
 
 #ifdef VK_KHR_display
 #ifdef __cplusplus
@@ -4855,11 +4855,11 @@ Napi::Value rawGetDisplayPlaneCapabilitiesKHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayPlaneCapabilitiesKHR* pCapabilities = (VkDisplayPlaneCapabilitiesKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetDisplayPlaneCapabilitiesKHR(physicalDevice, mode, planeIndex, pCapabilities);
-    return env.Null();
+    auto result = ::vkGetDisplayPlaneCapabilitiesKHR(physicalDevice, mode, planeIndex, pCapabilities);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_display
+#endif
 
 #ifdef VK_KHR_display
 #ifdef __cplusplus
@@ -4887,11 +4887,11 @@ Napi::Value rawCreateDisplayPlaneSurfaceKHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceKHR* pSurface = (VkSurfaceKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateDisplayPlaneSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
-    return env.Null();
+    auto result = ::vkCreateDisplayPlaneSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_display
+#endif
 
 #ifdef VK_KHR_display_swapchain
 #ifdef __cplusplus
@@ -4922,11 +4922,11 @@ Napi::Value rawCreateSharedSwapchainsKHR(const Napi::CallbackInfo& info) {
     if (!info[4].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSwapchainKHR* pSwapchains = (VkSwapchainKHR*)info[4].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateSharedSwapchainsKHR(device, swapchainCount, pCreateInfos, pAllocator, pSwapchains);
-    return env.Null();
+    auto result = ::vkCreateSharedSwapchainsKHR(device, swapchainCount, pCreateInfos, pAllocator, pSwapchains);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_display_swapchain
+#endif
 
 #ifdef VK_KHR_surface
 #ifdef __cplusplus
@@ -4955,7 +4955,7 @@ Napi::Value rawDestroySurfaceKHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_surface
+#endif
 
 #ifdef VK_KHR_surface
 #ifdef __cplusplus
@@ -4983,11 +4983,11 @@ Napi::Value rawGetPhysicalDeviceSurfaceSupportKHR(const Napi::CallbackInfo& info
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkBool32* pSupported = (VkBool32*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, queueFamilyIndex, surface, pSupported);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, queueFamilyIndex, surface, pSupported);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_surface
+#endif
 
 #ifdef VK_KHR_surface
 #ifdef __cplusplus
@@ -5012,11 +5012,11 @@ Napi::Value rawGetPhysicalDeviceSurfaceCapabilitiesKHR(const Napi::CallbackInfo&
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceCapabilitiesKHR* pSurfaceCapabilities = (VkSurfaceCapabilitiesKHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, pSurfaceCapabilities);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, pSurfaceCapabilities);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_surface
+#endif
 
 #ifdef VK_KHR_surface
 #ifdef __cplusplus
@@ -5044,11 +5044,11 @@ Napi::Value rawGetPhysicalDeviceSurfaceFormatsKHR(const Napi::CallbackInfo& info
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceFormatKHR* pSurfaceFormats = (VkSurfaceFormatKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, pSurfaceFormatCount, pSurfaceFormats);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, pSurfaceFormatCount, pSurfaceFormats);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_surface
+#endif
 
 #ifdef VK_KHR_surface
 #ifdef __cplusplus
@@ -5076,11 +5076,11 @@ Napi::Value rawGetPhysicalDeviceSurfacePresentModesKHR(const Napi::CallbackInfo&
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPresentModeKHR* pPresentModes = (VkPresentModeKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, pPresentModeCount, pPresentModes);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, pPresentModeCount, pPresentModes);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_surface
+#endif
 
 #ifdef VK_KHR_swapchain
 #ifdef __cplusplus
@@ -5108,11 +5108,11 @@ Napi::Value rawCreateSwapchainKHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSwapchainKHR* pSwapchain = (VkSwapchainKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateSwapchainKHR(device, pCreateInfo, pAllocator, pSwapchain);
-    return env.Null();
+    auto result = ::vkCreateSwapchainKHR(device, pCreateInfo, pAllocator, pSwapchain);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_swapchain
+#endif
 
 #ifdef VK_KHR_swapchain
 #ifdef __cplusplus
@@ -5141,7 +5141,7 @@ Napi::Value rawDestroySwapchainKHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_swapchain
+#endif
 
 #ifdef VK_KHR_swapchain
 #ifdef __cplusplus
@@ -5169,11 +5169,11 @@ Napi::Value rawGetSwapchainImagesKHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkImage* pSwapchainImages = (VkImage*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetSwapchainImagesKHR(device, swapchain, pSwapchainImageCount, pSwapchainImages);
-    return env.Null();
+    auto result = ::vkGetSwapchainImagesKHR(device, swapchain, pSwapchainImageCount, pSwapchainImages);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_swapchain
+#endif
 
 #ifdef VK_KHR_swapchain
 #ifdef __cplusplus
@@ -5207,11 +5207,11 @@ Napi::Value rawAcquireNextImageKHR(const Napi::CallbackInfo& info) {
     if (!info[5].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     uint32_t* pImageIndex = (uint32_t*)info[5].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkAcquireNextImageKHR(device, swapchain, timeout, semaphore, fence, pImageIndex);
-    return env.Null();
+    auto result = ::vkAcquireNextImageKHR(device, swapchain, timeout, semaphore, fence, pImageIndex);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_swapchain
+#endif
 
 #ifdef VK_KHR_swapchain
 #ifdef __cplusplus
@@ -5233,11 +5233,11 @@ Napi::Value rawQueuePresentKHR(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPresentInfoKHR* pPresentInfo = (VkPresentInfoKHR*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkQueuePresentKHR(queue, pPresentInfo);
-    return env.Null();
+    auto result = ::vkQueuePresentKHR(queue, pPresentInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_swapchain
+#endif
 
 #ifdef VK_NN_vi_surface
 #ifdef __cplusplus
@@ -5265,11 +5265,11 @@ Napi::Value rawCreateViSurfaceNN(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceKHR* pSurface = (VkSurfaceKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateViSurfaceNN(instance, pCreateInfo, pAllocator, pSurface);
-    return env.Null();
+    auto result = ::vkCreateViSurfaceNN(instance, pCreateInfo, pAllocator, pSurface);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NN_vi_surface
+#endif
 
 #ifdef VK_KHR_wayland_surface
 #ifdef __cplusplus
@@ -5297,11 +5297,11 @@ Napi::Value rawCreateWaylandSurfaceKHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceKHR* pSurface = (VkSurfaceKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateWaylandSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
-    return env.Null();
+    auto result = ::vkCreateWaylandSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_wayland_surface
+#endif
 
 #ifdef VK_KHR_wayland_surface
 #ifdef __cplusplus
@@ -5326,11 +5326,11 @@ Napi::Value rawGetPhysicalDeviceWaylandPresentationSupportKHR(const Napi::Callba
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     wl_display* display = (wl_display*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceWaylandPresentationSupportKHR(physicalDevice, queueFamilyIndex, display);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceWaylandPresentationSupportKHR(physicalDevice, queueFamilyIndex, display);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_wayland_surface
+#endif
 
 #ifdef VK_KHR_win32_surface
 #ifdef __cplusplus
@@ -5358,11 +5358,11 @@ Napi::Value rawCreateWin32SurfaceKHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceKHR* pSurface = (VkSurfaceKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateWin32SurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
-    return env.Null();
+    auto result = ::vkCreateWin32SurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_win32_surface
+#endif
 
 #ifdef VK_KHR_win32_surface
 #ifdef __cplusplus
@@ -5384,11 +5384,11 @@ Napi::Value rawGetPhysicalDeviceWin32PresentationSupportKHR(const Napi::Callback
     if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
     uint32_t queueFamilyIndex = (uint32_t)info[1].As<Napi::Number>().Uint32Value();
     
-    ::vkGetPhysicalDeviceWin32PresentationSupportKHR(physicalDevice, queueFamilyIndex);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceWin32PresentationSupportKHR(physicalDevice, queueFamilyIndex);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_win32_surface
+#endif
 
 #ifdef VK_KHR_xlib_surface
 #ifdef __cplusplus
@@ -5416,11 +5416,11 @@ Napi::Value rawCreateXlibSurfaceKHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceKHR* pSurface = (VkSurfaceKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateXlibSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
-    return env.Null();
+    auto result = ::vkCreateXlibSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_xlib_surface
+#endif
 
 #ifdef VK_KHR_xlib_surface
 #ifdef __cplusplus
@@ -5448,11 +5448,11 @@ Napi::Value rawGetPhysicalDeviceXlibPresentationSupportKHR(const Napi::CallbackI
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VisualID visualID = (VisualID)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceXlibPresentationSupportKHR(physicalDevice, queueFamilyIndex, dpy, visualID);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceXlibPresentationSupportKHR(physicalDevice, queueFamilyIndex, dpy, visualID);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_xlib_surface
+#endif
 
 #ifdef VK_KHR_xcb_surface
 #ifdef __cplusplus
@@ -5480,11 +5480,11 @@ Napi::Value rawCreateXcbSurfaceKHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceKHR* pSurface = (VkSurfaceKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateXcbSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
-    return env.Null();
+    auto result = ::vkCreateXcbSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_xcb_surface
+#endif
 
 #ifdef VK_KHR_xcb_surface
 #ifdef __cplusplus
@@ -5512,11 +5512,11 @@ Napi::Value rawGetPhysicalDeviceXcbPresentationSupportKHR(const Napi::CallbackIn
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     xcb_visualid_t visual_id = (xcb_visualid_t)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceXcbPresentationSupportKHR(physicalDevice, queueFamilyIndex, connection, visual_id);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceXcbPresentationSupportKHR(physicalDevice, queueFamilyIndex, connection, visual_id);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_xcb_surface
+#endif
 
 #ifdef VK_EXT_directfb_surface
 #ifdef __cplusplus
@@ -5544,11 +5544,11 @@ Napi::Value rawCreateDirectFBSurfaceEXT(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceKHR* pSurface = (VkSurfaceKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateDirectFBSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
-    return env.Null();
+    auto result = ::vkCreateDirectFBSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_directfb_surface
+#endif
 
 #ifdef VK_EXT_directfb_surface
 #ifdef __cplusplus
@@ -5573,11 +5573,11 @@ Napi::Value rawGetPhysicalDeviceDirectFBPresentationSupportEXT(const Napi::Callb
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     IDirectFB* dfb = (IDirectFB*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceDirectFBPresentationSupportEXT(physicalDevice, queueFamilyIndex, dfb);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceDirectFBPresentationSupportEXT(physicalDevice, queueFamilyIndex, dfb);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_directfb_surface
+#endif
 
 #ifdef VK_FUCHSIA_imagepipe_surface
 #ifdef __cplusplus
@@ -5605,11 +5605,11 @@ Napi::Value rawCreateImagePipeSurfaceFUCHSIA(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceKHR* pSurface = (VkSurfaceKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateImagePipeSurfaceFUCHSIA(instance, pCreateInfo, pAllocator, pSurface);
-    return env.Null();
+    auto result = ::vkCreateImagePipeSurfaceFUCHSIA(instance, pCreateInfo, pAllocator, pSurface);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_FUCHSIA_imagepipe_surface
+#endif
 
 #ifdef VK_GGP_stream_descriptor_surface
 #ifdef __cplusplus
@@ -5637,11 +5637,11 @@ Napi::Value rawCreateStreamDescriptorSurfaceGGP(const Napi::CallbackInfo& info) 
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceKHR* pSurface = (VkSurfaceKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateStreamDescriptorSurfaceGGP(instance, pCreateInfo, pAllocator, pSurface);
-    return env.Null();
+    auto result = ::vkCreateStreamDescriptorSurfaceGGP(instance, pCreateInfo, pAllocator, pSurface);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_GGP_stream_descriptor_surface
+#endif
 
 #ifdef VK_QNX_screen_surface
 #ifdef __cplusplus
@@ -5669,11 +5669,11 @@ Napi::Value rawCreateScreenSurfaceQNX(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceKHR* pSurface = (VkSurfaceKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateScreenSurfaceQNX(instance, pCreateInfo, pAllocator, pSurface);
-    return env.Null();
+    auto result = ::vkCreateScreenSurfaceQNX(instance, pCreateInfo, pAllocator, pSurface);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_QNX_screen_surface
+#endif
 
 #ifdef VK_QNX_screen_surface
 #ifdef __cplusplus
@@ -5698,11 +5698,11 @@ Napi::Value rawGetPhysicalDeviceScreenPresentationSupportQNX(const Napi::Callbac
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     _screen_window* window = (_screen_window*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceScreenPresentationSupportQNX(physicalDevice, queueFamilyIndex, window);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceScreenPresentationSupportQNX(physicalDevice, queueFamilyIndex, window);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_QNX_screen_surface
+#endif
 
 #ifdef VK_EXT_debug_report
 #ifdef __cplusplus
@@ -5730,11 +5730,11 @@ Napi::Value rawCreateDebugReportCallbackEXT(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDebugReportCallbackEXT* pCallback = (VkDebugReportCallbackEXT*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateDebugReportCallbackEXT(instance, pCreateInfo, pAllocator, pCallback);
-    return env.Null();
+    auto result = ::vkCreateDebugReportCallbackEXT(instance, pCreateInfo, pAllocator, pCallback);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_debug_report
+#endif
 
 #ifdef VK_EXT_debug_report
 #ifdef __cplusplus
@@ -5763,7 +5763,7 @@ Napi::Value rawDestroyDebugReportCallbackEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_debug_report
+#endif
 
 #ifdef VK_EXT_debug_report
 #ifdef __cplusplus
@@ -5807,7 +5807,7 @@ Napi::Value rawDebugReportMessageEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_debug_report
+#endif
 
 #ifdef VK_EXT_debug_marker
 #ifdef __cplusplus
@@ -5829,11 +5829,11 @@ Napi::Value rawDebugMarkerSetObjectNameEXT(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDebugMarkerObjectNameInfoEXT* pNameInfo = (VkDebugMarkerObjectNameInfoEXT*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkDebugMarkerSetObjectNameEXT(device, pNameInfo);
-    return env.Null();
+    auto result = ::vkDebugMarkerSetObjectNameEXT(device, pNameInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_debug_marker
+#endif
 
 #ifdef VK_EXT_debug_marker
 #ifdef __cplusplus
@@ -5855,11 +5855,11 @@ Napi::Value rawDebugMarkerSetObjectTagEXT(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDebugMarkerObjectTagInfoEXT* pTagInfo = (VkDebugMarkerObjectTagInfoEXT*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkDebugMarkerSetObjectTagEXT(device, pTagInfo);
-    return env.Null();
+    auto result = ::vkDebugMarkerSetObjectTagEXT(device, pTagInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_debug_marker
+#endif
 
 #ifdef VK_EXT_debug_marker
 #ifdef __cplusplus
@@ -5885,7 +5885,7 @@ Napi::Value rawCmdDebugMarkerBeginEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_debug_marker
+#endif
 
 #ifdef VK_EXT_debug_marker
 #ifdef __cplusplus
@@ -5908,7 +5908,7 @@ Napi::Value rawCmdDebugMarkerEndEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_debug_marker
+#endif
 
 #ifdef VK_EXT_debug_marker
 #ifdef __cplusplus
@@ -5934,7 +5934,7 @@ Napi::Value rawCmdDebugMarkerInsertEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_debug_marker
+#endif
 
 #ifdef VK_NV_external_memory_capabilities
 #ifdef __cplusplus
@@ -5974,11 +5974,11 @@ Napi::Value rawGetPhysicalDeviceExternalImageFormatPropertiesNV(const Napi::Call
     if (!info[7].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkExternalImageFormatPropertiesNV* pExternalImageFormatProperties = (VkExternalImageFormatPropertiesNV*)info[7].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceExternalImageFormatPropertiesNV(physicalDevice, format, type, tiling, usage, flags, externalHandleType, pExternalImageFormatProperties);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceExternalImageFormatPropertiesNV(physicalDevice, format, type, tiling, usage, flags, externalHandleType, pExternalImageFormatProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NV_external_memory_capabilities
+#endif
 
 #ifdef VK_NV_external_memory_win32
 #ifdef __cplusplus
@@ -6006,11 +6006,11 @@ Napi::Value rawGetMemoryWin32HandleNV(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     HANDLE* pHandle = (HANDLE*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetMemoryWin32HandleNV(device, memory, handleType, pHandle);
-    return env.Null();
+    auto result = ::vkGetMemoryWin32HandleNV(device, memory, handleType, pHandle);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NV_external_memory_win32
+#endif
 
 #ifdef VK_NV_device_generated_commands
 #ifdef __cplusplus
@@ -6029,8 +6029,8 @@ Napi::Value rawCmdExecuteGeneratedCommandsNV(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 isPreprocessed = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 isPreprocessed = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
 
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkGeneratedCommandsInfoNV* pGeneratedCommandsInfo = (VkGeneratedCommandsInfoNV*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
@@ -6039,7 +6039,7 @@ Napi::Value rawCmdExecuteGeneratedCommandsNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_device_generated_commands
+#endif
 
 #ifdef VK_NV_device_generated_commands
 #ifdef __cplusplus
@@ -6065,7 +6065,7 @@ Napi::Value rawCmdPreprocessGeneratedCommandsNV(const Napi::CallbackInfo& info) 
     return env.Null();
 
 }
-#endif VK_NV_device_generated_commands
+#endif
 
 #ifdef VK_NV_device_generated_commands
 #ifdef __cplusplus
@@ -6097,7 +6097,7 @@ Napi::Value rawCmdBindPipelineShaderGroupNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_device_generated_commands
+#endif
 
 #ifdef VK_NV_device_generated_commands
 #ifdef __cplusplus
@@ -6126,7 +6126,7 @@ Napi::Value rawGetGeneratedCommandsMemoryRequirementsNV(const Napi::CallbackInfo
     return env.Null();
 
 }
-#endif VK_NV_device_generated_commands
+#endif
 
 #ifdef VK_NV_device_generated_commands
 #ifdef __cplusplus
@@ -6154,11 +6154,11 @@ Napi::Value rawCreateIndirectCommandsLayoutNV(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkIndirectCommandsLayoutNV* pIndirectCommandsLayout = (VkIndirectCommandsLayoutNV*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateIndirectCommandsLayoutNV(device, pCreateInfo, pAllocator, pIndirectCommandsLayout);
-    return env.Null();
+    auto result = ::vkCreateIndirectCommandsLayoutNV(device, pCreateInfo, pAllocator, pIndirectCommandsLayout);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NV_device_generated_commands
+#endif
 
 #ifdef VK_NV_device_generated_commands
 #ifdef __cplusplus
@@ -6187,7 +6187,7 @@ Napi::Value rawDestroyIndirectCommandsLayoutNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_device_generated_commands
+#endif
 
 
 #ifdef __cplusplus
@@ -6293,8 +6293,8 @@ Napi::Value rawGetPhysicalDeviceImageFormatProperties2(const Napi::CallbackInfo&
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkImageFormatProperties2* pImageFormatProperties = (VkImageFormatProperties2*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceImageFormatProperties2(physicalDevice, pImageFormatInfo, pImageFormatProperties);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceImageFormatProperties2(physicalDevice, pImageFormatInfo, pImageFormatProperties);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -6422,7 +6422,7 @@ Napi::Value rawCmdPushDescriptorSetKHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_push_descriptor
+#endif
 
 
 #ifdef __cplusplus
@@ -6505,11 +6505,11 @@ Napi::Value rawGetMemoryWin32HandleKHR(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     HANDLE* pHandle = (HANDLE*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetMemoryWin32HandleKHR(device, pGetWin32HandleInfo, pHandle);
-    return env.Null();
+    auto result = ::vkGetMemoryWin32HandleKHR(device, pGetWin32HandleInfo, pHandle);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_external_memory_win32
+#endif
 
 #ifdef VK_KHR_external_memory_win32
 #ifdef __cplusplus
@@ -6537,11 +6537,11 @@ Napi::Value rawGetMemoryWin32HandlePropertiesKHR(const Napi::CallbackInfo& info)
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkMemoryWin32HandlePropertiesKHR* pMemoryWin32HandleProperties = (VkMemoryWin32HandlePropertiesKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetMemoryWin32HandlePropertiesKHR(device, handleType, handle, pMemoryWin32HandleProperties);
-    return env.Null();
+    auto result = ::vkGetMemoryWin32HandlePropertiesKHR(device, handleType, handle, pMemoryWin32HandleProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_external_memory_win32
+#endif
 
 #ifdef VK_KHR_external_memory_fd
 #ifdef __cplusplus
@@ -6566,11 +6566,11 @@ Napi::Value rawGetMemoryFdKHR(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     int* pFd = (int*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetMemoryFdKHR(device, pGetFdInfo, pFd);
-    return env.Null();
+    auto result = ::vkGetMemoryFdKHR(device, pGetFdInfo, pFd);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_external_memory_fd
+#endif
 
 #ifdef VK_KHR_external_memory_fd
 #ifdef __cplusplus
@@ -6598,11 +6598,11 @@ Napi::Value rawGetMemoryFdPropertiesKHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkMemoryFdPropertiesKHR* pMemoryFdProperties = (VkMemoryFdPropertiesKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetMemoryFdPropertiesKHR(device, handleType, fd, pMemoryFdProperties);
-    return env.Null();
+    auto result = ::vkGetMemoryFdPropertiesKHR(device, handleType, fd, pMemoryFdProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_external_memory_fd
+#endif
 
 #ifdef VK_FUCHSIA_external_memory
 #ifdef __cplusplus
@@ -6627,11 +6627,11 @@ Napi::Value rawGetMemoryZirconHandleFUCHSIA(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     zx_handle_t* pZirconHandle = (zx_handle_t*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetMemoryZirconHandleFUCHSIA(device, pGetZirconHandleInfo, pZirconHandle);
-    return env.Null();
+    auto result = ::vkGetMemoryZirconHandleFUCHSIA(device, pGetZirconHandleInfo, pZirconHandle);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_FUCHSIA_external_memory
+#endif
 
 #ifdef VK_FUCHSIA_external_memory
 #ifdef __cplusplus
@@ -6659,11 +6659,11 @@ Napi::Value rawGetMemoryZirconHandlePropertiesFUCHSIA(const Napi::CallbackInfo& 
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkMemoryZirconHandlePropertiesFUCHSIA* pMemoryZirconHandleProperties = (VkMemoryZirconHandlePropertiesFUCHSIA*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetMemoryZirconHandlePropertiesFUCHSIA(device, handleType, zirconHandle, pMemoryZirconHandleProperties);
-    return env.Null();
+    auto result = ::vkGetMemoryZirconHandlePropertiesFUCHSIA(device, handleType, zirconHandle, pMemoryZirconHandleProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_FUCHSIA_external_memory
+#endif
 
 #ifdef VK_NV_external_memory_rdma
 #ifdef __cplusplus
@@ -6688,11 +6688,11 @@ Napi::Value rawGetMemoryRemoteAddressNV(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkRemoteAddressNV* pAddress = (VkRemoteAddressNV*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetMemoryRemoteAddressNV(device, pMemoryGetRemoteAddressInfo, pAddress);
-    return env.Null();
+    auto result = ::vkGetMemoryRemoteAddressNV(device, pMemoryGetRemoteAddressInfo, pAddress);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NV_external_memory_rdma
+#endif
 
 
 #ifdef __cplusplus
@@ -6746,11 +6746,11 @@ Napi::Value rawGetSemaphoreWin32HandleKHR(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     HANDLE* pHandle = (HANDLE*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetSemaphoreWin32HandleKHR(device, pGetWin32HandleInfo, pHandle);
-    return env.Null();
+    auto result = ::vkGetSemaphoreWin32HandleKHR(device, pGetWin32HandleInfo, pHandle);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_external_semaphore_win32
+#endif
 
 #ifdef VK_KHR_external_semaphore_win32
 #ifdef __cplusplus
@@ -6772,11 +6772,11 @@ Napi::Value rawImportSemaphoreWin32HandleKHR(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkImportSemaphoreWin32HandleInfoKHR* pImportSemaphoreWin32HandleInfo = (VkImportSemaphoreWin32HandleInfoKHR*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkImportSemaphoreWin32HandleKHR(device, pImportSemaphoreWin32HandleInfo);
-    return env.Null();
+    auto result = ::vkImportSemaphoreWin32HandleKHR(device, pImportSemaphoreWin32HandleInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_external_semaphore_win32
+#endif
 
 #ifdef VK_KHR_external_semaphore_fd
 #ifdef __cplusplus
@@ -6801,11 +6801,11 @@ Napi::Value rawGetSemaphoreFdKHR(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     int* pFd = (int*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetSemaphoreFdKHR(device, pGetFdInfo, pFd);
-    return env.Null();
+    auto result = ::vkGetSemaphoreFdKHR(device, pGetFdInfo, pFd);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_external_semaphore_fd
+#endif
 
 #ifdef VK_KHR_external_semaphore_fd
 #ifdef __cplusplus
@@ -6827,11 +6827,11 @@ Napi::Value rawImportSemaphoreFdKHR(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkImportSemaphoreFdInfoKHR* pImportSemaphoreFdInfo = (VkImportSemaphoreFdInfoKHR*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkImportSemaphoreFdKHR(device, pImportSemaphoreFdInfo);
-    return env.Null();
+    auto result = ::vkImportSemaphoreFdKHR(device, pImportSemaphoreFdInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_external_semaphore_fd
+#endif
 
 #ifdef VK_FUCHSIA_external_semaphore
 #ifdef __cplusplus
@@ -6856,11 +6856,11 @@ Napi::Value rawGetSemaphoreZirconHandleFUCHSIA(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     zx_handle_t* pZirconHandle = (zx_handle_t*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetSemaphoreZirconHandleFUCHSIA(device, pGetZirconHandleInfo, pZirconHandle);
-    return env.Null();
+    auto result = ::vkGetSemaphoreZirconHandleFUCHSIA(device, pGetZirconHandleInfo, pZirconHandle);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_FUCHSIA_external_semaphore
+#endif
 
 #ifdef VK_FUCHSIA_external_semaphore
 #ifdef __cplusplus
@@ -6882,11 +6882,11 @@ Napi::Value rawImportSemaphoreZirconHandleFUCHSIA(const Napi::CallbackInfo& info
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkImportSemaphoreZirconHandleInfoFUCHSIA* pImportSemaphoreZirconHandleInfo = (VkImportSemaphoreZirconHandleInfoFUCHSIA*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkImportSemaphoreZirconHandleFUCHSIA(device, pImportSemaphoreZirconHandleInfo);
-    return env.Null();
+    auto result = ::vkImportSemaphoreZirconHandleFUCHSIA(device, pImportSemaphoreZirconHandleInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_FUCHSIA_external_semaphore
+#endif
 
 
 #ifdef __cplusplus
@@ -6940,11 +6940,11 @@ Napi::Value rawGetFenceWin32HandleKHR(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     HANDLE* pHandle = (HANDLE*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetFenceWin32HandleKHR(device, pGetWin32HandleInfo, pHandle);
-    return env.Null();
+    auto result = ::vkGetFenceWin32HandleKHR(device, pGetWin32HandleInfo, pHandle);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_external_fence_win32
+#endif
 
 #ifdef VK_KHR_external_fence_win32
 #ifdef __cplusplus
@@ -6966,11 +6966,11 @@ Napi::Value rawImportFenceWin32HandleKHR(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkImportFenceWin32HandleInfoKHR* pImportFenceWin32HandleInfo = (VkImportFenceWin32HandleInfoKHR*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkImportFenceWin32HandleKHR(device, pImportFenceWin32HandleInfo);
-    return env.Null();
+    auto result = ::vkImportFenceWin32HandleKHR(device, pImportFenceWin32HandleInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_external_fence_win32
+#endif
 
 #ifdef VK_KHR_external_fence_fd
 #ifdef __cplusplus
@@ -6995,11 +6995,11 @@ Napi::Value rawGetFenceFdKHR(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     int* pFd = (int*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetFenceFdKHR(device, pGetFdInfo, pFd);
-    return env.Null();
+    auto result = ::vkGetFenceFdKHR(device, pGetFdInfo, pFd);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_external_fence_fd
+#endif
 
 #ifdef VK_KHR_external_fence_fd
 #ifdef __cplusplus
@@ -7021,11 +7021,11 @@ Napi::Value rawImportFenceFdKHR(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkImportFenceFdInfoKHR* pImportFenceFdInfo = (VkImportFenceFdInfoKHR*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkImportFenceFdKHR(device, pImportFenceFdInfo);
-    return env.Null();
+    auto result = ::vkImportFenceFdKHR(device, pImportFenceFdInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_external_fence_fd
+#endif
 
 #ifdef VK_EXT_direct_mode_display
 #ifdef __cplusplus
@@ -7047,11 +7047,11 @@ Napi::Value rawReleaseDisplayEXT(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayKHR display = (VkDisplayKHR)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkReleaseDisplayEXT(physicalDevice, display);
-    return env.Null();
+    auto result = ::vkReleaseDisplayEXT(physicalDevice, display);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_direct_mode_display
+#endif
 
 #ifdef VK_EXT_acquire_xlib_display
 #ifdef __cplusplus
@@ -7076,11 +7076,11 @@ Napi::Value rawAcquireXlibDisplayEXT(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayKHR display = (VkDisplayKHR)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkAcquireXlibDisplayEXT(physicalDevice, dpy, display);
-    return env.Null();
+    auto result = ::vkAcquireXlibDisplayEXT(physicalDevice, dpy, display);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_acquire_xlib_display
+#endif
 
 #ifdef VK_EXT_acquire_xlib_display
 #ifdef __cplusplus
@@ -7108,11 +7108,11 @@ Napi::Value rawGetRandROutputDisplayEXT(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayKHR* pDisplay = (VkDisplayKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetRandROutputDisplayEXT(physicalDevice, dpy, rrOutput, pDisplay);
-    return env.Null();
+    auto result = ::vkGetRandROutputDisplayEXT(physicalDevice, dpy, rrOutput, pDisplay);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_acquire_xlib_display
+#endif
 
 #ifdef VK_NV_acquire_winrt_display
 #ifdef __cplusplus
@@ -7134,11 +7134,11 @@ Napi::Value rawAcquireWinrtDisplayNV(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayKHR display = (VkDisplayKHR)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkAcquireWinrtDisplayNV(physicalDevice, display);
-    return env.Null();
+    auto result = ::vkAcquireWinrtDisplayNV(physicalDevice, display);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NV_acquire_winrt_display
+#endif
 
 #ifdef VK_NV_acquire_winrt_display
 #ifdef __cplusplus
@@ -7163,11 +7163,11 @@ Napi::Value rawGetWinrtDisplayNV(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayKHR* pDisplay = (VkDisplayKHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetWinrtDisplayNV(physicalDevice, deviceRelativeId, pDisplay);
-    return env.Null();
+    auto result = ::vkGetWinrtDisplayNV(physicalDevice, deviceRelativeId, pDisplay);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NV_acquire_winrt_display
+#endif
 
 #ifdef VK_EXT_display_control
 #ifdef __cplusplus
@@ -7192,11 +7192,11 @@ Napi::Value rawDisplayPowerControlEXT(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayPowerInfoEXT* pDisplayPowerInfo = (VkDisplayPowerInfoEXT*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkDisplayPowerControlEXT(device, display, pDisplayPowerInfo);
-    return env.Null();
+    auto result = ::vkDisplayPowerControlEXT(device, display, pDisplayPowerInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_display_control
+#endif
 
 #ifdef VK_EXT_display_control
 #ifdef __cplusplus
@@ -7224,11 +7224,11 @@ Napi::Value rawRegisterDeviceEventEXT(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkFence* pFence = (VkFence*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkRegisterDeviceEventEXT(device, pDeviceEventInfo, pAllocator, pFence);
-    return env.Null();
+    auto result = ::vkRegisterDeviceEventEXT(device, pDeviceEventInfo, pAllocator, pFence);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_display_control
+#endif
 
 #ifdef VK_EXT_display_control
 #ifdef __cplusplus
@@ -7259,11 +7259,11 @@ Napi::Value rawRegisterDisplayEventEXT(const Napi::CallbackInfo& info) {
     if (!info[4].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkFence* pFence = (VkFence*)info[4].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkRegisterDisplayEventEXT(device, display, pDisplayEventInfo, pAllocator, pFence);
-    return env.Null();
+    auto result = ::vkRegisterDisplayEventEXT(device, display, pDisplayEventInfo, pAllocator, pFence);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_display_control
+#endif
 
 #ifdef VK_EXT_display_control
 #ifdef __cplusplus
@@ -7291,11 +7291,11 @@ Napi::Value rawGetSwapchainCounterEXT(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     uint64_t* pCounterValue = (uint64_t*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetSwapchainCounterEXT(device, swapchain, counter, pCounterValue);
-    return env.Null();
+    auto result = ::vkGetSwapchainCounterEXT(device, swapchain, counter, pCounterValue);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_display_control
+#endif
 
 #ifdef VK_EXT_display_surface_counter
 #ifdef __cplusplus
@@ -7320,11 +7320,11 @@ Napi::Value rawGetPhysicalDeviceSurfaceCapabilities2EXT(const Napi::CallbackInfo
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceCapabilities2EXT* pSurfaceCapabilities = (VkSurfaceCapabilities2EXT*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceSurfaceCapabilities2EXT(physicalDevice, surface, pSurfaceCapabilities);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceSurfaceCapabilities2EXT(physicalDevice, surface, pSurfaceCapabilities);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_display_surface_counter
+#endif
 
 
 #ifdef __cplusplus
@@ -7349,8 +7349,8 @@ Napi::Value rawEnumeratePhysicalDeviceGroups(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties = (VkPhysicalDeviceGroupProperties*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkEnumeratePhysicalDeviceGroups(instance, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties);
-    return env.Null();
+    auto result = ::vkEnumeratePhysicalDeviceGroups(instance, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -7413,8 +7413,8 @@ Napi::Value rawBindBufferMemory2(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkBindBufferMemoryInfo* pBindInfos = (VkBindBufferMemoryInfo*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkBindBufferMemory2(device, bindInfoCount, pBindInfos);
-    return env.Null();
+    auto result = ::vkBindBufferMemory2(device, bindInfoCount, pBindInfos);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -7442,8 +7442,8 @@ Napi::Value rawBindImageMemory2(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkBindImageMemoryInfo* pBindInfos = (VkBindImageMemoryInfo*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkBindImageMemory2(device, bindInfoCount, pBindInfos);
-    return env.Null();
+    auto result = ::vkBindImageMemory2(device, bindInfoCount, pBindInfos);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -7494,11 +7494,11 @@ Napi::Value rawGetDeviceGroupPresentCapabilitiesKHR(const Napi::CallbackInfo& in
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDeviceGroupPresentCapabilitiesKHR* pDeviceGroupPresentCapabilities = (VkDeviceGroupPresentCapabilitiesKHR*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetDeviceGroupPresentCapabilitiesKHR(device, pDeviceGroupPresentCapabilities);
-    return env.Null();
+    auto result = ::vkGetDeviceGroupPresentCapabilitiesKHR(device, pDeviceGroupPresentCapabilities);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_device_group
+#endif
 
 #ifdef VK_KHR_device_group
 #ifdef __cplusplus
@@ -7523,11 +7523,11 @@ Napi::Value rawGetDeviceGroupSurfacePresentModesKHR(const Napi::CallbackInfo& in
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDeviceGroupPresentModeFlagsKHR* pModes = (VkDeviceGroupPresentModeFlagsKHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetDeviceGroupSurfacePresentModesKHR(device, surface, pModes);
-    return env.Null();
+    auto result = ::vkGetDeviceGroupSurfacePresentModesKHR(device, surface, pModes);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_device_group
+#endif
 
 #ifdef VK_KHR_device_group
 #ifdef __cplusplus
@@ -7552,11 +7552,11 @@ Napi::Value rawAcquireNextImage2KHR(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     uint32_t* pImageIndex = (uint32_t*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkAcquireNextImage2KHR(device, pAcquireInfo, pImageIndex);
-    return env.Null();
+    auto result = ::vkAcquireNextImage2KHR(device, pAcquireInfo, pImageIndex);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_device_group
+#endif
 
 
 #ifdef __cplusplus
@@ -7625,11 +7625,11 @@ Napi::Value rawGetPhysicalDevicePresentRectanglesKHR(const Napi::CallbackInfo& i
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkRect2D* pRects = (VkRect2D*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDevicePresentRectanglesKHR(physicalDevice, surface, pRectCount, pRects);
-    return env.Null();
+    auto result = ::vkGetPhysicalDevicePresentRectanglesKHR(physicalDevice, surface, pRectCount, pRects);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_device_group
+#endif
 
 
 #ifdef __cplusplus
@@ -7657,8 +7657,8 @@ Napi::Value rawCreateDescriptorUpdateTemplate(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDescriptorUpdateTemplate* pDescriptorUpdateTemplate = (VkDescriptorUpdateTemplate*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateDescriptorUpdateTemplate(device, pCreateInfo, pAllocator, pDescriptorUpdateTemplate);
-    return env.Null();
+    auto result = ::vkCreateDescriptorUpdateTemplate(device, pCreateInfo, pAllocator, pDescriptorUpdateTemplate);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -7757,7 +7757,7 @@ Napi::Value rawCmdPushDescriptorSetWithTemplateKHR(const Napi::CallbackInfo& inf
     return env.Null();
 
 }
-#endif VK_KHR_descriptor_update_template
+#endif
 
 #ifdef VK_EXT_hdr_metadata
 #ifdef __cplusplus
@@ -7789,7 +7789,7 @@ Napi::Value rawSetHdrMetadataEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_hdr_metadata
+#endif
 
 #ifdef VK_KHR_shared_presentable_image
 #ifdef __cplusplus
@@ -7811,11 +7811,11 @@ Napi::Value rawGetSwapchainStatusKHR(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSwapchainKHR swapchain = (VkSwapchainKHR)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetSwapchainStatusKHR(device, swapchain);
-    return env.Null();
+    auto result = ::vkGetSwapchainStatusKHR(device, swapchain);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_shared_presentable_image
+#endif
 
 #ifdef VK_GOOGLE_display_timing
 #ifdef __cplusplus
@@ -7840,11 +7840,11 @@ Napi::Value rawGetRefreshCycleDurationGOOGLE(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkRefreshCycleDurationGOOGLE* pDisplayTimingProperties = (VkRefreshCycleDurationGOOGLE*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetRefreshCycleDurationGOOGLE(device, swapchain, pDisplayTimingProperties);
-    return env.Null();
+    auto result = ::vkGetRefreshCycleDurationGOOGLE(device, swapchain, pDisplayTimingProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_GOOGLE_display_timing
+#endif
 
 #ifdef VK_GOOGLE_display_timing
 #ifdef __cplusplus
@@ -7872,11 +7872,11 @@ Napi::Value rawGetPastPresentationTimingGOOGLE(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPastPresentationTimingGOOGLE* pPresentationTimings = (VkPastPresentationTimingGOOGLE*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPastPresentationTimingGOOGLE(device, swapchain, pPresentationTimingCount, pPresentationTimings);
-    return env.Null();
+    auto result = ::vkGetPastPresentationTimingGOOGLE(device, swapchain, pPresentationTimingCount, pPresentationTimings);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_GOOGLE_display_timing
+#endif
 
 #ifdef VK_MVK_ios_surface
 #ifdef __cplusplus
@@ -7904,11 +7904,11 @@ Napi::Value rawCreateIOSSurfaceMVK(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceKHR* pSurface = (VkSurfaceKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateIOSSurfaceMVK(instance, pCreateInfo, pAllocator, pSurface);
-    return env.Null();
+    auto result = ::vkCreateIOSSurfaceMVK(instance, pCreateInfo, pAllocator, pSurface);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_MVK_ios_surface
+#endif
 
 #ifdef VK_MVK_macos_surface
 #ifdef __cplusplus
@@ -7936,11 +7936,11 @@ Napi::Value rawCreateMacOSSurfaceMVK(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceKHR* pSurface = (VkSurfaceKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateMacOSSurfaceMVK(instance, pCreateInfo, pAllocator, pSurface);
-    return env.Null();
+    auto result = ::vkCreateMacOSSurfaceMVK(instance, pCreateInfo, pAllocator, pSurface);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_MVK_macos_surface
+#endif
 
 #ifdef VK_EXT_metal_surface
 #ifdef __cplusplus
@@ -7968,11 +7968,11 @@ Napi::Value rawCreateMetalSurfaceEXT(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceKHR* pSurface = (VkSurfaceKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateMetalSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
-    return env.Null();
+    auto result = ::vkCreateMetalSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_metal_surface
+#endif
 
 #ifdef VK_NV_clip_space_w_scaling
 #ifdef __cplusplus
@@ -8004,7 +8004,7 @@ Napi::Value rawCmdSetViewportWScalingNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_clip_space_w_scaling
+#endif
 
 #ifdef VK_EXT_discard_rectangles
 #ifdef __cplusplus
@@ -8036,7 +8036,7 @@ Napi::Value rawCmdSetDiscardRectangleEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_discard_rectangles
+#endif
 
 #ifdef VK_EXT_sample_locations
 #ifdef __cplusplus
@@ -8062,7 +8062,7 @@ Napi::Value rawCmdSetSampleLocationsEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_sample_locations
+#endif
 
 #ifdef VK_EXT_sample_locations
 #ifdef __cplusplus
@@ -8091,7 +8091,7 @@ Napi::Value rawGetPhysicalDeviceMultisamplePropertiesEXT(const Napi::CallbackInf
     return env.Null();
 
 }
-#endif VK_EXT_sample_locations
+#endif
 
 #ifdef VK_KHR_get_surface_capabilities2
 #ifdef __cplusplus
@@ -8116,11 +8116,11 @@ Napi::Value rawGetPhysicalDeviceSurfaceCapabilities2KHR(const Napi::CallbackInfo
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceCapabilities2KHR* pSurfaceCapabilities = (VkSurfaceCapabilities2KHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceSurfaceCapabilities2KHR(physicalDevice, pSurfaceInfo, pSurfaceCapabilities);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceSurfaceCapabilities2KHR(physicalDevice, pSurfaceInfo, pSurfaceCapabilities);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_get_surface_capabilities2
+#endif
 
 #ifdef VK_KHR_get_surface_capabilities2
 #ifdef __cplusplus
@@ -8148,11 +8148,11 @@ Napi::Value rawGetPhysicalDeviceSurfaceFormats2KHR(const Napi::CallbackInfo& inf
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceFormat2KHR* pSurfaceFormats = (VkSurfaceFormat2KHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceSurfaceFormats2KHR(physicalDevice, pSurfaceInfo, pSurfaceFormatCount, pSurfaceFormats);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceSurfaceFormats2KHR(physicalDevice, pSurfaceInfo, pSurfaceFormatCount, pSurfaceFormats);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_get_surface_capabilities2
+#endif
 
 #ifdef VK_KHR_get_display_properties2
 #ifdef __cplusplus
@@ -8177,11 +8177,11 @@ Napi::Value rawGetPhysicalDeviceDisplayProperties2KHR(const Napi::CallbackInfo& 
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayProperties2KHR* pProperties = (VkDisplayProperties2KHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceDisplayProperties2KHR(physicalDevice, pPropertyCount, pProperties);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceDisplayProperties2KHR(physicalDevice, pPropertyCount, pProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_get_display_properties2
+#endif
 
 #ifdef VK_KHR_get_display_properties2
 #ifdef __cplusplus
@@ -8206,11 +8206,11 @@ Napi::Value rawGetPhysicalDeviceDisplayPlaneProperties2KHR(const Napi::CallbackI
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayPlaneProperties2KHR* pProperties = (VkDisplayPlaneProperties2KHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceDisplayPlaneProperties2KHR(physicalDevice, pPropertyCount, pProperties);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceDisplayPlaneProperties2KHR(physicalDevice, pPropertyCount, pProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_get_display_properties2
+#endif
 
 #ifdef VK_KHR_get_display_properties2
 #ifdef __cplusplus
@@ -8238,11 +8238,11 @@ Napi::Value rawGetDisplayModeProperties2KHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayModeProperties2KHR* pProperties = (VkDisplayModeProperties2KHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetDisplayModeProperties2KHR(physicalDevice, display, pPropertyCount, pProperties);
-    return env.Null();
+    auto result = ::vkGetDisplayModeProperties2KHR(physicalDevice, display, pPropertyCount, pProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_get_display_properties2
+#endif
 
 #ifdef VK_KHR_get_display_properties2
 #ifdef __cplusplus
@@ -8267,11 +8267,11 @@ Napi::Value rawGetDisplayPlaneCapabilities2KHR(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayPlaneCapabilities2KHR* pCapabilities = (VkDisplayPlaneCapabilities2KHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetDisplayPlaneCapabilities2KHR(physicalDevice, pDisplayPlaneInfo, pCapabilities);
-    return env.Null();
+    auto result = ::vkGetDisplayPlaneCapabilities2KHR(physicalDevice, pDisplayPlaneInfo, pCapabilities);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_get_display_properties2
+#endif
 
 
 #ifdef __cplusplus
@@ -8479,8 +8479,8 @@ Napi::Value rawCreateSamplerYcbcrConversion(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSamplerYcbcrConversion* pYcbcrConversion = (VkSamplerYcbcrConversion*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateSamplerYcbcrConversion(device, pCreateInfo, pAllocator, pYcbcrConversion);
-    return env.Null();
+    auto result = ::vkCreateSamplerYcbcrConversion(device, pCreateInfo, pAllocator, pYcbcrConversion);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -8569,11 +8569,11 @@ Napi::Value rawCreateValidationCacheEXT(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkValidationCacheEXT* pValidationCache = (VkValidationCacheEXT*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateValidationCacheEXT(device, pCreateInfo, pAllocator, pValidationCache);
-    return env.Null();
+    auto result = ::vkCreateValidationCacheEXT(device, pCreateInfo, pAllocator, pValidationCache);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_validation_cache
+#endif
 
 #ifdef VK_EXT_validation_cache
 #ifdef __cplusplus
@@ -8602,7 +8602,7 @@ Napi::Value rawDestroyValidationCacheEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_validation_cache
+#endif
 
 #ifdef VK_EXT_validation_cache
 #ifdef __cplusplus
@@ -8630,11 +8630,11 @@ Napi::Value rawGetValidationCacheDataEXT(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     void* pData = (void*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetValidationCacheDataEXT(device, validationCache, pDataSize, pData);
-    return env.Null();
+    auto result = ::vkGetValidationCacheDataEXT(device, validationCache, pDataSize, pData);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_validation_cache
+#endif
 
 #ifdef VK_EXT_validation_cache
 #ifdef __cplusplus
@@ -8662,11 +8662,11 @@ Napi::Value rawMergeValidationCachesEXT(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkValidationCacheEXT* pSrcCaches = (VkValidationCacheEXT*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkMergeValidationCachesEXT(device, dstCache, srcCacheCount, pSrcCaches);
-    return env.Null();
+    auto result = ::vkMergeValidationCachesEXT(device, dstCache, srcCacheCount, pSrcCaches);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_validation_cache
+#endif
 
 
 #ifdef __cplusplus
@@ -8723,11 +8723,11 @@ Napi::Value rawGetSwapchainGrallocUsageANDROID(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     int* grallocUsage = (int*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetSwapchainGrallocUsageANDROID(device, format, imageUsage, grallocUsage);
-    return env.Null();
+    auto result = ::vkGetSwapchainGrallocUsageANDROID(device, format, imageUsage, grallocUsage);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_ANDROID_native_buffer
+#endif
 
 #ifdef VK_ANDROID_native_buffer
 #ifdef __cplusplus
@@ -8761,11 +8761,11 @@ Napi::Value rawGetSwapchainGrallocUsage2ANDROID(const Napi::CallbackInfo& info) 
     if (!info[5].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     uint64_t* grallocProducerUsage = (uint64_t*)info[5].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetSwapchainGrallocUsage2ANDROID(device, format, imageUsage, swapchainImageUsage, grallocConsumerUsage, grallocProducerUsage);
-    return env.Null();
+    auto result = ::vkGetSwapchainGrallocUsage2ANDROID(device, format, imageUsage, swapchainImageUsage, grallocConsumerUsage, grallocProducerUsage);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_ANDROID_native_buffer
+#endif
 
 #ifdef VK_ANDROID_native_buffer
 #ifdef __cplusplus
@@ -8796,11 +8796,11 @@ Napi::Value rawAcquireImageANDROID(const Napi::CallbackInfo& info) {
     if (!info[4].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkFence fence = (VkFence)info[4].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkAcquireImageANDROID(device, image, nativeFenceFd, semaphore, fence);
-    return env.Null();
+    auto result = ::vkAcquireImageANDROID(device, image, nativeFenceFd, semaphore, fence);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_ANDROID_native_buffer
+#endif
 
 #ifdef VK_ANDROID_native_buffer
 #ifdef __cplusplus
@@ -8831,11 +8831,11 @@ Napi::Value rawQueueSignalReleaseImageANDROID(const Napi::CallbackInfo& info) {
     if (!info[4].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     int* pNativeFenceFd = (int*)info[4].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkQueueSignalReleaseImageANDROID(queue, waitSemaphoreCount, pWaitSemaphores, image, pNativeFenceFd);
-    return env.Null();
+    auto result = ::vkQueueSignalReleaseImageANDROID(queue, waitSemaphoreCount, pWaitSemaphores, image, pNativeFenceFd);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_ANDROID_native_buffer
+#endif
 
 #ifdef VK_AMD_shader_info
 #ifdef __cplusplus
@@ -8869,11 +8869,11 @@ Napi::Value rawGetShaderInfoAMD(const Napi::CallbackInfo& info) {
     if (!info[5].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     void* pInfo = (void*)info[5].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetShaderInfoAMD(device, pipeline, shaderStage, infoType, pInfoSize, pInfo);
-    return env.Null();
+    auto result = ::vkGetShaderInfoAMD(device, pipeline, shaderStage, infoType, pInfoSize, pInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_AMD_shader_info
+#endif
 
 #ifdef VK_AMD_display_native_hdr
 #ifdef __cplusplus
@@ -8895,14 +8895,14 @@ Napi::Value rawSetLocalDimmingAMD(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSwapchainKHR swapChain = (VkSwapchainKHR)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 localDimmingEnable = (VkBool32)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[2].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 localDimmingEnable = (VkBool32)info[2].As<Napi::Number>().Uint32Value();
     
     ::vkSetLocalDimmingAMD(device, swapChain, localDimmingEnable);
     return env.Null();
 
 }
-#endif VK_AMD_display_native_hdr
+#endif
 
 #ifdef VK_EXT_calibrated_timestamps
 #ifdef __cplusplus
@@ -8927,11 +8927,11 @@ Napi::Value rawGetPhysicalDeviceCalibrateableTimeDomainsEXT(const Napi::Callback
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkTimeDomainEXT* pTimeDomains = (VkTimeDomainEXT*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(physicalDevice, pTimeDomainCount, pTimeDomains);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(physicalDevice, pTimeDomainCount, pTimeDomains);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_calibrated_timestamps
+#endif
 
 #ifdef VK_EXT_calibrated_timestamps
 #ifdef __cplusplus
@@ -8962,11 +8962,11 @@ Napi::Value rawGetCalibratedTimestampsEXT(const Napi::CallbackInfo& info) {
     if (!info[4].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     uint64_t* pMaxDeviation = (uint64_t*)info[4].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetCalibratedTimestampsEXT(device, timestampCount, pTimestampInfos, pTimestamps, pMaxDeviation);
-    return env.Null();
+    auto result = ::vkGetCalibratedTimestampsEXT(device, timestampCount, pTimestampInfos, pTimestamps, pMaxDeviation);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_calibrated_timestamps
+#endif
 
 #ifdef VK_EXT_debug_utils
 #ifdef __cplusplus
@@ -8988,11 +8988,11 @@ Napi::Value rawSetDebugUtilsObjectNameEXT(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDebugUtilsObjectNameInfoEXT* pNameInfo = (VkDebugUtilsObjectNameInfoEXT*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkSetDebugUtilsObjectNameEXT(device, pNameInfo);
-    return env.Null();
+    auto result = ::vkSetDebugUtilsObjectNameEXT(device, pNameInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_debug_utils
+#endif
 
 #ifdef VK_EXT_debug_utils
 #ifdef __cplusplus
@@ -9014,11 +9014,11 @@ Napi::Value rawSetDebugUtilsObjectTagEXT(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDebugUtilsObjectTagInfoEXT* pTagInfo = (VkDebugUtilsObjectTagInfoEXT*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkSetDebugUtilsObjectTagEXT(device, pTagInfo);
-    return env.Null();
+    auto result = ::vkSetDebugUtilsObjectTagEXT(device, pTagInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_debug_utils
+#endif
 
 #ifdef VK_EXT_debug_utils
 #ifdef __cplusplus
@@ -9044,7 +9044,7 @@ Napi::Value rawQueueBeginDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_debug_utils
+#endif
 
 #ifdef VK_EXT_debug_utils
 #ifdef __cplusplus
@@ -9067,7 +9067,7 @@ Napi::Value rawQueueEndDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_debug_utils
+#endif
 
 #ifdef VK_EXT_debug_utils
 #ifdef __cplusplus
@@ -9093,7 +9093,7 @@ Napi::Value rawQueueInsertDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_debug_utils
+#endif
 
 #ifdef VK_EXT_debug_utils
 #ifdef __cplusplus
@@ -9119,7 +9119,7 @@ Napi::Value rawCmdBeginDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_debug_utils
+#endif
 
 #ifdef VK_EXT_debug_utils
 #ifdef __cplusplus
@@ -9142,7 +9142,7 @@ Napi::Value rawCmdEndDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_debug_utils
+#endif
 
 #ifdef VK_EXT_debug_utils
 #ifdef __cplusplus
@@ -9168,7 +9168,7 @@ Napi::Value rawCmdInsertDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_debug_utils
+#endif
 
 #ifdef VK_EXT_debug_utils
 #ifdef __cplusplus
@@ -9196,11 +9196,11 @@ Napi::Value rawCreateDebugUtilsMessengerEXT(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDebugUtilsMessengerEXT* pMessenger = (VkDebugUtilsMessengerEXT*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateDebugUtilsMessengerEXT(instance, pCreateInfo, pAllocator, pMessenger);
-    return env.Null();
+    auto result = ::vkCreateDebugUtilsMessengerEXT(instance, pCreateInfo, pAllocator, pMessenger);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_debug_utils
+#endif
 
 #ifdef VK_EXT_debug_utils
 #ifdef __cplusplus
@@ -9229,7 +9229,7 @@ Napi::Value rawDestroyDebugUtilsMessengerEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_debug_utils
+#endif
 
 #ifdef VK_EXT_debug_utils
 #ifdef __cplusplus
@@ -9261,7 +9261,7 @@ Napi::Value rawSubmitDebugUtilsMessageEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_debug_utils
+#endif
 
 #ifdef VK_EXT_external_memory_host
 #ifdef __cplusplus
@@ -9289,11 +9289,11 @@ Napi::Value rawGetMemoryHostPointerPropertiesEXT(const Napi::CallbackInfo& info)
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkMemoryHostPointerPropertiesEXT* pMemoryHostPointerProperties = (VkMemoryHostPointerPropertiesEXT*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetMemoryHostPointerPropertiesEXT(device, handleType, pHostPointer, pMemoryHostPointerProperties);
-    return env.Null();
+    auto result = ::vkGetMemoryHostPointerPropertiesEXT(device, handleType, pHostPointer, pMemoryHostPointerProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_external_memory_host
+#endif
 
 #ifdef VK_AMD_buffer_marker
 #ifdef __cplusplus
@@ -9328,7 +9328,7 @@ Napi::Value rawCmdWriteBufferMarkerAMD(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_AMD_buffer_marker
+#endif
 
 
 #ifdef __cplusplus
@@ -9356,8 +9356,8 @@ Napi::Value rawCreateRenderPass2(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkRenderPass* pRenderPass = (VkRenderPass*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateRenderPass2(device, pCreateInfo, pAllocator, pRenderPass);
-    return env.Null();
+    auto result = ::vkCreateRenderPass2(device, pCreateInfo, pAllocator, pRenderPass);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -9469,8 +9469,8 @@ Napi::Value rawGetSemaphoreCounterValue(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     uint64_t* pValue = (uint64_t*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetSemaphoreCounterValue(device, semaphore, pValue);
-    return env.Null();
+    auto result = ::vkGetSemaphoreCounterValue(device, semaphore, pValue);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -9498,8 +9498,8 @@ Napi::Value rawWaitSemaphores(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     uint64_t timeout = (uint64_t)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkWaitSemaphores(device, pWaitInfo, timeout);
-    return env.Null();
+    auto result = ::vkWaitSemaphores(device, pWaitInfo, timeout);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -9524,8 +9524,8 @@ Napi::Value rawSignalSemaphore(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSemaphoreSignalInfo* pSignalInfo = (VkSemaphoreSignalInfo*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkSignalSemaphore(device, pSignalInfo);
-    return env.Null();
+    auto result = ::vkSignalSemaphore(device, pSignalInfo);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -9553,11 +9553,11 @@ Napi::Value rawGetAndroidHardwareBufferPropertiesANDROID(const Napi::CallbackInf
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkAndroidHardwareBufferPropertiesANDROID* pProperties = (VkAndroidHardwareBufferPropertiesANDROID*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetAndroidHardwareBufferPropertiesANDROID(device, buffer, pProperties);
-    return env.Null();
+    auto result = ::vkGetAndroidHardwareBufferPropertiesANDROID(device, buffer, pProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_ANDROID_external_memory_android_hardware_buffer
+#endif
 
 #ifdef VK_ANDROID_external_memory_android_hardware_buffer
 #ifdef __cplusplus
@@ -9582,11 +9582,11 @@ Napi::Value rawGetMemoryAndroidHardwareBufferANDROID(const Napi::CallbackInfo& i
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     AHardwareBuffer** pBuffer = (AHardwareBuffer**)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetMemoryAndroidHardwareBufferANDROID(device, pInfo, pBuffer);
-    return env.Null();
+    auto result = ::vkGetMemoryAndroidHardwareBufferANDROID(device, pInfo, pBuffer);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_ANDROID_external_memory_android_hardware_buffer
+#endif
 
 
 #ifdef __cplusplus
@@ -9694,7 +9694,7 @@ Napi::Value rawCmdSetCheckpointNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_device_diagnostic_checkpoints
+#endif
 
 #ifdef VK_NV_device_diagnostic_checkpoints
 #ifdef __cplusplus
@@ -9723,7 +9723,7 @@ Napi::Value rawGetQueueCheckpointDataNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_device_diagnostic_checkpoints
+#endif
 
 #ifdef VK_EXT_transform_feedback
 #ifdef __cplusplus
@@ -9761,7 +9761,7 @@ Napi::Value rawCmdBindTransformFeedbackBuffersEXT(const Napi::CallbackInfo& info
     return env.Null();
 
 }
-#endif VK_EXT_transform_feedback
+#endif
 
 #ifdef VK_EXT_transform_feedback
 #ifdef __cplusplus
@@ -9796,7 +9796,7 @@ Napi::Value rawCmdBeginTransformFeedbackEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_transform_feedback
+#endif
 
 #ifdef VK_EXT_transform_feedback
 #ifdef __cplusplus
@@ -9831,7 +9831,7 @@ Napi::Value rawCmdEndTransformFeedbackEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_transform_feedback
+#endif
 
 #ifdef VK_EXT_transform_feedback
 #ifdef __cplusplus
@@ -9866,7 +9866,7 @@ Napi::Value rawCmdBeginQueryIndexedEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_transform_feedback
+#endif
 
 #ifdef VK_EXT_transform_feedback
 #ifdef __cplusplus
@@ -9898,7 +9898,7 @@ Napi::Value rawCmdEndQueryIndexedEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_transform_feedback
+#endif
 
 #ifdef VK_EXT_transform_feedback
 #ifdef __cplusplus
@@ -9939,7 +9939,7 @@ Napi::Value rawCmdDrawIndirectByteCountEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_transform_feedback
+#endif
 
 #ifdef VK_NV_scissor_exclusive
 #ifdef __cplusplus
@@ -9971,7 +9971,7 @@ Napi::Value rawCmdSetExclusiveScissorNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_scissor_exclusive
+#endif
 
 #ifdef VK_NV_shading_rate_image
 #ifdef __cplusplus
@@ -10000,7 +10000,7 @@ Napi::Value rawCmdBindShadingRateImageNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_shading_rate_image
+#endif
 
 #ifdef VK_NV_shading_rate_image
 #ifdef __cplusplus
@@ -10032,7 +10032,7 @@ Napi::Value rawCmdSetViewportShadingRatePaletteNV(const Napi::CallbackInfo& info
     return env.Null();
 
 }
-#endif VK_NV_shading_rate_image
+#endif
 
 #ifdef VK_NV_shading_rate_image
 #ifdef __cplusplus
@@ -10064,7 +10064,7 @@ Napi::Value rawCmdSetCoarseSampleOrderNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_shading_rate_image
+#endif
 
 #ifdef VK_NV_mesh_shader
 #ifdef __cplusplus
@@ -10093,7 +10093,7 @@ Napi::Value rawCmdDrawMeshTasksNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_mesh_shader
+#endif
 
 #ifdef VK_NV_mesh_shader
 #ifdef __cplusplus
@@ -10128,7 +10128,7 @@ Napi::Value rawCmdDrawMeshTasksIndirectNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_mesh_shader
+#endif
 
 #ifdef VK_NV_mesh_shader
 #ifdef __cplusplus
@@ -10169,7 +10169,7 @@ Napi::Value rawCmdDrawMeshTasksIndirectCountNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_mesh_shader
+#endif
 
 #ifdef VK_EXT_mesh_shader
 #ifdef __cplusplus
@@ -10201,7 +10201,7 @@ Napi::Value rawCmdDrawMeshTasksEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_mesh_shader
+#endif
 
 #ifdef VK_EXT_mesh_shader
 #ifdef __cplusplus
@@ -10236,7 +10236,7 @@ Napi::Value rawCmdDrawMeshTasksIndirectEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_mesh_shader
+#endif
 
 #ifdef VK_EXT_mesh_shader
 #ifdef __cplusplus
@@ -10277,7 +10277,7 @@ Napi::Value rawCmdDrawMeshTasksIndirectCountEXT(const Napi::CallbackInfo& info) 
     return env.Null();
 
 }
-#endif VK_EXT_mesh_shader
+#endif
 
 #ifdef VK_NV_ray_tracing
 #ifdef __cplusplus
@@ -10302,11 +10302,11 @@ Napi::Value rawCompileDeferredNV(const Napi::CallbackInfo& info) {
     if (!info[2].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
     uint32_t shader = (uint32_t)info[2].As<Napi::Number>().Uint32Value();
     
-    ::vkCompileDeferredNV(device, pipeline, shader);
-    return env.Null();
+    auto result = ::vkCompileDeferredNV(device, pipeline, shader);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NV_ray_tracing
+#endif
 
 #ifdef VK_NV_ray_tracing
 #ifdef __cplusplus
@@ -10334,11 +10334,11 @@ Napi::Value rawCreateAccelerationStructureNV(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkAccelerationStructureNV* pAccelerationStructure = (VkAccelerationStructureNV*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateAccelerationStructureNV(device, pCreateInfo, pAllocator, pAccelerationStructure);
-    return env.Null();
+    auto result = ::vkCreateAccelerationStructureNV(device, pCreateInfo, pAllocator, pAccelerationStructure);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NV_ray_tracing
+#endif
 
 #ifdef VK_HUAWEI_invocation_mask
 #ifdef __cplusplus
@@ -10367,7 +10367,7 @@ Napi::Value rawCmdBindInvocationMaskHUAWEI(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_HUAWEI_invocation_mask
+#endif
 
 #ifdef VK_KHR_acceleration_structure
 #ifdef __cplusplus
@@ -10396,7 +10396,7 @@ Napi::Value rawDestroyAccelerationStructureKHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_acceleration_structure
+#endif
 
 #ifdef VK_NV_ray_tracing
 #ifdef __cplusplus
@@ -10425,7 +10425,7 @@ Napi::Value rawDestroyAccelerationStructureNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_ray_tracing
+#endif
 
 #ifdef VK_NV_ray_tracing
 #ifdef __cplusplus
@@ -10454,7 +10454,7 @@ Napi::Value rawGetAccelerationStructureMemoryRequirementsNV(const Napi::Callback
     return env.Null();
 
 }
-#endif VK_NV_ray_tracing
+#endif
 
 #ifdef VK_NV_ray_tracing
 #ifdef __cplusplus
@@ -10479,11 +10479,11 @@ Napi::Value rawBindAccelerationStructureMemoryNV(const Napi::CallbackInfo& info)
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkBindAccelerationStructureMemoryInfoNV* pBindInfos = (VkBindAccelerationStructureMemoryInfoNV*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkBindAccelerationStructureMemoryNV(device, bindInfoCount, pBindInfos);
-    return env.Null();
+    auto result = ::vkBindAccelerationStructureMemoryNV(device, bindInfoCount, pBindInfos);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NV_ray_tracing
+#endif
 
 #ifdef VK_NV_ray_tracing
 #ifdef __cplusplus
@@ -10515,7 +10515,7 @@ Napi::Value rawCmdCopyAccelerationStructureNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_ray_tracing
+#endif
 
 #ifdef VK_KHR_acceleration_structure
 #ifdef __cplusplus
@@ -10541,7 +10541,7 @@ Napi::Value rawCmdCopyAccelerationStructureKHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_acceleration_structure
+#endif
 
 #ifdef VK_KHR_acceleration_structure
 #ifdef __cplusplus
@@ -10566,11 +10566,11 @@ Napi::Value rawCopyAccelerationStructureKHR(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCopyAccelerationStructureInfoKHR* pInfo = (VkCopyAccelerationStructureInfoKHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCopyAccelerationStructureKHR(device, deferredOperation, pInfo);
-    return env.Null();
+    auto result = ::vkCopyAccelerationStructureKHR(device, deferredOperation, pInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_acceleration_structure
+#endif
 
 #ifdef VK_KHR_acceleration_structure
 #ifdef __cplusplus
@@ -10596,7 +10596,7 @@ Napi::Value rawCmdCopyAccelerationStructureToMemoryKHR(const Napi::CallbackInfo&
     return env.Null();
 
 }
-#endif VK_KHR_acceleration_structure
+#endif
 
 #ifdef VK_KHR_acceleration_structure
 #ifdef __cplusplus
@@ -10621,11 +10621,11 @@ Napi::Value rawCopyAccelerationStructureToMemoryKHR(const Napi::CallbackInfo& in
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCopyAccelerationStructureToMemoryInfoKHR* pInfo = (VkCopyAccelerationStructureToMemoryInfoKHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCopyAccelerationStructureToMemoryKHR(device, deferredOperation, pInfo);
-    return env.Null();
+    auto result = ::vkCopyAccelerationStructureToMemoryKHR(device, deferredOperation, pInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_acceleration_structure
+#endif
 
 #ifdef VK_KHR_acceleration_structure
 #ifdef __cplusplus
@@ -10651,7 +10651,7 @@ Napi::Value rawCmdCopyMemoryToAccelerationStructureKHR(const Napi::CallbackInfo&
     return env.Null();
 
 }
-#endif VK_KHR_acceleration_structure
+#endif
 
 #ifdef VK_KHR_acceleration_structure
 #ifdef __cplusplus
@@ -10676,11 +10676,11 @@ Napi::Value rawCopyMemoryToAccelerationStructureKHR(const Napi::CallbackInfo& in
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCopyMemoryToAccelerationStructureInfoKHR* pInfo = (VkCopyMemoryToAccelerationStructureInfoKHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCopyMemoryToAccelerationStructureKHR(device, deferredOperation, pInfo);
-    return env.Null();
+    auto result = ::vkCopyMemoryToAccelerationStructureKHR(device, deferredOperation, pInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_acceleration_structure
+#endif
 
 #ifdef VK_KHR_acceleration_structure
 #ifdef __cplusplus
@@ -10718,7 +10718,7 @@ Napi::Value rawCmdWriteAccelerationStructuresPropertiesKHR(const Napi::CallbackI
     return env.Null();
 
 }
-#endif VK_KHR_acceleration_structure
+#endif
 
 #ifdef VK_NV_ray_tracing
 #ifdef __cplusplus
@@ -10756,7 +10756,7 @@ Napi::Value rawCmdWriteAccelerationStructuresPropertiesNV(const Napi::CallbackIn
     return env.Null();
 
 }
-#endif VK_NV_ray_tracing
+#endif
 
 #ifdef VK_NV_ray_tracing
 #ifdef __cplusplus
@@ -10784,8 +10784,8 @@ Napi::Value rawCmdBuildAccelerationStructureNV(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDeviceSize instanceOffset = (VkDeviceSize)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[4].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 update = (VkBool32)info[4].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[4].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 update = (VkBool32)info[4].As<Napi::Number>().Uint32Value();
 
     if (!info[5].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkAccelerationStructureNV dst = (VkAccelerationStructureNV)info[5].As<Napi::BigInt>().Uint64Value(&lossless);
@@ -10803,7 +10803,7 @@ Napi::Value rawCmdBuildAccelerationStructureNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_ray_tracing
+#endif
 
 #ifdef VK_KHR_acceleration_structure
 #ifdef __cplusplus
@@ -10840,11 +10840,11 @@ Napi::Value rawWriteAccelerationStructuresPropertiesKHR(const Napi::CallbackInfo
     if (!info[6].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     size_t stride = (size_t)info[6].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkWriteAccelerationStructuresPropertiesKHR(device, accelerationStructureCount, pAccelerationStructures, queryType, dataSize, pData, stride);
-    return env.Null();
+    auto result = ::vkWriteAccelerationStructuresPropertiesKHR(device, accelerationStructureCount, pAccelerationStructures, queryType, dataSize, pData, stride);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_acceleration_structure
+#endif
 
 #ifdef VK_KHR_ray_tracing_pipeline
 #ifdef __cplusplus
@@ -10888,7 +10888,7 @@ Napi::Value rawCmdTraceRaysKHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_ray_tracing_pipeline
+#endif
 
 #ifdef VK_NV_ray_tracing
 #ifdef __cplusplus
@@ -10953,7 +10953,7 @@ Napi::Value rawCmdTraceRaysNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_ray_tracing
+#endif
 
 #ifdef VK_KHR_ray_tracing_pipeline
 #ifdef __cplusplus
@@ -10987,11 +10987,11 @@ Napi::Value rawGetRayTracingShaderGroupHandlesKHR(const Napi::CallbackInfo& info
     if (!info[5].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     void* pData = (void*)info[5].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetRayTracingShaderGroupHandlesKHR(device, pipeline, firstGroup, groupCount, dataSize, pData);
-    return env.Null();
+    auto result = ::vkGetRayTracingShaderGroupHandlesKHR(device, pipeline, firstGroup, groupCount, dataSize, pData);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_ray_tracing_pipeline
+#endif
 
 #ifdef VK_KHR_ray_tracing_pipeline
 #ifdef __cplusplus
@@ -11025,11 +11025,11 @@ Napi::Value rawGetRayTracingCaptureReplayShaderGroupHandlesKHR(const Napi::Callb
     if (!info[5].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     void* pData = (void*)info[5].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(device, pipeline, firstGroup, groupCount, dataSize, pData);
-    return env.Null();
+    auto result = ::vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(device, pipeline, firstGroup, groupCount, dataSize, pData);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_ray_tracing_pipeline
+#endif
 
 #ifdef VK_NV_ray_tracing
 #ifdef __cplusplus
@@ -11057,11 +11057,11 @@ Napi::Value rawGetAccelerationStructureHandleNV(const Napi::CallbackInfo& info) 
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     void* pData = (void*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetAccelerationStructureHandleNV(device, accelerationStructure, dataSize, pData);
-    return env.Null();
+    auto result = ::vkGetAccelerationStructureHandleNV(device, accelerationStructure, dataSize, pData);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NV_ray_tracing
+#endif
 
 #ifdef VK_NV_ray_tracing
 #ifdef __cplusplus
@@ -11095,11 +11095,11 @@ Napi::Value rawCreateRayTracingPipelinesNV(const Napi::CallbackInfo& info) {
     if (!info[5].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPipeline* pPipelines = (VkPipeline*)info[5].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateRayTracingPipelinesNV(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
-    return env.Null();
+    auto result = ::vkCreateRayTracingPipelinesNV(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NV_ray_tracing
+#endif
 
 #ifdef VK_KHR_ray_tracing_pipeline
 #ifdef __cplusplus
@@ -11136,11 +11136,11 @@ Napi::Value rawCreateRayTracingPipelinesKHR(const Napi::CallbackInfo& info) {
     if (!info[6].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPipeline* pPipelines = (VkPipeline*)info[6].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateRayTracingPipelinesKHR(device, deferredOperation, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
-    return env.Null();
+    auto result = ::vkCreateRayTracingPipelinesKHR(device, deferredOperation, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_ray_tracing_pipeline
+#endif
 
 #ifdef VK_NV_cooperative_matrix
 #ifdef __cplusplus
@@ -11165,11 +11165,11 @@ Napi::Value rawGetPhysicalDeviceCooperativeMatrixPropertiesNV(const Napi::Callba
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCooperativeMatrixPropertiesNV* pProperties = (VkCooperativeMatrixPropertiesNV*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(physicalDevice, pPropertyCount, pProperties);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(physicalDevice, pPropertyCount, pProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NV_cooperative_matrix
+#endif
 
 #ifdef VK_KHR_ray_tracing_pipeline
 #ifdef __cplusplus
@@ -11207,7 +11207,7 @@ Napi::Value rawCmdTraceRaysIndirectKHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_ray_tracing_pipeline
+#endif
 
 #ifdef VK_KHR_ray_tracing_maintenance1
 #ifdef __cplusplus
@@ -11233,7 +11233,7 @@ Napi::Value rawCmdTraceRaysIndirect2KHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_ray_tracing_maintenance1
+#endif
 
 #ifdef VK_KHR_acceleration_structure
 #ifdef __cplusplus
@@ -11262,7 +11262,7 @@ Napi::Value rawGetDeviceAccelerationStructureCompatibilityKHR(const Napi::Callba
     return env.Null();
 
 }
-#endif VK_KHR_acceleration_structure
+#endif
 
 #ifdef VK_KHR_ray_tracing_pipeline
 #ifdef __cplusplus
@@ -11294,7 +11294,7 @@ Napi::Value rawGetRayTracingShaderGroupStackSizeKHR(const Napi::CallbackInfo& in
     return Napi::BigInt::New(env, result);
 
 }
-#endif VK_KHR_ray_tracing_pipeline
+#endif
 
 #ifdef VK_KHR_ray_tracing_pipeline
 #ifdef __cplusplus
@@ -11320,7 +11320,7 @@ Napi::Value rawCmdSetRayTracingPipelineStackSizeKHR(const Napi::CallbackInfo& in
     return env.Null();
 
 }
-#endif VK_KHR_ray_tracing_pipeline
+#endif
 
 #ifdef VK_NVX_image_view_handle
 #ifdef __cplusplus
@@ -11346,7 +11346,7 @@ Napi::Value rawGetImageViewHandleNVX(const Napi::CallbackInfo& info) {
     return Napi::Number::New(env, result);
 
 }
-#endif VK_NVX_image_view_handle
+#endif
 
 #ifdef VK_NVX_image_view_handle
 #ifdef __cplusplus
@@ -11371,11 +11371,11 @@ Napi::Value rawGetImageViewAddressNVX(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkImageViewAddressPropertiesNVX* pProperties = (VkImageViewAddressPropertiesNVX*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetImageViewAddressNVX(device, imageView, pProperties);
-    return env.Null();
+    auto result = ::vkGetImageViewAddressNVX(device, imageView, pProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NVX_image_view_handle
+#endif
 
 #ifdef VK_EXT_full_screen_exclusive
 #ifdef __cplusplus
@@ -11403,11 +11403,11 @@ Napi::Value rawGetPhysicalDeviceSurfacePresentModes2EXT(const Napi::CallbackInfo
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPresentModeKHR* pPresentModes = (VkPresentModeKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceSurfacePresentModes2EXT(physicalDevice, pSurfaceInfo, pPresentModeCount, pPresentModes);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceSurfacePresentModes2EXT(physicalDevice, pSurfaceInfo, pPresentModeCount, pPresentModes);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_full_screen_exclusive
+#endif
 
 #ifdef VK_EXT_full_screen_exclusive
 #ifdef __cplusplus
@@ -11432,11 +11432,11 @@ Napi::Value rawGetDeviceGroupSurfacePresentModes2EXT(const Napi::CallbackInfo& i
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDeviceGroupPresentModeFlagsKHR* pModes = (VkDeviceGroupPresentModeFlagsKHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetDeviceGroupSurfacePresentModes2EXT(device, pSurfaceInfo, pModes);
-    return env.Null();
+    auto result = ::vkGetDeviceGroupSurfacePresentModes2EXT(device, pSurfaceInfo, pModes);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_full_screen_exclusive
+#endif
 
 #ifdef VK_EXT_full_screen_exclusive
 #ifdef __cplusplus
@@ -11458,11 +11458,11 @@ Napi::Value rawAcquireFullScreenExclusiveModeEXT(const Napi::CallbackInfo& info)
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSwapchainKHR swapchain = (VkSwapchainKHR)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkAcquireFullScreenExclusiveModeEXT(device, swapchain);
-    return env.Null();
+    auto result = ::vkAcquireFullScreenExclusiveModeEXT(device, swapchain);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_full_screen_exclusive
+#endif
 
 #ifdef VK_EXT_full_screen_exclusive
 #ifdef __cplusplus
@@ -11484,11 +11484,11 @@ Napi::Value rawReleaseFullScreenExclusiveModeEXT(const Napi::CallbackInfo& info)
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSwapchainKHR swapchain = (VkSwapchainKHR)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkReleaseFullScreenExclusiveModeEXT(device, swapchain);
-    return env.Null();
+    auto result = ::vkReleaseFullScreenExclusiveModeEXT(device, swapchain);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_full_screen_exclusive
+#endif
 
 #ifdef VK_KHR_performance_query
 #ifdef __cplusplus
@@ -11519,11 +11519,11 @@ Napi::Value rawEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(con
     if (!info[4].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPerformanceCounterDescriptionKHR* pCounterDescriptions = (VkPerformanceCounterDescriptionKHR*)info[4].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(physicalDevice, queueFamilyIndex, pCounterCount, pCounters, pCounterDescriptions);
-    return env.Null();
+    auto result = ::vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(physicalDevice, queueFamilyIndex, pCounterCount, pCounters, pCounterDescriptions);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_performance_query
+#endif
 
 #ifdef VK_KHR_performance_query
 #ifdef __cplusplus
@@ -11552,7 +11552,7 @@ Napi::Value rawGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(const Napi:
     return env.Null();
 
 }
-#endif VK_KHR_performance_query
+#endif
 
 #ifdef VK_KHR_performance_query
 #ifdef __cplusplus
@@ -11574,11 +11574,11 @@ Napi::Value rawAcquireProfilingLockKHR(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkAcquireProfilingLockInfoKHR* pInfo = (VkAcquireProfilingLockInfoKHR*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkAcquireProfilingLockKHR(device, pInfo);
-    return env.Null();
+    auto result = ::vkAcquireProfilingLockKHR(device, pInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_performance_query
+#endif
 
 #ifdef VK_KHR_performance_query
 #ifdef __cplusplus
@@ -11601,7 +11601,7 @@ Napi::Value rawReleaseProfilingLockKHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_performance_query
+#endif
 
 #ifdef VK_EXT_image_drm_format_modifier
 #ifdef __cplusplus
@@ -11626,11 +11626,11 @@ Napi::Value rawGetImageDrmFormatModifierPropertiesEXT(const Napi::CallbackInfo& 
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkImageDrmFormatModifierPropertiesEXT* pProperties = (VkImageDrmFormatModifierPropertiesEXT*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetImageDrmFormatModifierPropertiesEXT(device, image, pProperties);
-    return env.Null();
+    auto result = ::vkGetImageDrmFormatModifierPropertiesEXT(device, image, pProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_image_drm_format_modifier
+#endif
 
 
 #ifdef __cplusplus
@@ -11710,11 +11710,11 @@ Napi::Value rawCreateHeadlessSurfaceEXT(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkSurfaceKHR* pSurface = (VkSurfaceKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateHeadlessSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
-    return env.Null();
+    auto result = ::vkCreateHeadlessSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_headless_surface
+#endif
 
 #ifdef VK_NV_coverage_reduction_mode
 #ifdef __cplusplus
@@ -11739,11 +11739,11 @@ Napi::Value rawGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(c
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkFramebufferMixedSamplesCombinationNV* pCombinations = (VkFramebufferMixedSamplesCombinationNV*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(physicalDevice, pCombinationCount, pCombinations);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(physicalDevice, pCombinationCount, pCombinations);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NV_coverage_reduction_mode
+#endif
 
 #ifdef VK_INTEL_performance_query
 #ifdef __cplusplus
@@ -11765,11 +11765,11 @@ Napi::Value rawInitializePerformanceApiINTEL(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkInitializePerformanceApiInfoINTEL* pInitializeInfo = (VkInitializePerformanceApiInfoINTEL*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkInitializePerformanceApiINTEL(device, pInitializeInfo);
-    return env.Null();
+    auto result = ::vkInitializePerformanceApiINTEL(device, pInitializeInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_INTEL_performance_query
+#endif
 
 #ifdef VK_INTEL_performance_query
 #ifdef __cplusplus
@@ -11792,7 +11792,7 @@ Napi::Value rawUninitializePerformanceApiINTEL(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_INTEL_performance_query
+#endif
 
 #ifdef VK_INTEL_performance_query
 #ifdef __cplusplus
@@ -11814,11 +11814,11 @@ Napi::Value rawCmdSetPerformanceMarkerINTEL(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPerformanceMarkerInfoINTEL* pMarkerInfo = (VkPerformanceMarkerInfoINTEL*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCmdSetPerformanceMarkerINTEL(commandBuffer, pMarkerInfo);
-    return env.Null();
+    auto result = ::vkCmdSetPerformanceMarkerINTEL(commandBuffer, pMarkerInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_INTEL_performance_query
+#endif
 
 #ifdef VK_INTEL_performance_query
 #ifdef __cplusplus
@@ -11840,11 +11840,11 @@ Napi::Value rawCmdSetPerformanceStreamMarkerINTEL(const Napi::CallbackInfo& info
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPerformanceStreamMarkerInfoINTEL* pMarkerInfo = (VkPerformanceStreamMarkerInfoINTEL*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCmdSetPerformanceStreamMarkerINTEL(commandBuffer, pMarkerInfo);
-    return env.Null();
+    auto result = ::vkCmdSetPerformanceStreamMarkerINTEL(commandBuffer, pMarkerInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_INTEL_performance_query
+#endif
 
 #ifdef VK_INTEL_performance_query
 #ifdef __cplusplus
@@ -11866,11 +11866,11 @@ Napi::Value rawCmdSetPerformanceOverrideINTEL(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPerformanceOverrideInfoINTEL* pOverrideInfo = (VkPerformanceOverrideInfoINTEL*)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCmdSetPerformanceOverrideINTEL(commandBuffer, pOverrideInfo);
-    return env.Null();
+    auto result = ::vkCmdSetPerformanceOverrideINTEL(commandBuffer, pOverrideInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_INTEL_performance_query
+#endif
 
 #ifdef VK_INTEL_performance_query
 #ifdef __cplusplus
@@ -11895,11 +11895,11 @@ Napi::Value rawAcquirePerformanceConfigurationINTEL(const Napi::CallbackInfo& in
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPerformanceConfigurationINTEL* pConfiguration = (VkPerformanceConfigurationINTEL*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkAcquirePerformanceConfigurationINTEL(device, pAcquireInfo, pConfiguration);
-    return env.Null();
+    auto result = ::vkAcquirePerformanceConfigurationINTEL(device, pAcquireInfo, pConfiguration);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_INTEL_performance_query
+#endif
 
 #ifdef VK_INTEL_performance_query
 #ifdef __cplusplus
@@ -11921,11 +11921,11 @@ Napi::Value rawReleasePerformanceConfigurationINTEL(const Napi::CallbackInfo& in
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPerformanceConfigurationINTEL configuration = (VkPerformanceConfigurationINTEL)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkReleasePerformanceConfigurationINTEL(device, configuration);
-    return env.Null();
+    auto result = ::vkReleasePerformanceConfigurationINTEL(device, configuration);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_INTEL_performance_query
+#endif
 
 #ifdef VK_INTEL_performance_query
 #ifdef __cplusplus
@@ -11947,11 +11947,11 @@ Napi::Value rawQueueSetPerformanceConfigurationINTEL(const Napi::CallbackInfo& i
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPerformanceConfigurationINTEL configuration = (VkPerformanceConfigurationINTEL)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkQueueSetPerformanceConfigurationINTEL(queue, configuration);
-    return env.Null();
+    auto result = ::vkQueueSetPerformanceConfigurationINTEL(queue, configuration);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_INTEL_performance_query
+#endif
 
 #ifdef VK_INTEL_performance_query
 #ifdef __cplusplus
@@ -11976,11 +11976,11 @@ Napi::Value rawGetPerformanceParameterINTEL(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPerformanceValueINTEL* pValue = (VkPerformanceValueINTEL*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPerformanceParameterINTEL(device, parameter, pValue);
-    return env.Null();
+    auto result = ::vkGetPerformanceParameterINTEL(device, parameter, pValue);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_INTEL_performance_query
+#endif
 
 
 #ifdef __cplusplus
@@ -12034,11 +12034,11 @@ Napi::Value rawGetPipelineExecutablePropertiesKHR(const Napi::CallbackInfo& info
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPipelineExecutablePropertiesKHR* pProperties = (VkPipelineExecutablePropertiesKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPipelineExecutablePropertiesKHR(device, pPipelineInfo, pExecutableCount, pProperties);
-    return env.Null();
+    auto result = ::vkGetPipelineExecutablePropertiesKHR(device, pPipelineInfo, pExecutableCount, pProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_pipeline_executable_properties
+#endif
 
 #ifdef VK_KHR_pipeline_executable_properties
 #ifdef __cplusplus
@@ -12066,11 +12066,11 @@ Napi::Value rawGetPipelineExecutableStatisticsKHR(const Napi::CallbackInfo& info
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPipelineExecutableStatisticKHR* pStatistics = (VkPipelineExecutableStatisticKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPipelineExecutableStatisticsKHR(device, pExecutableInfo, pStatisticCount, pStatistics);
-    return env.Null();
+    auto result = ::vkGetPipelineExecutableStatisticsKHR(device, pExecutableInfo, pStatisticCount, pStatistics);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_pipeline_executable_properties
+#endif
 
 #ifdef VK_KHR_pipeline_executable_properties
 #ifdef __cplusplus
@@ -12098,11 +12098,11 @@ Napi::Value rawGetPipelineExecutableInternalRepresentationsKHR(const Napi::Callb
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPipelineExecutableInternalRepresentationKHR* pInternalRepresentations = (VkPipelineExecutableInternalRepresentationKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPipelineExecutableInternalRepresentationsKHR(device, pExecutableInfo, pInternalRepresentationCount, pInternalRepresentations);
-    return env.Null();
+    auto result = ::vkGetPipelineExecutableInternalRepresentationsKHR(device, pExecutableInfo, pInternalRepresentationCount, pInternalRepresentations);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_pipeline_executable_properties
+#endif
 
 #ifdef VK_EXT_line_rasterization
 #ifdef __cplusplus
@@ -12131,7 +12131,7 @@ Napi::Value rawCmdSetLineStippleEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_line_rasterization
+#endif
 
 
 #ifdef __cplusplus
@@ -12156,8 +12156,8 @@ Napi::Value rawGetPhysicalDeviceToolProperties(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPhysicalDeviceToolProperties* pToolProperties = (VkPhysicalDeviceToolProperties*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceToolProperties(physicalDevice, pToolCount, pToolProperties);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceToolProperties(physicalDevice, pToolCount, pToolProperties);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -12188,11 +12188,11 @@ Napi::Value rawCreateAccelerationStructureKHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkAccelerationStructureKHR* pAccelerationStructure = (VkAccelerationStructureKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateAccelerationStructureKHR(device, pCreateInfo, pAllocator, pAccelerationStructure);
-    return env.Null();
+    auto result = ::vkCreateAccelerationStructureKHR(device, pCreateInfo, pAllocator, pAccelerationStructure);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_acceleration_structure
+#endif
 
 #ifdef VK_KHR_acceleration_structure
 #ifdef __cplusplus
@@ -12224,7 +12224,7 @@ Napi::Value rawCmdBuildAccelerationStructuresKHR(const Napi::CallbackInfo& info)
     return env.Null();
 
 }
-#endif VK_KHR_acceleration_structure
+#endif
 
 #ifdef VK_KHR_acceleration_structure
 #ifdef __cplusplus
@@ -12262,7 +12262,7 @@ Napi::Value rawCmdBuildAccelerationStructuresIndirectKHR(const Napi::CallbackInf
     return env.Null();
 
 }
-#endif VK_KHR_acceleration_structure
+#endif
 
 #ifdef VK_KHR_acceleration_structure
 #ifdef __cplusplus
@@ -12293,11 +12293,11 @@ Napi::Value rawBuildAccelerationStructuresKHR(const Napi::CallbackInfo& info) {
     if (!info[4].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkAccelerationStructureBuildRangeInfoKHR** ppBuildRangeInfos = (VkAccelerationStructureBuildRangeInfoKHR**)info[4].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkBuildAccelerationStructuresKHR(device, deferredOperation, infoCount, pInfos, ppBuildRangeInfos);
-    return env.Null();
+    auto result = ::vkBuildAccelerationStructuresKHR(device, deferredOperation, infoCount, pInfos, ppBuildRangeInfos);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_acceleration_structure
+#endif
 
 #ifdef VK_KHR_acceleration_structure
 #ifdef __cplusplus
@@ -12323,7 +12323,7 @@ Napi::Value rawGetAccelerationStructureDeviceAddressKHR(const Napi::CallbackInfo
     return Napi::BigInt::New(env, result);
 
 }
-#endif VK_KHR_acceleration_structure
+#endif
 
 #ifdef VK_KHR_deferred_host_operations
 #ifdef __cplusplus
@@ -12348,11 +12348,11 @@ Napi::Value rawCreateDeferredOperationKHR(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDeferredOperationKHR* pDeferredOperation = (VkDeferredOperationKHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateDeferredOperationKHR(device, pAllocator, pDeferredOperation);
-    return env.Null();
+    auto result = ::vkCreateDeferredOperationKHR(device, pAllocator, pDeferredOperation);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_deferred_host_operations
+#endif
 
 #ifdef VK_KHR_deferred_host_operations
 #ifdef __cplusplus
@@ -12381,7 +12381,7 @@ Napi::Value rawDestroyDeferredOperationKHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_deferred_host_operations
+#endif
 
 #ifdef VK_KHR_deferred_host_operations
 #ifdef __cplusplus
@@ -12407,7 +12407,7 @@ Napi::Value rawGetDeferredOperationMaxConcurrencyKHR(const Napi::CallbackInfo& i
     return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_deferred_host_operations
+#endif
 
 #ifdef VK_KHR_deferred_host_operations
 #ifdef __cplusplus
@@ -12429,11 +12429,11 @@ Napi::Value rawGetDeferredOperationResultKHR(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDeferredOperationKHR operation = (VkDeferredOperationKHR)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetDeferredOperationResultKHR(device, operation);
-    return env.Null();
+    auto result = ::vkGetDeferredOperationResultKHR(device, operation);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_deferred_host_operations
+#endif
 
 #ifdef VK_KHR_deferred_host_operations
 #ifdef __cplusplus
@@ -12455,11 +12455,11 @@ Napi::Value rawDeferredOperationJoinKHR(const Napi::CallbackInfo& info) {
     if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDeferredOperationKHR operation = (VkDeferredOperationKHR)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkDeferredOperationJoinKHR(device, operation);
-    return env.Null();
+    auto result = ::vkDeferredOperationJoinKHR(device, operation);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_deferred_host_operations
+#endif
 
 
 #ifdef __cplusplus
@@ -12655,8 +12655,8 @@ Napi::Value rawCmdSetDepthTestEnable(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 depthTestEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 depthTestEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetDepthTestEnable(commandBuffer, depthTestEnable);
     return env.Null();
@@ -12681,8 +12681,8 @@ Napi::Value rawCmdSetDepthWriteEnable(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 depthWriteEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 depthWriteEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetDepthWriteEnable(commandBuffer, depthWriteEnable);
     return env.Null();
@@ -12733,8 +12733,8 @@ Napi::Value rawCmdSetDepthBoundsTestEnable(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 depthBoundsTestEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 depthBoundsTestEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetDepthBoundsTestEnable(commandBuffer, depthBoundsTestEnable);
     return env.Null();
@@ -12759,8 +12759,8 @@ Napi::Value rawCmdSetStencilTestEnable(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 stencilTestEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 stencilTestEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetStencilTestEnable(commandBuffer, stencilTestEnable);
     return env.Null();
@@ -12830,7 +12830,7 @@ Napi::Value rawCmdSetPatchControlPointsEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state2
+#endif
 
 
 #ifdef __cplusplus
@@ -12849,8 +12849,8 @@ Napi::Value rawCmdSetRasterizerDiscardEnable(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 rasterizerDiscardEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 rasterizerDiscardEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetRasterizerDiscardEnable(commandBuffer, rasterizerDiscardEnable);
     return env.Null();
@@ -12875,8 +12875,8 @@ Napi::Value rawCmdSetDepthBiasEnable(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 depthBiasEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 depthBiasEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetDepthBiasEnable(commandBuffer, depthBiasEnable);
     return env.Null();
@@ -12908,7 +12908,7 @@ Napi::Value rawCmdSetLogicOpEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state2
+#endif
 
 
 #ifdef __cplusplus
@@ -12927,8 +12927,8 @@ Napi::Value rawCmdSetPrimitiveRestartEnable(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 primitiveRestartEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 primitiveRestartEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetPrimitiveRestartEnable(commandBuffer, primitiveRestartEnable);
     return env.Null();
@@ -12960,7 +12960,7 @@ Napi::Value rawCmdSetTessellationDomainOriginEXT(const Napi::CallbackInfo& info)
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -12979,14 +12979,14 @@ Napi::Value rawCmdSetDepthClampEnableEXT(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 depthClampEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 depthClampEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetDepthClampEnableEXT(commandBuffer, depthClampEnable);
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13012,7 +13012,7 @@ Napi::Value rawCmdSetPolygonModeEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13038,7 +13038,7 @@ Napi::Value rawCmdSetRasterizationSamplesEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13067,7 +13067,7 @@ Napi::Value rawCmdSetSampleMaskEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13086,14 +13086,14 @@ Napi::Value rawCmdSetAlphaToCoverageEnableEXT(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 alphaToCoverageEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 alphaToCoverageEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetAlphaToCoverageEnableEXT(commandBuffer, alphaToCoverageEnable);
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13112,14 +13112,14 @@ Napi::Value rawCmdSetAlphaToOneEnableEXT(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 alphaToOneEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 alphaToOneEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetAlphaToOneEnableEXT(commandBuffer, alphaToOneEnable);
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13138,14 +13138,14 @@ Napi::Value rawCmdSetLogicOpEnableEXT(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 logicOpEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 logicOpEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetLogicOpEnableEXT(commandBuffer, logicOpEnable);
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13177,7 +13177,7 @@ Napi::Value rawCmdSetColorBlendEnableEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13209,7 +13209,7 @@ Napi::Value rawCmdSetColorBlendEquationEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13241,7 +13241,7 @@ Napi::Value rawCmdSetColorWriteMaskEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13267,7 +13267,7 @@ Napi::Value rawCmdSetRasterizationStreamEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13293,7 +13293,7 @@ Napi::Value rawCmdSetConservativeRasterizationModeEXT(const Napi::CallbackInfo& 
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13319,7 +13319,7 @@ Napi::Value rawCmdSetExtraPrimitiveOverestimationSizeEXT(const Napi::CallbackInf
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13338,14 +13338,14 @@ Napi::Value rawCmdSetDepthClipEnableEXT(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 depthClipEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 depthClipEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetDepthClipEnableEXT(commandBuffer, depthClipEnable);
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13364,14 +13364,14 @@ Napi::Value rawCmdSetSampleLocationsEnableEXT(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 sampleLocationsEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 sampleLocationsEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetSampleLocationsEnableEXT(commandBuffer, sampleLocationsEnable);
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13403,7 +13403,7 @@ Napi::Value rawCmdSetColorBlendAdvancedEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13429,7 +13429,7 @@ Napi::Value rawCmdSetProvokingVertexModeEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13455,7 +13455,7 @@ Napi::Value rawCmdSetLineRasterizationModeEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13474,14 +13474,14 @@ Napi::Value rawCmdSetLineStippleEnableEXT(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 stippledLineEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 stippledLineEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetLineStippleEnableEXT(commandBuffer, stippledLineEnable);
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13500,14 +13500,14 @@ Napi::Value rawCmdSetDepthClipNegativeOneToOneEXT(const Napi::CallbackInfo& info
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 negativeOneToOne = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 negativeOneToOne = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetDepthClipNegativeOneToOneEXT(commandBuffer, negativeOneToOne);
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13526,14 +13526,14 @@ Napi::Value rawCmdSetViewportWScalingEnableNV(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 viewportWScalingEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 viewportWScalingEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetViewportWScalingEnableNV(commandBuffer, viewportWScalingEnable);
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13565,7 +13565,7 @@ Napi::Value rawCmdSetViewportSwizzleNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13584,14 +13584,14 @@ Napi::Value rawCmdSetCoverageToColorEnableNV(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 coverageToColorEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 coverageToColorEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetCoverageToColorEnableNV(commandBuffer, coverageToColorEnable);
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13617,7 +13617,7 @@ Napi::Value rawCmdSetCoverageToColorLocationNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13643,7 +13643,7 @@ Napi::Value rawCmdSetCoverageModulationModeNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13662,14 +13662,14 @@ Napi::Value rawCmdSetCoverageModulationTableEnableNV(const Napi::CallbackInfo& i
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 coverageModulationTableEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 coverageModulationTableEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetCoverageModulationTableEnableNV(commandBuffer, coverageModulationTableEnable);
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13698,7 +13698,7 @@ Napi::Value rawCmdSetCoverageModulationTableNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13717,14 +13717,14 @@ Napi::Value rawCmdSetShadingRateImageEnableNV(const Napi::CallbackInfo& info) {
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 shadingRateImageEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 shadingRateImageEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetShadingRateImageEnableNV(commandBuffer, shadingRateImageEnable);
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13750,7 +13750,7 @@ Napi::Value rawCmdSetCoverageReductionModeNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 #ifdef VK_EXT_extended_dynamic_state3
 #ifdef __cplusplus
@@ -13769,14 +13769,14 @@ Napi::Value rawCmdSetRepresentativeFragmentTestEnableNV(const Napi::CallbackInfo
     if (!info[0].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCommandBuffer commandBuffer = (VkCommandBuffer)info[0].As<Napi::BigInt>().Uint64Value(&lossless);
 
-    if (!info[1].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    VkBool32 representativeFragmentTestEnable = (VkBool32)info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+    if (!info[1].IsNumber()) { Napi::TypeError::New(env, "Needs Number").ThrowAsJavaScriptException(); return env.Null(); }
+    VkBool32 representativeFragmentTestEnable = (VkBool32)info[1].As<Napi::Number>().Uint32Value();
     
     ::vkCmdSetRepresentativeFragmentTestEnableNV(commandBuffer, representativeFragmentTestEnable);
     return env.Null();
 
 }
-#endif VK_EXT_extended_dynamic_state3
+#endif
 
 
 #ifdef __cplusplus
@@ -13804,8 +13804,8 @@ Napi::Value rawCreatePrivateDataSlot(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPrivateDataSlot* pPrivateDataSlot = (VkPrivateDataSlot*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreatePrivateDataSlot(device, pCreateInfo, pAllocator, pPrivateDataSlot);
-    return env.Null();
+    auto result = ::vkCreatePrivateDataSlot(device, pCreateInfo, pAllocator, pPrivateDataSlot);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -13868,8 +13868,8 @@ Napi::Value rawSetPrivateData(const Napi::CallbackInfo& info) {
     if (!info[4].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     uint64_t data = (uint64_t)info[4].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkSetPrivateData(device, objectType, objectHandle, privateDataSlot, data);
-    return env.Null();
+    auto result = ::vkSetPrivateData(device, objectType, objectHandle, privateDataSlot, data);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -14092,7 +14092,7 @@ Napi::Value rawCmdSetFragmentShadingRateKHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_fragment_shading_rate
+#endif
 
 #ifdef VK_KHR_fragment_shading_rate
 #ifdef __cplusplus
@@ -14117,11 +14117,11 @@ Napi::Value rawGetPhysicalDeviceFragmentShadingRatesKHR(const Napi::CallbackInfo
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkPhysicalDeviceFragmentShadingRateKHR* pFragmentShadingRates = (VkPhysicalDeviceFragmentShadingRateKHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceFragmentShadingRatesKHR(physicalDevice, pFragmentShadingRateCount, pFragmentShadingRates);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceFragmentShadingRatesKHR(physicalDevice, pFragmentShadingRateCount, pFragmentShadingRates);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_fragment_shading_rate
+#endif
 
 #ifdef VK_NV_fragment_shading_rate_enums
 #ifdef __cplusplus
@@ -14150,7 +14150,7 @@ Napi::Value rawCmdSetFragmentShadingRateEnumNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_fragment_shading_rate_enums
+#endif
 
 #ifdef VK_KHR_acceleration_structure
 #ifdef __cplusplus
@@ -14185,7 +14185,7 @@ Napi::Value rawGetAccelerationStructureBuildSizesKHR(const Napi::CallbackInfo& i
     return env.Null();
 
 }
-#endif VK_KHR_acceleration_structure
+#endif
 
 #ifdef VK_EXT_vertex_input_dynamic_state
 #ifdef __cplusplus
@@ -14220,7 +14220,7 @@ Napi::Value rawCmdSetVertexInputEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_vertex_input_dynamic_state
+#endif
 
 #ifdef VK_EXT_color_write_enable
 #ifdef __cplusplus
@@ -14249,7 +14249,7 @@ Napi::Value rawCmdSetColorWriteEnableEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_color_write_enable
+#endif
 
 
 #ifdef __cplusplus
@@ -14393,8 +14393,8 @@ Napi::Value rawQueueSubmit2(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkFence fence = (VkFence)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkQueueSubmit2(queue, submitCount, pSubmits, fence);
-    return env.Null();
+    auto result = ::vkQueueSubmit2(queue, submitCount, pSubmits, fence);
+    return Napi::Number::New(env, result);
 
 }
 
@@ -14464,7 +14464,7 @@ Napi::Value rawCmdWriteBufferMarker2AMD(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_synchronization2
+#endif
 
 #ifdef VK_KHR_synchronization2
 #ifdef __cplusplus
@@ -14493,7 +14493,7 @@ Napi::Value rawGetQueueCheckpointData2NV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_synchronization2
+#endif
 
 #ifdef VK_KHR_video_queue
 #ifdef __cplusplus
@@ -14518,11 +14518,11 @@ Napi::Value rawGetPhysicalDeviceVideoCapabilitiesKHR(const Napi::CallbackInfo& i
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkVideoCapabilitiesKHR* pCapabilities = (VkVideoCapabilitiesKHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceVideoCapabilitiesKHR(physicalDevice, pVideoProfile, pCapabilities);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceVideoCapabilitiesKHR(physicalDevice, pVideoProfile, pCapabilities);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_video_queue
+#endif
 
 #ifdef VK_KHR_video_queue
 #ifdef __cplusplus
@@ -14550,11 +14550,11 @@ Napi::Value rawGetPhysicalDeviceVideoFormatPropertiesKHR(const Napi::CallbackInf
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkVideoFormatPropertiesKHR* pVideoFormatProperties = (VkVideoFormatPropertiesKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceVideoFormatPropertiesKHR(physicalDevice, pVideoFormatInfo, pVideoFormatPropertyCount, pVideoFormatProperties);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceVideoFormatPropertiesKHR(physicalDevice, pVideoFormatInfo, pVideoFormatPropertyCount, pVideoFormatProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_video_queue
+#endif
 
 #ifdef VK_KHR_video_queue
 #ifdef __cplusplus
@@ -14582,11 +14582,11 @@ Napi::Value rawCreateVideoSessionKHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkVideoSessionKHR* pVideoSession = (VkVideoSessionKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateVideoSessionKHR(device, pCreateInfo, pAllocator, pVideoSession);
-    return env.Null();
+    auto result = ::vkCreateVideoSessionKHR(device, pCreateInfo, pAllocator, pVideoSession);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_video_queue
+#endif
 
 #ifdef VK_KHR_video_queue
 #ifdef __cplusplus
@@ -14615,7 +14615,7 @@ Napi::Value rawDestroyVideoSessionKHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_video_queue
+#endif
 
 #ifdef VK_KHR_video_queue
 #ifdef __cplusplus
@@ -14643,11 +14643,11 @@ Napi::Value rawCreateVideoSessionParametersKHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkVideoSessionParametersKHR* pVideoSessionParameters = (VkVideoSessionParametersKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateVideoSessionParametersKHR(device, pCreateInfo, pAllocator, pVideoSessionParameters);
-    return env.Null();
+    auto result = ::vkCreateVideoSessionParametersKHR(device, pCreateInfo, pAllocator, pVideoSessionParameters);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_video_queue
+#endif
 
 #ifdef VK_KHR_video_queue
 #ifdef __cplusplus
@@ -14672,11 +14672,11 @@ Napi::Value rawUpdateVideoSessionParametersKHR(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkVideoSessionParametersUpdateInfoKHR* pUpdateInfo = (VkVideoSessionParametersUpdateInfoKHR*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkUpdateVideoSessionParametersKHR(device, videoSessionParameters, pUpdateInfo);
-    return env.Null();
+    auto result = ::vkUpdateVideoSessionParametersKHR(device, videoSessionParameters, pUpdateInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_video_queue
+#endif
 
 #ifdef VK_KHR_video_queue
 #ifdef __cplusplus
@@ -14705,7 +14705,7 @@ Napi::Value rawDestroyVideoSessionParametersKHR(const Napi::CallbackInfo& info) 
     return env.Null();
 
 }
-#endif VK_KHR_video_queue
+#endif
 
 #ifdef VK_KHR_video_queue
 #ifdef __cplusplus
@@ -14733,11 +14733,11 @@ Napi::Value rawGetVideoSessionMemoryRequirementsKHR(const Napi::CallbackInfo& in
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkVideoSessionMemoryRequirementsKHR* pMemoryRequirements = (VkVideoSessionMemoryRequirementsKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetVideoSessionMemoryRequirementsKHR(device, videoSession, pMemoryRequirementsCount, pMemoryRequirements);
-    return env.Null();
+    auto result = ::vkGetVideoSessionMemoryRequirementsKHR(device, videoSession, pMemoryRequirementsCount, pMemoryRequirements);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_video_queue
+#endif
 
 #ifdef VK_KHR_video_queue
 #ifdef __cplusplus
@@ -14765,11 +14765,11 @@ Napi::Value rawBindVideoSessionMemoryKHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkBindVideoSessionMemoryInfoKHR* pBindSessionMemoryInfos = (VkBindVideoSessionMemoryInfoKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkBindVideoSessionMemoryKHR(device, videoSession, bindSessionMemoryInfoCount, pBindSessionMemoryInfos);
-    return env.Null();
+    auto result = ::vkBindVideoSessionMemoryKHR(device, videoSession, bindSessionMemoryInfoCount, pBindSessionMemoryInfos);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_video_queue
+#endif
 
 #ifdef VK_KHR_video_decode_queue
 #ifdef __cplusplus
@@ -14795,7 +14795,7 @@ Napi::Value rawCmdDecodeVideoKHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_video_decode_queue
+#endif
 
 #ifdef VK_KHR_video_queue
 #ifdef __cplusplus
@@ -14821,7 +14821,7 @@ Napi::Value rawCmdBeginVideoCodingKHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_video_queue
+#endif
 
 #ifdef VK_KHR_video_queue
 #ifdef __cplusplus
@@ -14847,7 +14847,7 @@ Napi::Value rawCmdControlVideoCodingKHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_video_queue
+#endif
 
 #ifdef VK_KHR_video_queue
 #ifdef __cplusplus
@@ -14873,7 +14873,7 @@ Napi::Value rawCmdEndVideoCodingKHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_video_queue
+#endif
 
 #ifdef VK_KHR_video_encode_queue
 #ifdef __cplusplus
@@ -14899,7 +14899,7 @@ Napi::Value rawCmdEncodeVideoKHR(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_KHR_video_encode_queue
+#endif
 
 #ifdef VK_NV_memory_decompression
 #ifdef __cplusplus
@@ -14928,7 +14928,7 @@ Napi::Value rawCmdDecompressMemoryNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_memory_decompression
+#endif
 
 #ifdef VK_NV_memory_decompression
 #ifdef __cplusplus
@@ -14960,7 +14960,7 @@ Napi::Value rawCmdDecompressMemoryIndirectCountNV(const Napi::CallbackInfo& info
     return env.Null();
 
 }
-#endif VK_NV_memory_decompression
+#endif
 
 #ifdef VK_NVX_binary_import
 #ifdef __cplusplus
@@ -14988,11 +14988,11 @@ Napi::Value rawCreateCuModuleNVX(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCuModuleNVX* pModule = (VkCuModuleNVX*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateCuModuleNVX(device, pCreateInfo, pAllocator, pModule);
-    return env.Null();
+    auto result = ::vkCreateCuModuleNVX(device, pCreateInfo, pAllocator, pModule);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NVX_binary_import
+#endif
 
 #ifdef VK_NVX_binary_import
 #ifdef __cplusplus
@@ -15020,11 +15020,11 @@ Napi::Value rawCreateCuFunctionNVX(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCuFunctionNVX* pFunction = (VkCuFunctionNVX*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateCuFunctionNVX(device, pCreateInfo, pAllocator, pFunction);
-    return env.Null();
+    auto result = ::vkCreateCuFunctionNVX(device, pCreateInfo, pAllocator, pFunction);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NVX_binary_import
+#endif
 
 #ifdef VK_NVX_binary_import
 #ifdef __cplusplus
@@ -15053,7 +15053,7 @@ Napi::Value rawDestroyCuModuleNVX(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NVX_binary_import
+#endif
 
 #ifdef VK_NVX_binary_import
 #ifdef __cplusplus
@@ -15082,7 +15082,7 @@ Napi::Value rawDestroyCuFunctionNVX(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NVX_binary_import
+#endif
 
 #ifdef VK_NVX_binary_import
 #ifdef __cplusplus
@@ -15108,7 +15108,7 @@ Napi::Value rawCmdCuLaunchKernelNVX(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NVX_binary_import
+#endif
 
 #ifdef VK_EXT_pageable_device_local_memory
 #ifdef __cplusplus
@@ -15137,7 +15137,7 @@ Napi::Value rawSetDeviceMemoryPriorityEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_pageable_device_local_memory
+#endif
 
 #ifdef VK_EXT_acquire_drm_display
 #ifdef __cplusplus
@@ -15162,11 +15162,11 @@ Napi::Value rawAcquireDrmDisplayEXT(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayKHR display = (VkDisplayKHR)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkAcquireDrmDisplayEXT(physicalDevice, drmFd, display);
-    return env.Null();
+    auto result = ::vkAcquireDrmDisplayEXT(physicalDevice, drmFd, display);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_acquire_drm_display
+#endif
 
 #ifdef VK_EXT_acquire_drm_display
 #ifdef __cplusplus
@@ -15194,11 +15194,11 @@ Napi::Value rawGetDrmDisplayEXT(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDisplayKHR* display = (VkDisplayKHR*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetDrmDisplayEXT(physicalDevice, drmFd, connectorId, display);
-    return env.Null();
+    auto result = ::vkGetDrmDisplayEXT(physicalDevice, drmFd, connectorId, display);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_acquire_drm_display
+#endif
 
 #ifdef VK_KHR_present_wait
 #ifdef __cplusplus
@@ -15226,11 +15226,11 @@ Napi::Value rawWaitForPresentKHR(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     uint64_t timeout = (uint64_t)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkWaitForPresentKHR(device, swapchain, presentId, timeout);
-    return env.Null();
+    auto result = ::vkWaitForPresentKHR(device, swapchain, presentId, timeout);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_KHR_present_wait
+#endif
 
 #ifdef VK_FUCHSIA_buffer_collection
 #ifdef __cplusplus
@@ -15258,11 +15258,11 @@ Napi::Value rawCreateBufferCollectionFUCHSIA(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkBufferCollectionFUCHSIA* pCollection = (VkBufferCollectionFUCHSIA*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateBufferCollectionFUCHSIA(device, pCreateInfo, pAllocator, pCollection);
-    return env.Null();
+    auto result = ::vkCreateBufferCollectionFUCHSIA(device, pCreateInfo, pAllocator, pCollection);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_FUCHSIA_buffer_collection
+#endif
 
 #ifdef VK_FUCHSIA_buffer_collection
 #ifdef __cplusplus
@@ -15287,11 +15287,11 @@ Napi::Value rawSetBufferCollectionBufferConstraintsFUCHSIA(const Napi::CallbackI
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkBufferConstraintsInfoFUCHSIA* pBufferConstraintsInfo = (VkBufferConstraintsInfoFUCHSIA*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkSetBufferCollectionBufferConstraintsFUCHSIA(device, collection, pBufferConstraintsInfo);
-    return env.Null();
+    auto result = ::vkSetBufferCollectionBufferConstraintsFUCHSIA(device, collection, pBufferConstraintsInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_FUCHSIA_buffer_collection
+#endif
 
 #ifdef VK_FUCHSIA_buffer_collection
 #ifdef __cplusplus
@@ -15316,11 +15316,11 @@ Napi::Value rawSetBufferCollectionImageConstraintsFUCHSIA(const Napi::CallbackIn
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkImageConstraintsInfoFUCHSIA* pImageConstraintsInfo = (VkImageConstraintsInfoFUCHSIA*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkSetBufferCollectionImageConstraintsFUCHSIA(device, collection, pImageConstraintsInfo);
-    return env.Null();
+    auto result = ::vkSetBufferCollectionImageConstraintsFUCHSIA(device, collection, pImageConstraintsInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_FUCHSIA_buffer_collection
+#endif
 
 #ifdef VK_FUCHSIA_buffer_collection
 #ifdef __cplusplus
@@ -15349,7 +15349,7 @@ Napi::Value rawDestroyBufferCollectionFUCHSIA(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_FUCHSIA_buffer_collection
+#endif
 
 #ifdef VK_FUCHSIA_buffer_collection
 #ifdef __cplusplus
@@ -15374,11 +15374,11 @@ Napi::Value rawGetBufferCollectionPropertiesFUCHSIA(const Napi::CallbackInfo& in
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkBufferCollectionPropertiesFUCHSIA* pProperties = (VkBufferCollectionPropertiesFUCHSIA*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetBufferCollectionPropertiesFUCHSIA(device, collection, pProperties);
-    return env.Null();
+    auto result = ::vkGetBufferCollectionPropertiesFUCHSIA(device, collection, pProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_FUCHSIA_buffer_collection
+#endif
 
 
 #ifdef __cplusplus
@@ -15456,7 +15456,7 @@ Napi::Value rawGetDescriptorSetLayoutHostMappingInfoVALVE(const Napi::CallbackIn
     return env.Null();
 
 }
-#endif VK_VALVE_descriptor_set_host_mapping
+#endif
 
 #ifdef VK_VALVE_descriptor_set_host_mapping
 #ifdef __cplusplus
@@ -15485,7 +15485,7 @@ Napi::Value rawGetDescriptorSetHostMappingVALVE(const Napi::CallbackInfo& info) 
     return env.Null();
 
 }
-#endif VK_VALVE_descriptor_set_host_mapping
+#endif
 
 #ifdef VK_EXT_opacity_micromap
 #ifdef __cplusplus
@@ -15513,11 +15513,11 @@ Napi::Value rawCreateMicromapEXT(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkMicromapEXT* pMicromap = (VkMicromapEXT*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateMicromapEXT(device, pCreateInfo, pAllocator, pMicromap);
-    return env.Null();
+    auto result = ::vkCreateMicromapEXT(device, pCreateInfo, pAllocator, pMicromap);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_opacity_micromap
+#endif
 
 #ifdef VK_EXT_opacity_micromap
 #ifdef __cplusplus
@@ -15546,7 +15546,7 @@ Napi::Value rawCmdBuildMicromapsEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_opacity_micromap
+#endif
 
 #ifdef VK_EXT_opacity_micromap
 #ifdef __cplusplus
@@ -15574,11 +15574,11 @@ Napi::Value rawBuildMicromapsEXT(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkMicromapBuildInfoEXT* pInfos = (VkMicromapBuildInfoEXT*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkBuildMicromapsEXT(device, deferredOperation, infoCount, pInfos);
-    return env.Null();
+    auto result = ::vkBuildMicromapsEXT(device, deferredOperation, infoCount, pInfos);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_opacity_micromap
+#endif
 
 #ifdef VK_EXT_opacity_micromap
 #ifdef __cplusplus
@@ -15607,7 +15607,7 @@ Napi::Value rawDestroyMicromapEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_opacity_micromap
+#endif
 
 #ifdef VK_EXT_opacity_micromap
 #ifdef __cplusplus
@@ -15633,7 +15633,7 @@ Napi::Value rawCmdCopyMicromapEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_opacity_micromap
+#endif
 
 #ifdef VK_EXT_opacity_micromap
 #ifdef __cplusplus
@@ -15658,11 +15658,11 @@ Napi::Value rawCopyMicromapEXT(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCopyMicromapInfoEXT* pInfo = (VkCopyMicromapInfoEXT*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCopyMicromapEXT(device, deferredOperation, pInfo);
-    return env.Null();
+    auto result = ::vkCopyMicromapEXT(device, deferredOperation, pInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_opacity_micromap
+#endif
 
 #ifdef VK_EXT_opacity_micromap
 #ifdef __cplusplus
@@ -15688,7 +15688,7 @@ Napi::Value rawCmdCopyMicromapToMemoryEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_opacity_micromap
+#endif
 
 #ifdef VK_EXT_opacity_micromap
 #ifdef __cplusplus
@@ -15713,11 +15713,11 @@ Napi::Value rawCopyMicromapToMemoryEXT(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCopyMicromapToMemoryInfoEXT* pInfo = (VkCopyMicromapToMemoryInfoEXT*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCopyMicromapToMemoryEXT(device, deferredOperation, pInfo);
-    return env.Null();
+    auto result = ::vkCopyMicromapToMemoryEXT(device, deferredOperation, pInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_opacity_micromap
+#endif
 
 #ifdef VK_EXT_opacity_micromap
 #ifdef __cplusplus
@@ -15743,7 +15743,7 @@ Napi::Value rawCmdCopyMemoryToMicromapEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_opacity_micromap
+#endif
 
 #ifdef VK_EXT_opacity_micromap
 #ifdef __cplusplus
@@ -15768,11 +15768,11 @@ Napi::Value rawCopyMemoryToMicromapEXT(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkCopyMemoryToMicromapInfoEXT* pInfo = (VkCopyMemoryToMicromapInfoEXT*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCopyMemoryToMicromapEXT(device, deferredOperation, pInfo);
-    return env.Null();
+    auto result = ::vkCopyMemoryToMicromapEXT(device, deferredOperation, pInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_opacity_micromap
+#endif
 
 #ifdef VK_EXT_opacity_micromap
 #ifdef __cplusplus
@@ -15810,7 +15810,7 @@ Napi::Value rawCmdWriteMicromapsPropertiesEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_opacity_micromap
+#endif
 
 #ifdef VK_EXT_opacity_micromap
 #ifdef __cplusplus
@@ -15847,11 +15847,11 @@ Napi::Value rawWriteMicromapsPropertiesEXT(const Napi::CallbackInfo& info) {
     if (!info[6].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     size_t stride = (size_t)info[6].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkWriteMicromapsPropertiesEXT(device, micromapCount, pMicromaps, queryType, dataSize, pData, stride);
-    return env.Null();
+    auto result = ::vkWriteMicromapsPropertiesEXT(device, micromapCount, pMicromaps, queryType, dataSize, pData, stride);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_opacity_micromap
+#endif
 
 #ifdef VK_EXT_opacity_micromap
 #ifdef __cplusplus
@@ -15880,7 +15880,7 @@ Napi::Value rawGetDeviceMicromapCompatibilityEXT(const Napi::CallbackInfo& info)
     return env.Null();
 
 }
-#endif VK_EXT_opacity_micromap
+#endif
 
 #ifdef VK_EXT_opacity_micromap
 #ifdef __cplusplus
@@ -15912,7 +15912,7 @@ Napi::Value rawGetMicromapBuildSizesEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_opacity_micromap
+#endif
 
 #ifdef VK_EXT_shader_module_identifier
 #ifdef __cplusplus
@@ -15941,7 +15941,7 @@ Napi::Value rawGetShaderModuleIdentifierEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_shader_module_identifier
+#endif
 
 #ifdef VK_EXT_shader_module_identifier
 #ifdef __cplusplus
@@ -15970,7 +15970,7 @@ Napi::Value rawGetShaderModuleCreateInfoIdentifierEXT(const Napi::CallbackInfo& 
     return env.Null();
 
 }
-#endif VK_EXT_shader_module_identifier
+#endif
 
 #ifdef VK_EXT_image_compression_control
 #ifdef __cplusplus
@@ -16002,7 +16002,7 @@ Napi::Value rawGetImageSubresourceLayout2EXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_image_compression_control
+#endif
 
 #ifdef VK_EXT_pipeline_properties
 #ifdef __cplusplus
@@ -16027,11 +16027,11 @@ Napi::Value rawGetPipelinePropertiesEXT(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkBaseOutStructure* pPipelineProperties = (VkBaseOutStructure*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPipelinePropertiesEXT(device, pPipelineInfo, pPipelineProperties);
-    return env.Null();
+    auto result = ::vkGetPipelinePropertiesEXT(device, pPipelineInfo, pPipelineProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_pipeline_properties
+#endif
 
 #ifdef VK_EXT_metal_objects
 #ifdef __cplusplus
@@ -16057,7 +16057,7 @@ Napi::Value rawExportMetalObjectsEXT(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_EXT_metal_objects
+#endif
 
 #ifdef VK_QCOM_tile_properties
 #ifdef __cplusplus
@@ -16085,11 +16085,11 @@ Napi::Value rawGetFramebufferTilePropertiesQCOM(const Napi::CallbackInfo& info) 
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkTilePropertiesQCOM* pProperties = (VkTilePropertiesQCOM*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetFramebufferTilePropertiesQCOM(device, framebuffer, pPropertiesCount, pProperties);
-    return env.Null();
+    auto result = ::vkGetFramebufferTilePropertiesQCOM(device, framebuffer, pPropertiesCount, pProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_QCOM_tile_properties
+#endif
 
 #ifdef VK_QCOM_tile_properties
 #ifdef __cplusplus
@@ -16114,11 +16114,11 @@ Napi::Value rawGetDynamicRenderingTilePropertiesQCOM(const Napi::CallbackInfo& i
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkTilePropertiesQCOM* pProperties = (VkTilePropertiesQCOM*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetDynamicRenderingTilePropertiesQCOM(device, pRenderingInfo, pProperties);
-    return env.Null();
+    auto result = ::vkGetDynamicRenderingTilePropertiesQCOM(device, pRenderingInfo, pProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_QCOM_tile_properties
+#endif
 
 #ifdef VK_NV_optical_flow
 #ifdef __cplusplus
@@ -16146,11 +16146,11 @@ Napi::Value rawGetPhysicalDeviceOpticalFlowImageFormatsNV(const Napi::CallbackIn
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkOpticalFlowImageFormatPropertiesNV* pImageFormatProperties = (VkOpticalFlowImageFormatPropertiesNV*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetPhysicalDeviceOpticalFlowImageFormatsNV(physicalDevice, pOpticalFlowImageFormatInfo, pFormatCount, pImageFormatProperties);
-    return env.Null();
+    auto result = ::vkGetPhysicalDeviceOpticalFlowImageFormatsNV(physicalDevice, pOpticalFlowImageFormatInfo, pFormatCount, pImageFormatProperties);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NV_optical_flow
+#endif
 
 #ifdef VK_NV_optical_flow
 #ifdef __cplusplus
@@ -16178,11 +16178,11 @@ Napi::Value rawCreateOpticalFlowSessionNV(const Napi::CallbackInfo& info) {
     if (!info[3].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkOpticalFlowSessionNV* pSession = (VkOpticalFlowSessionNV*)info[3].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkCreateOpticalFlowSessionNV(device, pCreateInfo, pAllocator, pSession);
-    return env.Null();
+    auto result = ::vkCreateOpticalFlowSessionNV(device, pCreateInfo, pAllocator, pSession);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NV_optical_flow
+#endif
 
 #ifdef VK_NV_optical_flow
 #ifdef __cplusplus
@@ -16211,7 +16211,7 @@ Napi::Value rawDestroyOpticalFlowSessionNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_optical_flow
+#endif
 
 #ifdef VK_NV_optical_flow
 #ifdef __cplusplus
@@ -16242,11 +16242,11 @@ Napi::Value rawBindOpticalFlowSessionImageNV(const Napi::CallbackInfo& info) {
     if (!info[4].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkImageLayout layout = (VkImageLayout)info[4].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkBindOpticalFlowSessionImageNV(device, session, bindingPoint, view, layout);
-    return env.Null();
+    auto result = ::vkBindOpticalFlowSessionImageNV(device, session, bindingPoint, view, layout);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_NV_optical_flow
+#endif
 
 #ifdef VK_NV_optical_flow
 #ifdef __cplusplus
@@ -16275,7 +16275,7 @@ Napi::Value rawCmdOpticalFlowExecuteNV(const Napi::CallbackInfo& info) {
     return env.Null();
 
 }
-#endif VK_NV_optical_flow
+#endif
 
 #ifdef VK_EXT_device_fault
 #ifdef __cplusplus
@@ -16300,14 +16300,12 @@ Napi::Value rawGetDeviceFaultInfoEXT(const Napi::CallbackInfo& info) {
     if (!info[2].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
     VkDeviceFaultInfoEXT* pFaultInfo = (VkDeviceFaultInfoEXT*)info[2].As<Napi::BigInt>().Uint64Value(&lossless);
     
-    ::vkGetDeviceFaultInfoEXT(device, pFaultCounts, pFaultInfo);
-    return env.Null();
+    auto result = ::vkGetDeviceFaultInfoEXT(device, pFaultCounts, pFaultInfo);
+    return Napi::Number::New(env, result);
 
 }
-#endif VK_EXT_device_fault
+#endif
 
-
-    
 
 #endif
     

@@ -41,13 +41,6 @@ IF (WIN32)
 ENDIF()
 
 # 
-find_package(Vulkan REQUIRED FATAL_ERROR)
-add_definitions(-DNAPI_VERSION=5)
-add_definitions(-DNAPI_EXPERIMENTAL)
-cmake_policy(SET CMP0091 NEW)
-cmake_policy(SET CMP0042 NEW)
-
-# 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_C_STANDARD 23)
 set(_src_root_path "${PROJECT_SOURCE_DIR}/")
@@ -67,7 +60,7 @@ file(GLOB_RECURSE _source_list
 
 # 
 add_library(${PROJECT_NAME} SHARED ${_source_list} ${CMAKE_JS_SRC})
-target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=5 NAPI_EXPERIMENTAL)
+target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=6 NAPI_EXPERIMENTAL)
 target_include_directories(${PROJECT_NAME} PUBLIC 
   ${PROJECT_SOURCE_DIR}/include
   ${PROJECT_SOURCE_DIR}/*/include 
@@ -93,6 +86,13 @@ set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
 target_link_libraries(${PROJECT_NAME} ${CMAKE_DL_LIBS} ${Vulkan_LIBRARIES} ${CMAKE_JS_LIB})
 target_link_directories(${PROJECT_NAME} PUBLIC 
 )
+
+# 
+find_package(Vulkan REQUIRED FATAL_ERROR)
+add_definitions(NAPI_VERSION=6)
+add_definitions(NAPI_EXPERIMENTAL)
+cmake_policy(SET CMP0091 NEW)
+cmake_policy(SET CMP0042 NEW)
 
 #
 ADD_MSVC_PRECOMPILED_HEADER(
