@@ -295,8 +295,11 @@ NODE_API_MODULE(native, Init)
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const native = require('bindings')('native');
+const sharedStructs = require('shared-structs');
+const fs = require('fs');
+const path = require('path');
 
-console.log(native);
+
 
 // get native address for Vulkan API 'const char*'
 String.prototype.charAddress = function (isUtf16 = false) {
