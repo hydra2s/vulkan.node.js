@@ -3,34 +3,85 @@ let getWriter = async()=>{
     const fs = await import('fs');
 
     //
+    let F64Types = ["double", "float64_t"];
+    let F32Types = ["float", "float32_t"];
+    let U8Types = ["uint8_t", "char8_t", "char"];
+    let U16Types = ["uint16_t"];
     let U64Types = ["uint64_t", "uintptr_t", "size_t", "VkDeviceSize", "VkDeviceAddress", "VkDeviceOffset", "VkFlags64"];
-    let U32Types = ["uint32_t", "VkFlags", "VkResult", "VkBool32"];
+    let U32Types = ["uint32_t", "VkFlags", "VkResult", "VkBool32", "VkStructureType"];
     let Pointables = ["VkOffset2D","VkExtent2D","VkRect2D"];
-
-    let IsPointableValue = (T,P)=>{
-        if (P) { return false; } else
-        if (Pointables.indexOf(T) >= 0) { return true; } else
-        if (U32Types.indexOf(T) >= 0 || T.indexOf("int8") >= 0 || T.indexOf("int16") >= 0 || T.indexOf("float") >= 0 || T.indexOf("double") >= 0) { return false; } else
-        return true;
-    }
-
-    let IsNumberValue = (T,P)=>{
-        if (P) { return false; } else
-        if (T.indexOf("Flags") >= 0) { return true; } else
-        if (!IsPointableValue(T,P)) { return false; } else
-        if (U32Types.indexOf(T) >= 0 || T.indexOf("int8") >= 0 || T.indexOf("int16") >= 0 || T.indexOf("float") >= 0 || T.indexOf("double") >= 0) { return true; } else
-        return false;
-    }
-
-    let IsBigIntValue = (T,P,F=true)=>{
-        if (F) { return false; } else 
-        if (P) { return true; } else
-        if (T.indexOf("Flags64") >= 0) { return true; } else
-        if (U64Types.indexOf(T) >= 0) { return true; } else
-        return false;
-    }
+    let U24Types = ["uint24_t"];
 
     
+
+    //
+    let IsDouble = (T,B=0)=>{
+        return F64Types.indexOf(T) >= 0 || T.indexOf("float64") >= 0 || T.indexOf("double") >= 0 || B == 64;
+    }
+
+    //
+    let IsFloat = (T,B=0)=>{
+        return F32Types.indexOf(T) >= 0 || T.indexOf("float32") >= 0 || T.indexOf("float") >= 0 || B == 32;
+    }
+
+    //
+    let IsFloat32 = IsFloat;
+    let IsFloat64 = IsDouble;
+
+    //
+    let IsUint64 = (T,B=0)=>{
+        return U64Types.indexOf(T) >= 0 || T.indexOf("Flags64") >= 0 || T.indexOf("Flags2") >= 0 || T.indexOf("FlagBits2") >= 0 || T.indexOf("int64") >= 0 || B == 64;
+    }
+
+    //
+    let IsUint24 = (T,B=0)=>{
+        return U24Types.indexOf(T) >= 0 || T.indexOf("int24") >= 0 || B == 24;
+    }
+
+    //
+    let IsUint32 = (T,B=0)=>{
+        return U32Types.indexOf(T) >= 0 || T.indexOf("Flags") >= 0 || T.indexOf("FlagBits") >= 0 || T.indexOf("int32") >= 0 || B == 32;
+    }
+
+    //
+    let IsUint16 = (T,B=0)=>{
+        return U16Types.indexOf(T) >= 0 || T.indexOf("int16") >= 0 || B == 16;
+    }
+
+    //
+    let IsUint8 = (T,B=0)=>{
+        return U8Types.indexOf(T) >= 0 || T.indexOf("int8") >= 0 || T.indexOf("char") >= 0|| B == 8;
+    }
+
+    //
+    let IsPointableValue = (param)=>{
+        let P = param.isPointer, T = param.type, F = param.isFixedArray, B = param.bitfield;
+        if (P || IsUint8(T,B) || IsUint16(T,B) || IsUint32(T,B) || IsUint64(T,B) || IsFloat32(T,B) || IsFloat64(T,B)) { return false; } else
+        if (Pointables.indexOf(T) >= 0) { return true; } else
+        return false;
+    }
+
+    //
+    let IsNumberValue = (param)=>{
+        let P = param.isPointer, T = param.type, F = param.isFixedArray, B = param.bitfield;
+        if (P) { return false; } else
+        if (IsPointableValue(param)) { return false; } else
+        if (IsUint8(T,B) || IsUint16(T,B) || IsUint32(T,B) || IsFloat32(T,B) || IsFloat64(T,B)) { return true; } else
+        return false;
+    }
+
+    //
+    let IsBigIntValue = (param)=>{
+        let P = param.isPointer, T = param.type, F = param.isFixedArray;
+        if (F) { return true; } else 
+        if (P) { return true; } else
+        if (IsUint64(T)) { return true; } else
+        return false;
+    }
+
+    let IsHandle = (param)=>{
+        if (["VkImage", "VkBuffer"].indexOf(param.type) >= 0) return true; 
+    }
 
     //
     //let Uint64Getter = (I=0)=> `info_[${I}].As<Napi::Number>().Int64Value();`
@@ -39,6 +90,10 @@ let getWriter = async()=>{
     //
     let Uint64Getter = (I=0)=> `info_[${I}].As<Napi::BigInt>().Uint64Value(&lossless);`
     let Uint64Return = (N)=> `Napi::BigInt::New(env, (uint64_t)${N});`;
+
+    
+
+    
 
     //
     let passArg = (param, I) => {
@@ -174,6 +229,8 @@ return number && !pointable || B ?
 `return Napi::BigInt::New(env, (uint64_t)${IsPointableValue(T,P)?`&`:``}${N});`;
     };
 
+
+    /*
     //
     let writeStructureSettersAndGetters = (struct, map)=>{
         let by = map.usedBy[struct.name];
@@ -222,10 +279,51 @@ ${by ? `#endif ${by}` : ``}
         });
         return structed.params.join(`
 `);
+    };*/
+
+    let writeParam = (param, map)=>{
+if (IsPointableValue(param))              { return `    ${param.name}: ${param.type},` } else 
+if (IsHandle(param))                      { return `    ${param.name}: C.uint64_t,` } else 
+if (IsBigIntValue(param))                 { return `    ${param.name}: C.uint64_t,` } else 
+if (IsUint24(param.type, param.bitfield)) { return `    ${param.name}: uint24_t,` } else 
+if (IsUint8 (param.type, param.bitfield)) { return `    ${param.name}: C.uint8_t,` } else 
+if (IsUint16(param.type, param.bitfield)) { return `    ${param.name}: C.uint16_t,` } else 
+if (IsUint32(param.type, param.bitfield)) { return `    ${param.name}: C.uint32_t,` } else 
+if ( IsFloat(param.type, param.bitfield)) { return `    ${param.name}: C.float,` } else 
+if (IsDouble(param.type, param.bitfield)) { return `    ${param.name}: C.double,` } else 
+return `    ${param.name}: C.uint32_t,`
     };
+
+    let writeStructure = (structure, map)=> {
+return `
+const ${structure.name} = new T.StructBuffer("${structure.name}", {
+${structure.params.map(writeParam, map).join(`
+`)}
+});
+`
+    };
+
+
+    
 
     // 
     let writeCodes = async (map)=>{
+
+        await fs.promises.writeFile("./vulkan-structs.js", `
+import * as T from "struct-buffer";
+const C = T.default;
+const uint24_t = null;//C.registerType("uint24_t", 3, false);
+
+//console.log(C);
+
+${map.parsedStructs.map((s)=>writeStructure(s,map)).join(`
+`)}
+
+export default { 
+    ${map.parsedStructs.map((p)=>p.name).join(`,
+    `)}
+};
+`);
 
         await fs.promises.writeFile("./vulkan-API.cpp", `#pragma once 
 
@@ -372,9 +470,6 @@ static Napi::Value rawGetStructureSizeBySType(const Napi::CallbackInfo& info_) {
     }
     return Napi::Number::New(env, 0);
 }
-
-${map.parsedStructs.map((s)=>writeStructureSettersAndGetters(s,map)).join(`
-`)}
     
 ${map.parsed.map((cmd,i)=>makeCommand(cmd,i,map)).join(`
 `)}
@@ -466,187 +561,6 @@ ${cases(map)}
 #endif
 `);
     }
-
-    /*
-    let writeCodes = async (map)=>{ 
-await fs.promises.writeFile("./vulkan-API.cpp", `#pragma once
-
-#ifndef NAPI_VERSION
-#define NAPI_VERSION 8
-#endif
-
-#ifndef NAPI_EXPERIMENTAL
-#define NAPI_EXPERIMENTAL
-#endif
-
-#include <napi.h>
-
-static Napi::Value Dealloc(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
-    uint64_t address = 0ull;
-    if (info_[0].IsBigInt()) {
-        bool lossless = true;
-        address = ${Uint64Getter(0)};
-    }
-    delete (void*)address;
-    return ${Uint64Return(`0ull`)}
-}
-
-static Napi::Value GetAddress(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
-
-    uint64_t address = 0ull;
-    if (info_[0].IsString()) {
-        decltype(auto) STR = info_[0].As<Napi::String>().Utf8Value();
-        decltype(auto) ptr = Napi::Uint8Array::New(env, STR.length()); // you can't use directly c_str, it should to be context visible
-        memcpy(ptr.Data(), STR.c_str(), STR.size());
-        address = uint64_t(ptr.Data());
-    }
-    if (info_[0].IsTypedArray()) {
-        decltype(auto) TA = info_[0].As<Napi::TypedArray>();
-        decltype(auto) AB = TA.ArrayBuffer();
-        address = uint64_t(AB.Data()) + TA.ByteOffset();
-    }
-    if (info_[0].IsDataView()) {
-        decltype(auto) TA = info_[0].As<Napi::DataView>();
-        decltype(auto) AB = TA.ArrayBuffer();
-        address = uint64_t(AB.Data()) + TA.ByteOffset();
-    }
-    if (info_[0].IsArrayBuffer()) {
-        decltype(auto) AB = info_[0].As<Napi::ArrayBuffer>();
-        address = uint64_t(AB.Data());
-    }
-    if (info_[0].IsExternal()) {
-        decltype(auto) AB = info_[0].As<Napi::External<void>>();
-        address = uint64_t(AB.Data());
-    }
-
-    return ${Uint64Return(`address`)}
-}
-
-
-static Napi::ArrayBuffer WrapArrayBuffer(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
-    uint64_t address = 0ull;
-    bool lossless = true;
-    if (info_[0].IsBigInt()) {
-        address = ${Uint64Getter(0)};
-    }
-    size_t byteLength = 0ull;
-    if (info_[1].IsBigInt()) { byteLength = info_[1].As<Napi::Number>().Int64Value(); }
-    if (info_[1].IsNumber()) { byteLength = info_[1].As<Napi::Number>().Uint32Value(); }
-    return Napi::ArrayBuffer::New(env, (void*)address, byteLength);
-}
-
-
-static Napi::Number DebugUint8(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
-    uint64_t address = 0ull;
-    if (info_[0].IsBigInt()) {
-        bool lossless = true;
-        address = ${Uint64Getter(0)};
-    }
-    return Napi::Number::New(env, *((uint8_t*)address));
-}
-
-static Napi::Number DebugUint16(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
-    uint64_t address = 0ull;
-    if (info_[0].IsBigInt()) {
-        bool lossless = true;
-        address = ${Uint64Getter(0)};
-    }
-    return Napi::Number::New(env, *((uint16_t*)address));
-}
-
-static Napi::Number DebugUint32(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
-    uint64_t address = 0ull;
-    if (info_[0].IsBigInt()) {
-        bool lossless = true;
-        address = ${Uint64Getter(0)};
-    }
-    return Napi::Number::New(env, *((uint32_t*)address));
-}
-
-static Napi::Value DebugUint64(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
-    uint64_t address = 0ull;
-    if (info_[0].IsBigInt()) {
-        bool lossless = true;
-        address = ${Uint64Getter(0)};
-    }
-    return ${Uint64Return(`address`)}
-}
-
-
-static Napi::Number DebugFloat32(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
-    uint64_t address = 0ull;
-    if (info_[0].IsBigInt()) {
-        bool lossless = true;
-        address = ${Uint64Getter(0)};
-    }
-    return Napi::Number::New(env, *((float*)address));
-}
-
-static Napi::Number DebugFloat64(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
-    uint64_t address = 0ull;
-    if (info_[0].IsBigInt()) {
-        bool lossless = true;
-        address = ${Uint64Getter(0)};
-    }
-    return Napi::Number::New(env, *((double*)address));
-}
-
-static Napi::Object Init(Napi::Env env, Napi::Object exports) {
-    exports["uint8" ] = Napi::Function::New(env, DebugUint8);
-    exports["uint16"] = Napi::Function::New(env, DebugUint16);
-    exports["uint32"] = Napi::Function::New(env, DebugUint32);
-    exports["uint64"] = Napi::Function::New(env, DebugUint64);
-    exports["float32"] = Napi::Function::New(env, DebugFloat32);
-    exports["float64"] = Napi::Function::New(env, DebugFloat64);
-    exports["nativeAddress"] = Napi::Function::New(env, GetAddress);
-    exports["arrayBuffer"] = Napi::Function::New(env, WrapArrayBuffer);
-    return exports;
-}
-
-NODE_API_MODULE(NODE_GYP_MODULE_NAME, Init)
-`);}
-
-await fs.promises.writeFile("./vulkan-API.js", `
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const native = require('bindings')('native');
-
-console.log(native);
-
-// get native address for Vulkan API 'const char*'
-String.prototype.charAddress = function (isUtf16 = false) {
-    return native.nativeAddress(this.toString(), isUtf16);
-};
-
-// 
-DataView.prototype.address = 
-Uint8Array.prototype.address = 
-Uint16Array.prototype.address = 
-Uint32Array.prototype.address = 
-BigInt64Array.prototype.address = 
-Int8Array.prototype.address = 
-Int16Array.prototype.address = 
-Int32Array.prototype.address = 
-BigUint64Array.prototype.address = 
-Float32Array.prototype.address = 
-Float64Array.prototype.address = 
-ArrayBuffer.prototype.address = 
-SharedArrayBuffer.prototype.address = 
-function () { return native.nativeAddress(this); }
-
-if (typeof exports != "undefined") { exports.nativeAddress = native.nativeAddress; }
-
-export default native;
-`);*/
 
     return { writeCodes };
 }

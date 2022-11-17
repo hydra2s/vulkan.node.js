@@ -5969,7 +5969,6 @@
         "isConst": true,
         "isPointerSet": false,
         "isFixedArray": true,
-        "length": "4",
         "text": "const float blendConstants [4]",
         "parts": [
           "const",
@@ -27693,7 +27692,6 @@
         "isConst": true,
         "isPointerSet": false,
         "isFixedArray": true,
-        "length": "2",
         "text": "const VkFragmentShadingRateCombinerOpKHR combinerOps [2]",
         "parts": [
           "const",
@@ -27803,7 +27801,6 @@
         "isConst": true,
         "isPointerSet": false,
         "isFixedArray": true,
-        "length": "2",
         "text": "const VkFragmentShadingRateCombinerOpKHR combinerOps [2]",
         "parts": [
           "const",
