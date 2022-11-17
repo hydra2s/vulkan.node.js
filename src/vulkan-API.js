@@ -1,7 +1,7 @@
 
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
-const native = require('bindings')('native');
+const native = require('../build/Debug/node-vulkan-api')('native');
 
 console.log(native);
 
@@ -15,7 +15,7 @@ DataView.prototype.address =
 Uint8Array.prototype.address = 
 Uint16Array.prototype.address = 
 Uint32Array.prototype.address = 
-BigUint64Array.prototype.address = 
+BigInt64Array.prototype.address = 
 Int8Array.prototype.address = 
 Int16Array.prototype.address = 
 Int32Array.prototype.address = 

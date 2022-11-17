@@ -41,6 +41,15 @@ IF (WIN32)
 ENDIF()
 
 # 
+find_package(Vulkan REQUIRED FATAL_ERROR)
+
+#
+add_definitions(-DNAPI_VERSION=${napi_build_version})
+add_definitions(-DNAPI_EXPERIMENTAL)
+cmake_policy(SET CMP0091 NEW)
+cmake_policy(SET CMP0042 NEW)
+
+# 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_C_STANDARD 23)
 set(_src_root_path "${PROJECT_SOURCE_DIR}/")
@@ -55,9 +64,14 @@ file(GLOB_RECURSE _source_list
   "${CMAKE_JS_SRC}"
 )
 
+if(MSVC AND CMAKE_JS_NODELIB_DEF AND CMAKE_JS_NODELIB_TARGET)
+  # Generate node.lib
+  execute_process(COMMAND ${CMAKE_AR} /def:${CMAKE_JS_NODELIB_DEF} /out:${CMAKE_JS_NODELIB_TARGET} ${CMAKE_STATIC_LINKER_FLAGS})
+endif()
+
 # 
 add_library(${PROJECT_NAME} SHARED ${_source_list})
-target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=6 NAPI_EXPERIMENTAL)
+target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=${napi_build_version} ${CMAKE_JS_LIB})
 target_include_directories(${PROJECT_NAME} PUBLIC 
   ${PROJECT_SOURCE_DIR}/include
   ${PROJECT_SOURCE_DIR}/*/include 
@@ -80,21 +94,9 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 #
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
-target_link_libraries(${PROJECT_NAME} ${CMAKE_DL_LIBS} ${Vulkan_LIBRARIES} ${CMAKE_JS_LIB})
+target_link_libraries(${PROJECT_NAME} ${Vulkan_LIBRARIES} ${PROJECT_SOURCE_DIR}/build/node.lib)
 target_link_directories(${PROJECT_NAME} PUBLIC 
 )
-
-if(MSVC AND CMAKE_JS_NODELIB_DEF AND CMAKE_JS_NODELIB_TARGET)
-  # Generate node.lib
-  execute_process(COMMAND ${CMAKE_AR} /def:${CMAKE_JS_NODELIB_DEF} /out:${CMAKE_JS_NODELIB_TARGET} ${CMAKE_STATIC_LINKER_FLAGS})
-endif()
-
-# 
-find_package(Vulkan REQUIRED FATAL_ERROR)
-add_definitions(-DNAPI_VERSION=6)
-add_definitions(-DNAPI_EXPERIMENTAL)
-cmake_policy(SET CMP0091 NEW)
-cmake_policy(SET CMP0042 NEW)
 
 #
 ADD_MSVC_PRECOMPILED_HEADER(

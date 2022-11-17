@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node tests",
-    "install": "prebuild --backend cmake-js -t 6 -r napi",
+    "install": "prebuild --backend cmake-js -t 6 -r napi -a x64",
     "asbuild:debug": "asc assembly/index.ts --target debug",
     "asbuild:release": "asc assembly/index.ts --target release",
     "asbuild": "npm run asbuild:debug && npm run asbuild:release",

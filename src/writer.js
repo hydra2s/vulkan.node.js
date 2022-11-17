@@ -11,13 +11,13 @@ let getWriter = async()=>{
         if (param.isPointerSet) {
             return `
     if (!info[${I}].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    ${param.type}** ${param.name} = (${param.type}**)info[${I}].As<Napi::BigInt>().Uint64Value(&lossless);`;
+    ${param.type}** ${param.name} = (${param.type}**)info[${I}].As<Napi::Number>().Int64Value();`;
         } else
 
         if (param.isPointer) {
             return `
     if (!info[${I}].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    ${param.type}* ${param.name} = (${param.type}*)info[${I}].As<Napi::BigInt>().Uint64Value(&lossless);`;
+    ${param.type}* ${param.name} = (${param.type}*)info[${I}].As<Napi::Number>().Int64Value();`;
         } else
 
         if (param.type == "float") {
@@ -48,7 +48,7 @@ let getWriter = async()=>{
         {   // any other is 64-bit number handlers
             return `
     if (!info[${I}].IsBigInt()) { Napi::TypeError::New(env, "Needs BigInt").ThrowAsJavaScriptException(); return env.Null(); }
-    ${param.type} ${param.name} = (${param.type})info[${I}].As<Napi::BigInt>().Uint64Value(&lossless);`;
+    ${param.type} ${param.name} = (${param.type})info[${I}].As<Napi::Number>().Int64Value();`;
         }
     };
 
@@ -63,7 +63,7 @@ let getWriter = async()=>{
         if (U64Types.indexOf(proto.type) >= 0 || proto.isPointer) {
             return `
     auto result = ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
-    return Napi::BigInt::New(env, result);
+    return Napi::Number::New(env, (int64_t)result);
 `;
         } else 
         if (proto.type.indexOf("void") >= 0 || proto.type.indexOf("PFN_vkVoidFunction") >= 0) {
@@ -75,7 +75,7 @@ let getWriter = async()=>{
         {
         return `
     auto result = ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
-    return Napi::BigInt::New(env, result);
+    return Napi::Number::New(env, (int64_t)result);
 `;
         }
     };
@@ -150,18 +150,18 @@ ${by ? `#endif` : ``}
 #include <napi.h>
 
 
-static Napi::BigInt Dealloc(const Napi::CallbackInfo& info) {
+static Napi::Value Dealloc(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
     uint64_t address = 0ull;
     if (info[0].IsBigInt()) {
         bool lossless = true;
-        address = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+        address = info[0].As<Napi::Number>().Int64Value();
     }
     delete (void*)address;
-    return Napi::BigInt::New(env, 0ull);
+    return Napi::Number::New(env, (int64_t)0ull);
 }
 
-static Napi::BigInt GetAddress(const Napi::CallbackInfo& info) {
+static Napi::Value GetAddress(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     uint64_t address = 0ull;
@@ -190,7 +190,7 @@ static Napi::BigInt GetAddress(const Napi::CallbackInfo& info) {
         address = uint64_t(AB.Data());
     }
 
-    return Napi::BigInt::New(env, address);
+    return Napi::Number::New(env, (int64_t)address);
 }
 
 
@@ -199,10 +199,10 @@ static Napi::ArrayBuffer WrapArrayBuffer(const Napi::CallbackInfo& info) {
     uint64_t address = 0ull;
     bool lossless = true;
     if (info[0].IsBigInt()) {
-        address = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+        address = info[0].As<Napi::Number>().Int64Value();
     }
     size_t byteLength = 0ull;
-    if (info[1].IsBigInt()) { byteLength = info[1].As<Napi::BigInt>().Uint64Value(&lossless); }
+    if (info[1].IsBigInt()) { byteLength = info[1].As<Napi::Number>().Int64Value(); }
     if (info[1].IsNumber()) { byteLength = info[1].As<Napi::Number>().Uint32Value(); }
     return Napi::ArrayBuffer::New(env, (void*)address, byteLength);
 }
@@ -213,7 +213,7 @@ static Napi::Number DebugUint8(const Napi::CallbackInfo& info) {
     uint64_t address = 0ull;
     if (info[0].IsBigInt()) {
         bool lossless = true;
-        address = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+        address = info[0].As<Napi::Number>().Int64Value();
     }
     return Napi::Number::New(env, *((uint8_t*)address));
 }
@@ -223,7 +223,7 @@ Napi::Number DebugUint16(const Napi::CallbackInfo& info) {
     uint64_t address = 0ull;
     if (info[0].IsBigInt()) {
         bool lossless = true;
-        address = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+        address = info[0].As<Napi::Number>().Int64Value();
     }
     return Napi::Number::New(env, *((uint16_t*)address));
 }
@@ -233,19 +233,19 @@ static Napi::Number DebugUint32(const Napi::CallbackInfo& info) {
     uint64_t address = 0ull;
     if (info[0].IsBigInt()) {
         bool lossless = true;
-        address = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+        address = info[0].As<Napi::Number>().Int64Value();
     }
     return Napi::Number::New(env, *((uint32_t*)address));
 }
 
-static Napi::BigInt DebugUint64(const Napi::CallbackInfo& info) {
+static Napi::Value DebugInt64(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
     uint64_t address = 0ull;
     if (info[0].IsBigInt()) {
         bool lossless = true;
-        address = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+        address = info[0].As<Napi::Number>().Int64Value();
     }
-    return Napi::BigInt::New(env, *((uint64_t*)address));
+    return Napi::Number::New(env, *((int64_t*)address));
 }
 
 
@@ -254,7 +254,7 @@ static Napi::Number DebugFloat32(const Napi::CallbackInfo& info) {
     uint64_t address = 0ull;
     if (info[0].IsBigInt()) {
         bool lossless = true;
-        address = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+        address = info[0].As<Napi::Number>().Int64Value();
     }
     return Napi::Number::New(env, *((float*)address));
 }
@@ -264,7 +264,7 @@ static Napi::Number DebugFloat64(const Napi::CallbackInfo& info) {
     uint64_t address = 0ull;
     if (info[0].IsBigInt()) {
         bool lossless = true;
-        address = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+        address = info[0].As<Napi::Number>().Int64Value();
     }
     return Napi::Number::New(env, *((double*)address));
 }
@@ -285,7 +285,7 @@ ${by ? `#endif` : ``}`;
     exports["uint8" ] = Napi::Function::New(env, DebugUint8);
     exports["uint16"] = Napi::Function::New(env, DebugUint16);
     exports["uint32"] = Napi::Function::New(env, DebugUint32);
-    exports["uint64"] = Napi::Function::New(env, DebugUint64);
+    exports["uint64"] = Napi::Function::New(env, DebugInt64);
     exports["float32"] = Napi::Function::New(env, DebugFloat32);
     exports["float64"] = Napi::Function::New(env, DebugFloat64);
     exports["nativeAddress"] = Napi::Function::New(env, GetAddress);
@@ -315,7 +315,7 @@ DataView.prototype.address =
 Uint8Array.prototype.address = 
 Uint16Array.prototype.address = 
 Uint32Array.prototype.address = 
-BigUint64Array.prototype.address = 
+BigInt64Array.prototype.address = 
 Int8Array.prototype.address = 
 Int16Array.prototype.address = 
 Int32Array.prototype.address = 
