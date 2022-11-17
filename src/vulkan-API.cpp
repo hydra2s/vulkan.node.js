@@ -2,10 +2,14 @@
 #pragma once 
 #endif
 
+//
+#define VK_NO_PROTOTYPES
+
 // 
 #ifndef VULKAN_SIZES_H
 #define VULKAN_SIZES_H
 
+/*
 //
 #ifdef _WIN32
 #ifndef VK_USE_PLATFORM_WIN32_KHR
@@ -17,17 +21,134 @@
 //FD defaultly
 #endif
 #endif
+*/
 
 //
 #include <volk/volk.h>
 #include <napi.h>
 
+
+static Napi::BigInt Dealloc(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
+    uint64_t address = 0ull;
+    if (info[0].IsBigInt()) {
+        bool lossless = true;
+        address = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+    }
+    delete (void*)address;
+    return Napi::BigInt::New(env, 0ull);
+}
+
+static Napi::BigInt GetAddress(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
+
+    uint64_t address = 0ull;
+    if (info[0].IsString()) {
+        auto STR = info[0].As<Napi::String>().Utf8Value();
+        auto ptr = Napi::Uint8Array::New(env, STR.length()); // you can't use directly c_str, it should to be context visible
+        memcpy(ptr.Data(), STR.c_str(), STR.size());
+        address = uint64_t(ptr.Data());
+    }
+    if (info[0].IsTypedArray()) {
+        auto TA = info[0].As<Napi::TypedArray>();
+        auto AB = TA.ArrayBuffer();
+        address = uint64_t(AB.Data()) + TA.ByteOffset();
+    }
+    if (info[0].IsDataView()) {
+        auto TA = info[0].As<Napi::DataView>();
+        auto AB = TA.ArrayBuffer();
+        address = uint64_t(AB.Data()) + TA.ByteOffset();
+    }
+    if (info[0].IsArrayBuffer()) {
+        auto AB = info[0].As<Napi::ArrayBuffer>();
+        address = uint64_t(AB.Data());
+    }
+    if (info[0].IsExternal()) {
+        auto AB = info[0].As<Napi::External<void>>();
+        address = uint64_t(AB.Data());
+    }
+
+    return Napi::BigInt::New(env, address);
+}
+
+
+static Napi::ArrayBuffer WrapArrayBuffer(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
+    uint64_t address = 0ull;
+    bool lossless = true;
+    if (info[0].IsBigInt()) {
+        address = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+    }
+    size_t byteLength = 0ull;
+    if (info[1].IsBigInt()) { byteLength = info[1].As<Napi::BigInt>().Uint64Value(&lossless); }
+    if (info[1].IsNumber()) { byteLength = info[1].As<Napi::Number>().Uint32Value(); }
+    return Napi::ArrayBuffer::New(env, (void*)address, byteLength);
+}
+
+
+static Napi::Number DebugUint8(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
+    uint64_t address = 0ull;
+    if (info[0].IsBigInt()) {
+        bool lossless = true;
+        address = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+    }
+    return Napi::Number::New(env, *((uint8_t*)address));
+}
+
+Napi::Number DebugUint16(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
+    uint64_t address = 0ull;
+    if (info[0].IsBigInt()) {
+        bool lossless = true;
+        address = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+    }
+    return Napi::Number::New(env, *((uint16_t*)address));
+}
+
+static Napi::Number DebugUint32(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
+    uint64_t address = 0ull;
+    if (info[0].IsBigInt()) {
+        bool lossless = true;
+        address = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+    }
+    return Napi::Number::New(env, *((uint32_t*)address));
+}
+
+static Napi::BigInt DebugUint64(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
+    uint64_t address = 0ull;
+    if (info[0].IsBigInt()) {
+        bool lossless = true;
+        address = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+    }
+    return Napi::BigInt::New(env, *((uint64_t*)address));
+}
+
+
+static Napi::Number DebugFloat32(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
+    uint64_t address = 0ull;
+    if (info[0].IsBigInt()) {
+        bool lossless = true;
+        address = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+    }
+    return Napi::Number::New(env, *((float*)address));
+}
+
+static Napi::Number DebugFloat64(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
+    uint64_t address = 0ull;
+    if (info[0].IsBigInt()) {
+        bool lossless = true;
+        address = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+    }
+    return Napi::Number::New(env, *((double*)address));
+}
     
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateInstance(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateInstance(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -53,10 +174,7 @@ Napi::Value rawCreateInstance(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyInstance(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyInstance(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -79,10 +197,7 @@ Napi::Value rawDestroyInstance(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawEnumeratePhysicalDevices(const Napi::CallbackInfo& info) {
+static Napi::Value rawEnumeratePhysicalDevices(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -108,10 +223,7 @@ Napi::Value rawEnumeratePhysicalDevices(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeviceProcAddr(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeviceProcAddr(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -134,10 +246,7 @@ Napi::Value rawGetDeviceProcAddr(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetInstanceProcAddr(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetInstanceProcAddr(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -160,10 +269,7 @@ Napi::Value rawGetInstanceProcAddr(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceProperties(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceProperties(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -186,10 +292,7 @@ Napi::Value rawGetPhysicalDeviceProperties(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceQueueFamilyProperties(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceQueueFamilyProperties(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -215,10 +318,7 @@ Napi::Value rawGetPhysicalDeviceQueueFamilyProperties(const Napi::CallbackInfo& 
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceMemoryProperties(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceMemoryProperties(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -241,10 +341,7 @@ Napi::Value rawGetPhysicalDeviceMemoryProperties(const Napi::CallbackInfo& info)
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceFeatures(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceFeatures(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -267,10 +364,7 @@ Napi::Value rawGetPhysicalDeviceFeatures(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceFormatProperties(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceFormatProperties(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -296,10 +390,7 @@ Napi::Value rawGetPhysicalDeviceFormatProperties(const Napi::CallbackInfo& info)
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceImageFormatProperties(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceImageFormatProperties(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -337,10 +428,7 @@ Napi::Value rawGetPhysicalDeviceImageFormatProperties(const Napi::CallbackInfo& 
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateDevice(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateDevice(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -369,10 +457,7 @@ Napi::Value rawCreateDevice(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyDevice(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyDevice(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -395,10 +480,7 @@ Napi::Value rawDestroyDevice(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawEnumerateInstanceVersion(const Napi::CallbackInfo& info) {
+static Napi::Value rawEnumerateInstanceVersion(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -418,10 +500,7 @@ Napi::Value rawEnumerateInstanceVersion(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawEnumerateInstanceLayerProperties(const Napi::CallbackInfo& info) {
+static Napi::Value rawEnumerateInstanceLayerProperties(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -444,10 +523,7 @@ Napi::Value rawEnumerateInstanceLayerProperties(const Napi::CallbackInfo& info) 
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawEnumerateInstanceExtensionProperties(const Napi::CallbackInfo& info) {
+static Napi::Value rawEnumerateInstanceExtensionProperties(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -473,10 +549,7 @@ Napi::Value rawEnumerateInstanceExtensionProperties(const Napi::CallbackInfo& in
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawEnumerateDeviceLayerProperties(const Napi::CallbackInfo& info) {
+static Napi::Value rawEnumerateDeviceLayerProperties(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -502,10 +575,7 @@ Napi::Value rawEnumerateDeviceLayerProperties(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawEnumerateDeviceExtensionProperties(const Napi::CallbackInfo& info) {
+static Napi::Value rawEnumerateDeviceExtensionProperties(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -534,10 +604,7 @@ Napi::Value rawEnumerateDeviceExtensionProperties(const Napi::CallbackInfo& info
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeviceQueue(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeviceQueue(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -566,10 +633,7 @@ Napi::Value rawGetDeviceQueue(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawQueueSubmit(const Napi::CallbackInfo& info) {
+static Napi::Value rawQueueSubmit(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -598,10 +662,7 @@ Napi::Value rawQueueSubmit(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawQueueWaitIdle(const Napi::CallbackInfo& info) {
+static Napi::Value rawQueueWaitIdle(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -621,10 +682,7 @@ Napi::Value rawQueueWaitIdle(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDeviceWaitIdle(const Napi::CallbackInfo& info) {
+static Napi::Value rawDeviceWaitIdle(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -644,10 +702,7 @@ Napi::Value rawDeviceWaitIdle(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawAllocateMemory(const Napi::CallbackInfo& info) {
+static Napi::Value rawAllocateMemory(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -676,10 +731,7 @@ Napi::Value rawAllocateMemory(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawFreeMemory(const Napi::CallbackInfo& info) {
+static Napi::Value rawFreeMemory(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -705,10 +757,7 @@ Napi::Value rawFreeMemory(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawMapMemory(const Napi::CallbackInfo& info) {
+static Napi::Value rawMapMemory(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -743,10 +792,7 @@ Napi::Value rawMapMemory(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawUnmapMemory(const Napi::CallbackInfo& info) {
+static Napi::Value rawUnmapMemory(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -769,10 +815,7 @@ Napi::Value rawUnmapMemory(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawFlushMappedMemoryRanges(const Napi::CallbackInfo& info) {
+static Napi::Value rawFlushMappedMemoryRanges(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -798,10 +841,7 @@ Napi::Value rawFlushMappedMemoryRanges(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawInvalidateMappedMemoryRanges(const Napi::CallbackInfo& info) {
+static Napi::Value rawInvalidateMappedMemoryRanges(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -827,10 +867,7 @@ Napi::Value rawInvalidateMappedMemoryRanges(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeviceMemoryCommitment(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeviceMemoryCommitment(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -856,10 +893,7 @@ Napi::Value rawGetDeviceMemoryCommitment(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetBufferMemoryRequirements(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetBufferMemoryRequirements(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -885,10 +919,7 @@ Napi::Value rawGetBufferMemoryRequirements(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawBindBufferMemory(const Napi::CallbackInfo& info) {
+static Napi::Value rawBindBufferMemory(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -917,10 +948,7 @@ Napi::Value rawBindBufferMemory(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetImageMemoryRequirements(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetImageMemoryRequirements(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -946,10 +974,7 @@ Napi::Value rawGetImageMemoryRequirements(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawBindImageMemory(const Napi::CallbackInfo& info) {
+static Napi::Value rawBindImageMemory(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -978,10 +1003,7 @@ Napi::Value rawBindImageMemory(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetImageSparseMemoryRequirements(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetImageSparseMemoryRequirements(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1010,10 +1032,7 @@ Napi::Value rawGetImageSparseMemoryRequirements(const Napi::CallbackInfo& info) 
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceSparseImageFormatProperties(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceSparseImageFormatProperties(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1054,10 +1073,7 @@ Napi::Value rawGetPhysicalDeviceSparseImageFormatProperties(const Napi::Callback
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawQueueBindSparse(const Napi::CallbackInfo& info) {
+static Napi::Value rawQueueBindSparse(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1086,10 +1102,7 @@ Napi::Value rawQueueBindSparse(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateFence(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateFence(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1118,10 +1131,7 @@ Napi::Value rawCreateFence(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyFence(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyFence(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1147,10 +1157,7 @@ Napi::Value rawDestroyFence(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawResetFences(const Napi::CallbackInfo& info) {
+static Napi::Value rawResetFences(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1176,10 +1183,7 @@ Napi::Value rawResetFences(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetFenceStatus(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetFenceStatus(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1202,10 +1206,7 @@ Napi::Value rawGetFenceStatus(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawWaitForFences(const Napi::CallbackInfo& info) {
+static Napi::Value rawWaitForFences(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1237,10 +1238,7 @@ Napi::Value rawWaitForFences(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateSemaphore(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateSemaphore(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1269,10 +1267,7 @@ Napi::Value rawCreateSemaphore(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroySemaphore(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroySemaphore(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1298,10 +1293,7 @@ Napi::Value rawDestroySemaphore(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateEvent(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateEvent(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1330,10 +1322,7 @@ Napi::Value rawCreateEvent(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyEvent(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyEvent(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1359,10 +1348,7 @@ Napi::Value rawDestroyEvent(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetEventStatus(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetEventStatus(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1385,10 +1371,7 @@ Napi::Value rawGetEventStatus(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawSetEvent(const Napi::CallbackInfo& info) {
+static Napi::Value rawSetEvent(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1411,10 +1394,7 @@ Napi::Value rawSetEvent(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawResetEvent(const Napi::CallbackInfo& info) {
+static Napi::Value rawResetEvent(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1437,10 +1417,7 @@ Napi::Value rawResetEvent(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateQueryPool(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateQueryPool(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1469,10 +1446,7 @@ Napi::Value rawCreateQueryPool(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyQueryPool(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyQueryPool(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1498,10 +1472,7 @@ Napi::Value rawDestroyQueryPool(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetQueryPoolResults(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetQueryPoolResults(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1542,10 +1513,7 @@ Napi::Value rawGetQueryPoolResults(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawResetQueryPool(const Napi::CallbackInfo& info) {
+static Napi::Value rawResetQueryPool(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1574,10 +1542,7 @@ Napi::Value rawResetQueryPool(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateBuffer(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateBuffer(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1606,10 +1571,7 @@ Napi::Value rawCreateBuffer(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyBuffer(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyBuffer(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1635,10 +1597,7 @@ Napi::Value rawDestroyBuffer(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateBufferView(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateBufferView(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1667,10 +1626,7 @@ Napi::Value rawCreateBufferView(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyBufferView(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyBufferView(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1696,10 +1652,7 @@ Napi::Value rawDestroyBufferView(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateImage(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateImage(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1728,10 +1681,7 @@ Napi::Value rawCreateImage(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyImage(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyImage(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1757,10 +1707,7 @@ Napi::Value rawDestroyImage(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetImageSubresourceLayout(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetImageSubresourceLayout(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1789,10 +1736,7 @@ Napi::Value rawGetImageSubresourceLayout(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateImageView(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateImageView(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1821,10 +1765,7 @@ Napi::Value rawCreateImageView(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyImageView(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyImageView(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1850,10 +1791,7 @@ Napi::Value rawDestroyImageView(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateShaderModule(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateShaderModule(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1882,10 +1820,7 @@ Napi::Value rawCreateShaderModule(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyShaderModule(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyShaderModule(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1911,10 +1846,7 @@ Napi::Value rawDestroyShaderModule(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreatePipelineCache(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreatePipelineCache(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1943,10 +1875,7 @@ Napi::Value rawCreatePipelineCache(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyPipelineCache(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyPipelineCache(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -1972,10 +1901,7 @@ Napi::Value rawDestroyPipelineCache(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPipelineCacheData(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPipelineCacheData(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2004,10 +1930,7 @@ Napi::Value rawGetPipelineCacheData(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawMergePipelineCaches(const Napi::CallbackInfo& info) {
+static Napi::Value rawMergePipelineCaches(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2036,10 +1959,7 @@ Napi::Value rawMergePipelineCaches(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateGraphicsPipelines(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateGraphicsPipelines(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2074,10 +1994,7 @@ Napi::Value rawCreateGraphicsPipelines(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateComputePipelines(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateComputePipelines(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2112,10 +2029,7 @@ Napi::Value rawCreateComputePipelines(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_HUAWEI_subpass_shading
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2141,10 +2055,7 @@ Napi::Value rawGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(const Napi::Callbac
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyPipeline(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyPipeline(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2170,10 +2081,7 @@ Napi::Value rawDestroyPipeline(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreatePipelineLayout(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreatePipelineLayout(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2202,10 +2110,7 @@ Napi::Value rawCreatePipelineLayout(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyPipelineLayout(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyPipelineLayout(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2231,10 +2136,7 @@ Napi::Value rawDestroyPipelineLayout(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateSampler(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateSampler(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2263,10 +2165,7 @@ Napi::Value rawCreateSampler(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroySampler(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroySampler(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2292,10 +2191,7 @@ Napi::Value rawDestroySampler(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateDescriptorSetLayout(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateDescriptorSetLayout(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2324,10 +2220,7 @@ Napi::Value rawCreateDescriptorSetLayout(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyDescriptorSetLayout(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyDescriptorSetLayout(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2353,10 +2246,7 @@ Napi::Value rawDestroyDescriptorSetLayout(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateDescriptorPool(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateDescriptorPool(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2385,10 +2275,7 @@ Napi::Value rawCreateDescriptorPool(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyDescriptorPool(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyDescriptorPool(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2414,10 +2301,7 @@ Napi::Value rawDestroyDescriptorPool(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawResetDescriptorPool(const Napi::CallbackInfo& info) {
+static Napi::Value rawResetDescriptorPool(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2443,10 +2327,7 @@ Napi::Value rawResetDescriptorPool(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawAllocateDescriptorSets(const Napi::CallbackInfo& info) {
+static Napi::Value rawAllocateDescriptorSets(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2472,10 +2353,7 @@ Napi::Value rawAllocateDescriptorSets(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawFreeDescriptorSets(const Napi::CallbackInfo& info) {
+static Napi::Value rawFreeDescriptorSets(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2504,10 +2382,7 @@ Napi::Value rawFreeDescriptorSets(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawUpdateDescriptorSets(const Napi::CallbackInfo& info) {
+static Napi::Value rawUpdateDescriptorSets(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2539,10 +2414,7 @@ Napi::Value rawUpdateDescriptorSets(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateFramebuffer(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateFramebuffer(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2571,10 +2443,7 @@ Napi::Value rawCreateFramebuffer(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyFramebuffer(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyFramebuffer(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2600,10 +2469,7 @@ Napi::Value rawDestroyFramebuffer(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateRenderPass(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateRenderPass(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2632,10 +2498,7 @@ Napi::Value rawCreateRenderPass(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyRenderPass(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyRenderPass(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2661,10 +2524,7 @@ Napi::Value rawDestroyRenderPass(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetRenderAreaGranularity(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetRenderAreaGranularity(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2690,10 +2550,7 @@ Napi::Value rawGetRenderAreaGranularity(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateCommandPool(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateCommandPool(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2722,10 +2579,7 @@ Napi::Value rawCreateCommandPool(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyCommandPool(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyCommandPool(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2751,10 +2605,7 @@ Napi::Value rawDestroyCommandPool(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawResetCommandPool(const Napi::CallbackInfo& info) {
+static Napi::Value rawResetCommandPool(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2780,10 +2631,7 @@ Napi::Value rawResetCommandPool(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawAllocateCommandBuffers(const Napi::CallbackInfo& info) {
+static Napi::Value rawAllocateCommandBuffers(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2809,10 +2657,7 @@ Napi::Value rawAllocateCommandBuffers(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawFreeCommandBuffers(const Napi::CallbackInfo& info) {
+static Napi::Value rawFreeCommandBuffers(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2841,10 +2686,7 @@ Napi::Value rawFreeCommandBuffers(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawBeginCommandBuffer(const Napi::CallbackInfo& info) {
+static Napi::Value rawBeginCommandBuffer(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2867,10 +2709,7 @@ Napi::Value rawBeginCommandBuffer(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawEndCommandBuffer(const Napi::CallbackInfo& info) {
+static Napi::Value rawEndCommandBuffer(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2890,10 +2729,7 @@ Napi::Value rawEndCommandBuffer(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawResetCommandBuffer(const Napi::CallbackInfo& info) {
+static Napi::Value rawResetCommandBuffer(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2916,10 +2752,7 @@ Napi::Value rawResetCommandBuffer(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBindPipeline(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBindPipeline(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2945,10 +2778,7 @@ Napi::Value rawCmdBindPipeline(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetViewport(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetViewport(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -2977,10 +2807,7 @@ Napi::Value rawCmdSetViewport(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetScissor(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetScissor(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3009,10 +2836,7 @@ Napi::Value rawCmdSetScissor(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetLineWidth(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetLineWidth(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3035,10 +2859,7 @@ Napi::Value rawCmdSetLineWidth(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetDepthBias(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetDepthBias(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3067,10 +2888,7 @@ Napi::Value rawCmdSetDepthBias(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetBlendConstants(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetBlendConstants(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3093,10 +2911,7 @@ Napi::Value rawCmdSetBlendConstants(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetDepthBounds(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetDepthBounds(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3122,10 +2937,7 @@ Napi::Value rawCmdSetDepthBounds(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetStencilCompareMask(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetStencilCompareMask(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3151,10 +2963,7 @@ Napi::Value rawCmdSetStencilCompareMask(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetStencilWriteMask(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetStencilWriteMask(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3180,10 +2989,7 @@ Napi::Value rawCmdSetStencilWriteMask(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetStencilReference(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetStencilReference(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3209,10 +3015,7 @@ Napi::Value rawCmdSetStencilReference(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBindDescriptorSets(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBindDescriptorSets(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3253,10 +3056,7 @@ Napi::Value rawCmdBindDescriptorSets(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBindIndexBuffer(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBindIndexBuffer(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3285,10 +3085,7 @@ Napi::Value rawCmdBindIndexBuffer(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBindVertexBuffers(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBindVertexBuffers(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3320,10 +3117,7 @@ Napi::Value rawCmdBindVertexBuffers(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDraw(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDraw(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3355,10 +3149,7 @@ Napi::Value rawCmdDraw(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDrawIndexed(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDrawIndexed(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3393,10 +3184,7 @@ Napi::Value rawCmdDrawIndexed(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_EXT_multi_draw
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDrawMultiEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDrawMultiEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3431,10 +3219,7 @@ Napi::Value rawCmdDrawMultiEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_multi_draw
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDrawMultiIndexedEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDrawMultiIndexedEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3472,10 +3257,7 @@ Napi::Value rawCmdDrawMultiIndexedEXT(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDrawIndirect(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDrawIndirect(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3507,10 +3289,7 @@ Napi::Value rawCmdDrawIndirect(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDrawIndexedIndirect(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDrawIndexedIndirect(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3542,10 +3321,7 @@ Napi::Value rawCmdDrawIndexedIndirect(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDispatch(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDispatch(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3574,10 +3350,7 @@ Napi::Value rawCmdDispatch(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDispatchIndirect(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDispatchIndirect(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3603,10 +3376,7 @@ Napi::Value rawCmdDispatchIndirect(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_HUAWEI_subpass_shading
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSubpassShadingHUAWEI(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSubpassShadingHUAWEI(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3626,10 +3396,7 @@ Napi::Value rawCmdSubpassShadingHUAWEI(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyBuffer(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyBuffer(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3661,10 +3428,7 @@ Napi::Value rawCmdCopyBuffer(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyImage(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyImage(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3702,10 +3466,7 @@ Napi::Value rawCmdCopyImage(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBlitImage(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBlitImage(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3746,10 +3507,7 @@ Napi::Value rawCmdBlitImage(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyBufferToImage(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyBufferToImage(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3784,10 +3542,7 @@ Napi::Value rawCmdCopyBufferToImage(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyImageToBuffer(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyImageToBuffer(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3822,10 +3577,7 @@ Napi::Value rawCmdCopyImageToBuffer(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_NV_copy_memory_indirect
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyMemoryIndirectNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyMemoryIndirectNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3854,10 +3606,7 @@ Napi::Value rawCmdCopyMemoryIndirectNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_copy_memory_indirect
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyMemoryToImageIndirectNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyMemoryToImageIndirectNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3895,10 +3644,7 @@ Napi::Value rawCmdCopyMemoryToImageIndirectNV(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdUpdateBuffer(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdUpdateBuffer(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3930,10 +3676,7 @@ Napi::Value rawCmdUpdateBuffer(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdFillBuffer(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdFillBuffer(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -3965,10 +3708,7 @@ Napi::Value rawCmdFillBuffer(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdClearColorImage(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdClearColorImage(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4003,10 +3743,7 @@ Napi::Value rawCmdClearColorImage(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdClearDepthStencilImage(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdClearDepthStencilImage(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4041,10 +3778,7 @@ Napi::Value rawCmdClearDepthStencilImage(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdClearAttachments(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdClearAttachments(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4076,10 +3810,7 @@ Napi::Value rawCmdClearAttachments(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdResolveImage(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdResolveImage(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4117,10 +3848,7 @@ Napi::Value rawCmdResolveImage(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetEvent(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetEvent(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4146,10 +3874,7 @@ Napi::Value rawCmdSetEvent(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdResetEvent(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdResetEvent(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4175,10 +3900,7 @@ Napi::Value rawCmdResetEvent(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdWaitEvents(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdWaitEvents(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4228,10 +3950,7 @@ Napi::Value rawCmdWaitEvents(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdPipelineBarrier(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdPipelineBarrier(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4278,10 +3997,7 @@ Napi::Value rawCmdPipelineBarrier(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBeginQuery(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBeginQuery(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4310,10 +4026,7 @@ Napi::Value rawCmdBeginQuery(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdEndQuery(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdEndQuery(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4339,10 +4052,7 @@ Napi::Value rawCmdEndQuery(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_EXT_conditional_rendering
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBeginConditionalRenderingEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBeginConditionalRenderingEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4365,10 +4075,7 @@ Napi::Value rawCmdBeginConditionalRenderingEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_conditional_rendering
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdEndConditionalRenderingEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdEndConditionalRenderingEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4388,10 +4095,7 @@ Napi::Value rawCmdEndConditionalRenderingEXT(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdResetQueryPool(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdResetQueryPool(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4420,10 +4124,7 @@ Napi::Value rawCmdResetQueryPool(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdWriteTimestamp(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdWriteTimestamp(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4452,10 +4153,7 @@ Napi::Value rawCmdWriteTimestamp(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyQueryPoolResults(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyQueryPoolResults(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4496,10 +4194,7 @@ Napi::Value rawCmdCopyQueryPoolResults(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdPushConstants(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdPushConstants(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4534,10 +4229,7 @@ Napi::Value rawCmdPushConstants(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBeginRenderPass(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBeginRenderPass(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4563,10 +4255,7 @@ Napi::Value rawCmdBeginRenderPass(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdNextSubpass(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdNextSubpass(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4589,10 +4278,7 @@ Napi::Value rawCmdNextSubpass(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdEndRenderPass(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdEndRenderPass(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4612,10 +4298,7 @@ Napi::Value rawCmdEndRenderPass(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdExecuteCommands(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdExecuteCommands(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4641,10 +4324,7 @@ Napi::Value rawCmdExecuteCommands(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_KHR_android_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateAndroidSurfaceKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateAndroidSurfaceKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4673,10 +4353,7 @@ Napi::Value rawCreateAndroidSurfaceKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_display
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceDisplayPropertiesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceDisplayPropertiesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4702,10 +4379,7 @@ Napi::Value rawGetPhysicalDeviceDisplayPropertiesKHR(const Napi::CallbackInfo& i
 #endif
 
 #ifdef VK_KHR_display
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceDisplayPlanePropertiesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceDisplayPlanePropertiesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4731,10 +4405,7 @@ Napi::Value rawGetPhysicalDeviceDisplayPlanePropertiesKHR(const Napi::CallbackIn
 #endif
 
 #ifdef VK_KHR_display
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDisplayPlaneSupportedDisplaysKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDisplayPlaneSupportedDisplaysKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4763,10 +4434,7 @@ Napi::Value rawGetDisplayPlaneSupportedDisplaysKHR(const Napi::CallbackInfo& inf
 #endif
 
 #ifdef VK_KHR_display
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDisplayModePropertiesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDisplayModePropertiesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4795,10 +4463,7 @@ Napi::Value rawGetDisplayModePropertiesKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_display
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateDisplayModeKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateDisplayModeKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4830,10 +4495,7 @@ Napi::Value rawCreateDisplayModeKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_display
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDisplayPlaneCapabilitiesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDisplayPlaneCapabilitiesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4862,10 +4524,7 @@ Napi::Value rawGetDisplayPlaneCapabilitiesKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_display
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateDisplayPlaneSurfaceKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateDisplayPlaneSurfaceKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4894,10 +4553,7 @@ Napi::Value rawCreateDisplayPlaneSurfaceKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_display_swapchain
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateSharedSwapchainsKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateSharedSwapchainsKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4929,10 +4585,7 @@ Napi::Value rawCreateSharedSwapchainsKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroySurfaceKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroySurfaceKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4958,10 +4611,7 @@ Napi::Value rawDestroySurfaceKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceSurfaceSupportKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceSurfaceSupportKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -4990,10 +4640,7 @@ Napi::Value rawGetPhysicalDeviceSurfaceSupportKHR(const Napi::CallbackInfo& info
 #endif
 
 #ifdef VK_KHR_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceSurfaceCapabilitiesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceSurfaceCapabilitiesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5019,10 +4666,7 @@ Napi::Value rawGetPhysicalDeviceSurfaceCapabilitiesKHR(const Napi::CallbackInfo&
 #endif
 
 #ifdef VK_KHR_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceSurfaceFormatsKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceSurfaceFormatsKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5051,10 +4695,7 @@ Napi::Value rawGetPhysicalDeviceSurfaceFormatsKHR(const Napi::CallbackInfo& info
 #endif
 
 #ifdef VK_KHR_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceSurfacePresentModesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceSurfacePresentModesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5083,10 +4724,7 @@ Napi::Value rawGetPhysicalDeviceSurfacePresentModesKHR(const Napi::CallbackInfo&
 #endif
 
 #ifdef VK_KHR_swapchain
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateSwapchainKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateSwapchainKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5115,10 +4753,7 @@ Napi::Value rawCreateSwapchainKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_swapchain
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroySwapchainKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroySwapchainKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5144,10 +4779,7 @@ Napi::Value rawDestroySwapchainKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_swapchain
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetSwapchainImagesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetSwapchainImagesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5176,10 +4808,7 @@ Napi::Value rawGetSwapchainImagesKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_swapchain
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawAcquireNextImageKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawAcquireNextImageKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5214,10 +4843,7 @@ Napi::Value rawAcquireNextImageKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_swapchain
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawQueuePresentKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawQueuePresentKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5240,10 +4866,7 @@ Napi::Value rawQueuePresentKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NN_vi_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateViSurfaceNN(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateViSurfaceNN(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5272,10 +4895,7 @@ Napi::Value rawCreateViSurfaceNN(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_wayland_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateWaylandSurfaceKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateWaylandSurfaceKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5304,10 +4924,7 @@ Napi::Value rawCreateWaylandSurfaceKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_wayland_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceWaylandPresentationSupportKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceWaylandPresentationSupportKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5333,10 +4950,7 @@ Napi::Value rawGetPhysicalDeviceWaylandPresentationSupportKHR(const Napi::Callba
 #endif
 
 #ifdef VK_KHR_win32_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateWin32SurfaceKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateWin32SurfaceKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5365,10 +4979,7 @@ Napi::Value rawCreateWin32SurfaceKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_win32_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceWin32PresentationSupportKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceWin32PresentationSupportKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5391,10 +5002,7 @@ Napi::Value rawGetPhysicalDeviceWin32PresentationSupportKHR(const Napi::Callback
 #endif
 
 #ifdef VK_KHR_xlib_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateXlibSurfaceKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateXlibSurfaceKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5423,10 +5031,7 @@ Napi::Value rawCreateXlibSurfaceKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_xlib_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceXlibPresentationSupportKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceXlibPresentationSupportKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5455,10 +5060,7 @@ Napi::Value rawGetPhysicalDeviceXlibPresentationSupportKHR(const Napi::CallbackI
 #endif
 
 #ifdef VK_KHR_xcb_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateXcbSurfaceKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateXcbSurfaceKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5487,10 +5089,7 @@ Napi::Value rawCreateXcbSurfaceKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_xcb_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceXcbPresentationSupportKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceXcbPresentationSupportKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5519,10 +5118,7 @@ Napi::Value rawGetPhysicalDeviceXcbPresentationSupportKHR(const Napi::CallbackIn
 #endif
 
 #ifdef VK_EXT_directfb_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateDirectFBSurfaceEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateDirectFBSurfaceEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5551,10 +5147,7 @@ Napi::Value rawCreateDirectFBSurfaceEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_directfb_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceDirectFBPresentationSupportEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceDirectFBPresentationSupportEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5580,10 +5173,7 @@ Napi::Value rawGetPhysicalDeviceDirectFBPresentationSupportEXT(const Napi::Callb
 #endif
 
 #ifdef VK_FUCHSIA_imagepipe_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateImagePipeSurfaceFUCHSIA(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateImagePipeSurfaceFUCHSIA(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5612,10 +5202,7 @@ Napi::Value rawCreateImagePipeSurfaceFUCHSIA(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_GGP_stream_descriptor_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateStreamDescriptorSurfaceGGP(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateStreamDescriptorSurfaceGGP(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5644,10 +5231,7 @@ Napi::Value rawCreateStreamDescriptorSurfaceGGP(const Napi::CallbackInfo& info) 
 #endif
 
 #ifdef VK_QNX_screen_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateScreenSurfaceQNX(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateScreenSurfaceQNX(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5676,10 +5260,7 @@ Napi::Value rawCreateScreenSurfaceQNX(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_QNX_screen_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceScreenPresentationSupportQNX(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceScreenPresentationSupportQNX(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5705,10 +5286,7 @@ Napi::Value rawGetPhysicalDeviceScreenPresentationSupportQNX(const Napi::Callbac
 #endif
 
 #ifdef VK_EXT_debug_report
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateDebugReportCallbackEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateDebugReportCallbackEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5737,10 +5315,7 @@ Napi::Value rawCreateDebugReportCallbackEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_report
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyDebugReportCallbackEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyDebugReportCallbackEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5766,10 +5341,7 @@ Napi::Value rawDestroyDebugReportCallbackEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_report
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDebugReportMessageEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawDebugReportMessageEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5810,10 +5382,7 @@ Napi::Value rawDebugReportMessageEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_marker
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDebugMarkerSetObjectNameEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawDebugMarkerSetObjectNameEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5836,10 +5405,7 @@ Napi::Value rawDebugMarkerSetObjectNameEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_marker
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDebugMarkerSetObjectTagEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawDebugMarkerSetObjectTagEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5862,10 +5428,7 @@ Napi::Value rawDebugMarkerSetObjectTagEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_marker
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDebugMarkerBeginEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDebugMarkerBeginEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5888,10 +5451,7 @@ Napi::Value rawCmdDebugMarkerBeginEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_marker
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDebugMarkerEndEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDebugMarkerEndEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5911,10 +5471,7 @@ Napi::Value rawCmdDebugMarkerEndEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_marker
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDebugMarkerInsertEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDebugMarkerInsertEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5937,10 +5494,7 @@ Napi::Value rawCmdDebugMarkerInsertEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_external_memory_capabilities
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceExternalImageFormatPropertiesNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceExternalImageFormatPropertiesNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -5981,10 +5535,7 @@ Napi::Value rawGetPhysicalDeviceExternalImageFormatPropertiesNV(const Napi::Call
 #endif
 
 #ifdef VK_NV_external_memory_win32
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetMemoryWin32HandleNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetMemoryWin32HandleNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6013,10 +5564,7 @@ Napi::Value rawGetMemoryWin32HandleNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_device_generated_commands
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdExecuteGeneratedCommandsNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdExecuteGeneratedCommandsNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6042,10 +5590,7 @@ Napi::Value rawCmdExecuteGeneratedCommandsNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_device_generated_commands
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdPreprocessGeneratedCommandsNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdPreprocessGeneratedCommandsNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6068,10 +5613,7 @@ Napi::Value rawCmdPreprocessGeneratedCommandsNV(const Napi::CallbackInfo& info) 
 #endif
 
 #ifdef VK_NV_device_generated_commands
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBindPipelineShaderGroupNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBindPipelineShaderGroupNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6100,10 +5642,7 @@ Napi::Value rawCmdBindPipelineShaderGroupNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_device_generated_commands
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetGeneratedCommandsMemoryRequirementsNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetGeneratedCommandsMemoryRequirementsNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6129,10 +5668,7 @@ Napi::Value rawGetGeneratedCommandsMemoryRequirementsNV(const Napi::CallbackInfo
 #endif
 
 #ifdef VK_NV_device_generated_commands
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateIndirectCommandsLayoutNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateIndirectCommandsLayoutNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6161,10 +5697,7 @@ Napi::Value rawCreateIndirectCommandsLayoutNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_device_generated_commands
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyIndirectCommandsLayoutNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyIndirectCommandsLayoutNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6190,10 +5723,7 @@ Napi::Value rawDestroyIndirectCommandsLayoutNV(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceFeatures2(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceFeatures2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6216,10 +5746,7 @@ Napi::Value rawGetPhysicalDeviceFeatures2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceProperties2(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceProperties2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6242,10 +5769,7 @@ Napi::Value rawGetPhysicalDeviceProperties2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceFormatProperties2(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceFormatProperties2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6271,10 +5795,7 @@ Napi::Value rawGetPhysicalDeviceFormatProperties2(const Napi::CallbackInfo& info
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceImageFormatProperties2(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceImageFormatProperties2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6300,10 +5821,7 @@ Napi::Value rawGetPhysicalDeviceImageFormatProperties2(const Napi::CallbackInfo&
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceQueueFamilyProperties2(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceQueueFamilyProperties2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6329,10 +5847,7 @@ Napi::Value rawGetPhysicalDeviceQueueFamilyProperties2(const Napi::CallbackInfo&
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceMemoryProperties2(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceMemoryProperties2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6355,10 +5870,7 @@ Napi::Value rawGetPhysicalDeviceMemoryProperties2(const Napi::CallbackInfo& info
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceSparseImageFormatProperties2(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceSparseImageFormatProperties2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6387,10 +5899,7 @@ Napi::Value rawGetPhysicalDeviceSparseImageFormatProperties2(const Napi::Callbac
 
 
 #ifdef VK_KHR_push_descriptor
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdPushDescriptorSetKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdPushDescriptorSetKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6425,10 +5934,7 @@ Napi::Value rawCmdPushDescriptorSetKHR(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawTrimCommandPool(const Napi::CallbackInfo& info) {
+static Napi::Value rawTrimCommandPool(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6454,10 +5960,7 @@ Napi::Value rawTrimCommandPool(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceExternalBufferProperties(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceExternalBufferProperties(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6483,10 +5986,7 @@ Napi::Value rawGetPhysicalDeviceExternalBufferProperties(const Napi::CallbackInf
 
 
 #ifdef VK_KHR_external_memory_win32
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetMemoryWin32HandleKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetMemoryWin32HandleKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6512,10 +6012,7 @@ Napi::Value rawGetMemoryWin32HandleKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_external_memory_win32
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetMemoryWin32HandlePropertiesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetMemoryWin32HandlePropertiesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6544,10 +6041,7 @@ Napi::Value rawGetMemoryWin32HandlePropertiesKHR(const Napi::CallbackInfo& info)
 #endif
 
 #ifdef VK_KHR_external_memory_fd
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetMemoryFdKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetMemoryFdKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6573,10 +6067,7 @@ Napi::Value rawGetMemoryFdKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_external_memory_fd
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetMemoryFdPropertiesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetMemoryFdPropertiesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6605,10 +6096,7 @@ Napi::Value rawGetMemoryFdPropertiesKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_FUCHSIA_external_memory
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetMemoryZirconHandleFUCHSIA(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetMemoryZirconHandleFUCHSIA(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6634,10 +6122,7 @@ Napi::Value rawGetMemoryZirconHandleFUCHSIA(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_FUCHSIA_external_memory
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetMemoryZirconHandlePropertiesFUCHSIA(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetMemoryZirconHandlePropertiesFUCHSIA(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6666,10 +6151,7 @@ Napi::Value rawGetMemoryZirconHandlePropertiesFUCHSIA(const Napi::CallbackInfo& 
 #endif
 
 #ifdef VK_NV_external_memory_rdma
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetMemoryRemoteAddressNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetMemoryRemoteAddressNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6695,10 +6177,7 @@ Napi::Value rawGetMemoryRemoteAddressNV(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceExternalSemaphoreProperties(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceExternalSemaphoreProperties(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6724,10 +6203,7 @@ Napi::Value rawGetPhysicalDeviceExternalSemaphoreProperties(const Napi::Callback
 
 
 #ifdef VK_KHR_external_semaphore_win32
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetSemaphoreWin32HandleKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetSemaphoreWin32HandleKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6753,10 +6229,7 @@ Napi::Value rawGetSemaphoreWin32HandleKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_external_semaphore_win32
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawImportSemaphoreWin32HandleKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawImportSemaphoreWin32HandleKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6779,10 +6252,7 @@ Napi::Value rawImportSemaphoreWin32HandleKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_external_semaphore_fd
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetSemaphoreFdKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetSemaphoreFdKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6808,10 +6278,7 @@ Napi::Value rawGetSemaphoreFdKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_external_semaphore_fd
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawImportSemaphoreFdKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawImportSemaphoreFdKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6834,10 +6301,7 @@ Napi::Value rawImportSemaphoreFdKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_FUCHSIA_external_semaphore
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetSemaphoreZirconHandleFUCHSIA(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetSemaphoreZirconHandleFUCHSIA(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6863,10 +6327,7 @@ Napi::Value rawGetSemaphoreZirconHandleFUCHSIA(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_FUCHSIA_external_semaphore
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawImportSemaphoreZirconHandleFUCHSIA(const Napi::CallbackInfo& info) {
+static Napi::Value rawImportSemaphoreZirconHandleFUCHSIA(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6889,10 +6350,7 @@ Napi::Value rawImportSemaphoreZirconHandleFUCHSIA(const Napi::CallbackInfo& info
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceExternalFenceProperties(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceExternalFenceProperties(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6918,10 +6376,7 @@ Napi::Value rawGetPhysicalDeviceExternalFenceProperties(const Napi::CallbackInfo
 
 
 #ifdef VK_KHR_external_fence_win32
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetFenceWin32HandleKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetFenceWin32HandleKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6947,10 +6402,7 @@ Napi::Value rawGetFenceWin32HandleKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_external_fence_win32
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawImportFenceWin32HandleKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawImportFenceWin32HandleKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -6973,10 +6425,7 @@ Napi::Value rawImportFenceWin32HandleKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_external_fence_fd
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetFenceFdKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetFenceFdKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7002,10 +6451,7 @@ Napi::Value rawGetFenceFdKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_external_fence_fd
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawImportFenceFdKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawImportFenceFdKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7028,10 +6474,7 @@ Napi::Value rawImportFenceFdKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_direct_mode_display
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawReleaseDisplayEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawReleaseDisplayEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7054,10 +6497,7 @@ Napi::Value rawReleaseDisplayEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_acquire_xlib_display
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawAcquireXlibDisplayEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawAcquireXlibDisplayEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7083,10 +6523,7 @@ Napi::Value rawAcquireXlibDisplayEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_acquire_xlib_display
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetRandROutputDisplayEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetRandROutputDisplayEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7115,10 +6552,7 @@ Napi::Value rawGetRandROutputDisplayEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_acquire_winrt_display
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawAcquireWinrtDisplayNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawAcquireWinrtDisplayNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7141,10 +6575,7 @@ Napi::Value rawAcquireWinrtDisplayNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_acquire_winrt_display
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetWinrtDisplayNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetWinrtDisplayNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7170,10 +6601,7 @@ Napi::Value rawGetWinrtDisplayNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_display_control
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDisplayPowerControlEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawDisplayPowerControlEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7199,10 +6627,7 @@ Napi::Value rawDisplayPowerControlEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_display_control
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawRegisterDeviceEventEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawRegisterDeviceEventEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7231,10 +6656,7 @@ Napi::Value rawRegisterDeviceEventEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_display_control
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawRegisterDisplayEventEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawRegisterDisplayEventEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7266,10 +6688,7 @@ Napi::Value rawRegisterDisplayEventEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_display_control
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetSwapchainCounterEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetSwapchainCounterEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7298,10 +6717,7 @@ Napi::Value rawGetSwapchainCounterEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_display_surface_counter
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceSurfaceCapabilities2EXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceSurfaceCapabilities2EXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7327,10 +6743,7 @@ Napi::Value rawGetPhysicalDeviceSurfaceCapabilities2EXT(const Napi::CallbackInfo
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawEnumeratePhysicalDeviceGroups(const Napi::CallbackInfo& info) {
+static Napi::Value rawEnumeratePhysicalDeviceGroups(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7356,10 +6769,7 @@ Napi::Value rawEnumeratePhysicalDeviceGroups(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeviceGroupPeerMemoryFeatures(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeviceGroupPeerMemoryFeatures(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7391,10 +6801,7 @@ Napi::Value rawGetDeviceGroupPeerMemoryFeatures(const Napi::CallbackInfo& info) 
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawBindBufferMemory2(const Napi::CallbackInfo& info) {
+static Napi::Value rawBindBufferMemory2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7420,10 +6827,7 @@ Napi::Value rawBindBufferMemory2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawBindImageMemory2(const Napi::CallbackInfo& info) {
+static Napi::Value rawBindImageMemory2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7449,10 +6853,7 @@ Napi::Value rawBindImageMemory2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetDeviceMask(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetDeviceMask(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7475,10 +6876,7 @@ Napi::Value rawCmdSetDeviceMask(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_KHR_device_group
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeviceGroupPresentCapabilitiesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeviceGroupPresentCapabilitiesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7501,10 +6899,7 @@ Napi::Value rawGetDeviceGroupPresentCapabilitiesKHR(const Napi::CallbackInfo& in
 #endif
 
 #ifdef VK_KHR_device_group
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeviceGroupSurfacePresentModesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeviceGroupSurfacePresentModesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7530,10 +6925,7 @@ Napi::Value rawGetDeviceGroupSurfacePresentModesKHR(const Napi::CallbackInfo& in
 #endif
 
 #ifdef VK_KHR_device_group
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawAcquireNextImage2KHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawAcquireNextImage2KHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7559,10 +6951,7 @@ Napi::Value rawAcquireNextImage2KHR(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDispatchBase(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDispatchBase(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7600,10 +6989,7 @@ Napi::Value rawCmdDispatchBase(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_KHR_device_group
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDevicePresentRectanglesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDevicePresentRectanglesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7632,10 +7018,7 @@ Napi::Value rawGetPhysicalDevicePresentRectanglesKHR(const Napi::CallbackInfo& i
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateDescriptorUpdateTemplate(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateDescriptorUpdateTemplate(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7664,10 +7047,7 @@ Napi::Value rawCreateDescriptorUpdateTemplate(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyDescriptorUpdateTemplate(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyDescriptorUpdateTemplate(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7693,10 +7073,7 @@ Napi::Value rawDestroyDescriptorUpdateTemplate(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawUpdateDescriptorSetWithTemplate(const Napi::CallbackInfo& info) {
+static Napi::Value rawUpdateDescriptorSetWithTemplate(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7725,10 +7102,7 @@ Napi::Value rawUpdateDescriptorSetWithTemplate(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_KHR_descriptor_update_template
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdPushDescriptorSetWithTemplateKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdPushDescriptorSetWithTemplateKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7760,10 +7134,7 @@ Napi::Value rawCmdPushDescriptorSetWithTemplateKHR(const Napi::CallbackInfo& inf
 #endif
 
 #ifdef VK_EXT_hdr_metadata
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawSetHdrMetadataEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawSetHdrMetadataEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7792,10 +7163,7 @@ Napi::Value rawSetHdrMetadataEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_shared_presentable_image
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetSwapchainStatusKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetSwapchainStatusKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7818,10 +7186,7 @@ Napi::Value rawGetSwapchainStatusKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_GOOGLE_display_timing
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetRefreshCycleDurationGOOGLE(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetRefreshCycleDurationGOOGLE(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7847,10 +7212,7 @@ Napi::Value rawGetRefreshCycleDurationGOOGLE(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_GOOGLE_display_timing
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPastPresentationTimingGOOGLE(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPastPresentationTimingGOOGLE(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7879,10 +7241,7 @@ Napi::Value rawGetPastPresentationTimingGOOGLE(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_MVK_ios_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateIOSSurfaceMVK(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateIOSSurfaceMVK(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7911,10 +7270,7 @@ Napi::Value rawCreateIOSSurfaceMVK(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_MVK_macos_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateMacOSSurfaceMVK(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateMacOSSurfaceMVK(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7943,10 +7299,7 @@ Napi::Value rawCreateMacOSSurfaceMVK(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_metal_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateMetalSurfaceEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateMetalSurfaceEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -7975,10 +7328,7 @@ Napi::Value rawCreateMetalSurfaceEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_clip_space_w_scaling
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetViewportWScalingNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetViewportWScalingNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8007,10 +7357,7 @@ Napi::Value rawCmdSetViewportWScalingNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_discard_rectangles
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetDiscardRectangleEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetDiscardRectangleEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8039,10 +7386,7 @@ Napi::Value rawCmdSetDiscardRectangleEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_sample_locations
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetSampleLocationsEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetSampleLocationsEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8065,10 +7409,7 @@ Napi::Value rawCmdSetSampleLocationsEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_sample_locations
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceMultisamplePropertiesEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceMultisamplePropertiesEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8094,10 +7435,7 @@ Napi::Value rawGetPhysicalDeviceMultisamplePropertiesEXT(const Napi::CallbackInf
 #endif
 
 #ifdef VK_KHR_get_surface_capabilities2
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceSurfaceCapabilities2KHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceSurfaceCapabilities2KHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8123,10 +7461,7 @@ Napi::Value rawGetPhysicalDeviceSurfaceCapabilities2KHR(const Napi::CallbackInfo
 #endif
 
 #ifdef VK_KHR_get_surface_capabilities2
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceSurfaceFormats2KHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceSurfaceFormats2KHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8155,10 +7490,7 @@ Napi::Value rawGetPhysicalDeviceSurfaceFormats2KHR(const Napi::CallbackInfo& inf
 #endif
 
 #ifdef VK_KHR_get_display_properties2
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceDisplayProperties2KHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceDisplayProperties2KHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8184,10 +7516,7 @@ Napi::Value rawGetPhysicalDeviceDisplayProperties2KHR(const Napi::CallbackInfo& 
 #endif
 
 #ifdef VK_KHR_get_display_properties2
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceDisplayPlaneProperties2KHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceDisplayPlaneProperties2KHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8213,10 +7542,7 @@ Napi::Value rawGetPhysicalDeviceDisplayPlaneProperties2KHR(const Napi::CallbackI
 #endif
 
 #ifdef VK_KHR_get_display_properties2
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDisplayModeProperties2KHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDisplayModeProperties2KHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8245,10 +7571,7 @@ Napi::Value rawGetDisplayModeProperties2KHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_get_display_properties2
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDisplayPlaneCapabilities2KHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDisplayPlaneCapabilities2KHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8274,10 +7597,7 @@ Napi::Value rawGetDisplayPlaneCapabilities2KHR(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetBufferMemoryRequirements2(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetBufferMemoryRequirements2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8303,10 +7623,7 @@ Napi::Value rawGetBufferMemoryRequirements2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetImageMemoryRequirements2(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetImageMemoryRequirements2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8332,10 +7649,7 @@ Napi::Value rawGetImageMemoryRequirements2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetImageSparseMemoryRequirements2(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetImageSparseMemoryRequirements2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8364,10 +7678,7 @@ Napi::Value rawGetImageSparseMemoryRequirements2(const Napi::CallbackInfo& info)
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeviceBufferMemoryRequirements(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeviceBufferMemoryRequirements(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8393,10 +7704,7 @@ Napi::Value rawGetDeviceBufferMemoryRequirements(const Napi::CallbackInfo& info)
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeviceImageMemoryRequirements(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeviceImageMemoryRequirements(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8422,10 +7730,7 @@ Napi::Value rawGetDeviceImageMemoryRequirements(const Napi::CallbackInfo& info) 
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeviceImageSparseMemoryRequirements(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeviceImageSparseMemoryRequirements(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8454,10 +7759,7 @@ Napi::Value rawGetDeviceImageSparseMemoryRequirements(const Napi::CallbackInfo& 
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateSamplerYcbcrConversion(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateSamplerYcbcrConversion(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8486,10 +7788,7 @@ Napi::Value rawCreateSamplerYcbcrConversion(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroySamplerYcbcrConversion(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroySamplerYcbcrConversion(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8515,10 +7814,7 @@ Napi::Value rawDestroySamplerYcbcrConversion(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeviceQueue2(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeviceQueue2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8544,10 +7840,7 @@ Napi::Value rawGetDeviceQueue2(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_EXT_validation_cache
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateValidationCacheEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateValidationCacheEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8576,10 +7869,7 @@ Napi::Value rawCreateValidationCacheEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_validation_cache
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyValidationCacheEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyValidationCacheEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8605,10 +7895,7 @@ Napi::Value rawDestroyValidationCacheEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_validation_cache
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetValidationCacheDataEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetValidationCacheDataEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8637,10 +7924,7 @@ Napi::Value rawGetValidationCacheDataEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_validation_cache
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawMergeValidationCachesEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawMergeValidationCachesEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8669,10 +7953,7 @@ Napi::Value rawMergeValidationCachesEXT(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDescriptorSetLayoutSupport(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDescriptorSetLayoutSupport(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8698,10 +7979,7 @@ Napi::Value rawGetDescriptorSetLayoutSupport(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_ANDROID_native_buffer
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetSwapchainGrallocUsageANDROID(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetSwapchainGrallocUsageANDROID(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8730,10 +8008,7 @@ Napi::Value rawGetSwapchainGrallocUsageANDROID(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_ANDROID_native_buffer
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetSwapchainGrallocUsage2ANDROID(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetSwapchainGrallocUsage2ANDROID(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8768,10 +8043,7 @@ Napi::Value rawGetSwapchainGrallocUsage2ANDROID(const Napi::CallbackInfo& info) 
 #endif
 
 #ifdef VK_ANDROID_native_buffer
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawAcquireImageANDROID(const Napi::CallbackInfo& info) {
+static Napi::Value rawAcquireImageANDROID(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8803,10 +8075,7 @@ Napi::Value rawAcquireImageANDROID(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_ANDROID_native_buffer
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawQueueSignalReleaseImageANDROID(const Napi::CallbackInfo& info) {
+static Napi::Value rawQueueSignalReleaseImageANDROID(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8838,10 +8107,7 @@ Napi::Value rawQueueSignalReleaseImageANDROID(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_AMD_shader_info
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetShaderInfoAMD(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetShaderInfoAMD(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8876,10 +8142,7 @@ Napi::Value rawGetShaderInfoAMD(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_AMD_display_native_hdr
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawSetLocalDimmingAMD(const Napi::CallbackInfo& info) {
+static Napi::Value rawSetLocalDimmingAMD(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8905,10 +8168,7 @@ Napi::Value rawSetLocalDimmingAMD(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_calibrated_timestamps
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceCalibrateableTimeDomainsEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceCalibrateableTimeDomainsEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8934,10 +8194,7 @@ Napi::Value rawGetPhysicalDeviceCalibrateableTimeDomainsEXT(const Napi::Callback
 #endif
 
 #ifdef VK_EXT_calibrated_timestamps
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetCalibratedTimestampsEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetCalibratedTimestampsEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8969,10 +8226,7 @@ Napi::Value rawGetCalibratedTimestampsEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_utils
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawSetDebugUtilsObjectNameEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawSetDebugUtilsObjectNameEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -8995,10 +8249,7 @@ Napi::Value rawSetDebugUtilsObjectNameEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_utils
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawSetDebugUtilsObjectTagEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawSetDebugUtilsObjectTagEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9021,10 +8272,7 @@ Napi::Value rawSetDebugUtilsObjectTagEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_utils
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawQueueBeginDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawQueueBeginDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9047,10 +8295,7 @@ Napi::Value rawQueueBeginDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_utils
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawQueueEndDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawQueueEndDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9070,10 +8315,7 @@ Napi::Value rawQueueEndDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_utils
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawQueueInsertDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawQueueInsertDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9096,10 +8338,7 @@ Napi::Value rawQueueInsertDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_utils
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBeginDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBeginDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9122,10 +8361,7 @@ Napi::Value rawCmdBeginDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_utils
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdEndDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdEndDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9145,10 +8381,7 @@ Napi::Value rawCmdEndDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_utils
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdInsertDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdInsertDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9171,10 +8404,7 @@ Napi::Value rawCmdInsertDebugUtilsLabelEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_utils
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateDebugUtilsMessengerEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateDebugUtilsMessengerEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9203,10 +8433,7 @@ Napi::Value rawCreateDebugUtilsMessengerEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_utils
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyDebugUtilsMessengerEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyDebugUtilsMessengerEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9232,10 +8459,7 @@ Napi::Value rawDestroyDebugUtilsMessengerEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_debug_utils
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawSubmitDebugUtilsMessageEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawSubmitDebugUtilsMessageEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9264,10 +8488,7 @@ Napi::Value rawSubmitDebugUtilsMessageEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_external_memory_host
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetMemoryHostPointerPropertiesEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetMemoryHostPointerPropertiesEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9296,10 +8517,7 @@ Napi::Value rawGetMemoryHostPointerPropertiesEXT(const Napi::CallbackInfo& info)
 #endif
 
 #ifdef VK_AMD_buffer_marker
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdWriteBufferMarkerAMD(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdWriteBufferMarkerAMD(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9331,10 +8549,7 @@ Napi::Value rawCmdWriteBufferMarkerAMD(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateRenderPass2(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateRenderPass2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9363,10 +8578,7 @@ Napi::Value rawCreateRenderPass2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBeginRenderPass2(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBeginRenderPass2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9392,10 +8604,7 @@ Napi::Value rawCmdBeginRenderPass2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdNextSubpass2(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdNextSubpass2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9421,10 +8630,7 @@ Napi::Value rawCmdNextSubpass2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdEndRenderPass2(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdEndRenderPass2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9447,10 +8653,7 @@ Napi::Value rawCmdEndRenderPass2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetSemaphoreCounterValue(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetSemaphoreCounterValue(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9476,10 +8679,7 @@ Napi::Value rawGetSemaphoreCounterValue(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawWaitSemaphores(const Napi::CallbackInfo& info) {
+static Napi::Value rawWaitSemaphores(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9505,10 +8705,7 @@ Napi::Value rawWaitSemaphores(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawSignalSemaphore(const Napi::CallbackInfo& info) {
+static Napi::Value rawSignalSemaphore(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9531,10 +8728,7 @@ Napi::Value rawSignalSemaphore(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_ANDROID_external_memory_android_hardware_buffer
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetAndroidHardwareBufferPropertiesANDROID(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetAndroidHardwareBufferPropertiesANDROID(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9560,10 +8754,7 @@ Napi::Value rawGetAndroidHardwareBufferPropertiesANDROID(const Napi::CallbackInf
 #endif
 
 #ifdef VK_ANDROID_external_memory_android_hardware_buffer
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetMemoryAndroidHardwareBufferANDROID(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetMemoryAndroidHardwareBufferANDROID(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9589,10 +8780,7 @@ Napi::Value rawGetMemoryAndroidHardwareBufferANDROID(const Napi::CallbackInfo& i
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDrawIndirectCount(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDrawIndirectCount(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9630,10 +8818,7 @@ Napi::Value rawCmdDrawIndirectCount(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDrawIndexedIndirectCount(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDrawIndexedIndirectCount(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9671,10 +8856,7 @@ Napi::Value rawCmdDrawIndexedIndirectCount(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_NV_device_diagnostic_checkpoints
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetCheckpointNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetCheckpointNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9697,10 +8879,7 @@ Napi::Value rawCmdSetCheckpointNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_device_diagnostic_checkpoints
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetQueueCheckpointDataNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetQueueCheckpointDataNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9726,10 +8905,7 @@ Napi::Value rawGetQueueCheckpointDataNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_transform_feedback
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBindTransformFeedbackBuffersEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBindTransformFeedbackBuffersEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9764,10 +8940,7 @@ Napi::Value rawCmdBindTransformFeedbackBuffersEXT(const Napi::CallbackInfo& info
 #endif
 
 #ifdef VK_EXT_transform_feedback
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBeginTransformFeedbackEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBeginTransformFeedbackEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9799,10 +8972,7 @@ Napi::Value rawCmdBeginTransformFeedbackEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_transform_feedback
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdEndTransformFeedbackEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdEndTransformFeedbackEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9834,10 +9004,7 @@ Napi::Value rawCmdEndTransformFeedbackEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_transform_feedback
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBeginQueryIndexedEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBeginQueryIndexedEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9869,10 +9036,7 @@ Napi::Value rawCmdBeginQueryIndexedEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_transform_feedback
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdEndQueryIndexedEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdEndQueryIndexedEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9901,10 +9065,7 @@ Napi::Value rawCmdEndQueryIndexedEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_transform_feedback
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDrawIndirectByteCountEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDrawIndirectByteCountEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9942,10 +9103,7 @@ Napi::Value rawCmdDrawIndirectByteCountEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_scissor_exclusive
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetExclusiveScissorNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetExclusiveScissorNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -9974,10 +9132,7 @@ Napi::Value rawCmdSetExclusiveScissorNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_shading_rate_image
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBindShadingRateImageNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBindShadingRateImageNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10003,10 +9158,7 @@ Napi::Value rawCmdBindShadingRateImageNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_shading_rate_image
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetViewportShadingRatePaletteNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetViewportShadingRatePaletteNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10035,10 +9187,7 @@ Napi::Value rawCmdSetViewportShadingRatePaletteNV(const Napi::CallbackInfo& info
 #endif
 
 #ifdef VK_NV_shading_rate_image
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetCoarseSampleOrderNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetCoarseSampleOrderNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10067,10 +9216,7 @@ Napi::Value rawCmdSetCoarseSampleOrderNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_mesh_shader
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDrawMeshTasksNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDrawMeshTasksNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10096,10 +9242,7 @@ Napi::Value rawCmdDrawMeshTasksNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_mesh_shader
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDrawMeshTasksIndirectNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDrawMeshTasksIndirectNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10131,10 +9274,7 @@ Napi::Value rawCmdDrawMeshTasksIndirectNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_mesh_shader
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDrawMeshTasksIndirectCountNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDrawMeshTasksIndirectCountNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10172,10 +9312,7 @@ Napi::Value rawCmdDrawMeshTasksIndirectCountNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_mesh_shader
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDrawMeshTasksEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDrawMeshTasksEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10204,10 +9341,7 @@ Napi::Value rawCmdDrawMeshTasksEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_mesh_shader
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDrawMeshTasksIndirectEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDrawMeshTasksIndirectEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10239,10 +9373,7 @@ Napi::Value rawCmdDrawMeshTasksIndirectEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_mesh_shader
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDrawMeshTasksIndirectCountEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDrawMeshTasksIndirectCountEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10280,10 +9411,7 @@ Napi::Value rawCmdDrawMeshTasksIndirectCountEXT(const Napi::CallbackInfo& info) 
 #endif
 
 #ifdef VK_NV_ray_tracing
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCompileDeferredNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCompileDeferredNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10309,10 +9437,7 @@ Napi::Value rawCompileDeferredNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_ray_tracing
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateAccelerationStructureNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateAccelerationStructureNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10341,10 +9466,7 @@ Napi::Value rawCreateAccelerationStructureNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_HUAWEI_invocation_mask
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBindInvocationMaskHUAWEI(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBindInvocationMaskHUAWEI(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10370,10 +9492,7 @@ Napi::Value rawCmdBindInvocationMaskHUAWEI(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_acceleration_structure
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyAccelerationStructureKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyAccelerationStructureKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10399,10 +9518,7 @@ Napi::Value rawDestroyAccelerationStructureKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_ray_tracing
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyAccelerationStructureNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyAccelerationStructureNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10428,10 +9544,7 @@ Napi::Value rawDestroyAccelerationStructureNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_ray_tracing
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetAccelerationStructureMemoryRequirementsNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetAccelerationStructureMemoryRequirementsNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10457,10 +9570,7 @@ Napi::Value rawGetAccelerationStructureMemoryRequirementsNV(const Napi::Callback
 #endif
 
 #ifdef VK_NV_ray_tracing
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawBindAccelerationStructureMemoryNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawBindAccelerationStructureMemoryNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10486,10 +9596,7 @@ Napi::Value rawBindAccelerationStructureMemoryNV(const Napi::CallbackInfo& info)
 #endif
 
 #ifdef VK_NV_ray_tracing
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyAccelerationStructureNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyAccelerationStructureNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10518,10 +9625,7 @@ Napi::Value rawCmdCopyAccelerationStructureNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_acceleration_structure
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyAccelerationStructureKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyAccelerationStructureKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10544,10 +9648,7 @@ Napi::Value rawCmdCopyAccelerationStructureKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_acceleration_structure
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCopyAccelerationStructureKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCopyAccelerationStructureKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10573,10 +9674,7 @@ Napi::Value rawCopyAccelerationStructureKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_acceleration_structure
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyAccelerationStructureToMemoryKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyAccelerationStructureToMemoryKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10599,10 +9697,7 @@ Napi::Value rawCmdCopyAccelerationStructureToMemoryKHR(const Napi::CallbackInfo&
 #endif
 
 #ifdef VK_KHR_acceleration_structure
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCopyAccelerationStructureToMemoryKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCopyAccelerationStructureToMemoryKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10628,10 +9723,7 @@ Napi::Value rawCopyAccelerationStructureToMemoryKHR(const Napi::CallbackInfo& in
 #endif
 
 #ifdef VK_KHR_acceleration_structure
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyMemoryToAccelerationStructureKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyMemoryToAccelerationStructureKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10654,10 +9746,7 @@ Napi::Value rawCmdCopyMemoryToAccelerationStructureKHR(const Napi::CallbackInfo&
 #endif
 
 #ifdef VK_KHR_acceleration_structure
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCopyMemoryToAccelerationStructureKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCopyMemoryToAccelerationStructureKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10683,10 +9772,7 @@ Napi::Value rawCopyMemoryToAccelerationStructureKHR(const Napi::CallbackInfo& in
 #endif
 
 #ifdef VK_KHR_acceleration_structure
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdWriteAccelerationStructuresPropertiesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdWriteAccelerationStructuresPropertiesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10721,10 +9807,7 @@ Napi::Value rawCmdWriteAccelerationStructuresPropertiesKHR(const Napi::CallbackI
 #endif
 
 #ifdef VK_NV_ray_tracing
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdWriteAccelerationStructuresPropertiesNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdWriteAccelerationStructuresPropertiesNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10759,10 +9842,7 @@ Napi::Value rawCmdWriteAccelerationStructuresPropertiesNV(const Napi::CallbackIn
 #endif
 
 #ifdef VK_NV_ray_tracing
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBuildAccelerationStructureNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBuildAccelerationStructureNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10806,10 +9886,7 @@ Napi::Value rawCmdBuildAccelerationStructureNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_acceleration_structure
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawWriteAccelerationStructuresPropertiesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawWriteAccelerationStructuresPropertiesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10847,10 +9924,7 @@ Napi::Value rawWriteAccelerationStructuresPropertiesKHR(const Napi::CallbackInfo
 #endif
 
 #ifdef VK_KHR_ray_tracing_pipeline
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdTraceRaysKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdTraceRaysKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10891,10 +9965,7 @@ Napi::Value rawCmdTraceRaysKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_ray_tracing
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdTraceRaysNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdTraceRaysNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10956,10 +10027,7 @@ Napi::Value rawCmdTraceRaysNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_ray_tracing_pipeline
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetRayTracingShaderGroupHandlesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetRayTracingShaderGroupHandlesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -10994,10 +10062,7 @@ Napi::Value rawGetRayTracingShaderGroupHandlesKHR(const Napi::CallbackInfo& info
 #endif
 
 #ifdef VK_KHR_ray_tracing_pipeline
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetRayTracingCaptureReplayShaderGroupHandlesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetRayTracingCaptureReplayShaderGroupHandlesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11032,10 +10097,7 @@ Napi::Value rawGetRayTracingCaptureReplayShaderGroupHandlesKHR(const Napi::Callb
 #endif
 
 #ifdef VK_NV_ray_tracing
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetAccelerationStructureHandleNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetAccelerationStructureHandleNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11064,10 +10126,7 @@ Napi::Value rawGetAccelerationStructureHandleNV(const Napi::CallbackInfo& info) 
 #endif
 
 #ifdef VK_NV_ray_tracing
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateRayTracingPipelinesNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateRayTracingPipelinesNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11102,10 +10161,7 @@ Napi::Value rawCreateRayTracingPipelinesNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_ray_tracing_pipeline
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateRayTracingPipelinesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateRayTracingPipelinesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11143,10 +10199,7 @@ Napi::Value rawCreateRayTracingPipelinesKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_cooperative_matrix
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceCooperativeMatrixPropertiesNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceCooperativeMatrixPropertiesNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11172,10 +10225,7 @@ Napi::Value rawGetPhysicalDeviceCooperativeMatrixPropertiesNV(const Napi::Callba
 #endif
 
 #ifdef VK_KHR_ray_tracing_pipeline
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdTraceRaysIndirectKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdTraceRaysIndirectKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11210,10 +10260,7 @@ Napi::Value rawCmdTraceRaysIndirectKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_ray_tracing_maintenance1
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdTraceRaysIndirect2KHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdTraceRaysIndirect2KHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11236,10 +10283,7 @@ Napi::Value rawCmdTraceRaysIndirect2KHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_acceleration_structure
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeviceAccelerationStructureCompatibilityKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeviceAccelerationStructureCompatibilityKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11265,10 +10309,7 @@ Napi::Value rawGetDeviceAccelerationStructureCompatibilityKHR(const Napi::Callba
 #endif
 
 #ifdef VK_KHR_ray_tracing_pipeline
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetRayTracingShaderGroupStackSizeKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetRayTracingShaderGroupStackSizeKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11297,10 +10338,7 @@ Napi::Value rawGetRayTracingShaderGroupStackSizeKHR(const Napi::CallbackInfo& in
 #endif
 
 #ifdef VK_KHR_ray_tracing_pipeline
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetRayTracingPipelineStackSizeKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetRayTracingPipelineStackSizeKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11323,10 +10361,7 @@ Napi::Value rawCmdSetRayTracingPipelineStackSizeKHR(const Napi::CallbackInfo& in
 #endif
 
 #ifdef VK_NVX_image_view_handle
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetImageViewHandleNVX(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetImageViewHandleNVX(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11349,10 +10384,7 @@ Napi::Value rawGetImageViewHandleNVX(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NVX_image_view_handle
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetImageViewAddressNVX(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetImageViewAddressNVX(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11378,10 +10410,7 @@ Napi::Value rawGetImageViewAddressNVX(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_full_screen_exclusive
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceSurfacePresentModes2EXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceSurfacePresentModes2EXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11410,10 +10439,7 @@ Napi::Value rawGetPhysicalDeviceSurfacePresentModes2EXT(const Napi::CallbackInfo
 #endif
 
 #ifdef VK_EXT_full_screen_exclusive
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeviceGroupSurfacePresentModes2EXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeviceGroupSurfacePresentModes2EXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11439,10 +10465,7 @@ Napi::Value rawGetDeviceGroupSurfacePresentModes2EXT(const Napi::CallbackInfo& i
 #endif
 
 #ifdef VK_EXT_full_screen_exclusive
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawAcquireFullScreenExclusiveModeEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawAcquireFullScreenExclusiveModeEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11465,10 +10488,7 @@ Napi::Value rawAcquireFullScreenExclusiveModeEXT(const Napi::CallbackInfo& info)
 #endif
 
 #ifdef VK_EXT_full_screen_exclusive
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawReleaseFullScreenExclusiveModeEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawReleaseFullScreenExclusiveModeEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11491,10 +10511,7 @@ Napi::Value rawReleaseFullScreenExclusiveModeEXT(const Napi::CallbackInfo& info)
 #endif
 
 #ifdef VK_KHR_performance_query
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11526,10 +10543,7 @@ Napi::Value rawEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(con
 #endif
 
 #ifdef VK_KHR_performance_query
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11555,10 +10569,7 @@ Napi::Value rawGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(const Napi:
 #endif
 
 #ifdef VK_KHR_performance_query
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawAcquireProfilingLockKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawAcquireProfilingLockKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11581,10 +10592,7 @@ Napi::Value rawAcquireProfilingLockKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_performance_query
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawReleaseProfilingLockKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawReleaseProfilingLockKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11604,10 +10612,7 @@ Napi::Value rawReleaseProfilingLockKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_image_drm_format_modifier
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetImageDrmFormatModifierPropertiesEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetImageDrmFormatModifierPropertiesEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11633,10 +10638,7 @@ Napi::Value rawGetImageDrmFormatModifierPropertiesEXT(const Napi::CallbackInfo& 
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetBufferOpaqueCaptureAddress(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetBufferOpaqueCaptureAddress(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11659,10 +10661,7 @@ Napi::Value rawGetBufferOpaqueCaptureAddress(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetBufferDeviceAddress(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetBufferDeviceAddress(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11685,10 +10684,7 @@ Napi::Value rawGetBufferDeviceAddress(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_EXT_headless_surface
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateHeadlessSurfaceEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateHeadlessSurfaceEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11717,10 +10713,7 @@ Napi::Value rawCreateHeadlessSurfaceEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_coverage_reduction_mode
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11746,10 +10739,7 @@ Napi::Value rawGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(c
 #endif
 
 #ifdef VK_INTEL_performance_query
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawInitializePerformanceApiINTEL(const Napi::CallbackInfo& info) {
+static Napi::Value rawInitializePerformanceApiINTEL(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11772,10 +10762,7 @@ Napi::Value rawInitializePerformanceApiINTEL(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_INTEL_performance_query
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawUninitializePerformanceApiINTEL(const Napi::CallbackInfo& info) {
+static Napi::Value rawUninitializePerformanceApiINTEL(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11795,10 +10782,7 @@ Napi::Value rawUninitializePerformanceApiINTEL(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_INTEL_performance_query
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetPerformanceMarkerINTEL(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetPerformanceMarkerINTEL(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11821,10 +10805,7 @@ Napi::Value rawCmdSetPerformanceMarkerINTEL(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_INTEL_performance_query
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetPerformanceStreamMarkerINTEL(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetPerformanceStreamMarkerINTEL(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11847,10 +10828,7 @@ Napi::Value rawCmdSetPerformanceStreamMarkerINTEL(const Napi::CallbackInfo& info
 #endif
 
 #ifdef VK_INTEL_performance_query
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetPerformanceOverrideINTEL(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetPerformanceOverrideINTEL(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11873,10 +10851,7 @@ Napi::Value rawCmdSetPerformanceOverrideINTEL(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_INTEL_performance_query
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawAcquirePerformanceConfigurationINTEL(const Napi::CallbackInfo& info) {
+static Napi::Value rawAcquirePerformanceConfigurationINTEL(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11902,10 +10877,7 @@ Napi::Value rawAcquirePerformanceConfigurationINTEL(const Napi::CallbackInfo& in
 #endif
 
 #ifdef VK_INTEL_performance_query
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawReleasePerformanceConfigurationINTEL(const Napi::CallbackInfo& info) {
+static Napi::Value rawReleasePerformanceConfigurationINTEL(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11928,10 +10900,7 @@ Napi::Value rawReleasePerformanceConfigurationINTEL(const Napi::CallbackInfo& in
 #endif
 
 #ifdef VK_INTEL_performance_query
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawQueueSetPerformanceConfigurationINTEL(const Napi::CallbackInfo& info) {
+static Napi::Value rawQueueSetPerformanceConfigurationINTEL(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11954,10 +10923,7 @@ Napi::Value rawQueueSetPerformanceConfigurationINTEL(const Napi::CallbackInfo& i
 #endif
 
 #ifdef VK_INTEL_performance_query
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPerformanceParameterINTEL(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPerformanceParameterINTEL(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -11983,10 +10949,7 @@ Napi::Value rawGetPerformanceParameterINTEL(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeviceMemoryOpaqueCaptureAddress(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeviceMemoryOpaqueCaptureAddress(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12009,10 +10972,7 @@ Napi::Value rawGetDeviceMemoryOpaqueCaptureAddress(const Napi::CallbackInfo& inf
 
 
 #ifdef VK_KHR_pipeline_executable_properties
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPipelineExecutablePropertiesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPipelineExecutablePropertiesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12041,10 +11001,7 @@ Napi::Value rawGetPipelineExecutablePropertiesKHR(const Napi::CallbackInfo& info
 #endif
 
 #ifdef VK_KHR_pipeline_executable_properties
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPipelineExecutableStatisticsKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPipelineExecutableStatisticsKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12073,10 +11030,7 @@ Napi::Value rawGetPipelineExecutableStatisticsKHR(const Napi::CallbackInfo& info
 #endif
 
 #ifdef VK_KHR_pipeline_executable_properties
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPipelineExecutableInternalRepresentationsKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPipelineExecutableInternalRepresentationsKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12105,10 +11059,7 @@ Napi::Value rawGetPipelineExecutableInternalRepresentationsKHR(const Napi::Callb
 #endif
 
 #ifdef VK_EXT_line_rasterization
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetLineStippleEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetLineStippleEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12134,10 +11085,7 @@ Napi::Value rawCmdSetLineStippleEXT(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceToolProperties(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceToolProperties(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12163,10 +11111,7 @@ Napi::Value rawGetPhysicalDeviceToolProperties(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_KHR_acceleration_structure
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateAccelerationStructureKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateAccelerationStructureKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12195,10 +11140,7 @@ Napi::Value rawCreateAccelerationStructureKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_acceleration_structure
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBuildAccelerationStructuresKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBuildAccelerationStructuresKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12227,10 +11169,7 @@ Napi::Value rawCmdBuildAccelerationStructuresKHR(const Napi::CallbackInfo& info)
 #endif
 
 #ifdef VK_KHR_acceleration_structure
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBuildAccelerationStructuresIndirectKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBuildAccelerationStructuresIndirectKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12265,10 +11204,7 @@ Napi::Value rawCmdBuildAccelerationStructuresIndirectKHR(const Napi::CallbackInf
 #endif
 
 #ifdef VK_KHR_acceleration_structure
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawBuildAccelerationStructuresKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawBuildAccelerationStructuresKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12300,10 +11236,7 @@ Napi::Value rawBuildAccelerationStructuresKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_acceleration_structure
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetAccelerationStructureDeviceAddressKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetAccelerationStructureDeviceAddressKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12326,10 +11259,7 @@ Napi::Value rawGetAccelerationStructureDeviceAddressKHR(const Napi::CallbackInfo
 #endif
 
 #ifdef VK_KHR_deferred_host_operations
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateDeferredOperationKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateDeferredOperationKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12355,10 +11285,7 @@ Napi::Value rawCreateDeferredOperationKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_deferred_host_operations
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyDeferredOperationKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyDeferredOperationKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12384,10 +11311,7 @@ Napi::Value rawDestroyDeferredOperationKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_deferred_host_operations
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeferredOperationMaxConcurrencyKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeferredOperationMaxConcurrencyKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12410,10 +11334,7 @@ Napi::Value rawGetDeferredOperationMaxConcurrencyKHR(const Napi::CallbackInfo& i
 #endif
 
 #ifdef VK_KHR_deferred_host_operations
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeferredOperationResultKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeferredOperationResultKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12436,10 +11357,7 @@ Napi::Value rawGetDeferredOperationResultKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_deferred_host_operations
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDeferredOperationJoinKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawDeferredOperationJoinKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12462,10 +11380,7 @@ Napi::Value rawDeferredOperationJoinKHR(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetCullMode(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetCullMode(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12488,10 +11403,7 @@ Napi::Value rawCmdSetCullMode(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetFrontFace(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetFrontFace(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12514,10 +11426,7 @@ Napi::Value rawCmdSetFrontFace(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetPrimitiveTopology(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetPrimitiveTopology(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12540,10 +11449,7 @@ Napi::Value rawCmdSetPrimitiveTopology(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetViewportWithCount(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetViewportWithCount(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12569,10 +11475,7 @@ Napi::Value rawCmdSetViewportWithCount(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetScissorWithCount(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetScissorWithCount(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12598,10 +11501,7 @@ Napi::Value rawCmdSetScissorWithCount(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBindVertexBuffers2(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBindVertexBuffers2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12639,10 +11539,7 @@ Napi::Value rawCmdBindVertexBuffers2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetDepthTestEnable(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetDepthTestEnable(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12665,10 +11562,7 @@ Napi::Value rawCmdSetDepthTestEnable(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetDepthWriteEnable(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetDepthWriteEnable(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12691,10 +11585,7 @@ Napi::Value rawCmdSetDepthWriteEnable(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetDepthCompareOp(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetDepthCompareOp(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12717,10 +11608,7 @@ Napi::Value rawCmdSetDepthCompareOp(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetDepthBoundsTestEnable(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetDepthBoundsTestEnable(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12743,10 +11631,7 @@ Napi::Value rawCmdSetDepthBoundsTestEnable(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetStencilTestEnable(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetStencilTestEnable(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12769,10 +11654,7 @@ Napi::Value rawCmdSetStencilTestEnable(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetStencilOp(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetStencilOp(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12807,10 +11689,7 @@ Napi::Value rawCmdSetStencilOp(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_EXT_extended_dynamic_state2
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetPatchControlPointsEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetPatchControlPointsEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12833,10 +11712,7 @@ Napi::Value rawCmdSetPatchControlPointsEXT(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetRasterizerDiscardEnable(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetRasterizerDiscardEnable(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12859,10 +11735,7 @@ Napi::Value rawCmdSetRasterizerDiscardEnable(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetDepthBiasEnable(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetDepthBiasEnable(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12885,10 +11758,7 @@ Napi::Value rawCmdSetDepthBiasEnable(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_EXT_extended_dynamic_state2
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetLogicOpEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetLogicOpEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12911,10 +11781,7 @@ Napi::Value rawCmdSetLogicOpEXT(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetPrimitiveRestartEnable(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetPrimitiveRestartEnable(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12937,10 +11804,7 @@ Napi::Value rawCmdSetPrimitiveRestartEnable(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetTessellationDomainOriginEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetTessellationDomainOriginEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12963,10 +11827,7 @@ Napi::Value rawCmdSetTessellationDomainOriginEXT(const Napi::CallbackInfo& info)
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetDepthClampEnableEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetDepthClampEnableEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -12989,10 +11850,7 @@ Napi::Value rawCmdSetDepthClampEnableEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetPolygonModeEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetPolygonModeEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13015,10 +11873,7 @@ Napi::Value rawCmdSetPolygonModeEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetRasterizationSamplesEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetRasterizationSamplesEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13041,10 +11896,7 @@ Napi::Value rawCmdSetRasterizationSamplesEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetSampleMaskEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetSampleMaskEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13070,10 +11922,7 @@ Napi::Value rawCmdSetSampleMaskEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetAlphaToCoverageEnableEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetAlphaToCoverageEnableEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13096,10 +11945,7 @@ Napi::Value rawCmdSetAlphaToCoverageEnableEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetAlphaToOneEnableEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetAlphaToOneEnableEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13122,10 +11968,7 @@ Napi::Value rawCmdSetAlphaToOneEnableEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetLogicOpEnableEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetLogicOpEnableEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13148,10 +11991,7 @@ Napi::Value rawCmdSetLogicOpEnableEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetColorBlendEnableEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetColorBlendEnableEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13180,10 +12020,7 @@ Napi::Value rawCmdSetColorBlendEnableEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetColorBlendEquationEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetColorBlendEquationEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13212,10 +12049,7 @@ Napi::Value rawCmdSetColorBlendEquationEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetColorWriteMaskEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetColorWriteMaskEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13244,10 +12078,7 @@ Napi::Value rawCmdSetColorWriteMaskEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetRasterizationStreamEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetRasterizationStreamEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13270,10 +12101,7 @@ Napi::Value rawCmdSetRasterizationStreamEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetConservativeRasterizationModeEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetConservativeRasterizationModeEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13296,10 +12124,7 @@ Napi::Value rawCmdSetConservativeRasterizationModeEXT(const Napi::CallbackInfo& 
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetExtraPrimitiveOverestimationSizeEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetExtraPrimitiveOverestimationSizeEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13322,10 +12147,7 @@ Napi::Value rawCmdSetExtraPrimitiveOverestimationSizeEXT(const Napi::CallbackInf
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetDepthClipEnableEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetDepthClipEnableEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13348,10 +12170,7 @@ Napi::Value rawCmdSetDepthClipEnableEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetSampleLocationsEnableEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetSampleLocationsEnableEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13374,10 +12193,7 @@ Napi::Value rawCmdSetSampleLocationsEnableEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetColorBlendAdvancedEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetColorBlendAdvancedEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13406,10 +12222,7 @@ Napi::Value rawCmdSetColorBlendAdvancedEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetProvokingVertexModeEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetProvokingVertexModeEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13432,10 +12245,7 @@ Napi::Value rawCmdSetProvokingVertexModeEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetLineRasterizationModeEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetLineRasterizationModeEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13458,10 +12268,7 @@ Napi::Value rawCmdSetLineRasterizationModeEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetLineStippleEnableEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetLineStippleEnableEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13484,10 +12291,7 @@ Napi::Value rawCmdSetLineStippleEnableEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetDepthClipNegativeOneToOneEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetDepthClipNegativeOneToOneEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13510,10 +12314,7 @@ Napi::Value rawCmdSetDepthClipNegativeOneToOneEXT(const Napi::CallbackInfo& info
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetViewportWScalingEnableNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetViewportWScalingEnableNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13536,10 +12337,7 @@ Napi::Value rawCmdSetViewportWScalingEnableNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetViewportSwizzleNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetViewportSwizzleNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13568,10 +12366,7 @@ Napi::Value rawCmdSetViewportSwizzleNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetCoverageToColorEnableNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetCoverageToColorEnableNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13594,10 +12389,7 @@ Napi::Value rawCmdSetCoverageToColorEnableNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetCoverageToColorLocationNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetCoverageToColorLocationNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13620,10 +12412,7 @@ Napi::Value rawCmdSetCoverageToColorLocationNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetCoverageModulationModeNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetCoverageModulationModeNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13646,10 +12435,7 @@ Napi::Value rawCmdSetCoverageModulationModeNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetCoverageModulationTableEnableNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetCoverageModulationTableEnableNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13672,10 +12458,7 @@ Napi::Value rawCmdSetCoverageModulationTableEnableNV(const Napi::CallbackInfo& i
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetCoverageModulationTableNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetCoverageModulationTableNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13701,10 +12484,7 @@ Napi::Value rawCmdSetCoverageModulationTableNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetShadingRateImageEnableNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetShadingRateImageEnableNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13727,10 +12507,7 @@ Napi::Value rawCmdSetShadingRateImageEnableNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetCoverageReductionModeNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetCoverageReductionModeNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13753,10 +12530,7 @@ Napi::Value rawCmdSetCoverageReductionModeNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_extended_dynamic_state3
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetRepresentativeFragmentTestEnableNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetRepresentativeFragmentTestEnableNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13779,10 +12553,7 @@ Napi::Value rawCmdSetRepresentativeFragmentTestEnableNV(const Napi::CallbackInfo
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreatePrivateDataSlot(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreatePrivateDataSlot(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13811,10 +12582,7 @@ Napi::Value rawCreatePrivateDataSlot(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyPrivateDataSlot(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyPrivateDataSlot(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13840,10 +12608,7 @@ Napi::Value rawDestroyPrivateDataSlot(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawSetPrivateData(const Napi::CallbackInfo& info) {
+static Napi::Value rawSetPrivateData(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13875,10 +12640,7 @@ Napi::Value rawSetPrivateData(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPrivateData(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPrivateData(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13910,10 +12672,7 @@ Napi::Value rawGetPrivateData(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyBuffer2(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyBuffer2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13936,10 +12695,7 @@ Napi::Value rawCmdCopyBuffer2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyImage2(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyImage2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13962,10 +12718,7 @@ Napi::Value rawCmdCopyImage2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBlitImage2(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBlitImage2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -13988,10 +12741,7 @@ Napi::Value rawCmdBlitImage2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyBufferToImage2(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyBufferToImage2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14014,10 +12764,7 @@ Napi::Value rawCmdCopyBufferToImage2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyImageToBuffer2(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyImageToBuffer2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14040,10 +12787,7 @@ Napi::Value rawCmdCopyImageToBuffer2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdResolveImage2(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdResolveImage2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14066,10 +12810,7 @@ Napi::Value rawCmdResolveImage2(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_KHR_fragment_shading_rate
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetFragmentShadingRateKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetFragmentShadingRateKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14095,10 +12836,7 @@ Napi::Value rawCmdSetFragmentShadingRateKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_fragment_shading_rate
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceFragmentShadingRatesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceFragmentShadingRatesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14124,10 +12862,7 @@ Napi::Value rawGetPhysicalDeviceFragmentShadingRatesKHR(const Napi::CallbackInfo
 #endif
 
 #ifdef VK_NV_fragment_shading_rate_enums
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetFragmentShadingRateEnumNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetFragmentShadingRateEnumNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14153,10 +12888,7 @@ Napi::Value rawCmdSetFragmentShadingRateEnumNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_acceleration_structure
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetAccelerationStructureBuildSizesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetAccelerationStructureBuildSizesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14188,10 +12920,7 @@ Napi::Value rawGetAccelerationStructureBuildSizesKHR(const Napi::CallbackInfo& i
 #endif
 
 #ifdef VK_EXT_vertex_input_dynamic_state
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetVertexInputEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetVertexInputEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14223,10 +12952,7 @@ Napi::Value rawCmdSetVertexInputEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_color_write_enable
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetColorWriteEnableEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetColorWriteEnableEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14252,10 +12978,7 @@ Napi::Value rawCmdSetColorWriteEnableEXT(const Napi::CallbackInfo& info) {
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdSetEvent2(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdSetEvent2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14281,10 +13004,7 @@ Napi::Value rawCmdSetEvent2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdResetEvent2(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdResetEvent2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14310,10 +13030,7 @@ Napi::Value rawCmdResetEvent2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdWaitEvents2(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdWaitEvents2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14342,10 +13059,7 @@ Napi::Value rawCmdWaitEvents2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdPipelineBarrier2(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdPipelineBarrier2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14368,10 +13082,7 @@ Napi::Value rawCmdPipelineBarrier2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawQueueSubmit2(const Napi::CallbackInfo& info) {
+static Napi::Value rawQueueSubmit2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14400,10 +13111,7 @@ Napi::Value rawQueueSubmit2(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdWriteTimestamp2(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdWriteTimestamp2(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14432,10 +13140,7 @@ Napi::Value rawCmdWriteTimestamp2(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_KHR_synchronization2
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdWriteBufferMarker2AMD(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdWriteBufferMarker2AMD(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14467,10 +13172,7 @@ Napi::Value rawCmdWriteBufferMarker2AMD(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_synchronization2
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetQueueCheckpointData2NV(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetQueueCheckpointData2NV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14496,10 +13198,7 @@ Napi::Value rawGetQueueCheckpointData2NV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_video_queue
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceVideoCapabilitiesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceVideoCapabilitiesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14525,10 +13224,7 @@ Napi::Value rawGetPhysicalDeviceVideoCapabilitiesKHR(const Napi::CallbackInfo& i
 #endif
 
 #ifdef VK_KHR_video_queue
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceVideoFormatPropertiesKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceVideoFormatPropertiesKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14557,10 +13253,7 @@ Napi::Value rawGetPhysicalDeviceVideoFormatPropertiesKHR(const Napi::CallbackInf
 #endif
 
 #ifdef VK_KHR_video_queue
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateVideoSessionKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateVideoSessionKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14589,10 +13282,7 @@ Napi::Value rawCreateVideoSessionKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_video_queue
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyVideoSessionKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyVideoSessionKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14618,10 +13308,7 @@ Napi::Value rawDestroyVideoSessionKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_video_queue
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateVideoSessionParametersKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateVideoSessionParametersKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14650,10 +13337,7 @@ Napi::Value rawCreateVideoSessionParametersKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_video_queue
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawUpdateVideoSessionParametersKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawUpdateVideoSessionParametersKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14679,10 +13363,7 @@ Napi::Value rawUpdateVideoSessionParametersKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_video_queue
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyVideoSessionParametersKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyVideoSessionParametersKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14708,10 +13389,7 @@ Napi::Value rawDestroyVideoSessionParametersKHR(const Napi::CallbackInfo& info) 
 #endif
 
 #ifdef VK_KHR_video_queue
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetVideoSessionMemoryRequirementsKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetVideoSessionMemoryRequirementsKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14740,10 +13418,7 @@ Napi::Value rawGetVideoSessionMemoryRequirementsKHR(const Napi::CallbackInfo& in
 #endif
 
 #ifdef VK_KHR_video_queue
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawBindVideoSessionMemoryKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawBindVideoSessionMemoryKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14772,10 +13447,7 @@ Napi::Value rawBindVideoSessionMemoryKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_video_decode_queue
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDecodeVideoKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDecodeVideoKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14798,10 +13470,7 @@ Napi::Value rawCmdDecodeVideoKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_video_queue
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBeginVideoCodingKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBeginVideoCodingKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14824,10 +13493,7 @@ Napi::Value rawCmdBeginVideoCodingKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_video_queue
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdControlVideoCodingKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdControlVideoCodingKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14850,10 +13516,7 @@ Napi::Value rawCmdControlVideoCodingKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_video_queue
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdEndVideoCodingKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdEndVideoCodingKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14876,10 +13539,7 @@ Napi::Value rawCmdEndVideoCodingKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_video_encode_queue
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdEncodeVideoKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdEncodeVideoKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14902,10 +13562,7 @@ Napi::Value rawCmdEncodeVideoKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_memory_decompression
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDecompressMemoryNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDecompressMemoryNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14931,10 +13588,7 @@ Napi::Value rawCmdDecompressMemoryNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_memory_decompression
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdDecompressMemoryIndirectCountNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdDecompressMemoryIndirectCountNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14963,10 +13617,7 @@ Napi::Value rawCmdDecompressMemoryIndirectCountNV(const Napi::CallbackInfo& info
 #endif
 
 #ifdef VK_NVX_binary_import
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateCuModuleNVX(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateCuModuleNVX(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -14995,10 +13646,7 @@ Napi::Value rawCreateCuModuleNVX(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NVX_binary_import
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateCuFunctionNVX(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateCuFunctionNVX(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15027,10 +13675,7 @@ Napi::Value rawCreateCuFunctionNVX(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NVX_binary_import
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyCuModuleNVX(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyCuModuleNVX(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15056,10 +13701,7 @@ Napi::Value rawDestroyCuModuleNVX(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NVX_binary_import
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyCuFunctionNVX(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyCuFunctionNVX(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15085,10 +13727,7 @@ Napi::Value rawDestroyCuFunctionNVX(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NVX_binary_import
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCuLaunchKernelNVX(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCuLaunchKernelNVX(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15111,10 +13750,7 @@ Napi::Value rawCmdCuLaunchKernelNVX(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_pageable_device_local_memory
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawSetDeviceMemoryPriorityEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawSetDeviceMemoryPriorityEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15140,10 +13776,7 @@ Napi::Value rawSetDeviceMemoryPriorityEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_acquire_drm_display
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawAcquireDrmDisplayEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawAcquireDrmDisplayEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15169,10 +13802,7 @@ Napi::Value rawAcquireDrmDisplayEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_acquire_drm_display
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDrmDisplayEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDrmDisplayEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15201,10 +13831,7 @@ Napi::Value rawGetDrmDisplayEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_KHR_present_wait
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawWaitForPresentKHR(const Napi::CallbackInfo& info) {
+static Napi::Value rawWaitForPresentKHR(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15233,10 +13860,7 @@ Napi::Value rawWaitForPresentKHR(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_FUCHSIA_buffer_collection
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateBufferCollectionFUCHSIA(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateBufferCollectionFUCHSIA(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15265,10 +13889,7 @@ Napi::Value rawCreateBufferCollectionFUCHSIA(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_FUCHSIA_buffer_collection
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawSetBufferCollectionBufferConstraintsFUCHSIA(const Napi::CallbackInfo& info) {
+static Napi::Value rawSetBufferCollectionBufferConstraintsFUCHSIA(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15294,10 +13915,7 @@ Napi::Value rawSetBufferCollectionBufferConstraintsFUCHSIA(const Napi::CallbackI
 #endif
 
 #ifdef VK_FUCHSIA_buffer_collection
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawSetBufferCollectionImageConstraintsFUCHSIA(const Napi::CallbackInfo& info) {
+static Napi::Value rawSetBufferCollectionImageConstraintsFUCHSIA(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15323,10 +13941,7 @@ Napi::Value rawSetBufferCollectionImageConstraintsFUCHSIA(const Napi::CallbackIn
 #endif
 
 #ifdef VK_FUCHSIA_buffer_collection
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyBufferCollectionFUCHSIA(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyBufferCollectionFUCHSIA(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15352,10 +13967,7 @@ Napi::Value rawDestroyBufferCollectionFUCHSIA(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_FUCHSIA_buffer_collection
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetBufferCollectionPropertiesFUCHSIA(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetBufferCollectionPropertiesFUCHSIA(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15381,10 +13993,7 @@ Napi::Value rawGetBufferCollectionPropertiesFUCHSIA(const Napi::CallbackInfo& in
 #endif
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBeginRendering(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBeginRendering(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15407,10 +14016,7 @@ Napi::Value rawCmdBeginRendering(const Napi::CallbackInfo& info) {
 
 
 
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdEndRendering(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdEndRendering(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15430,10 +14036,7 @@ Napi::Value rawCmdEndRendering(const Napi::CallbackInfo& info) {
 
 
 #ifdef VK_VALVE_descriptor_set_host_mapping
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDescriptorSetLayoutHostMappingInfoVALVE(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDescriptorSetLayoutHostMappingInfoVALVE(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15459,10 +14062,7 @@ Napi::Value rawGetDescriptorSetLayoutHostMappingInfoVALVE(const Napi::CallbackIn
 #endif
 
 #ifdef VK_VALVE_descriptor_set_host_mapping
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDescriptorSetHostMappingVALVE(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDescriptorSetHostMappingVALVE(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15488,10 +14088,7 @@ Napi::Value rawGetDescriptorSetHostMappingVALVE(const Napi::CallbackInfo& info) 
 #endif
 
 #ifdef VK_EXT_opacity_micromap
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateMicromapEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateMicromapEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15520,10 +14117,7 @@ Napi::Value rawCreateMicromapEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_opacity_micromap
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdBuildMicromapsEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdBuildMicromapsEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15549,10 +14143,7 @@ Napi::Value rawCmdBuildMicromapsEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_opacity_micromap
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawBuildMicromapsEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawBuildMicromapsEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15581,10 +14172,7 @@ Napi::Value rawBuildMicromapsEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_opacity_micromap
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyMicromapEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyMicromapEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15610,10 +14198,7 @@ Napi::Value rawDestroyMicromapEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_opacity_micromap
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyMicromapEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyMicromapEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15636,10 +14221,7 @@ Napi::Value rawCmdCopyMicromapEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_opacity_micromap
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCopyMicromapEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCopyMicromapEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15665,10 +14247,7 @@ Napi::Value rawCopyMicromapEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_opacity_micromap
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyMicromapToMemoryEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyMicromapToMemoryEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15691,10 +14270,7 @@ Napi::Value rawCmdCopyMicromapToMemoryEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_opacity_micromap
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCopyMicromapToMemoryEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCopyMicromapToMemoryEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15720,10 +14296,7 @@ Napi::Value rawCopyMicromapToMemoryEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_opacity_micromap
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdCopyMemoryToMicromapEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdCopyMemoryToMicromapEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15746,10 +14319,7 @@ Napi::Value rawCmdCopyMemoryToMicromapEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_opacity_micromap
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCopyMemoryToMicromapEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCopyMemoryToMicromapEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15775,10 +14345,7 @@ Napi::Value rawCopyMemoryToMicromapEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_opacity_micromap
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdWriteMicromapsPropertiesEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdWriteMicromapsPropertiesEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15813,10 +14380,7 @@ Napi::Value rawCmdWriteMicromapsPropertiesEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_opacity_micromap
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawWriteMicromapsPropertiesEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawWriteMicromapsPropertiesEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15854,10 +14418,7 @@ Napi::Value rawWriteMicromapsPropertiesEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_opacity_micromap
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeviceMicromapCompatibilityEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeviceMicromapCompatibilityEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15883,10 +14444,7 @@ Napi::Value rawGetDeviceMicromapCompatibilityEXT(const Napi::CallbackInfo& info)
 #endif
 
 #ifdef VK_EXT_opacity_micromap
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetMicromapBuildSizesEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetMicromapBuildSizesEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15915,10 +14473,7 @@ Napi::Value rawGetMicromapBuildSizesEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_shader_module_identifier
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetShaderModuleIdentifierEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetShaderModuleIdentifierEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15944,10 +14499,7 @@ Napi::Value rawGetShaderModuleIdentifierEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_shader_module_identifier
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetShaderModuleCreateInfoIdentifierEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetShaderModuleCreateInfoIdentifierEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -15973,10 +14525,7 @@ Napi::Value rawGetShaderModuleCreateInfoIdentifierEXT(const Napi::CallbackInfo& 
 #endif
 
 #ifdef VK_EXT_image_compression_control
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetImageSubresourceLayout2EXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetImageSubresourceLayout2EXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -16005,10 +14554,7 @@ Napi::Value rawGetImageSubresourceLayout2EXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_pipeline_properties
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPipelinePropertiesEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPipelinePropertiesEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -16034,10 +14580,7 @@ Napi::Value rawGetPipelinePropertiesEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_metal_objects
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawExportMetalObjectsEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawExportMetalObjectsEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -16060,10 +14603,7 @@ Napi::Value rawExportMetalObjectsEXT(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_QCOM_tile_properties
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetFramebufferTilePropertiesQCOM(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetFramebufferTilePropertiesQCOM(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -16092,10 +14632,7 @@ Napi::Value rawGetFramebufferTilePropertiesQCOM(const Napi::CallbackInfo& info) 
 #endif
 
 #ifdef VK_QCOM_tile_properties
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDynamicRenderingTilePropertiesQCOM(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDynamicRenderingTilePropertiesQCOM(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -16121,10 +14658,7 @@ Napi::Value rawGetDynamicRenderingTilePropertiesQCOM(const Napi::CallbackInfo& i
 #endif
 
 #ifdef VK_NV_optical_flow
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetPhysicalDeviceOpticalFlowImageFormatsNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetPhysicalDeviceOpticalFlowImageFormatsNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -16153,10 +14687,7 @@ Napi::Value rawGetPhysicalDeviceOpticalFlowImageFormatsNV(const Napi::CallbackIn
 #endif
 
 #ifdef VK_NV_optical_flow
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCreateOpticalFlowSessionNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCreateOpticalFlowSessionNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -16185,10 +14716,7 @@ Napi::Value rawCreateOpticalFlowSessionNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_optical_flow
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawDestroyOpticalFlowSessionNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawDestroyOpticalFlowSessionNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -16214,10 +14742,7 @@ Napi::Value rawDestroyOpticalFlowSessionNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_optical_flow
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawBindOpticalFlowSessionImageNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawBindOpticalFlowSessionImageNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -16249,10 +14774,7 @@ Napi::Value rawBindOpticalFlowSessionImageNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_NV_optical_flow
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawCmdOpticalFlowExecuteNV(const Napi::CallbackInfo& info) {
+static Napi::Value rawCmdOpticalFlowExecuteNV(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -16278,10 +14800,7 @@ Napi::Value rawCmdOpticalFlowExecuteNV(const Napi::CallbackInfo& info) {
 #endif
 
 #ifdef VK_EXT_device_fault
-#ifdef __cplusplus
-inline 
-#endif
-Napi::Value rawGetDeviceFaultInfoEXT(const Napi::CallbackInfo& info) {
+static Napi::Value rawGetDeviceFaultInfoEXT(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     bool lossless = true;
@@ -16306,6 +14825,1627 @@ Napi::Value rawGetDeviceFaultInfoEXT(const Napi::CallbackInfo& info) {
 }
 #endif
 
+
+Napi::Object Init(Napi::Env env, Napi::Object exports) {
+
+
+    //exports["vkCreateInstance"] = Napi::Function::New(env, rawCreateInstance);
+
+
+    //exports["vkDestroyInstance"] = Napi::Function::New(env, rawDestroyInstance);
+
+
+    //exports["vkEnumeratePhysicalDevices"] = Napi::Function::New(env, rawEnumeratePhysicalDevices);
+
+
+    //exports["vkGetDeviceProcAddr"] = Napi::Function::New(env, rawGetDeviceProcAddr);
+
+
+    //exports["vkGetInstanceProcAddr"] = Napi::Function::New(env, rawGetInstanceProcAddr);
+
+
+    //exports["vkGetPhysicalDeviceProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceProperties);
+
+
+    //exports["vkGetPhysicalDeviceQueueFamilyProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceQueueFamilyProperties);
+
+
+    //exports["vkGetPhysicalDeviceMemoryProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceMemoryProperties);
+
+
+    //exports["vkGetPhysicalDeviceFeatures"] = Napi::Function::New(env, rawGetPhysicalDeviceFeatures);
+
+
+    //exports["vkGetPhysicalDeviceFormatProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceFormatProperties);
+
+
+    //exports["vkGetPhysicalDeviceImageFormatProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceImageFormatProperties);
+
+
+    //exports["vkCreateDevice"] = Napi::Function::New(env, rawCreateDevice);
+
+
+    //exports["vkDestroyDevice"] = Napi::Function::New(env, rawDestroyDevice);
+
+
+    //exports["vkEnumerateInstanceVersion"] = Napi::Function::New(env, rawEnumerateInstanceVersion);
+
+
+    //exports["vkEnumerateInstanceLayerProperties"] = Napi::Function::New(env, rawEnumerateInstanceLayerProperties);
+
+
+    //exports["vkEnumerateInstanceExtensionProperties"] = Napi::Function::New(env, rawEnumerateInstanceExtensionProperties);
+
+
+    //exports["vkEnumerateDeviceLayerProperties"] = Napi::Function::New(env, rawEnumerateDeviceLayerProperties);
+
+
+    //exports["vkEnumerateDeviceExtensionProperties"] = Napi::Function::New(env, rawEnumerateDeviceExtensionProperties);
+
+
+    //exports["vkGetDeviceQueue"] = Napi::Function::New(env, rawGetDeviceQueue);
+
+
+    //exports["vkQueueSubmit"] = Napi::Function::New(env, rawQueueSubmit);
+
+
+    //exports["vkQueueWaitIdle"] = Napi::Function::New(env, rawQueueWaitIdle);
+
+
+    //exports["vkDeviceWaitIdle"] = Napi::Function::New(env, rawDeviceWaitIdle);
+
+
+    //exports["vkAllocateMemory"] = Napi::Function::New(env, rawAllocateMemory);
+
+
+    //exports["vkFreeMemory"] = Napi::Function::New(env, rawFreeMemory);
+
+
+    //exports["vkMapMemory"] = Napi::Function::New(env, rawMapMemory);
+
+
+    //exports["vkUnmapMemory"] = Napi::Function::New(env, rawUnmapMemory);
+
+
+    //exports["vkFlushMappedMemoryRanges"] = Napi::Function::New(env, rawFlushMappedMemoryRanges);
+
+
+    //exports["vkInvalidateMappedMemoryRanges"] = Napi::Function::New(env, rawInvalidateMappedMemoryRanges);
+
+
+    //exports["vkGetDeviceMemoryCommitment"] = Napi::Function::New(env, rawGetDeviceMemoryCommitment);
+
+
+    //exports["vkGetBufferMemoryRequirements"] = Napi::Function::New(env, rawGetBufferMemoryRequirements);
+
+
+    //exports["vkBindBufferMemory"] = Napi::Function::New(env, rawBindBufferMemory);
+
+
+    //exports["vkGetImageMemoryRequirements"] = Napi::Function::New(env, rawGetImageMemoryRequirements);
+
+
+    //exports["vkBindImageMemory"] = Napi::Function::New(env, rawBindImageMemory);
+
+
+    //exports["vkGetImageSparseMemoryRequirements"] = Napi::Function::New(env, rawGetImageSparseMemoryRequirements);
+
+
+    //exports["vkGetPhysicalDeviceSparseImageFormatProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceSparseImageFormatProperties);
+
+
+    //exports["vkQueueBindSparse"] = Napi::Function::New(env, rawQueueBindSparse);
+
+
+    //exports["vkCreateFence"] = Napi::Function::New(env, rawCreateFence);
+
+
+    //exports["vkDestroyFence"] = Napi::Function::New(env, rawDestroyFence);
+
+
+    //exports["vkResetFences"] = Napi::Function::New(env, rawResetFences);
+
+
+    //exports["vkGetFenceStatus"] = Napi::Function::New(env, rawGetFenceStatus);
+
+
+    //exports["vkWaitForFences"] = Napi::Function::New(env, rawWaitForFences);
+
+
+    //exports["vkCreateSemaphore"] = Napi::Function::New(env, rawCreateSemaphore);
+
+
+    //exports["vkDestroySemaphore"] = Napi::Function::New(env, rawDestroySemaphore);
+
+
+    //exports["vkCreateEvent"] = Napi::Function::New(env, rawCreateEvent);
+
+
+    //exports["vkDestroyEvent"] = Napi::Function::New(env, rawDestroyEvent);
+
+
+    //exports["vkGetEventStatus"] = Napi::Function::New(env, rawGetEventStatus);
+
+
+    //exports["vkSetEvent"] = Napi::Function::New(env, rawSetEvent);
+
+
+    //exports["vkResetEvent"] = Napi::Function::New(env, rawResetEvent);
+
+
+    //exports["vkCreateQueryPool"] = Napi::Function::New(env, rawCreateQueryPool);
+
+
+    //exports["vkDestroyQueryPool"] = Napi::Function::New(env, rawDestroyQueryPool);
+
+
+    //exports["vkGetQueryPoolResults"] = Napi::Function::New(env, rawGetQueryPoolResults);
+
+
+    //exports["vkResetQueryPool"] = Napi::Function::New(env, rawResetQueryPool);
+
+
+    //exports["vkCreateBuffer"] = Napi::Function::New(env, rawCreateBuffer);
+
+
+    //exports["vkDestroyBuffer"] = Napi::Function::New(env, rawDestroyBuffer);
+
+
+    //exports["vkCreateBufferView"] = Napi::Function::New(env, rawCreateBufferView);
+
+
+    //exports["vkDestroyBufferView"] = Napi::Function::New(env, rawDestroyBufferView);
+
+
+    //exports["vkCreateImage"] = Napi::Function::New(env, rawCreateImage);
+
+
+    //exports["vkDestroyImage"] = Napi::Function::New(env, rawDestroyImage);
+
+
+    //exports["vkGetImageSubresourceLayout"] = Napi::Function::New(env, rawGetImageSubresourceLayout);
+
+
+    //exports["vkCreateImageView"] = Napi::Function::New(env, rawCreateImageView);
+
+
+    //exports["vkDestroyImageView"] = Napi::Function::New(env, rawDestroyImageView);
+
+
+    //exports["vkCreateShaderModule"] = Napi::Function::New(env, rawCreateShaderModule);
+
+
+    //exports["vkDestroyShaderModule"] = Napi::Function::New(env, rawDestroyShaderModule);
+
+
+    //exports["vkCreatePipelineCache"] = Napi::Function::New(env, rawCreatePipelineCache);
+
+
+    //exports["vkDestroyPipelineCache"] = Napi::Function::New(env, rawDestroyPipelineCache);
+
+
+    //exports["vkGetPipelineCacheData"] = Napi::Function::New(env, rawGetPipelineCacheData);
+
+
+    //exports["vkMergePipelineCaches"] = Napi::Function::New(env, rawMergePipelineCaches);
+
+
+    //exports["vkCreateGraphicsPipelines"] = Napi::Function::New(env, rawCreateGraphicsPipelines);
+
+
+    //exports["vkCreateComputePipelines"] = Napi::Function::New(env, rawCreateComputePipelines);
+
+#ifdef VK_HUAWEI_subpass_shading
+    //exports["vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI"] = Napi::Function::New(env, rawGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI);
+#endif
+
+    //exports["vkDestroyPipeline"] = Napi::Function::New(env, rawDestroyPipeline);
+
+
+    //exports["vkCreatePipelineLayout"] = Napi::Function::New(env, rawCreatePipelineLayout);
+
+
+    //exports["vkDestroyPipelineLayout"] = Napi::Function::New(env, rawDestroyPipelineLayout);
+
+
+    //exports["vkCreateSampler"] = Napi::Function::New(env, rawCreateSampler);
+
+
+    //exports["vkDestroySampler"] = Napi::Function::New(env, rawDestroySampler);
+
+
+    //exports["vkCreateDescriptorSetLayout"] = Napi::Function::New(env, rawCreateDescriptorSetLayout);
+
+
+    //exports["vkDestroyDescriptorSetLayout"] = Napi::Function::New(env, rawDestroyDescriptorSetLayout);
+
+
+    //exports["vkCreateDescriptorPool"] = Napi::Function::New(env, rawCreateDescriptorPool);
+
+
+    //exports["vkDestroyDescriptorPool"] = Napi::Function::New(env, rawDestroyDescriptorPool);
+
+
+    //exports["vkResetDescriptorPool"] = Napi::Function::New(env, rawResetDescriptorPool);
+
+
+    //exports["vkAllocateDescriptorSets"] = Napi::Function::New(env, rawAllocateDescriptorSets);
+
+
+    //exports["vkFreeDescriptorSets"] = Napi::Function::New(env, rawFreeDescriptorSets);
+
+
+    //exports["vkUpdateDescriptorSets"] = Napi::Function::New(env, rawUpdateDescriptorSets);
+
+
+    //exports["vkCreateFramebuffer"] = Napi::Function::New(env, rawCreateFramebuffer);
+
+
+    //exports["vkDestroyFramebuffer"] = Napi::Function::New(env, rawDestroyFramebuffer);
+
+
+    //exports["vkCreateRenderPass"] = Napi::Function::New(env, rawCreateRenderPass);
+
+
+    //exports["vkDestroyRenderPass"] = Napi::Function::New(env, rawDestroyRenderPass);
+
+
+    //exports["vkGetRenderAreaGranularity"] = Napi::Function::New(env, rawGetRenderAreaGranularity);
+
+
+    //exports["vkCreateCommandPool"] = Napi::Function::New(env, rawCreateCommandPool);
+
+
+    //exports["vkDestroyCommandPool"] = Napi::Function::New(env, rawDestroyCommandPool);
+
+
+    //exports["vkResetCommandPool"] = Napi::Function::New(env, rawResetCommandPool);
+
+
+    //exports["vkAllocateCommandBuffers"] = Napi::Function::New(env, rawAllocateCommandBuffers);
+
+
+    //exports["vkFreeCommandBuffers"] = Napi::Function::New(env, rawFreeCommandBuffers);
+
+
+    //exports["vkBeginCommandBuffer"] = Napi::Function::New(env, rawBeginCommandBuffer);
+
+
+    //exports["vkEndCommandBuffer"] = Napi::Function::New(env, rawEndCommandBuffer);
+
+
+    //exports["vkResetCommandBuffer"] = Napi::Function::New(env, rawResetCommandBuffer);
+
+
+    //exports["vkCmdBindPipeline"] = Napi::Function::New(env, rawCmdBindPipeline);
+
+
+    //exports["vkCmdSetViewport"] = Napi::Function::New(env, rawCmdSetViewport);
+
+
+    //exports["vkCmdSetScissor"] = Napi::Function::New(env, rawCmdSetScissor);
+
+
+    //exports["vkCmdSetLineWidth"] = Napi::Function::New(env, rawCmdSetLineWidth);
+
+
+    //exports["vkCmdSetDepthBias"] = Napi::Function::New(env, rawCmdSetDepthBias);
+
+
+    //exports["vkCmdSetBlendConstants"] = Napi::Function::New(env, rawCmdSetBlendConstants);
+
+
+    //exports["vkCmdSetDepthBounds"] = Napi::Function::New(env, rawCmdSetDepthBounds);
+
+
+    //exports["vkCmdSetStencilCompareMask"] = Napi::Function::New(env, rawCmdSetStencilCompareMask);
+
+
+    //exports["vkCmdSetStencilWriteMask"] = Napi::Function::New(env, rawCmdSetStencilWriteMask);
+
+
+    //exports["vkCmdSetStencilReference"] = Napi::Function::New(env, rawCmdSetStencilReference);
+
+
+    //exports["vkCmdBindDescriptorSets"] = Napi::Function::New(env, rawCmdBindDescriptorSets);
+
+
+    //exports["vkCmdBindIndexBuffer"] = Napi::Function::New(env, rawCmdBindIndexBuffer);
+
+
+    //exports["vkCmdBindVertexBuffers"] = Napi::Function::New(env, rawCmdBindVertexBuffers);
+
+
+    //exports["vkCmdDraw"] = Napi::Function::New(env, rawCmdDraw);
+
+
+    //exports["vkCmdDrawIndexed"] = Napi::Function::New(env, rawCmdDrawIndexed);
+
+#ifdef VK_EXT_multi_draw
+    //exports["vkCmdDrawMultiEXT"] = Napi::Function::New(env, rawCmdDrawMultiEXT);
+#endif
+#ifdef VK_EXT_multi_draw
+    //exports["vkCmdDrawMultiIndexedEXT"] = Napi::Function::New(env, rawCmdDrawMultiIndexedEXT);
+#endif
+
+    //exports["vkCmdDrawIndirect"] = Napi::Function::New(env, rawCmdDrawIndirect);
+
+
+    //exports["vkCmdDrawIndexedIndirect"] = Napi::Function::New(env, rawCmdDrawIndexedIndirect);
+
+
+    //exports["vkCmdDispatch"] = Napi::Function::New(env, rawCmdDispatch);
+
+
+    //exports["vkCmdDispatchIndirect"] = Napi::Function::New(env, rawCmdDispatchIndirect);
+
+#ifdef VK_HUAWEI_subpass_shading
+    //exports["vkCmdSubpassShadingHUAWEI"] = Napi::Function::New(env, rawCmdSubpassShadingHUAWEI);
+#endif
+
+    //exports["vkCmdCopyBuffer"] = Napi::Function::New(env, rawCmdCopyBuffer);
+
+
+    //exports["vkCmdCopyImage"] = Napi::Function::New(env, rawCmdCopyImage);
+
+
+    //exports["vkCmdBlitImage"] = Napi::Function::New(env, rawCmdBlitImage);
+
+
+    //exports["vkCmdCopyBufferToImage"] = Napi::Function::New(env, rawCmdCopyBufferToImage);
+
+
+    //exports["vkCmdCopyImageToBuffer"] = Napi::Function::New(env, rawCmdCopyImageToBuffer);
+
+#ifdef VK_NV_copy_memory_indirect
+    //exports["vkCmdCopyMemoryIndirectNV"] = Napi::Function::New(env, rawCmdCopyMemoryIndirectNV);
+#endif
+#ifdef VK_NV_copy_memory_indirect
+    //exports["vkCmdCopyMemoryToImageIndirectNV"] = Napi::Function::New(env, rawCmdCopyMemoryToImageIndirectNV);
+#endif
+
+    //exports["vkCmdUpdateBuffer"] = Napi::Function::New(env, rawCmdUpdateBuffer);
+
+
+    //exports["vkCmdFillBuffer"] = Napi::Function::New(env, rawCmdFillBuffer);
+
+
+    //exports["vkCmdClearColorImage"] = Napi::Function::New(env, rawCmdClearColorImage);
+
+
+    //exports["vkCmdClearDepthStencilImage"] = Napi::Function::New(env, rawCmdClearDepthStencilImage);
+
+
+    //exports["vkCmdClearAttachments"] = Napi::Function::New(env, rawCmdClearAttachments);
+
+
+    //exports["vkCmdResolveImage"] = Napi::Function::New(env, rawCmdResolveImage);
+
+
+    //exports["vkCmdSetEvent"] = Napi::Function::New(env, rawCmdSetEvent);
+
+
+    //exports["vkCmdResetEvent"] = Napi::Function::New(env, rawCmdResetEvent);
+
+
+    //exports["vkCmdWaitEvents"] = Napi::Function::New(env, rawCmdWaitEvents);
+
+
+    //exports["vkCmdPipelineBarrier"] = Napi::Function::New(env, rawCmdPipelineBarrier);
+
+
+    //exports["vkCmdBeginQuery"] = Napi::Function::New(env, rawCmdBeginQuery);
+
+
+    //exports["vkCmdEndQuery"] = Napi::Function::New(env, rawCmdEndQuery);
+
+#ifdef VK_EXT_conditional_rendering
+    //exports["vkCmdBeginConditionalRenderingEXT"] = Napi::Function::New(env, rawCmdBeginConditionalRenderingEXT);
+#endif
+#ifdef VK_EXT_conditional_rendering
+    //exports["vkCmdEndConditionalRenderingEXT"] = Napi::Function::New(env, rawCmdEndConditionalRenderingEXT);
+#endif
+
+    //exports["vkCmdResetQueryPool"] = Napi::Function::New(env, rawCmdResetQueryPool);
+
+
+    //exports["vkCmdWriteTimestamp"] = Napi::Function::New(env, rawCmdWriteTimestamp);
+
+
+    //exports["vkCmdCopyQueryPoolResults"] = Napi::Function::New(env, rawCmdCopyQueryPoolResults);
+
+
+    //exports["vkCmdPushConstants"] = Napi::Function::New(env, rawCmdPushConstants);
+
+
+    //exports["vkCmdBeginRenderPass"] = Napi::Function::New(env, rawCmdBeginRenderPass);
+
+
+    //exports["vkCmdNextSubpass"] = Napi::Function::New(env, rawCmdNextSubpass);
+
+
+    //exports["vkCmdEndRenderPass"] = Napi::Function::New(env, rawCmdEndRenderPass);
+
+
+    //exports["vkCmdExecuteCommands"] = Napi::Function::New(env, rawCmdExecuteCommands);
+
+#ifdef VK_KHR_android_surface
+    //exports["vkCreateAndroidSurfaceKHR"] = Napi::Function::New(env, rawCreateAndroidSurfaceKHR);
+#endif
+#ifdef VK_KHR_display
+    //exports["vkGetPhysicalDeviceDisplayPropertiesKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceDisplayPropertiesKHR);
+#endif
+#ifdef VK_KHR_display
+    //exports["vkGetPhysicalDeviceDisplayPlanePropertiesKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceDisplayPlanePropertiesKHR);
+#endif
+#ifdef VK_KHR_display
+    //exports["vkGetDisplayPlaneSupportedDisplaysKHR"] = Napi::Function::New(env, rawGetDisplayPlaneSupportedDisplaysKHR);
+#endif
+#ifdef VK_KHR_display
+    //exports["vkGetDisplayModePropertiesKHR"] = Napi::Function::New(env, rawGetDisplayModePropertiesKHR);
+#endif
+#ifdef VK_KHR_display
+    //exports["vkCreateDisplayModeKHR"] = Napi::Function::New(env, rawCreateDisplayModeKHR);
+#endif
+#ifdef VK_KHR_display
+    //exports["vkGetDisplayPlaneCapabilitiesKHR"] = Napi::Function::New(env, rawGetDisplayPlaneCapabilitiesKHR);
+#endif
+#ifdef VK_KHR_display
+    //exports["vkCreateDisplayPlaneSurfaceKHR"] = Napi::Function::New(env, rawCreateDisplayPlaneSurfaceKHR);
+#endif
+#ifdef VK_KHR_display_swapchain
+    //exports["vkCreateSharedSwapchainsKHR"] = Napi::Function::New(env, rawCreateSharedSwapchainsKHR);
+#endif
+#ifdef VK_KHR_surface
+    //exports["vkDestroySurfaceKHR"] = Napi::Function::New(env, rawDestroySurfaceKHR);
+#endif
+#ifdef VK_KHR_surface
+    //exports["vkGetPhysicalDeviceSurfaceSupportKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceSurfaceSupportKHR);
+#endif
+#ifdef VK_KHR_surface
+    //exports["vkGetPhysicalDeviceSurfaceCapabilitiesKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceSurfaceCapabilitiesKHR);
+#endif
+#ifdef VK_KHR_surface
+    //exports["vkGetPhysicalDeviceSurfaceFormatsKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceSurfaceFormatsKHR);
+#endif
+#ifdef VK_KHR_surface
+    //exports["vkGetPhysicalDeviceSurfacePresentModesKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceSurfacePresentModesKHR);
+#endif
+#ifdef VK_KHR_swapchain
+    //exports["vkCreateSwapchainKHR"] = Napi::Function::New(env, rawCreateSwapchainKHR);
+#endif
+#ifdef VK_KHR_swapchain
+    //exports["vkDestroySwapchainKHR"] = Napi::Function::New(env, rawDestroySwapchainKHR);
+#endif
+#ifdef VK_KHR_swapchain
+    //exports["vkGetSwapchainImagesKHR"] = Napi::Function::New(env, rawGetSwapchainImagesKHR);
+#endif
+#ifdef VK_KHR_swapchain
+    //exports["vkAcquireNextImageKHR"] = Napi::Function::New(env, rawAcquireNextImageKHR);
+#endif
+#ifdef VK_KHR_swapchain
+    //exports["vkQueuePresentKHR"] = Napi::Function::New(env, rawQueuePresentKHR);
+#endif
+#ifdef VK_NN_vi_surface
+    //exports["vkCreateViSurfaceNN"] = Napi::Function::New(env, rawCreateViSurfaceNN);
+#endif
+#ifdef VK_KHR_wayland_surface
+    //exports["vkCreateWaylandSurfaceKHR"] = Napi::Function::New(env, rawCreateWaylandSurfaceKHR);
+#endif
+#ifdef VK_KHR_wayland_surface
+    //exports["vkGetPhysicalDeviceWaylandPresentationSupportKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceWaylandPresentationSupportKHR);
+#endif
+#ifdef VK_KHR_win32_surface
+    //exports["vkCreateWin32SurfaceKHR"] = Napi::Function::New(env, rawCreateWin32SurfaceKHR);
+#endif
+#ifdef VK_KHR_win32_surface
+    //exports["vkGetPhysicalDeviceWin32PresentationSupportKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceWin32PresentationSupportKHR);
+#endif
+#ifdef VK_KHR_xlib_surface
+    //exports["vkCreateXlibSurfaceKHR"] = Napi::Function::New(env, rawCreateXlibSurfaceKHR);
+#endif
+#ifdef VK_KHR_xlib_surface
+    //exports["vkGetPhysicalDeviceXlibPresentationSupportKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceXlibPresentationSupportKHR);
+#endif
+#ifdef VK_KHR_xcb_surface
+    //exports["vkCreateXcbSurfaceKHR"] = Napi::Function::New(env, rawCreateXcbSurfaceKHR);
+#endif
+#ifdef VK_KHR_xcb_surface
+    //exports["vkGetPhysicalDeviceXcbPresentationSupportKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceXcbPresentationSupportKHR);
+#endif
+#ifdef VK_EXT_directfb_surface
+    //exports["vkCreateDirectFBSurfaceEXT"] = Napi::Function::New(env, rawCreateDirectFBSurfaceEXT);
+#endif
+#ifdef VK_EXT_directfb_surface
+    //exports["vkGetPhysicalDeviceDirectFBPresentationSupportEXT"] = Napi::Function::New(env, rawGetPhysicalDeviceDirectFBPresentationSupportEXT);
+#endif
+#ifdef VK_FUCHSIA_imagepipe_surface
+    //exports["vkCreateImagePipeSurfaceFUCHSIA"] = Napi::Function::New(env, rawCreateImagePipeSurfaceFUCHSIA);
+#endif
+#ifdef VK_GGP_stream_descriptor_surface
+    //exports["vkCreateStreamDescriptorSurfaceGGP"] = Napi::Function::New(env, rawCreateStreamDescriptorSurfaceGGP);
+#endif
+#ifdef VK_QNX_screen_surface
+    //exports["vkCreateScreenSurfaceQNX"] = Napi::Function::New(env, rawCreateScreenSurfaceQNX);
+#endif
+#ifdef VK_QNX_screen_surface
+    //exports["vkGetPhysicalDeviceScreenPresentationSupportQNX"] = Napi::Function::New(env, rawGetPhysicalDeviceScreenPresentationSupportQNX);
+#endif
+#ifdef VK_EXT_debug_report
+    //exports["vkCreateDebugReportCallbackEXT"] = Napi::Function::New(env, rawCreateDebugReportCallbackEXT);
+#endif
+#ifdef VK_EXT_debug_report
+    //exports["vkDestroyDebugReportCallbackEXT"] = Napi::Function::New(env, rawDestroyDebugReportCallbackEXT);
+#endif
+#ifdef VK_EXT_debug_report
+    //exports["vkDebugReportMessageEXT"] = Napi::Function::New(env, rawDebugReportMessageEXT);
+#endif
+#ifdef VK_EXT_debug_marker
+    //exports["vkDebugMarkerSetObjectNameEXT"] = Napi::Function::New(env, rawDebugMarkerSetObjectNameEXT);
+#endif
+#ifdef VK_EXT_debug_marker
+    //exports["vkDebugMarkerSetObjectTagEXT"] = Napi::Function::New(env, rawDebugMarkerSetObjectTagEXT);
+#endif
+#ifdef VK_EXT_debug_marker
+    //exports["vkCmdDebugMarkerBeginEXT"] = Napi::Function::New(env, rawCmdDebugMarkerBeginEXT);
+#endif
+#ifdef VK_EXT_debug_marker
+    //exports["vkCmdDebugMarkerEndEXT"] = Napi::Function::New(env, rawCmdDebugMarkerEndEXT);
+#endif
+#ifdef VK_EXT_debug_marker
+    //exports["vkCmdDebugMarkerInsertEXT"] = Napi::Function::New(env, rawCmdDebugMarkerInsertEXT);
+#endif
+#ifdef VK_NV_external_memory_capabilities
+    //exports["vkGetPhysicalDeviceExternalImageFormatPropertiesNV"] = Napi::Function::New(env, rawGetPhysicalDeviceExternalImageFormatPropertiesNV);
+#endif
+#ifdef VK_NV_external_memory_win32
+    //exports["vkGetMemoryWin32HandleNV"] = Napi::Function::New(env, rawGetMemoryWin32HandleNV);
+#endif
+#ifdef VK_NV_device_generated_commands
+    //exports["vkCmdExecuteGeneratedCommandsNV"] = Napi::Function::New(env, rawCmdExecuteGeneratedCommandsNV);
+#endif
+#ifdef VK_NV_device_generated_commands
+    //exports["vkCmdPreprocessGeneratedCommandsNV"] = Napi::Function::New(env, rawCmdPreprocessGeneratedCommandsNV);
+#endif
+#ifdef VK_NV_device_generated_commands
+    //exports["vkCmdBindPipelineShaderGroupNV"] = Napi::Function::New(env, rawCmdBindPipelineShaderGroupNV);
+#endif
+#ifdef VK_NV_device_generated_commands
+    //exports["vkGetGeneratedCommandsMemoryRequirementsNV"] = Napi::Function::New(env, rawGetGeneratedCommandsMemoryRequirementsNV);
+#endif
+#ifdef VK_NV_device_generated_commands
+    //exports["vkCreateIndirectCommandsLayoutNV"] = Napi::Function::New(env, rawCreateIndirectCommandsLayoutNV);
+#endif
+#ifdef VK_NV_device_generated_commands
+    //exports["vkDestroyIndirectCommandsLayoutNV"] = Napi::Function::New(env, rawDestroyIndirectCommandsLayoutNV);
+#endif
+
+    //exports["vkGetPhysicalDeviceFeatures2"] = Napi::Function::New(env, rawGetPhysicalDeviceFeatures2);
+
+
+    //exports["vkGetPhysicalDeviceProperties2"] = Napi::Function::New(env, rawGetPhysicalDeviceProperties2);
+
+
+    //exports["vkGetPhysicalDeviceFormatProperties2"] = Napi::Function::New(env, rawGetPhysicalDeviceFormatProperties2);
+
+
+    //exports["vkGetPhysicalDeviceImageFormatProperties2"] = Napi::Function::New(env, rawGetPhysicalDeviceImageFormatProperties2);
+
+
+    //exports["vkGetPhysicalDeviceQueueFamilyProperties2"] = Napi::Function::New(env, rawGetPhysicalDeviceQueueFamilyProperties2);
+
+
+    //exports["vkGetPhysicalDeviceMemoryProperties2"] = Napi::Function::New(env, rawGetPhysicalDeviceMemoryProperties2);
+
+
+    //exports["vkGetPhysicalDeviceSparseImageFormatProperties2"] = Napi::Function::New(env, rawGetPhysicalDeviceSparseImageFormatProperties2);
+
+#ifdef VK_KHR_push_descriptor
+    //exports["vkCmdPushDescriptorSetKHR"] = Napi::Function::New(env, rawCmdPushDescriptorSetKHR);
+#endif
+
+    //exports["vkTrimCommandPool"] = Napi::Function::New(env, rawTrimCommandPool);
+
+
+    //exports["vkGetPhysicalDeviceExternalBufferProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceExternalBufferProperties);
+
+#ifdef VK_KHR_external_memory_win32
+    //exports["vkGetMemoryWin32HandleKHR"] = Napi::Function::New(env, rawGetMemoryWin32HandleKHR);
+#endif
+#ifdef VK_KHR_external_memory_win32
+    //exports["vkGetMemoryWin32HandlePropertiesKHR"] = Napi::Function::New(env, rawGetMemoryWin32HandlePropertiesKHR);
+#endif
+#ifdef VK_KHR_external_memory_fd
+    //exports["vkGetMemoryFdKHR"] = Napi::Function::New(env, rawGetMemoryFdKHR);
+#endif
+#ifdef VK_KHR_external_memory_fd
+    //exports["vkGetMemoryFdPropertiesKHR"] = Napi::Function::New(env, rawGetMemoryFdPropertiesKHR);
+#endif
+#ifdef VK_FUCHSIA_external_memory
+    //exports["vkGetMemoryZirconHandleFUCHSIA"] = Napi::Function::New(env, rawGetMemoryZirconHandleFUCHSIA);
+#endif
+#ifdef VK_FUCHSIA_external_memory
+    //exports["vkGetMemoryZirconHandlePropertiesFUCHSIA"] = Napi::Function::New(env, rawGetMemoryZirconHandlePropertiesFUCHSIA);
+#endif
+#ifdef VK_NV_external_memory_rdma
+    //exports["vkGetMemoryRemoteAddressNV"] = Napi::Function::New(env, rawGetMemoryRemoteAddressNV);
+#endif
+
+    //exports["vkGetPhysicalDeviceExternalSemaphoreProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceExternalSemaphoreProperties);
+
+#ifdef VK_KHR_external_semaphore_win32
+    //exports["vkGetSemaphoreWin32HandleKHR"] = Napi::Function::New(env, rawGetSemaphoreWin32HandleKHR);
+#endif
+#ifdef VK_KHR_external_semaphore_win32
+    //exports["vkImportSemaphoreWin32HandleKHR"] = Napi::Function::New(env, rawImportSemaphoreWin32HandleKHR);
+#endif
+#ifdef VK_KHR_external_semaphore_fd
+    //exports["vkGetSemaphoreFdKHR"] = Napi::Function::New(env, rawGetSemaphoreFdKHR);
+#endif
+#ifdef VK_KHR_external_semaphore_fd
+    //exports["vkImportSemaphoreFdKHR"] = Napi::Function::New(env, rawImportSemaphoreFdKHR);
+#endif
+#ifdef VK_FUCHSIA_external_semaphore
+    //exports["vkGetSemaphoreZirconHandleFUCHSIA"] = Napi::Function::New(env, rawGetSemaphoreZirconHandleFUCHSIA);
+#endif
+#ifdef VK_FUCHSIA_external_semaphore
+    //exports["vkImportSemaphoreZirconHandleFUCHSIA"] = Napi::Function::New(env, rawImportSemaphoreZirconHandleFUCHSIA);
+#endif
+
+    //exports["vkGetPhysicalDeviceExternalFenceProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceExternalFenceProperties);
+
+#ifdef VK_KHR_external_fence_win32
+    //exports["vkGetFenceWin32HandleKHR"] = Napi::Function::New(env, rawGetFenceWin32HandleKHR);
+#endif
+#ifdef VK_KHR_external_fence_win32
+    //exports["vkImportFenceWin32HandleKHR"] = Napi::Function::New(env, rawImportFenceWin32HandleKHR);
+#endif
+#ifdef VK_KHR_external_fence_fd
+    //exports["vkGetFenceFdKHR"] = Napi::Function::New(env, rawGetFenceFdKHR);
+#endif
+#ifdef VK_KHR_external_fence_fd
+    //exports["vkImportFenceFdKHR"] = Napi::Function::New(env, rawImportFenceFdKHR);
+#endif
+#ifdef VK_EXT_direct_mode_display
+    //exports["vkReleaseDisplayEXT"] = Napi::Function::New(env, rawReleaseDisplayEXT);
+#endif
+#ifdef VK_EXT_acquire_xlib_display
+    //exports["vkAcquireXlibDisplayEXT"] = Napi::Function::New(env, rawAcquireXlibDisplayEXT);
+#endif
+#ifdef VK_EXT_acquire_xlib_display
+    //exports["vkGetRandROutputDisplayEXT"] = Napi::Function::New(env, rawGetRandROutputDisplayEXT);
+#endif
+#ifdef VK_NV_acquire_winrt_display
+    //exports["vkAcquireWinrtDisplayNV"] = Napi::Function::New(env, rawAcquireWinrtDisplayNV);
+#endif
+#ifdef VK_NV_acquire_winrt_display
+    //exports["vkGetWinrtDisplayNV"] = Napi::Function::New(env, rawGetWinrtDisplayNV);
+#endif
+#ifdef VK_EXT_display_control
+    //exports["vkDisplayPowerControlEXT"] = Napi::Function::New(env, rawDisplayPowerControlEXT);
+#endif
+#ifdef VK_EXT_display_control
+    //exports["vkRegisterDeviceEventEXT"] = Napi::Function::New(env, rawRegisterDeviceEventEXT);
+#endif
+#ifdef VK_EXT_display_control
+    //exports["vkRegisterDisplayEventEXT"] = Napi::Function::New(env, rawRegisterDisplayEventEXT);
+#endif
+#ifdef VK_EXT_display_control
+    //exports["vkGetSwapchainCounterEXT"] = Napi::Function::New(env, rawGetSwapchainCounterEXT);
+#endif
+#ifdef VK_EXT_display_surface_counter
+    //exports["vkGetPhysicalDeviceSurfaceCapabilities2EXT"] = Napi::Function::New(env, rawGetPhysicalDeviceSurfaceCapabilities2EXT);
+#endif
+
+    //exports["vkEnumeratePhysicalDeviceGroups"] = Napi::Function::New(env, rawEnumeratePhysicalDeviceGroups);
+
+
+    //exports["vkGetDeviceGroupPeerMemoryFeatures"] = Napi::Function::New(env, rawGetDeviceGroupPeerMemoryFeatures);
+
+
+    //exports["vkBindBufferMemory2"] = Napi::Function::New(env, rawBindBufferMemory2);
+
+
+    //exports["vkBindImageMemory2"] = Napi::Function::New(env, rawBindImageMemory2);
+
+
+    //exports["vkCmdSetDeviceMask"] = Napi::Function::New(env, rawCmdSetDeviceMask);
+
+#ifdef VK_KHR_device_group
+    //exports["vkGetDeviceGroupPresentCapabilitiesKHR"] = Napi::Function::New(env, rawGetDeviceGroupPresentCapabilitiesKHR);
+#endif
+#ifdef VK_KHR_device_group
+    //exports["vkGetDeviceGroupSurfacePresentModesKHR"] = Napi::Function::New(env, rawGetDeviceGroupSurfacePresentModesKHR);
+#endif
+#ifdef VK_KHR_device_group
+    //exports["vkAcquireNextImage2KHR"] = Napi::Function::New(env, rawAcquireNextImage2KHR);
+#endif
+
+    //exports["vkCmdDispatchBase"] = Napi::Function::New(env, rawCmdDispatchBase);
+
+#ifdef VK_KHR_device_group
+    //exports["vkGetPhysicalDevicePresentRectanglesKHR"] = Napi::Function::New(env, rawGetPhysicalDevicePresentRectanglesKHR);
+#endif
+
+    //exports["vkCreateDescriptorUpdateTemplate"] = Napi::Function::New(env, rawCreateDescriptorUpdateTemplate);
+
+
+    //exports["vkDestroyDescriptorUpdateTemplate"] = Napi::Function::New(env, rawDestroyDescriptorUpdateTemplate);
+
+
+    //exports["vkUpdateDescriptorSetWithTemplate"] = Napi::Function::New(env, rawUpdateDescriptorSetWithTemplate);
+
+#ifdef VK_KHR_descriptor_update_template
+    //exports["vkCmdPushDescriptorSetWithTemplateKHR"] = Napi::Function::New(env, rawCmdPushDescriptorSetWithTemplateKHR);
+#endif
+#ifdef VK_EXT_hdr_metadata
+    //exports["vkSetHdrMetadataEXT"] = Napi::Function::New(env, rawSetHdrMetadataEXT);
+#endif
+#ifdef VK_KHR_shared_presentable_image
+    //exports["vkGetSwapchainStatusKHR"] = Napi::Function::New(env, rawGetSwapchainStatusKHR);
+#endif
+#ifdef VK_GOOGLE_display_timing
+    //exports["vkGetRefreshCycleDurationGOOGLE"] = Napi::Function::New(env, rawGetRefreshCycleDurationGOOGLE);
+#endif
+#ifdef VK_GOOGLE_display_timing
+    //exports["vkGetPastPresentationTimingGOOGLE"] = Napi::Function::New(env, rawGetPastPresentationTimingGOOGLE);
+#endif
+#ifdef VK_MVK_ios_surface
+    //exports["vkCreateIOSSurfaceMVK"] = Napi::Function::New(env, rawCreateIOSSurfaceMVK);
+#endif
+#ifdef VK_MVK_macos_surface
+    //exports["vkCreateMacOSSurfaceMVK"] = Napi::Function::New(env, rawCreateMacOSSurfaceMVK);
+#endif
+#ifdef VK_EXT_metal_surface
+    //exports["vkCreateMetalSurfaceEXT"] = Napi::Function::New(env, rawCreateMetalSurfaceEXT);
+#endif
+#ifdef VK_NV_clip_space_w_scaling
+    //exports["vkCmdSetViewportWScalingNV"] = Napi::Function::New(env, rawCmdSetViewportWScalingNV);
+#endif
+#ifdef VK_EXT_discard_rectangles
+    //exports["vkCmdSetDiscardRectangleEXT"] = Napi::Function::New(env, rawCmdSetDiscardRectangleEXT);
+#endif
+#ifdef VK_EXT_sample_locations
+    //exports["vkCmdSetSampleLocationsEXT"] = Napi::Function::New(env, rawCmdSetSampleLocationsEXT);
+#endif
+#ifdef VK_EXT_sample_locations
+    //exports["vkGetPhysicalDeviceMultisamplePropertiesEXT"] = Napi::Function::New(env, rawGetPhysicalDeviceMultisamplePropertiesEXT);
+#endif
+#ifdef VK_KHR_get_surface_capabilities2
+    //exports["vkGetPhysicalDeviceSurfaceCapabilities2KHR"] = Napi::Function::New(env, rawGetPhysicalDeviceSurfaceCapabilities2KHR);
+#endif
+#ifdef VK_KHR_get_surface_capabilities2
+    //exports["vkGetPhysicalDeviceSurfaceFormats2KHR"] = Napi::Function::New(env, rawGetPhysicalDeviceSurfaceFormats2KHR);
+#endif
+#ifdef VK_KHR_get_display_properties2
+    //exports["vkGetPhysicalDeviceDisplayProperties2KHR"] = Napi::Function::New(env, rawGetPhysicalDeviceDisplayProperties2KHR);
+#endif
+#ifdef VK_KHR_get_display_properties2
+    //exports["vkGetPhysicalDeviceDisplayPlaneProperties2KHR"] = Napi::Function::New(env, rawGetPhysicalDeviceDisplayPlaneProperties2KHR);
+#endif
+#ifdef VK_KHR_get_display_properties2
+    //exports["vkGetDisplayModeProperties2KHR"] = Napi::Function::New(env, rawGetDisplayModeProperties2KHR);
+#endif
+#ifdef VK_KHR_get_display_properties2
+    //exports["vkGetDisplayPlaneCapabilities2KHR"] = Napi::Function::New(env, rawGetDisplayPlaneCapabilities2KHR);
+#endif
+
+    //exports["vkGetBufferMemoryRequirements2"] = Napi::Function::New(env, rawGetBufferMemoryRequirements2);
+
+
+    //exports["vkGetImageMemoryRequirements2"] = Napi::Function::New(env, rawGetImageMemoryRequirements2);
+
+
+    //exports["vkGetImageSparseMemoryRequirements2"] = Napi::Function::New(env, rawGetImageSparseMemoryRequirements2);
+
+
+    //exports["vkGetDeviceBufferMemoryRequirements"] = Napi::Function::New(env, rawGetDeviceBufferMemoryRequirements);
+
+
+    //exports["vkGetDeviceImageMemoryRequirements"] = Napi::Function::New(env, rawGetDeviceImageMemoryRequirements);
+
+
+    //exports["vkGetDeviceImageSparseMemoryRequirements"] = Napi::Function::New(env, rawGetDeviceImageSparseMemoryRequirements);
+
+
+    //exports["vkCreateSamplerYcbcrConversion"] = Napi::Function::New(env, rawCreateSamplerYcbcrConversion);
+
+
+    //exports["vkDestroySamplerYcbcrConversion"] = Napi::Function::New(env, rawDestroySamplerYcbcrConversion);
+
+
+    //exports["vkGetDeviceQueue2"] = Napi::Function::New(env, rawGetDeviceQueue2);
+
+#ifdef VK_EXT_validation_cache
+    //exports["vkCreateValidationCacheEXT"] = Napi::Function::New(env, rawCreateValidationCacheEXT);
+#endif
+#ifdef VK_EXT_validation_cache
+    //exports["vkDestroyValidationCacheEXT"] = Napi::Function::New(env, rawDestroyValidationCacheEXT);
+#endif
+#ifdef VK_EXT_validation_cache
+    //exports["vkGetValidationCacheDataEXT"] = Napi::Function::New(env, rawGetValidationCacheDataEXT);
+#endif
+#ifdef VK_EXT_validation_cache
+    //exports["vkMergeValidationCachesEXT"] = Napi::Function::New(env, rawMergeValidationCachesEXT);
+#endif
+
+    //exports["vkGetDescriptorSetLayoutSupport"] = Napi::Function::New(env, rawGetDescriptorSetLayoutSupport);
+
+#ifdef VK_ANDROID_native_buffer
+    //exports["vkGetSwapchainGrallocUsageANDROID"] = Napi::Function::New(env, rawGetSwapchainGrallocUsageANDROID);
+#endif
+#ifdef VK_ANDROID_native_buffer
+    //exports["vkGetSwapchainGrallocUsage2ANDROID"] = Napi::Function::New(env, rawGetSwapchainGrallocUsage2ANDROID);
+#endif
+#ifdef VK_ANDROID_native_buffer
+    //exports["vkAcquireImageANDROID"] = Napi::Function::New(env, rawAcquireImageANDROID);
+#endif
+#ifdef VK_ANDROID_native_buffer
+    //exports["vkQueueSignalReleaseImageANDROID"] = Napi::Function::New(env, rawQueueSignalReleaseImageANDROID);
+#endif
+#ifdef VK_AMD_shader_info
+    //exports["vkGetShaderInfoAMD"] = Napi::Function::New(env, rawGetShaderInfoAMD);
+#endif
+#ifdef VK_AMD_display_native_hdr
+    //exports["vkSetLocalDimmingAMD"] = Napi::Function::New(env, rawSetLocalDimmingAMD);
+#endif
+#ifdef VK_EXT_calibrated_timestamps
+    //exports["vkGetPhysicalDeviceCalibrateableTimeDomainsEXT"] = Napi::Function::New(env, rawGetPhysicalDeviceCalibrateableTimeDomainsEXT);
+#endif
+#ifdef VK_EXT_calibrated_timestamps
+    //exports["vkGetCalibratedTimestampsEXT"] = Napi::Function::New(env, rawGetCalibratedTimestampsEXT);
+#endif
+#ifdef VK_EXT_debug_utils
+    //exports["vkSetDebugUtilsObjectNameEXT"] = Napi::Function::New(env, rawSetDebugUtilsObjectNameEXT);
+#endif
+#ifdef VK_EXT_debug_utils
+    //exports["vkSetDebugUtilsObjectTagEXT"] = Napi::Function::New(env, rawSetDebugUtilsObjectTagEXT);
+#endif
+#ifdef VK_EXT_debug_utils
+    //exports["vkQueueBeginDebugUtilsLabelEXT"] = Napi::Function::New(env, rawQueueBeginDebugUtilsLabelEXT);
+#endif
+#ifdef VK_EXT_debug_utils
+    //exports["vkQueueEndDebugUtilsLabelEXT"] = Napi::Function::New(env, rawQueueEndDebugUtilsLabelEXT);
+#endif
+#ifdef VK_EXT_debug_utils
+    //exports["vkQueueInsertDebugUtilsLabelEXT"] = Napi::Function::New(env, rawQueueInsertDebugUtilsLabelEXT);
+#endif
+#ifdef VK_EXT_debug_utils
+    //exports["vkCmdBeginDebugUtilsLabelEXT"] = Napi::Function::New(env, rawCmdBeginDebugUtilsLabelEXT);
+#endif
+#ifdef VK_EXT_debug_utils
+    //exports["vkCmdEndDebugUtilsLabelEXT"] = Napi::Function::New(env, rawCmdEndDebugUtilsLabelEXT);
+#endif
+#ifdef VK_EXT_debug_utils
+    //exports["vkCmdInsertDebugUtilsLabelEXT"] = Napi::Function::New(env, rawCmdInsertDebugUtilsLabelEXT);
+#endif
+#ifdef VK_EXT_debug_utils
+    //exports["vkCreateDebugUtilsMessengerEXT"] = Napi::Function::New(env, rawCreateDebugUtilsMessengerEXT);
+#endif
+#ifdef VK_EXT_debug_utils
+    //exports["vkDestroyDebugUtilsMessengerEXT"] = Napi::Function::New(env, rawDestroyDebugUtilsMessengerEXT);
+#endif
+#ifdef VK_EXT_debug_utils
+    //exports["vkSubmitDebugUtilsMessageEXT"] = Napi::Function::New(env, rawSubmitDebugUtilsMessageEXT);
+#endif
+#ifdef VK_EXT_external_memory_host
+    //exports["vkGetMemoryHostPointerPropertiesEXT"] = Napi::Function::New(env, rawGetMemoryHostPointerPropertiesEXT);
+#endif
+#ifdef VK_AMD_buffer_marker
+    //exports["vkCmdWriteBufferMarkerAMD"] = Napi::Function::New(env, rawCmdWriteBufferMarkerAMD);
+#endif
+
+    //exports["vkCreateRenderPass2"] = Napi::Function::New(env, rawCreateRenderPass2);
+
+
+    //exports["vkCmdBeginRenderPass2"] = Napi::Function::New(env, rawCmdBeginRenderPass2);
+
+
+    //exports["vkCmdNextSubpass2"] = Napi::Function::New(env, rawCmdNextSubpass2);
+
+
+    //exports["vkCmdEndRenderPass2"] = Napi::Function::New(env, rawCmdEndRenderPass2);
+
+
+    //exports["vkGetSemaphoreCounterValue"] = Napi::Function::New(env, rawGetSemaphoreCounterValue);
+
+
+    //exports["vkWaitSemaphores"] = Napi::Function::New(env, rawWaitSemaphores);
+
+
+    //exports["vkSignalSemaphore"] = Napi::Function::New(env, rawSignalSemaphore);
+
+#ifdef VK_ANDROID_external_memory_android_hardware_buffer
+    //exports["vkGetAndroidHardwareBufferPropertiesANDROID"] = Napi::Function::New(env, rawGetAndroidHardwareBufferPropertiesANDROID);
+#endif
+#ifdef VK_ANDROID_external_memory_android_hardware_buffer
+    //exports["vkGetMemoryAndroidHardwareBufferANDROID"] = Napi::Function::New(env, rawGetMemoryAndroidHardwareBufferANDROID);
+#endif
+
+    //exports["vkCmdDrawIndirectCount"] = Napi::Function::New(env, rawCmdDrawIndirectCount);
+
+
+    //exports["vkCmdDrawIndexedIndirectCount"] = Napi::Function::New(env, rawCmdDrawIndexedIndirectCount);
+
+#ifdef VK_NV_device_diagnostic_checkpoints
+    //exports["vkCmdSetCheckpointNV"] = Napi::Function::New(env, rawCmdSetCheckpointNV);
+#endif
+#ifdef VK_NV_device_diagnostic_checkpoints
+    //exports["vkGetQueueCheckpointDataNV"] = Napi::Function::New(env, rawGetQueueCheckpointDataNV);
+#endif
+#ifdef VK_EXT_transform_feedback
+    //exports["vkCmdBindTransformFeedbackBuffersEXT"] = Napi::Function::New(env, rawCmdBindTransformFeedbackBuffersEXT);
+#endif
+#ifdef VK_EXT_transform_feedback
+    //exports["vkCmdBeginTransformFeedbackEXT"] = Napi::Function::New(env, rawCmdBeginTransformFeedbackEXT);
+#endif
+#ifdef VK_EXT_transform_feedback
+    //exports["vkCmdEndTransformFeedbackEXT"] = Napi::Function::New(env, rawCmdEndTransformFeedbackEXT);
+#endif
+#ifdef VK_EXT_transform_feedback
+    //exports["vkCmdBeginQueryIndexedEXT"] = Napi::Function::New(env, rawCmdBeginQueryIndexedEXT);
+#endif
+#ifdef VK_EXT_transform_feedback
+    //exports["vkCmdEndQueryIndexedEXT"] = Napi::Function::New(env, rawCmdEndQueryIndexedEXT);
+#endif
+#ifdef VK_EXT_transform_feedback
+    //exports["vkCmdDrawIndirectByteCountEXT"] = Napi::Function::New(env, rawCmdDrawIndirectByteCountEXT);
+#endif
+#ifdef VK_NV_scissor_exclusive
+    //exports["vkCmdSetExclusiveScissorNV"] = Napi::Function::New(env, rawCmdSetExclusiveScissorNV);
+#endif
+#ifdef VK_NV_shading_rate_image
+    //exports["vkCmdBindShadingRateImageNV"] = Napi::Function::New(env, rawCmdBindShadingRateImageNV);
+#endif
+#ifdef VK_NV_shading_rate_image
+    //exports["vkCmdSetViewportShadingRatePaletteNV"] = Napi::Function::New(env, rawCmdSetViewportShadingRatePaletteNV);
+#endif
+#ifdef VK_NV_shading_rate_image
+    //exports["vkCmdSetCoarseSampleOrderNV"] = Napi::Function::New(env, rawCmdSetCoarseSampleOrderNV);
+#endif
+#ifdef VK_NV_mesh_shader
+    //exports["vkCmdDrawMeshTasksNV"] = Napi::Function::New(env, rawCmdDrawMeshTasksNV);
+#endif
+#ifdef VK_NV_mesh_shader
+    //exports["vkCmdDrawMeshTasksIndirectNV"] = Napi::Function::New(env, rawCmdDrawMeshTasksIndirectNV);
+#endif
+#ifdef VK_NV_mesh_shader
+    //exports["vkCmdDrawMeshTasksIndirectCountNV"] = Napi::Function::New(env, rawCmdDrawMeshTasksIndirectCountNV);
+#endif
+#ifdef VK_EXT_mesh_shader
+    //exports["vkCmdDrawMeshTasksEXT"] = Napi::Function::New(env, rawCmdDrawMeshTasksEXT);
+#endif
+#ifdef VK_EXT_mesh_shader
+    //exports["vkCmdDrawMeshTasksIndirectEXT"] = Napi::Function::New(env, rawCmdDrawMeshTasksIndirectEXT);
+#endif
+#ifdef VK_EXT_mesh_shader
+    //exports["vkCmdDrawMeshTasksIndirectCountEXT"] = Napi::Function::New(env, rawCmdDrawMeshTasksIndirectCountEXT);
+#endif
+#ifdef VK_NV_ray_tracing
+    //exports["vkCompileDeferredNV"] = Napi::Function::New(env, rawCompileDeferredNV);
+#endif
+#ifdef VK_NV_ray_tracing
+    //exports["vkCreateAccelerationStructureNV"] = Napi::Function::New(env, rawCreateAccelerationStructureNV);
+#endif
+#ifdef VK_HUAWEI_invocation_mask
+    //exports["vkCmdBindInvocationMaskHUAWEI"] = Napi::Function::New(env, rawCmdBindInvocationMaskHUAWEI);
+#endif
+#ifdef VK_KHR_acceleration_structure
+    //exports["vkDestroyAccelerationStructureKHR"] = Napi::Function::New(env, rawDestroyAccelerationStructureKHR);
+#endif
+#ifdef VK_NV_ray_tracing
+    //exports["vkDestroyAccelerationStructureNV"] = Napi::Function::New(env, rawDestroyAccelerationStructureNV);
+#endif
+#ifdef VK_NV_ray_tracing
+    //exports["vkGetAccelerationStructureMemoryRequirementsNV"] = Napi::Function::New(env, rawGetAccelerationStructureMemoryRequirementsNV);
+#endif
+#ifdef VK_NV_ray_tracing
+    //exports["vkBindAccelerationStructureMemoryNV"] = Napi::Function::New(env, rawBindAccelerationStructureMemoryNV);
+#endif
+#ifdef VK_NV_ray_tracing
+    //exports["vkCmdCopyAccelerationStructureNV"] = Napi::Function::New(env, rawCmdCopyAccelerationStructureNV);
+#endif
+#ifdef VK_KHR_acceleration_structure
+    //exports["vkCmdCopyAccelerationStructureKHR"] = Napi::Function::New(env, rawCmdCopyAccelerationStructureKHR);
+#endif
+#ifdef VK_KHR_acceleration_structure
+    //exports["vkCopyAccelerationStructureKHR"] = Napi::Function::New(env, rawCopyAccelerationStructureKHR);
+#endif
+#ifdef VK_KHR_acceleration_structure
+    //exports["vkCmdCopyAccelerationStructureToMemoryKHR"] = Napi::Function::New(env, rawCmdCopyAccelerationStructureToMemoryKHR);
+#endif
+#ifdef VK_KHR_acceleration_structure
+    //exports["vkCopyAccelerationStructureToMemoryKHR"] = Napi::Function::New(env, rawCopyAccelerationStructureToMemoryKHR);
+#endif
+#ifdef VK_KHR_acceleration_structure
+    //exports["vkCmdCopyMemoryToAccelerationStructureKHR"] = Napi::Function::New(env, rawCmdCopyMemoryToAccelerationStructureKHR);
+#endif
+#ifdef VK_KHR_acceleration_structure
+    //exports["vkCopyMemoryToAccelerationStructureKHR"] = Napi::Function::New(env, rawCopyMemoryToAccelerationStructureKHR);
+#endif
+#ifdef VK_KHR_acceleration_structure
+    //exports["vkCmdWriteAccelerationStructuresPropertiesKHR"] = Napi::Function::New(env, rawCmdWriteAccelerationStructuresPropertiesKHR);
+#endif
+#ifdef VK_NV_ray_tracing
+    //exports["vkCmdWriteAccelerationStructuresPropertiesNV"] = Napi::Function::New(env, rawCmdWriteAccelerationStructuresPropertiesNV);
+#endif
+#ifdef VK_NV_ray_tracing
+    //exports["vkCmdBuildAccelerationStructureNV"] = Napi::Function::New(env, rawCmdBuildAccelerationStructureNV);
+#endif
+#ifdef VK_KHR_acceleration_structure
+    //exports["vkWriteAccelerationStructuresPropertiesKHR"] = Napi::Function::New(env, rawWriteAccelerationStructuresPropertiesKHR);
+#endif
+#ifdef VK_KHR_ray_tracing_pipeline
+    //exports["vkCmdTraceRaysKHR"] = Napi::Function::New(env, rawCmdTraceRaysKHR);
+#endif
+#ifdef VK_NV_ray_tracing
+    //exports["vkCmdTraceRaysNV"] = Napi::Function::New(env, rawCmdTraceRaysNV);
+#endif
+#ifdef VK_KHR_ray_tracing_pipeline
+    //exports["vkGetRayTracingShaderGroupHandlesKHR"] = Napi::Function::New(env, rawGetRayTracingShaderGroupHandlesKHR);
+#endif
+#ifdef VK_KHR_ray_tracing_pipeline
+    //exports["vkGetRayTracingCaptureReplayShaderGroupHandlesKHR"] = Napi::Function::New(env, rawGetRayTracingCaptureReplayShaderGroupHandlesKHR);
+#endif
+#ifdef VK_NV_ray_tracing
+    //exports["vkGetAccelerationStructureHandleNV"] = Napi::Function::New(env, rawGetAccelerationStructureHandleNV);
+#endif
+#ifdef VK_NV_ray_tracing
+    //exports["vkCreateRayTracingPipelinesNV"] = Napi::Function::New(env, rawCreateRayTracingPipelinesNV);
+#endif
+#ifdef VK_KHR_ray_tracing_pipeline
+    //exports["vkCreateRayTracingPipelinesKHR"] = Napi::Function::New(env, rawCreateRayTracingPipelinesKHR);
+#endif
+#ifdef VK_NV_cooperative_matrix
+    //exports["vkGetPhysicalDeviceCooperativeMatrixPropertiesNV"] = Napi::Function::New(env, rawGetPhysicalDeviceCooperativeMatrixPropertiesNV);
+#endif
+#ifdef VK_KHR_ray_tracing_pipeline
+    //exports["vkCmdTraceRaysIndirectKHR"] = Napi::Function::New(env, rawCmdTraceRaysIndirectKHR);
+#endif
+#ifdef VK_KHR_ray_tracing_maintenance1
+    //exports["vkCmdTraceRaysIndirect2KHR"] = Napi::Function::New(env, rawCmdTraceRaysIndirect2KHR);
+#endif
+#ifdef VK_KHR_acceleration_structure
+    //exports["vkGetDeviceAccelerationStructureCompatibilityKHR"] = Napi::Function::New(env, rawGetDeviceAccelerationStructureCompatibilityKHR);
+#endif
+#ifdef VK_KHR_ray_tracing_pipeline
+    //exports["vkGetRayTracingShaderGroupStackSizeKHR"] = Napi::Function::New(env, rawGetRayTracingShaderGroupStackSizeKHR);
+#endif
+#ifdef VK_KHR_ray_tracing_pipeline
+    //exports["vkCmdSetRayTracingPipelineStackSizeKHR"] = Napi::Function::New(env, rawCmdSetRayTracingPipelineStackSizeKHR);
+#endif
+#ifdef VK_NVX_image_view_handle
+    //exports["vkGetImageViewHandleNVX"] = Napi::Function::New(env, rawGetImageViewHandleNVX);
+#endif
+#ifdef VK_NVX_image_view_handle
+    //exports["vkGetImageViewAddressNVX"] = Napi::Function::New(env, rawGetImageViewAddressNVX);
+#endif
+#ifdef VK_EXT_full_screen_exclusive
+    //exports["vkGetPhysicalDeviceSurfacePresentModes2EXT"] = Napi::Function::New(env, rawGetPhysicalDeviceSurfacePresentModes2EXT);
+#endif
+#ifdef VK_EXT_full_screen_exclusive
+    //exports["vkGetDeviceGroupSurfacePresentModes2EXT"] = Napi::Function::New(env, rawGetDeviceGroupSurfacePresentModes2EXT);
+#endif
+#ifdef VK_EXT_full_screen_exclusive
+    //exports["vkAcquireFullScreenExclusiveModeEXT"] = Napi::Function::New(env, rawAcquireFullScreenExclusiveModeEXT);
+#endif
+#ifdef VK_EXT_full_screen_exclusive
+    //exports["vkReleaseFullScreenExclusiveModeEXT"] = Napi::Function::New(env, rawReleaseFullScreenExclusiveModeEXT);
+#endif
+#ifdef VK_KHR_performance_query
+    //exports["vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR"] = Napi::Function::New(env, rawEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR);
+#endif
+#ifdef VK_KHR_performance_query
+    //exports["vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR);
+#endif
+#ifdef VK_KHR_performance_query
+    //exports["vkAcquireProfilingLockKHR"] = Napi::Function::New(env, rawAcquireProfilingLockKHR);
+#endif
+#ifdef VK_KHR_performance_query
+    //exports["vkReleaseProfilingLockKHR"] = Napi::Function::New(env, rawReleaseProfilingLockKHR);
+#endif
+#ifdef VK_EXT_image_drm_format_modifier
+    //exports["vkGetImageDrmFormatModifierPropertiesEXT"] = Napi::Function::New(env, rawGetImageDrmFormatModifierPropertiesEXT);
+#endif
+
+    //exports["vkGetBufferOpaqueCaptureAddress"] = Napi::Function::New(env, rawGetBufferOpaqueCaptureAddress);
+
+
+    //exports["vkGetBufferDeviceAddress"] = Napi::Function::New(env, rawGetBufferDeviceAddress);
+
+#ifdef VK_EXT_headless_surface
+    //exports["vkCreateHeadlessSurfaceEXT"] = Napi::Function::New(env, rawCreateHeadlessSurfaceEXT);
+#endif
+#ifdef VK_NV_coverage_reduction_mode
+    //exports["vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV"] = Napi::Function::New(env, rawGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV);
+#endif
+#ifdef VK_INTEL_performance_query
+    //exports["vkInitializePerformanceApiINTEL"] = Napi::Function::New(env, rawInitializePerformanceApiINTEL);
+#endif
+#ifdef VK_INTEL_performance_query
+    //exports["vkUninitializePerformanceApiINTEL"] = Napi::Function::New(env, rawUninitializePerformanceApiINTEL);
+#endif
+#ifdef VK_INTEL_performance_query
+    //exports["vkCmdSetPerformanceMarkerINTEL"] = Napi::Function::New(env, rawCmdSetPerformanceMarkerINTEL);
+#endif
+#ifdef VK_INTEL_performance_query
+    //exports["vkCmdSetPerformanceStreamMarkerINTEL"] = Napi::Function::New(env, rawCmdSetPerformanceStreamMarkerINTEL);
+#endif
+#ifdef VK_INTEL_performance_query
+    //exports["vkCmdSetPerformanceOverrideINTEL"] = Napi::Function::New(env, rawCmdSetPerformanceOverrideINTEL);
+#endif
+#ifdef VK_INTEL_performance_query
+    //exports["vkAcquirePerformanceConfigurationINTEL"] = Napi::Function::New(env, rawAcquirePerformanceConfigurationINTEL);
+#endif
+#ifdef VK_INTEL_performance_query
+    //exports["vkReleasePerformanceConfigurationINTEL"] = Napi::Function::New(env, rawReleasePerformanceConfigurationINTEL);
+#endif
+#ifdef VK_INTEL_performance_query
+    //exports["vkQueueSetPerformanceConfigurationINTEL"] = Napi::Function::New(env, rawQueueSetPerformanceConfigurationINTEL);
+#endif
+#ifdef VK_INTEL_performance_query
+    //exports["vkGetPerformanceParameterINTEL"] = Napi::Function::New(env, rawGetPerformanceParameterINTEL);
+#endif
+
+    //exports["vkGetDeviceMemoryOpaqueCaptureAddress"] = Napi::Function::New(env, rawGetDeviceMemoryOpaqueCaptureAddress);
+
+#ifdef VK_KHR_pipeline_executable_properties
+    //exports["vkGetPipelineExecutablePropertiesKHR"] = Napi::Function::New(env, rawGetPipelineExecutablePropertiesKHR);
+#endif
+#ifdef VK_KHR_pipeline_executable_properties
+    //exports["vkGetPipelineExecutableStatisticsKHR"] = Napi::Function::New(env, rawGetPipelineExecutableStatisticsKHR);
+#endif
+#ifdef VK_KHR_pipeline_executable_properties
+    //exports["vkGetPipelineExecutableInternalRepresentationsKHR"] = Napi::Function::New(env, rawGetPipelineExecutableInternalRepresentationsKHR);
+#endif
+#ifdef VK_EXT_line_rasterization
+    //exports["vkCmdSetLineStippleEXT"] = Napi::Function::New(env, rawCmdSetLineStippleEXT);
+#endif
+
+    //exports["vkGetPhysicalDeviceToolProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceToolProperties);
+
+#ifdef VK_KHR_acceleration_structure
+    //exports["vkCreateAccelerationStructureKHR"] = Napi::Function::New(env, rawCreateAccelerationStructureKHR);
+#endif
+#ifdef VK_KHR_acceleration_structure
+    //exports["vkCmdBuildAccelerationStructuresKHR"] = Napi::Function::New(env, rawCmdBuildAccelerationStructuresKHR);
+#endif
+#ifdef VK_KHR_acceleration_structure
+    //exports["vkCmdBuildAccelerationStructuresIndirectKHR"] = Napi::Function::New(env, rawCmdBuildAccelerationStructuresIndirectKHR);
+#endif
+#ifdef VK_KHR_acceleration_structure
+    //exports["vkBuildAccelerationStructuresKHR"] = Napi::Function::New(env, rawBuildAccelerationStructuresKHR);
+#endif
+#ifdef VK_KHR_acceleration_structure
+    //exports["vkGetAccelerationStructureDeviceAddressKHR"] = Napi::Function::New(env, rawGetAccelerationStructureDeviceAddressKHR);
+#endif
+#ifdef VK_KHR_deferred_host_operations
+    //exports["vkCreateDeferredOperationKHR"] = Napi::Function::New(env, rawCreateDeferredOperationKHR);
+#endif
+#ifdef VK_KHR_deferred_host_operations
+    //exports["vkDestroyDeferredOperationKHR"] = Napi::Function::New(env, rawDestroyDeferredOperationKHR);
+#endif
+#ifdef VK_KHR_deferred_host_operations
+    //exports["vkGetDeferredOperationMaxConcurrencyKHR"] = Napi::Function::New(env, rawGetDeferredOperationMaxConcurrencyKHR);
+#endif
+#ifdef VK_KHR_deferred_host_operations
+    //exports["vkGetDeferredOperationResultKHR"] = Napi::Function::New(env, rawGetDeferredOperationResultKHR);
+#endif
+#ifdef VK_KHR_deferred_host_operations
+    //exports["vkDeferredOperationJoinKHR"] = Napi::Function::New(env, rawDeferredOperationJoinKHR);
+#endif
+
+    //exports["vkCmdSetCullMode"] = Napi::Function::New(env, rawCmdSetCullMode);
+
+
+    //exports["vkCmdSetFrontFace"] = Napi::Function::New(env, rawCmdSetFrontFace);
+
+
+    //exports["vkCmdSetPrimitiveTopology"] = Napi::Function::New(env, rawCmdSetPrimitiveTopology);
+
+
+    //exports["vkCmdSetViewportWithCount"] = Napi::Function::New(env, rawCmdSetViewportWithCount);
+
+
+    //exports["vkCmdSetScissorWithCount"] = Napi::Function::New(env, rawCmdSetScissorWithCount);
+
+
+    //exports["vkCmdBindVertexBuffers2"] = Napi::Function::New(env, rawCmdBindVertexBuffers2);
+
+
+    //exports["vkCmdSetDepthTestEnable"] = Napi::Function::New(env, rawCmdSetDepthTestEnable);
+
+
+    //exports["vkCmdSetDepthWriteEnable"] = Napi::Function::New(env, rawCmdSetDepthWriteEnable);
+
+
+    //exports["vkCmdSetDepthCompareOp"] = Napi::Function::New(env, rawCmdSetDepthCompareOp);
+
+
+    //exports["vkCmdSetDepthBoundsTestEnable"] = Napi::Function::New(env, rawCmdSetDepthBoundsTestEnable);
+
+
+    //exports["vkCmdSetStencilTestEnable"] = Napi::Function::New(env, rawCmdSetStencilTestEnable);
+
+
+    //exports["vkCmdSetStencilOp"] = Napi::Function::New(env, rawCmdSetStencilOp);
+
+#ifdef VK_EXT_extended_dynamic_state2
+    //exports["vkCmdSetPatchControlPointsEXT"] = Napi::Function::New(env, rawCmdSetPatchControlPointsEXT);
+#endif
+
+    //exports["vkCmdSetRasterizerDiscardEnable"] = Napi::Function::New(env, rawCmdSetRasterizerDiscardEnable);
+
+
+    //exports["vkCmdSetDepthBiasEnable"] = Napi::Function::New(env, rawCmdSetDepthBiasEnable);
+
+#ifdef VK_EXT_extended_dynamic_state2
+    //exports["vkCmdSetLogicOpEXT"] = Napi::Function::New(env, rawCmdSetLogicOpEXT);
+#endif
+
+    //exports["vkCmdSetPrimitiveRestartEnable"] = Napi::Function::New(env, rawCmdSetPrimitiveRestartEnable);
+
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetTessellationDomainOriginEXT"] = Napi::Function::New(env, rawCmdSetTessellationDomainOriginEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetDepthClampEnableEXT"] = Napi::Function::New(env, rawCmdSetDepthClampEnableEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetPolygonModeEXT"] = Napi::Function::New(env, rawCmdSetPolygonModeEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetRasterizationSamplesEXT"] = Napi::Function::New(env, rawCmdSetRasterizationSamplesEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetSampleMaskEXT"] = Napi::Function::New(env, rawCmdSetSampleMaskEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetAlphaToCoverageEnableEXT"] = Napi::Function::New(env, rawCmdSetAlphaToCoverageEnableEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetAlphaToOneEnableEXT"] = Napi::Function::New(env, rawCmdSetAlphaToOneEnableEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetLogicOpEnableEXT"] = Napi::Function::New(env, rawCmdSetLogicOpEnableEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetColorBlendEnableEXT"] = Napi::Function::New(env, rawCmdSetColorBlendEnableEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetColorBlendEquationEXT"] = Napi::Function::New(env, rawCmdSetColorBlendEquationEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetColorWriteMaskEXT"] = Napi::Function::New(env, rawCmdSetColorWriteMaskEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetRasterizationStreamEXT"] = Napi::Function::New(env, rawCmdSetRasterizationStreamEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetConservativeRasterizationModeEXT"] = Napi::Function::New(env, rawCmdSetConservativeRasterizationModeEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetExtraPrimitiveOverestimationSizeEXT"] = Napi::Function::New(env, rawCmdSetExtraPrimitiveOverestimationSizeEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetDepthClipEnableEXT"] = Napi::Function::New(env, rawCmdSetDepthClipEnableEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetSampleLocationsEnableEXT"] = Napi::Function::New(env, rawCmdSetSampleLocationsEnableEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetColorBlendAdvancedEXT"] = Napi::Function::New(env, rawCmdSetColorBlendAdvancedEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetProvokingVertexModeEXT"] = Napi::Function::New(env, rawCmdSetProvokingVertexModeEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetLineRasterizationModeEXT"] = Napi::Function::New(env, rawCmdSetLineRasterizationModeEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetLineStippleEnableEXT"] = Napi::Function::New(env, rawCmdSetLineStippleEnableEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetDepthClipNegativeOneToOneEXT"] = Napi::Function::New(env, rawCmdSetDepthClipNegativeOneToOneEXT);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetViewportWScalingEnableNV"] = Napi::Function::New(env, rawCmdSetViewportWScalingEnableNV);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetViewportSwizzleNV"] = Napi::Function::New(env, rawCmdSetViewportSwizzleNV);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetCoverageToColorEnableNV"] = Napi::Function::New(env, rawCmdSetCoverageToColorEnableNV);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetCoverageToColorLocationNV"] = Napi::Function::New(env, rawCmdSetCoverageToColorLocationNV);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetCoverageModulationModeNV"] = Napi::Function::New(env, rawCmdSetCoverageModulationModeNV);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetCoverageModulationTableEnableNV"] = Napi::Function::New(env, rawCmdSetCoverageModulationTableEnableNV);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetCoverageModulationTableNV"] = Napi::Function::New(env, rawCmdSetCoverageModulationTableNV);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetShadingRateImageEnableNV"] = Napi::Function::New(env, rawCmdSetShadingRateImageEnableNV);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetCoverageReductionModeNV"] = Napi::Function::New(env, rawCmdSetCoverageReductionModeNV);
+#endif
+#ifdef VK_EXT_extended_dynamic_state3
+    //exports["vkCmdSetRepresentativeFragmentTestEnableNV"] = Napi::Function::New(env, rawCmdSetRepresentativeFragmentTestEnableNV);
+#endif
+
+    //exports["vkCreatePrivateDataSlot"] = Napi::Function::New(env, rawCreatePrivateDataSlot);
+
+
+    //exports["vkDestroyPrivateDataSlot"] = Napi::Function::New(env, rawDestroyPrivateDataSlot);
+
+
+    //exports["vkSetPrivateData"] = Napi::Function::New(env, rawSetPrivateData);
+
+
+    //exports["vkGetPrivateData"] = Napi::Function::New(env, rawGetPrivateData);
+
+
+    //exports["vkCmdCopyBuffer2"] = Napi::Function::New(env, rawCmdCopyBuffer2);
+
+
+    //exports["vkCmdCopyImage2"] = Napi::Function::New(env, rawCmdCopyImage2);
+
+
+    //exports["vkCmdBlitImage2"] = Napi::Function::New(env, rawCmdBlitImage2);
+
+
+    //exports["vkCmdCopyBufferToImage2"] = Napi::Function::New(env, rawCmdCopyBufferToImage2);
+
+
+    //exports["vkCmdCopyImageToBuffer2"] = Napi::Function::New(env, rawCmdCopyImageToBuffer2);
+
+
+    //exports["vkCmdResolveImage2"] = Napi::Function::New(env, rawCmdResolveImage2);
+
+#ifdef VK_KHR_fragment_shading_rate
+    //exports["vkCmdSetFragmentShadingRateKHR"] = Napi::Function::New(env, rawCmdSetFragmentShadingRateKHR);
+#endif
+#ifdef VK_KHR_fragment_shading_rate
+    //exports["vkGetPhysicalDeviceFragmentShadingRatesKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceFragmentShadingRatesKHR);
+#endif
+#ifdef VK_NV_fragment_shading_rate_enums
+    //exports["vkCmdSetFragmentShadingRateEnumNV"] = Napi::Function::New(env, rawCmdSetFragmentShadingRateEnumNV);
+#endif
+#ifdef VK_KHR_acceleration_structure
+    //exports["vkGetAccelerationStructureBuildSizesKHR"] = Napi::Function::New(env, rawGetAccelerationStructureBuildSizesKHR);
+#endif
+#ifdef VK_EXT_vertex_input_dynamic_state
+    //exports["vkCmdSetVertexInputEXT"] = Napi::Function::New(env, rawCmdSetVertexInputEXT);
+#endif
+#ifdef VK_EXT_color_write_enable
+    //exports["vkCmdSetColorWriteEnableEXT"] = Napi::Function::New(env, rawCmdSetColorWriteEnableEXT);
+#endif
+
+    //exports["vkCmdSetEvent2"] = Napi::Function::New(env, rawCmdSetEvent2);
+
+
+    //exports["vkCmdResetEvent2"] = Napi::Function::New(env, rawCmdResetEvent2);
+
+
+    //exports["vkCmdWaitEvents2"] = Napi::Function::New(env, rawCmdWaitEvents2);
+
+
+    //exports["vkCmdPipelineBarrier2"] = Napi::Function::New(env, rawCmdPipelineBarrier2);
+
+
+    //exports["vkQueueSubmit2"] = Napi::Function::New(env, rawQueueSubmit2);
+
+
+    //exports["vkCmdWriteTimestamp2"] = Napi::Function::New(env, rawCmdWriteTimestamp2);
+
+#ifdef VK_KHR_synchronization2
+    //exports["vkCmdWriteBufferMarker2AMD"] = Napi::Function::New(env, rawCmdWriteBufferMarker2AMD);
+#endif
+#ifdef VK_KHR_synchronization2
+    //exports["vkGetQueueCheckpointData2NV"] = Napi::Function::New(env, rawGetQueueCheckpointData2NV);
+#endif
+#ifdef VK_KHR_video_queue
+    //exports["vkGetPhysicalDeviceVideoCapabilitiesKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceVideoCapabilitiesKHR);
+#endif
+#ifdef VK_KHR_video_queue
+    //exports["vkGetPhysicalDeviceVideoFormatPropertiesKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceVideoFormatPropertiesKHR);
+#endif
+#ifdef VK_KHR_video_queue
+    //exports["vkCreateVideoSessionKHR"] = Napi::Function::New(env, rawCreateVideoSessionKHR);
+#endif
+#ifdef VK_KHR_video_queue
+    //exports["vkDestroyVideoSessionKHR"] = Napi::Function::New(env, rawDestroyVideoSessionKHR);
+#endif
+#ifdef VK_KHR_video_queue
+    //exports["vkCreateVideoSessionParametersKHR"] = Napi::Function::New(env, rawCreateVideoSessionParametersKHR);
+#endif
+#ifdef VK_KHR_video_queue
+    //exports["vkUpdateVideoSessionParametersKHR"] = Napi::Function::New(env, rawUpdateVideoSessionParametersKHR);
+#endif
+#ifdef VK_KHR_video_queue
+    //exports["vkDestroyVideoSessionParametersKHR"] = Napi::Function::New(env, rawDestroyVideoSessionParametersKHR);
+#endif
+#ifdef VK_KHR_video_queue
+    //exports["vkGetVideoSessionMemoryRequirementsKHR"] = Napi::Function::New(env, rawGetVideoSessionMemoryRequirementsKHR);
+#endif
+#ifdef VK_KHR_video_queue
+    //exports["vkBindVideoSessionMemoryKHR"] = Napi::Function::New(env, rawBindVideoSessionMemoryKHR);
+#endif
+#ifdef VK_KHR_video_decode_queue
+    //exports["vkCmdDecodeVideoKHR"] = Napi::Function::New(env, rawCmdDecodeVideoKHR);
+#endif
+#ifdef VK_KHR_video_queue
+    //exports["vkCmdBeginVideoCodingKHR"] = Napi::Function::New(env, rawCmdBeginVideoCodingKHR);
+#endif
+#ifdef VK_KHR_video_queue
+    //exports["vkCmdControlVideoCodingKHR"] = Napi::Function::New(env, rawCmdControlVideoCodingKHR);
+#endif
+#ifdef VK_KHR_video_queue
+    //exports["vkCmdEndVideoCodingKHR"] = Napi::Function::New(env, rawCmdEndVideoCodingKHR);
+#endif
+#ifdef VK_KHR_video_encode_queue
+    //exports["vkCmdEncodeVideoKHR"] = Napi::Function::New(env, rawCmdEncodeVideoKHR);
+#endif
+#ifdef VK_NV_memory_decompression
+    //exports["vkCmdDecompressMemoryNV"] = Napi::Function::New(env, rawCmdDecompressMemoryNV);
+#endif
+#ifdef VK_NV_memory_decompression
+    //exports["vkCmdDecompressMemoryIndirectCountNV"] = Napi::Function::New(env, rawCmdDecompressMemoryIndirectCountNV);
+#endif
+#ifdef VK_NVX_binary_import
+    //exports["vkCreateCuModuleNVX"] = Napi::Function::New(env, rawCreateCuModuleNVX);
+#endif
+#ifdef VK_NVX_binary_import
+    //exports["vkCreateCuFunctionNVX"] = Napi::Function::New(env, rawCreateCuFunctionNVX);
+#endif
+#ifdef VK_NVX_binary_import
+    //exports["vkDestroyCuModuleNVX"] = Napi::Function::New(env, rawDestroyCuModuleNVX);
+#endif
+#ifdef VK_NVX_binary_import
+    //exports["vkDestroyCuFunctionNVX"] = Napi::Function::New(env, rawDestroyCuFunctionNVX);
+#endif
+#ifdef VK_NVX_binary_import
+    //exports["vkCmdCuLaunchKernelNVX"] = Napi::Function::New(env, rawCmdCuLaunchKernelNVX);
+#endif
+#ifdef VK_EXT_pageable_device_local_memory
+    //exports["vkSetDeviceMemoryPriorityEXT"] = Napi::Function::New(env, rawSetDeviceMemoryPriorityEXT);
+#endif
+#ifdef VK_EXT_acquire_drm_display
+    //exports["vkAcquireDrmDisplayEXT"] = Napi::Function::New(env, rawAcquireDrmDisplayEXT);
+#endif
+#ifdef VK_EXT_acquire_drm_display
+    //exports["vkGetDrmDisplayEXT"] = Napi::Function::New(env, rawGetDrmDisplayEXT);
+#endif
+#ifdef VK_KHR_present_wait
+    //exports["vkWaitForPresentKHR"] = Napi::Function::New(env, rawWaitForPresentKHR);
+#endif
+#ifdef VK_FUCHSIA_buffer_collection
+    //exports["vkCreateBufferCollectionFUCHSIA"] = Napi::Function::New(env, rawCreateBufferCollectionFUCHSIA);
+#endif
+#ifdef VK_FUCHSIA_buffer_collection
+    //exports["vkSetBufferCollectionBufferConstraintsFUCHSIA"] = Napi::Function::New(env, rawSetBufferCollectionBufferConstraintsFUCHSIA);
+#endif
+#ifdef VK_FUCHSIA_buffer_collection
+    //exports["vkSetBufferCollectionImageConstraintsFUCHSIA"] = Napi::Function::New(env, rawSetBufferCollectionImageConstraintsFUCHSIA);
+#endif
+#ifdef VK_FUCHSIA_buffer_collection
+    //exports["vkDestroyBufferCollectionFUCHSIA"] = Napi::Function::New(env, rawDestroyBufferCollectionFUCHSIA);
+#endif
+#ifdef VK_FUCHSIA_buffer_collection
+    //exports["vkGetBufferCollectionPropertiesFUCHSIA"] = Napi::Function::New(env, rawGetBufferCollectionPropertiesFUCHSIA);
+#endif
+
+    //exports["vkCmdBeginRendering"] = Napi::Function::New(env, rawCmdBeginRendering);
+
+
+    //exports["vkCmdEndRendering"] = Napi::Function::New(env, rawCmdEndRendering);
+
+#ifdef VK_VALVE_descriptor_set_host_mapping
+    //exports["vkGetDescriptorSetLayoutHostMappingInfoVALVE"] = Napi::Function::New(env, rawGetDescriptorSetLayoutHostMappingInfoVALVE);
+#endif
+#ifdef VK_VALVE_descriptor_set_host_mapping
+    //exports["vkGetDescriptorSetHostMappingVALVE"] = Napi::Function::New(env, rawGetDescriptorSetHostMappingVALVE);
+#endif
+#ifdef VK_EXT_opacity_micromap
+    //exports["vkCreateMicromapEXT"] = Napi::Function::New(env, rawCreateMicromapEXT);
+#endif
+#ifdef VK_EXT_opacity_micromap
+    //exports["vkCmdBuildMicromapsEXT"] = Napi::Function::New(env, rawCmdBuildMicromapsEXT);
+#endif
+#ifdef VK_EXT_opacity_micromap
+    //exports["vkBuildMicromapsEXT"] = Napi::Function::New(env, rawBuildMicromapsEXT);
+#endif
+#ifdef VK_EXT_opacity_micromap
+    //exports["vkDestroyMicromapEXT"] = Napi::Function::New(env, rawDestroyMicromapEXT);
+#endif
+#ifdef VK_EXT_opacity_micromap
+    //exports["vkCmdCopyMicromapEXT"] = Napi::Function::New(env, rawCmdCopyMicromapEXT);
+#endif
+#ifdef VK_EXT_opacity_micromap
+    //exports["vkCopyMicromapEXT"] = Napi::Function::New(env, rawCopyMicromapEXT);
+#endif
+#ifdef VK_EXT_opacity_micromap
+    //exports["vkCmdCopyMicromapToMemoryEXT"] = Napi::Function::New(env, rawCmdCopyMicromapToMemoryEXT);
+#endif
+#ifdef VK_EXT_opacity_micromap
+    //exports["vkCopyMicromapToMemoryEXT"] = Napi::Function::New(env, rawCopyMicromapToMemoryEXT);
+#endif
+#ifdef VK_EXT_opacity_micromap
+    //exports["vkCmdCopyMemoryToMicromapEXT"] = Napi::Function::New(env, rawCmdCopyMemoryToMicromapEXT);
+#endif
+#ifdef VK_EXT_opacity_micromap
+    //exports["vkCopyMemoryToMicromapEXT"] = Napi::Function::New(env, rawCopyMemoryToMicromapEXT);
+#endif
+#ifdef VK_EXT_opacity_micromap
+    //exports["vkCmdWriteMicromapsPropertiesEXT"] = Napi::Function::New(env, rawCmdWriteMicromapsPropertiesEXT);
+#endif
+#ifdef VK_EXT_opacity_micromap
+    //exports["vkWriteMicromapsPropertiesEXT"] = Napi::Function::New(env, rawWriteMicromapsPropertiesEXT);
+#endif
+#ifdef VK_EXT_opacity_micromap
+    //exports["vkGetDeviceMicromapCompatibilityEXT"] = Napi::Function::New(env, rawGetDeviceMicromapCompatibilityEXT);
+#endif
+#ifdef VK_EXT_opacity_micromap
+    //exports["vkGetMicromapBuildSizesEXT"] = Napi::Function::New(env, rawGetMicromapBuildSizesEXT);
+#endif
+#ifdef VK_EXT_shader_module_identifier
+    //exports["vkGetShaderModuleIdentifierEXT"] = Napi::Function::New(env, rawGetShaderModuleIdentifierEXT);
+#endif
+#ifdef VK_EXT_shader_module_identifier
+    //exports["vkGetShaderModuleCreateInfoIdentifierEXT"] = Napi::Function::New(env, rawGetShaderModuleCreateInfoIdentifierEXT);
+#endif
+#ifdef VK_EXT_image_compression_control
+    //exports["vkGetImageSubresourceLayout2EXT"] = Napi::Function::New(env, rawGetImageSubresourceLayout2EXT);
+#endif
+#ifdef VK_EXT_pipeline_properties
+    //exports["vkGetPipelinePropertiesEXT"] = Napi::Function::New(env, rawGetPipelinePropertiesEXT);
+#endif
+#ifdef VK_EXT_metal_objects
+    //exports["vkExportMetalObjectsEXT"] = Napi::Function::New(env, rawExportMetalObjectsEXT);
+#endif
+#ifdef VK_QCOM_tile_properties
+    //exports["vkGetFramebufferTilePropertiesQCOM"] = Napi::Function::New(env, rawGetFramebufferTilePropertiesQCOM);
+#endif
+#ifdef VK_QCOM_tile_properties
+    //exports["vkGetDynamicRenderingTilePropertiesQCOM"] = Napi::Function::New(env, rawGetDynamicRenderingTilePropertiesQCOM);
+#endif
+#ifdef VK_NV_optical_flow
+    //exports["vkGetPhysicalDeviceOpticalFlowImageFormatsNV"] = Napi::Function::New(env, rawGetPhysicalDeviceOpticalFlowImageFormatsNV);
+#endif
+#ifdef VK_NV_optical_flow
+    //exports["vkCreateOpticalFlowSessionNV"] = Napi::Function::New(env, rawCreateOpticalFlowSessionNV);
+#endif
+#ifdef VK_NV_optical_flow
+    //exports["vkDestroyOpticalFlowSessionNV"] = Napi::Function::New(env, rawDestroyOpticalFlowSessionNV);
+#endif
+#ifdef VK_NV_optical_flow
+    //exports["vkBindOpticalFlowSessionImageNV"] = Napi::Function::New(env, rawBindOpticalFlowSessionImageNV);
+#endif
+#ifdef VK_NV_optical_flow
+    //exports["vkCmdOpticalFlowExecuteNV"] = Napi::Function::New(env, rawCmdOpticalFlowExecuteNV);
+#endif
+#ifdef VK_EXT_device_fault
+    //exports["vkGetDeviceFaultInfoEXT"] = Napi::Function::New(env, rawGetDeviceFaultInfoEXT);
+#endif
+
+    exports["uint8" ] = Napi::Function::New(env, DebugUint8);
+    exports["uint16"] = Napi::Function::New(env, DebugUint16);
+    exports["uint32"] = Napi::Function::New(env, DebugUint32);
+    exports["uint64"] = Napi::Function::New(env, DebugUint64);
+    exports["float32"] = Napi::Function::New(env, DebugFloat32);
+    exports["float64"] = Napi::Function::New(env, DebugFloat64);
+    exports["nativeAddress"] = Napi::Function::New(env, GetAddress);
+    exports["arrayBuffer"] = Napi::Function::New(env, WrapArrayBuffer);
+    return exports;
+}
+
+NODE_API_MODULE(native, Init)
 
 #endif
     

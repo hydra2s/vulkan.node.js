@@ -4,11 +4,13 @@
       "target_name": "native",
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
-      "sources": [ "src/native.cpp", "src/vulkan-API.cpp", "volk/volk.c" ],
+      "sources": [ "./src/vulkan-API.cpp", "./volk/volk.c" ],
       "include_dirs": [
-        "<!@(node -p \"require('node-addon-api').include\")"
+        "./"
+        "<!@(node -p \"require('node-addon-api').include\")",
+        ""
       ],
-      'defines': [ 'NAPI_DISABLE_CPP_EXCEPTIONS' ],
+      'defines': [ 'NAPI_DISABLE_CPP_EXCEPTIONS', 'NAPI_EXPERIMENTAL', 'NAPI_VERSION=6' ],
     }
   ]
 }

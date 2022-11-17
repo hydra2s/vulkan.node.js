@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node tests",
-    "install": "cmake-js compile",
+    "install": "prebuild --backend cmake-js -t 6 -r napi",
     "asbuild:debug": "asc assembly/index.ts --target debug",
     "asbuild:release": "asc assembly/index.ts --target release",
     "asbuild": "npm run asbuild:debug && npm run asbuild:release",
@@ -16,18 +16,29 @@
     "api",
     "bridge"
   ],
+  "binary": {
+    "napi_versions": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ]
+  },
   "author": "hydra2s",
   "license": "MIT",
   "gypfile": true,
   "dependencies": {
     "@rgrove/parse-xml": "^4.0.1",
     "asciidoctor": "^2.2.6",
+    "bindings": "^1.5.0",
     "cmake-js": "^7.0.0",
     "fast-xml-parser": "^4.0.11",
     "glfw-raub": "^4.6.2",
     "json-6": "^1.1.4",
     "json5": "^2.2.1",
     "jsox": "^1.2.116",
+    "node-addon-api": "^5.0.0",
     "node-gyp": "^9.3.0",
     "parse-xml": "^1.0.1"
   },

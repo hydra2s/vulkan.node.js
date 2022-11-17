@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
-project(node-vulkan-api VERSION 0.1.0)
-set(PROJECT_NAME node-vulkan-api)
+project(native)
+set(PROJECT_NAME native)
 
 #
 MACRO(ADD_MSVC_PRECOMPILED_HEADER PrecompiledHeader PrecompiledSource SourcesVar)
@@ -46,20 +46,17 @@ set(CMAKE_C_STANDARD 23)
 set(_src_root_path "${PROJECT_SOURCE_DIR}/")
 file(GLOB_RECURSE _source_list 
   LIST_DIRECTORIES false
-  "${_src_root_path}/*.c
-  "${_src_root_path}/*.cpp
-  "${_src_root_path}/*.h
-  "${_src_root_path}/*.hpp
-  "${_src_root_path}/src/*.c
-  "${_src_root_path}/src/*.cpp
-  "${_src_root_path}/src/*.h
-  "${_src_root_path}/src/*.hpp
-  "${_src_root_path}/volk/*.h
-  "${_src_root_path}/volk/*.c
+  "${_src_root_path}/src/*.c"
+  "${_src_root_path}/src/*.cpp"
+  "${_src_root_path}/src/*.h"
+  "${_src_root_path}/src/*.hpp"
+  "${_src_root_path}/volk/volk.h"
+  "${_src_root_path}/volk/volk.c"
+  "${CMAKE_JS_SRC}"
 )
 
 # 
-add_library(${PROJECT_NAME} SHARED ${_source_list} ${CMAKE_JS_SRC})
+add_library(${PROJECT_NAME} SHARED ${_source_list})
 target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=6 NAPI_EXPERIMENTAL)
 target_include_directories(${PROJECT_NAME} PUBLIC 
   ${PROJECT_SOURCE_DIR}/include
@@ -87,10 +84,15 @@ target_link_libraries(${PROJECT_NAME} ${CMAKE_DL_LIBS} ${Vulkan_LIBRARIES} ${CMA
 target_link_directories(${PROJECT_NAME} PUBLIC 
 )
 
+if(MSVC AND CMAKE_JS_NODELIB_DEF AND CMAKE_JS_NODELIB_TARGET)
+  # Generate node.lib
+  execute_process(COMMAND ${CMAKE_AR} /def:${CMAKE_JS_NODELIB_DEF} /out:${CMAKE_JS_NODELIB_TARGET} ${CMAKE_STATIC_LINKER_FLAGS})
+endif()
+
 # 
 find_package(Vulkan REQUIRED FATAL_ERROR)
-add_definitions(NAPI_VERSION=6)
-add_definitions(NAPI_EXPERIMENTAL)
+add_definitions(-DNAPI_VERSION=6)
+add_definitions(-DNAPI_EXPERIMENTAL)
 cmake_policy(SET CMP0091 NEW)
 cmake_policy(SET CMP0042 NEW)
 
@@ -102,7 +104,7 @@ ADD_MSVC_PRECOMPILED_HEADER(
 
 # 
 if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w dupbuild=warn -std=c++2b /d1FastFail /std:c17 /std:c++latest /bigobj /MP /EHa /fsanitize=address /Ot /Od /Oy /Ob0 /GT /GL /GR")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++2b /d1FastFail /std:c17 /std:c++latest /bigobj /MP /EHa /fsanitize=address /Ot /Od /Oy /Ob0 /GT /GL /GR")
     set(CMAKE_EXE_LINKER_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj /MP /MAP /incremental /debug:fastlink /experimental /errorReport")
 endif()
 
