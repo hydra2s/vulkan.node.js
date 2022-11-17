@@ -40,16 +40,19 @@ let getReader = async()=>{
         
         if (e) {
             e.forEach((p)=>{
-                if (p.type == "text" && p.text.indexOf("[") >= 0 && p.text.indexOf("]") >= 0) { if (parsed.isPointer || parsed.isFixedArray) { parsed.isPointer = true; parsed.isPointerSet = true;}; parsed.isFixedArray = true; parsed.length = getLength(p.text); };
+                if (p.type == "text" && p.text.indexOf("[") >= 0 && p.text.indexOf("]") >= 0) { if (parsed.isPointer || parsed.isFixedArray) { parsed.isPointer = true; parsed.isPointerSet = true; parsed.isFixedArray = true; }; parsed.isFixedArray = true; parsed.length = getLength(p.text); };
                 if (p.type == "text" && p.text.match(/\*/gi)?.length == 1) { if (parsed.isPointer) {parsed.isPointerSet = true;}; parsed.isPointer = true; };
                 if (p.type == "text" && p.text.match(/\*/gi)?.length == 2) { parsed.isPointerSet = true; parsed.isPointer = true; };
                 if (p.type == "text" && p.text.indexOf("const") >= 0) { parsed.isConst = true; };
+                if (p.type == "text" && p.text.indexOf(":") >= 0) { parsed.isBitfield = true; };
                 if (p.type == "element" && p.name == "type") { parsed.type = p.children[0].text; };
                 if (p.type == "element" && p.name == "name") { parsed.name = p.children[0].text; };
                 
                 //
-                if (p.type == "text") { parts.push(p.text); };
-                if (p.type == "element") { parts.push(p.children[0].text); };
+                if (p.name != "comment") {
+                    if (p.type == "text" && p.text.indexOf(":") < 0) { parts.push(p.text); };
+                    if (p.type == "element") { parts.push(p.children[0].text); };
+                };
             });
         }
 
@@ -215,7 +218,7 @@ let getReader = async()=>{
         let usedBy = formExtensionTypeMap(loaded.extensions);
         let sTypeMap = formSTypeMap(filterSType(loaded.structs));
         await fs.promises.writeFile("used-by.json", JSON.stringify(usedBy, null, 2).trim(), "utf8");
-        return {usedBy, sTypeMap, parsed};
+        return {usedBy, sTypeMap, parsed, parsedStructs, parsedRequirements, parsedTypes};
     };
 
     return {
