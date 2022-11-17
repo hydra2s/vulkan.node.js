@@ -10,7 +10,7 @@
         "<!@(node -p \"require('node-addon-api').include\")",
         ""
       ],
-      'defines': [ 'NAPI_DISABLE_CPP_EXCEPTIONS', 'NAPI_EXPERIMENTAL', "NAPI_VERSION=<(napi_build_version)" ],
+      'defines': [ 'NAPI_DISABLE_CPP_EXCEPTIONS', 'NAPI_EXPERIMENTAL', "NAPI_VERSION=8" ],
     }
   ]
 }

@@ -41,11 +41,14 @@ IF (WIN32)
 ENDIF()
 
 # 
-find_package(Vulkan REQUIRED FATAL_ERROR)
+find_package(Vulkan REQUIRED)
 
 #
+set(CMAKE_JS_VERSION 8)
+set(napi_build_version 8)
 add_definitions(-DNAPI_VERSION=${napi_build_version})
 add_definitions(-DNAPI_EXPERIMENTAL)
+add_definitions(-DCMAKE_JS_VERSION=${napi_build_version})
 cmake_policy(SET CMP0091 NEW)
 cmake_policy(SET CMP0042 NEW)
 
@@ -64,14 +67,17 @@ file(GLOB_RECURSE _source_list
   "${CMAKE_JS_SRC}"
 )
 
+# Generate node.lib
 if(MSVC AND CMAKE_JS_NODELIB_DEF AND CMAKE_JS_NODELIB_TARGET)
-  # Generate node.lib
-  execute_process(COMMAND ${CMAKE_AR} /def:${CMAKE_JS_NODELIB_DEF} /out:${CMAKE_JS_NODELIB_TARGET} ${CMAKE_STATIC_LINKER_FLAGS})
+  execute_process(COMMAND ${CMAKE_AR}  /def:NAPI_EXPERIMENTAL /def:${CMAKE_JS_NODELIB_DEF} /out:${CMAKE_JS_NODELIB_TARGET} ${CMAKE_STATIC_LINKER_FLAGS})
 endif()
 
 # 
 add_library(${PROJECT_NAME} SHARED ${_source_list})
-target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=${napi_build_version} ${CMAKE_JS_LIB})
+set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
+target_link_libraries(${PROJECT_NAME} ${Vulkan_LIBRARIES} ${CMAKE_JS_LIB})
+target_link_directories(${PROJECT_NAME} PUBLIC )
+target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=${napi_build_version} NAPI_EXPERIMENTAL)
 target_include_directories(${PROJECT_NAME} PUBLIC 
   ${PROJECT_SOURCE_DIR}/include
   ${PROJECT_SOURCE_DIR}/*/include 
@@ -93,12 +99,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 )
 
 #
-set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
-target_link_libraries(${PROJECT_NAME} ${Vulkan_LIBRARIES} ${PROJECT_SOURCE_DIR}/build/node.lib)
-target_link_directories(${PROJECT_NAME} PUBLIC 
-)
-
-#
 ADD_MSVC_PRECOMPILED_HEADER(
   "${PROJECT_SOURCE_DIR}/cmake_pch.hpp" 
   "${PROJECT_SOURCE_DIR}/cmake_pch.cpp" 
@@ -106,8 +106,8 @@ ADD_MSVC_PRECOMPILED_HEADER(
 
 # 
 if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++2b /d1FastFail /std:c17 /std:c++latest /bigobj /MP /EHa /fsanitize=address /Ot /Od /Oy /Ob0 /GT /GL /GR")
-    set(CMAKE_EXE_LINKER_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj /MP /MAP /incremental /debug:fastlink /experimental /errorReport")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    set(CMAKE_EXE_LINKER_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 endif()
 
 # 

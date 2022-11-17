@@ -1772,5 +1772,4 @@ size_t vkGetStructureSizeBySType(VkStructureType sType) {
     };
     return 0ull;
 };
-#endif
     

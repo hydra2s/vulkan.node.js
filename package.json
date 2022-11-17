@@ -4,35 +4,31 @@
   "description": "Implement Vulkan API bridge for node.js",
   "main": "index.js",
   "scripts": {
-    "test": "node tests",
-    "install": "prebuild --backend cmake-js -t 6 -r napi -a x64",
+    "test": "cd src && node test.js && cd ../",
+    "install": "cd src && node main.js && cd ../ && cmake-js -r node --debug",
     "asbuild:debug": "asc assembly/index.ts --target debug",
     "asbuild:release": "asc assembly/index.ts --target release",
     "asbuild": "npm run asbuild:debug && npm run asbuild:release",
     "start": "npx serve ."
+  },
+  "cmake-js": {
+    "runtime": "node",
+    "runtimeVersion": "19.1.0",
+    "arch": "x64"
   },
   "keywords": [
     "vulkan",
     "api",
     "bridge"
   ],
-  "binary": {
-    "napi_versions": [
-      6,
-      7,
-      8,
-      9,
-      10
-    ]
-  },
   "author": "hydra2s",
   "license": "MIT",
   "gypfile": true,
   "dependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.10",
     "@rgrove/parse-xml": "^4.0.1",
     "asciidoctor": "^2.2.6",
     "bindings": "^1.5.0",
-    "cmake-js": "^7.0.0",
     "fast-xml-parser": "^4.0.11",
     "glfw-raub": "^4.6.2",
     "json-6": "^1.1.4",
@@ -43,7 +39,8 @@
     "parse-xml": "^1.0.1"
   },
   "devDependencies": {
-    "assemblyscript": "^0.24.0"
+    "assemblyscript": "^0.24.0",
+    "cmake-js": "^7.0.0"
   },
   "type": "module",
   "exports": {
