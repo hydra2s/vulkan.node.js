@@ -5,7 +5,7 @@ const native = require('bindings')('native');
 const sharedStructs = require('shared-structs');
 const fs = require('fs');
 const path = require('path');
-const vkStructs = sharedStructs(fs.readFileSync('vulkan/vulkan_structs.hpp'))
+
 
 
 // get native address for Vulkan API 'const char*'

@@ -28,18 +28,34 @@ let getReader = async()=>{
     let structsOnly = (s)=>{ return s.attributes["category"] == "struct"; };
 
     //
+    let getLength = (txt, I=0)=>{
+        let M = txt.match(/\d+/g);
+        return M ? M[I] : 1;//.join("");
+    };
+
+    //
     let parseParam = (e)=>{
+        let parts = [];
         let parsed = { name: "", type: "void", isPointer: false, isConst: false, isPointerSet: false };
+        
         if (e) {
             e.forEach((p)=>{
-                if (p.type == "text" && p.text.indexOf("[") >= 0 && p.text.indexOf("]") >= 0) { if (parsed.isPointer) {parsed.isPointerSet = true;}; parsed.isPointer = true; };
+                if (p.type == "text" && p.text.indexOf("[") >= 0 && p.text.indexOf("]") >= 0) { if (parsed.isPointer || parsed.isFixedArray) { parsed.isPointer = true; parsed.isPointerSet = true;}; parsed.isFixedArray = true; parsed.length = getLength(p.text); };
                 if (p.type == "text" && p.text.match(/\*/gi)?.length == 1) { if (parsed.isPointer) {parsed.isPointerSet = true;}; parsed.isPointer = true; };
                 if (p.type == "text" && p.text.match(/\*/gi)?.length == 2) { parsed.isPointerSet = true; parsed.isPointer = true; };
                 if (p.type == "text" && p.text.indexOf("const") >= 0) { parsed.isConst = true; };
                 if (p.type == "element" && p.name == "type") { parsed.type = p.children[0].text; };
                 if (p.type == "element" && p.name == "name") { parsed.name = p.children[0].text; };
+                
+                //
+                if (p.type == "text") { parts.push(p.text); };
+                if (p.type == "element") { parts.push(p.children[0].text); };
             });
         }
+
+        parsed.text = parts.join(" ");
+        parsed.parts = parts;
+
         return parsed;
     }
 
