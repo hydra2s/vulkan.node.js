@@ -7,9 +7,9 @@ let getWriter = async()=>{
     let F32Types = ["float", "float32_t"];
     let U8Types = ["uint8_t", "char8_t", "char"];
     let U16Types = ["uint16_t"];
-    let U64Types = ["uint64_t", "uintptr_t", "size_t", "VkDeviceSize", "VkDeviceAddress", "VkDeviceOffset", "VkFlags64"];
+    let U64Types = ["uint64_t", "uintptr_t", "size_t", "VkDeviceSize", "VkDeviceAddress", "VkDeviceOffset", "VkDeviceOrHostAddressKHR", "VkFlags64", "VkImage", "VkBuffer", "VkAccelerationStructureKHR", "VkQueue", "VkDeviceMemory"];
     let U32Types = ["uint32_t", "VkFlags", "VkResult", "VkBool32", "VkStructureType"];
-    let Pointables = ["VkOffset2D","VkExtent2D","VkRect2D"];
+    let Pointables = ["VkOffset2D","VkExtent2D","VkRect2D","VkTransformMatrixKHR","VkTransformMatrixNV"];
     let U24Types = ["uint24_t"];
 
     
@@ -99,14 +99,14 @@ let getWriter = async()=>{
     //
     let IsBigIntValue = (param)=>{
         let P = param.isPointer, T = param.type, F = param.isFixedArray, B = param.bitfield;
-        if (F) { return true; } else 
-        if (P) { return true; } else
         if (IsUint64(T,B) || IsInt64(T,B)) { return true; } else
+        if (F) { return false; } else 
+        if (P) { return true; } else
         return false;
     }
 
     let IsHandle = (param)=>{
-        if (["VkImage", "VkBuffer"].indexOf(param.type) >= 0) return true; 
+        if (["VkImage", "VkBuffer", "VkAccelerationStructureKHR", "VkQueue", "VkDeviceMemory"].indexOf(param.type) >= 0) return true; 
     }
 
     //
@@ -233,11 +233,14 @@ return (by ? `#ifdef ${by.name}
         return cases.join("\n");
     };
 
+    /*
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
+    */
 
     //
+    /*
     let TypeOfGet = (N)=>{
         if (N.type == "double") { return `info_[0].As<Napi::Number>().DoubleValue()` };
         if (N.type == "float") { return `info_[0].As<Napi::Number>().FloatValue()` };
@@ -253,7 +256,7 @@ return (by ? `#ifdef ${by.name}
 return number && !pointable || B ? 
 `return Napi::Number::New(env, ${N});` : 
 `return Napi::BigInt::New(env, (uint64_t)${IsPointableValue(T,P)?`&`:``}${N});`;
-    };
+    };*/
 
 
     /*
@@ -307,39 +310,69 @@ ${by ? `#endif ${by}` : ``}
 `);
     };*/
 
+    let AsFixedArray = (param) => {
+        if (param.isFixedArray) {
+            if (!isNaN(param.length)) { return `[${parseInt(param.length)}]`; } else { return `[enums.${param.length}]`; };
+        }
+        return ``;
+    }
+
     let writeParam = (param, map)=>{
-if (IsPointableValue(param))              { return `    ${param.name}: ${param.type},` } else 
-if (IsHandle(param))                      { return `    ${param.name}: C.uint64_t,` } else 
-if (IsBigIntValue(param))                 { return `    ${param.name}: C.uint64_t,` } else 
-if (IsUint24(param.type, param.bitfield)) { return `    ${param.name}: uint24_t,` } else 
-if (IsUint8 (param.type, param.bitfield)) { return `    ${param.name}: C.uint8_t,` } else 
-if (IsUint16(param.type, param.bitfield)) { return `    ${param.name}: C.uint16_t,` } else 
-if (IsUint32(param.type, param.bitfield)) { return `    ${param.name}: C.uint32_t,` } else 
-if (IsInt24 (param.type, param.bitfield)) { return `    ${param.name}: int24_t,` } else 
-if (IsInt8  (param.type, param.bitfield)) { return `    ${param.name}: C.int8_t,` } else 
-if (IsInt16 (param.type, param.bitfield)) { return `    ${param.name}: C.int16_t,` } else 
-if (IsInt32 (param.type, param.bitfield)) { return `    ${param.name}: C.int32_t,` } else 
-if ( IsFloat(param.type, param.bitfield)) { return `    ${param.name}: C.float,` } else 
-if (IsDouble(param.type, param.bitfield)) { return `    ${param.name}: C.double,` } else 
+if (IsPointableValue(param))              { return `    ${param.name}: ${param.type}${AsFixedArray(param)},` } else 
+if (IsHandle(param))                      { return `    ${param.name}: C.uint64_t${AsFixedArray(param)},` } else 
+if (IsBigIntValue(param))                 { return `    ${param.name}: C.uint64_t${AsFixedArray(param)},` } else 
+if (IsUint24(param.type, param.bitfield)) { return `    ${param.name}: uint24_t${AsFixedArray(param)},` } else 
+if (IsUint8 (param.type, param.bitfield)) { return `    ${param.name}: C.uint8_t${AsFixedArray(param)},` } else 
+if (IsUint16(param.type, param.bitfield)) { return `    ${param.name}: C.uint16_t${AsFixedArray(param)},` } else 
+if (IsUint32(param.type, param.bitfield)) { return `    ${param.name}: C.uint32_t${AsFixedArray(param)},` } else 
+if (IsInt24 (param.type, param.bitfield)) { return `    ${param.name}: int24_t${AsFixedArray(param)},` } else 
+if (IsInt8  (param.type, param.bitfield)) { return `    ${param.name}: C.int8_t${AsFixedArray(param)},` } else 
+if (IsInt16 (param.type, param.bitfield)) { return `    ${param.name}: C.int16_t${AsFixedArray(param)},` } else 
+if (IsInt32 (param.type, param.bitfield)) { return `    ${param.name}: C.int32_t${AsFixedArray(param)},` } else 
+if ( IsFloat(param.type, param.bitfield)) { return `    ${param.name}: C.float${AsFixedArray(param)},` } else 
+if (IsDouble(param.type, param.bitfield)) { return `    ${param.name}: C.double${AsFixedArray(param)},` } else 
 return `    ${param.name}: C.uint32_t,`
     };
 
+    // make structures with specific fixes
     let writeStructure = (structure, map)=> {
+        if (structure.name == "VkTransformMatrixKHR" || structure.name == "VkTransformMatrixNV") {
 return `
+const ${structure.name} = new T.StructBuffer("${structure.name}", {
+    matrix: C.float[3][4],
+});    
+`       } else
+        if (structure.name == "VkAccelerationStructureInstanceKHR" || structure.name == "VkAccelerationStructureInstanceNV") {
+return `
+const ${structure.name} = new T.StructBuffer("${structure.name}", {
+    transform: VkTransformMatrixKHR,
+    instanceCustomIndex: uint24_t,
+    mask: C.uint8_t,
+    instanceShaderBindingTableRecordOffset: uint24_t,
+    flags: C.uint8_t,
+    accelerationStructureReference: C.uint64_t,
+});
+`
+        } else {
+    return `
 const ${structure.name} = new T.StructBuffer("${structure.name}", {
 ${structure.params.map(writeParam, map).join(`
 `)}
 });
 `
+        }
     };
 
-
+    let availableEnums = [];
     let cvtEnum = (e, map)=>{
+        availableEnums = [];
         let by = map.usedBy[e.name];
+        
         if (e.name.indexOf(`EXTENSION_NAME`) >= 0) {return `const ${e.name} = "${eval(e.value)}";`};
-        if ('value' in e) {return `const ${e.name} = ${eval(e.value)};`};
+        if ('value' in e) { availableEnums.push(e.name); return `const ${e.name} = ${eval(e.value)};`};
         if ('bitpos' in e) {
             let value = 1 << e.bitpos;
+            availableEnums.push(e.name);
             return `const ${e.name} = ${value};`
         }
         if ('offset' in e) {
@@ -350,6 +383,7 @@ ${structure.params.map(writeParam, map).join(`
             let extnumber = BigInt(e.extnumber || by.number || 0);
             let value = extBase + (extnumber - 1n) * extBlockSize + offset;
             if (e.dir) value *= -1n;
+            availableEnums.push(e.name);
             return `const ${e.name} = ${parseInt(value)};`
         }
 
@@ -365,26 +399,25 @@ ${structure.params.map(writeParam, map).join(`
     let writeCodes = async (map)=>{
 
         await fs.promises.writeFile("./vulkan-enums.js", `
-import * as T from "struct-buffer";
-const C = T.default;
-const uint24_t = C.registerType("uint24_t", 3, false);
-const  int24_t = C.registerType(" int24_t", 3, false);
-
 ${map.parsedEnums.map((e)=>cvtEnum(e,map)).filter((e)=>(!!e)).join(`
 `)}
 
 export default { 
-    ${map.parsedEnums.map((p)=>p.name).join(`,
+    ${availableEnums.map((p)=>p.name).join(`,
     `)}
 };
 `);
 
-
         await fs.promises.writeFile("./vulkan-structs.js", `
+import {default as enums} from "./vulkan-enums.js";
 import * as T from "struct-buffer";
 const C = T.default;
-const uint24_t = C.registerType("uint24_t", 3, false);
-const  int24_t = C.registerType(" int24_t", 3, false);
+const uint24_t = C.uint8_t[3];//C.registerType("uint24_t", 3, false);
+const  int24_t = C.uint8_t[3];//C.registerType(" int24_t", 3, false);
+
+const VK_MAKE_API_VERSION = (variant, major, minor, patch) => {
+    return ((((variant)) << 29) | (((major)) << 22) | (((minor)) << 12) | ((patch)));
+};
 
 //
 ${map.parsedStructs.map((s)=>writeStructure(s,map)).join(`
@@ -392,7 +425,8 @@ ${map.parsedStructs.map((s)=>writeStructure(s,map)).join(`
 
 export default { 
     ${map.parsedStructs.map((p)=>p.name).join(`,
-    `)}
+    `)}, 
+    VK_MAKE_API_VERSION
 };
 `);
 

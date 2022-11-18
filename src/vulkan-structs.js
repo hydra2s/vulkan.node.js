@@ -1,8 +1,13 @@
 
+import {default as enums} from "./vulkan-enums.js";
 import * as T from "struct-buffer";
 const C = T.default;
-const uint24_t = C.registerType("uint24_t", 3, false);
-const  int24_t = C.registerType(" int24_t", 3, false);
+const uint24_t = C.uint8_t[3];//C.registerType("uint24_t", 3, false);
+const  int24_t = C.uint8_t[3];//C.registerType(" int24_t", 3, false);
+
+const VK_MAKE_API_VERSION = (variant, major, minor, patch) => {
+    return ((((variant)) << 29) | (((major)) << 22) | (((minor)) << 12) | ((patch)));
+};
 
 //
 
@@ -81,24 +86,24 @@ const VkPhysicalDeviceProperties = new T.StructBuffer("VkPhysicalDevicePropertie
     vendorID: C.uint32_t,
     deviceID: C.uint32_t,
     deviceType: C.uint32_t,
-    deviceName: C.uint64_t,
-    pipelineCacheUUID: C.uint64_t,
+    deviceName: C.uint8_t[enums.VK_MAX_PHYSICAL_DEVICE_NAME_SIZE],
+    pipelineCacheUUID: C.uint8_t[enums.VK_UUID_SIZE],
     limits: C.uint32_t,
     sparseProperties: C.uint32_t,
 });
 
 
 const VkExtensionProperties = new T.StructBuffer("VkExtensionProperties", {
-    extensionName: C.uint64_t,
+    extensionName: C.uint8_t[enums.VK_MAX_EXTENSION_NAME_SIZE],
     specVersion: C.uint32_t,
 });
 
 
 const VkLayerProperties = new T.StructBuffer("VkLayerProperties", {
-    layerName: C.uint64_t,
+    layerName: C.uint8_t[enums.VK_MAX_EXTENSION_NAME_SIZE],
     specVersion: C.uint32_t,
     implementationVersion: C.uint32_t,
-    description: C.uint64_t,
+    description: C.uint8_t[enums.VK_MAX_DESCRIPTION_SIZE],
 });
 
 
@@ -169,9 +174,9 @@ const VkQueueFamilyProperties = new T.StructBuffer("VkQueueFamilyProperties", {
 
 const VkPhysicalDeviceMemoryProperties = new T.StructBuffer("VkPhysicalDeviceMemoryProperties", {
     memoryTypeCount: C.uint32_t,
-    memoryTypes: C.uint64_t,
+    memoryTypes: C.uint32_t,
     memoryHeapCount: C.uint32_t,
-    memoryHeaps: C.uint64_t,
+    memoryHeaps: C.uint32_t,
 });
 
 
@@ -221,7 +226,7 @@ const VkMemoryHeap = new T.StructBuffer("VkMemoryHeap", {
 const VkMappedMemoryRange = new T.StructBuffer("VkMappedMemoryRange", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    memory: C.uint32_t,
+    memory: C.uint64_t,
     offset: C.uint64_t,
     size: C.uint64_t,
 });
@@ -416,7 +421,7 @@ const VkBufferCopy = new T.StructBuffer("VkBufferCopy", {
 const VkSparseMemoryBind = new T.StructBuffer("VkSparseMemoryBind", {
     resourceOffset: C.uint64_t,
     size: C.uint64_t,
-    memory: C.uint32_t,
+    memory: C.uint64_t,
     memoryOffset: C.uint64_t,
     flags: C.uint32_t,
 });
@@ -426,7 +431,7 @@ const VkSparseImageMemoryBind = new T.StructBuffer("VkSparseImageMemoryBind", {
     subresource: C.uint32_t,
     offset: C.uint32_t,
     extent: C.uint32_t,
-    memory: C.uint32_t,
+    memory: C.uint64_t,
     memoryOffset: C.uint64_t,
     flags: C.uint32_t,
 });
@@ -480,9 +485,9 @@ const VkImageCopy = new T.StructBuffer("VkImageCopy", {
 
 const VkImageBlit = new T.StructBuffer("VkImageBlit", {
     srcSubresource: C.uint32_t,
-    srcOffsets: C.uint64_t,
+    srcOffsets: C.uint32_t,
     dstSubresource: C.uint32_t,
-    dstOffsets: C.uint64_t,
+    dstOffsets: C.uint32_t,
 });
 
 
@@ -715,7 +720,7 @@ const VkPipelineColorBlendStateCreateInfo = new T.StructBuffer("VkPipelineColorB
     logicOp: C.uint32_t,
     attachmentCount: C.uint32_t,
     pAttachments: C.uint64_t,
-    blendConstants: C.uint64_t,
+    blendConstants: C.float[4],
 });
 
 
@@ -792,7 +797,7 @@ const VkPipelineCacheHeaderVersionOne = new T.StructBuffer("VkPipelineCacheHeade
     headerVersion: C.uint32_t,
     vendorID: C.uint32_t,
     deviceID: C.uint32_t,
-    pipelineCacheUUID: C.uint64_t,
+    pipelineCacheUUID: C.uint8_t[enums.VK_UUID_SIZE],
 });
 
 
@@ -1089,9 +1094,9 @@ const VkPhysicalDeviceLimits = new T.StructBuffer("VkPhysicalDeviceLimits", {
     maxFragmentDualSrcAttachments: C.uint32_t,
     maxFragmentCombinedOutputResources: C.uint32_t,
     maxComputeSharedMemorySize: C.uint32_t,
-    maxComputeWorkGroupCount: C.uint64_t,
+    maxComputeWorkGroupCount: C.uint32_t[3],
     maxComputeWorkGroupInvocations: C.uint32_t,
-    maxComputeWorkGroupSize: C.uint64_t,
+    maxComputeWorkGroupSize: C.uint32_t[3],
     subPixelPrecisionBits: C.uint32_t,
     subTexelPrecisionBits: C.uint32_t,
     mipmapPrecisionBits: C.uint32_t,
@@ -1100,8 +1105,8 @@ const VkPhysicalDeviceLimits = new T.StructBuffer("VkPhysicalDeviceLimits", {
     maxSamplerLodBias: C.float,
     maxSamplerAnisotropy: C.float,
     maxViewports: C.uint32_t,
-    maxViewportDimensions: C.uint64_t,
-    viewportBoundsRange: C.uint64_t,
+    maxViewportDimensions: C.uint32_t[2],
+    viewportBoundsRange: C.float[2],
     viewportSubPixelBits: C.uint32_t,
     minMemoryMapAlignment: C.uint64_t,
     minTexelBufferOffsetAlignment: C.uint64_t,
@@ -1134,8 +1139,8 @@ const VkPhysicalDeviceLimits = new T.StructBuffer("VkPhysicalDeviceLimits", {
     maxCullDistances: C.uint32_t,
     maxCombinedClipAndCullDistances: C.uint32_t,
     discreteQueuePriorities: C.uint32_t,
-    pointSizeRange: C.uint64_t,
-    lineWidthRange: C.uint64_t,
+    pointSizeRange: C.float[2],
+    lineWidthRange: C.float[2],
     pointSizeGranularity: C.float,
     lineWidthGranularity: C.float,
     strictLines: C.uint32_t,
@@ -1497,7 +1502,7 @@ const VkDebugMarkerMarkerInfoEXT = new T.StructBuffer("VkDebugMarkerMarkerInfoEX
     sType: C.uint32_t,
     pNext: C.uint64_t,
     pMarkerName: C.uint64_t,
-    color: C.uint64_t,
+    color: C.float[4],
 });
 
 
@@ -1889,8 +1894,8 @@ const VkPhysicalDeviceDriverProperties = new T.StructBuffer("VkPhysicalDeviceDri
     sType: C.uint32_t,
     pNext: C.uint64_t,
     driverID: C.uint32_t,
-    driverName: C.uint64_t,
-    driverInfo: C.uint64_t,
+    driverName: C.uint8_t[enums.VK_MAX_DRIVER_NAME_SIZE],
+    driverInfo: C.uint8_t[enums.VK_MAX_DRIVER_INFO_SIZE],
     conformanceVersion: C.uint32_t,
 });
 
@@ -2009,9 +2014,9 @@ const VkExternalBufferPropertiesKHR = new T.StructBuffer("VkExternalBufferProper
 const VkPhysicalDeviceIDProperties = new T.StructBuffer("VkPhysicalDeviceIDProperties", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    deviceUUID: C.uint64_t,
-    driverUUID: C.uint64_t,
-    deviceLUID: C.uint64_t,
+    deviceUUID: C.uint8_t[enums.VK_UUID_SIZE],
+    driverUUID: C.uint8_t[enums.VK_UUID_SIZE],
+    deviceLUID: C.uint8_t[enums.VK_LUID_SIZE],
     deviceNodeMask: C.uint32_t,
     deviceLUIDValid: C.uint32_t,
 });
@@ -2094,7 +2099,7 @@ const VkMemoryZirconHandlePropertiesFUCHSIA = new T.StructBuffer("VkMemoryZircon
 const VkMemoryGetZirconHandleInfoFUCHSIA = new T.StructBuffer("VkMemoryGetZirconHandleInfoFUCHSIA", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    memory: C.uint32_t,
+    memory: C.uint64_t,
     handleType: C.uint32_t,
 });
 
@@ -2109,7 +2114,7 @@ const VkMemoryWin32HandlePropertiesKHR = new T.StructBuffer("VkMemoryWin32Handle
 const VkMemoryGetWin32HandleInfoKHR = new T.StructBuffer("VkMemoryGetWin32HandleInfoKHR", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    memory: C.uint32_t,
+    memory: C.uint64_t,
     handleType: C.uint32_t,
 });
 
@@ -2132,7 +2137,7 @@ const VkMemoryFdPropertiesKHR = new T.StructBuffer("VkMemoryFdPropertiesKHR", {
 const VkMemoryGetFdInfoKHR = new T.StructBuffer("VkMemoryGetFdInfoKHR", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    memory: C.uint32_t,
+    memory: C.uint64_t,
     handleType: C.uint32_t,
 });
 
@@ -2439,7 +2444,7 @@ const VkPhysicalDeviceGroupProperties = new T.StructBuffer("VkPhysicalDeviceGrou
     sType: C.uint32_t,
     pNext: C.uint64_t,
     physicalDeviceCount: C.uint32_t,
-    physicalDevices: C.uint64_t,
+    physicalDevices: C.uint32_t,
     subsetAllocation: C.uint32_t,
 });
 
@@ -2466,7 +2471,7 @@ const VkBindBufferMemoryInfo = new T.StructBuffer("VkBindBufferMemoryInfo", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
     buffer: C.uint64_t,
-    memory: C.uint32_t,
+    memory: C.uint64_t,
     memoryOffset: C.uint64_t,
 });
 
@@ -2493,7 +2498,7 @@ const VkBindImageMemoryInfo = new T.StructBuffer("VkBindImageMemoryInfo", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
     image: C.uint64_t,
-    memory: C.uint32_t,
+    memory: C.uint64_t,
     memoryOffset: C.uint64_t,
 });
 
@@ -2577,7 +2582,7 @@ const VkDeviceGroupBindSparseInfoKHR = new T.StructBuffer("VkDeviceGroupBindSpar
 const VkDeviceGroupPresentCapabilitiesKHR = new T.StructBuffer("VkDeviceGroupPresentCapabilitiesKHR", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    presentMask: C.uint64_t,
+    presentMask: C.uint32_t[enums.VK_MAX_DEVICE_GROUP_SIZE],
     modes: C.uint32_t,
 });
 
@@ -3306,7 +3311,7 @@ const VkPhysicalDeviceSampleLocationsPropertiesEXT = new T.StructBuffer("VkPhysi
     pNext: C.uint64_t,
     sampleLocationSampleCounts: C.uint32_t,
     maxSampleLocationGridSize: VkExtent2D,
-    sampleLocationCoordinateRange: C.uint64_t,
+    sampleLocationCoordinateRange: C.float[2],
     sampleLocationSubPixelBits: C.uint32_t,
     variableSampleLocations: C.uint32_t,
 });
@@ -3626,7 +3631,7 @@ const VkShaderStatisticsInfoAMD = new T.StructBuffer("VkShaderStatisticsInfoAMD"
     numPhysicalSgprs: C.uint32_t,
     numAvailableVgprs: C.uint32_t,
     numAvailableSgprs: C.uint32_t,
-    computeWorkGroupSize: C.uint64_t,
+    computeWorkGroupSize: C.uint32_t[3],
 });
 
 
@@ -3658,7 +3663,7 @@ const VkQueueFamilyGlobalPriorityPropertiesKHR = new T.StructBuffer("VkQueueFami
     sType: C.uint32_t,
     pNext: C.uint64_t,
     priorityCount: C.uint32_t,
-    priorities: C.uint64_t,
+    priorities: C.uint32_t,
 });
 
 
@@ -3691,7 +3696,7 @@ const VkDebugUtilsLabelEXT = new T.StructBuffer("VkDebugUtilsLabelEXT", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
     pLabelName: C.uint64_t,
-    color: C.uint64_t,
+    color: C.float[4],
 });
 
 
@@ -4189,7 +4194,7 @@ const VkAndroidHardwareBufferPropertiesANDROID = new T.StructBuffer("VkAndroidHa
 const VkMemoryGetAndroidHardwareBufferInfoANDROID = new T.StructBuffer("VkMemoryGetAndroidHardwareBufferInfoANDROID", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    memory: C.uint32_t,
+    memory: C.uint64_t,
 });
 
 
@@ -4572,11 +4577,11 @@ const VkPhysicalDeviceMeshShaderPropertiesNV = new T.StructBuffer("VkPhysicalDev
     pNext: C.uint64_t,
     maxDrawMeshTasksCount: C.uint32_t,
     maxTaskWorkGroupInvocations: C.uint32_t,
-    maxTaskWorkGroupSize: C.uint64_t,
+    maxTaskWorkGroupSize: C.uint32_t[3],
     maxTaskTotalMemorySize: C.uint32_t,
     maxTaskOutputCount: C.uint32_t,
     maxMeshWorkGroupInvocations: C.uint32_t,
-    maxMeshWorkGroupSize: C.uint64_t,
+    maxMeshWorkGroupSize: C.uint32_t[3],
     maxMeshTotalMemorySize: C.uint32_t,
     maxMeshOutputVertices: C.uint32_t,
     maxMeshOutputPrimitives: C.uint32_t,
@@ -4607,16 +4612,16 @@ const VkPhysicalDeviceMeshShaderPropertiesEXT = new T.StructBuffer("VkPhysicalDe
     sType: C.uint32_t,
     pNext: C.uint64_t,
     maxTaskWorkGroupTotalCount: C.uint32_t,
-    maxTaskWorkGroupCount: C.uint64_t,
+    maxTaskWorkGroupCount: C.uint32_t[3],
     maxTaskWorkGroupInvocations: C.uint32_t,
-    maxTaskWorkGroupSize: C.uint64_t,
+    maxTaskWorkGroupSize: C.uint32_t[3],
     maxTaskPayloadSize: C.uint32_t,
     maxTaskSharedMemorySize: C.uint32_t,
     maxTaskPayloadAndSharedMemorySize: C.uint32_t,
     maxMeshWorkGroupTotalCount: C.uint32_t,
-    maxMeshWorkGroupCount: C.uint64_t,
+    maxMeshWorkGroupCount: C.uint32_t[3],
     maxMeshWorkGroupInvocations: C.uint32_t,
-    maxMeshWorkGroupSize: C.uint64_t,
+    maxMeshWorkGroupSize: C.uint32_t[3],
     maxMeshSharedMemorySize: C.uint32_t,
     maxMeshPayloadAndSharedMemorySize: C.uint32_t,
     maxMeshOutputMemorySize: C.uint32_t,
@@ -4765,7 +4770,7 @@ const VkBindAccelerationStructureMemoryInfoNV = new T.StructBuffer("VkBindAccele
     sType: C.uint32_t,
     pNext: C.uint64_t,
     accelerationStructure: C.uint32_t,
-    memory: C.uint32_t,
+    memory: C.uint64_t,
     memoryOffset: C.uint64_t,
     deviceIndexCount: C.uint32_t,
     pDeviceIndices: C.uint64_t,
@@ -5088,8 +5093,8 @@ const VkPipelineRasterizationDepthClipStateCreateInfoEXT = new T.StructBuffer("V
 const VkPhysicalDeviceMemoryBudgetPropertiesEXT = new T.StructBuffer("VkPhysicalDeviceMemoryBudgetPropertiesEXT", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    heapBudget: C.uint64_t,
-    heapUsage: C.uint64_t,
+    heapBudget: C.uint64_t[enums.VK_MAX_MEMORY_HEAPS],
+    heapUsage: C.uint64_t[enums.VK_MAX_MEMORY_HEAPS],
 });
 
 
@@ -5409,7 +5414,7 @@ const VkPerformanceCounterKHR = new T.StructBuffer("VkPerformanceCounterKHR", {
     unit: C.uint32_t,
     scope: C.uint32_t,
     storage: C.uint32_t,
-    uuid: C.uint64_t,
+    uuid: C.uint8_t[enums.VK_UUID_SIZE],
 });
 
 
@@ -5417,9 +5422,9 @@ const VkPerformanceCounterDescriptionKHR = new T.StructBuffer("VkPerformanceCoun
     sType: C.uint32_t,
     pNext: C.uint64_t,
     flags: C.uint32_t,
-    name: C.uint64_t,
-    category: C.uint64_t,
-    description: C.uint64_t,
+    name: C.uint8_t[enums.VK_MAX_DESCRIPTION_SIZE],
+    category: C.uint8_t[enums.VK_MAX_DESCRIPTION_SIZE],
+    description: C.uint8_t[enums.VK_MAX_DESCRIPTION_SIZE],
 });
 
 
@@ -5648,8 +5653,8 @@ const VkPipelineExecutablePropertiesKHR = new T.StructBuffer("VkPipelineExecutab
     sType: C.uint32_t,
     pNext: C.uint64_t,
     stages: C.uint32_t,
-    name: C.uint64_t,
-    description: C.uint64_t,
+    name: C.uint8_t[enums.VK_MAX_DESCRIPTION_SIZE],
+    description: C.uint8_t[enums.VK_MAX_DESCRIPTION_SIZE],
     subgroupSize: C.uint32_t,
 });
 
@@ -5665,8 +5670,8 @@ const VkPipelineExecutableInfoKHR = new T.StructBuffer("VkPipelineExecutableInfo
 const VkPipelineExecutableStatisticKHR = new T.StructBuffer("VkPipelineExecutableStatisticKHR", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    name: C.uint64_t,
-    description: C.uint64_t,
+    name: C.uint8_t[enums.VK_MAX_DESCRIPTION_SIZE],
+    description: C.uint8_t[enums.VK_MAX_DESCRIPTION_SIZE],
     format: C.uint32_t,
     value: C.uint32_t,
 });
@@ -5675,8 +5680,8 @@ const VkPipelineExecutableStatisticKHR = new T.StructBuffer("VkPipelineExecutabl
 const VkPipelineExecutableInternalRepresentationKHR = new T.StructBuffer("VkPipelineExecutableInternalRepresentationKHR", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    name: C.uint64_t,
-    description: C.uint64_t,
+    name: C.uint8_t[enums.VK_MAX_DESCRIPTION_SIZE],
+    description: C.uint8_t[enums.VK_MAX_DESCRIPTION_SIZE],
     isText: C.uint32_t,
     dataSize: C.uint64_t,
     pData: C.uint64_t,
@@ -5787,7 +5792,7 @@ const VkMemoryOpaqueCaptureAddressAllocateInfoKHR = new T.StructBuffer("VkMemory
 const VkDeviceMemoryOpaqueCaptureAddressInfo = new T.StructBuffer("VkDeviceMemoryOpaqueCaptureAddressInfo", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    memory: C.uint32_t,
+    memory: C.uint64_t,
 });
 
 
@@ -5858,9 +5863,9 @@ const VkPhysicalDeviceVulkan11Features = new T.StructBuffer("VkPhysicalDeviceVul
 const VkPhysicalDeviceVulkan11Properties = new T.StructBuffer("VkPhysicalDeviceVulkan11Properties", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    deviceUUID: C.uint64_t,
-    driverUUID: C.uint64_t,
-    deviceLUID: C.uint64_t,
+    deviceUUID: C.uint8_t[enums.VK_UUID_SIZE],
+    driverUUID: C.uint8_t[enums.VK_UUID_SIZE],
+    deviceLUID: C.uint8_t[enums.VK_LUID_SIZE],
     deviceNodeMask: C.uint32_t,
     deviceLUIDValid: C.uint32_t,
     subgroupSize: C.uint32_t,
@@ -5933,8 +5938,8 @@ const VkPhysicalDeviceVulkan12Properties = new T.StructBuffer("VkPhysicalDeviceV
     sType: C.uint32_t,
     pNext: C.uint64_t,
     driverID: C.uint32_t,
-    driverName: C.uint64_t,
-    driverInfo: C.uint64_t,
+    driverName: C.uint8_t[enums.VK_MAX_DRIVER_NAME_SIZE],
+    driverInfo: C.uint8_t[enums.VK_MAX_DRIVER_INFO_SIZE],
     conformanceVersion: C.uint32_t,
     denormBehaviorIndependence: C.uint32_t,
     roundingModeIndependence: C.uint32_t,
@@ -6076,11 +6081,11 @@ const VkPhysicalDeviceCoherentMemoryFeaturesAMD = new T.StructBuffer("VkPhysical
 const VkPhysicalDeviceToolProperties = new T.StructBuffer("VkPhysicalDeviceToolProperties", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    name: C.uint64_t,
-    version: C.uint64_t,
+    name: C.uint8_t[enums.VK_MAX_EXTENSION_NAME_SIZE],
+    version: C.uint8_t[enums.VK_MAX_EXTENSION_NAME_SIZE],
     purposes: C.uint32_t,
-    description: C.uint64_t,
-    layer: C.uint64_t,
+    description: C.uint8_t[enums.VK_MAX_DESCRIPTION_SIZE],
+    layer: C.uint8_t[enums.VK_MAX_EXTENSION_NAME_SIZE],
 });
 
 
@@ -6172,12 +6177,12 @@ const VkAccelerationStructureBuildGeometryInfoKHR = new T.StructBuffer("VkAccele
     type: C.uint32_t,
     flags: C.uint32_t,
     mode: C.uint32_t,
-    srcAccelerationStructure: C.uint32_t,
-    dstAccelerationStructure: C.uint32_t,
+    srcAccelerationStructure: C.uint64_t,
+    dstAccelerationStructure: C.uint64_t,
     geometryCount: C.uint32_t,
     pGeometries: C.uint64_t,
     ppGeometries: C.uint64_t,
-    scratchData: C.uint32_t,
+    scratchData: C.uint64_t,
 });
 
 
@@ -6217,17 +6222,17 @@ const VkAabbPositionsNV = new T.StructBuffer("VkAabbPositionsNV", {
 
 
 const VkTransformMatrixKHR = new T.StructBuffer("VkTransformMatrixKHR", {
-    matrix: C.uint64_t,
-});
+    matrix: C.float[3][4],
+});    
 
 
 const VkTransformMatrixNV = new T.StructBuffer("VkTransformMatrixNV", {
-
-});
+    matrix: C.float[3][4],
+});    
 
 
 const VkAccelerationStructureInstanceKHR = new T.StructBuffer("VkAccelerationStructureInstanceKHR", {
-    transform: C.uint32_t,
+    transform: VkTransformMatrixKHR,
     instanceCustomIndex: uint24_t,
     mask: C.uint8_t,
     instanceShaderBindingTableRecordOffset: uint24_t,
@@ -6237,14 +6242,19 @@ const VkAccelerationStructureInstanceKHR = new T.StructBuffer("VkAccelerationStr
 
 
 const VkAccelerationStructureInstanceNV = new T.StructBuffer("VkAccelerationStructureInstanceNV", {
-
+    transform: VkTransformMatrixKHR,
+    instanceCustomIndex: uint24_t,
+    mask: C.uint8_t,
+    instanceShaderBindingTableRecordOffset: uint24_t,
+    flags: C.uint8_t,
+    accelerationStructureReference: C.uint64_t,
 });
 
 
 const VkAccelerationStructureDeviceAddressInfoKHR = new T.StructBuffer("VkAccelerationStructureDeviceAddressInfoKHR", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    accelerationStructure: C.uint32_t,
+    accelerationStructure: C.uint64_t,
 });
 
 
@@ -6258,8 +6268,8 @@ const VkAccelerationStructureVersionInfoKHR = new T.StructBuffer("VkAcceleration
 const VkCopyAccelerationStructureInfoKHR = new T.StructBuffer("VkCopyAccelerationStructureInfoKHR", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    src: C.uint32_t,
-    dst: C.uint32_t,
+    src: C.uint64_t,
+    dst: C.uint64_t,
     mode: C.uint32_t,
 });
 
@@ -6267,8 +6277,8 @@ const VkCopyAccelerationStructureInfoKHR = new T.StructBuffer("VkCopyAcceleratio
 const VkCopyAccelerationStructureToMemoryInfoKHR = new T.StructBuffer("VkCopyAccelerationStructureToMemoryInfoKHR", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    src: C.uint32_t,
-    dst: C.uint32_t,
+    src: C.uint64_t,
+    dst: C.uint64_t,
     mode: C.uint32_t,
 });
 
@@ -6277,7 +6287,7 @@ const VkCopyMemoryToAccelerationStructureInfoKHR = new T.StructBuffer("VkCopyMem
     sType: C.uint32_t,
     pNext: C.uint64_t,
     src: C.uint32_t,
-    dst: C.uint32_t,
+    dst: C.uint64_t,
     mode: C.uint32_t,
 });
 
@@ -6548,9 +6558,9 @@ const VkImageBlit2 = new T.StructBuffer("VkImageBlit2", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
     srcSubresource: C.uint32_t,
-    srcOffsets: C.uint64_t,
+    srcOffsets: C.uint32_t,
     dstSubresource: C.uint32_t,
-    dstOffsets: C.uint64_t,
+    dstOffsets: C.uint32_t,
 });
 
 
@@ -6711,7 +6721,7 @@ const VkPipelineFragmentShadingRateStateCreateInfoKHR = new T.StructBuffer("VkPi
     sType: C.uint32_t,
     pNext: C.uint64_t,
     fragmentSize: VkExtent2D,
-    combinerOps: C.uint64_t,
+    combinerOps: C.uint32_t,
 });
 
 
@@ -6788,7 +6798,7 @@ const VkPipelineFragmentShadingRateEnumStateCreateInfoNV = new T.StructBuffer("V
     pNext: C.uint64_t,
     shadingRateType: C.uint32_t,
     shadingRate: C.uint32_t,
-    combinerOps: C.uint64_t,
+    combinerOps: C.uint32_t,
 });
 
 
@@ -7178,7 +7188,7 @@ const VkBindVideoSessionMemoryInfoKHR = new T.StructBuffer("VkBindVideoSessionMe
     sType: C.uint32_t,
     pNext: C.uint64_t,
     memoryBindIndex: C.uint32_t,
-    memory: C.uint32_t,
+    memory: C.uint64_t,
     memoryOffset: C.uint64_t,
     memorySize: C.uint64_t,
 });
@@ -7937,8 +7947,8 @@ const VkAccelerationStructureSRTMotionInstanceNV = new T.StructBuffer("VkAcceler
 
 
 const VkAccelerationStructureMatrixMotionInstanceNV = new T.StructBuffer("VkAccelerationStructureMatrixMotionInstanceNV", {
-    transformT0: C.uint32_t,
-    transformT1: C.uint32_t,
+    transformT0: VkTransformMatrixKHR,
+    transformT1: VkTransformMatrixKHR,
     instanceCustomIndex: uint24_t,
     mask: C.uint8_t,
     instanceShaderBindingTableRecordOffset: uint24_t,
@@ -7957,7 +7967,7 @@ const VkAccelerationStructureMotionInstanceNV = new T.StructBuffer("VkAccelerati
 const VkMemoryGetRemoteAddressInfoNV = new T.StructBuffer("VkMemoryGetRemoteAddressInfoNV", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    memory: C.uint32_t,
+    memory: C.uint64_t,
     handleType: C.uint32_t,
 });
 
@@ -8322,7 +8332,7 @@ const VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT = new T.StructBuffer("Vk
 const VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT = new T.StructBuffer("VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    shaderModuleIdentifierAlgorithmUUID: C.uint64_t,
+    shaderModuleIdentifierAlgorithmUUID: C.uint8_t[enums.VK_UUID_SIZE],
 });
 
 
@@ -8338,7 +8348,7 @@ const VkShaderModuleIdentifierEXT = new T.StructBuffer("VkShaderModuleIdentifier
     sType: C.uint32_t,
     pNext: C.uint64_t,
     identifierSize: C.uint32_t,
-    identifier: C.uint64_t,
+    identifier: C.uint8_t[enums.VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT],
 });
 
 
@@ -8408,7 +8418,7 @@ const VkRenderPassCreationFeedbackCreateInfoEXT = new T.StructBuffer("VkRenderPa
 
 const VkRenderPassSubpassFeedbackInfoEXT = new T.StructBuffer("VkRenderPassSubpassFeedbackInfoEXT", {
     subpassMergeStatus: C.uint32_t,
-    description: C.uint64_t,
+    description: C.uint8_t[enums.VK_MAX_DESCRIPTION_SIZE],
     postMergeIndex: C.uint32_t,
 });
 
@@ -8438,7 +8448,7 @@ const VkMicromapBuildInfoEXT = new T.StructBuffer("VkMicromapBuildInfoEXT", {
     pUsageCounts: C.uint64_t,
     ppUsageCounts: C.uint64_t,
     data: C.uint32_t,
-    scratchData: C.uint32_t,
+    scratchData: C.uint64_t,
     triangleArray: C.uint32_t,
     triangleArrayStride: C.uint64_t,
 });
@@ -8476,7 +8486,7 @@ const VkCopyMicromapToMemoryInfoEXT = new T.StructBuffer("VkCopyMicromapToMemory
     sType: C.uint32_t,
     pNext: C.uint64_t,
     src: C.uint32_t,
-    dst: C.uint32_t,
+    dst: C.uint64_t,
     mode: C.uint32_t,
 });
 
@@ -8547,7 +8557,7 @@ const VkAccelerationStructureTrianglesOpacityMicromapEXT = new T.StructBuffer("V
 const VkPipelinePropertiesIdentifierEXT = new T.StructBuffer("VkPipelinePropertiesIdentifierEXT", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    pipelineIdentifier: C.uint64_t,
+    pipelineIdentifier: C.uint8_t[enums.VK_UUID_SIZE],
 });
 
 
@@ -8588,7 +8598,7 @@ const VkExportMetalDeviceInfoEXT = new T.StructBuffer("VkExportMetalDeviceInfoEX
 const VkExportMetalCommandQueueInfoEXT = new T.StructBuffer("VkExportMetalCommandQueueInfoEXT", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    queue: C.uint32_t,
+    queue: C.uint64_t,
     mtlCommandQueue: C.uint32_t,
 });
 
@@ -8596,7 +8606,7 @@ const VkExportMetalCommandQueueInfoEXT = new T.StructBuffer("VkExportMetalComman
 const VkExportMetalBufferInfoEXT = new T.StructBuffer("VkExportMetalBufferInfoEXT", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    memory: C.uint32_t,
+    memory: C.uint64_t,
     mtlBuffer: C.uint32_t,
 });
 
@@ -8869,7 +8879,7 @@ const VkDeviceFaultAddressInfoEXT = new T.StructBuffer("VkDeviceFaultAddressInfo
 
 
 const VkDeviceFaultVendorInfoEXT = new T.StructBuffer("VkDeviceFaultVendorInfoEXT", {
-    description: C.uint64_t,
+    description: C.uint8_t[enums.VK_MAX_DESCRIPTION_SIZE],
     vendorFaultCode: C.uint64_t,
     vendorFaultData: C.uint64_t,
 });
@@ -8887,7 +8897,7 @@ const VkDeviceFaultCountsEXT = new T.StructBuffer("VkDeviceFaultCountsEXT", {
 const VkDeviceFaultInfoEXT = new T.StructBuffer("VkDeviceFaultInfoEXT", {
     sType: C.uint32_t,
     pNext: C.uint64_t,
-    description: C.uint64_t,
+    description: C.uint8_t[enums.VK_MAX_DESCRIPTION_SIZE],
     pAddressInfos: C.uint64_t,
     pVendorInfos: C.uint64_t,
     pVendorBinaryData: C.uint64_t,
@@ -8900,7 +8910,7 @@ const VkDeviceFaultVendorBinaryHeaderVersionOneEXT = new T.StructBuffer("VkDevic
     vendorID: C.uint32_t,
     deviceID: C.uint32_t,
     driverVersion: C.uint32_t,
-    pipelineCacheUUID: C.uint64_t,
+    pipelineCacheUUID: C.uint8_t[enums.VK_UUID_SIZE],
     applicationNameOffset: C.uint32_t,
     applicationVersion: C.uint32_t,
     engineNameOffset: C.uint32_t,
@@ -9982,5 +9992,6 @@ export default {
     VkPhysicalDeviceShaderCoreBuiltinsPropertiesARM,
     VkPhysicalDeviceShaderCoreBuiltinsFeaturesARM,
     VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV,
-    VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV
+    VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV, 
+    VK_MAKE_API_VERSION
 };

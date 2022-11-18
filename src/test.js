@@ -1,25 +1,22 @@
 (async()=>{
     let vulkan = (await import("./vulkan-API.js")).default;
     let structs = (await import("./vulkan-structs.js")).default;
-    
-    let VK_MAKE_API_VERSION = (variant, major, minor, patch) => {
-        return ((((variant)) << 29) | (((major)) << 22) | (((minor)) << 12) | ((patch)));
-    };
+    let enums = (await import("./vulkan-enums.js")).default;
 
     let appInfo = structs.VkApplicationInfo.encode({
-        sType: 0,
+        sType: enums.VK_STRUCTURE_TYPE_APPLICATION_INFO,
         pNext: 0n,
-        pApplicationName: 0n,
-        applicationVersion: VK_MAKE_API_VERSION(0, 1, 3, 234),
-        pEngineName: 0n,
-        engineVersion: VK_MAKE_API_VERSION(0, 1, 3, 234),
-        apiVersion: VK_MAKE_API_VERSION(0, 1, 3, 234)
+        pApplicationName: "NVAPI TEST".charAddress(),
+        applicationVersion: structs.VK_MAKE_API_VERSION(0, 1, 3, 234),
+        pEngineName: "NVAPI".charAddress(),
+        engineVersion: structs.VK_MAKE_API_VERSION(0, 1, 3, 234),
+        apiVersion: structs.VK_MAKE_API_VERSION(0, 1, 3, 234)
     });
 
     console.log(appInfo);
 
     let pInfo = structs.VkInstanceCreateInfo.encode({
-        sType: 1,
+        sType: enums.VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
         pNext: 0n,
         pApplicationInfo: appInfo.buffer.address(),
         enabledLayerCount: 0,
