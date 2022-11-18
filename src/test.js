@@ -18,7 +18,7 @@
     let pInfo = structs.VkInstanceCreateInfo.encode({
         sType: enums.VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
         pNext: 0n,
-        pApplicationInfo: appInfo.buffer.address(),
+        pApplicationInfo: appInfo.address(),
         enabledLayerCount: 0,
         ppEnabledLayerNames: 0n,
         enabledExtensionCount: 0,
@@ -26,7 +26,7 @@
     });
 
     let handle = new BigUint64Array(1);
-    vulkan.vkCreateInstance(pInfo.buffer.address(), 0n, handle.address());
+    vulkan.vkCreateInstance(pInfo.address(), 0n, handle.address());
     
     console.log(handle[0]);
 
