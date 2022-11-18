@@ -14,7 +14,21 @@
 #endif
 
 //
+#define WINDOWS_IGNORE_PACKING_MISMATCH
+
+//
+#pragma pack(push,16)
+#ifdef WIN32_
+#include <windows.h>
+#endif
+#pragma pack(pop)
+
+//
+#pragma pack(push,1)
 #include <volk/volk.h>
+#pragma pack(pop)
+
+//
 #include <napi.h>
 #include "./sizes.h"
 

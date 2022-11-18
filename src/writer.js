@@ -318,20 +318,21 @@ ${by ? `#endif ${by}` : ``}
     }
 
     let writeParam = (param, map)=>{
-if (IsPointableValue(param))              { return `    ${param.name}: ${param.type}${AsFixedArray(param)},` } else 
-if (IsHandle(param))                      { return `    ${param.name}: C.uint64_t${AsFixedArray(param)},` } else 
-if (IsBigIntValue(param))                 { return `    ${param.name}: C.uint64_t${AsFixedArray(param)},` } else 
-if (IsUint24(param.type, param.bitfield)) { return `    ${param.name}: uint24_t${AsFixedArray(param)},` } else 
-if (IsUint8 (param.type, param.bitfield)) { return `    ${param.name}: C.uint8_t${AsFixedArray(param)},` } else 
-if (IsUint16(param.type, param.bitfield)) { return `    ${param.name}: C.uint16_t${AsFixedArray(param)},` } else 
-if (IsUint32(param.type, param.bitfield)) { return `    ${param.name}: C.uint32_t${AsFixedArray(param)},` } else 
-if (IsInt24 (param.type, param.bitfield)) { return `    ${param.name}: int24_t${AsFixedArray(param)},` } else 
-if (IsInt8  (param.type, param.bitfield)) { return `    ${param.name}: C.int8_t${AsFixedArray(param)},` } else 
-if (IsInt16 (param.type, param.bitfield)) { return `    ${param.name}: C.int16_t${AsFixedArray(param)},` } else 
-if (IsInt32 (param.type, param.bitfield)) { return `    ${param.name}: C.int32_t${AsFixedArray(param)},` } else 
-if ( IsFloat(param.type, param.bitfield)) { return `    ${param.name}: C.float${AsFixedArray(param)},` } else 
-if (IsDouble(param.type, param.bitfield)) { return `    ${param.name}: C.double${AsFixedArray(param)},` } else 
-return `    ${param.name}: C.uint32_t,`
+        let paramStr = `    ${param.name}: C.uint32_t,`
+if (IsPointableValue(param))              { paramStr = `    ${param.name}: ${param.type}${AsFixedArray(param)},` } else 
+if (IsHandle(param))                      { paramStr = `    ${param.name}: C.uint64_t${AsFixedArray(param)},` } else 
+if (IsBigIntValue(param))                 { paramStr = `    ${param.name}: C.uint64_t${AsFixedArray(param)},` } else 
+if (IsUint24(param.type, param.bitfield)) { paramStr = `    ${param.name}: uint24_t${AsFixedArray(param)},` } else 
+if (IsUint8 (param.type, param.bitfield)) { paramStr = `    ${param.name}: C.uint8_t${AsFixedArray(param)},` } else 
+if (IsUint16(param.type, param.bitfield)) { paramStr = `    ${param.name}: C.uint16_t${AsFixedArray(param)},` } else 
+if (IsUint32(param.type, param.bitfield)) { paramStr = `    ${param.name}: C.uint32_t${AsFixedArray(param)},` } else 
+if (IsInt24 (param.type, param.bitfield)) { paramStr = `    ${param.name}: int24_t${AsFixedArray(param)},` } else 
+if (IsInt8  (param.type, param.bitfield)) { paramStr = `    ${param.name}: C.int8_t${AsFixedArray(param)},` } else 
+if (IsInt16 (param.type, param.bitfield)) { paramStr = `    ${param.name}: C.int16_t${AsFixedArray(param)},` } else 
+if (IsInt32 (param.type, param.bitfield)) { paramStr = `    ${param.name}: C.int32_t${AsFixedArray(param)},` } else 
+if ( IsFloat(param.type, param.bitfield)) { paramStr = `    ${param.name}: C.float${AsFixedArray(param)},` } else 
+if (IsDouble(param.type, param.bitfield)) { paramStr = `    ${param.name}: C.double${AsFixedArray(param)},` } 
+return paramStr;
     };
 
     // make structures with specific fixes
@@ -450,7 +451,21 @@ export default {
 #endif
 
 //
+#define WINDOWS_IGNORE_PACKING_MISMATCH
+
+//
+#pragma pack(push,16)
+#ifdef WIN32_
+#include <windows.h>
+#endif
+#pragma pack(pop)
+
+//
+#pragma pack(push,1)
 #include <volk/volk.h>
+#pragma pack(pop)
+
+//
 #include <napi.h>
 #include "./sizes.h"
 

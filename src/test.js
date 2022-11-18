@@ -1,4 +1,7 @@
+import * as T from "struct-buffer";
+const C = T.default;
 (async()=>{
+    
     let vulkan = (await import("./vulkan-API.js")).default;
     let structs = (await import("./vulkan-structs.js")).default;
     let enums = (await import("./vulkan-enums.js")).default;
@@ -30,6 +33,7 @@
     
     console.log(handle[0]);
 
-    console.log(vulkan.vkGetStructureSizeBySType(enums.VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO));
-    
+    console.log(vulkan.vkGetStructureSizeBySType(enums.VK_STRUCTURE_TYPE_APPLICATION_INFO));
+    console.log(appInfo.byteLength);
+
 })();
