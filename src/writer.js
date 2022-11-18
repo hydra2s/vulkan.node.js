@@ -257,60 +257,68 @@ return number && !pointable || B ?
 `return Napi::BigInt::New(env, (uint64_t)${IsPointableValue(T,P)?`&`:``}${N});`;
     };
 
-
     //
     let writeStructureOffsets = (struct, map)=>{
         let by = map.usedBy[struct.name];
         let structed = {name: struct.name, params: []};
         struct.params.forEach((param)=>{
             if (!param.isBitfield) {
-            structed.params.push(`
-${by ? `#ifdef ${by.name}` : ``}
-static Napi::Value ${struct.name}_${param.name}_offsetof(const Napi::CallbackInfo& info_) {
+            structed.params.push(`${by ? `#ifdef ${by.name}
+` : ``} static Napi::Value ${struct.name}_${param.name}_offsetof(const Napi::CallbackInfo& info_) {
     Napi::Env env = info_.Env();
     return Napi::Number::New(env, offsetof(${struct.name}, ${param.name}));
 }` + (by ? `
-#endif` : ``) );
+#endif` : ``));
 }});
+structed.params.push(`${by ? `#ifdef ${by.name}
+` : ``} static Napi::Value ${struct.name}_sizeof(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    return Napi::Number::New(env, sizeof(${struct.name}));
+}` + (by ? `
+#endif` : ``));
 return structed.params.join(`
-`);};
+`);
+        };
 
 
     //
     let writeStructureOffsetsGot = (struct, map)=>{
         let by = map.usedBy[struct.name];
         let structed = {name: struct.name, params: []};
-        return struct.params.map((param)=>{
+        let params = struct.params.map((param)=>{
             if (!param.isBitfield) {
             return ((by ? `#ifdef ${by.name}
 ` : ``) + `    exports["${struct.name}_${param.name}_offsetof"] = Napi::Function::New(env, ${struct.name}_${param.name}_offsetof);` + (by ? `
 #endif` : ``)) }
-}).join(`
+})
+        params.push((by ? `#ifdef ${by.name}
+` : ``) + `    exports["${struct.name}_sizeof"] = Napi::Function::New(env, ${struct.name}_sizeof);` + (by ? `
+#endif` : ``));
+return params.join(`
 `)};
 
-
-    let AsFixedArray = (param) => {
+    let AsFixedArray = (name, param, typed) => {
         if (param.isFixedArray) {
-            if (!isNaN(param.length)) { return `[${parseInt(param.length)}]`; } else { return `[enums.${param.length}]`; };
+            if (!isNaN(param.length)) 
+                { return `"${typed}[${parseInt(param.length)}]("+callof(V.${name}_${param.name}_offsetof)+")"`; } else 
+                { return `"${typed}["+enums.${parseInt(param.length)}+"]("+callof(V.${name}_${param.name}_offsetof)+")"`; };
         }
-        return ``;
+        return `"${typed}("+callof(V.${name}_${param.name}_offsetof)+")"`;
     }
 
-    let writeParam = (param, map)=>{
-        let paramStr = `    ${param.name}: C.uint32_t,`
-if (IsPointableValue(param))              { paramStr = `    ${param.name}: ${param.type}${AsFixedArray(param)},` } else 
-if (IsHandle(param))                      { paramStr = `    ${param.name}: C.uint64_t${AsFixedArray(param)},` } else 
-if (IsBigIntValue(param))                 { paramStr = `    ${param.name}: C.uint64_t${AsFixedArray(param)},` } else 
-if (IsUint24(param.type, param.bitfield)) { paramStr = `    ${param.name}: uint24_t${AsFixedArray(param)},` } else 
-if (IsUint8 (param.type, param.bitfield)) { paramStr = `    ${param.name}: C.uint8_t${AsFixedArray(param)},` } else 
-if (IsUint16(param.type, param.bitfield)) { paramStr = `    ${param.name}: C.uint16_t${AsFixedArray(param)},` } else 
-if (IsUint32(param.type, param.bitfield)) { paramStr = `    ${param.name}: C.uint32_t${AsFixedArray(param)},` } else 
-if (IsInt24 (param.type, param.bitfield)) { paramStr = `    ${param.name}: int24_t${AsFixedArray(param)},` } else 
-if (IsInt8  (param.type, param.bitfield)) { paramStr = `    ${param.name}: C.int8_t${AsFixedArray(param)},` } else 
-if (IsInt16 (param.type, param.bitfield)) { paramStr = `    ${param.name}: C.int16_t${AsFixedArray(param)},` } else 
-if (IsInt32 (param.type, param.bitfield)) { paramStr = `    ${param.name}: C.int32_t${AsFixedArray(param)},` } else 
-if ( IsFloat(param.type, param.bitfield)) { paramStr = `    ${param.name}: C.float${AsFixedArray(param)},` } else 
-if (IsDouble(param.type, param.bitfield)) { paramStr = `    ${param.name}: C.double${AsFixedArray(param)},` } 
+    let writeParam = (name, param, map)=>{
+        let paramStr = `    ${param.name}: "u32",`
+if (IsPointableValue(param))              { paramStr = `    ${param.name}: ${AsFixedArray(name, param, param.type)},` } else 
+if (IsHandle(param))                      { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u64")},` } else 
+if (IsBigIntValue(param))                 { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u64")},` } else 
+if (IsUint8 (param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u8" )},` } else 
+if (IsUint16(param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u16")},` } else 
+if (IsUint32(param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u32")},` } else 
+if (IsInt8  (param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "i8" )},` } else 
+if (IsInt16 (param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "i16")},` } else 
+if (IsInt32 (param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "i32")},` } else 
+if ( IsFloat(param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "f32")},` } else 
+if (IsDouble(param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "f64")},` } 
 return paramStr;
     };
 
@@ -318,31 +326,26 @@ return paramStr;
     let writeStructure = (structure, map)=> {
         if (structure.name == "VkTransformMatrixKHR" || structure.name == "VkTransformMatrixNV") {
 return `
-const ${structure.name} = new T.StructBuffer("${structure.name}", {
-    matrix: C.float[3][4],
-});    
+const ${structure.name} = new C.CStruct("${structure.name}", {
+    matrix: "u32(0)[12]",
+}, callof(V.${structure.name}_sizeof));    
 `       } else
         if (structure.name == "VkAccelerationStructureInstanceKHR" || structure.name == "VkAccelerationStructureInstanceNV") {
 return `
-const ${structure.name} = new T.StructBuffer("${structure.name}", {
-    transform: VkTransformMatrixKHR,
-    _0: C.bitFields(C.uint32_t, {
-        instanceCustomIndex: 24,
-        mask: 8
-    }),
-    _1: C.bitFields(C.uint32_t, {
-        instanceShaderBindingTableRecordOffset: 24,
-        flags: 8
-    }),
-    accelerationStructureReference: C.uint64_t,
-});
-`
+const ${structure.name} = new C.CStruct("${structure.name}", {
+    transform: "VkTransformMatrixKHR(0)",
+    instanceCustomIndex: "u8[3]("+(0+48)+")",
+    mask: "u8("+(3+48)+")",
+    instanceShaderBindingTableRecordOffset: "u8[3]("+(4+48)+")",
+    flags: "u8("+(7+48)+")",
+    accelerationStructureReference: "u64("+(8+48)+")",
+}, callof(V.${structure.name}_sizeof));`
         } else {
     return `
-const ${structure.name} = new T.StructBuffer("${structure.name}", {
-${structure.params.map(writeParam, map).join(`
+const ${structure.name} = new C.CStruct("${structure.name}", {
+${structure.params.map((p)=>(writeParam(structure.name, p, map))).join(`
 `)}
-});
+}, callof(V.${structure.name}_sizeof));
 `
         }
     };
@@ -394,11 +397,12 @@ export default {
 
   // TODO: use C++ offsets and own classes
         await fs.promises.writeFile("./vulkan-structs.js", `
+import {default as V} from "./vulkan-API.js";
 import {default as enums} from "./vulkan-enums.js";
-import * as T from "struct-buffer";
-const C = T.default;
-const uint24_t = C.uint8_t[3];//C.registerType("uint24_t", 3, false);
-const  int24_t = C.uint8_t[3];//C.registerType(" int24_t", 3, false);
+import {default as C} from "./typed.js";
+const uint24_t = "u8[3]";//C.registerType("uint24_t", 3, false);
+const  int24_t = "u8[3]";//C.registerType(" int24_t", 3, false);
+const callof = (fn)=>{ return fn ? fn() : 0; };
 
 const VK_MAKE_API_VERSION = (variant, major, minor, patch) => {
     return ((((variant)) << 29) | (((major)) << 22) | (((minor)) << 12) | ((patch)));

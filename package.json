@@ -41,7 +41,8 @@
     "restructure": "^3.0.0",
     "shared-structs": "^1.4.1",
     "struct-buffer": "^5.2.0",
-    "typed-struct": "^2.3.0"
+    "typed-struct": "^2.3.0",
+    "win32-api": "^20.1.0"
   },
   "devDependencies": {
     "assemblyscript": "^0.24.0",
