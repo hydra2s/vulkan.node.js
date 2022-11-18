@@ -240,7 +240,6 @@ return (by ? `#ifdef ${by.name}
     */
 
     //
-    /*
     let TypeOfGet = (N)=>{
         if (N.type == "double") { return `info_[0].As<Napi::Number>().DoubleValue()` };
         if (N.type == "float") { return `info_[0].As<Napi::Number>().FloatValue()` };
@@ -256,7 +255,7 @@ return (by ? `#ifdef ${by.name}
 return number && !pointable || B ? 
 `return Napi::Number::New(env, ${N});` : 
 `return Napi::BigInt::New(env, (uint64_t)${IsPointableValue(T,P)?`&`:``}${N});`;
-    };*/
+    };
 
 
     //
@@ -393,7 +392,7 @@ export default {
 };
 `);
 
-/*  // TODO: use C++ offsets and own classes
+  // TODO: use C++ offsets and own classes
         await fs.promises.writeFile("./vulkan-structs.js", `
 import {default as enums} from "./vulkan-enums.js";
 import * as T from "struct-buffer";
@@ -414,7 +413,7 @@ export default {
     `)}, 
     VK_MAKE_API_VERSION
 };
-`);*/
+`);
 
         await fs.promises.writeFile("./vulkan-API.cpp", `#pragma once 
 
