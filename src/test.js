@@ -30,6 +30,6 @@
     
     console.log(handle[0]);
 
-    console.log(vulkan.vkGetStructureSizeBySType(1));
+    console.log(vulkan.vkGetStructureSizeBySType(enums.VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO));
     
 })();

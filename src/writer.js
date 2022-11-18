@@ -365,14 +365,13 @@ ${structure.params.map(writeParam, map).join(`
 
     let availableEnums = [];
     let cvtEnum = (e, map)=>{
-        availableEnums = [];
         let by = map.usedBy[e.name];
         
-        if (e.name.indexOf(`EXTENSION_NAME`) >= 0) {return `const ${e.name} = "${eval(e.value)}";`};
-        if ('value' in e) { availableEnums.push(e.name); return `const ${e.name} = ${eval(e.value)};`};
+        if (e.name.indexOf(`EXTENSION_NAME`) >= 0) { availableEnums.push(e); return `const ${e.name} = "${eval(e.value)}";`};
+        if ('value' in e) { availableEnums.push(e); return `const ${e.name} = ${eval(e.value)};`};
         if ('bitpos' in e) {
             let value = 1 << e.bitpos;
-            availableEnums.push(e.name);
+            availableEnums.push(e);
             return `const ${e.name} = ${value};`
         }
         if ('offset' in e) {
@@ -383,7 +382,7 @@ ${structure.params.map(writeParam, map).join(`
             let extnumber = BigInt(e.extnumber || by.number || 0);
             let value = extBase + (extnumber - 1n) * extBlockSize + offset;
             if (e.dir) value *= -1n;
-            availableEnums.push(e.name);
+            availableEnums.push(e);
             return `const ${e.name} = ${parseInt(value)};`
         }
 
@@ -398,12 +397,13 @@ ${structure.params.map(writeParam, map).join(`
     // 
     let writeCodes = async (map)=>{
 
+        availableEnums = [];
         await fs.promises.writeFile("./vulkan-enums.js", `
 ${map.parsedEnums.map((e)=>cvtEnum(e,map)).filter((e)=>(!!e)).join(`
 `)}
 
 export default { 
-    ${availableEnums.map((p)=>p.name).join(`,
+    ${availableEnums.map((p)=>p.name).filter((e)=>(!!e)).join(`,
     `)}
 };
 `);
