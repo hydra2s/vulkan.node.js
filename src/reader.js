@@ -215,10 +215,9 @@ let getReader = async()=>{
         extensions.children.filter((e,i)=>{
             return e.type == "element" && e.name == "extension";
         }).map((e,i)=>{
-            let extName = e.attributes["name"];
             e.children.filter((ec,ic)=>{  return ec.type == "element" && ec.name == "require"; }).map((ec,ic)=>{
                 ec.children.filter((em,im)=>{ return em.type == "element" && !!em.name; }).map((em,im)=>{
-                    usedBy[em.attributes["name"]] = extName;
+                    usedBy[em.attributes["name"]] = e.attributes;
                 });
             });
         });
@@ -227,8 +226,7 @@ let getReader = async()=>{
 
     //
     let preloadFromExtensions = (enums, extensions) => {
-        
-        extensions.children.forEach((e)=>{
+        extensions.children.filter((e)=>(e.attributes["supported"] != "disabled")).forEach((e)=>{
             let extName = e.attributes["name"];
             e.children.filter((ec,ic)=>{  return ec.type == "element" && ec.name == "require"; }).map((ec,ic)=>{
                 ec.children.filter((em,im)=>{ return em.type == "element" && !!em.name; }).map((em,im)=>{

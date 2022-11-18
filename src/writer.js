@@ -206,7 +206,7 @@ let getWriter = async()=>{
     //
     let makeCommand = (command,i,map)=>{
         let by = map.usedBy[command.proto.name];
-return (by ? `#ifdef ${by}
+return (by ? `#ifdef ${by.name}
 ` : ``) + 
 `static Napi::Value ${command.proto.name.replace(/^vk/, "raw")}(const Napi::CallbackInfo& info_) {
     Napi::Env env = info_.Env();
@@ -226,7 +226,7 @@ return (by ? `#ifdef ${by}
         for (let k in map.sTypeMap) {
             let s = map.sTypeMap[k];
             let by = map.usedBy[s];
-            if (by) { cases.push(`#ifdef ${by}`); };
+            if (by) { cases.push(`#ifdef ${by.name}`); };
             cases.push(`        case ${k}: return sizeof(${s}); break;`);
             if (by) { cases.push(`#endif`); }; 
         }
@@ -263,7 +263,7 @@ return number && !pointable || B ?
         let structed = {name: struct.name, params: []};
         struct.params.forEach((param)=>{
             structed.params.push(`
-${by ? `#ifdef ${by}` : ``}
+${by ? `#ifdef ${byy.name}` : ``}
 static Napi::Value ${struct.name}_get${capitalizeFirstLetter(param.name)}(const Napi::CallbackInfo& info_) {
     Napi::Env env = info_.Env();
     bool lossless = true;
@@ -334,23 +334,23 @@ ${structure.params.map(writeParam, map).join(`
     };
 
 
-    let cvtEnum = (e)=>{
+    let cvtEnum = (e, map)=>{
+        let by = map.usedBy[e.name];
         if (e.name.indexOf(`EXTENSION_NAME`) >= 0) {return `const ${e.name} = "${eval(e.value)}";`};
         if ('value' in e) {return `const ${e.name} = ${eval(e.value)};`};
         if ('bitpos' in e) {
             let value = 1 << e.bitpos;
             return `const ${e.name} = ${value};`
         }
-        if ('offset' in e && 'extnumber' in e) {
-            const extBase = 1000000000;
-            const extBlockSize = 1000;
+        if ('offset' in e) {
+            const extBase = 1000000000n;
+            const extBlockSize = 1000n;
 
-            let offset = e.offset;
-            let extnumber = e.extnumber;
-            let extends_ = e.extends;
-            let value = extBase + (extnumber - 1) * extBlockSize + offset;
-            if (e.dir) value *= -1;
-            return `const ${e.name} = ${value};`
+            let offset = BigInt(e.offset);
+            let extnumber = BigInt(e.extnumber || by.number || 0);
+            let value = extBase + (extnumber - 1n) * extBlockSize + offset;
+            if (e.dir) value *= -1n;
+            return `const ${e.name} = ${parseInt(value)};`
         }
 
         return ``;
@@ -364,16 +364,27 @@ ${structure.params.map(writeParam, map).join(`
     // 
     let writeCodes = async (map)=>{
 
-        
+        await fs.promises.writeFile("./vulkan-enums.js", `
+import * as T from "struct-buffer";
+const C = T.default;
+const uint24_t = C.registerType("uint24_t", 3, false);
+const  int24_t = C.registerType(" int24_t", 3, false);
+
+${map.parsedEnums.map((e)=>cvtEnum(e,map)).filter((e)=>(!!e)).join(`
+`)}
+
+export default { 
+    ${map.parsedEnums.map((p)=>p.name).join(`,
+    `)}
+};
+`);
+
 
         await fs.promises.writeFile("./vulkan-structs.js", `
 import * as T from "struct-buffer";
 const C = T.default;
 const uint24_t = C.registerType("uint24_t", 3, false);
 const  int24_t = C.registerType(" int24_t", 3, false);
-
-${map.parsedEnums.map((e)=>cvtEnum(e)).filter((e)=>(!!e)).join(`
-`)}
 
 //
 ${map.parsedStructs.map((s)=>writeStructure(s,map)).join(`
@@ -539,7 +550,7 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
 
 ${map.parsed.map((cmd,i)=>{
     let by = map.usedBy[cmd.proto.name];
-    return (by ? `#ifdef ${by}
+    return (by ? `#ifdef ${by.name}
 ` : ``) + `    exports["${cmd.proto.name}"] = Napi::Function::New(env, ${cmd.proto.name.replace(/^vk/, "raw")});` + (by ? `
 #endif` : ``);
 }).join(`
