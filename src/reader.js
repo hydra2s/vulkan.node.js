@@ -30,23 +30,27 @@ let getReader = async()=>{
     //
     let getLength = (txt, I=0)=>{
         let M = txt.match(/\d+/g);
-        return M ? M[I] : 1;//.join("");
+        return parseInt(M ? M[I] : 1);//.join("");
     };
 
     //
     let parseParam = (e)=>{
         let parts = [];
         let parsed = { name: "", type: "void", isPointer: false, isConst: false, isPointerSet: false };
-        
+        let capture = false;
+
         if (e) {
             e.forEach((p)=>{
-                if (p.type == "text" && (p.text.indexOf("[") >= 0 || p.text.indexOf("]") >= 0)) { parsed.isFixedArray = true; };
-                if (p.type == "text" && p.text.match(/\*/gi)?.length == 1) { if (parsed.isPointer) {parsed.isPointerSet = true;}; parsed.isPointer = true; };
-                if (p.type == "text" && p.text.match(/\*/gi)?.length == 2) { parsed.isPointerSet = true; parsed.isPointer = true; };
-                if (p.type == "text" && p.text.indexOf("const") >= 0) { parsed.isConst = true; };
-                if (p.type == "text" && p.text.indexOf(":") >= 0) { parsed.isBitfield = true; parsed.bitfield = getLength(p.text); };
-                if (p.type == "element" && p.name == "type") { parsed.type = p.children[0].text; };
-                if (p.type == "element" && p.name == "name") { parsed.name = p.children[0].text; };
+                if (p.type == "text" && (p.text.indexOf("[") >= 0 && p.text.indexOf("]") >= 0)) { parsed.isFixedArray = true; parsed.length = getLength(p.text); } else
+                if (p.type == "text" && (p.text.indexOf("[") >= 0)) { parsed.isFixedArray = true; capture = true; } else
+                if (p.type == "text" && (p.text.indexOf("]") >= 0)) { capture = false; } else
+                if (p.type == "text" && p.text.match(/\*/gi)?.length == 1) { if (parsed.isPointer) {parsed.isPointerSet = true;}; parsed.isPointer = true; } else
+                if (p.type == "text" && p.text.match(/\*/gi)?.length == 2) { parsed.isPointerSet = true; parsed.isPointer = true; } else
+                if (p.type == "text" && p.text.indexOf("const") >= 0) { parsed.isConst = true; } else
+                if (p.type == "text" && p.text.indexOf(":") >= 0) { parsed.isBitfield = true; parsed.bitfield = getLength(p.text); } else
+                if (p.type == "element" && p.name == "enum") { if (capture) { parsed.length = p.children[0].text; }; } else
+                if (p.type == "element" && p.name == "type") { parsed.type = p.children[0].text; } else
+                if (p.type == "element" && p.name == "name") { parsed.name = p.children[0].text; }
                 
                 //
                 if (p.name != "comment") {
@@ -103,7 +107,7 @@ let getReader = async()=>{
             let parsed = {};
             if (T.children) {
                 T.children.forEach((d)=>{
-                    if (d.type == "element" && d.name == "type") { parsed.type = d.children[0].text; };
+                    if (d.type == "element" && d.name == "type") { parsed.type = d.children[0].text; parsed.category = d.attributes["category"]; parsed.name = d.attributes["name"]; };
                     if (d.type == "element" && d.name == "name") { parsed.name = d.children[0].text; };
                 });
             };
@@ -111,14 +115,39 @@ let getReader = async()=>{
         }).filter((obj)=>(Object.keys(obj).length > 0));
     };
 
+    //
+    let parseEnums = (enums)=>{
+        return enums ? enums.map((d)=>{
+            
+            let parsed = {};
+            if (d.type == "element" && d.name == "enum") { 
+                parsed = Object.assign(parsed, d.attributes);
+                parsed.type = d.attributes["type"];
+                parsed.name = d.attributes["name"];
+                if (d.attributes["value"]) {
+                    parsed.value = d.attributes["value"]
+                        .replace("0ULL","0n")
+                        .replace("0U","0")
+                        .replace("1U","1")
+                        .replace("2U","1")
+                        .replace("0F","0");
+                }
+                parsed.category = d.attributes["category"];
+            };
+
+            return parsed;
+        }).filter((obj)=>(Object.keys(obj).length > 0)).flat().filter((value, index, self) => index == self.findIndex((t) => (t.name == value.name))) : [];
+    };
+
     // 
     let getComponents = (doc)=>{
         let registry = filterNoSpaced(JSON5.parse(JSON5.stringify(doc.children.find((e,i)=>{ return e.type == "element" && e.name == "registry"; }))));
-        let types = filterNoSpaced(registry.children.find((e,i)=>{ return e.type == "element" && e.name == "types"; }));
-        let structs = types.children.filter((e,i)=>{ return e.type == "element" && e.name == "type" && e.attributes["category"] == "struct"; }).map(filterNoSpaced).filter(noSpaces);
+        let types = registry.children.filter((e,i)=>{ return e.type == "element" && e.name == "types"; }).flatMap(filterNoSpaced);
+        let enums = registry.children.filter((e,i)=>{ return e.type == "element" && e.name == "enums"; }).flatMap(filterNoSpaced);
+        let structs = types[0].children.filter((e,i)=>{ return e.type == "element" && e.name == "type" && e.attributes["category"] == "struct"; }).map(filterNoSpaced).filter(noSpaces);
         let extensions = filterNoSpaced(registry.children.find((e,i)=>{ return e.type == "element" && e.name == "extensions"; }));
         let commands = registry.children.filter((e,i)=>{ return e.type == "element" && e.name == "commands"; }).map(filterNoSpaced);
-        return { registry, types, structs, extensions, commands };
+        return { registry, types: types[0], enums, structs, extensions, commands };
     };
 
     
@@ -196,10 +225,25 @@ let getReader = async()=>{
         return usedBy;
     };
 
+    //
+    let preloadFromExtensions = (enums, extensions) => {
+        
+        extensions.children.forEach((e)=>{
+            let extName = e.attributes["name"];
+            e.children.filter((ec,ic)=>{  return ec.type == "element" && ec.name == "require"; }).map((ec,ic)=>{
+                ec.children.filter((em,im)=>{ return em.type == "element" && !!em.name; }).map((em,im)=>{
+                    let found = enums.find((e)=>e.attributes["name"] == em.attributes["extends"]);
+                    if (found) { (found.children = (found.children || [])).push(em); } else { enums.push(em); };
+                });
+            });
+        });
+
+    };
+
     // 
     let parseDocs = async (path = "../../Vulkan-Docs/xml/vk.xml")=>{
         let docs = await getDocs(path); await fs.promises.writeFile("vulkan.json", JSON.stringify(filterNoSpaced(JSON5.parse(JSON5.stringify(docs))), null, 2).trim(), "utf8");
-        let loaded = getComponents(docs); 
+        let loaded = getComponents(docs); preloadFromExtensions(loaded.enums, loaded.extensions);
         await fs.promises.writeFile("commands.json", JSON.stringify(loaded.commands, null, 2).trim(), "utf8");
         await fs.promises.writeFile("types.json", JSON.stringify(loaded.types, null, 2).trim(), "utf8");
         
@@ -207,8 +251,10 @@ let getReader = async()=>{
         let parsed = parseCommands(loaded.commands[0].children);
         await fs.promises.writeFile("parsed-commands.json", JSON.stringify(parsed, null, 2).trim(), "utf8");
 
+        //
         let parsedStructs = parseStructs(loaded.types.children);
         let parsedTypes = parseTypes(loaded.types.children);
+        let parsedEnums = loaded.enums.map((m)=>parseEnums(m.children)).flat().filter((value, index, self) => index == self.findIndex((t) => (t.name == value.name)));
         let parsedRequirements = parseRequirements(loaded.types.children);
         await fs.promises.writeFile("parsed-types.json", JSON.stringify(parsedTypes, null, 2).trim(), "utf8");
         await fs.promises.writeFile("parsed-requirements.json", JSON.stringify(parsedRequirements, null, 2).trim(), "utf8");
@@ -218,7 +264,7 @@ let getReader = async()=>{
         let usedBy = formExtensionTypeMap(loaded.extensions);
         let sTypeMap = formSTypeMap(filterSType(loaded.structs));
         await fs.promises.writeFile("used-by.json", JSON.stringify(usedBy, null, 2).trim(), "utf8");
-        return {usedBy, sTypeMap, parsed, parsedStructs, parsedRequirements, parsedTypes};
+        return {usedBy, sTypeMap, parsed, parsedStructs, parsedRequirements, parsedTypes, parsedEnums};
     };
 
     return {

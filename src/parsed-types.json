@@ -27,30 +27,24 @@
     "name": "VK_API_VERSION_PATCH"
   },
   {
-    "name": "VK_API_VERSION",
     "type": "VK_MAKE_VERSION"
   },
   {
-    "name": "VK_API_VERSION_1_0",
     "type": "VK_MAKE_API_VERSION"
   },
   {
-    "name": "VK_API_VERSION_1_1",
     "type": "VK_MAKE_API_VERSION"
   },
   {
-    "name": "VK_API_VERSION_1_2",
     "type": "VK_MAKE_API_VERSION"
   },
   {
-    "name": "VK_API_VERSION_1_3",
     "type": "VK_MAKE_API_VERSION"
   },
   {
     "name": "VK_HEADER_VERSION"
   },
   {
-    "name": "VK_HEADER_VERSION_COMPLETE",
     "type": "VK_MAKE_API_VERSION"
   },
   {
@@ -1004,38 +998,30 @@
     "name": "VkVideoSessionParametersKHR"
   },
   {
-    "name": "PFN_vkInternalAllocationNotification",
     "type": "VkSystemAllocationScope"
   },
   {
-    "name": "PFN_vkInternalFreeNotification",
     "type": "VkSystemAllocationScope"
   },
   {
-    "name": "PFN_vkReallocationFunction",
     "type": "VkSystemAllocationScope"
   },
   {
-    "name": "PFN_vkAllocationFunction",
     "type": "VkSystemAllocationScope"
   },
   {
-    "name": "PFN_vkFreeFunction",
     "type": "void"
   },
   {
     "name": "PFN_vkVoidFunction"
   },
   {
-    "name": "PFN_vkDebugReportCallbackEXT",
     "type": "void"
   },
   {
-    "name": "PFN_vkDebugUtilsMessengerCallbackEXT",
     "type": "void"
   },
   {
-    "name": "PFN_vkDeviceMemoryReportCallbackEXT",
     "type": "void"
   },
   {

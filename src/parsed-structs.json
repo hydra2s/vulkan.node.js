@@ -471,6 +471,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_PHYSICAL_DEVICE_NAME_SIZE",
         "text": "char deviceName [ VK_MAX_PHYSICAL_DEVICE_NAME_SIZE ]",
         "parts": [
           "char",
@@ -487,6 +488,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_UUID_SIZE",
         "text": "uint8_t pipelineCacheUUID [ VK_UUID_SIZE ]",
         "parts": [
           "uint8_t",
@@ -532,6 +534,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_EXTENSION_NAME_SIZE",
         "text": "char extensionName [ VK_MAX_EXTENSION_NAME_SIZE ]",
         "parts": [
           "char",
@@ -565,6 +568,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_EXTENSION_NAME_SIZE",
         "text": "char layerName [ VK_MAX_EXTENSION_NAME_SIZE ]",
         "parts": [
           "char",
@@ -605,6 +609,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DESCRIPTION_SIZE",
         "text": "char description [ VK_MAX_DESCRIPTION_SIZE ]",
         "parts": [
           "char",
@@ -1193,6 +1198,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_MEMORY_TYPES",
         "text": "VkMemoryType memoryTypes [ VK_MAX_MEMORY_TYPES ]",
         "parts": [
           "VkMemoryType",
@@ -1221,6 +1227,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_MEMORY_HEAPS",
         "text": "VkMemoryHeap memoryHeaps [ VK_MAX_MEMORY_HEAPS ]",
         "parts": [
           "VkMemoryHeap",
@@ -3576,6 +3583,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 2,
         "text": "VkOffset3D srcOffsets [2]",
         "parts": [
           "VkOffset3D",
@@ -3602,6 +3610,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 2,
         "text": "VkOffset3D dstOffsets [2]",
         "parts": [
           "VkOffset3D",
@@ -5437,6 +5446,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 4,
         "text": "float blendConstants [4]",
         "parts": [
           "float",
@@ -6141,6 +6151,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_UUID_SIZE",
         "text": "uint8_t pipelineCacheUUID [ VK_UUID_SIZE ]",
         "parts": [
           "uint8_t",
@@ -8903,6 +8914,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 3,
         "text": "uint32_t maxComputeWorkGroupCount [3]",
         "parts": [
           "uint32_t",
@@ -8929,6 +8941,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 3,
         "text": "uint32_t maxComputeWorkGroupSize [3]",
         "parts": [
           "uint32_t",
@@ -9039,6 +9052,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 2,
         "text": "uint32_t maxViewportDimensions [2]",
         "parts": [
           "uint32_t",
@@ -9053,6 +9067,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 2,
         "text": "float viewportBoundsRange [2]",
         "parts": [
           "float",
@@ -9451,6 +9466,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 2,
         "text": "float pointSizeRange [2]",
         "parts": [
           "float",
@@ -9465,6 +9481,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 2,
         "text": "float lineWidthRange [2]",
         "parts": [
           "float",
@@ -12304,6 +12321,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 4,
         "text": "float color [4]",
         "parts": [
           "float",
@@ -14760,6 +14778,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DRIVER_NAME_SIZE",
         "text": "char driverName [ VK_MAX_DRIVER_NAME_SIZE ]",
         "parts": [
           "char",
@@ -14776,6 +14795,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DRIVER_INFO_SIZE",
         "text": "char driverInfo [ VK_MAX_DRIVER_INFO_SIZE ]",
         "parts": [
           "char",
@@ -15295,6 +15315,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_UUID_SIZE",
         "text": "uint8_t deviceUUID [ VK_UUID_SIZE ]",
         "parts": [
           "uint8_t",
@@ -15311,6 +15332,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_UUID_SIZE",
         "text": "uint8_t driverUUID [ VK_UUID_SIZE ]",
         "parts": [
           "uint8_t",
@@ -15327,6 +15349,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_LUID_SIZE",
         "text": "uint8_t deviceLUID [ VK_LUID_SIZE ]",
         "parts": [
           "uint8_t",
@@ -18076,6 +18099,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DEVICE_GROUP_SIZE",
         "text": "VkPhysicalDevice physicalDevices [ VK_MAX_DEVICE_GROUP_SIZE ]",
         "parts": [
           "VkPhysicalDevice",
@@ -18789,6 +18813,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DEVICE_GROUP_SIZE",
         "text": "uint32_t presentMask [ VK_MAX_DEVICE_GROUP_SIZE ]",
         "parts": [
           "uint32_t",
@@ -23020,6 +23045,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 2,
         "text": "float sampleLocationCoordinateRange [2]",
         "parts": [
           "float",
@@ -24889,6 +24915,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 3,
         "text": "uint32_t computeWorkGroupSize [3]",
         "parts": [
           "uint32_t",
@@ -25041,6 +25068,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_GLOBAL_PRIORITY_SIZE_KHR",
         "text": "VkQueueGlobalPriorityKHR priorities [ VK_MAX_GLOBAL_PRIORITY_SIZE_KHR ]",
         "parts": [
           "VkQueueGlobalPriorityKHR",
@@ -25271,6 +25299,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 4,
         "text": "float color [4]",
         "parts": [
           "float",
@@ -31303,6 +31332,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 3,
         "text": "uint32_t maxTaskWorkGroupSize [3]",
         "parts": [
           "uint32_t",
@@ -31353,6 +31383,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 3,
         "text": "uint32_t maxMeshWorkGroupSize [3]",
         "parts": [
           "uint32_t",
@@ -31602,6 +31633,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 3,
         "text": "uint32_t maxTaskWorkGroupCount [3]",
         "parts": [
           "uint32_t",
@@ -31628,6 +31660,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 3,
         "text": "uint32_t maxTaskWorkGroupSize [3]",
         "parts": [
           "uint32_t",
@@ -31690,6 +31723,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 3,
         "text": "uint32_t maxMeshWorkGroupCount [3]",
         "parts": [
           "uint32_t",
@@ -31716,6 +31750,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 3,
         "text": "uint32_t maxMeshWorkGroupSize [3]",
         "parts": [
           "uint32_t",
@@ -35330,6 +35365,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_MEMORY_HEAPS",
         "text": "VkDeviceSize heapBudget [ VK_MAX_MEMORY_HEAPS ]",
         "parts": [
           "VkDeviceSize",
@@ -35346,6 +35382,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_MEMORY_HEAPS",
         "text": "VkDeviceSize heapUsage [ VK_MAX_MEMORY_HEAPS ]",
         "parts": [
           "VkDeviceSize",
@@ -37182,6 +37219,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_UUID_SIZE",
         "text": "uint8_t uuid [ VK_UUID_SIZE ]",
         "parts": [
           "uint8_t",
@@ -37241,6 +37279,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DESCRIPTION_SIZE",
         "text": "char name [ VK_MAX_DESCRIPTION_SIZE ]",
         "parts": [
           "char",
@@ -37257,6 +37296,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DESCRIPTION_SIZE",
         "text": "char category [ VK_MAX_DESCRIPTION_SIZE ]",
         "parts": [
           "char",
@@ -37273,6 +37313,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DESCRIPTION_SIZE",
         "text": "char description [ VK_MAX_DESCRIPTION_SIZE ]",
         "parts": [
           "char",
@@ -38651,6 +38692,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DESCRIPTION_SIZE",
         "text": "char name [ VK_MAX_DESCRIPTION_SIZE ]",
         "parts": [
           "char",
@@ -38667,6 +38709,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DESCRIPTION_SIZE",
         "text": "char description [ VK_MAX_DESCRIPTION_SIZE ]",
         "parts": [
           "char",
@@ -38782,6 +38825,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DESCRIPTION_SIZE",
         "text": "char name [ VK_MAX_DESCRIPTION_SIZE ]",
         "parts": [
           "char",
@@ -38798,6 +38842,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DESCRIPTION_SIZE",
         "text": "char description [ VK_MAX_DESCRIPTION_SIZE ]",
         "parts": [
           "char",
@@ -38869,6 +38914,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DESCRIPTION_SIZE",
         "text": "char name [ VK_MAX_DESCRIPTION_SIZE ]",
         "parts": [
           "char",
@@ -38885,6 +38931,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DESCRIPTION_SIZE",
         "text": "char description [ VK_MAX_DESCRIPTION_SIZE ]",
         "parts": [
           "char",
@@ -39973,6 +40020,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_UUID_SIZE",
         "text": "uint8_t deviceUUID [ VK_UUID_SIZE ]",
         "parts": [
           "uint8_t",
@@ -39989,6 +40037,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_UUID_SIZE",
         "text": "uint8_t driverUUID [ VK_UUID_SIZE ]",
         "parts": [
           "uint8_t",
@@ -40005,6 +40054,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_LUID_SIZE",
         "text": "uint8_t deviceLUID [ VK_LUID_SIZE ]",
         "parts": [
           "uint8_t",
@@ -40803,6 +40853,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DRIVER_NAME_SIZE",
         "text": "char driverName [ VK_MAX_DRIVER_NAME_SIZE ]",
         "parts": [
           "char",
@@ -40819,6 +40870,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DRIVER_INFO_SIZE",
         "text": "char driverInfo [ VK_MAX_DRIVER_INFO_SIZE ]",
         "parts": [
           "char",
@@ -42323,6 +42375,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_EXTENSION_NAME_SIZE",
         "text": "char name [ VK_MAX_EXTENSION_NAME_SIZE ]",
         "parts": [
           "char",
@@ -42339,6 +42392,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_EXTENSION_NAME_SIZE",
         "text": "char version [ VK_MAX_EXTENSION_NAME_SIZE ]",
         "parts": [
           "char",
@@ -42367,6 +42421,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DESCRIPTION_SIZE",
         "text": "char description [ VK_MAX_DESCRIPTION_SIZE ]",
         "parts": [
           "char",
@@ -42383,6 +42438,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_EXTENSION_NAME_SIZE",
         "text": "char layer [ VK_MAX_EXTENSION_NAME_SIZE ]",
         "parts": [
           "char",
@@ -43351,6 +43407,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 3,
         "text": "float matrix [3][4]",
         "parts": [
           "float",
@@ -43386,7 +43443,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isBitfield": true,
-        "bitfield": "24",
+        "bitfield": 24,
         "text": "uint32_t instanceCustomIndex",
         "parts": [
           "uint32_t",
@@ -43400,7 +43457,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isBitfield": true,
-        "bitfield": "8",
+        "bitfield": 8,
         "text": "uint32_t mask",
         "parts": [
           "uint32_t",
@@ -43414,7 +43471,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isBitfield": true,
-        "bitfield": "24",
+        "bitfield": 24,
         "text": "uint32_t instanceShaderBindingTableRecordOffset",
         "parts": [
           "uint32_t",
@@ -43428,7 +43485,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isBitfield": true,
-        "bitfield": "8",
+        "bitfield": 8,
         "text": "VkGeometryInstanceFlagsKHR flags",
         "parts": [
           "VkGeometryInstanceFlagsKHR",
@@ -45695,6 +45752,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 2,
         "text": "VkOffset3D srcOffsets [2]",
         "parts": [
           "VkOffset3D",
@@ -45721,6 +45779,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 2,
         "text": "VkOffset3D dstOffsets [2]",
         "parts": [
           "VkOffset3D",
@@ -46724,6 +46783,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 2,
         "text": "VkFragmentShadingRateCombinerOpKHR combinerOps [2]",
         "parts": [
           "VkFragmentShadingRateCombinerOpKHR",
@@ -47308,6 +47368,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": 2,
         "text": "VkFragmentShadingRateCombinerOpKHR combinerOps [2]",
         "parts": [
           "VkFragmentShadingRateCombinerOpKHR",
@@ -55892,7 +55953,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isBitfield": true,
-        "bitfield": "24",
+        "bitfield": 24,
         "text": "uint32_t instanceCustomIndex",
         "parts": [
           "uint32_t",
@@ -55906,7 +55967,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isBitfield": true,
-        "bitfield": "8",
+        "bitfield": 8,
         "text": "uint32_t mask",
         "parts": [
           "uint32_t",
@@ -55920,7 +55981,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isBitfield": true,
-        "bitfield": "24",
+        "bitfield": 24,
         "text": "uint32_t instanceShaderBindingTableRecordOffset",
         "parts": [
           "uint32_t",
@@ -55934,7 +55995,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isBitfield": true,
-        "bitfield": "8",
+        "bitfield": 8,
         "text": "VkGeometryInstanceFlagsKHR flags",
         "parts": [
           "VkGeometryInstanceFlagsKHR",
@@ -55989,7 +56050,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isBitfield": true,
-        "bitfield": "24",
+        "bitfield": 24,
         "text": "uint32_t instanceCustomIndex",
         "parts": [
           "uint32_t",
@@ -56003,7 +56064,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isBitfield": true,
-        "bitfield": "8",
+        "bitfield": 8,
         "text": "uint32_t mask",
         "parts": [
           "uint32_t",
@@ -56017,7 +56078,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isBitfield": true,
-        "bitfield": "24",
+        "bitfield": 24,
         "text": "uint32_t instanceShaderBindingTableRecordOffset",
         "parts": [
           "uint32_t",
@@ -56031,7 +56092,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isBitfield": true,
-        "bitfield": "8",
+        "bitfield": 8,
         "text": "VkGeometryInstanceFlagsKHR flags",
         "parts": [
           "VkGeometryInstanceFlagsKHR",
@@ -58620,6 +58681,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_UUID_SIZE",
         "text": "uint8_t shaderModuleIdentifierAlgorithmUUID [ VK_UUID_SIZE ]",
         "parts": [
           "uint8_t",
@@ -58737,6 +58799,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT",
         "text": "uint8_t identifier [ VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT ]",
         "parts": [
           "uint8_t",
@@ -59172,6 +59235,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DESCRIPTION_SIZE",
         "text": "char description [ VK_MAX_DESCRIPTION_SIZE ]",
         "parts": [
           "char",
@@ -60244,6 +60308,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_UUID_SIZE",
         "text": "uint8_t pipelineIdentifier [ VK_UUID_SIZE ]",
         "parts": [
           "uint8_t",
@@ -62530,6 +62595,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DESCRIPTION_SIZE",
         "text": "char description [ VK_MAX_DESCRIPTION_SIZE ]",
         "parts": [
           "char",
@@ -62668,6 +62734,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_MAX_DESCRIPTION_SIZE",
         "text": "char description [ VK_MAX_DESCRIPTION_SIZE ]",
         "parts": [
           "char",
@@ -62788,6 +62855,7 @@
         "isConst": false,
         "isPointerSet": false,
         "isFixedArray": true,
+        "length": "VK_UUID_SIZE",
         "text": "uint8_t pipelineCacheUUID [ VK_UUID_SIZE ]",
         "parts": [
           "uint8_t",

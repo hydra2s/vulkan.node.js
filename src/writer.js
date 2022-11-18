@@ -30,33 +30,59 @@ let getWriter = async()=>{
 
     //
     let IsUint64 = (T,B=0)=>{
-        return U64Types.indexOf(T) >= 0 || T.indexOf("Flags64") >= 0 || T.indexOf("Flags2") >= 0 || T.indexOf("FlagBits2") >= 0 || T.indexOf("int64") >= 0 || B == 64;
+        return U64Types.indexOf(T) >= 0 || T.indexOf("Flags64") >= 0 || T.indexOf("Flags2") >= 0 || T.indexOf("FlagBits2") >= 0 || T.indexOf("uint64") >= 0 || B == 64;
     }
 
     //
     let IsUint24 = (T,B=0)=>{
-        return U24Types.indexOf(T) >= 0 || T.indexOf("int24") >= 0 || B == 24;
+        return U24Types.indexOf(T) >= 0 || T.indexOf("uint24") >= 0 || B == 24;
     }
 
     //
     let IsUint32 = (T,B=0)=>{
-        return U32Types.indexOf(T) >= 0 || T.indexOf("Flags") >= 0 || T.indexOf("FlagBits") >= 0 || T.indexOf("int32") >= 0 || B == 32;
+        return U32Types.indexOf(T) >= 0 || T.indexOf("Flags") >= 0 || T.indexOf("FlagBits") >= 0 || T.indexOf("uint32") >= 0 || B == 32;
     }
 
     //
     let IsUint16 = (T,B=0)=>{
-        return U16Types.indexOf(T) >= 0 || T.indexOf("int16") >= 0 || B == 16;
+        return U16Types.indexOf(T) >= 0 || T.indexOf("uint16") >= 0 || B == 16;
     }
 
     //
     let IsUint8 = (T,B=0)=>{
-        return U8Types.indexOf(T) >= 0 || T.indexOf("int8") >= 0 || T.indexOf("char") >= 0|| B == 8;
+        return U8Types.indexOf(T) >= 0 || T.indexOf("uint8") >= 0 || T.indexOf("char") >= 0|| B == 8;
     }
+
+    //
+    let IsInt64 = (T,B=0)=>{
+        return T.indexOf("int64") >= 0 || B == 64;
+    }
+
+    //
+    let IsInt24 = (T,B=0)=>{
+        return T.indexOf("int24") >= 0 || B == 24;
+    }
+
+    //
+    let IsInt32 = (T,B=0)=>{
+        return T.indexOf("int32") >= 0 || B == 32;
+    }
+
+    //
+    let IsInt16 = (T,B=0)=>{
+        return T.indexOf("int16") >= 0 || B == 16;
+    }
+
+    //
+    let IsInt8 = (T,B=0)=>{
+        return T.indexOf("int8") >= 0 || B == 8;
+    }
+
 
     //
     let IsPointableValue = (param)=>{
         let P = param.isPointer, T = param.type, F = param.isFixedArray, B = param.bitfield;
-        if (P || IsUint8(T,B) || IsUint16(T,B) || IsUint32(T,B) || IsUint64(T,B) || IsFloat32(T,B) || IsFloat64(T,B)) { return false; } else
+        if (P || IsUint8(T,B) || IsUint16(T,B) || IsUint32(T,B) || IsUint64(T,B) || IsFloat32(T,B) || IsFloat64(T,B) || IsInt8(T,B) || IsInt16(T,B) || IsInt32(T,B) || IsInt64(T,B)) { return false; } else
         if (Pointables.indexOf(T) >= 0) { return true; } else
         return false;
     }
@@ -66,16 +92,16 @@ let getWriter = async()=>{
         let P = param.isPointer, T = param.type, F = param.isFixedArray, B = param.bitfield;
         if (P) { return false; } else
         if (IsPointableValue(param)) { return false; } else
-        if (IsUint8(T,B) || IsUint16(T,B) || IsUint32(T,B) || IsFloat32(T,B) || IsFloat64(T,B)) { return true; } else
+        if (IsUint8(T,B) || IsUint16(T,B) || IsUint32(T,B) || IsFloat32(T,B) || IsFloat64(T,B) || IsInt8(T,B) || IsInt16(T,B) || IsInt32(T,B)) { return true; } else
         return false;
     }
 
     //
     let IsBigIntValue = (param)=>{
-        let P = param.isPointer, T = param.type, F = param.isFixedArray;
+        let P = param.isPointer, T = param.type, F = param.isFixedArray, B = param.bitfield;
         if (F) { return true; } else 
         if (P) { return true; } else
-        if (IsUint64(T)) { return true; } else
+        if (IsUint64(T,B) || IsInt64(T,B)) { return true; } else
         return false;
     }
 
@@ -289,6 +315,10 @@ if (IsUint24(param.type, param.bitfield)) { return `    ${param.name}: uint24_t,
 if (IsUint8 (param.type, param.bitfield)) { return `    ${param.name}: C.uint8_t,` } else 
 if (IsUint16(param.type, param.bitfield)) { return `    ${param.name}: C.uint16_t,` } else 
 if (IsUint32(param.type, param.bitfield)) { return `    ${param.name}: C.uint32_t,` } else 
+if (IsInt24 (param.type, param.bitfield)) { return `    ${param.name}: int24_t,` } else 
+if (IsInt8  (param.type, param.bitfield)) { return `    ${param.name}: C.int8_t,` } else 
+if (IsInt16 (param.type, param.bitfield)) { return `    ${param.name}: C.int16_t,` } else 
+if (IsInt32 (param.type, param.bitfield)) { return `    ${param.name}: C.int32_t,` } else 
 if ( IsFloat(param.type, param.bitfield)) { return `    ${param.name}: C.float,` } else 
 if (IsDouble(param.type, param.bitfield)) { return `    ${param.name}: C.double,` } else 
 return `    ${param.name}: C.uint32_t,`
@@ -304,18 +334,48 @@ ${structure.params.map(writeParam, map).join(`
     };
 
 
-    
+    let cvtEnum = (e)=>{
+        if (e.name.indexOf(`EXTENSION_NAME`) >= 0) {return `const ${e.name} = "${eval(e.value)}";`};
+        if ('value' in e) {return `const ${e.name} = ${eval(e.value)};`};
+        if ('bitpos' in e) {
+            let value = 1 << e.bitpos;
+            return `const ${e.name} = ${value};`
+        }
+        if ('offset' in e && 'extnumber' in e) {
+            const extBase = 1000000000;
+            const extBlockSize = 1000;
+
+            let offset = e.offset;
+            let extnumber = e.extnumber;
+            let extends_ = e.extends;
+            let value = extBase + (extnumber - 1) * extBlockSize + offset;
+            if (e.dir) value *= -1;
+            return `const ${e.name} = ${value};`
+        }
+
+        return ``;
+    }
+
+    let mapEnums = (e)=>{
+        return e.map(cvtEnum).filter((e)=>(!!e)).join(`
+`);
+    }
 
     // 
     let writeCodes = async (map)=>{
 
+        
+
         await fs.promises.writeFile("./vulkan-structs.js", `
 import * as T from "struct-buffer";
 const C = T.default;
-const uint24_t = null;//C.registerType("uint24_t", 3, false);
+const uint24_t = C.registerType("uint24_t", 3, false);
+const  int24_t = C.registerType(" int24_t", 3, false);
 
-//console.log(C);
+${map.parsedEnums.map((e)=>cvtEnum(e)).filter((e)=>(!!e)).join(`
+`)}
 
+//
 ${map.parsedStructs.map((s)=>writeStructure(s,map)).join(`
 `)}
 
