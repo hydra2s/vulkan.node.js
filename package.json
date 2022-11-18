@@ -31,6 +31,7 @@
     "bindings": "^1.5.0",
     "c-struct": "^0.0.5",
     "fast-xml-parser": "^4.0.11",
+    "gl-matrix": "^3.4.3",
     "glfw-raub": "^4.6.2",
     "json-6": "^1.1.4",
     "json5": "^2.2.1",
