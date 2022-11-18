@@ -259,56 +259,36 @@ return number && !pointable || B ?
     };*/
 
 
-    /*
     //
-    let writeStructureSettersAndGetters = (struct, map)=>{
+    let writeStructureOffsets = (struct, map)=>{
         let by = map.usedBy[struct.name];
         let structed = {name: struct.name, params: []};
         struct.params.forEach((param)=>{
+            if (!param.isBitfield) {
             structed.params.push(`
-${by ? `#ifdef ${byy.name}` : ``}
-static Napi::Value ${struct.name}_get${capitalizeFirstLetter(param.name)}(const Napi::CallbackInfo& info_) {
+${by ? `#ifdef ${by.name}` : ``}
+static Napi::Value ${struct.name}_${param.name}_offsetof(const Napi::CallbackInfo& info_) {
     Napi::Env env = info_.Env();
-    bool lossless = true;
+    return Napi::Number::New(env, offsetof(${struct.name}, ${param.name}));
+}` + (by ? `
+#endif` : ``) );
+}});
+return structed.params.join(`
+`);};
 
-    ${struct.name}* ptr = nullptr;
-    if (info_[0].IsBigInt()) {
-        ptr = (${struct.name}*)${Uint64Getter(0)};
-        ${ReturnOf(param.type, param.isPointer, param.isBitfield, `ptr->${param.name}`)}
-    }
 
-    ${ReturnOf(param.type, true, false, 0)};
-}
-static Napi::Value ${struct.name}_set${capitalizeFirstLetter(param.name)}(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
-    bool lossless = true;
+    //
+    let writeStructureOffsetsGot = (struct, map)=>{
+        let by = map.usedBy[struct.name];
+        let structed = {name: struct.name, params: []};
+        return struct.params.map((param)=>{
+            if (!param.isBitfield) {
+            return ((by ? `#ifdef ${by.name}
+` : ``) + `    exports["${struct.name}_${param.name}_offsetof"] = Napi::Function::New(env, ${struct.name}_${param.name}_offsetof);` + (by ? `
+#endif` : ``)) }
+}).join(`
+`)};
 
-    //using type = ${param.type} ${param.isPointerSet?`*`:``}${param.isConst?`const`:``}${param.isPointer?`*`:``};
-    ${struct.name}* ptr = nullptr;
-    ${param.text} = {};
-    using type_ = decltype(${param.name});
-    
-    if (info_[0].IsBigInt()) {
-        ptr = (${struct.name}*)${Uint64Getter(0)};
-    }
-    ${IsNumberValue(param.type,param.isPointer)?
-    `if (info_[1].IsNumber()) {
-        ${param.name} = (type_)(${TypeOfGet(param)});
-    }`:``}
-    if (info_[1].IsBigInt()) {
-        ${(IsBigIntValue(param.type,param.isPointer,param.isFixedArray)||param.isPointer)?
-        `${param.name} = (type_)(${`info_[1].As<Napi::BigInt>().Uint64Value(&lossless)`});`:
-        `memcpy(&${param.name}, (type_*)(${`info_[1].As<Napi::BigInt>().Uint64Value(&lossless)`}), sizeof(type_));`}
-    }
-    ${param.isBitfield ? `ptr->${param.name} = ${param.name};` : `memcpy(&ptr->${param.name}, &${param.name}, sizeof(type_));`}
-    return env.Null();
-}
-${by ? `#endif ${by}` : ``}
-`);
-        });
-        return structed.params.join(`
-`);
-    };*/
 
     let AsFixedArray = (param) => {
         if (param.isFixedArray) {
@@ -413,6 +393,7 @@ export default {
 };
 `);
 
+/*  // TODO: use C++ offsets and own classes
         await fs.promises.writeFile("./vulkan-structs.js", `
 import {default as enums} from "./vulkan-enums.js";
 import * as T from "struct-buffer";
@@ -433,7 +414,7 @@ export default {
     `)}, 
     VK_MAKE_API_VERSION
 };
-`);
+`);*/
 
         await fs.promises.writeFile("./vulkan-API.cpp", `#pragma once 
 
@@ -461,7 +442,8 @@ export default {
 #pragma pack(pop)
 
 //
-#pragma pack(push,1)
+//#pragma pack(push,1)
+#pragma pack(push,16)
 #include <volk/volk.h>
 #pragma pack(pop)
 
@@ -505,6 +487,10 @@ static Napi::Value GetAddress(const Napi::CallbackInfo& info_) {
         decltype(auto) AB = info_[0].As<Napi::ArrayBuffer>();
         address = uint64_t(AB.Data());
     }
+    if (info_[0].IsBuffer()) {
+        decltype(auto) AB = info_[0].As<Napi::Buffer<uint8_t>>();
+        address = uint64_t(AB.Data());
+    }
     if (info_[0].IsExternal()) {
         decltype(auto) AB = info_[0].As<Napi::External<void>>();
         address = uint64_t(AB.Data());
@@ -521,9 +507,60 @@ static Napi::ArrayBuffer WrapArrayBuffer(const Napi::CallbackInfo& info_) {
         address = ${Uint64Getter(0)};
     }
     size_t byteLength = 0ull;
-    if (info_[1].IsBigInt()) { byteLength = info_[1].As<Napi::Number>().Int64Value(); }
+    if (info_[0].IsBigInt()) { byteLength = info_[0].As<Napi::BigInt>().Uint64Value(&lossless); }
     if (info_[1].IsNumber()) { byteLength = info_[1].As<Napi::Number>().Uint32Value(); }
     return Napi::ArrayBuffer::New(env, (void*)address, byteLength);
+}
+
+static Napi::Buffer<uint8_t> WrapBuffer(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    uint64_t address = 0ull;
+    bool lossless = true;
+    if (info_[0].IsBigInt()) {
+        address = ${Uint64Getter(0)};
+    }
+    size_t byteLength = 0ull;
+    if (info_[0].IsBigInt()) { byteLength = info_[0].As<Napi::BigInt>().Uint64Value(&lossless); }
+    if (info_[1].IsNumber()) { byteLength = info_[1].As<Napi::Number>().Uint32Value(); }
+    return Napi::Buffer<uint8_t>::New(env, (uint8_t*)address, byteLength);
+}
+
+static Napi::String WrapString(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    uint64_t address = 0ull;
+    bool lossless = true;
+    if (info_[0].IsBigInt()) {
+        address = ${Uint64Getter(0)};
+    }
+    size_t length = 0ull;
+    if (info_[0].IsBigInt()) { length = info_[0].As<Napi::BigInt>().Uint64Value(&lossless); }
+    if (info_[1].IsNumber()) { length = info_[1].As<Napi::Number>().Uint32Value(); }
+
+    //
+    if (length) {
+        return Napi::String::New(env, (char*)address, length);
+    } else {
+        return Napi::String::New(env, (char*)address);
+    }
+}
+
+static Napi::String WrapStringUTF16(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    uint64_t address = 0ull;
+    bool lossless = true;
+    if (info_[0].IsBigInt()) {
+        address = ${Uint64Getter(0)};
+    }
+    size_t length = 0ull;
+    if (info_[0].IsBigInt()) { length = info_[0].As<Napi::BigInt>().Uint64Value(&lossless); }
+    if (info_[1].IsNumber()) { length = info_[1].As<Napi::Number>().Uint32Value(); }
+
+    //
+    if (length) {
+        return Napi::String::New(env, (char16_t*)address, length);
+    } else {
+        return Napi::String::New(env, (char16_t*)address);
+    }
 }
 
 static Napi::Number DebugUint8(const Napi::CallbackInfo& info_) {
@@ -595,11 +632,16 @@ static Napi::Value rawGetStructureSizeBySType(const Napi::CallbackInfo& info_) {
     return Napi::Number::New(env, 0);
 }
     
+${map.parsedStructs.map((cmd,i)=>writeStructureOffsets(cmd,map)).join(`
+`)}
 ${map.parsed.map((cmd,i)=>makeCommand(cmd,i,map)).join(`
 `)}
 
 static Napi::Object Init(Napi::Env env, Napi::Object exports) {
     volkInitialize();
+
+${map.parsedStructs.map((cmd,i)=>writeStructureOffsetsGot(cmd,map)).join(`
+`)}
 
 ${map.parsed.map((cmd,i)=>{
     let by = map.usedBy[cmd.proto.name];
@@ -618,6 +660,9 @@ ${map.parsed.map((cmd,i)=>{
     exports["float64"] = Napi::Function::New(env, DebugFloat64);
     exports["nativeAddress"] = Napi::Function::New(env, GetAddress);
     exports["arrayBuffer"] = Napi::Function::New(env, WrapArrayBuffer);
+    exports["buffer"] = Napi::Function::New(env, WrapBuffer);
+    exports["string"] = Napi::Function::New(env, WrapString);
+    exports["stringUtf16"] = Napi::Function::New(env, WrapStringUTF16);
     return exports;
 }
 
@@ -632,31 +677,40 @@ const sharedStructs = require('shared-structs');
 const fs = require('fs');
 const path = require('path');
 
-
-
 // get native address for Vulkan API 'const char*'
 String.prototype.charAddress = function (isUtf16 = false) {
     return native.nativeAddress(this.toString(), isUtf16);
 };
 
-// 
-DataView.prototype.address = 
-Uint8Array.prototype.address = 
-Uint16Array.prototype.address = 
-Uint32Array.prototype.address = 
-BigInt64Array.prototype.address = 
-Int8Array.prototype.address = 
-Int16Array.prototype.address = 
-Int32Array.prototype.address = 
-BigUint64Array.prototype.address = 
-Float32Array.prototype.address = 
-Float64Array.prototype.address = 
-ArrayBuffer.prototype.address = 
-SharedArrayBuffer.prototype.address = 
-function () { return native.nativeAddress(this); }
+//
+String.fromAddress = native.string;
+String.fromAddressUtf16 = native.stringUtf16;
 
+// 
+Buffer.prototype.address = function () { return native.nativeAddress(this); }
+Uint8Array.prototype.address = function () { return native.nativeAddress(this); }
+Uint16Array.prototype.address = function () { return native.nativeAddress(this); }
+Uint32Array.prototype.address = function () { return native.nativeAddress(this); }
+BigInt64Array.prototype.address = function () { return native.nativeAddress(this); }
+Int8Array.prototype.address = function () { return native.nativeAddress(this); }
+Int16Array.prototype.address = function () { return native.nativeAddress(this); }
+Int32Array.prototype.address = function () { return native.nativeAddress(this); }
+BigUint64Array.prototype.address = function () { return native.nativeAddress(this); }
+Float32Array.prototype.address = function () { return native.nativeAddress(this); }
+Float64Array.prototype.address = function () { return native.nativeAddress(this); }
+ArrayBuffer.prototype.address = function () { return native.nativeAddress(this); }
+SharedArrayBuffer.prototype.address = function () { return native.nativeAddress(this); }
+DataView.prototype.address = function () { return (native.nativeAddress(this.buffer) + BigInt(this.byteOffset)); }
+
+// 
+Buffer.fromAddress = native.buffer;
+ArrayBuffer.fromAddress = native.arrayBuffer;
+SharedArrayBuffer.fromAddress = native.arrayBuffer;
+
+//
 if (typeof exports != "undefined") { exports.nativeAddress = native.nativeAddress; }
 
+//
 export default native;
 `);
     await fs.promises.writeFile("./sizes.h", `#ifdef __cplusplus
