@@ -346,10 +346,14 @@ const ${structure.name} = new T.StructBuffer("${structure.name}", {
 return `
 const ${structure.name} = new T.StructBuffer("${structure.name}", {
     transform: VkTransformMatrixKHR,
-    instanceCustomIndex: uint24_t,
-    mask: C.uint8_t,
-    instanceShaderBindingTableRecordOffset: uint24_t,
-    flags: C.uint8_t,
+    _0: C.bitFields(C.uint32_t, {
+        instanceCustomIndex: 24,
+        mask: 8
+    }),
+    _1: C.bitFields(C.uint32_t, {
+        instanceShaderBindingTableRecordOffset: 24,
+        flags: 8
+    }),
     accelerationStructureReference: C.uint64_t,
 });
 `
