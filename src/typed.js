@@ -1,18 +1,18 @@
 //
 let types = {
-    u8: { byteLength: 1, length: 1, bigEndian: false, type: "u8", getter: (dv, offset)=>{ return dv.getUint8(offset, true); }, setter: (dv, offset, value)=>{ dv.setUint8(offset, value, true); }, construct:(...ags) => new DataView(...ags) },
-    i8: { byteLength: 1, length: 1, bbigEndian: false, type: "i8", getter: (dv, offset)=>{ return dv.getInt8 (offset, true); }, setter: (dv, offset, value)=>{ dv.setInt8 (offset, value, true); }, construct:(...ags) => new DataView(...ags) },
+    u8: { byteLength: 1, length: 1, bigEndian: false, type: "u8", getter: (dv, offset)=>{ return dv.getUint8(offset, true); }, setter: (dv, offset, value)=>{ dv.setUint8(offset, parseInt(value), true); }, construct:(...ags) => new DataView(...ags) },
+    i8: { byteLength: 1, length: 1, bbigEndian: false, type: "i8", getter: (dv, offset)=>{ return dv.getInt8 (offset, true); }, setter: (dv, offset, value)=>{ dv.setInt8 (offset, parseInt(value), true); }, construct:(...ags) => new DataView(...ags) },
 
-    u16: { byteLength: 2, length: 1, bbigEndian: false, type: "u16", getter: (dv, offset)=>{ return dv.getUint16(offset, true); }, setter: (dv, offset, value)=>{ dv.setUint16(offset, value, true); }, construct: (...ags) => new DataView(...ags) },
-    i16: { byteLength: 2, length: 1, bbigEndian: false, type: "i16", getter: (dv, offset)=>{ return dv.getInt16 (offset, true); }, setter: (dv, offset, value)=>{ dv.setInt16 (offset, value, true); }, construct:(...ags) => new DataView(...ags) },
+    u16: { byteLength: 2, length: 1, bbigEndian: false, type: "u16", getter: (dv, offset)=>{ return dv.getUint16(offset, true); }, setter: (dv, offset, value)=>{ dv.setUint16(offset, parseInt(value), true); }, construct: (...ags) => new DataView(...ags) },
+    i16: { byteLength: 2, length: 1, bbigEndian: false, type: "i16", getter: (dv, offset)=>{ return dv.getInt16 (offset, true); }, setter: (dv, offset, value)=>{ dv.setInt16 (offset, parseInt(value), true); }, construct:(...ags) => new DataView(...ags) },
 
-    u32: { byteLength: 4, length: 1, bbigEndian: false, type: "u32", getter: (dv, offset)=>{ return dv.getUint32 (offset, true); }, setter: (dv, offset, value)=>{ dv.setUint32 (offset, value, true); }, construct:(...ags) => new DataView(...ags) },
-    i32: { byteLength: 4, length: 1, bbigEndian: false, type: "i32", getter: (dv, offset)=>{ return dv.getInt32  (offset, true); }, setter: (dv, offset, value)=>{ dv.setInt32  (offset, value, true); }, construct:(...ags) => new DataView(...ags) },
-    f32: { byteLength: 4, length: 1, bbigEndian: false, type: "f32", getter: (dv, offset)=>{ return dv.getFloat32(offset, true); }, setter: (dv, offset, value)=>{ dv.setFloat32(offset, value, true); }, construct:(...ags) => new DataView(...ags) },
+    u32: { byteLength: 4, length: 1, bbigEndian: false, type: "u32", getter: (dv, offset)=>{ return dv.getUint32 (offset, true); }, setter: (dv, offset, value)=>{ dv.setUint32 (offset, parseInt(value), true); }, construct:(...ags) => new DataView(...ags) },
+    i32: { byteLength: 4, length: 1, bbigEndian: false, type: "i32", getter: (dv, offset)=>{ return dv.getInt32  (offset, true); }, setter: (dv, offset, value)=>{ dv.setInt32  (offset, parseInt(value), true); }, construct:(...ags) => new DataView(...ags) },
+    f32: { byteLength: 4, length: 1, bbigEndian: false, type: "f32", getter: (dv, offset)=>{ return dv.getFloat32(offset, true); }, setter: (dv, offset, value)=>{ dv.setFloat32(offset, parseFloat(value), true); }, construct:(...ags) => new DataView(...ags) },
 
     u64: { byteLength: 8, length: 1, bbigEndian: false, type: "u64", getter: (dv, offset)=>{ return dv.getBigUint64 (offset, true); }, setter: (dv, offset, value)=>{ dv.setBigUint64 (offset, BigInt(value), true); }, construct:(...ags) => new DataView(...ags) },
     i64: { byteLength: 8, length: 1, bbigEndian: false, type: "i64", getter: (dv, offset)=>{ return dv.getBigInt64  (offset, true); }, setter: (dv, offset, value)=>{ dv.setBigInt64  (offset, BigInt(value), true); }, construct:(...ags) => new DataView(...ags) },
-    f64: { byteLength: 8, length: 1, bbigEndian: false, type: "f64", getter: (dv, offset)=>{ return dv.getFloat64(offset, true); }, setter: (dv, offset, value)=>{ dv.setFloat64(offset, value, true); }, construct:(...ags) => new DataView(...ags) },
+    f64: { byteLength: 8, length: 1, bbigEndian: false, type: "f64", getter: (dv, offset)=>{ return dv.getFloat64(offset, true); }, setter: (dv, offset, value)=>{ dv.setFloat64(offset, parseFloat(value), true); }, construct:(...ags) => new DataView(...ags) },
 
     u8arr: { byteLength: 1, length: 1, bigEndian: false, type: "u8arr", getter: (dv, offset)=>{ return dv; }, construct: (...ags)=> new Uint8Array(...ags) },
     i8arr: { byteLength: 1, length: 1, bbigEndian: false, type: "i8arr", getter: (dv, offset)=>{ return dv; }, construct: (...ags)=> new  Int8Array(...ags) }, 
