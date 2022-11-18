@@ -7,7 +7,7 @@ let getWriter = async()=>{
     let F32Types = ["float", "float32_t"];
     let U8Types = ["uint8_t", "char8_t", "char"];
     let U16Types = ["uint16_t"];
-    let U64Types = ["uint64_t", "uintptr_t", "size_t", "VkDeviceSize", "VkDeviceAddress", "VkDeviceOffset", "VkDeviceOrHostAddressKHR", "VkFlags64", "VkImage", "VkBuffer", "VkAccelerationStructureKHR", "VkQueue", "VkDeviceMemory"];
+    let U64Types = ["uint64_t", "uintptr_t", "size_t", "VkDeviceSize", "VkDeviceAddress", "VkDeviceOffset", "VkDeviceOrHostAddressKHR", "VkFlags64", "VkImage", "VkBuffer", "VkAccelerationStructureKHR", "VkQueue", "VkDeviceMemory", "HANDLE"];
     let U32Types = ["uint32_t", "VkFlags", "VkResult", "VkBool32", "VkStructureType"];
     let Pointables = ["VkOffset2D","VkExtent2D","VkRect2D","VkTransformMatrixKHR","VkTransformMatrixNV"];
     let U24Types = ["uint24_t"];
@@ -106,7 +106,7 @@ let getWriter = async()=>{
     }
 
     let IsHandle = (param)=>{
-        if (["VkImage", "VkBuffer", "VkAccelerationStructureKHR", "VkQueue", "VkDeviceMemory"].indexOf(param.type) >= 0) return true; 
+        if (["VkImage", "VkBuffer", "VkAccelerationStructureKHR", "VkQueue", "VkDeviceMemory", "HANDLE"].indexOf(param.type) >= 0) return true; 
     }
 
     //

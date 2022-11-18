@@ -1554,7 +1554,7 @@ const VkImportMemoryWin32HandleInfoNV = new T.StructBuffer("VkImportMemoryWin32H
     sType: C.uint32_t,
     pNext: C.uint64_t,
     handleType: C.uint32_t,
-    handle: C.uint32_t,
+    handle: C.uint64_t,
 });
 
 
@@ -2067,7 +2067,7 @@ const VkImportMemoryWin32HandleInfoKHR = new T.StructBuffer("VkImportMemoryWin32
     sType: C.uint32_t,
     pNext: C.uint64_t,
     handleType: C.uint32_t,
-    handle: C.uint32_t,
+    handle: C.uint64_t,
     name: C.uint32_t,
 });
 
@@ -2199,7 +2199,7 @@ const VkImportSemaphoreWin32HandleInfoKHR = new T.StructBuffer("VkImportSemaphor
     semaphore: C.uint32_t,
     flags: C.uint32_t,
     handleType: C.uint32_t,
-    handle: C.uint32_t,
+    handle: C.uint64_t,
     name: C.uint32_t,
 });
 
@@ -2311,7 +2311,7 @@ const VkImportFenceWin32HandleInfoKHR = new T.StructBuffer("VkImportFenceWin32Ha
     fence: C.uint32_t,
     flags: C.uint32_t,
     handleType: C.uint32_t,
-    handle: C.uint32_t,
+    handle: C.uint64_t,
     name: C.uint32_t,
 });
 
