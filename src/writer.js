@@ -419,7 +419,7 @@ export default {
 };
 `);
 
-
+/*  // no needs for modifications
         await fs.promises.writeFile("./native.hpp", `#pragma once
 //
 #include <napi.h>
@@ -610,7 +610,7 @@ static Napi::Number DebugFloat64(const Napi::CallbackInfo& info_) {
     return Napi::Number::New(env, *((double*)address));
 }
 
-`);
+`);*/
 
         await fs.promises.writeFile("./vulkan-API.cpp", `#pragma once 
 //
@@ -689,6 +689,7 @@ ${map.parsed.map((cmd,i)=>{
 NODE_API_MODULE(native, Init)
     `);
 
+    /*  // no needs for modifications
     await fs.promises.writeFile("./vulkan-API.js", `
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
@@ -732,7 +733,8 @@ if (typeof exports != "undefined") { exports.nativeAddress = native.nativeAddres
 
 //
 export default native;
-`);
+`);*/
+
     await fs.promises.writeFile("./sizes.h", `#ifdef __cplusplus
 #pragma once 
 #endif
