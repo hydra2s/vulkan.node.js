@@ -307,7 +307,7 @@ return params.join(`
     }
 
     let writeParam = (name, param, map)=>{
-        let paramStr = `    ${param.name}: "u32",`
+        let paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u32")},`
 if (IsPointableValue(param))              { paramStr = `    ${param.name}: ${AsFixedArray(name, param, param.type)},` } else 
 if (IsHandle(param))                      { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u64")},` } else 
 if (IsBigIntValue(param))                 { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u64")},` } else 
