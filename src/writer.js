@@ -143,35 +143,59 @@ let getWriter = async()=>{
     decltype(auto) ${param.name} = (${param.type}*)${Uint64Getter(I)};`
         } else
 
-        if (param.type == "float") {
+        if (IsFloat32(param.type)) {
             return `
     if (!info_[${I}].IsNumber()) { Napi::TypeError::New(env, "Wrong type, needs Number at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) ${param.name} = (${param.type})info_[${I}].As<Napi::Number>().FloatValue();`;
         } else
 
-        if (param.type == "double") {
+        if (IsFloat64(param.type)) {
             return `
     if (!info_[${I}].IsNumber()) { Napi::TypeError::New(env, "Wrong type, needs Number at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) ${param.name} = (${param.type})info_[${I}].As<Napi::Number>().DoubleValue();`;
         } else
 
-        if (U32Types.indexOf(param.type) >= 0) {
+        if (IsUint32(param.type)) {
             return `
-    if (!info_[${I}].IsNumber()) { Napi::TypeError::New(env, "Wrong type, needs Number at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) ${param.name} = (${param.type})info_[${I}].As<Napi::Number>().Uint32Value();`;
+    if (!info_[${I}].IsNumber() && !info_[${I}].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) ${param.name} = (${param.type})(info_[${I}].IsBigInt() ? info_[${I}].As<Napi::BigInt>().Uint64Value(&lossless) : info_[${I}].As<Napi::Number>().Uint32Value());`;
         } else
 
-        if (param.type == "int32_t") {
+        if (IsInt32(param.type)) {
             return `
-    if (!info_[${I}].IsNumber()) { Napi::TypeError::New(env, "Wrong type, needs Number at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) ${param.name} = (${param.type})info_[${I}].As<Napi::Number>().Int32Value();`;
+    if (!info_[${I}].IsNumber() && !info_[${I}].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) ${param.name} = (${param.type})(info_[${I}].IsBigInt() ? info_[${I}].As<Napi::BigInt>().Int64Value(&lossless) : info_[${I}].As<Napi::Number>().Int32Value());`;
+        } else 
+
+        if (IsUint16(param.type)) {
+            return `
+    if (!info_[${I}].IsNumber() && !info_[${I}].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) ${param.name} = (${param.type})(info_[${I}].IsBigInt() ? info_[${I}].As<Napi::BigInt>().Uint64Value(&lossless) : info_[${I}].As<Napi::Number>().Uint32Value());`;
+        } else
+
+        if (IsInt16(param.type)) {
+            return `
+    if (!info_[${I}].IsNumber() && !info_[${I}].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) ${param.name} = (${param.type})(info_[${I}].IsBigInt() ? info_[${I}].As<Napi::BigInt>().Int64Value(&lossless) : info_[${I}].As<Napi::Number>().Int32Value());`;
+        } else 
+
+        if (IsUint8(param.type)) {
+            return `
+    if (!info_[${I}].IsNumber() && !info_[${I}].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) ${param.name} = (${param.type})(info_[${I}].IsBigInt() ? info_[${I}].As<Napi::BigInt>().Uint64Value(&lossless) : info_[${I}].As<Napi::Number>().Uint32Value());`;
+        } else
+
+        if (IsInt8(param.type)) {
+            return `
+    if (!info_[${I}].IsNumber() && !info_[${I}].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) ${param.name} = (${param.type})(info_[${I}].IsBigInt() ? info_[${I}].As<Napi::BigInt>().Int64Value(&lossless) : info_[${I}].As<Napi::Number>().Int32Value());`;
         } else 
 
         //if (U64Types.indexOf(param.type) >= 0) 
         {   // any other is 64-bit number handlers
             return `
-    if (!info_[${I}].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (handle) at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) ${param.name} = (${param.type})${Uint64Getter(I)};`;
+    if (!info_[${I}].IsBigInt() && !info_[${I}].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) ${param.name} = (${param.type})(info_[${I}].IsBigInt() ? info_[${I}].As<Napi::BigInt>().Uint64Value(&lossless) : info_[${I}].As<Napi::Number>().Int64Value());`;
         }
     };
 
