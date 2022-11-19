@@ -419,40 +419,10 @@ export default {
 };
 `);
 
-        await fs.promises.writeFile("./vulkan-API.cpp", `#pragma once 
 
-#ifndef NAPI_VERSION
-#define NAPI_VERSION 8
-#endif
-
-#ifndef NAPI_EXPERIMENTAL
-#define NAPI_EXPERIMENTAL
-#endif
-
-//
-#ifndef VK_NO_PROTOTYPES
-#define VK_NO_PROTOTYPES
-#endif
-
-//
-#define WINDOWS_IGNORE_PACKING_MISMATCH
-
-//
-#pragma pack(push,16)
-#ifdef WIN32_
-#include <windows.h>
-#endif
-#pragma pack(pop)
-
-//
-//#pragma pack(push,1)
-#pragma pack(push,16)
-#include <volk/volk.h>
-#pragma pack(pop)
-
+        await fs.promises.writeFile("./native.hpp", `#pragma once
 //
 #include <napi.h>
-#include "./sizes.h"
 
 //
 static Napi::Value Dealloc(const Napi::CallbackInfo& info_) {
@@ -640,6 +610,39 @@ static Napi::Number DebugFloat64(const Napi::CallbackInfo& info_) {
     return Napi::Number::New(env, *((double*)address));
 }
 
+`);
+
+        await fs.promises.writeFile("./vulkan-API.cpp", `#pragma once 
+//
+#ifndef NAPI_VERSION
+#define NAPI_VERSION 8
+#endif
+
+//
+#ifndef NAPI_EXPERIMENTAL
+#define NAPI_EXPERIMENTAL
+#endif
+
+//
+#ifndef VK_NO_PROTOTYPES
+#define VK_NO_PROTOTYPES
+#endif
+
+//
+#define WINDOWS_IGNORE_PACKING_MISMATCH
+
+//
+//#pragma pack(push,1)
+#pragma pack(push,16)
+#include <volk/volk.h>
+#pragma pack(pop)
+
+//
+#include <napi.h>
+#include "./sizes.h"
+#include "./native.hpp"
+
+//
 static Napi::Value rawGetStructureSizeBySType(const Napi::CallbackInfo& info_) {
     Napi::Env env = info_.Env();
     uint64_t address = 0ull;
