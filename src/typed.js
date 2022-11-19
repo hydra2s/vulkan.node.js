@@ -69,6 +69,8 @@ class CStructView {
         });
     }
 
+    offsetof(name) { return (this.struct.offsetof(name) + this.byteOffset); };
+
     construct(buffer, byteOffset = 0, byteLength = 0) {
         if (isAbv(buffer ? (buffer.buffer || buffer) : null)) {
             return new CStructView(buffer.buffer || buffer, this.byteOffset + (buffer.byteOffset||0) + byteOffset, byteLength || this.byteLength, this.struct);
@@ -148,6 +150,10 @@ class CStruct {
         //
         this.getter = (dv, offset)=>{ return new CStructView(dv.buffer, dv.byteOffset + offset, dv.byteLength, this); };
         this.setter = (dv, offset, value)=>{ this.types.forEach((p)=>p.type.setter(dv,dv.byteOffset+offset+p.byteOffset,value)); };
+    }
+
+    offsetof(name) {
+        return this.types.find((e)=>(e.name==name))?.byteOffset || 0;
     }
 
     u8(name, byteOffset = 0, length = 1) { this.types.push({type: types["u8"+(length>1?"arr":"")], name, byteOffset, length}); }
