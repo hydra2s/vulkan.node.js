@@ -201,13 +201,13 @@ let getWriter = async()=>{
 
     //
     let passDispatch = (proto, params)=>{
-        if (U64Types.indexOf(proto.type) >= 0 || proto.isPointer) {
+        if (IsUint64(proto.type) || IsInt64(proto.type) || proto.isPointer) {
             return `
     decltype(auto) result = ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
     return ${Uint64Return(`result`)}
 `;
         } else 
-        if (U32Types.indexOf(proto.type) >= 0) {
+        if (IsUint32(proto.type) || IsUint16(proto.type) || IsUint8(proto.type) || IsInt32(proto.type) || IsInt16(proto.type) || IsInt8(proto.type) || IsFloat32(proto.type) || IsFloat64(proto.type)) {
             return `
     decltype(auto) result = ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
     return Napi::Number::New(env, result);
