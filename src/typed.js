@@ -161,7 +161,7 @@ class CStruct {
 
         // offset isn't supported
         this.setter = (dv, offset, value)=>{
-            if (typeof value == "object") { for (let t of this.types) { let k = t.name; if (k in buffer) { dv[k] = buffer[k]; }; }; }
+            if (typeof value == "object") { for (let t of this.types) { let k = t.name; if (k in value) { dv[k] = value[k]; }; }; }
         };
     }
 
