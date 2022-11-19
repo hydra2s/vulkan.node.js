@@ -19,19 +19,19 @@ let types = {
     i64: { byteLength: 8, length: 1, bbigEndian: false, type: "i64", getter: (dv, offset)=>{ return dv.getBigInt64  (offset, true); }, setter: (dv, offset, value)=>{ dv.setBigInt64  (offset, BigInt(value), true); }, construct:(...ags) => new DataView(...ags) },
     f64: { byteLength: 8, length: 1, bbigEndian: false, type: "f64", getter: (dv, offset)=>{ return dv.getFloat64(offset, true); }, setter: (dv, offset, value)=>{ dv.setFloat64(offset, parseFloat(value), true); }, construct:(...ags) => new DataView(...ags) },
 
-    u8arr: { byteLength: 1, length: 1, bigEndian: false, type: "u8arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Uint8Array(...ags) },
-    i8arr: { byteLength: 1, length: 1, bbigEndian: false, type: "i8arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new  Int8Array(...ags) }, 
+    "u8[arr]": { byteLength: 1, length: 1, bigEndian: false, type: "u8[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Uint8Array(...ags) },
+    "i8[arr]": { byteLength: 1, length: 1, bbigEndian: false, type: "i8[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new  Int8Array(...ags) }, 
 
-    u16arr: { byteLength: 2, length: 1, bbigEndian: false, type: "u16arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Uint16Array(...ags) },
-    i16arr: { byteLength: 2, length: 1, bbigEndian: false, type: "i16arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Int16Array(...ags) },
+    "u16[arr]": { byteLength: 2, length: 1, bbigEndian: false, type: "u16[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Uint16Array(...ags) },
+    "i16[arr]": { byteLength: 2, length: 1, bbigEndian: false, type: "i16[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Int16Array(...ags) },
 
-    u32arr: { byteLength: 4, length: 1, bbigEndian: false, type: "u32arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Uint32Array(...ags) },
-    i32arr: { byteLength: 4, length: 1, bbigEndian: false, type: "i32arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Int32Array(...ags) },
-    f32arr: { byteLength: 4, length: 1, bbigEndian: false, type: "f32arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Float32Array(...ags) },
+    "u32[arr]": { byteLength: 4, length: 1, bbigEndian: false, type: "u32[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Uint32Array(...ags) },
+    "i32[arr]": { byteLength: 4, length: 1, bbigEndian: false, type: "i32[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Int32Array(...ags) },
+    "f32[arr]": { byteLength: 4, length: 1, bbigEndian: false, type: "f32[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Float32Array(...ags) },
 
-    u64arr: { byteLength: 8, length: 1, bbigEndian: false, type: "u64arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new BigUint64Array(...ags)  },
-    i64arr: { byteLength: 8, length: 1, bbigEndian: false, type: "i64arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new BigInt64Array(...ags) },
-    f64arr: { byteLength: 8, length: 1, bbigEndian: false, type: "f64arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Float64Array(...ags) }
+    "u64[arr]": { byteLength: 8, length: 1, bbigEndian: false, type: "u64[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new BigUint64Array(...ags)  },
+    "i64[arr]": { byteLength: 8, length: 1, bbigEndian: false, type: "i64[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new BigInt64Array(...ags) },
+    "f64[arr]": { byteLength: 8, length: 1, bbigEndian: false, type: "f64[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Float64Array(...ags) }
 }
 
 //
@@ -88,7 +88,7 @@ class CStructView {
             tname = tname[0];
         }
 
-        return types[tname+(length>1?"arr":"")]?.construct(this.buffer, this.byteOffset + offset + this.offsetof(mname));
+        return types[tname+(length>1?"[arr]":"")]?.construct(this.buffer, this.byteOffset + offset + this.offsetof(mname));
     }
 
     // member utils
@@ -157,7 +157,7 @@ class CStruct {
 
             // correctify offset, if not defined
             if (!offset && prev != undefined) { offset = this.types[prev].offset + this.types[prev].byteLength; }; 
-            let type = types[tname+(length>1?"arr":"")];
+            let type = types[tname+(length>1?"[arr]":"")];
             prev = this.types.length; this.types.push({type, name, length, byteOffset: offset, byteLength: type?.byteLength || 1 });
         }
 
@@ -179,19 +179,19 @@ class CStruct {
         return this.types.find((e)=>(e.name==name))?.byteOffset || 0;
     }
 
-    u8(name, byteOffset = 0, length = 1) { this.types.push({type: types["u8"+(length>1?"arr":"")], name, byteOffset, length}); }
-    i8(name, byteOffset = 0, length = 1) { this.types.push({type: types["i8"+(length>1?"arr":"")], name, byteOffset, length}); }
+    u8(name, byteOffset = 0, length = 1) { this.types.push({type: types["u8"+(length>1?"[arr]":"")], name, byteOffset, length}); }
+    i8(name, byteOffset = 0, length = 1) { this.types.push({type: types["i8"+(length>1?"[arr]":"")], name, byteOffset, length}); }
 
-    u16(name, byteOffset = 0, length = 1) { this.types.push({type: types["u16"+(length>1?"arr":"")], name, byteOffset, length}); }
-    i16(name, byteOffset = 0, length = 1) { this.types.push({type: types["i16"+(length>1?"arr":"")], name, byteOffset, length}); }
+    u16(name, byteOffset = 0, length = 1) { this.types.push({type: types["u16"+(length>1?"[arr]":"")], name, byteOffset, length}); }
+    i16(name, byteOffset = 0, length = 1) { this.types.push({type: types["i16"+(length>1?"[arr]":"")], name, byteOffset, length}); }
 
-    u32(name, byteOffset = 0, length = 1) { this.types.push({type: types["u32"+(length>1?"arr":"")], name, byteOffset, length}); }
-    i32(name, byteOffset = 0, length = 1) { this.types.push({type: types["i32"+(length>1?"arr":"")], name, byteOffset, length}); }
-    f32(name, byteOffset = 0, length = 1) { this.types.push({type: types["f32"+(length>1?"arr":"")], name, byteOffset, length}); }
+    u32(name, byteOffset = 0, length = 1) { this.types.push({type: types["u32"+(length>1?"[arr]":"")], name, byteOffset, length}); }
+    i32(name, byteOffset = 0, length = 1) { this.types.push({type: types["i32"+(length>1?"[arr]":"")], name, byteOffset, length}); }
+    f32(name, byteOffset = 0, length = 1) { this.types.push({type: types["f32"+(length>1?"[arr]":"")], name, byteOffset, length}); }
 
-    u64(name, byteOffset = 0, length = 1) { this.types.push({type: types["u64"+(length>1?"arr":"")], name, byteOffset, length}); }
-    i64(name, byteOffset = 0, length = 1) { this.types.push({type: types["i64"+(length>1?"arr":"")], name, byteOffset, length}); }
-    f64(name, byteOffset = 0, length = 1) { this.types.push({type: types["f64"+(length>1?"arr":"")], name, byteOffset, length}); }
+    u64(name, byteOffset = 0, length = 1) { this.types.push({type: types["u64"+(length>1?"[arr]":"")], name, byteOffset, length}); }
+    i64(name, byteOffset = 0, length = 1) { this.types.push({type: types["i64"+(length>1?"[arr]":"")], name, byteOffset, length}); }
+    f64(name, byteOffset = 0, length = 1) { this.types.push({type: types["f64"+(length>1?"[arr]":"")], name, byteOffset, length}); }
 
     construct(buffer, byteOffset = 0, byteLength = 0) {
         if (isAbv(buffer ? (buffer.buffer || buffer) : null)) {
