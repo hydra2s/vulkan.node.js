@@ -262,6 +262,16 @@ class CStructView {
     bufferOffsetOf(name) { return this.byteOffset + this.offsetof(name); };
     addressOffsetOf(name) { return this.address() + this.offsetof(name); };
 
+    set(buffer, offset = 0) {
+        if (typeof buffer == "object") {
+            let structed = this;
+            //for (let k in buffer) { if (this.types.find((t)=>(t.name == k))) { structed[k] = buffer[k]; }; }; // reduce the some time
+            for (let t of this.struct.types) { let k = t.name; if (k in buffer) { structed[k] = buffer[k]; }; }; // supports correct order
+            return structed;
+        }
+        return this;
+    }
+
     construct(buffer, byteOffset = 0, byteLength = 0) {
         if (isAbv(buffer ? (buffer.buffer || buffer) : null)) {
             return new CStructView(buffer.buffer || buffer, this.byteOffset + (buffer.byteOffset||0) + byteOffset, byteLength || this.byteLength, this.struct);
@@ -347,7 +357,8 @@ class CStruct {
 
         // offset isn't supported
         this.setter = (dv, offset, value)=>{
-            if (typeof value == "object") { for (let t of this.types) { let k = t.name; if (k in value) { dv[k] = value[k]; }; }; }
+            dv.set(value, offset);
+            //if (typeof value == "object") { for (let t of this.types) { let k = t.name; if (k in value) { dv[k] = value[k]; }; }; }
         };
     }
 
