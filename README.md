@@ -36,35 +36,31 @@ Our Node.JS bindings for Vulkan API support (latest version, as possible). Curre
 Currently, not for production use. 
 
 ```js
-import { default as C } from "struct-buffer";
-import { default as S } from "./vulkan-structs.js";
-import { default as E } from "./vulkan-enums.js";
-import { default as V } from "./vulkan-API.js";
-import { default as T } from "./typed.js";
+import { default as V } from "./index.js";
 
 (async()=>{
 
     //
-    let rect2D = new S.VkRect2D();
+    let rect2D = new V.VkRect2D();
 
     //
-    let appInfo = new S.VkApplicationInfo({
-        sType: E.VK_STRUCTURE_TYPE_APPLICATION_INFO,
+    let appInfo = new V.VkApplicationInfo({
+        sType: V.VK_STRUCTURE_TYPE_APPLICATION_INFO,
         pNext: 0n,
         pApplicationName: "NVAPI TEST",
-        applicationVersion: S.VK_MAKE_API_VERSION(0, 1, 3, 234),
+        applicationVersion: V.VK_MAKE_API_VERSION(0, 1, 3, 234),
         pEngineName: "NVAPI",
-        engineVersion: S.VK_MAKE_API_VERSION(0, 1, 3, 234),
-        apiVersion: S.VK_MAKE_API_VERSION(0, 1, 3, 234)
+        engineVersion: V.VK_MAKE_API_VERSION(0, 1, 3, 234),
+        apiVersion: V.VK_MAKE_API_VERSION(0, 1, 3, 234)
     });
 
     //
-    let extensions = new T.Types["u64[arr]"]([]);
-    let layers = new T.Types["u64[arr]"](["VK_LAYER_KHRONOS_validation"]);
+    let extensions = [];
+    let layers = ["VK_LAYER_KHRONOS_validation"];
 
     //
-    let pInfo = new S.VkInstanceCreateInfo({
-        sType: E.VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
+    let pInfo = new V.VkInstanceCreateInfo({
+        sType: V.VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
         pNext: 0n,
         flags: 0,
         pApplicationInfo: appInfo,
