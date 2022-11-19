@@ -107,8 +107,10 @@ class CStruct {
         for (let name in struct) {
             let length = 1;
             let offset = 0;
+            let tname = null;
+
             if (typeof struct[name] == "string") {
-                let tname = struct[name];
+                tname = struct[name];
                 if (tname.indexOf("[") >= 0 && tname.indexOf("]") >= 0) {
                     let match = tname.match(/\[(-?\d+)\]/);
                     length = (match ? parseInt(match[1]) : 1) || 1;
@@ -119,25 +121,17 @@ class CStruct {
                     offset = (match ? parseInt(match[1]) : 0) || 0;
                     tname = tname.replace(/\(\d+\)/g, "");
                 };
-
-                // correctify offset, if not defined
-                if (!offset && prev != undefined) { offset = this.types[prev].offset + this.types[prev].byteLength; }; 
-
-                let type = types[tname+(length>1?"arr":"")];
-                prev = this.types.length; this.types.push({type, name, length, byteOffset: offset, byteLength: type?.byteLength || 1 });
             } else 
             if (typeof struct[name] == "array") {
-                let tname = types[struct[name]][0];
+                tname = types[struct[name]][0];
                 length = struct[name][2] || 1;
                 offset = struct[name][1] || 0;
-
-                // correctify offset, if not defined
-                if (!offset && prev != undefined) { offset = this.types[prev].offset + this.types[prev].byteLength; }; 
-
-                let type = types[tname+(length>1?"arr":"")];
-                if (!type) { console.log(tname+(length>1?"arr":"")); };
-                prev = this.types.length; this.types.push({type, name, length, byteOffset: offset, byteLength: type?.byteLength || 1 });
             }
+
+            // correctify offset, if not defined
+            if (!offset && prev != undefined) { offset = this.types[prev].offset + this.types[prev].byteLength; }; 
+            let type = types[tname+(length>1?"arr":"")];
+            prev = this.types.length; this.types.push({type, name, length, byteOffset: offset, byteLength: type?.byteLength || 1 });
         }
 
         // if length is not defined
