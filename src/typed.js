@@ -6,6 +6,11 @@ let types = {
     u16: { byteLength: 2, length: 1, bbigEndian: false, type: "u16", getter: (dv, offset)=>{ return dv.getUint16(offset, true); }, setter: (dv, offset, value)=>{ dv.setUint16(offset, parseInt(value), true); }, construct: (...ags) => new DataView(...ags) },
     i16: { byteLength: 2, length: 1, bbigEndian: false, type: "i16", getter: (dv, offset)=>{ return dv.getInt16 (offset, true); }, setter: (dv, offset, value)=>{ dv.setInt16 (offset, parseInt(value), true); }, construct:(...ags) => new DataView(...ags) },
 
+    u24: { byteLength: 3, length: 1, bbigEndian: false, type: "u24", 
+        getter: (dv, offset)=>{ return (dv.getUint8(offset, true)|(dv.getUint8(offset+1, true)<<8)|(dv.getUint8(offset+2, true)<<16)); }, 
+        setter: (dv, offset, value)=>{ dv.setUint8(offset, (parseInt(value) & 0xFF), true); dv.setUint8(offset+1, (parseInt(value) >> 8) & 0xFF, true); dv.setUint8(offset+2, (parseInt(value) >> 16) & 0xFF, true); }, 
+        construct:(...ags) => new DataView(...ags) },
+
     u32: { byteLength: 4, length: 1, bbigEndian: false, type: "u32", getter: (dv, offset)=>{ return dv.getUint32 (offset, true); }, setter: (dv, offset, value)=>{ dv.setUint32 (offset, parseInt(value), true); }, construct:(...ags) => new DataView(...ags) },
     i32: { byteLength: 4, length: 1, bbigEndian: false, type: "i32", getter: (dv, offset)=>{ return dv.getInt32  (offset, true); }, setter: (dv, offset, value)=>{ dv.setInt32  (offset, parseInt(value), true); }, construct:(...ags) => new DataView(...ags) },
     f32: { byteLength: 4, length: 1, bbigEndian: false, type: "f32", getter: (dv, offset)=>{ return dv.getFloat32(offset, true); }, setter: (dv, offset, value)=>{ dv.setFloat32(offset, parseFloat(value), true); }, construct:(...ags) => new DataView(...ags) },
@@ -119,7 +124,7 @@ class CStruct {
                 if (!offset && prev != undefined) { offset = this.types[prev].offset + this.types[prev].byteLength; }; 
 
                 let type = types[tname+(length>1?"arr":"")];
-                prev = this.types.length; this.types.push({type, name, length, byteOffset: offset});
+                prev = this.types.length; this.types.push({type, name, length, byteOffset: offset, byteLength: type?.byteLength || 1 });
             } else 
             if (typeof struct[name] == "array") {
                 let tname = types[struct[name]][0];
@@ -130,7 +135,8 @@ class CStruct {
                 if (!offset && prev != undefined) { offset = this.types[prev].offset + this.types[prev].byteLength; }; 
 
                 let type = types[tname+(length>1?"arr":"")];
-                prev = this.types.length; this.types.push({type, name, length, byteOffset: offset});
+                if (!type) { console.log(tname+(length>1?"arr":"")); };
+                prev = this.types.length; this.types.push({type, name, length, byteOffset: offset, byteLength: type?.byteLength || 1 });
             }
         }
 

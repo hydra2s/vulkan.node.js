@@ -300,8 +300,8 @@ return params.join(`
     let AsFixedArray = (name, param, typed) => {
         if (param.isFixedArray) {
             if (!isNaN(param.length)) 
-                { return `"${typed}[${parseInt(param.length)}]("+callof(V.${name}_${param.name}_offsetof)+")"`; } else 
-                { return `"${typed}["+enums.${parseInt(param.length)}+"]("+callof(V.${name}_${param.name}_offsetof)+")"`; };
+                { return `"${typed}[${parseInt(param.length)||1}]("+callof(V.${name}_${param.name}_offsetof)+")"`; } else 
+                { return `"${typed}["+(enums.${parseInt(param.length)}||1)+"]("+callof(V.${name}_${param.name}_offsetof)+")"`; };
         }
         return `"${typed}("+callof(V.${name}_${param.name}_offsetof)+")"`;
     }
@@ -313,6 +313,7 @@ if (IsHandle(param))                      { paramStr = `    ${param.name}: ${AsF
 if (IsBigIntValue(param))                 { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u64")},` } else 
 if (IsUint8 (param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u8" )},` } else 
 if (IsUint16(param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u16")},` } else 
+if (IsUint24(param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u24")},` } else 
 if (IsUint32(param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u32")},` } else 
 if (IsInt8  (param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "i8" )},` } else 
 if (IsInt16 (param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "i16")},` } else 
@@ -330,17 +331,17 @@ const ${structure.name} = new C.CStruct("${structure.name}", {
     matrix: "u32(0)[12]",
 }, callof(V.${structure.name}_sizeof));    
 `       } else
-        if (structure.name == "VkAccelerationStructureInstanceKHR" || structure.name == "VkAccelerationStructureInstanceNV") {
+        /*if (structure.name == "VkAccelerationStructureInstanceKHR" || structure.name == "VkAccelerationStructureInstanceNV") {
 return `
 const ${structure.name} = new C.CStruct("${structure.name}", {
     transform: "VkTransformMatrixKHR(0)",
-    instanceCustomIndex: "u8[3]("+(0+48)+")",
+    instanceCustomIndex: "u24("+(0+48)+")",
     mask: "u8("+(3+48)+")",
-    instanceShaderBindingTableRecordOffset: "u8[3]("+(4+48)+")",
+    instanceShaderBindingTableRecordOffset: "u24("+(4+48)+")",
     flags: "u8("+(7+48)+")",
     accelerationStructureReference: "u64("+(8+48)+")",
 }, callof(V.${structure.name}_sizeof));`
-        } else {
+        } else*/ {
     return `
 const ${structure.name} = new C.CStruct("${structure.name}", {
 ${structure.params.map((p)=>(writeParam(structure.name, p, map))).join(`
@@ -400,8 +401,6 @@ export default {
 import {default as V} from "./vulkan-API.js";
 import {default as enums} from "./vulkan-enums.js";
 import {default as C} from "./typed.js";
-const uint24_t = "u8[3]";//C.registerType("uint24_t", 3, false);
-const  int24_t = "u8[3]";//C.registerType(" int24_t", 3, false);
 const callof = (fn)=>{ return fn ? fn() : 0; };
 
 const VK_MAKE_API_VERSION = (variant, major, minor, patch) => {

@@ -2,8 +2,6 @@
 import {default as V} from "./vulkan-API.js";
 import {default as enums} from "./vulkan-enums.js";
 import {default as C} from "./typed.js";
-const uint24_t = "u8[3]";//C.registerType("uint24_t", 3, false);
-const  int24_t = "u8[3]";//C.registerType(" int24_t", 3, false);
 const callof = (fn)=>{ return fn ? fn() : 0; };
 
 const VK_MAKE_API_VERSION = (variant, major, minor, patch) => {
@@ -87,24 +85,24 @@ const VkPhysicalDeviceProperties = new C.CStruct("VkPhysicalDeviceProperties", {
     vendorID: "u32("+callof(V.VkPhysicalDeviceProperties_vendorID_offsetof)+")",
     deviceID: "u32("+callof(V.VkPhysicalDeviceProperties_deviceID_offsetof)+")",
     deviceType: "u32("+callof(V.VkPhysicalDeviceProperties_deviceType_offsetof)+")",
-    deviceName: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceProperties_deviceName_offsetof)+")",
-    pipelineCacheUUID: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceProperties_pipelineCacheUUID_offsetof)+")",
+    deviceName: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceProperties_deviceName_offsetof)+")",
+    pipelineCacheUUID: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceProperties_pipelineCacheUUID_offsetof)+")",
     limits: "u32("+callof(V.VkPhysicalDeviceProperties_limits_offsetof)+")",
     sparseProperties: "u32("+callof(V.VkPhysicalDeviceProperties_sparseProperties_offsetof)+")",
 }, callof(V.VkPhysicalDeviceProperties_sizeof));
 
 
 const VkExtensionProperties = new C.CStruct("VkExtensionProperties", {
-    extensionName: "u8["+enums.NaN+"]("+callof(V.VkExtensionProperties_extensionName_offsetof)+")",
+    extensionName: "u8["+(enums.NaN||1)+"]("+callof(V.VkExtensionProperties_extensionName_offsetof)+")",
     specVersion: "u32("+callof(V.VkExtensionProperties_specVersion_offsetof)+")",
 }, callof(V.VkExtensionProperties_sizeof));
 
 
 const VkLayerProperties = new C.CStruct("VkLayerProperties", {
-    layerName: "u8["+enums.NaN+"]("+callof(V.VkLayerProperties_layerName_offsetof)+")",
+    layerName: "u8["+(enums.NaN||1)+"]("+callof(V.VkLayerProperties_layerName_offsetof)+")",
     specVersion: "u32("+callof(V.VkLayerProperties_specVersion_offsetof)+")",
     implementationVersion: "u32("+callof(V.VkLayerProperties_implementationVersion_offsetof)+")",
-    description: "u8["+enums.NaN+"]("+callof(V.VkLayerProperties_description_offsetof)+")",
+    description: "u8["+(enums.NaN||1)+"]("+callof(V.VkLayerProperties_description_offsetof)+")",
 }, callof(V.VkLayerProperties_sizeof));
 
 
@@ -175,9 +173,9 @@ const VkQueueFamilyProperties = new C.CStruct("VkQueueFamilyProperties", {
 
 const VkPhysicalDeviceMemoryProperties = new C.CStruct("VkPhysicalDeviceMemoryProperties", {
     memoryTypeCount: "u32("+callof(V.VkPhysicalDeviceMemoryProperties_memoryTypeCount_offsetof)+")",
-    memoryTypes: "u32["+enums.NaN+"]("+callof(V.VkPhysicalDeviceMemoryProperties_memoryTypes_offsetof)+")",
+    memoryTypes: "u32["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceMemoryProperties_memoryTypes_offsetof)+")",
     memoryHeapCount: "u32("+callof(V.VkPhysicalDeviceMemoryProperties_memoryHeapCount_offsetof)+")",
-    memoryHeaps: "u32["+enums.NaN+"]("+callof(V.VkPhysicalDeviceMemoryProperties_memoryHeaps_offsetof)+")",
+    memoryHeaps: "u32["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceMemoryProperties_memoryHeaps_offsetof)+")",
 }, callof(V.VkPhysicalDeviceMemoryProperties_sizeof));
 
 
@@ -798,7 +796,7 @@ const VkPipelineCacheHeaderVersionOne = new C.CStruct("VkPipelineCacheHeaderVers
     headerVersion: "u32("+callof(V.VkPipelineCacheHeaderVersionOne_headerVersion_offsetof)+")",
     vendorID: "u32("+callof(V.VkPipelineCacheHeaderVersionOne_vendorID_offsetof)+")",
     deviceID: "u32("+callof(V.VkPipelineCacheHeaderVersionOne_deviceID_offsetof)+")",
-    pipelineCacheUUID: "u8["+enums.NaN+"]("+callof(V.VkPipelineCacheHeaderVersionOne_pipelineCacheUUID_offsetof)+")",
+    pipelineCacheUUID: "u8["+(enums.NaN||1)+"]("+callof(V.VkPipelineCacheHeaderVersionOne_pipelineCacheUUID_offsetof)+")",
 }, callof(V.VkPipelineCacheHeaderVersionOne_sizeof));
 
 
@@ -1895,8 +1893,8 @@ const VkPhysicalDeviceDriverProperties = new C.CStruct("VkPhysicalDeviceDriverPr
     sType: "u32("+callof(V.VkPhysicalDeviceDriverProperties_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPhysicalDeviceDriverProperties_pNext_offsetof)+")",
     driverID: "u32("+callof(V.VkPhysicalDeviceDriverProperties_driverID_offsetof)+")",
-    driverName: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceDriverProperties_driverName_offsetof)+")",
-    driverInfo: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceDriverProperties_driverInfo_offsetof)+")",
+    driverName: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceDriverProperties_driverName_offsetof)+")",
+    driverInfo: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceDriverProperties_driverInfo_offsetof)+")",
     conformanceVersion: "u32("+callof(V.VkPhysicalDeviceDriverProperties_conformanceVersion_offsetof)+")",
 }, callof(V.VkPhysicalDeviceDriverProperties_sizeof));
 
@@ -2015,9 +2013,9 @@ const VkExternalBufferPropertiesKHR = new C.CStruct("VkExternalBufferPropertiesK
 const VkPhysicalDeviceIDProperties = new C.CStruct("VkPhysicalDeviceIDProperties", {
     sType: "u32("+callof(V.VkPhysicalDeviceIDProperties_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPhysicalDeviceIDProperties_pNext_offsetof)+")",
-    deviceUUID: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceIDProperties_deviceUUID_offsetof)+")",
-    driverUUID: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceIDProperties_driverUUID_offsetof)+")",
-    deviceLUID: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceIDProperties_deviceLUID_offsetof)+")",
+    deviceUUID: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceIDProperties_deviceUUID_offsetof)+")",
+    driverUUID: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceIDProperties_driverUUID_offsetof)+")",
+    deviceLUID: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceIDProperties_deviceLUID_offsetof)+")",
     deviceNodeMask: "u32("+callof(V.VkPhysicalDeviceIDProperties_deviceNodeMask_offsetof)+")",
     deviceLUIDValid: "u32("+callof(V.VkPhysicalDeviceIDProperties_deviceLUIDValid_offsetof)+")",
 }, callof(V.VkPhysicalDeviceIDProperties_sizeof));
@@ -2445,7 +2443,7 @@ const VkPhysicalDeviceGroupProperties = new C.CStruct("VkPhysicalDeviceGroupProp
     sType: "u32("+callof(V.VkPhysicalDeviceGroupProperties_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPhysicalDeviceGroupProperties_pNext_offsetof)+")",
     physicalDeviceCount: "u32("+callof(V.VkPhysicalDeviceGroupProperties_physicalDeviceCount_offsetof)+")",
-    physicalDevices: "u64["+enums.NaN+"]("+callof(V.VkPhysicalDeviceGroupProperties_physicalDevices_offsetof)+")",
+    physicalDevices: "u64["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceGroupProperties_physicalDevices_offsetof)+")",
     subsetAllocation: "u32("+callof(V.VkPhysicalDeviceGroupProperties_subsetAllocation_offsetof)+")",
 }, callof(V.VkPhysicalDeviceGroupProperties_sizeof));
 
@@ -2583,7 +2581,7 @@ const VkDeviceGroupBindSparseInfoKHR = new C.CStruct("VkDeviceGroupBindSparseInf
 const VkDeviceGroupPresentCapabilitiesKHR = new C.CStruct("VkDeviceGroupPresentCapabilitiesKHR", {
     sType: "u32("+callof(V.VkDeviceGroupPresentCapabilitiesKHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkDeviceGroupPresentCapabilitiesKHR_pNext_offsetof)+")",
-    presentMask: "u32["+enums.NaN+"]("+callof(V.VkDeviceGroupPresentCapabilitiesKHR_presentMask_offsetof)+")",
+    presentMask: "u32["+(enums.NaN||1)+"]("+callof(V.VkDeviceGroupPresentCapabilitiesKHR_presentMask_offsetof)+")",
     modes: "u32("+callof(V.VkDeviceGroupPresentCapabilitiesKHR_modes_offsetof)+")",
 }, callof(V.VkDeviceGroupPresentCapabilitiesKHR_sizeof));
 
@@ -3664,7 +3662,7 @@ const VkQueueFamilyGlobalPriorityPropertiesKHR = new C.CStruct("VkQueueFamilyGlo
     sType: "u32("+callof(V.VkQueueFamilyGlobalPriorityPropertiesKHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkQueueFamilyGlobalPriorityPropertiesKHR_pNext_offsetof)+")",
     priorityCount: "u32("+callof(V.VkQueueFamilyGlobalPriorityPropertiesKHR_priorityCount_offsetof)+")",
-    priorities: "u32["+enums.NaN+"]("+callof(V.VkQueueFamilyGlobalPriorityPropertiesKHR_priorities_offsetof)+")",
+    priorities: "u32["+(enums.NaN||1)+"]("+callof(V.VkQueueFamilyGlobalPriorityPropertiesKHR_priorities_offsetof)+")",
 }, callof(V.VkQueueFamilyGlobalPriorityPropertiesKHR_sizeof));
 
 
@@ -5094,8 +5092,8 @@ const VkPipelineRasterizationDepthClipStateCreateInfoEXT = new C.CStruct("VkPipe
 const VkPhysicalDeviceMemoryBudgetPropertiesEXT = new C.CStruct("VkPhysicalDeviceMemoryBudgetPropertiesEXT", {
     sType: "u32("+callof(V.VkPhysicalDeviceMemoryBudgetPropertiesEXT_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPhysicalDeviceMemoryBudgetPropertiesEXT_pNext_offsetof)+")",
-    heapBudget: "u64["+enums.NaN+"]("+callof(V.VkPhysicalDeviceMemoryBudgetPropertiesEXT_heapBudget_offsetof)+")",
-    heapUsage: "u64["+enums.NaN+"]("+callof(V.VkPhysicalDeviceMemoryBudgetPropertiesEXT_heapUsage_offsetof)+")",
+    heapBudget: "u64["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceMemoryBudgetPropertiesEXT_heapBudget_offsetof)+")",
+    heapUsage: "u64["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceMemoryBudgetPropertiesEXT_heapUsage_offsetof)+")",
 }, callof(V.VkPhysicalDeviceMemoryBudgetPropertiesEXT_sizeof));
 
 
@@ -5415,7 +5413,7 @@ const VkPerformanceCounterKHR = new C.CStruct("VkPerformanceCounterKHR", {
     unit: "u32("+callof(V.VkPerformanceCounterKHR_unit_offsetof)+")",
     scope: "u32("+callof(V.VkPerformanceCounterKHR_scope_offsetof)+")",
     storage: "u32("+callof(V.VkPerformanceCounterKHR_storage_offsetof)+")",
-    uuid: "u8["+enums.NaN+"]("+callof(V.VkPerformanceCounterKHR_uuid_offsetof)+")",
+    uuid: "u8["+(enums.NaN||1)+"]("+callof(V.VkPerformanceCounterKHR_uuid_offsetof)+")",
 }, callof(V.VkPerformanceCounterKHR_sizeof));
 
 
@@ -5423,9 +5421,9 @@ const VkPerformanceCounterDescriptionKHR = new C.CStruct("VkPerformanceCounterDe
     sType: "u32("+callof(V.VkPerformanceCounterDescriptionKHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPerformanceCounterDescriptionKHR_pNext_offsetof)+")",
     flags: "u32("+callof(V.VkPerformanceCounterDescriptionKHR_flags_offsetof)+")",
-    name: "u8["+enums.NaN+"]("+callof(V.VkPerformanceCounterDescriptionKHR_name_offsetof)+")",
-    category: "u8["+enums.NaN+"]("+callof(V.VkPerformanceCounterDescriptionKHR_category_offsetof)+")",
-    description: "u8["+enums.NaN+"]("+callof(V.VkPerformanceCounterDescriptionKHR_description_offsetof)+")",
+    name: "u8["+(enums.NaN||1)+"]("+callof(V.VkPerformanceCounterDescriptionKHR_name_offsetof)+")",
+    category: "u8["+(enums.NaN||1)+"]("+callof(V.VkPerformanceCounterDescriptionKHR_category_offsetof)+")",
+    description: "u8["+(enums.NaN||1)+"]("+callof(V.VkPerformanceCounterDescriptionKHR_description_offsetof)+")",
 }, callof(V.VkPerformanceCounterDescriptionKHR_sizeof));
 
 
@@ -5654,8 +5652,8 @@ const VkPipelineExecutablePropertiesKHR = new C.CStruct("VkPipelineExecutablePro
     sType: "u32("+callof(V.VkPipelineExecutablePropertiesKHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPipelineExecutablePropertiesKHR_pNext_offsetof)+")",
     stages: "u32("+callof(V.VkPipelineExecutablePropertiesKHR_stages_offsetof)+")",
-    name: "u8["+enums.NaN+"]("+callof(V.VkPipelineExecutablePropertiesKHR_name_offsetof)+")",
-    description: "u8["+enums.NaN+"]("+callof(V.VkPipelineExecutablePropertiesKHR_description_offsetof)+")",
+    name: "u8["+(enums.NaN||1)+"]("+callof(V.VkPipelineExecutablePropertiesKHR_name_offsetof)+")",
+    description: "u8["+(enums.NaN||1)+"]("+callof(V.VkPipelineExecutablePropertiesKHR_description_offsetof)+")",
     subgroupSize: "u32("+callof(V.VkPipelineExecutablePropertiesKHR_subgroupSize_offsetof)+")",
 }, callof(V.VkPipelineExecutablePropertiesKHR_sizeof));
 
@@ -5671,8 +5669,8 @@ const VkPipelineExecutableInfoKHR = new C.CStruct("VkPipelineExecutableInfoKHR",
 const VkPipelineExecutableStatisticKHR = new C.CStruct("VkPipelineExecutableStatisticKHR", {
     sType: "u32("+callof(V.VkPipelineExecutableStatisticKHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPipelineExecutableStatisticKHR_pNext_offsetof)+")",
-    name: "u8["+enums.NaN+"]("+callof(V.VkPipelineExecutableStatisticKHR_name_offsetof)+")",
-    description: "u8["+enums.NaN+"]("+callof(V.VkPipelineExecutableStatisticKHR_description_offsetof)+")",
+    name: "u8["+(enums.NaN||1)+"]("+callof(V.VkPipelineExecutableStatisticKHR_name_offsetof)+")",
+    description: "u8["+(enums.NaN||1)+"]("+callof(V.VkPipelineExecutableStatisticKHR_description_offsetof)+")",
     format: "u32("+callof(V.VkPipelineExecutableStatisticKHR_format_offsetof)+")",
     value: "u32("+callof(V.VkPipelineExecutableStatisticKHR_value_offsetof)+")",
 }, callof(V.VkPipelineExecutableStatisticKHR_sizeof));
@@ -5681,8 +5679,8 @@ const VkPipelineExecutableStatisticKHR = new C.CStruct("VkPipelineExecutableStat
 const VkPipelineExecutableInternalRepresentationKHR = new C.CStruct("VkPipelineExecutableInternalRepresentationKHR", {
     sType: "u32("+callof(V.VkPipelineExecutableInternalRepresentationKHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPipelineExecutableInternalRepresentationKHR_pNext_offsetof)+")",
-    name: "u8["+enums.NaN+"]("+callof(V.VkPipelineExecutableInternalRepresentationKHR_name_offsetof)+")",
-    description: "u8["+enums.NaN+"]("+callof(V.VkPipelineExecutableInternalRepresentationKHR_description_offsetof)+")",
+    name: "u8["+(enums.NaN||1)+"]("+callof(V.VkPipelineExecutableInternalRepresentationKHR_name_offsetof)+")",
+    description: "u8["+(enums.NaN||1)+"]("+callof(V.VkPipelineExecutableInternalRepresentationKHR_description_offsetof)+")",
     isText: "u32("+callof(V.VkPipelineExecutableInternalRepresentationKHR_isText_offsetof)+")",
     dataSize: "u64("+callof(V.VkPipelineExecutableInternalRepresentationKHR_dataSize_offsetof)+")",
     pData: "u64("+callof(V.VkPipelineExecutableInternalRepresentationKHR_pData_offsetof)+")",
@@ -5864,9 +5862,9 @@ const VkPhysicalDeviceVulkan11Features = new C.CStruct("VkPhysicalDeviceVulkan11
 const VkPhysicalDeviceVulkan11Properties = new C.CStruct("VkPhysicalDeviceVulkan11Properties", {
     sType: "u32("+callof(V.VkPhysicalDeviceVulkan11Properties_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPhysicalDeviceVulkan11Properties_pNext_offsetof)+")",
-    deviceUUID: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceVulkan11Properties_deviceUUID_offsetof)+")",
-    driverUUID: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceVulkan11Properties_driverUUID_offsetof)+")",
-    deviceLUID: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceVulkan11Properties_deviceLUID_offsetof)+")",
+    deviceUUID: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceVulkan11Properties_deviceUUID_offsetof)+")",
+    driverUUID: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceVulkan11Properties_driverUUID_offsetof)+")",
+    deviceLUID: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceVulkan11Properties_deviceLUID_offsetof)+")",
     deviceNodeMask: "u32("+callof(V.VkPhysicalDeviceVulkan11Properties_deviceNodeMask_offsetof)+")",
     deviceLUIDValid: "u32("+callof(V.VkPhysicalDeviceVulkan11Properties_deviceLUIDValid_offsetof)+")",
     subgroupSize: "u32("+callof(V.VkPhysicalDeviceVulkan11Properties_subgroupSize_offsetof)+")",
@@ -5939,8 +5937,8 @@ const VkPhysicalDeviceVulkan12Properties = new C.CStruct("VkPhysicalDeviceVulkan
     sType: "u32("+callof(V.VkPhysicalDeviceVulkan12Properties_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPhysicalDeviceVulkan12Properties_pNext_offsetof)+")",
     driverID: "u32("+callof(V.VkPhysicalDeviceVulkan12Properties_driverID_offsetof)+")",
-    driverName: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceVulkan12Properties_driverName_offsetof)+")",
-    driverInfo: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceVulkan12Properties_driverInfo_offsetof)+")",
+    driverName: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceVulkan12Properties_driverName_offsetof)+")",
+    driverInfo: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceVulkan12Properties_driverInfo_offsetof)+")",
     conformanceVersion: "u32("+callof(V.VkPhysicalDeviceVulkan12Properties_conformanceVersion_offsetof)+")",
     denormBehaviorIndependence: "u32("+callof(V.VkPhysicalDeviceVulkan12Properties_denormBehaviorIndependence_offsetof)+")",
     roundingModeIndependence: "u32("+callof(V.VkPhysicalDeviceVulkan12Properties_roundingModeIndependence_offsetof)+")",
@@ -6082,11 +6080,11 @@ const VkPhysicalDeviceCoherentMemoryFeaturesAMD = new C.CStruct("VkPhysicalDevic
 const VkPhysicalDeviceToolProperties = new C.CStruct("VkPhysicalDeviceToolProperties", {
     sType: "u32("+callof(V.VkPhysicalDeviceToolProperties_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPhysicalDeviceToolProperties_pNext_offsetof)+")",
-    name: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceToolProperties_name_offsetof)+")",
-    version: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceToolProperties_version_offsetof)+")",
+    name: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceToolProperties_name_offsetof)+")",
+    version: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceToolProperties_version_offsetof)+")",
     purposes: "u32("+callof(V.VkPhysicalDeviceToolProperties_purposes_offsetof)+")",
-    description: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceToolProperties_description_offsetof)+")",
-    layer: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceToolProperties_layer_offsetof)+")",
+    description: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceToolProperties_description_offsetof)+")",
+    layer: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceToolProperties_layer_offsetof)+")",
 }, callof(V.VkPhysicalDeviceToolProperties_sizeof));
 
 
@@ -6233,22 +6231,19 @@ const VkTransformMatrixNV = new C.CStruct("VkTransformMatrixNV", {
 
 
 const VkAccelerationStructureInstanceKHR = new C.CStruct("VkAccelerationStructureInstanceKHR", {
-    transform: "VkTransformMatrixKHR(0)",
-    instanceCustomIndex: "u8[3]("+(0+48)+")",
-    mask: "u8("+(3+48)+")",
-    instanceShaderBindingTableRecordOffset: "u8[3]("+(4+48)+")",
-    flags: "u8("+(7+48)+")",
-    accelerationStructureReference: "u64("+(8+48)+")",
+    transform: "VkTransformMatrixKHR("+callof(V.VkAccelerationStructureInstanceKHR_transform_offsetof)+")",
+    instanceCustomIndex: "u24("+callof(V.VkAccelerationStructureInstanceKHR_instanceCustomIndex_offsetof)+")",
+    mask: "u8("+callof(V.VkAccelerationStructureInstanceKHR_mask_offsetof)+")",
+    instanceShaderBindingTableRecordOffset: "u24("+callof(V.VkAccelerationStructureInstanceKHR_instanceShaderBindingTableRecordOffset_offsetof)+")",
+    flags: "u8("+callof(V.VkAccelerationStructureInstanceKHR_flags_offsetof)+")",
+    accelerationStructureReference: "u64("+callof(V.VkAccelerationStructureInstanceKHR_accelerationStructureReference_offsetof)+")",
 }, callof(V.VkAccelerationStructureInstanceKHR_sizeof));
 
+
 const VkAccelerationStructureInstanceNV = new C.CStruct("VkAccelerationStructureInstanceNV", {
-    transform: "VkTransformMatrixKHR(0)",
-    instanceCustomIndex: "u8[3]("+(0+48)+")",
-    mask: "u8("+(3+48)+")",
-    instanceShaderBindingTableRecordOffset: "u8[3]("+(4+48)+")",
-    flags: "u8("+(7+48)+")",
-    accelerationStructureReference: "u64("+(8+48)+")",
+
 }, callof(V.VkAccelerationStructureInstanceNV_sizeof));
+
 
 const VkAccelerationStructureDeviceAddressInfoKHR = new C.CStruct("VkAccelerationStructureDeviceAddressInfoKHR", {
     sType: "u32("+callof(V.VkAccelerationStructureDeviceAddressInfoKHR_sType_offsetof)+")",
@@ -7937,9 +7932,9 @@ const VkSRTDataNV = new C.CStruct("VkSRTDataNV", {
 const VkAccelerationStructureSRTMotionInstanceNV = new C.CStruct("VkAccelerationStructureSRTMotionInstanceNV", {
     transformT0: "u32("+callof(V.VkAccelerationStructureSRTMotionInstanceNV_transformT0_offsetof)+")",
     transformT1: "u32("+callof(V.VkAccelerationStructureSRTMotionInstanceNV_transformT1_offsetof)+")",
-    instanceCustomIndex: "u32("+callof(V.VkAccelerationStructureSRTMotionInstanceNV_instanceCustomIndex_offsetof)+")",
+    instanceCustomIndex: "u24("+callof(V.VkAccelerationStructureSRTMotionInstanceNV_instanceCustomIndex_offsetof)+")",
     mask: "u8("+callof(V.VkAccelerationStructureSRTMotionInstanceNV_mask_offsetof)+")",
-    instanceShaderBindingTableRecordOffset: "u32("+callof(V.VkAccelerationStructureSRTMotionInstanceNV_instanceShaderBindingTableRecordOffset_offsetof)+")",
+    instanceShaderBindingTableRecordOffset: "u24("+callof(V.VkAccelerationStructureSRTMotionInstanceNV_instanceShaderBindingTableRecordOffset_offsetof)+")",
     flags: "u8("+callof(V.VkAccelerationStructureSRTMotionInstanceNV_flags_offsetof)+")",
     accelerationStructureReference: "u64("+callof(V.VkAccelerationStructureSRTMotionInstanceNV_accelerationStructureReference_offsetof)+")",
 }, callof(V.VkAccelerationStructureSRTMotionInstanceNV_sizeof));
@@ -7948,9 +7943,9 @@ const VkAccelerationStructureSRTMotionInstanceNV = new C.CStruct("VkAcceleration
 const VkAccelerationStructureMatrixMotionInstanceNV = new C.CStruct("VkAccelerationStructureMatrixMotionInstanceNV", {
     transformT0: "VkTransformMatrixKHR("+callof(V.VkAccelerationStructureMatrixMotionInstanceNV_transformT0_offsetof)+")",
     transformT1: "VkTransformMatrixKHR("+callof(V.VkAccelerationStructureMatrixMotionInstanceNV_transformT1_offsetof)+")",
-    instanceCustomIndex: "u32("+callof(V.VkAccelerationStructureMatrixMotionInstanceNV_instanceCustomIndex_offsetof)+")",
+    instanceCustomIndex: "u24("+callof(V.VkAccelerationStructureMatrixMotionInstanceNV_instanceCustomIndex_offsetof)+")",
     mask: "u8("+callof(V.VkAccelerationStructureMatrixMotionInstanceNV_mask_offsetof)+")",
-    instanceShaderBindingTableRecordOffset: "u32("+callof(V.VkAccelerationStructureMatrixMotionInstanceNV_instanceShaderBindingTableRecordOffset_offsetof)+")",
+    instanceShaderBindingTableRecordOffset: "u24("+callof(V.VkAccelerationStructureMatrixMotionInstanceNV_instanceShaderBindingTableRecordOffset_offsetof)+")",
     flags: "u8("+callof(V.VkAccelerationStructureMatrixMotionInstanceNV_flags_offsetof)+")",
     accelerationStructureReference: "u64("+callof(V.VkAccelerationStructureMatrixMotionInstanceNV_accelerationStructureReference_offsetof)+")",
 }, callof(V.VkAccelerationStructureMatrixMotionInstanceNV_sizeof));
@@ -8331,7 +8326,7 @@ const VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT = new C.CStruct("VkPhysi
 const VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT = new C.CStruct("VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT", {
     sType: "u32("+callof(V.VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT_pNext_offsetof)+")",
-    shaderModuleIdentifierAlgorithmUUID: "u8["+enums.NaN+"]("+callof(V.VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT_shaderModuleIdentifierAlgorithmUUID_offsetof)+")",
+    shaderModuleIdentifierAlgorithmUUID: "u8["+(enums.NaN||1)+"]("+callof(V.VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT_shaderModuleIdentifierAlgorithmUUID_offsetof)+")",
 }, callof(V.VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT_sizeof));
 
 
@@ -8347,7 +8342,7 @@ const VkShaderModuleIdentifierEXT = new C.CStruct("VkShaderModuleIdentifierEXT",
     sType: "u32("+callof(V.VkShaderModuleIdentifierEXT_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkShaderModuleIdentifierEXT_pNext_offsetof)+")",
     identifierSize: "u32("+callof(V.VkShaderModuleIdentifierEXT_identifierSize_offsetof)+")",
-    identifier: "u8["+enums.NaN+"]("+callof(V.VkShaderModuleIdentifierEXT_identifier_offsetof)+")",
+    identifier: "u8["+(enums.NaN||1)+"]("+callof(V.VkShaderModuleIdentifierEXT_identifier_offsetof)+")",
 }, callof(V.VkShaderModuleIdentifierEXT_sizeof));
 
 
@@ -8417,7 +8412,7 @@ const VkRenderPassCreationFeedbackCreateInfoEXT = new C.CStruct("VkRenderPassCre
 
 const VkRenderPassSubpassFeedbackInfoEXT = new C.CStruct("VkRenderPassSubpassFeedbackInfoEXT", {
     subpassMergeStatus: "u32("+callof(V.VkRenderPassSubpassFeedbackInfoEXT_subpassMergeStatus_offsetof)+")",
-    description: "u8["+enums.NaN+"]("+callof(V.VkRenderPassSubpassFeedbackInfoEXT_description_offsetof)+")",
+    description: "u8["+(enums.NaN||1)+"]("+callof(V.VkRenderPassSubpassFeedbackInfoEXT_description_offsetof)+")",
     postMergeIndex: "u32("+callof(V.VkRenderPassSubpassFeedbackInfoEXT_postMergeIndex_offsetof)+")",
 }, callof(V.VkRenderPassSubpassFeedbackInfoEXT_sizeof));
 
@@ -8556,7 +8551,7 @@ const VkAccelerationStructureTrianglesOpacityMicromapEXT = new C.CStruct("VkAcce
 const VkPipelinePropertiesIdentifierEXT = new C.CStruct("VkPipelinePropertiesIdentifierEXT", {
     sType: "u32("+callof(V.VkPipelinePropertiesIdentifierEXT_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPipelinePropertiesIdentifierEXT_pNext_offsetof)+")",
-    pipelineIdentifier: "u8["+enums.NaN+"]("+callof(V.VkPipelinePropertiesIdentifierEXT_pipelineIdentifier_offsetof)+")",
+    pipelineIdentifier: "u8["+(enums.NaN||1)+"]("+callof(V.VkPipelinePropertiesIdentifierEXT_pipelineIdentifier_offsetof)+")",
 }, callof(V.VkPipelinePropertiesIdentifierEXT_sizeof));
 
 
@@ -8878,7 +8873,7 @@ const VkDeviceFaultAddressInfoEXT = new C.CStruct("VkDeviceFaultAddressInfoEXT",
 
 
 const VkDeviceFaultVendorInfoEXT = new C.CStruct("VkDeviceFaultVendorInfoEXT", {
-    description: "u8["+enums.NaN+"]("+callof(V.VkDeviceFaultVendorInfoEXT_description_offsetof)+")",
+    description: "u8["+(enums.NaN||1)+"]("+callof(V.VkDeviceFaultVendorInfoEXT_description_offsetof)+")",
     vendorFaultCode: "u64("+callof(V.VkDeviceFaultVendorInfoEXT_vendorFaultCode_offsetof)+")",
     vendorFaultData: "u64("+callof(V.VkDeviceFaultVendorInfoEXT_vendorFaultData_offsetof)+")",
 }, callof(V.VkDeviceFaultVendorInfoEXT_sizeof));
@@ -8896,7 +8891,7 @@ const VkDeviceFaultCountsEXT = new C.CStruct("VkDeviceFaultCountsEXT", {
 const VkDeviceFaultInfoEXT = new C.CStruct("VkDeviceFaultInfoEXT", {
     sType: "u32("+callof(V.VkDeviceFaultInfoEXT_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkDeviceFaultInfoEXT_pNext_offsetof)+")",
-    description: "u8["+enums.NaN+"]("+callof(V.VkDeviceFaultInfoEXT_description_offsetof)+")",
+    description: "u8["+(enums.NaN||1)+"]("+callof(V.VkDeviceFaultInfoEXT_description_offsetof)+")",
     pAddressInfos: "u64("+callof(V.VkDeviceFaultInfoEXT_pAddressInfos_offsetof)+")",
     pVendorInfos: "u64("+callof(V.VkDeviceFaultInfoEXT_pVendorInfos_offsetof)+")",
     pVendorBinaryData: "u64("+callof(V.VkDeviceFaultInfoEXT_pVendorBinaryData_offsetof)+")",
@@ -8909,7 +8904,7 @@ const VkDeviceFaultVendorBinaryHeaderVersionOneEXT = new C.CStruct("VkDeviceFaul
     vendorID: "u32("+callof(V.VkDeviceFaultVendorBinaryHeaderVersionOneEXT_vendorID_offsetof)+")",
     deviceID: "u32("+callof(V.VkDeviceFaultVendorBinaryHeaderVersionOneEXT_deviceID_offsetof)+")",
     driverVersion: "u32("+callof(V.VkDeviceFaultVendorBinaryHeaderVersionOneEXT_driverVersion_offsetof)+")",
-    pipelineCacheUUID: "u8["+enums.NaN+"]("+callof(V.VkDeviceFaultVendorBinaryHeaderVersionOneEXT_pipelineCacheUUID_offsetof)+")",
+    pipelineCacheUUID: "u8["+(enums.NaN||1)+"]("+callof(V.VkDeviceFaultVendorBinaryHeaderVersionOneEXT_pipelineCacheUUID_offsetof)+")",
     applicationNameOffset: "u32("+callof(V.VkDeviceFaultVendorBinaryHeaderVersionOneEXT_applicationNameOffset_offsetof)+")",
     applicationVersion: "u32("+callof(V.VkDeviceFaultVendorBinaryHeaderVersionOneEXT_applicationVersion_offsetof)+")",
     engineNameOffset: "u32("+callof(V.VkDeviceFaultVendorBinaryHeaderVersionOneEXT_engineNameOffset_offsetof)+")",
