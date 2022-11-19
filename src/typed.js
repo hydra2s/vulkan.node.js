@@ -98,6 +98,7 @@ class CStruct {
         if (!(name in types)) { types[name] = this; };
 
         //
+        let prev = undefined;
         for (let name in struct) {
             let length = 1;
             let offset = 0;
@@ -113,7 +114,10 @@ class CStruct {
                     offset = (match ? parseInt(match[1]) : 0) || 0;
                     tname = tname.replace(/\(\d+\)/g, "");
                 };
-                
+
+                // correctify offset, if not defined
+                if (!offset && prev != undefined) { offset = this.types[prev].offset + this.types[prev].byteLength; }; 
+
                 let type = types[tname+(length>1?"arr":"")];
                 this.types.push({type, name, length, byteOffset: offset});
             } else 
@@ -121,6 +125,9 @@ class CStruct {
                 let tname = types[struct[name]][0];
                 length = struct[name][2] || 1;
                 offset = struct[name][1] || 0;
+
+                // correctify offset, if not defined
+                if (!offset && prev != undefined) { offset = this.types[prev].offset + this.types[prev].byteLength; }; 
 
                 let type = types[tname+(length>1?"arr":"")];
                 this.types.push({type, name, length, byteOffset: offset});
