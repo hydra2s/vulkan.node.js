@@ -1,10 +1,9 @@
-import * as T from "struct-buffer";
+import { default as C } from "struct-buffer";
 import { default as S } from "./vulkan-structs.js";
 import { default as E } from "./vulkan-enums.js";
 import { default as V } from "./vulkan-API.js";
 import { default as M } from "./typed.js";
 
-const C = T.default;
 (async()=>{
     
     let rect2D = S.VkRect2D.construct();
