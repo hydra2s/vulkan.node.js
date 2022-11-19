@@ -301,7 +301,7 @@ return params.join(`
         if (param.isFixedArray) {
             if (!isNaN(param.length)) 
                 { return `"${typed}[${parseInt(param.length)||1}]("+callof(V.${name}_${param.name}_offsetof)+")"`; } else 
-                { return `"${typed}["+(enums.${parseInt(param.length)}||1)+"]("+callof(V.${name}_${param.name}_offsetof)+")"`; };
+                { return `"${typed}["+(enums.${param.length}||1)+"]("+callof(V.${name}_${param.name}_offsetof)+")"`; };
         }
         return `"${typed}("+callof(V.${name}_${param.name}_offsetof)+")"`;
     }
