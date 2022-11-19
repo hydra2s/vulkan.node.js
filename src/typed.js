@@ -46,14 +46,17 @@ class CStructView {
         this.buffer = buffer;
         this.byteOffset = byteOffset  + struct.byteOffset;
         this.byteLength = byteLength || struct.byteLength;
-        this.getter = struct.getter;
-        this.setter = struct.setter;
+        this.getter = struct.getter; // copy getter
+        this.setter = struct.setter; // copy setter
         this.type = struct.type;
-
+        this.parent = null;
+        
+        //
         (this.struct = struct).types.forEach((tp)=>{
             const t = tp.type;
             if (t.type && t.type.indexOf("arr") >= 0) {
-                let array = t.construct(this.buffer, this.byteOffset + tp.byteOffset, t.length);
+                let array = t.construct(this.buffer, this.byteOffset + tp.byteOffset, t.length); 
+                array.parent = this; // prefer to have parent node
                 Object.defineProperties(this, {
                     [tp.name]: { get: ()=>{ return t.getter(array, 0); } }
                 });
@@ -152,7 +155,7 @@ class CStruct {
 
         //
         this.getter = (dv, offset)=>{ return new CStructView(dv.buffer, dv.byteOffset + offset, dv.byteLength, this); };
-        this.setter = (dv, offset, value)=>{ this.types.forEach((p)=>p.type.setter(dv,dv.byteOffset+offset+p.byteOffset,value)); };
+        this.setter = (dv, offset, value)=>{ /*this.types.forEach((p)=>p.type.setter(dv,dv.byteOffset+offset+p.byteOffset,value));*/ /* No more available, currently */ };
     }
 
     offsetof(name) {
