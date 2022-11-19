@@ -53,25 +53,14 @@ class CStructView {
         //
         (this.struct = struct).types.forEach((tp)=>{
             const t = tp.type;
-            if (t.type && t.type.indexOf("arr") >= 0) {
-                let array = t.construct(this.buffer, this.byteOffset + tp.byteOffset, t.length); 
-                array.parent = this; // prefer to have parent node
-                Object.defineProperties(this, {
-                    [tp.name]: {
-                        set: (v)=>{ t.setter(array, 0, v); },
-                        get: ()=>{ return t.getter(array, 0); }
-                    }
-                });
-            } else {
-                let array = t.construct(this.buffer, this.byteOffset + tp.byteOffset, tp.byteLength);
-                array.parent = this; // prefer to have parent node
-                Object.defineProperties(this, {
-                    [tp.name]: {
-                        set: (v)=>{ t.setter(array, 0, v); },
-                        get: ()=>{ return t.getter(array, 0); }
-                    }
-                });
-            }
+            const array = t.construct(this.buffer, this.byteOffset + tp.byteOffset, tp.byteLength);
+            array.parent = this; // prefer to have parent node
+            Object.defineProperties(this, {
+                [tp.name]: {
+                    set: (v)=>{ t.setter(array, 0, v); },
+                    get: ()=>{ return t.getter(array, 0); }
+                }
+            });
         });
     }
 
