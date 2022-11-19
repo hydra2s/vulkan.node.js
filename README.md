@@ -20,8 +20,6 @@ Currently, not for production use.
 import * as T from "struct-buffer";
 import { default as S } from "./vulkan-structs.js";
 import { default as V } from "./vulkan-API.js";
- //V.VkRect2D_extent_offsetof
-
 import { default as M } from "./typed.js";
 const C = T.default;
 (async()=>{
