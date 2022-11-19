@@ -62,6 +62,9 @@ class CStructView {
                 }
             });
         });
+
+        // re-bind for native
+        this.address = this.address.bind(this);
     }
 
     // for conversion struct or member
@@ -128,6 +131,9 @@ class CStruct {
         this.byteLength = byteLength;
         this.isStruct = true;
         if (!(name in types)) { types[name] = this; };
+
+        //
+        this.address = this.address.bind(this);
 
         //
         let prev = undefined;
