@@ -108,7 +108,7 @@ let getReader = async()=>{
             if (T.children) {
                 T.children.forEach((d)=>{
                     if (d.type == "element" && d.name == "type") { parsed.type = d.children[0].text; parsed = Object.assign(parsed, d.attributes); };
-                    if (d.type == "element" && d.name == "name") { parsed.name = d.children[0].text; };
+                    if (d.type == "element" && d.name == "name") { parsed.name = d.children[0].text; parsed = Object.assign(parsed, d.attributes); };
                 });
             };
             return parsed;
