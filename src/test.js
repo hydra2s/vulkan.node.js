@@ -19,9 +19,9 @@ const C = T.default;
     let appInfo = S.VkApplicationInfo.construct({
         sType: enums.VK_STRUCTURE_TYPE_APPLICATION_INFO,
         pNext: 0n,
-        pApplicationName: "NVAPI TEST".charAddress(),
+        pApplicationName: "NVAPI TEST",
         applicationVersion: structs.VK_MAKE_API_VERSION(0, 1, 3, 234),
-        pEngineName: "NVAPI".charAddress(),
+        pEngineName: "NVAPI",
         engineVersion: structs.VK_MAKE_API_VERSION(0, 1, 3, 234),
         apiVersion: structs.VK_MAKE_API_VERSION(0, 1, 3, 234)
     });
@@ -35,9 +35,9 @@ const C = T.default;
         sType: enums.VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
         pNext: 0n,
         flags: 0,
-        pApplicationInfo: appInfo.address(),
+        pApplicationInfo: appInfo,
         enabledLayerCount: layers.length,
-        ppEnabledLayerNames: layers.address(),
+        ppEnabledLayerNames: layers,
         enabledExtensionCount: 0,
         ppEnabledExtensionNames: 0n
     });

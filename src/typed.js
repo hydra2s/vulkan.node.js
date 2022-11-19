@@ -1,43 +1,92 @@
 //
-let types = {
-    u8: { byteLength: 1, length: 1, bigEndian: false, type: "u8", getter: (dv, offset)=>{ return dv.getUint8(offset, true); }, setter: (dv, offset, value)=>{ dv.setUint8(offset, parseInt(value), true); }, construct:(...ags) => new DataView(...ags) },
-    i8: { byteLength: 1, length: 1, bbigEndian: false, type: "i8", getter: (dv, offset)=>{ return dv.getInt8 (offset, true); }, setter: (dv, offset, value)=>{ dv.setInt8 (offset, parseInt(value), true); }, construct:(...ags) => new DataView(...ags) },
+const defaultDataConstruct = (...ags) => new DataView(...ags);
+const defaultArrayGetter = (dv, offset)=>{ return dv; };
+const defaultArraySetter = (dv, offset, value)=>{ dv.set(value, offset); };
 
-    u16: { byteLength: 2, length: 1, bbigEndian: false, type: "u16", getter: (dv, offset)=>{ return dv.getUint16(offset, true); }, setter: (dv, offset, value)=>{ dv.setUint16(offset, parseInt(value), true); }, construct: (...ags) => new DataView(...ags) },
-    i16: { byteLength: 2, length: 1, bbigEndian: false, type: "i16", getter: (dv, offset)=>{ return dv.getInt16 (offset, true); }, setter: (dv, offset, value)=>{ dv.setInt16 (offset, parseInt(value), true); }, construct:(...ags) => new DataView(...ags) },
+//
+const isAbv = (value) => {
+    return value && value.byteLength != undefined && (value instanceof ArrayBuffer);
+}
 
-    u24: { byteLength: 3, length: 1, bbigEndian: false, type: "u24", 
-        getter: (dv, offset)=>{ return (dv.getUint8(offset, true)|(dv.getUint8(offset+1, true)<<8)|(dv.getUint8(offset+2, true)<<16)); }, 
-        setter: (dv, offset, value)=>{ dv.setUint8(offset, (parseInt(value) & 0xFF), true); dv.setUint8(offset+1, (parseInt(value) >> 8) & 0xFF, true); dv.setUint8(offset+2, (parseInt(value) >> 16) & 0xFF, true); }, 
-        construct:(...ags) => new DataView(...ags) },
-
-    u32: { byteLength: 4, length: 1, bbigEndian: false, type: "u32", getter: (dv, offset)=>{ return dv.getUint32 (offset, true); }, setter: (dv, offset, value)=>{ dv.setUint32 (offset, parseInt(value), true); }, construct:(...ags) => new DataView(...ags) },
-    i32: { byteLength: 4, length: 1, bbigEndian: false, type: "i32", getter: (dv, offset)=>{ return dv.getInt32  (offset, true); }, setter: (dv, offset, value)=>{ dv.setInt32  (offset, parseInt(value), true); }, construct:(...ags) => new DataView(...ags) },
-    f32: { byteLength: 4, length: 1, bbigEndian: false, type: "f32", getter: (dv, offset)=>{ return dv.getFloat32(offset, true); }, setter: (dv, offset, value)=>{ dv.setFloat32(offset, parseFloat(value), true); }, construct:(...ags) => new DataView(...ags) },
-
-    u64: { byteLength: 8, length: 1, bbigEndian: false, type: "u64", getter: (dv, offset)=>{ return dv.getBigUint64 (offset, true); }, setter: (dv, offset, value)=>{ dv.setBigUint64 (offset, BigInt(value), true); }, construct:(...ags) => new DataView(...ags) },
-    i64: { byteLength: 8, length: 1, bbigEndian: false, type: "i64", getter: (dv, offset)=>{ return dv.getBigInt64  (offset, true); }, setter: (dv, offset, value)=>{ dv.setBigInt64  (offset, BigInt(value), true); }, construct:(...ags) => new DataView(...ags) },
-    f64: { byteLength: 8, length: 1, bbigEndian: false, type: "f64", getter: (dv, offset)=>{ return dv.getFloat64(offset, true); }, setter: (dv, offset, value)=>{ dv.setFloat64(offset, parseFloat(value), true); }, construct:(...ags) => new DataView(...ags) },
-
-    "u8[arr]": { byteLength: 1, length: 1, bigEndian: false, type: "u8[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Uint8Array(...ags) },
-    "i8[arr]": { byteLength: 1, length: 1, bbigEndian: false, type: "i8[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new  Int8Array(...ags) }, 
-
-    "u16[arr]": { byteLength: 2, length: 1, bbigEndian: false, type: "u16[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Uint16Array(...ags) },
-    "i16[arr]": { byteLength: 2, length: 1, bbigEndian: false, type: "i16[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Int16Array(...ags) },
-
-    "u32[arr]": { byteLength: 4, length: 1, bbigEndian: false, type: "u32[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Uint32Array(...ags) },
-    "i32[arr]": { byteLength: 4, length: 1, bbigEndian: false, type: "i32[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Int32Array(...ags) },
-    "f32[arr]": { byteLength: 4, length: 1, bbigEndian: false, type: "f32[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Float32Array(...ags) },
-
-    "u64[arr]": { byteLength: 8, length: 1, bbigEndian: false, type: "u64[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new BigUint64Array(...ags)  },
-    "i64[arr]": { byteLength: 8, length: 1, bbigEndian: false, type: "i64[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new BigInt64Array(...ags) },
-    "f64[arr]": { byteLength: 8, length: 1, bbigEndian: false, type: "f64[arr]", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Float64Array(...ags) }
+// TODO: special array and arrays support
+const asBigInt = (value)=>{
+    if (typeof value == "bigint" || typeof value == "number") {
+        return BigInt(value);
+    } else
+    if (ArrayBuffer.isView(value)) {
+        return value.address();
+    } else 
+    if (value instanceof ArrayBuffer || value instanceof SharedArrayBuffer) {
+        return value.address();
+    } else 
+    if (value instanceof Buffer) {
+        return value.address();
+    } else
+    if (typeof value == "string") {
+        return value.charAddress();
+    } else 
+    if (typeof value == "object" && value.address) {
+        return value.address();
+    }
+    return BigInt(value);
 }
 
 //
-function isAbv(value) {
-    return value && value.byteLength != undefined && (value instanceof ArrayBuffer);
+const types = {};
+
+//
+class NumberAccessor {
+    constructor(name, byteLength, getter, setter, construct = defaultDataConstruct, bigEndian = false) {
+        types[name] = this;
+        this.type = name;
+        this.bigEndian = bigEndian;
+        this.getter = getter;
+        this.setter = setter;
+        this.byteLength = byteLength;
+        this.construct = construct;
+    }
 }
+
+//
+class ArrayAccessor {
+    constructor(name, byteLength, getter, setter, construct, bigEndian = false) {
+        types[name+"[arr]"] = this;
+        this.type = name+"[arr]";
+        this.bigEndian = bigEndian;
+        this.getter = getter;
+        this.setter = setter;
+        this.byteLength = byteLength;
+        this.construct = construct;
+    }
+}
+
+// default accessor types
+new NumberAccessor("u8", 1, (dv, offset)=>{ return dv.getUint8(offset, true); }, (dv, offset, value)=>{ dv.setUint8(offset, parseInt(value), true); }, defaultDataConstruct);
+new NumberAccessor("i8", 1, (dv, offset)=>{ return dv.getInt8(offset, true); }, (dv, offset, value)=>{ dv.setInt8(offset, parseInt(value), true); }, defaultDataConstruct);
+new NumberAccessor("u16", 2, (dv, offset)=>{ return dv.getUint16(offset, true); }, (dv, offset, value)=>{ dv.setUint16(offset, parseInt(value), true); }, defaultDataConstruct);
+new NumberAccessor("i16", 2, (dv, offset)=>{ return dv.getInt16(offset, true); }, (dv, offset, value)=>{ dv.setInt16(offset, parseInt(value), true); }, defaultDataConstruct);
+new NumberAccessor("f32", 4, (dv, offset)=>{ return dv.getFloat32(offset, true); }, (dv, offset, value)=>{ dv.setFloat32(offset, parseFloat(value), true); }, defaultDataConstruct);
+new NumberAccessor("u32", 4, (dv, offset)=>{ return dv.getUint32(offset, true); }, (dv, offset, value)=>{ dv.setUint32(offset, parseInt(value), true); }, defaultDataConstruct);
+new NumberAccessor("i32", 4, (dv, offset)=>{ return dv.getInt32(offset, true); }, (dv, offset, value)=>{ dv.setInt32(offset, parseInt(value), true); }, defaultDataConstruct);
+new NumberAccessor("f64", 8, (dv, offset)=>{ return dv.getFloat64(offset, true); }, (dv, offset, value)=>{ dv.setFloat64(offset, parseFloat(value), true); }, defaultDataConstruct);
+new NumberAccessor("u64", 8, (dv, offset)=>{ return dv.getBigUint64(offset, true); }, (dv, offset, value)=>{ dv.setBigUint64(offset, asBigInt(value), true); }, defaultDataConstruct);
+new NumberAccessor("i64", 8, (dv, offset)=>{ return dv.getBigInt64(offset, true); }, (dv, offset, value)=>{ dv.setBigInt64(offset, asBigInt(value), true); }, defaultDataConstruct);
+new NumberAccessor("u24", 3, 
+(dv, offset)=>{ return (dv.getUint8(offset, true)|(dv.getUint8(offset+1, true)<<8)|(dv.getUint8(offset+2, true)<<16)); }, 
+(dv, offset, value)=>{ dv.setUint8(offset, (parseInt(value) & 0xFF), true); dv.setUint8(offset+1, (parseInt(value) >> 8) & 0xFF, true); dv.setUint8(offset+2, (parseInt(value) >> 16) & 0xFF, true); }, 
+defaultDataConstruct);
+
+// default array types
+new ArrayAccessor("u8", 1, defaultArrayGetter, defaultArraySetter, (...ags) => new Uint8Array(...ags));
+new ArrayAccessor("i8", 1, defaultArrayGetter, defaultArraySetter, (...ags) => new Int8Array(...ags));
+new ArrayAccessor("u16", 2, defaultArrayGetter, defaultArraySetter, (...ags) => new Uint16Array(...ags));
+new ArrayAccessor("i16", 2, defaultArrayGetter, defaultArraySetter, (...ags) => new Int16Array(...ags));
+new ArrayAccessor("f32", 4, defaultArrayGetter, defaultArraySetter, (...ags) => new Float32Array(...ags));
+new ArrayAccessor("u32", 4, defaultArrayGetter, defaultArraySetter, (...ags) => new Uint32Array(...ags));
+new ArrayAccessor("i32", 4, defaultArrayGetter, defaultArraySetter, (...ags) => new Int32Array(...ags));
+new ArrayAccessor("f64", 8, defaultArrayGetter, defaultArraySetter, (...ags) => new Float64Array(...ags));
+new ArrayAccessor("u64", 8, defaultArrayGetter, defaultArraySetter, (...ags) => new BigUint64Array(...ags));
+new ArrayAccessor("i64", 8, defaultArrayGetter, defaultArraySetter, (...ags) => new BigInt64Array(...ags));
 
 //
 class CStructView {
