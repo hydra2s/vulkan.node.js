@@ -12,6 +12,15 @@ Our Node.JS bindings for Vulkan API support (latest version, as possible). Curre
 - Planned support for glMatrix fully
 - Planned support for WebAssembly bindings and memory
 
+## TODO
+
+- [ ] User friendly interfaces as possible
+- [ ] Protective proxies and classes for `typed.js` types
+- [ ] More specific types (such as arrays, number accessors)
+- [ ] Optimizations on JS side
+- [ ] Variable type acception for API callables (such as typed arrays, array buffers, strings, etc.)
+- [ ] Variable acceptors for JS types (for string, typed arrays, array buffers, native address, etc.)
+
 ## Test code
 
 Currently, not for production use. 
