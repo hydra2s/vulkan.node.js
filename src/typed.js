@@ -139,7 +139,13 @@ class CStruct {
                 prev = this.types.length; this.types.push({type, name, length, byteOffset: offset, byteLength: type?.byteLength || 1 });
             }
         }
+        
+        // if length is not defined
+        if (!this.byteLength && this.types.length >= 1) { 
+            this.byteLength = this.types[this.types.length-1].offset + this.types[this.types.length-1].byteLength; 
+        };
 
+        //
         this.getter = (dv, offset)=>{ return new CStructView(dv.buffer, dv.byteOffset + offset, dv.byteLength, this); };
         this.setter = (dv, offset, value)=>{ this.types.forEach((p)=>p.type.setter(dv,dv.byteOffset+offset+p.byteOffset,value)); };
     }
