@@ -156,14 +156,21 @@ class CStruct {
             }
 
             // correctify offset, if not defined
-            if (!offset && prev != undefined) { offset = this.types[prev].offset + this.types[prev].byteLength; }; 
+            if (!offset && prev != undefined) { offset = this.types[prev].byteOffset + this.types[prev].byteLength; }; 
             let type = types[tname+(length>1?"[arr]":"")];
             prev = this.types.length; this.types.push({type, name, length, byteOffset: offset, byteLength: type?.byteLength || 1 });
+
+            //
+            this.types = this.types.sort(function(a, b) {
+                if (a.byteOffset < b.byteOffset) return -1;
+                if (a.byteOffset > b.byteOffset) return 1;
+                return 0;
+            });
         }
 
         // if length is not defined
         if (!this.byteLength && this.types.length >= 1) { 
-            this.byteLength = this.types[this.types.length-1].offset + this.types[this.types.length-1].byteLength; 
+            this.byteLength = this.types[this.types.length-1].byteOffset + this.types[this.types.length-1].byteLength; 
         };
 
         //
@@ -178,20 +185,6 @@ class CStruct {
     offsetof(name) {
         return this.types.find((e)=>(e.name==name))?.byteOffset || 0;
     }
-
-    u8(name, byteOffset = 0, length = 1) { this.types.push({type: types["u8"+(length>1?"[arr]":"")], name, byteOffset, length}); }
-    i8(name, byteOffset = 0, length = 1) { this.types.push({type: types["i8"+(length>1?"[arr]":"")], name, byteOffset, length}); }
-
-    u16(name, byteOffset = 0, length = 1) { this.types.push({type: types["u16"+(length>1?"[arr]":"")], name, byteOffset, length}); }
-    i16(name, byteOffset = 0, length = 1) { this.types.push({type: types["i16"+(length>1?"[arr]":"")], name, byteOffset, length}); }
-
-    u32(name, byteOffset = 0, length = 1) { this.types.push({type: types["u32"+(length>1?"[arr]":"")], name, byteOffset, length}); }
-    i32(name, byteOffset = 0, length = 1) { this.types.push({type: types["i32"+(length>1?"[arr]":"")], name, byteOffset, length}); }
-    f32(name, byteOffset = 0, length = 1) { this.types.push({type: types["f32"+(length>1?"[arr]":"")], name, byteOffset, length}); }
-
-    u64(name, byteOffset = 0, length = 1) { this.types.push({type: types["u64"+(length>1?"[arr]":"")], name, byteOffset, length}); }
-    i64(name, byteOffset = 0, length = 1) { this.types.push({type: types["i64"+(length>1?"[arr]":"")], name, byteOffset, length}); }
-    f64(name, byteOffset = 0, length = 1) { this.types.push({type: types["f64"+(length>1?"[arr]":"")], name, byteOffset, length}); }
 
     construct(buffer, byteOffset = 0, byteLength = 0) {
         if (isAbv(buffer ? (buffer.buffer || buffer) : null)) {
