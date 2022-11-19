@@ -14,9 +14,9 @@ Our Node.JS bindings for Vulkan API support (latest version, as possible). Curre
 
 ## Hydra.D2S
 
-## ℹ️ [Info Center](https://github.com/hydra2s-info) ℹ️ 
-## 💬 [Обсуждения/Discussions](https://github.com/hydra2s-info/about/discussions) 💬
-## 🐞 [Баг-Репорты/Bug-Tracker](https://github.com/hydra2s-info/about/issues) 🐞
+### ℹ️ [Info Center](https://github.com/hydra2s-info) ℹ️ 
+### 💬 [Обсуждения/Discussions](https://github.com/hydra2s-info/about/discussions) 💬
+### 🐞 [Баг-Репорты/Bug-Tracker](https://github.com/hydra2s-info/about/issues) 🐞
 
 ## Projects
 
