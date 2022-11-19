@@ -19,6 +19,7 @@ let types = {
     i64: { byteLength: 8, length: 1, bbigEndian: false, type: "i64", getter: (dv, offset)=>{ return dv.getBigInt64  (offset, true); }, setter: (dv, offset, value)=>{ dv.setBigInt64  (offset, BigInt(value), true); }, construct:(...ags) => new DataView(...ags) },
     f64: { byteLength: 8, length: 1, bbigEndian: false, type: "f64", getter: (dv, offset)=>{ return dv.getFloat64(offset, true); }, setter: (dv, offset, value)=>{ dv.setFloat64(offset, parseFloat(value), true); }, construct:(...ags) => new DataView(...ags) },
 
+    // TODO: mass setter (array for array)
     u8arr: { byteLength: 1, length: 1, bigEndian: false, type: "u8arr", getter: (dv, offset)=>{ return dv; }, construct: (...ags)=> new Uint8Array(...ags) },
     i8arr: { byteLength: 1, length: 1, bbigEndian: false, type: "i8arr", getter: (dv, offset)=>{ return dv; }, construct: (...ags)=> new  Int8Array(...ags) }, 
 
@@ -32,7 +33,6 @@ let types = {
     u64arr: { byteLength: 8, length: 1, bbigEndian: false, type: "u64arr", getter: (dv, offset)=>{ return dv; }, construct: (...ags)=> new BigUint64Array(...ags)  },
     i64arr: { byteLength: 8, length: 1, bbigEndian: false, type: "i64arr", getter: (dv, offset)=>{ return dv; }, construct: (...ags)=> new BigInt64Array(...ags) },
     f64arr: { byteLength: 8, length: 1, bbigEndian: false, type: "f64arr", getter: (dv, offset)=>{ return dv; }, construct: (...ags)=> new Float64Array(...ags) }
-
 }
 
 //
@@ -58,10 +58,14 @@ class CStructView {
                 let array = t.construct(this.buffer, this.byteOffset + tp.byteOffset, t.length); 
                 array.parent = this; // prefer to have parent node
                 Object.defineProperties(this, {
-                    [tp.name]: { get: ()=>{ return t.getter(array, 0); } }
+                    [tp.name]: {
+                        set: (v)=>{ t.setter(array, 0, v); },
+                        get: ()=>{ return t.getter(array, 0); }
+                    }
                 });
             } else {
                 let array = t.construct(this.buffer, this.byteOffset + tp.byteOffset, tp.byteLength);
+                array.parent = this; // prefer to have parent node
                 Object.defineProperties(this, {
                     [tp.name]: {
                         set: (v)=>{ t.setter(array, 0, v); },
@@ -147,7 +151,7 @@ class CStruct {
                 prev = this.types.length; this.types.push({type, name, length, byteOffset: offset, byteLength: type?.byteLength || 1 });
             }
         }
-        
+
         // if length is not defined
         if (!this.byteLength && this.types.length >= 1) { 
             this.byteLength = this.types[this.types.length-1].offset + this.types[this.types.length-1].byteLength; 
@@ -155,7 +159,11 @@ class CStruct {
 
         //
         this.getter = (dv, offset)=>{ return new CStructView(dv.buffer, dv.byteOffset + offset, dv.byteLength, this); };
-        this.setter = (dv, offset, value)=>{ /*this.types.forEach((p)=>p.type.setter(dv,dv.byteOffset+offset+p.byteOffset,value));*/ /* No more available, currently */ };
+
+        // offset isn't supported
+        this.setter = (dv, offset, value)=>{
+            if (typeof value == "object") { for (let t of this.types) { let k = t.name; if (k in buffer) { dv[k] = buffer[k]; }; }; }
+        };
     }
 
     offsetof(name) {
