@@ -19,20 +19,19 @@ let types = {
     i64: { byteLength: 8, length: 1, bbigEndian: false, type: "i64", getter: (dv, offset)=>{ return dv.getBigInt64  (offset, true); }, setter: (dv, offset, value)=>{ dv.setBigInt64  (offset, BigInt(value), true); }, construct:(...ags) => new DataView(...ags) },
     f64: { byteLength: 8, length: 1, bbigEndian: false, type: "f64", getter: (dv, offset)=>{ return dv.getFloat64(offset, true); }, setter: (dv, offset, value)=>{ dv.setFloat64(offset, parseFloat(value), true); }, construct:(...ags) => new DataView(...ags) },
 
-    // TODO: mass setter (array for array)
-    u8arr: { byteLength: 1, length: 1, bigEndian: false, type: "u8arr", getter: (dv, offset)=>{ return dv; }, construct: (...ags)=> new Uint8Array(...ags) },
-    i8arr: { byteLength: 1, length: 1, bbigEndian: false, type: "i8arr", getter: (dv, offset)=>{ return dv; }, construct: (...ags)=> new  Int8Array(...ags) }, 
+    u8arr: { byteLength: 1, length: 1, bigEndian: false, type: "u8arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Uint8Array(...ags) },
+    i8arr: { byteLength: 1, length: 1, bbigEndian: false, type: "i8arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new  Int8Array(...ags) }, 
 
-    u16arr: { byteLength: 2, length: 1, bbigEndian: false, type: "u16arr", getter: (dv, offset)=>{ return dv; }, construct: (...ags)=> new Uint16Array(...ags) },
-    i16arr: { byteLength: 2, length: 1, bbigEndian: false, type: "i16arr", getter: (dv, offset)=>{ return dv }, construct: (...ags)=> new Int16Array(...ags) },
+    u16arr: { byteLength: 2, length: 1, bbigEndian: false, type: "u16arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Uint16Array(...ags) },
+    i16arr: { byteLength: 2, length: 1, bbigEndian: false, type: "i16arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Int16Array(...ags) },
 
-    u32arr: { byteLength: 4, length: 1, bbigEndian: false, type: "u32arr", getter: (dv, offset)=>{ return dv; }, construct: (...ags)=> new Uint32Array(...ags) },
-    i32arr: { byteLength: 4, length: 1, bbigEndian: false, type: "i32arr", getter: (dv, offset)=>{ return dv; }, construct: (...ags)=> new Int32Array(...ags) },
-    f32arr: { byteLength: 4, length: 1, bbigEndian: false, type: "f32arr", getter: (dv, offset)=>{ return dv; }, construct: (...ags)=> new Float32Array(...ags) },
+    u32arr: { byteLength: 4, length: 1, bbigEndian: false, type: "u32arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Uint32Array(...ags) },
+    i32arr: { byteLength: 4, length: 1, bbigEndian: false, type: "i32arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Int32Array(...ags) },
+    f32arr: { byteLength: 4, length: 1, bbigEndian: false, type: "f32arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Float32Array(...ags) },
 
-    u64arr: { byteLength: 8, length: 1, bbigEndian: false, type: "u64arr", getter: (dv, offset)=>{ return dv; }, construct: (...ags)=> new BigUint64Array(...ags)  },
-    i64arr: { byteLength: 8, length: 1, bbigEndian: false, type: "i64arr", getter: (dv, offset)=>{ return dv; }, construct: (...ags)=> new BigInt64Array(...ags) },
-    f64arr: { byteLength: 8, length: 1, bbigEndian: false, type: "f64arr", getter: (dv, offset)=>{ return dv; }, construct: (...ags)=> new Float64Array(...ags) }
+    u64arr: { byteLength: 8, length: 1, bbigEndian: false, type: "u64arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new BigUint64Array(...ags)  },
+    i64arr: { byteLength: 8, length: 1, bbigEndian: false, type: "i64arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new BigInt64Array(...ags) },
+    f64arr: { byteLength: 8, length: 1, bbigEndian: false, type: "f64arr", getter: (dv, offset)=>{ return dv; }, setter: (dv, offset, value)=>{ dv.set(value, offset); }, construct: (...ags)=> new Float64Array(...ags) }
 }
 
 //
