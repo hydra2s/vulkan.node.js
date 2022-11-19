@@ -257,7 +257,7 @@ const VkDescriptorBufferInfo = new C.CStruct("VkDescriptorBufferInfo", {
 
 
 const VkDescriptorImageInfo = new C.CStruct("VkDescriptorImageInfo", {
-    sampler: "u32",
+    sampler: "u64("+callof(V.VkDescriptorImageInfo_sampler_offsetof)+")",
     imageView: "u32",
     imageLayout: "u32",
 }, callof(V.VkDescriptorImageInfo_sizeof));
@@ -611,8 +611,8 @@ const VkComputePipelineCreateInfo = new C.CStruct("VkComputePipelineCreateInfo",
     pNext: "u64("+callof(V.VkComputePipelineCreateInfo_pNext_offsetof)+")",
     flags: "u32("+callof(V.VkComputePipelineCreateInfo_flags_offsetof)+")",
     stage: "u32",
-    layout: "u32",
-    basePipelineHandle: "u32",
+    layout: "u64("+callof(V.VkComputePipelineCreateInfo_layout_offsetof)+")",
+    basePipelineHandle: "u64("+callof(V.VkComputePipelineCreateInfo_basePipelineHandle_offsetof)+")",
     basePipelineIndex: "i32("+callof(V.VkComputePipelineCreateInfo_basePipelineIndex_offsetof)+")",
 }, callof(V.VkComputePipelineCreateInfo_sizeof));
 
@@ -776,10 +776,10 @@ const VkGraphicsPipelineCreateInfo = new C.CStruct("VkGraphicsPipelineCreateInfo
     pDepthStencilState: "u64("+callof(V.VkGraphicsPipelineCreateInfo_pDepthStencilState_offsetof)+")",
     pColorBlendState: "u64("+callof(V.VkGraphicsPipelineCreateInfo_pColorBlendState_offsetof)+")",
     pDynamicState: "u64("+callof(V.VkGraphicsPipelineCreateInfo_pDynamicState_offsetof)+")",
-    layout: "u32",
+    layout: "u64("+callof(V.VkGraphicsPipelineCreateInfo_layout_offsetof)+")",
     renderPass: "u32",
     subpass: "u32("+callof(V.VkGraphicsPipelineCreateInfo_subpass_offsetof)+")",
-    basePipelineHandle: "u32",
+    basePipelineHandle: "u64("+callof(V.VkGraphicsPipelineCreateInfo_basePipelineHandle_offsetof)+")",
     basePipelineIndex: "i32("+callof(V.VkGraphicsPipelineCreateInfo_basePipelineIndex_offsetof)+")",
 }, callof(V.VkGraphicsPipelineCreateInfo_sizeof));
 
@@ -864,7 +864,7 @@ const VkCommandBufferInheritanceInfo = new C.CStruct("VkCommandBufferInheritance
     pNext: "u64("+callof(V.VkCommandBufferInheritanceInfo_pNext_offsetof)+")",
     renderPass: "u32",
     subpass: "u32("+callof(V.VkCommandBufferInheritanceInfo_subpass_offsetof)+")",
-    framebuffer: "u32",
+    framebuffer: "u64("+callof(V.VkCommandBufferInheritanceInfo_framebuffer_offsetof)+")",
     occlusionQueryEnable: "u32("+callof(V.VkCommandBufferInheritanceInfo_occlusionQueryEnable_offsetof)+")",
     queryFlags: "u32("+callof(V.VkCommandBufferInheritanceInfo_queryFlags_offsetof)+")",
     pipelineStatistics: "u32("+callof(V.VkCommandBufferInheritanceInfo_pipelineStatistics_offsetof)+")",
@@ -883,7 +883,7 @@ const VkRenderPassBeginInfo = new C.CStruct("VkRenderPassBeginInfo", {
     sType: "u32("+callof(V.VkRenderPassBeginInfo_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkRenderPassBeginInfo_pNext_offsetof)+")",
     renderPass: "u32",
-    framebuffer: "u32",
+    framebuffer: "u64("+callof(V.VkRenderPassBeginInfo_framebuffer_offsetof)+")",
     renderArea: "VkRect2D("+callof(V.VkRenderPassBeginInfo_renderArea_offsetof)+")",
     clearValueCount: "u32("+callof(V.VkRenderPassBeginInfo_clearValueCount_offsetof)+")",
     pClearValues: "u64("+callof(V.VkRenderPassBeginInfo_pClearValues_offsetof)+")",
@@ -1415,7 +1415,7 @@ const VkSwapchainCreateInfoKHR = new C.CStruct("VkSwapchainCreateInfoKHR", {
     sType: "u32("+callof(V.VkSwapchainCreateInfoKHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkSwapchainCreateInfoKHR_pNext_offsetof)+")",
     flags: "u32("+callof(V.VkSwapchainCreateInfoKHR_flags_offsetof)+")",
-    surface: "u32",
+    surface: "u64("+callof(V.VkSwapchainCreateInfoKHR_surface_offsetof)+")",
     minImageCount: "u32("+callof(V.VkSwapchainCreateInfoKHR_minImageCount_offsetof)+")",
     imageFormat: "u32",
     imageColorSpace: "u32",
@@ -1429,7 +1429,7 @@ const VkSwapchainCreateInfoKHR = new C.CStruct("VkSwapchainCreateInfoKHR", {
     compositeAlpha: "u32("+callof(V.VkSwapchainCreateInfoKHR_compositeAlpha_offsetof)+")",
     presentMode: "u32",
     clipped: "u32("+callof(V.VkSwapchainCreateInfoKHR_clipped_offsetof)+")",
-    oldSwapchain: "u32",
+    oldSwapchain: "u64("+callof(V.VkSwapchainCreateInfoKHR_oldSwapchain_offsetof)+")",
 }, callof(V.VkSwapchainCreateInfoKHR_sizeof));
 
 
@@ -1703,7 +1703,7 @@ const VkIndirectCommandsLayoutTokenNV = new C.CStruct("VkIndirectCommandsLayoutT
     offset: "u32("+callof(V.VkIndirectCommandsLayoutTokenNV_offset_offsetof)+")",
     vertexBindingUnit: "u32("+callof(V.VkIndirectCommandsLayoutTokenNV_vertexBindingUnit_offsetof)+")",
     vertexDynamicStride: "u32("+callof(V.VkIndirectCommandsLayoutTokenNV_vertexDynamicStride_offsetof)+")",
-    pushconstantPipelineLayout: "u32",
+    pushconstantPipelineLayout: "u64("+callof(V.VkIndirectCommandsLayoutTokenNV_pushconstantPipelineLayout_offsetof)+")",
     pushconstantShaderStageFlags: "u32("+callof(V.VkIndirectCommandsLayoutTokenNV_pushconstantShaderStageFlags_offsetof)+")",
     pushconstantOffset: "u32("+callof(V.VkIndirectCommandsLayoutTokenNV_pushconstantOffset_offsetof)+")",
     pushconstantSize: "u32("+callof(V.VkIndirectCommandsLayoutTokenNV_pushconstantSize_offsetof)+")",
@@ -1730,7 +1730,7 @@ const VkGeneratedCommandsInfoNV = new C.CStruct("VkGeneratedCommandsInfoNV", {
     sType: "u32("+callof(V.VkGeneratedCommandsInfoNV_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkGeneratedCommandsInfoNV_pNext_offsetof)+")",
     pipelineBindPoint: "u32",
-    pipeline: "u32",
+    pipeline: "u64("+callof(V.VkGeneratedCommandsInfoNV_pipeline_offsetof)+")",
     indirectCommandsLayout: "u32",
     streamCount: "u32("+callof(V.VkGeneratedCommandsInfoNV_streamCount_offsetof)+")",
     pStreams: "u64("+callof(V.VkGeneratedCommandsInfoNV_pStreams_offsetof)+")",
@@ -1749,7 +1749,7 @@ const VkGeneratedCommandsMemoryRequirementsInfoNV = new C.CStruct("VkGeneratedCo
     sType: "u32("+callof(V.VkGeneratedCommandsMemoryRequirementsInfoNV_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkGeneratedCommandsMemoryRequirementsInfoNV_pNext_offsetof)+")",
     pipelineBindPoint: "u32",
-    pipeline: "u32",
+    pipeline: "u64("+callof(V.VkGeneratedCommandsMemoryRequirementsInfoNV_pipeline_offsetof)+")",
     indirectCommandsLayout: "u32",
     maxSequencesCount: "u32("+callof(V.VkGeneratedCommandsMemoryRequirementsInfoNV_maxSequencesCount_offsetof)+")",
 }, callof(V.VkGeneratedCommandsMemoryRequirementsInfoNV_sizeof));
@@ -2197,7 +2197,7 @@ const VkExportSemaphoreCreateInfoKHR = new C.CStruct("VkExportSemaphoreCreateInf
 const VkImportSemaphoreWin32HandleInfoKHR = new C.CStruct("VkImportSemaphoreWin32HandleInfoKHR", {
     sType: "u32("+callof(V.VkImportSemaphoreWin32HandleInfoKHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkImportSemaphoreWin32HandleInfoKHR_pNext_offsetof)+")",
-    semaphore: "u32",
+    semaphore: "u64("+callof(V.VkImportSemaphoreWin32HandleInfoKHR_semaphore_offsetof)+")",
     flags: "u32("+callof(V.VkImportSemaphoreWin32HandleInfoKHR_flags_offsetof)+")",
     handleType: "u32("+callof(V.VkImportSemaphoreWin32HandleInfoKHR_handleType_offsetof)+")",
     handle: "u64("+callof(V.VkImportSemaphoreWin32HandleInfoKHR_handle_offsetof)+")",
@@ -2227,7 +2227,7 @@ const VkD3D12FenceSubmitInfoKHR = new C.CStruct("VkD3D12FenceSubmitInfoKHR", {
 const VkSemaphoreGetWin32HandleInfoKHR = new C.CStruct("VkSemaphoreGetWin32HandleInfoKHR", {
     sType: "u32("+callof(V.VkSemaphoreGetWin32HandleInfoKHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkSemaphoreGetWin32HandleInfoKHR_pNext_offsetof)+")",
-    semaphore: "u32",
+    semaphore: "u64("+callof(V.VkSemaphoreGetWin32HandleInfoKHR_semaphore_offsetof)+")",
     handleType: "u32("+callof(V.VkSemaphoreGetWin32HandleInfoKHR_handleType_offsetof)+")",
 }, callof(V.VkSemaphoreGetWin32HandleInfoKHR_sizeof));
 
@@ -2235,7 +2235,7 @@ const VkSemaphoreGetWin32HandleInfoKHR = new C.CStruct("VkSemaphoreGetWin32Handl
 const VkImportSemaphoreFdInfoKHR = new C.CStruct("VkImportSemaphoreFdInfoKHR", {
     sType: "u32("+callof(V.VkImportSemaphoreFdInfoKHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkImportSemaphoreFdInfoKHR_pNext_offsetof)+")",
-    semaphore: "u32",
+    semaphore: "u64("+callof(V.VkImportSemaphoreFdInfoKHR_semaphore_offsetof)+")",
     flags: "u32("+callof(V.VkImportSemaphoreFdInfoKHR_flags_offsetof)+")",
     handleType: "u32("+callof(V.VkImportSemaphoreFdInfoKHR_handleType_offsetof)+")",
     fd: "u32",
@@ -2245,7 +2245,7 @@ const VkImportSemaphoreFdInfoKHR = new C.CStruct("VkImportSemaphoreFdInfoKHR", {
 const VkSemaphoreGetFdInfoKHR = new C.CStruct("VkSemaphoreGetFdInfoKHR", {
     sType: "u32("+callof(V.VkSemaphoreGetFdInfoKHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkSemaphoreGetFdInfoKHR_pNext_offsetof)+")",
-    semaphore: "u32",
+    semaphore: "u64("+callof(V.VkSemaphoreGetFdInfoKHR_semaphore_offsetof)+")",
     handleType: "u32("+callof(V.VkSemaphoreGetFdInfoKHR_handleType_offsetof)+")",
 }, callof(V.VkSemaphoreGetFdInfoKHR_sizeof));
 
@@ -2253,7 +2253,7 @@ const VkSemaphoreGetFdInfoKHR = new C.CStruct("VkSemaphoreGetFdInfoKHR", {
 const VkImportSemaphoreZirconHandleInfoFUCHSIA = new C.CStruct("VkImportSemaphoreZirconHandleInfoFUCHSIA", {
     sType: "u32("+callof(V.VkImportSemaphoreZirconHandleInfoFUCHSIA_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkImportSemaphoreZirconHandleInfoFUCHSIA_pNext_offsetof)+")",
-    semaphore: "u32",
+    semaphore: "u64("+callof(V.VkImportSemaphoreZirconHandleInfoFUCHSIA_semaphore_offsetof)+")",
     flags: "u32("+callof(V.VkImportSemaphoreZirconHandleInfoFUCHSIA_flags_offsetof)+")",
     handleType: "u32("+callof(V.VkImportSemaphoreZirconHandleInfoFUCHSIA_handleType_offsetof)+")",
     zirconHandle: "u32",
@@ -2263,7 +2263,7 @@ const VkImportSemaphoreZirconHandleInfoFUCHSIA = new C.CStruct("VkImportSemaphor
 const VkSemaphoreGetZirconHandleInfoFUCHSIA = new C.CStruct("VkSemaphoreGetZirconHandleInfoFUCHSIA", {
     sType: "u32("+callof(V.VkSemaphoreGetZirconHandleInfoFUCHSIA_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkSemaphoreGetZirconHandleInfoFUCHSIA_pNext_offsetof)+")",
-    semaphore: "u32",
+    semaphore: "u64("+callof(V.VkSemaphoreGetZirconHandleInfoFUCHSIA_semaphore_offsetof)+")",
     handleType: "u32("+callof(V.VkSemaphoreGetZirconHandleInfoFUCHSIA_handleType_offsetof)+")",
 }, callof(V.VkSemaphoreGetZirconHandleInfoFUCHSIA_sizeof));
 
@@ -2445,7 +2445,7 @@ const VkPhysicalDeviceGroupProperties = new C.CStruct("VkPhysicalDeviceGroupProp
     sType: "u32("+callof(V.VkPhysicalDeviceGroupProperties_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPhysicalDeviceGroupProperties_pNext_offsetof)+")",
     physicalDeviceCount: "u32("+callof(V.VkPhysicalDeviceGroupProperties_physicalDeviceCount_offsetof)+")",
-    physicalDevices: "u32",
+    physicalDevices: "u64["+enums.NaN+"]("+callof(V.VkPhysicalDeviceGroupProperties_physicalDevices_offsetof)+")",
     subsetAllocation: "u32("+callof(V.VkPhysicalDeviceGroupProperties_subsetAllocation_offsetof)+")",
 }, callof(V.VkPhysicalDeviceGroupProperties_sizeof));
 
@@ -2591,14 +2591,14 @@ const VkDeviceGroupPresentCapabilitiesKHR = new C.CStruct("VkDeviceGroupPresentC
 const VkImageSwapchainCreateInfoKHR = new C.CStruct("VkImageSwapchainCreateInfoKHR", {
     sType: "u32("+callof(V.VkImageSwapchainCreateInfoKHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkImageSwapchainCreateInfoKHR_pNext_offsetof)+")",
-    swapchain: "u32",
+    swapchain: "u64("+callof(V.VkImageSwapchainCreateInfoKHR_swapchain_offsetof)+")",
 }, callof(V.VkImageSwapchainCreateInfoKHR_sizeof));
 
 
 const VkBindImageMemorySwapchainInfoKHR = new C.CStruct("VkBindImageMemorySwapchainInfoKHR", {
     sType: "u32("+callof(V.VkBindImageMemorySwapchainInfoKHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkBindImageMemorySwapchainInfoKHR_pNext_offsetof)+")",
-    swapchain: "u32",
+    swapchain: "u64("+callof(V.VkBindImageMemorySwapchainInfoKHR_swapchain_offsetof)+")",
     imageIndex: "u32("+callof(V.VkBindImageMemorySwapchainInfoKHR_imageIndex_offsetof)+")",
 }, callof(V.VkBindImageMemorySwapchainInfoKHR_sizeof));
 
@@ -2606,9 +2606,9 @@ const VkBindImageMemorySwapchainInfoKHR = new C.CStruct("VkBindImageMemorySwapch
 const VkAcquireNextImageInfoKHR = new C.CStruct("VkAcquireNextImageInfoKHR", {
     sType: "u32("+callof(V.VkAcquireNextImageInfoKHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkAcquireNextImageInfoKHR_pNext_offsetof)+")",
-    swapchain: "u32",
+    swapchain: "u64("+callof(V.VkAcquireNextImageInfoKHR_swapchain_offsetof)+")",
     timeout: "u64("+callof(V.VkAcquireNextImageInfoKHR_timeout_offsetof)+")",
-    semaphore: "u32",
+    semaphore: "u64("+callof(V.VkAcquireNextImageInfoKHR_semaphore_offsetof)+")",
     fence: "u32",
     deviceMask: "u32("+callof(V.VkAcquireNextImageInfoKHR_deviceMask_offsetof)+")",
 }, callof(V.VkAcquireNextImageInfoKHR_sizeof));
@@ -2667,7 +2667,7 @@ const VkDescriptorUpdateTemplateCreateInfo = new C.CStruct("VkDescriptorUpdateTe
     templateType: "u32",
     descriptorSetLayout: "u32",
     pipelineBindPoint: "u32",
-    pipelineLayout: "u32",
+    pipelineLayout: "u64("+callof(V.VkDescriptorUpdateTemplateCreateInfo_pipelineLayout_offsetof)+")",
     set: "u32("+callof(V.VkDescriptorUpdateTemplateCreateInfo_set_offsetof)+")",
 }, callof(V.VkDescriptorUpdateTemplateCreateInfo_sizeof));
 
@@ -2869,7 +2869,7 @@ const VkRenderPassInputAttachmentAspectCreateInfoKHR = new C.CStruct("VkRenderPa
 const VkPhysicalDeviceSurfaceInfo2KHR = new C.CStruct("VkPhysicalDeviceSurfaceInfo2KHR", {
     sType: "u32("+callof(V.VkPhysicalDeviceSurfaceInfo2KHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPhysicalDeviceSurfaceInfo2KHR_pNext_offsetof)+")",
-    surface: "u32",
+    surface: "u64("+callof(V.VkPhysicalDeviceSurfaceInfo2KHR_surface_offsetof)+")",
 }, callof(V.VkPhysicalDeviceSurfaceInfo2KHR_sizeof));
 
 
@@ -4129,7 +4129,7 @@ const VkSemaphoreWaitInfoKHR = new C.CStruct("VkSemaphoreWaitInfoKHR", {
 const VkSemaphoreSignalInfo = new C.CStruct("VkSemaphoreSignalInfo", {
     sType: "u32("+callof(V.VkSemaphoreSignalInfo_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkSemaphoreSignalInfo_pNext_offsetof)+")",
-    semaphore: "u32",
+    semaphore: "u64("+callof(V.VkSemaphoreSignalInfo_semaphore_offsetof)+")",
     value: "u64("+callof(V.VkSemaphoreSignalInfo_value_offsetof)+")",
 }, callof(V.VkSemaphoreSignalInfo_sizeof));
 
@@ -4682,8 +4682,8 @@ const VkRayTracingPipelineCreateInfoNV = new C.CStruct("VkRayTracingPipelineCrea
     groupCount: "u32("+callof(V.VkRayTracingPipelineCreateInfoNV_groupCount_offsetof)+")",
     pGroups: "u64("+callof(V.VkRayTracingPipelineCreateInfoNV_pGroups_offsetof)+")",
     maxRecursionDepth: "u32("+callof(V.VkRayTracingPipelineCreateInfoNV_maxRecursionDepth_offsetof)+")",
-    layout: "u32",
-    basePipelineHandle: "u32",
+    layout: "u64("+callof(V.VkRayTracingPipelineCreateInfoNV_layout_offsetof)+")",
+    basePipelineHandle: "u64("+callof(V.VkRayTracingPipelineCreateInfoNV_basePipelineHandle_offsetof)+")",
     basePipelineIndex: "i32("+callof(V.VkRayTracingPipelineCreateInfoNV_basePipelineIndex_offsetof)+")",
 }, callof(V.VkRayTracingPipelineCreateInfoNV_sizeof));
 
@@ -4700,8 +4700,8 @@ const VkRayTracingPipelineCreateInfoKHR = new C.CStruct("VkRayTracingPipelineCre
     pLibraryInfo: "u64("+callof(V.VkRayTracingPipelineCreateInfoKHR_pLibraryInfo_offsetof)+")",
     pLibraryInterface: "u64("+callof(V.VkRayTracingPipelineCreateInfoKHR_pLibraryInterface_offsetof)+")",
     pDynamicState: "u64("+callof(V.VkRayTracingPipelineCreateInfoKHR_pDynamicState_offsetof)+")",
-    layout: "u32",
-    basePipelineHandle: "u32",
+    layout: "u64("+callof(V.VkRayTracingPipelineCreateInfoKHR_layout_offsetof)+")",
+    basePipelineHandle: "u64("+callof(V.VkRayTracingPipelineCreateInfoKHR_basePipelineHandle_offsetof)+")",
     basePipelineIndex: "i32("+callof(V.VkRayTracingPipelineCreateInfoKHR_basePipelineIndex_offsetof)+")",
 }, callof(V.VkRayTracingPipelineCreateInfoKHR_sizeof));
 
@@ -5308,7 +5308,7 @@ const VkImageViewHandleInfoNVX = new C.CStruct("VkImageViewHandleInfoNVX", {
     pNext: "u64("+callof(V.VkImageViewHandleInfoNVX_pNext_offsetof)+")",
     imageView: "u32",
     descriptorType: "u32",
-    sampler: "u32",
+    sampler: "u64("+callof(V.VkImageViewHandleInfoNVX_sampler_offsetof)+")",
 }, callof(V.VkImageViewHandleInfoNVX_sizeof));
 
 
@@ -5641,7 +5641,7 @@ const VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR = new C.CStruct("V
 const VkPipelineInfoKHR = new C.CStruct("VkPipelineInfoKHR", {
     sType: "u32("+callof(V.VkPipelineInfoKHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPipelineInfoKHR_pNext_offsetof)+")",
-    pipeline: "u32",
+    pipeline: "u64("+callof(V.VkPipelineInfoKHR_pipeline_offsetof)+")",
 }, callof(V.VkPipelineInfoKHR_sizeof));
 
 
@@ -5663,7 +5663,7 @@ const VkPipelineExecutablePropertiesKHR = new C.CStruct("VkPipelineExecutablePro
 const VkPipelineExecutableInfoKHR = new C.CStruct("VkPipelineExecutableInfoKHR", {
     sType: "u32("+callof(V.VkPipelineExecutableInfoKHR_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkPipelineExecutableInfoKHR_pNext_offsetof)+")",
-    pipeline: "u32",
+    pipeline: "u64("+callof(V.VkPipelineExecutableInfoKHR_pipeline_offsetof)+")",
     executableIndex: "u32("+callof(V.VkPipelineExecutableInfoKHR_executableIndex_offsetof)+")",
 }, callof(V.VkPipelineExecutableInfoKHR_sizeof));
 
@@ -6994,7 +6994,7 @@ const VkDependencyInfoKHR = new C.CStruct("VkDependencyInfoKHR", {
 const VkSemaphoreSubmitInfo = new C.CStruct("VkSemaphoreSubmitInfo", {
     sType: "u32("+callof(V.VkSemaphoreSubmitInfo_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkSemaphoreSubmitInfo_pNext_offsetof)+")",
-    semaphore: "u32",
+    semaphore: "u64("+callof(V.VkSemaphoreSubmitInfo_semaphore_offsetof)+")",
     value: "u64("+callof(V.VkSemaphoreSubmitInfo_value_offsetof)+")",
     stageMask: "u64("+callof(V.VkSemaphoreSubmitInfo_stageMask_offsetof)+")",
     deviceIndex: "u32("+callof(V.VkSemaphoreSubmitInfo_deviceIndex_offsetof)+")",
@@ -7009,7 +7009,7 @@ const VkSemaphoreSubmitInfoKHR = new C.CStruct("VkSemaphoreSubmitInfoKHR", {
 const VkCommandBufferSubmitInfo = new C.CStruct("VkCommandBufferSubmitInfo", {
     sType: "u32("+callof(V.VkCommandBufferSubmitInfo_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkCommandBufferSubmitInfo_pNext_offsetof)+")",
-    commandBuffer: "u32",
+    commandBuffer: "u64("+callof(V.VkCommandBufferSubmitInfo_commandBuffer_offsetof)+")",
     deviceMask: "u32("+callof(V.VkCommandBufferSubmitInfo_deviceMask_offsetof)+")",
 }, callof(V.VkCommandBufferSubmitInfo_sizeof));
 
@@ -8654,7 +8654,7 @@ const VkImportMetalIOSurfaceInfoEXT = new C.CStruct("VkImportMetalIOSurfaceInfoE
 const VkExportMetalSharedEventInfoEXT = new C.CStruct("VkExportMetalSharedEventInfoEXT", {
     sType: "u32("+callof(V.VkExportMetalSharedEventInfoEXT_sType_offsetof)+")",
     pNext: "u64("+callof(V.VkExportMetalSharedEventInfoEXT_pNext_offsetof)+")",
-    semaphore: "u32",
+    semaphore: "u64("+callof(V.VkExportMetalSharedEventInfoEXT_semaphore_offsetof)+")",
     event: "u32",
     mtlSharedEvent: "u32",
 }, callof(V.VkExportMetalSharedEventInfoEXT_sizeof));
