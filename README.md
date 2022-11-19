@@ -40,7 +40,7 @@ import { default as C } from "struct-buffer";
 import { default as S } from "./vulkan-structs.js";
 import { default as E } from "./vulkan-enums.js";
 import { default as V } from "./vulkan-API.js";
-import { default as M } from "./typed.js";
+import { default as T } from "./typed.js";
 
 (async()=>{
     
@@ -58,10 +58,10 @@ import { default as M } from "./typed.js";
     });
 
     //
-    let layer = "VK_LAYER_KHRONOS_validation";
-    let extensions = new BigUint64Array([  ]);
-    let layers = new BigUint64Array([ layer.charAddress() ]);
+    let extensions = T.Types["u64[arr]"].construct([]);
+    let layers = T.Types["u64[arr]"].construct(["VK_LAYER_KHRONOS_validation"]);
 
+    //
     let pInfo = S.VkInstanceCreateInfo.construct({
         sType: E.VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
         pNext: 0n,
@@ -69,8 +69,8 @@ import { default as M } from "./typed.js";
         pApplicationInfo: appInfo,
         enabledLayerCount: layers.length,
         ppEnabledLayerNames: layers,
-        enabledExtensionCount: 0,
-        ppEnabledExtensionNames: 0n
+        enabledExtensionCount: extensions.length,
+        ppEnabledExtensionNames: extensions
     });
 
     let handle = new BigUint64Array(1);
