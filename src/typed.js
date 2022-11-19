@@ -157,7 +157,7 @@ class CStruct {
         };
 
         //
-        this.getter = (dv, offset)=>{ return new CStructView(dv.buffer, dv.byteOffset + offset, dv.byteLength, this); };
+        this.getter = (dv, offset)=>{ return (offset ? new CStructView(dv.buffer, dv.byteOffset + offset, dv.byteLength, this) : dv); };
 
         // offset isn't supported
         this.setter = (dv, offset, value)=>{
