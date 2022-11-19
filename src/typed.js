@@ -66,11 +66,17 @@ class CStructView {
 
     construct(buffer, byteOffset = 0, byteLength = 0) {
         if (isAbv(buffer ? (buffer.buffer || buffer) : null)) {
-            return new CStructView(buffer.buffer || buffer, (buffer.byteOffset||0) + byteOffset, byteLength || this.byteLength, this.struct);
+            return new CStructView(buffer.buffer || buffer, this.byteOffset + (buffer.byteOffset||0) + byteOffset, byteLength || this.byteLength, this.struct);
         } else 
         if (typeof buffer == "number") {
-            return new CStructView(new ArrayBuffer(buffer), (buffer.byteOffset||0), buffer || this.byteLength, this.struct);
+            return new CStructView(new ArrayBuffer(buffer), this.byteOffset + (buffer.byteOffset||0), buffer || this.byteLength, this.struct);
         } else 
+        if (typeof buffer == "object") {
+            let structed = new CStructView(new ArrayBuffer(this.byteLength), 0, this.byteLength, this.struct);
+            //for (let k in buffer) { if (this.types.find((t)=>(t.name == k))) { structed[k] = buffer[k]; }; }; // reduce the some time
+            for (let t of this.types) { let k = t.name; if (k in buffer) { structed[k] = buffer[k]; }; }; // supports correct order
+            return structed;
+        } else
         {
             return new CStructView(new ArrayBuffer(this.byteLength), 0, this.byteLength, this.struct);
         }
