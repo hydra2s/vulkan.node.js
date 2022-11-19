@@ -12,7 +12,7 @@ Our Node.JS bindings for Vulkan API support (latest version, as possible). Curre
 - Planned support for glMatrix fully
 - Planned support for WebAssembly bindings and memory
 
-# Hydra.D2S
+## Hydra.D2S
 
 ## ℹ️ [Info Center](https://github.com/hydra2s-info) ℹ️ 
 ## 💬 [Обсуждения/Discussions](https://github.com/hydra2s-info/about/discussions) 💬
