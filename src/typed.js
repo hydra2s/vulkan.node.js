@@ -91,7 +91,7 @@ class StructProxyMethods {
         if (["length", "byteOffset", "byteLength"].indexOf(index) >= 0) {
             return target[index];
         } else 
-        if (["set", "address"].indexOf(index) >= 0) {
+        if (["set", "address", "as", "offsetof", "bufferOffsetOf", "addressOffsetOf"].indexOf(index) >= 0) {
             return target[index].bind(target);
         }
         return null;
