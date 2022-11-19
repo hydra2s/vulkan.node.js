@@ -5,8 +5,9 @@ import { default as V } from "./vulkan-API.js";
 import { default as T } from "./typed.js";
 
 (async()=>{
-    
-    let rect2D = S.VkRect2D.construct();
+
+    //
+    let rect2D = new S.VkRect2D();
 
     //
     let appInfo = new S.VkApplicationInfo({
@@ -37,6 +38,6 @@ import { default as T } from "./typed.js";
 
     let handle = new BigUint64Array(1);
     V.vkCreateInstance(pInfo, 0n, handle);
-    
+
     console.log(handle);
 })();
