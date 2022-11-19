@@ -32,7 +32,7 @@ let types = {
 
 //
 function isAbv(value) {
-    return value && value.byteLength != undefined;
+    return value && value.byteLength != undefined && (value instanceof ArrayBuffer);
 }
 
 //
@@ -146,6 +146,12 @@ class CStruct {
         if (typeof buffer == "number") {
             return new CStructView(new ArrayBuffer(buffer), (buffer.byteOffset||0), buffer || this.byteLength, this);
         } else 
+        if (typeof buffer == "object") {
+            let structed = new CStructView(new ArrayBuffer(this.byteLength), 0, this.byteLength, this);
+            //for (let k in buffer) { if (this.types.find((t)=>(t.name == k))) { structed[k] = buffer[k]; }; }; // reduce the some time
+            for (let t of this.types) { let k = t.name; if (k in buffer) { structed[k] = buffer[k]; }; }; // supports correct order
+            return structed;
+        } else
         {
             return new CStructView(new ArrayBuffer(this.byteLength), 0, this.byteLength, this);
         }
