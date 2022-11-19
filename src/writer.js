@@ -258,41 +258,17 @@ return number && !pointable || B ?
     };
 
     //
-    let writeStructureOffsets = (struct, map)=>{
-        let by = map.usedBy[struct.name];
-        let structed = {name: struct.name, params: []};
-        struct.params.forEach((param)=>{
-            if (!param.isBitfield) {
-            structed.params.push(`${by ? `#ifdef ${by.name}
-` : ``} static Napi::Value ${struct.name}_${param.name}_offsetof(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
-    return Napi::Number::New(env, offsetof(${struct.name}, ${param.name}));
-}` + (by ? `
-#endif` : ``));
-}});
-structed.params.push(`${by ? `#ifdef ${by.name}
-` : ``} static Napi::Value ${struct.name}_sizeof(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
-    return Napi::Number::New(env, sizeof(${struct.name}));
-}` + (by ? `
-#endif` : ``));
-return structed.params.join(`
-`);
-        };
-
-
-    //
     let writeStructureOffsetsGot = (struct, map)=>{
         let by = map.usedBy[struct.name];
         let structed = {name: struct.name, params: []};
         let params = struct.params.map((param)=>{
             if (!param.isBitfield) {
             return ((by ? `#ifdef ${by.name}
-` : ``) + `    exports["${struct.name}_${param.name}_offsetof"] = Napi::Function::New(env, ${struct.name}_${param.name}_offsetof);` + (by ? `
+` : ``) + `    exports["${struct.name}_${param.name}_offsetof"] = Napi::Number::New(env, offsetof(${struct.name}, ${param.name}));` + (by ? `
 #endif` : ``)) }
 })
         params.push((by ? `#ifdef ${by.name}
-` : ``) + `    exports["${struct.name}_sizeof"] = Napi::Function::New(env, ${struct.name}_sizeof);` + (by ? `
+` : ``) + `    exports["${struct.name}_sizeof"] = Napi::Number::New(env, sizeof(${struct.name}));` + (by ? `
 #endif` : ``));
 return params.join(`
 `)};
@@ -300,10 +276,10 @@ return params.join(`
     let AsFixedArray = (name, param, typed) => {
         if (param.isFixedArray) {
             if (!isNaN(param.length)) 
-                { return `"${typed}[${parseInt(param.length)||1}]("+callof(V.${name}_${param.name}_offsetof)+")"`; } else 
-                { return `"${typed}["+(E.${param.length}||1)+"]("+callof(V.${name}_${param.name}_offsetof)+")"`; };
+                { return `"${typed}[${parseInt(param.length)||1}]("+(V.${name}_${param.name}_offsetof||0)+")"`; } else 
+                { return `"${typed}["+(E.${param.length}||1)+"]("+(V.${name}_${param.name}_offsetof||0)+")"`; };
         }
-        return `"${typed}("+callof(V.${name}_${param.name}_offsetof)+")"`;
+        return `"${typed}("+(V.${name}_${param.name}_offsetof||0)+")"`;
     }
 
     let writeParam = (name, param, map)=>{
@@ -329,7 +305,7 @@ return paramStr;
 return `
 const ${structure.name} = new C.CStruct("${structure.name}", {
     matrix: "u32(0)[12]",
-}, callof(V.${structure.name}_sizeof));    
+}, (V.${structure.name}_sizeof||0));    
 `       } else
         /*if (structure.name == "VkAccelerationStructureInstanceKHR" || structure.name == "VkAccelerationStructureInstanceNV") {
 return `
@@ -340,13 +316,13 @@ const ${structure.name} = new C.CStruct("${structure.name}", {
     instanceShaderBindingTableRecordOffset: "u24("+(4+48)+")",
     flags: "u8("+(7+48)+")",
     accelerationStructureReference: "u64("+(8+48)+")",
-}, callof(V.${structure.name}_sizeof));`
+}, (V.${structure.name}_sizeof||0));`
         } else*/ {
     return `
 const ${structure.name} = new C.CStruct("${structure.name}", {
 ${structure.params.map((p)=>(writeParam(structure.name, p, map))).join(`
 `)}
-}, callof(V.${structure.name}_sizeof));
+}, (V.${structure.name}_sizeof||0));
 `
         }
     };
@@ -650,9 +626,7 @@ static Napi::Value rawGetStructureSizeBySType(const Napi::CallbackInfo& info_) {
     }
     return Napi::Number::New(env, 0);
 }
-    
-${map.parsedStructs.map((cmd,i)=>writeStructureOffsets(cmd,map)).join(`
-`)}
+
 ${map.parsed.map((cmd,i)=>makeCommand(cmd,i,map)).join(`
 `)}
 
