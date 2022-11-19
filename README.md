@@ -2,6 +2,16 @@
 
 Our Node.JS bindings for Vulkan API support (latest version, as possible). Currently, still in development. 
 
+## Made for...
+
+- Geeks
+- Hackers
+- Programmers
+- Coders
+- Professionals
+- NOT newbies (JS and Vulkan)
+- NOT weak persons
+
 ## Features
 
 - Using raw pointers and typed structures
