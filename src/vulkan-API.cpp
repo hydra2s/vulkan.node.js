@@ -107,16 +107,23 @@ static Napi::Buffer<uint8_t> WrapBuffer(const Napi::CallbackInfo& info_) {
     return Napi::Buffer<uint8_t>::New(env, (uint8_t*)address, byteLength);
 }
 
-static Napi::String WrapString(const Napi::CallbackInfo& info_) {
+static Napi::Value WrapString(const Napi::CallbackInfo& info_) {
     Napi::Env env = info_.Env();
     uint64_t address = 0ull;
     bool lossless = true;
     if (info_[0].IsBigInt()) {
         address = info_[0].As<Napi::BigInt>().Uint64Value(&lossless);;
     }
+
     size_t length = 0ull;
+    if (info_.Length() < 1) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
+        return env.Null();
+    }
     if (info_[0].IsBigInt()) { length = info_[0].As<Napi::BigInt>().Uint64Value(&lossless); }
-    if (info_[1].IsNumber()) { length = info_[1].As<Napi::Number>().Uint32Value(); }
+    if (info_.Length() == 2) {
+        if (info_[1].IsNumber()) { length = info_[1].As<Napi::Number>().Uint32Value(); }
+    }
 
     //
     if (length) {
@@ -126,16 +133,23 @@ static Napi::String WrapString(const Napi::CallbackInfo& info_) {
     }
 }
 
-static Napi::String WrapStringUTF16(const Napi::CallbackInfo& info_) {
+static Napi::Value WrapStringUTF16(const Napi::CallbackInfo& info_) {
     Napi::Env env = info_.Env();
     uint64_t address = 0ull;
     bool lossless = true;
     if (info_[0].IsBigInt()) {
         address = info_[0].As<Napi::BigInt>().Uint64Value(&lossless);;
     }
+    
     size_t length = 0ull;
+    if (info_.Length() < 1) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
+        return env.Null();
+    }
     if (info_[0].IsBigInt()) { length = info_[0].As<Napi::BigInt>().Uint64Value(&lossless); }
-    if (info_[1].IsNumber()) { length = info_[1].As<Napi::Number>().Uint32Value(); }
+    if (info_.Length() == 2) {
+        if (info_[1].IsNumber()) { length = info_[1].As<Napi::Number>().Uint32Value(); }
+    }
 
     //
     if (length) {

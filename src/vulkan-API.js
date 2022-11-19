@@ -12,8 +12,8 @@ String.prototype.charAddress = function (isUtf16 = false) {
 };
 
 //
-String.fromAddress = native.string;
-String.fromAddressUtf16 = native.stringUtf16;
+String.fromAddress = (address, length = 0)=> { return native.string(address, length); };
+String.fromAddressUtf16 = (address, length = 0)=> { return native.stringUtf16(address, length); };
 
 // 
 Buffer.prototype.address = function () { return native.nativeAddress(this); }

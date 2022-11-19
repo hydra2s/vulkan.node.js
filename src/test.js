@@ -13,6 +13,8 @@ const C = T.default;
     let structs = (await import("./vulkan-structs.js")).default;
     let enums = (await import("./vulkan-enums.js")).default;
 
+    console.log(String.fromAddress("NVAPI TEST".charAddress()));
+
     //
     let appInfo = S.VkApplicationInfo.construct({
         sType: enums.VK_STRUCTURE_TYPE_APPLICATION_INFO,
