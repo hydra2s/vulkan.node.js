@@ -119,7 +119,7 @@ class CStruct {
                 if (!offset && prev != undefined) { offset = this.types[prev].offset + this.types[prev].byteLength; }; 
 
                 let type = types[tname+(length>1?"arr":"")];
-                this.types.push({type, name, length, byteOffset: offset});
+                prev = this.types.length; this.types.push({type, name, length, byteOffset: offset});
             } else 
             if (typeof struct[name] == "array") {
                 let tname = types[struct[name]][0];
@@ -130,7 +130,7 @@ class CStruct {
                 if (!offset && prev != undefined) { offset = this.types[prev].offset + this.types[prev].byteLength; }; 
 
                 let type = types[tname+(length>1?"arr":"")];
-                this.types.push({type, name, length, byteOffset: offset});
+                prev = this.types.length; this.types.push({type, name, length, byteOffset: offset});
             }
         }
 
