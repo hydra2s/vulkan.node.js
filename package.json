@@ -4,7 +4,7 @@
   "description": "Implement Vulkan API bridge for node.js",
   "main": "index.js",
   "scripts": {
-    "test": "cd src && node test.js && cd ../",
+    "test": "node test.js",
     "install": "cd src && node main.js && cd ../ && cmake-js -r node --debug",
     "asbuild:debug": "asc assembly/index.ts --target debug",
     "asbuild:release": "asc assembly/index.ts --target release",

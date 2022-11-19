@@ -113,15 +113,13 @@ class ArrayProxyMethods {
         if (typeof index == "number" || typeof index == "bigint" || Number.isInteger(index) || typeof index == "string" && /^\+?\d+$/.test(index.trim())) {
             return this.getter(target, parseInt(index));
         } else 
-        if (index == "byteLength" || index == "byteOffset" || index == "length") {
+        if (["byteLength", "byteOffset", "length"].indexOf(index) >= 0) {
             return target[index];
         } else 
-        if (index == "set") {
-            return target[index].bind(target);
-        } else 
-        if (index == "address") {
+        if (["address", "set"].indexOf(index) >= 0) {
             return target[index].bind(target);
         }
+        return null;
     }
     set(target, index, value) {
         if (typeof index == "number" || typeof index == "bigint") {
