@@ -22,6 +22,9 @@ const asBigInt = (value)=>{
     if (value instanceof Buffer) {
         return value.address();
     } else
+    if (value instanceof Array || Array.isArray(value)) {
+        return (new Types["u64[arr]"](value)).address(); // present as u64 array
+    } else
     if (typeof value == "string") {
         return value.charAddress();
     } else 

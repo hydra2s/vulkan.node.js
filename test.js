@@ -17,8 +17,8 @@ import { default as V } from "./index.js";
     });
 
     //
-    let extensions = new V.Types["u64[arr]"]([]);
-    let layers = new V.Types["u64[arr]"](["VK_LAYER_KHRONOS_validation"]);
+    let extensions = [];
+    let layers = ["VK_LAYER_KHRONOS_validation"];
 
     //
     let pInfo = new V.VkInstanceCreateInfo({
