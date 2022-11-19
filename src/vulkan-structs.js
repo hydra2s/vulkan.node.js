@@ -1591,10 +1591,7 @@ const VkDevicePrivateDataCreateInfo = new Proxy(function(){}, new C.ConstructPro
     privateDataSlotRequestCount: "u32("+(V.VkDevicePrivateDataCreateInfo_privateDataSlotRequestCount_offsetof||0)+")",
 }, (V.VkDevicePrivateDataCreateInfo_sizeof||0))));
 
-
-const VkDevicePrivateDataCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDevicePrivateDataCreateInfoEXT", {
-
-}, (V.VkDevicePrivateDataCreateInfoEXT_sizeof||0))));
+const VkDevicePrivateDataCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy("VkDevicePrivateDataCreateInfo"));
 
 
 const VkPrivateDataSlotCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPrivateDataSlotCreateInfo", {
@@ -1603,10 +1600,7 @@ const VkPrivateDataSlotCreateInfo = new Proxy(function(){}, new C.ConstructProxy
     flags: "u32("+(V.VkPrivateDataSlotCreateInfo_flags_offsetof||0)+")",
 }, (V.VkPrivateDataSlotCreateInfo_sizeof||0))));
 
-
-const VkPrivateDataSlotCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPrivateDataSlotCreateInfoEXT", {
-
-}, (V.VkPrivateDataSlotCreateInfoEXT_sizeof||0))));
+const VkPrivateDataSlotCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy("VkPrivateDataSlotCreateInfo"));
 
 
 const VkPhysicalDevicePrivateDataFeatures = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDevicePrivateDataFeatures", {
@@ -1615,10 +1609,7 @@ const VkPhysicalDevicePrivateDataFeatures = new Proxy(function(){}, new C.Constr
     privateData: "u32("+(V.VkPhysicalDevicePrivateDataFeatures_privateData_offsetof||0)+")",
 }, (V.VkPhysicalDevicePrivateDataFeatures_sizeof||0))));
 
-
-const VkPhysicalDevicePrivateDataFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDevicePrivateDataFeaturesEXT", {
-
-}, (V.VkPhysicalDevicePrivateDataFeaturesEXT_sizeof||0))));
+const VkPhysicalDevicePrivateDataFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDevicePrivateDataFeatures"));
 
 
 const VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV", {
@@ -1759,10 +1750,7 @@ const VkPhysicalDeviceFeatures2 = new Proxy(function(){}, new C.ConstructProxy(n
     features: "u32("+(V.VkPhysicalDeviceFeatures2_features_offsetof||0)+")",
 }, (V.VkPhysicalDeviceFeatures2_sizeof||0))));
 
-
-const VkPhysicalDeviceFeatures2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceFeatures2KHR", {
-
-}, (V.VkPhysicalDeviceFeatures2KHR_sizeof||0))));
+const VkPhysicalDeviceFeatures2KHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceFeatures2"));
 
 
 const VkPhysicalDeviceProperties2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceProperties2", {
@@ -1771,10 +1759,7 @@ const VkPhysicalDeviceProperties2 = new Proxy(function(){}, new C.ConstructProxy
     properties: "u32("+(V.VkPhysicalDeviceProperties2_properties_offsetof||0)+")",
 }, (V.VkPhysicalDeviceProperties2_sizeof||0))));
 
-
-const VkPhysicalDeviceProperties2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceProperties2KHR", {
-
-}, (V.VkPhysicalDeviceProperties2KHR_sizeof||0))));
+const VkPhysicalDeviceProperties2KHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceProperties2"));
 
 
 const VkFormatProperties2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkFormatProperties2", {
@@ -1783,10 +1768,7 @@ const VkFormatProperties2 = new Proxy(function(){}, new C.ConstructProxy(new C.C
     formatProperties: "u32("+(V.VkFormatProperties2_formatProperties_offsetof||0)+")",
 }, (V.VkFormatProperties2_sizeof||0))));
 
-
-const VkFormatProperties2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkFormatProperties2KHR", {
-
-}, (V.VkFormatProperties2KHR_sizeof||0))));
+const VkFormatProperties2KHR = new Proxy(function(){}, new C.ConstructProxy("VkFormatProperties2"));
 
 
 const VkImageFormatProperties2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageFormatProperties2", {
@@ -1795,10 +1777,7 @@ const VkImageFormatProperties2 = new Proxy(function(){}, new C.ConstructProxy(ne
     imageFormatProperties: "u32("+(V.VkImageFormatProperties2_imageFormatProperties_offsetof||0)+")",
 }, (V.VkImageFormatProperties2_sizeof||0))));
 
-
-const VkImageFormatProperties2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageFormatProperties2KHR", {
-
-}, (V.VkImageFormatProperties2KHR_sizeof||0))));
+const VkImageFormatProperties2KHR = new Proxy(function(){}, new C.ConstructProxy("VkImageFormatProperties2"));
 
 
 const VkPhysicalDeviceImageFormatInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceImageFormatInfo2", {
@@ -1811,10 +1790,7 @@ const VkPhysicalDeviceImageFormatInfo2 = new Proxy(function(){}, new C.Construct
     flags: "u32("+(V.VkPhysicalDeviceImageFormatInfo2_flags_offsetof||0)+")",
 }, (V.VkPhysicalDeviceImageFormatInfo2_sizeof||0))));
 
-
-const VkPhysicalDeviceImageFormatInfo2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceImageFormatInfo2KHR", {
-
-}, (V.VkPhysicalDeviceImageFormatInfo2KHR_sizeof||0))));
+const VkPhysicalDeviceImageFormatInfo2KHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceImageFormatInfo2"));
 
 
 const VkQueueFamilyProperties2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkQueueFamilyProperties2", {
@@ -1823,10 +1799,7 @@ const VkQueueFamilyProperties2 = new Proxy(function(){}, new C.ConstructProxy(ne
     queueFamilyProperties: "u32("+(V.VkQueueFamilyProperties2_queueFamilyProperties_offsetof||0)+")",
 }, (V.VkQueueFamilyProperties2_sizeof||0))));
 
-
-const VkQueueFamilyProperties2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkQueueFamilyProperties2KHR", {
-
-}, (V.VkQueueFamilyProperties2KHR_sizeof||0))));
+const VkQueueFamilyProperties2KHR = new Proxy(function(){}, new C.ConstructProxy("VkQueueFamilyProperties2"));
 
 
 const VkPhysicalDeviceMemoryProperties2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceMemoryProperties2", {
@@ -1835,10 +1808,7 @@ const VkPhysicalDeviceMemoryProperties2 = new Proxy(function(){}, new C.Construc
     memoryProperties: "u32("+(V.VkPhysicalDeviceMemoryProperties2_memoryProperties_offsetof||0)+")",
 }, (V.VkPhysicalDeviceMemoryProperties2_sizeof||0))));
 
-
-const VkPhysicalDeviceMemoryProperties2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceMemoryProperties2KHR", {
-
-}, (V.VkPhysicalDeviceMemoryProperties2KHR_sizeof||0))));
+const VkPhysicalDeviceMemoryProperties2KHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceMemoryProperties2"));
 
 
 const VkSparseImageFormatProperties2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSparseImageFormatProperties2", {
@@ -1847,10 +1817,7 @@ const VkSparseImageFormatProperties2 = new Proxy(function(){}, new C.ConstructPr
     properties: "u32("+(V.VkSparseImageFormatProperties2_properties_offsetof||0)+")",
 }, (V.VkSparseImageFormatProperties2_sizeof||0))));
 
-
-const VkSparseImageFormatProperties2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSparseImageFormatProperties2KHR", {
-
-}, (V.VkSparseImageFormatProperties2KHR_sizeof||0))));
+const VkSparseImageFormatProperties2KHR = new Proxy(function(){}, new C.ConstructProxy("VkSparseImageFormatProperties2"));
 
 
 const VkPhysicalDeviceSparseImageFormatInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceSparseImageFormatInfo2", {
@@ -1863,10 +1830,7 @@ const VkPhysicalDeviceSparseImageFormatInfo2 = new Proxy(function(){}, new C.Con
     tiling: "u32("+(V.VkPhysicalDeviceSparseImageFormatInfo2_tiling_offsetof||0)+")",
 }, (V.VkPhysicalDeviceSparseImageFormatInfo2_sizeof||0))));
 
-
-const VkPhysicalDeviceSparseImageFormatInfo2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceSparseImageFormatInfo2KHR", {
-
-}, (V.VkPhysicalDeviceSparseImageFormatInfo2KHR_sizeof||0))));
+const VkPhysicalDeviceSparseImageFormatInfo2KHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceSparseImageFormatInfo2"));
 
 
 const VkPhysicalDevicePushDescriptorPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDevicePushDescriptorPropertiesKHR", {
@@ -1883,10 +1847,7 @@ const VkConformanceVersion = new Proxy(function(){}, new C.ConstructProxy(new C.
     patch: "u8("+(V.VkConformanceVersion_patch_offsetof||0)+")",
 }, (V.VkConformanceVersion_sizeof||0))));
 
-
-const VkConformanceVersionKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkConformanceVersionKHR", {
-
-}, (V.VkConformanceVersionKHR_sizeof||0))));
+const VkConformanceVersionKHR = new Proxy(function(){}, new C.ConstructProxy("VkConformanceVersion"));
 
 
 const VkPhysicalDeviceDriverProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceDriverProperties", {
@@ -1898,10 +1859,7 @@ const VkPhysicalDeviceDriverProperties = new Proxy(function(){}, new C.Construct
     conformanceVersion: "u32("+(V.VkPhysicalDeviceDriverProperties_conformanceVersion_offsetof||0)+")",
 }, (V.VkPhysicalDeviceDriverProperties_sizeof||0))));
 
-
-const VkPhysicalDeviceDriverPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceDriverPropertiesKHR", {
-
-}, (V.VkPhysicalDeviceDriverPropertiesKHR_sizeof||0))));
+const VkPhysicalDeviceDriverPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceDriverProperties"));
 
 
 const VkPresentRegionsKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPresentRegionsKHR", {
@@ -1932,20 +1890,11 @@ const VkPhysicalDeviceVariablePointersFeatures = new Proxy(function(){}, new C.C
     variablePointers: "u32("+(V.VkPhysicalDeviceVariablePointersFeatures_variablePointers_offsetof||0)+")",
 }, (V.VkPhysicalDeviceVariablePointersFeatures_sizeof||0))));
 
+const VkPhysicalDeviceVariablePointersFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceVariablePointersFeatures"));
 
-const VkPhysicalDeviceVariablePointersFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceVariablePointersFeaturesKHR", {
+const VkPhysicalDeviceVariablePointerFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceVariablePointersFeatures"));
 
-}, (V.VkPhysicalDeviceVariablePointersFeaturesKHR_sizeof||0))));
-
-
-const VkPhysicalDeviceVariablePointerFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceVariablePointerFeaturesKHR", {
-
-}, (V.VkPhysicalDeviceVariablePointerFeaturesKHR_sizeof||0))));
-
-
-const VkPhysicalDeviceVariablePointerFeatures = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceVariablePointerFeatures", {
-
-}, (V.VkPhysicalDeviceVariablePointerFeatures_sizeof||0))));
+const VkPhysicalDeviceVariablePointerFeatures = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceVariablePointersFeatures"));
 
 
 const VkExternalMemoryProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExternalMemoryProperties", {
@@ -1954,10 +1903,7 @@ const VkExternalMemoryProperties = new Proxy(function(){}, new C.ConstructProxy(
     compatibleHandleTypes: "u32("+(V.VkExternalMemoryProperties_compatibleHandleTypes_offsetof||0)+")",
 }, (V.VkExternalMemoryProperties_sizeof||0))));
 
-
-const VkExternalMemoryPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExternalMemoryPropertiesKHR", {
-
-}, (V.VkExternalMemoryPropertiesKHR_sizeof||0))));
+const VkExternalMemoryPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkExternalMemoryProperties"));
 
 
 const VkPhysicalDeviceExternalImageFormatInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceExternalImageFormatInfo", {
@@ -1966,10 +1912,7 @@ const VkPhysicalDeviceExternalImageFormatInfo = new Proxy(function(){}, new C.Co
     handleType: "u32("+(V.VkPhysicalDeviceExternalImageFormatInfo_handleType_offsetof||0)+")",
 }, (V.VkPhysicalDeviceExternalImageFormatInfo_sizeof||0))));
 
-
-const VkPhysicalDeviceExternalImageFormatInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceExternalImageFormatInfoKHR", {
-
-}, (V.VkPhysicalDeviceExternalImageFormatInfoKHR_sizeof||0))));
+const VkPhysicalDeviceExternalImageFormatInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceExternalImageFormatInfo"));
 
 
 const VkExternalImageFormatProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExternalImageFormatProperties", {
@@ -1978,10 +1921,7 @@ const VkExternalImageFormatProperties = new Proxy(function(){}, new C.ConstructP
     externalMemoryProperties: "u32("+(V.VkExternalImageFormatProperties_externalMemoryProperties_offsetof||0)+")",
 }, (V.VkExternalImageFormatProperties_sizeof||0))));
 
-
-const VkExternalImageFormatPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExternalImageFormatPropertiesKHR", {
-
-}, (V.VkExternalImageFormatPropertiesKHR_sizeof||0))));
+const VkExternalImageFormatPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkExternalImageFormatProperties"));
 
 
 const VkPhysicalDeviceExternalBufferInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceExternalBufferInfo", {
@@ -1992,10 +1932,7 @@ const VkPhysicalDeviceExternalBufferInfo = new Proxy(function(){}, new C.Constru
     handleType: "u32("+(V.VkPhysicalDeviceExternalBufferInfo_handleType_offsetof||0)+")",
 }, (V.VkPhysicalDeviceExternalBufferInfo_sizeof||0))));
 
-
-const VkPhysicalDeviceExternalBufferInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceExternalBufferInfoKHR", {
-
-}, (V.VkPhysicalDeviceExternalBufferInfoKHR_sizeof||0))));
+const VkPhysicalDeviceExternalBufferInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceExternalBufferInfo"));
 
 
 const VkExternalBufferProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExternalBufferProperties", {
@@ -2004,10 +1941,7 @@ const VkExternalBufferProperties = new Proxy(function(){}, new C.ConstructProxy(
     externalMemoryProperties: "u32("+(V.VkExternalBufferProperties_externalMemoryProperties_offsetof||0)+")",
 }, (V.VkExternalBufferProperties_sizeof||0))));
 
-
-const VkExternalBufferPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExternalBufferPropertiesKHR", {
-
-}, (V.VkExternalBufferPropertiesKHR_sizeof||0))));
+const VkExternalBufferPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkExternalBufferProperties"));
 
 
 const VkPhysicalDeviceIDProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceIDProperties", {
@@ -2020,10 +1954,7 @@ const VkPhysicalDeviceIDProperties = new Proxy(function(){}, new C.ConstructProx
     deviceLUIDValid: "u32("+(V.VkPhysicalDeviceIDProperties_deviceLUIDValid_offsetof||0)+")",
 }, (V.VkPhysicalDeviceIDProperties_sizeof||0))));
 
-
-const VkPhysicalDeviceIDPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceIDPropertiesKHR", {
-
-}, (V.VkPhysicalDeviceIDPropertiesKHR_sizeof||0))));
+const VkPhysicalDeviceIDPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceIDProperties"));
 
 
 const VkExternalMemoryImageCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExternalMemoryImageCreateInfo", {
@@ -2032,10 +1963,7 @@ const VkExternalMemoryImageCreateInfo = new Proxy(function(){}, new C.ConstructP
     handleTypes: "u32("+(V.VkExternalMemoryImageCreateInfo_handleTypes_offsetof||0)+")",
 }, (V.VkExternalMemoryImageCreateInfo_sizeof||0))));
 
-
-const VkExternalMemoryImageCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExternalMemoryImageCreateInfoKHR", {
-
-}, (V.VkExternalMemoryImageCreateInfoKHR_sizeof||0))));
+const VkExternalMemoryImageCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkExternalMemoryImageCreateInfo"));
 
 
 const VkExternalMemoryBufferCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExternalMemoryBufferCreateInfo", {
@@ -2044,10 +1972,7 @@ const VkExternalMemoryBufferCreateInfo = new Proxy(function(){}, new C.Construct
     handleTypes: "u32("+(V.VkExternalMemoryBufferCreateInfo_handleTypes_offsetof||0)+")",
 }, (V.VkExternalMemoryBufferCreateInfo_sizeof||0))));
 
-
-const VkExternalMemoryBufferCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExternalMemoryBufferCreateInfoKHR", {
-
-}, (V.VkExternalMemoryBufferCreateInfoKHR_sizeof||0))));
+const VkExternalMemoryBufferCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkExternalMemoryBufferCreateInfo"));
 
 
 const VkExportMemoryAllocateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExportMemoryAllocateInfo", {
@@ -2056,10 +1981,7 @@ const VkExportMemoryAllocateInfo = new Proxy(function(){}, new C.ConstructProxy(
     handleTypes: "u32("+(V.VkExportMemoryAllocateInfo_handleTypes_offsetof||0)+")",
 }, (V.VkExportMemoryAllocateInfo_sizeof||0))));
 
-
-const VkExportMemoryAllocateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExportMemoryAllocateInfoKHR", {
-
-}, (V.VkExportMemoryAllocateInfoKHR_sizeof||0))));
+const VkExportMemoryAllocateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkExportMemoryAllocateInfo"));
 
 
 const VkImportMemoryWin32HandleInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImportMemoryWin32HandleInfoKHR", {
@@ -2160,10 +2082,7 @@ const VkPhysicalDeviceExternalSemaphoreInfo = new Proxy(function(){}, new C.Cons
     handleType: "u32("+(V.VkPhysicalDeviceExternalSemaphoreInfo_handleType_offsetof||0)+")",
 }, (V.VkPhysicalDeviceExternalSemaphoreInfo_sizeof||0))));
 
-
-const VkPhysicalDeviceExternalSemaphoreInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceExternalSemaphoreInfoKHR", {
-
-}, (V.VkPhysicalDeviceExternalSemaphoreInfoKHR_sizeof||0))));
+const VkPhysicalDeviceExternalSemaphoreInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceExternalSemaphoreInfo"));
 
 
 const VkExternalSemaphoreProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExternalSemaphoreProperties", {
@@ -2174,10 +2093,7 @@ const VkExternalSemaphoreProperties = new Proxy(function(){}, new C.ConstructPro
     externalSemaphoreFeatures: "u32("+(V.VkExternalSemaphoreProperties_externalSemaphoreFeatures_offsetof||0)+")",
 }, (V.VkExternalSemaphoreProperties_sizeof||0))));
 
-
-const VkExternalSemaphorePropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExternalSemaphorePropertiesKHR", {
-
-}, (V.VkExternalSemaphorePropertiesKHR_sizeof||0))));
+const VkExternalSemaphorePropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkExternalSemaphoreProperties"));
 
 
 const VkExportSemaphoreCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExportSemaphoreCreateInfo", {
@@ -2186,10 +2102,7 @@ const VkExportSemaphoreCreateInfo = new Proxy(function(){}, new C.ConstructProxy
     handleTypes: "u32("+(V.VkExportSemaphoreCreateInfo_handleTypes_offsetof||0)+")",
 }, (V.VkExportSemaphoreCreateInfo_sizeof||0))));
 
-
-const VkExportSemaphoreCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExportSemaphoreCreateInfoKHR", {
-
-}, (V.VkExportSemaphoreCreateInfoKHR_sizeof||0))));
+const VkExportSemaphoreCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkExportSemaphoreCreateInfo"));
 
 
 const VkImportSemaphoreWin32HandleInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImportSemaphoreWin32HandleInfoKHR", {
@@ -2272,10 +2185,7 @@ const VkPhysicalDeviceExternalFenceInfo = new Proxy(function(){}, new C.Construc
     handleType: "u32("+(V.VkPhysicalDeviceExternalFenceInfo_handleType_offsetof||0)+")",
 }, (V.VkPhysicalDeviceExternalFenceInfo_sizeof||0))));
 
-
-const VkPhysicalDeviceExternalFenceInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceExternalFenceInfoKHR", {
-
-}, (V.VkPhysicalDeviceExternalFenceInfoKHR_sizeof||0))));
+const VkPhysicalDeviceExternalFenceInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceExternalFenceInfo"));
 
 
 const VkExternalFenceProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExternalFenceProperties", {
@@ -2286,10 +2196,7 @@ const VkExternalFenceProperties = new Proxy(function(){}, new C.ConstructProxy(n
     externalFenceFeatures: "u32("+(V.VkExternalFenceProperties_externalFenceFeatures_offsetof||0)+")",
 }, (V.VkExternalFenceProperties_sizeof||0))));
 
-
-const VkExternalFencePropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExternalFencePropertiesKHR", {
-
-}, (V.VkExternalFencePropertiesKHR_sizeof||0))));
+const VkExternalFencePropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkExternalFenceProperties"));
 
 
 const VkExportFenceCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExportFenceCreateInfo", {
@@ -2298,10 +2205,7 @@ const VkExportFenceCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new
     handleTypes: "u32("+(V.VkExportFenceCreateInfo_handleTypes_offsetof||0)+")",
 }, (V.VkExportFenceCreateInfo_sizeof||0))));
 
-
-const VkExportFenceCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkExportFenceCreateInfoKHR", {
-
-}, (V.VkExportFenceCreateInfoKHR_sizeof||0))));
+const VkExportFenceCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkExportFenceCreateInfo"));
 
 
 const VkImportFenceWin32HandleInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImportFenceWin32HandleInfoKHR", {
@@ -2358,10 +2262,7 @@ const VkPhysicalDeviceMultiviewFeatures = new Proxy(function(){}, new C.Construc
     multiviewTessellationShader: "u32("+(V.VkPhysicalDeviceMultiviewFeatures_multiviewTessellationShader_offsetof||0)+")",
 }, (V.VkPhysicalDeviceMultiviewFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceMultiviewFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceMultiviewFeaturesKHR", {
-
-}, (V.VkPhysicalDeviceMultiviewFeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceMultiviewFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceMultiviewFeatures"));
 
 
 const VkPhysicalDeviceMultiviewProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceMultiviewProperties", {
@@ -2371,10 +2272,7 @@ const VkPhysicalDeviceMultiviewProperties = new Proxy(function(){}, new C.Constr
     maxMultiviewInstanceIndex: "u32("+(V.VkPhysicalDeviceMultiviewProperties_maxMultiviewInstanceIndex_offsetof||0)+")",
 }, (V.VkPhysicalDeviceMultiviewProperties_sizeof||0))));
 
-
-const VkPhysicalDeviceMultiviewPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceMultiviewPropertiesKHR", {
-
-}, (V.VkPhysicalDeviceMultiviewPropertiesKHR_sizeof||0))));
+const VkPhysicalDeviceMultiviewPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceMultiviewProperties"));
 
 
 const VkRenderPassMultiviewCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkRenderPassMultiviewCreateInfo", {
@@ -2388,10 +2286,7 @@ const VkRenderPassMultiviewCreateInfo = new Proxy(function(){}, new C.ConstructP
     pCorrelationMasks: "u64("+(V.VkRenderPassMultiviewCreateInfo_pCorrelationMasks_offsetof||0)+")",
 }, (V.VkRenderPassMultiviewCreateInfo_sizeof||0))));
 
-
-const VkRenderPassMultiviewCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkRenderPassMultiviewCreateInfoKHR", {
-
-}, (V.VkRenderPassMultiviewCreateInfoKHR_sizeof||0))));
+const VkRenderPassMultiviewCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkRenderPassMultiviewCreateInfo"));
 
 
 const VkSurfaceCapabilities2EXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSurfaceCapabilities2EXT", {
@@ -2447,10 +2342,7 @@ const VkPhysicalDeviceGroupProperties = new Proxy(function(){}, new C.ConstructP
     subsetAllocation: "u32("+(V.VkPhysicalDeviceGroupProperties_subsetAllocation_offsetof||0)+")",
 }, (V.VkPhysicalDeviceGroupProperties_sizeof||0))));
 
-
-const VkPhysicalDeviceGroupPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceGroupPropertiesKHR", {
-
-}, (V.VkPhysicalDeviceGroupPropertiesKHR_sizeof||0))));
+const VkPhysicalDeviceGroupPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceGroupProperties"));
 
 
 const VkMemoryAllocateFlagsInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkMemoryAllocateFlagsInfo", {
@@ -2460,10 +2352,7 @@ const VkMemoryAllocateFlagsInfo = new Proxy(function(){}, new C.ConstructProxy(n
     deviceMask: "u32("+(V.VkMemoryAllocateFlagsInfo_deviceMask_offsetof||0)+")",
 }, (V.VkMemoryAllocateFlagsInfo_sizeof||0))));
 
-
-const VkMemoryAllocateFlagsInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkMemoryAllocateFlagsInfoKHR", {
-
-}, (V.VkMemoryAllocateFlagsInfoKHR_sizeof||0))));
+const VkMemoryAllocateFlagsInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkMemoryAllocateFlagsInfo"));
 
 
 const VkBindBufferMemoryInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBindBufferMemoryInfo", {
@@ -2474,10 +2363,7 @@ const VkBindBufferMemoryInfo = new Proxy(function(){}, new C.ConstructProxy(new 
     memoryOffset: "u64("+(V.VkBindBufferMemoryInfo_memoryOffset_offsetof||0)+")",
 }, (V.VkBindBufferMemoryInfo_sizeof||0))));
 
-
-const VkBindBufferMemoryInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBindBufferMemoryInfoKHR", {
-
-}, (V.VkBindBufferMemoryInfoKHR_sizeof||0))));
+const VkBindBufferMemoryInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkBindBufferMemoryInfo"));
 
 
 const VkBindBufferMemoryDeviceGroupInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBindBufferMemoryDeviceGroupInfo", {
@@ -2487,10 +2373,7 @@ const VkBindBufferMemoryDeviceGroupInfo = new Proxy(function(){}, new C.Construc
     pDeviceIndices: "u64("+(V.VkBindBufferMemoryDeviceGroupInfo_pDeviceIndices_offsetof||0)+")",
 }, (V.VkBindBufferMemoryDeviceGroupInfo_sizeof||0))));
 
-
-const VkBindBufferMemoryDeviceGroupInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBindBufferMemoryDeviceGroupInfoKHR", {
-
-}, (V.VkBindBufferMemoryDeviceGroupInfoKHR_sizeof||0))));
+const VkBindBufferMemoryDeviceGroupInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkBindBufferMemoryDeviceGroupInfo"));
 
 
 const VkBindImageMemoryInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBindImageMemoryInfo", {
@@ -2501,10 +2384,7 @@ const VkBindImageMemoryInfo = new Proxy(function(){}, new C.ConstructProxy(new C
     memoryOffset: "u64("+(V.VkBindImageMemoryInfo_memoryOffset_offsetof||0)+")",
 }, (V.VkBindImageMemoryInfo_sizeof||0))));
 
-
-const VkBindImageMemoryInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBindImageMemoryInfoKHR", {
-
-}, (V.VkBindImageMemoryInfoKHR_sizeof||0))));
+const VkBindImageMemoryInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkBindImageMemoryInfo"));
 
 
 const VkBindImageMemoryDeviceGroupInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBindImageMemoryDeviceGroupInfo", {
@@ -2516,10 +2396,7 @@ const VkBindImageMemoryDeviceGroupInfo = new Proxy(function(){}, new C.Construct
     pSplitInstanceBindRegions: "u64("+(V.VkBindImageMemoryDeviceGroupInfo_pSplitInstanceBindRegions_offsetof||0)+")",
 }, (V.VkBindImageMemoryDeviceGroupInfo_sizeof||0))));
 
-
-const VkBindImageMemoryDeviceGroupInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBindImageMemoryDeviceGroupInfoKHR", {
-
-}, (V.VkBindImageMemoryDeviceGroupInfoKHR_sizeof||0))));
+const VkBindImageMemoryDeviceGroupInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkBindImageMemoryDeviceGroupInfo"));
 
 
 const VkDeviceGroupRenderPassBeginInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceGroupRenderPassBeginInfo", {
@@ -2530,10 +2407,7 @@ const VkDeviceGroupRenderPassBeginInfo = new Proxy(function(){}, new C.Construct
     pDeviceRenderAreas: "u64("+(V.VkDeviceGroupRenderPassBeginInfo_pDeviceRenderAreas_offsetof||0)+")",
 }, (V.VkDeviceGroupRenderPassBeginInfo_sizeof||0))));
 
-
-const VkDeviceGroupRenderPassBeginInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceGroupRenderPassBeginInfoKHR", {
-
-}, (V.VkDeviceGroupRenderPassBeginInfoKHR_sizeof||0))));
+const VkDeviceGroupRenderPassBeginInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkDeviceGroupRenderPassBeginInfo"));
 
 
 const VkDeviceGroupCommandBufferBeginInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceGroupCommandBufferBeginInfo", {
@@ -2542,10 +2416,7 @@ const VkDeviceGroupCommandBufferBeginInfo = new Proxy(function(){}, new C.Constr
     deviceMask: "u32("+(V.VkDeviceGroupCommandBufferBeginInfo_deviceMask_offsetof||0)+")",
 }, (V.VkDeviceGroupCommandBufferBeginInfo_sizeof||0))));
 
-
-const VkDeviceGroupCommandBufferBeginInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceGroupCommandBufferBeginInfoKHR", {
-
-}, (V.VkDeviceGroupCommandBufferBeginInfoKHR_sizeof||0))));
+const VkDeviceGroupCommandBufferBeginInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkDeviceGroupCommandBufferBeginInfo"));
 
 
 const VkDeviceGroupSubmitInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceGroupSubmitInfo", {
@@ -2559,10 +2430,7 @@ const VkDeviceGroupSubmitInfo = new Proxy(function(){}, new C.ConstructProxy(new
     pSignalSemaphoreDeviceIndices: "u64("+(V.VkDeviceGroupSubmitInfo_pSignalSemaphoreDeviceIndices_offsetof||0)+")",
 }, (V.VkDeviceGroupSubmitInfo_sizeof||0))));
 
-
-const VkDeviceGroupSubmitInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceGroupSubmitInfoKHR", {
-
-}, (V.VkDeviceGroupSubmitInfoKHR_sizeof||0))));
+const VkDeviceGroupSubmitInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkDeviceGroupSubmitInfo"));
 
 
 const VkDeviceGroupBindSparseInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceGroupBindSparseInfo", {
@@ -2572,10 +2440,7 @@ const VkDeviceGroupBindSparseInfo = new Proxy(function(){}, new C.ConstructProxy
     memoryDeviceIndex: "u32("+(V.VkDeviceGroupBindSparseInfo_memoryDeviceIndex_offsetof||0)+")",
 }, (V.VkDeviceGroupBindSparseInfo_sizeof||0))));
 
-
-const VkDeviceGroupBindSparseInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceGroupBindSparseInfoKHR", {
-
-}, (V.VkDeviceGroupBindSparseInfoKHR_sizeof||0))));
+const VkDeviceGroupBindSparseInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkDeviceGroupBindSparseInfo"));
 
 
 const VkDeviceGroupPresentCapabilitiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceGroupPresentCapabilitiesKHR", {
@@ -2628,10 +2493,7 @@ const VkDeviceGroupDeviceCreateInfo = new Proxy(function(){}, new C.ConstructPro
     pPhysicalDevices: "u64("+(V.VkDeviceGroupDeviceCreateInfo_pPhysicalDevices_offsetof||0)+")",
 }, (V.VkDeviceGroupDeviceCreateInfo_sizeof||0))));
 
-
-const VkDeviceGroupDeviceCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceGroupDeviceCreateInfoKHR", {
-
-}, (V.VkDeviceGroupDeviceCreateInfoKHR_sizeof||0))));
+const VkDeviceGroupDeviceCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkDeviceGroupDeviceCreateInfo"));
 
 
 const VkDeviceGroupSwapchainCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceGroupSwapchainCreateInfoKHR", {
@@ -2650,10 +2512,7 @@ const VkDescriptorUpdateTemplateEntry = new Proxy(function(){}, new C.ConstructP
     stride: "u64("+(V.VkDescriptorUpdateTemplateEntry_stride_offsetof||0)+")",
 }, (V.VkDescriptorUpdateTemplateEntry_sizeof||0))));
 
-
-const VkDescriptorUpdateTemplateEntryKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDescriptorUpdateTemplateEntryKHR", {
-
-}, (V.VkDescriptorUpdateTemplateEntryKHR_sizeof||0))));
+const VkDescriptorUpdateTemplateEntryKHR = new Proxy(function(){}, new C.ConstructProxy("VkDescriptorUpdateTemplateEntry"));
 
 
 const VkDescriptorUpdateTemplateCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDescriptorUpdateTemplateCreateInfo", {
@@ -2669,10 +2528,7 @@ const VkDescriptorUpdateTemplateCreateInfo = new Proxy(function(){}, new C.Const
     set: "u32("+(V.VkDescriptorUpdateTemplateCreateInfo_set_offsetof||0)+")",
 }, (V.VkDescriptorUpdateTemplateCreateInfo_sizeof||0))));
 
-
-const VkDescriptorUpdateTemplateCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDescriptorUpdateTemplateCreateInfoKHR", {
-
-}, (V.VkDescriptorUpdateTemplateCreateInfoKHR_sizeof||0))));
+const VkDescriptorUpdateTemplateCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkDescriptorUpdateTemplateCreateInfo"));
 
 
 const VkXYColorEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkXYColorEXT", {
@@ -2845,10 +2701,7 @@ const VkInputAttachmentAspectReference = new Proxy(function(){}, new C.Construct
     aspectMask: "u32("+(V.VkInputAttachmentAspectReference_aspectMask_offsetof||0)+")",
 }, (V.VkInputAttachmentAspectReference_sizeof||0))));
 
-
-const VkInputAttachmentAspectReferenceKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkInputAttachmentAspectReferenceKHR", {
-
-}, (V.VkInputAttachmentAspectReferenceKHR_sizeof||0))));
+const VkInputAttachmentAspectReferenceKHR = new Proxy(function(){}, new C.ConstructProxy("VkInputAttachmentAspectReference"));
 
 
 const VkRenderPassInputAttachmentAspectCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkRenderPassInputAttachmentAspectCreateInfo", {
@@ -2858,10 +2711,7 @@ const VkRenderPassInputAttachmentAspectCreateInfo = new Proxy(function(){}, new 
     pAspectReferences: "u64("+(V.VkRenderPassInputAttachmentAspectCreateInfo_pAspectReferences_offsetof||0)+")",
 }, (V.VkRenderPassInputAttachmentAspectCreateInfo_sizeof||0))));
 
-
-const VkRenderPassInputAttachmentAspectCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkRenderPassInputAttachmentAspectCreateInfoKHR", {
-
-}, (V.VkRenderPassInputAttachmentAspectCreateInfoKHR_sizeof||0))));
+const VkRenderPassInputAttachmentAspectCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkRenderPassInputAttachmentAspectCreateInfo"));
 
 
 const VkPhysicalDeviceSurfaceInfo2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceSurfaceInfo2KHR", {
@@ -2937,10 +2787,7 @@ const VkPhysicalDevice16BitStorageFeatures = new Proxy(function(){}, new C.Const
     storageInputOutput16: "u32("+(V.VkPhysicalDevice16BitStorageFeatures_storageInputOutput16_offsetof||0)+")",
 }, (V.VkPhysicalDevice16BitStorageFeatures_sizeof||0))));
 
-
-const VkPhysicalDevice16BitStorageFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDevice16BitStorageFeaturesKHR", {
-
-}, (V.VkPhysicalDevice16BitStorageFeaturesKHR_sizeof||0))));
+const VkPhysicalDevice16BitStorageFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDevice16BitStorageFeatures"));
 
 
 const VkPhysicalDeviceSubgroupProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceSubgroupProperties", {
@@ -2959,10 +2806,7 @@ const VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures = new Proxy(function()
     shaderSubgroupExtendedTypes: "u32("+(V.VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures_shaderSubgroupExtendedTypes_offsetof||0)+")",
 }, (V.VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR", {
-
-}, (V.VkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures"));
 
 
 const VkBufferMemoryRequirementsInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBufferMemoryRequirementsInfo2", {
@@ -2971,10 +2815,7 @@ const VkBufferMemoryRequirementsInfo2 = new Proxy(function(){}, new C.ConstructP
     buffer: "u64("+(V.VkBufferMemoryRequirementsInfo2_buffer_offsetof||0)+")",
 }, (V.VkBufferMemoryRequirementsInfo2_sizeof||0))));
 
-
-const VkBufferMemoryRequirementsInfo2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBufferMemoryRequirementsInfo2KHR", {
-
-}, (V.VkBufferMemoryRequirementsInfo2KHR_sizeof||0))));
+const VkBufferMemoryRequirementsInfo2KHR = new Proxy(function(){}, new C.ConstructProxy("VkBufferMemoryRequirementsInfo2"));
 
 
 const VkDeviceBufferMemoryRequirements = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceBufferMemoryRequirements", {
@@ -2983,10 +2824,7 @@ const VkDeviceBufferMemoryRequirements = new Proxy(function(){}, new C.Construct
     pCreateInfo: "u64("+(V.VkDeviceBufferMemoryRequirements_pCreateInfo_offsetof||0)+")",
 }, (V.VkDeviceBufferMemoryRequirements_sizeof||0))));
 
-
-const VkDeviceBufferMemoryRequirementsKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceBufferMemoryRequirementsKHR", {
-
-}, (V.VkDeviceBufferMemoryRequirementsKHR_sizeof||0))));
+const VkDeviceBufferMemoryRequirementsKHR = new Proxy(function(){}, new C.ConstructProxy("VkDeviceBufferMemoryRequirements"));
 
 
 const VkImageMemoryRequirementsInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageMemoryRequirementsInfo2", {
@@ -2995,10 +2833,7 @@ const VkImageMemoryRequirementsInfo2 = new Proxy(function(){}, new C.ConstructPr
     image: "u64("+(V.VkImageMemoryRequirementsInfo2_image_offsetof||0)+")",
 }, (V.VkImageMemoryRequirementsInfo2_sizeof||0))));
 
-
-const VkImageMemoryRequirementsInfo2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageMemoryRequirementsInfo2KHR", {
-
-}, (V.VkImageMemoryRequirementsInfo2KHR_sizeof||0))));
+const VkImageMemoryRequirementsInfo2KHR = new Proxy(function(){}, new C.ConstructProxy("VkImageMemoryRequirementsInfo2"));
 
 
 const VkImageSparseMemoryRequirementsInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageSparseMemoryRequirementsInfo2", {
@@ -3007,10 +2842,7 @@ const VkImageSparseMemoryRequirementsInfo2 = new Proxy(function(){}, new C.Const
     image: "u64("+(V.VkImageSparseMemoryRequirementsInfo2_image_offsetof||0)+")",
 }, (V.VkImageSparseMemoryRequirementsInfo2_sizeof||0))));
 
-
-const VkImageSparseMemoryRequirementsInfo2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageSparseMemoryRequirementsInfo2KHR", {
-
-}, (V.VkImageSparseMemoryRequirementsInfo2KHR_sizeof||0))));
+const VkImageSparseMemoryRequirementsInfo2KHR = new Proxy(function(){}, new C.ConstructProxy("VkImageSparseMemoryRequirementsInfo2"));
 
 
 const VkDeviceImageMemoryRequirements = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceImageMemoryRequirements", {
@@ -3020,10 +2852,7 @@ const VkDeviceImageMemoryRequirements = new Proxy(function(){}, new C.ConstructP
     planeAspect: "u32("+(V.VkDeviceImageMemoryRequirements_planeAspect_offsetof||0)+")",
 }, (V.VkDeviceImageMemoryRequirements_sizeof||0))));
 
-
-const VkDeviceImageMemoryRequirementsKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceImageMemoryRequirementsKHR", {
-
-}, (V.VkDeviceImageMemoryRequirementsKHR_sizeof||0))));
+const VkDeviceImageMemoryRequirementsKHR = new Proxy(function(){}, new C.ConstructProxy("VkDeviceImageMemoryRequirements"));
 
 
 const VkMemoryRequirements2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkMemoryRequirements2", {
@@ -3032,10 +2861,7 @@ const VkMemoryRequirements2 = new Proxy(function(){}, new C.ConstructProxy(new C
     memoryRequirements: "u32("+(V.VkMemoryRequirements2_memoryRequirements_offsetof||0)+")",
 }, (V.VkMemoryRequirements2_sizeof||0))));
 
-
-const VkMemoryRequirements2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkMemoryRequirements2KHR", {
-
-}, (V.VkMemoryRequirements2KHR_sizeof||0))));
+const VkMemoryRequirements2KHR = new Proxy(function(){}, new C.ConstructProxy("VkMemoryRequirements2"));
 
 
 const VkSparseImageMemoryRequirements2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSparseImageMemoryRequirements2", {
@@ -3044,10 +2870,7 @@ const VkSparseImageMemoryRequirements2 = new Proxy(function(){}, new C.Construct
     memoryRequirements: "u32("+(V.VkSparseImageMemoryRequirements2_memoryRequirements_offsetof||0)+")",
 }, (V.VkSparseImageMemoryRequirements2_sizeof||0))));
 
-
-const VkSparseImageMemoryRequirements2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSparseImageMemoryRequirements2KHR", {
-
-}, (V.VkSparseImageMemoryRequirements2KHR_sizeof||0))));
+const VkSparseImageMemoryRequirements2KHR = new Proxy(function(){}, new C.ConstructProxy("VkSparseImageMemoryRequirements2"));
 
 
 const VkPhysicalDevicePointClippingProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDevicePointClippingProperties", {
@@ -3056,10 +2879,7 @@ const VkPhysicalDevicePointClippingProperties = new Proxy(function(){}, new C.Co
     pointClippingBehavior: "u32("+(V.VkPhysicalDevicePointClippingProperties_pointClippingBehavior_offsetof||0)+")",
 }, (V.VkPhysicalDevicePointClippingProperties_sizeof||0))));
 
-
-const VkPhysicalDevicePointClippingPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDevicePointClippingPropertiesKHR", {
-
-}, (V.VkPhysicalDevicePointClippingPropertiesKHR_sizeof||0))));
+const VkPhysicalDevicePointClippingPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDevicePointClippingProperties"));
 
 
 const VkMemoryDedicatedRequirements = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkMemoryDedicatedRequirements", {
@@ -3069,10 +2889,7 @@ const VkMemoryDedicatedRequirements = new Proxy(function(){}, new C.ConstructPro
     requiresDedicatedAllocation: "u32("+(V.VkMemoryDedicatedRequirements_requiresDedicatedAllocation_offsetof||0)+")",
 }, (V.VkMemoryDedicatedRequirements_sizeof||0))));
 
-
-const VkMemoryDedicatedRequirementsKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkMemoryDedicatedRequirementsKHR", {
-
-}, (V.VkMemoryDedicatedRequirementsKHR_sizeof||0))));
+const VkMemoryDedicatedRequirementsKHR = new Proxy(function(){}, new C.ConstructProxy("VkMemoryDedicatedRequirements"));
 
 
 const VkMemoryDedicatedAllocateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkMemoryDedicatedAllocateInfo", {
@@ -3082,10 +2899,7 @@ const VkMemoryDedicatedAllocateInfo = new Proxy(function(){}, new C.ConstructPro
     buffer: "u64("+(V.VkMemoryDedicatedAllocateInfo_buffer_offsetof||0)+")",
 }, (V.VkMemoryDedicatedAllocateInfo_sizeof||0))));
 
-
-const VkMemoryDedicatedAllocateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkMemoryDedicatedAllocateInfoKHR", {
-
-}, (V.VkMemoryDedicatedAllocateInfoKHR_sizeof||0))));
+const VkMemoryDedicatedAllocateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkMemoryDedicatedAllocateInfo"));
 
 
 const VkImageViewUsageCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageViewUsageCreateInfo", {
@@ -3094,10 +2908,7 @@ const VkImageViewUsageCreateInfo = new Proxy(function(){}, new C.ConstructProxy(
     usage: "u32("+(V.VkImageViewUsageCreateInfo_usage_offsetof||0)+")",
 }, (V.VkImageViewUsageCreateInfo_sizeof||0))));
 
-
-const VkImageViewUsageCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageViewUsageCreateInfoKHR", {
-
-}, (V.VkImageViewUsageCreateInfoKHR_sizeof||0))));
+const VkImageViewUsageCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkImageViewUsageCreateInfo"));
 
 
 const VkPipelineTessellationDomainOriginStateCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPipelineTessellationDomainOriginStateCreateInfo", {
@@ -3106,10 +2917,7 @@ const VkPipelineTessellationDomainOriginStateCreateInfo = new Proxy(function(){}
     domainOrigin: "u32("+(V.VkPipelineTessellationDomainOriginStateCreateInfo_domainOrigin_offsetof||0)+")",
 }, (V.VkPipelineTessellationDomainOriginStateCreateInfo_sizeof||0))));
 
-
-const VkPipelineTessellationDomainOriginStateCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPipelineTessellationDomainOriginStateCreateInfoKHR", {
-
-}, (V.VkPipelineTessellationDomainOriginStateCreateInfoKHR_sizeof||0))));
+const VkPipelineTessellationDomainOriginStateCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkPipelineTessellationDomainOriginStateCreateInfo"));
 
 
 const VkSamplerYcbcrConversionInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSamplerYcbcrConversionInfo", {
@@ -3118,10 +2926,7 @@ const VkSamplerYcbcrConversionInfo = new Proxy(function(){}, new C.ConstructProx
     conversion: "u32("+(V.VkSamplerYcbcrConversionInfo_conversion_offsetof||0)+")",
 }, (V.VkSamplerYcbcrConversionInfo_sizeof||0))));
 
-
-const VkSamplerYcbcrConversionInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSamplerYcbcrConversionInfoKHR", {
-
-}, (V.VkSamplerYcbcrConversionInfoKHR_sizeof||0))));
+const VkSamplerYcbcrConversionInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkSamplerYcbcrConversionInfo"));
 
 
 const VkSamplerYcbcrConversionCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSamplerYcbcrConversionCreateInfo", {
@@ -3137,10 +2942,7 @@ const VkSamplerYcbcrConversionCreateInfo = new Proxy(function(){}, new C.Constru
     forceExplicitReconstruction: "u32("+(V.VkSamplerYcbcrConversionCreateInfo_forceExplicitReconstruction_offsetof||0)+")",
 }, (V.VkSamplerYcbcrConversionCreateInfo_sizeof||0))));
 
-
-const VkSamplerYcbcrConversionCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSamplerYcbcrConversionCreateInfoKHR", {
-
-}, (V.VkSamplerYcbcrConversionCreateInfoKHR_sizeof||0))));
+const VkSamplerYcbcrConversionCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkSamplerYcbcrConversionCreateInfo"));
 
 
 const VkBindImagePlaneMemoryInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBindImagePlaneMemoryInfo", {
@@ -3149,10 +2951,7 @@ const VkBindImagePlaneMemoryInfo = new Proxy(function(){}, new C.ConstructProxy(
     planeAspect: "u32("+(V.VkBindImagePlaneMemoryInfo_planeAspect_offsetof||0)+")",
 }, (V.VkBindImagePlaneMemoryInfo_sizeof||0))));
 
-
-const VkBindImagePlaneMemoryInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBindImagePlaneMemoryInfoKHR", {
-
-}, (V.VkBindImagePlaneMemoryInfoKHR_sizeof||0))));
+const VkBindImagePlaneMemoryInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkBindImagePlaneMemoryInfo"));
 
 
 const VkImagePlaneMemoryRequirementsInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImagePlaneMemoryRequirementsInfo", {
@@ -3161,10 +2960,7 @@ const VkImagePlaneMemoryRequirementsInfo = new Proxy(function(){}, new C.Constru
     planeAspect: "u32("+(V.VkImagePlaneMemoryRequirementsInfo_planeAspect_offsetof||0)+")",
 }, (V.VkImagePlaneMemoryRequirementsInfo_sizeof||0))));
 
-
-const VkImagePlaneMemoryRequirementsInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImagePlaneMemoryRequirementsInfoKHR", {
-
-}, (V.VkImagePlaneMemoryRequirementsInfoKHR_sizeof||0))));
+const VkImagePlaneMemoryRequirementsInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkImagePlaneMemoryRequirementsInfo"));
 
 
 const VkPhysicalDeviceSamplerYcbcrConversionFeatures = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceSamplerYcbcrConversionFeatures", {
@@ -3173,10 +2969,7 @@ const VkPhysicalDeviceSamplerYcbcrConversionFeatures = new Proxy(function(){}, n
     samplerYcbcrConversion: "u32("+(V.VkPhysicalDeviceSamplerYcbcrConversionFeatures_samplerYcbcrConversion_offsetof||0)+")",
 }, (V.VkPhysicalDeviceSamplerYcbcrConversionFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR", {
-
-}, (V.VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceSamplerYcbcrConversionFeatures"));
 
 
 const VkSamplerYcbcrConversionImageFormatProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSamplerYcbcrConversionImageFormatProperties", {
@@ -3185,10 +2978,7 @@ const VkSamplerYcbcrConversionImageFormatProperties = new Proxy(function(){}, ne
     combinedImageSamplerDescriptorCount: "u32("+(V.VkSamplerYcbcrConversionImageFormatProperties_combinedImageSamplerDescriptorCount_offsetof||0)+")",
 }, (V.VkSamplerYcbcrConversionImageFormatProperties_sizeof||0))));
 
-
-const VkSamplerYcbcrConversionImageFormatPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSamplerYcbcrConversionImageFormatPropertiesKHR", {
-
-}, (V.VkSamplerYcbcrConversionImageFormatPropertiesKHR_sizeof||0))));
+const VkSamplerYcbcrConversionImageFormatPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkSamplerYcbcrConversionImageFormatProperties"));
 
 
 const VkTextureLODGatherFormatPropertiesAMD = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkTextureLODGatherFormatPropertiesAMD", {
@@ -3253,10 +3043,7 @@ const VkPhysicalDeviceSamplerFilterMinmaxProperties = new Proxy(function(){}, ne
     filterMinmaxImageComponentMapping: "u32("+(V.VkPhysicalDeviceSamplerFilterMinmaxProperties_filterMinmaxImageComponentMapping_offsetof||0)+")",
 }, (V.VkPhysicalDeviceSamplerFilterMinmaxProperties_sizeof||0))));
 
-
-const VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT", {
-
-}, (V.VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT_sizeof||0))));
+const VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceSamplerFilterMinmaxProperties"));
 
 
 const VkSampleLocationEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSampleLocationEXT", {
@@ -3329,10 +3116,7 @@ const VkSamplerReductionModeCreateInfo = new Proxy(function(){}, new C.Construct
     reductionMode: "u32("+(V.VkSamplerReductionModeCreateInfo_reductionMode_offsetof||0)+")",
 }, (V.VkSamplerReductionModeCreateInfo_sizeof||0))));
 
-
-const VkSamplerReductionModeCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSamplerReductionModeCreateInfoEXT", {
-
-}, (V.VkSamplerReductionModeCreateInfoEXT_sizeof||0))));
+const VkSamplerReductionModeCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy("VkSamplerReductionModeCreateInfo"));
 
 
 const VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT", {
@@ -3377,10 +3161,7 @@ const VkPhysicalDeviceInlineUniformBlockFeatures = new Proxy(function(){}, new C
     descriptorBindingInlineUniformBlockUpdateAfterBind: "u32("+(V.VkPhysicalDeviceInlineUniformBlockFeatures_descriptorBindingInlineUniformBlockUpdateAfterBind_offsetof||0)+")",
 }, (V.VkPhysicalDeviceInlineUniformBlockFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceInlineUniformBlockFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceInlineUniformBlockFeaturesEXT", {
-
-}, (V.VkPhysicalDeviceInlineUniformBlockFeaturesEXT_sizeof||0))));
+const VkPhysicalDeviceInlineUniformBlockFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceInlineUniformBlockFeatures"));
 
 
 const VkPhysicalDeviceInlineUniformBlockProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceInlineUniformBlockProperties", {
@@ -3393,10 +3174,7 @@ const VkPhysicalDeviceInlineUniformBlockProperties = new Proxy(function(){}, new
     maxDescriptorSetUpdateAfterBindInlineUniformBlocks: "u32("+(V.VkPhysicalDeviceInlineUniformBlockProperties_maxDescriptorSetUpdateAfterBindInlineUniformBlocks_offsetof||0)+")",
 }, (V.VkPhysicalDeviceInlineUniformBlockProperties_sizeof||0))));
 
-
-const VkPhysicalDeviceInlineUniformBlockPropertiesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceInlineUniformBlockPropertiesEXT", {
-
-}, (V.VkPhysicalDeviceInlineUniformBlockPropertiesEXT_sizeof||0))));
+const VkPhysicalDeviceInlineUniformBlockPropertiesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceInlineUniformBlockProperties"));
 
 
 const VkWriteDescriptorSetInlineUniformBlock = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkWriteDescriptorSetInlineUniformBlock", {
@@ -3406,10 +3184,7 @@ const VkWriteDescriptorSetInlineUniformBlock = new Proxy(function(){}, new C.Con
     pData: "u64("+(V.VkWriteDescriptorSetInlineUniformBlock_pData_offsetof||0)+")",
 }, (V.VkWriteDescriptorSetInlineUniformBlock_sizeof||0))));
 
-
-const VkWriteDescriptorSetInlineUniformBlockEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkWriteDescriptorSetInlineUniformBlockEXT", {
-
-}, (V.VkWriteDescriptorSetInlineUniformBlockEXT_sizeof||0))));
+const VkWriteDescriptorSetInlineUniformBlockEXT = new Proxy(function(){}, new C.ConstructProxy("VkWriteDescriptorSetInlineUniformBlock"));
 
 
 const VkDescriptorPoolInlineUniformBlockCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDescriptorPoolInlineUniformBlockCreateInfo", {
@@ -3418,10 +3193,7 @@ const VkDescriptorPoolInlineUniformBlockCreateInfo = new Proxy(function(){}, new
     maxInlineUniformBlockBindings: "u32("+(V.VkDescriptorPoolInlineUniformBlockCreateInfo_maxInlineUniformBlockBindings_offsetof||0)+")",
 }, (V.VkDescriptorPoolInlineUniformBlockCreateInfo_sizeof||0))));
 
-
-const VkDescriptorPoolInlineUniformBlockCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDescriptorPoolInlineUniformBlockCreateInfoEXT", {
-
-}, (V.VkDescriptorPoolInlineUniformBlockCreateInfoEXT_sizeof||0))));
+const VkDescriptorPoolInlineUniformBlockCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy("VkDescriptorPoolInlineUniformBlockCreateInfo"));
 
 
 const VkPipelineCoverageModulationStateCreateInfoNV = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPipelineCoverageModulationStateCreateInfoNV", {
@@ -3442,10 +3214,7 @@ const VkImageFormatListCreateInfo = new Proxy(function(){}, new C.ConstructProxy
     pViewFormats: "u64("+(V.VkImageFormatListCreateInfo_pViewFormats_offsetof||0)+")",
 }, (V.VkImageFormatListCreateInfo_sizeof||0))));
 
-
-const VkImageFormatListCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageFormatListCreateInfoKHR", {
-
-}, (V.VkImageFormatListCreateInfoKHR_sizeof||0))));
+const VkImageFormatListCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkImageFormatListCreateInfo"));
 
 
 const VkValidationCacheCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkValidationCacheCreateInfoEXT", {
@@ -3471,10 +3240,7 @@ const VkPhysicalDeviceMaintenance3Properties = new Proxy(function(){}, new C.Con
     maxMemoryAllocationSize: "u64("+(V.VkPhysicalDeviceMaintenance3Properties_maxMemoryAllocationSize_offsetof||0)+")",
 }, (V.VkPhysicalDeviceMaintenance3Properties_sizeof||0))));
 
-
-const VkPhysicalDeviceMaintenance3PropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceMaintenance3PropertiesKHR", {
-
-}, (V.VkPhysicalDeviceMaintenance3PropertiesKHR_sizeof||0))));
+const VkPhysicalDeviceMaintenance3PropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceMaintenance3Properties"));
 
 
 const VkPhysicalDeviceMaintenance4Features = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceMaintenance4Features", {
@@ -3483,10 +3249,7 @@ const VkPhysicalDeviceMaintenance4Features = new Proxy(function(){}, new C.Const
     maintenance4: "u32("+(V.VkPhysicalDeviceMaintenance4Features_maintenance4_offsetof||0)+")",
 }, (V.VkPhysicalDeviceMaintenance4Features_sizeof||0))));
 
-
-const VkPhysicalDeviceMaintenance4FeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceMaintenance4FeaturesKHR", {
-
-}, (V.VkPhysicalDeviceMaintenance4FeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceMaintenance4FeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceMaintenance4Features"));
 
 
 const VkPhysicalDeviceMaintenance4Properties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceMaintenance4Properties", {
@@ -3495,10 +3258,7 @@ const VkPhysicalDeviceMaintenance4Properties = new Proxy(function(){}, new C.Con
     maxBufferSize: "u64("+(V.VkPhysicalDeviceMaintenance4Properties_maxBufferSize_offsetof||0)+")",
 }, (V.VkPhysicalDeviceMaintenance4Properties_sizeof||0))));
 
-
-const VkPhysicalDeviceMaintenance4PropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceMaintenance4PropertiesKHR", {
-
-}, (V.VkPhysicalDeviceMaintenance4PropertiesKHR_sizeof||0))));
+const VkPhysicalDeviceMaintenance4PropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceMaintenance4Properties"));
 
 
 const VkDescriptorSetLayoutSupport = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDescriptorSetLayoutSupport", {
@@ -3507,10 +3267,7 @@ const VkDescriptorSetLayoutSupport = new Proxy(function(){}, new C.ConstructProx
     supported: "u32("+(V.VkDescriptorSetLayoutSupport_supported_offsetof||0)+")",
 }, (V.VkDescriptorSetLayoutSupport_sizeof||0))));
 
-
-const VkDescriptorSetLayoutSupportKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDescriptorSetLayoutSupportKHR", {
-
-}, (V.VkDescriptorSetLayoutSupportKHR_sizeof||0))));
+const VkDescriptorSetLayoutSupportKHR = new Proxy(function(){}, new C.ConstructProxy("VkDescriptorSetLayoutSupport"));
 
 
 const VkPhysicalDeviceShaderDrawParametersFeatures = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceShaderDrawParametersFeatures", {
@@ -3519,10 +3276,7 @@ const VkPhysicalDeviceShaderDrawParametersFeatures = new Proxy(function(){}, new
     shaderDrawParameters: "u32("+(V.VkPhysicalDeviceShaderDrawParametersFeatures_shaderDrawParameters_offsetof||0)+")",
 }, (V.VkPhysicalDeviceShaderDrawParametersFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceShaderDrawParameterFeatures = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceShaderDrawParameterFeatures", {
-
-}, (V.VkPhysicalDeviceShaderDrawParameterFeatures_sizeof||0))));
+const VkPhysicalDeviceShaderDrawParameterFeatures = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceShaderDrawParametersFeatures"));
 
 
 const VkPhysicalDeviceShaderFloat16Int8Features = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceShaderFloat16Int8Features", {
@@ -3532,15 +3286,9 @@ const VkPhysicalDeviceShaderFloat16Int8Features = new Proxy(function(){}, new C.
     shaderInt8: "u32("+(V.VkPhysicalDeviceShaderFloat16Int8Features_shaderInt8_offsetof||0)+")",
 }, (V.VkPhysicalDeviceShaderFloat16Int8Features_sizeof||0))));
 
+const VkPhysicalDeviceShaderFloat16Int8FeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceShaderFloat16Int8Features"));
 
-const VkPhysicalDeviceShaderFloat16Int8FeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceShaderFloat16Int8FeaturesKHR", {
-
-}, (V.VkPhysicalDeviceShaderFloat16Int8FeaturesKHR_sizeof||0))));
-
-
-const VkPhysicalDeviceFloat16Int8FeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceFloat16Int8FeaturesKHR", {
-
-}, (V.VkPhysicalDeviceFloat16Int8FeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceFloat16Int8FeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceShaderFloat16Int8Features"));
 
 
 const VkPhysicalDeviceFloatControlsProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceFloatControlsProperties", {
@@ -3565,10 +3313,7 @@ const VkPhysicalDeviceFloatControlsProperties = new Proxy(function(){}, new C.Co
     shaderRoundingModeRTZFloat64: "u32("+(V.VkPhysicalDeviceFloatControlsProperties_shaderRoundingModeRTZFloat64_offsetof||0)+")",
 }, (V.VkPhysicalDeviceFloatControlsProperties_sizeof||0))));
 
-
-const VkPhysicalDeviceFloatControlsPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceFloatControlsPropertiesKHR", {
-
-}, (V.VkPhysicalDeviceFloatControlsPropertiesKHR_sizeof||0))));
+const VkPhysicalDeviceFloatControlsPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceFloatControlsProperties"));
 
 
 const VkPhysicalDeviceHostQueryResetFeatures = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceHostQueryResetFeatures", {
@@ -3577,10 +3322,7 @@ const VkPhysicalDeviceHostQueryResetFeatures = new Proxy(function(){}, new C.Con
     hostQueryReset: "u32("+(V.VkPhysicalDeviceHostQueryResetFeatures_hostQueryReset_offsetof||0)+")",
 }, (V.VkPhysicalDeviceHostQueryResetFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceHostQueryResetFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceHostQueryResetFeaturesEXT", {
-
-}, (V.VkPhysicalDeviceHostQueryResetFeaturesEXT_sizeof||0))));
+const VkPhysicalDeviceHostQueryResetFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceHostQueryResetFeatures"));
 
 
 const VkNativeBufferUsage2ANDROID = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkNativeBufferUsage2ANDROID", {
@@ -3640,10 +3382,7 @@ const VkDeviceQueueGlobalPriorityCreateInfoKHR = new Proxy(function(){}, new C.C
     globalPriority: "u32("+(V.VkDeviceQueueGlobalPriorityCreateInfoKHR_globalPriority_offsetof||0)+")",
 }, (V.VkDeviceQueueGlobalPriorityCreateInfoKHR_sizeof||0))));
 
-
-const VkDeviceQueueGlobalPriorityCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceQueueGlobalPriorityCreateInfoEXT", {
-
-}, (V.VkDeviceQueueGlobalPriorityCreateInfoEXT_sizeof||0))));
+const VkDeviceQueueGlobalPriorityCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy("VkDeviceQueueGlobalPriorityCreateInfoKHR"));
 
 
 const VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR", {
@@ -3652,10 +3391,7 @@ const VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR = new Proxy(function(){}, n
     globalPriorityQuery: "u32("+(V.VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR_globalPriorityQuery_offsetof||0)+")",
 }, (V.VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR_sizeof||0))));
 
-
-const VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT", {
-
-}, (V.VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT_sizeof||0))));
+const VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR"));
 
 
 const VkQueueFamilyGlobalPriorityPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkQueueFamilyGlobalPriorityPropertiesKHR", {
@@ -3665,10 +3401,7 @@ const VkQueueFamilyGlobalPriorityPropertiesKHR = new Proxy(function(){}, new C.C
     priorities: "u32["+(E.VK_MAX_GLOBAL_PRIORITY_SIZE_KHR||1)+"]("+(V.VkQueueFamilyGlobalPriorityPropertiesKHR_priorities_offsetof||0)+")",
 }, (V.VkQueueFamilyGlobalPriorityPropertiesKHR_sizeof||0))));
 
-
-const VkQueueFamilyGlobalPriorityPropertiesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkQueueFamilyGlobalPriorityPropertiesEXT", {
-
-}, (V.VkQueueFamilyGlobalPriorityPropertiesEXT_sizeof||0))));
+const VkQueueFamilyGlobalPriorityPropertiesEXT = new Proxy(function(){}, new C.ConstructProxy("VkQueueFamilyGlobalPriorityPropertiesKHR"));
 
 
 const VkDebugUtilsObjectNameInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDebugUtilsObjectNameInfoEXT", {
@@ -3861,10 +3594,7 @@ const VkPhysicalDeviceDescriptorIndexingFeatures = new Proxy(function(){}, new C
     runtimeDescriptorArray: "u32("+(V.VkPhysicalDeviceDescriptorIndexingFeatures_runtimeDescriptorArray_offsetof||0)+")",
 }, (V.VkPhysicalDeviceDescriptorIndexingFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceDescriptorIndexingFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceDescriptorIndexingFeaturesEXT", {
-
-}, (V.VkPhysicalDeviceDescriptorIndexingFeaturesEXT_sizeof||0))));
+const VkPhysicalDeviceDescriptorIndexingFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceDescriptorIndexingFeatures"));
 
 
 const VkPhysicalDeviceDescriptorIndexingProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceDescriptorIndexingProperties", {
@@ -3895,10 +3625,7 @@ const VkPhysicalDeviceDescriptorIndexingProperties = new Proxy(function(){}, new
     maxDescriptorSetUpdateAfterBindInputAttachments: "u32("+(V.VkPhysicalDeviceDescriptorIndexingProperties_maxDescriptorSetUpdateAfterBindInputAttachments_offsetof||0)+")",
 }, (V.VkPhysicalDeviceDescriptorIndexingProperties_sizeof||0))));
 
-
-const VkPhysicalDeviceDescriptorIndexingPropertiesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceDescriptorIndexingPropertiesEXT", {
-
-}, (V.VkPhysicalDeviceDescriptorIndexingPropertiesEXT_sizeof||0))));
+const VkPhysicalDeviceDescriptorIndexingPropertiesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceDescriptorIndexingProperties"));
 
 
 const VkDescriptorSetLayoutBindingFlagsCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDescriptorSetLayoutBindingFlagsCreateInfo", {
@@ -3908,10 +3635,7 @@ const VkDescriptorSetLayoutBindingFlagsCreateInfo = new Proxy(function(){}, new 
     pBindingFlags: "u64("+(V.VkDescriptorSetLayoutBindingFlagsCreateInfo_pBindingFlags_offsetof||0)+")",
 }, (V.VkDescriptorSetLayoutBindingFlagsCreateInfo_sizeof||0))));
 
-
-const VkDescriptorSetLayoutBindingFlagsCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDescriptorSetLayoutBindingFlagsCreateInfoEXT", {
-
-}, (V.VkDescriptorSetLayoutBindingFlagsCreateInfoEXT_sizeof||0))));
+const VkDescriptorSetLayoutBindingFlagsCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy("VkDescriptorSetLayoutBindingFlagsCreateInfo"));
 
 
 const VkDescriptorSetVariableDescriptorCountAllocateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDescriptorSetVariableDescriptorCountAllocateInfo", {
@@ -3921,10 +3645,7 @@ const VkDescriptorSetVariableDescriptorCountAllocateInfo = new Proxy(function(){
     pDescriptorCounts: "u64("+(V.VkDescriptorSetVariableDescriptorCountAllocateInfo_pDescriptorCounts_offsetof||0)+")",
 }, (V.VkDescriptorSetVariableDescriptorCountAllocateInfo_sizeof||0))));
 
-
-const VkDescriptorSetVariableDescriptorCountAllocateInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDescriptorSetVariableDescriptorCountAllocateInfoEXT", {
-
-}, (V.VkDescriptorSetVariableDescriptorCountAllocateInfoEXT_sizeof||0))));
+const VkDescriptorSetVariableDescriptorCountAllocateInfoEXT = new Proxy(function(){}, new C.ConstructProxy("VkDescriptorSetVariableDescriptorCountAllocateInfo"));
 
 
 const VkDescriptorSetVariableDescriptorCountLayoutSupport = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDescriptorSetVariableDescriptorCountLayoutSupport", {
@@ -3933,10 +3654,7 @@ const VkDescriptorSetVariableDescriptorCountLayoutSupport = new Proxy(function()
     maxVariableDescriptorCount: "u32("+(V.VkDescriptorSetVariableDescriptorCountLayoutSupport_maxVariableDescriptorCount_offsetof||0)+")",
 }, (V.VkDescriptorSetVariableDescriptorCountLayoutSupport_sizeof||0))));
 
-
-const VkDescriptorSetVariableDescriptorCountLayoutSupportEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDescriptorSetVariableDescriptorCountLayoutSupportEXT", {
-
-}, (V.VkDescriptorSetVariableDescriptorCountLayoutSupportEXT_sizeof||0))));
+const VkDescriptorSetVariableDescriptorCountLayoutSupportEXT = new Proxy(function(){}, new C.ConstructProxy("VkDescriptorSetVariableDescriptorCountLayoutSupport"));
 
 
 const VkAttachmentDescription2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkAttachmentDescription2", {
@@ -3953,10 +3671,7 @@ const VkAttachmentDescription2 = new Proxy(function(){}, new C.ConstructProxy(ne
     finalLayout: "u32("+(V.VkAttachmentDescription2_finalLayout_offsetof||0)+")",
 }, (V.VkAttachmentDescription2_sizeof||0))));
 
-
-const VkAttachmentDescription2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkAttachmentDescription2KHR", {
-
-}, (V.VkAttachmentDescription2KHR_sizeof||0))));
+const VkAttachmentDescription2KHR = new Proxy(function(){}, new C.ConstructProxy("VkAttachmentDescription2"));
 
 
 const VkAttachmentReference2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkAttachmentReference2", {
@@ -3967,10 +3682,7 @@ const VkAttachmentReference2 = new Proxy(function(){}, new C.ConstructProxy(new 
     aspectMask: "u32("+(V.VkAttachmentReference2_aspectMask_offsetof||0)+")",
 }, (V.VkAttachmentReference2_sizeof||0))));
 
-
-const VkAttachmentReference2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkAttachmentReference2KHR", {
-
-}, (V.VkAttachmentReference2KHR_sizeof||0))));
+const VkAttachmentReference2KHR = new Proxy(function(){}, new C.ConstructProxy("VkAttachmentReference2"));
 
 
 const VkSubpassDescription2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSubpassDescription2", {
@@ -3989,10 +3701,7 @@ const VkSubpassDescription2 = new Proxy(function(){}, new C.ConstructProxy(new C
     pPreserveAttachments: "u64("+(V.VkSubpassDescription2_pPreserveAttachments_offsetof||0)+")",
 }, (V.VkSubpassDescription2_sizeof||0))));
 
-
-const VkSubpassDescription2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSubpassDescription2KHR", {
-
-}, (V.VkSubpassDescription2KHR_sizeof||0))));
+const VkSubpassDescription2KHR = new Proxy(function(){}, new C.ConstructProxy("VkSubpassDescription2"));
 
 
 const VkSubpassDependency2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSubpassDependency2", {
@@ -4008,10 +3717,7 @@ const VkSubpassDependency2 = new Proxy(function(){}, new C.ConstructProxy(new C.
     viewOffset: "i32("+(V.VkSubpassDependency2_viewOffset_offsetof||0)+")",
 }, (V.VkSubpassDependency2_sizeof||0))));
 
-
-const VkSubpassDependency2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSubpassDependency2KHR", {
-
-}, (V.VkSubpassDependency2KHR_sizeof||0))));
+const VkSubpassDependency2KHR = new Proxy(function(){}, new C.ConstructProxy("VkSubpassDependency2"));
 
 
 const VkRenderPassCreateInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkRenderPassCreateInfo2", {
@@ -4028,10 +3734,7 @@ const VkRenderPassCreateInfo2 = new Proxy(function(){}, new C.ConstructProxy(new
     pCorrelatedViewMasks: "u64("+(V.VkRenderPassCreateInfo2_pCorrelatedViewMasks_offsetof||0)+")",
 }, (V.VkRenderPassCreateInfo2_sizeof||0))));
 
-
-const VkRenderPassCreateInfo2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkRenderPassCreateInfo2KHR", {
-
-}, (V.VkRenderPassCreateInfo2KHR_sizeof||0))));
+const VkRenderPassCreateInfo2KHR = new Proxy(function(){}, new C.ConstructProxy("VkRenderPassCreateInfo2"));
 
 
 const VkSubpassBeginInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSubpassBeginInfo", {
@@ -4040,10 +3743,7 @@ const VkSubpassBeginInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CS
     contents: "u32("+(V.VkSubpassBeginInfo_contents_offsetof||0)+")",
 }, (V.VkSubpassBeginInfo_sizeof||0))));
 
-
-const VkSubpassBeginInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSubpassBeginInfoKHR", {
-
-}, (V.VkSubpassBeginInfoKHR_sizeof||0))));
+const VkSubpassBeginInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkSubpassBeginInfo"));
 
 
 const VkSubpassEndInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSubpassEndInfo", {
@@ -4051,10 +3751,7 @@ const VkSubpassEndInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStr
     pNext: "u64("+(V.VkSubpassEndInfo_pNext_offsetof||0)+")",
 }, (V.VkSubpassEndInfo_sizeof||0))));
 
-
-const VkSubpassEndInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSubpassEndInfoKHR", {
-
-}, (V.VkSubpassEndInfoKHR_sizeof||0))));
+const VkSubpassEndInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkSubpassEndInfo"));
 
 
 const VkPhysicalDeviceTimelineSemaphoreFeatures = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceTimelineSemaphoreFeatures", {
@@ -4063,10 +3760,7 @@ const VkPhysicalDeviceTimelineSemaphoreFeatures = new Proxy(function(){}, new C.
     timelineSemaphore: "u32("+(V.VkPhysicalDeviceTimelineSemaphoreFeatures_timelineSemaphore_offsetof||0)+")",
 }, (V.VkPhysicalDeviceTimelineSemaphoreFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceTimelineSemaphoreFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceTimelineSemaphoreFeaturesKHR", {
-
-}, (V.VkPhysicalDeviceTimelineSemaphoreFeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceTimelineSemaphoreFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceTimelineSemaphoreFeatures"));
 
 
 const VkPhysicalDeviceTimelineSemaphoreProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceTimelineSemaphoreProperties", {
@@ -4075,10 +3769,7 @@ const VkPhysicalDeviceTimelineSemaphoreProperties = new Proxy(function(){}, new 
     maxTimelineSemaphoreValueDifference: "u64("+(V.VkPhysicalDeviceTimelineSemaphoreProperties_maxTimelineSemaphoreValueDifference_offsetof||0)+")",
 }, (V.VkPhysicalDeviceTimelineSemaphoreProperties_sizeof||0))));
 
-
-const VkPhysicalDeviceTimelineSemaphorePropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceTimelineSemaphorePropertiesKHR", {
-
-}, (V.VkPhysicalDeviceTimelineSemaphorePropertiesKHR_sizeof||0))));
+const VkPhysicalDeviceTimelineSemaphorePropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceTimelineSemaphoreProperties"));
 
 
 const VkSemaphoreTypeCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSemaphoreTypeCreateInfo", {
@@ -4088,10 +3779,7 @@ const VkSemaphoreTypeCreateInfo = new Proxy(function(){}, new C.ConstructProxy(n
     initialValue: "u64("+(V.VkSemaphoreTypeCreateInfo_initialValue_offsetof||0)+")",
 }, (V.VkSemaphoreTypeCreateInfo_sizeof||0))));
 
-
-const VkSemaphoreTypeCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSemaphoreTypeCreateInfoKHR", {
-
-}, (V.VkSemaphoreTypeCreateInfoKHR_sizeof||0))));
+const VkSemaphoreTypeCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkSemaphoreTypeCreateInfo"));
 
 
 const VkTimelineSemaphoreSubmitInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkTimelineSemaphoreSubmitInfo", {
@@ -4103,10 +3791,7 @@ const VkTimelineSemaphoreSubmitInfo = new Proxy(function(){}, new C.ConstructPro
     pSignalSemaphoreValues: "u64("+(V.VkTimelineSemaphoreSubmitInfo_pSignalSemaphoreValues_offsetof||0)+")",
 }, (V.VkTimelineSemaphoreSubmitInfo_sizeof||0))));
 
-
-const VkTimelineSemaphoreSubmitInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkTimelineSemaphoreSubmitInfoKHR", {
-
-}, (V.VkTimelineSemaphoreSubmitInfoKHR_sizeof||0))));
+const VkTimelineSemaphoreSubmitInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkTimelineSemaphoreSubmitInfo"));
 
 
 const VkSemaphoreWaitInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSemaphoreWaitInfo", {
@@ -4118,10 +3803,7 @@ const VkSemaphoreWaitInfo = new Proxy(function(){}, new C.ConstructProxy(new C.C
     pValues: "u64("+(V.VkSemaphoreWaitInfo_pValues_offsetof||0)+")",
 }, (V.VkSemaphoreWaitInfo_sizeof||0))));
 
-
-const VkSemaphoreWaitInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSemaphoreWaitInfoKHR", {
-
-}, (V.VkSemaphoreWaitInfoKHR_sizeof||0))));
+const VkSemaphoreWaitInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkSemaphoreWaitInfo"));
 
 
 const VkSemaphoreSignalInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSemaphoreSignalInfo", {
@@ -4131,10 +3813,7 @@ const VkSemaphoreSignalInfo = new Proxy(function(){}, new C.ConstructProxy(new C
     value: "u64("+(V.VkSemaphoreSignalInfo_value_offsetof||0)+")",
 }, (V.VkSemaphoreSignalInfo_sizeof||0))));
 
-
-const VkSemaphoreSignalInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSemaphoreSignalInfoKHR", {
-
-}, (V.VkSemaphoreSignalInfoKHR_sizeof||0))));
+const VkSemaphoreSignalInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkSemaphoreSignalInfo"));
 
 
 const VkVertexInputBindingDivisorDescriptionEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkVertexInputBindingDivisorDescriptionEXT", {
@@ -4233,10 +3912,7 @@ const VkPhysicalDevice8BitStorageFeatures = new Proxy(function(){}, new C.Constr
     storagePushConstant8: "u32("+(V.VkPhysicalDevice8BitStorageFeatures_storagePushConstant8_offsetof||0)+")",
 }, (V.VkPhysicalDevice8BitStorageFeatures_sizeof||0))));
 
-
-const VkPhysicalDevice8BitStorageFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDevice8BitStorageFeaturesKHR", {
-
-}, (V.VkPhysicalDevice8BitStorageFeaturesKHR_sizeof||0))));
+const VkPhysicalDevice8BitStorageFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDevice8BitStorageFeatures"));
 
 
 const VkPhysicalDeviceConditionalRenderingFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceConditionalRenderingFeaturesEXT", {
@@ -4255,10 +3931,7 @@ const VkPhysicalDeviceVulkanMemoryModelFeatures = new Proxy(function(){}, new C.
     vulkanMemoryModelAvailabilityVisibilityChains: "u32("+(V.VkPhysicalDeviceVulkanMemoryModelFeatures_vulkanMemoryModelAvailabilityVisibilityChains_offsetof||0)+")",
 }, (V.VkPhysicalDeviceVulkanMemoryModelFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceVulkanMemoryModelFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceVulkanMemoryModelFeaturesKHR", {
-
-}, (V.VkPhysicalDeviceVulkanMemoryModelFeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceVulkanMemoryModelFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceVulkanMemoryModelFeatures"));
 
 
 const VkPhysicalDeviceShaderAtomicInt64Features = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceShaderAtomicInt64Features", {
@@ -4268,10 +3941,7 @@ const VkPhysicalDeviceShaderAtomicInt64Features = new Proxy(function(){}, new C.
     shaderSharedInt64Atomics: "u32("+(V.VkPhysicalDeviceShaderAtomicInt64Features_shaderSharedInt64Atomics_offsetof||0)+")",
 }, (V.VkPhysicalDeviceShaderAtomicInt64Features_sizeof||0))));
 
-
-const VkPhysicalDeviceShaderAtomicInt64FeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceShaderAtomicInt64FeaturesKHR", {
-
-}, (V.VkPhysicalDeviceShaderAtomicInt64FeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceShaderAtomicInt64FeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceShaderAtomicInt64Features"));
 
 
 const VkPhysicalDeviceShaderAtomicFloatFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceShaderAtomicFloatFeaturesEXT", {
@@ -4342,10 +4012,7 @@ const VkPhysicalDeviceDepthStencilResolveProperties = new Proxy(function(){}, ne
     independentResolve: "u32("+(V.VkPhysicalDeviceDepthStencilResolveProperties_independentResolve_offsetof||0)+")",
 }, (V.VkPhysicalDeviceDepthStencilResolveProperties_sizeof||0))));
 
-
-const VkPhysicalDeviceDepthStencilResolvePropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceDepthStencilResolvePropertiesKHR", {
-
-}, (V.VkPhysicalDeviceDepthStencilResolvePropertiesKHR_sizeof||0))));
+const VkPhysicalDeviceDepthStencilResolvePropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceDepthStencilResolveProperties"));
 
 
 const VkSubpassDescriptionDepthStencilResolve = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSubpassDescriptionDepthStencilResolve", {
@@ -4356,10 +4023,7 @@ const VkSubpassDescriptionDepthStencilResolve = new Proxy(function(){}, new C.Co
     pDepthStencilResolveAttachment: "u64("+(V.VkSubpassDescriptionDepthStencilResolve_pDepthStencilResolveAttachment_offsetof||0)+")",
 }, (V.VkSubpassDescriptionDepthStencilResolve_sizeof||0))));
 
-
-const VkSubpassDescriptionDepthStencilResolveKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSubpassDescriptionDepthStencilResolveKHR", {
-
-}, (V.VkSubpassDescriptionDepthStencilResolveKHR_sizeof||0))));
+const VkSubpassDescriptionDepthStencilResolveKHR = new Proxy(function(){}, new C.ConstructProxy("VkSubpassDescriptionDepthStencilResolve"));
 
 
 const VkImageViewASTCDecodeModeEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageViewASTCDecodeModeEXT", {
@@ -4451,10 +4115,7 @@ const VkPhysicalDeviceComputeShaderDerivativesFeaturesNV = new Proxy(function(){
     computeDerivativeGroupLinear: "u32("+(V.VkPhysicalDeviceComputeShaderDerivativesFeaturesNV_computeDerivativeGroupLinear_offsetof||0)+")",
 }, (V.VkPhysicalDeviceComputeShaderDerivativesFeaturesNV_sizeof||0))));
 
-
-const VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV", {
-
-}, (V.VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV_sizeof||0))));
+const VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR"));
 
 
 const VkPhysicalDeviceShaderImageFootprintFeaturesNV = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceShaderImageFootprintFeaturesNV", {
@@ -4966,10 +4627,7 @@ const VkImageStencilUsageCreateInfo = new Proxy(function(){}, new C.ConstructPro
     stencilUsage: "u32("+(V.VkImageStencilUsageCreateInfo_stencilUsage_offsetof||0)+")",
 }, (V.VkImageStencilUsageCreateInfo_sizeof||0))));
 
-
-const VkImageStencilUsageCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageStencilUsageCreateInfoEXT", {
-
-}, (V.VkImageStencilUsageCreateInfoEXT_sizeof||0))));
+const VkImageStencilUsageCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy("VkImageStencilUsageCreateInfo"));
 
 
 const VkDeviceMemoryOverallocationCreateInfoAMD = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceMemoryOverallocationCreateInfoAMD", {
@@ -5049,10 +4707,7 @@ const VkPhysicalDeviceScalarBlockLayoutFeatures = new Proxy(function(){}, new C.
     scalarBlockLayout: "u32("+(V.VkPhysicalDeviceScalarBlockLayoutFeatures_scalarBlockLayout_offsetof||0)+")",
 }, (V.VkPhysicalDeviceScalarBlockLayoutFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceScalarBlockLayoutFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceScalarBlockLayoutFeaturesEXT", {
-
-}, (V.VkPhysicalDeviceScalarBlockLayoutFeaturesEXT_sizeof||0))));
+const VkPhysicalDeviceScalarBlockLayoutFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceScalarBlockLayoutFeatures"));
 
 
 const VkSurfaceProtectedCapabilitiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSurfaceProtectedCapabilitiesKHR", {
@@ -5068,10 +4723,7 @@ const VkPhysicalDeviceUniformBufferStandardLayoutFeatures = new Proxy(function()
     uniformBufferStandardLayout: "u32("+(V.VkPhysicalDeviceUniformBufferStandardLayoutFeatures_uniformBufferStandardLayout_offsetof||0)+")",
 }, (V.VkPhysicalDeviceUniformBufferStandardLayoutFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR", {
-
-}, (V.VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceUniformBufferStandardLayoutFeatures"));
 
 
 const VkPhysicalDeviceDepthClipEnableFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceDepthClipEnableFeaturesEXT", {
@@ -5126,10 +4778,7 @@ const VkPhysicalDeviceBufferDeviceAddressFeatures = new Proxy(function(){}, new 
     bufferDeviceAddressMultiDevice: "u32("+(V.VkPhysicalDeviceBufferDeviceAddressFeatures_bufferDeviceAddressMultiDevice_offsetof||0)+")",
 }, (V.VkPhysicalDeviceBufferDeviceAddressFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceBufferDeviceAddressFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceBufferDeviceAddressFeaturesKHR", {
-
-}, (V.VkPhysicalDeviceBufferDeviceAddressFeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceBufferDeviceAddressFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceBufferDeviceAddressFeatures"));
 
 
 const VkPhysicalDeviceBufferDeviceAddressFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceBufferDeviceAddressFeaturesEXT", {
@@ -5140,10 +4789,7 @@ const VkPhysicalDeviceBufferDeviceAddressFeaturesEXT = new Proxy(function(){}, n
     bufferDeviceAddressMultiDevice: "u32("+(V.VkPhysicalDeviceBufferDeviceAddressFeaturesEXT_bufferDeviceAddressMultiDevice_offsetof||0)+")",
 }, (V.VkPhysicalDeviceBufferDeviceAddressFeaturesEXT_sizeof||0))));
 
-
-const VkPhysicalDeviceBufferAddressFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceBufferAddressFeaturesEXT", {
-
-}, (V.VkPhysicalDeviceBufferAddressFeaturesEXT_sizeof||0))));
+const VkPhysicalDeviceBufferAddressFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceBufferDeviceAddressFeaturesEXT"));
 
 
 const VkBufferDeviceAddressInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBufferDeviceAddressInfo", {
@@ -5152,15 +4798,9 @@ const VkBufferDeviceAddressInfo = new Proxy(function(){}, new C.ConstructProxy(n
     buffer: "u64("+(V.VkBufferDeviceAddressInfo_buffer_offsetof||0)+")",
 }, (V.VkBufferDeviceAddressInfo_sizeof||0))));
 
+const VkBufferDeviceAddressInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkBufferDeviceAddressInfo"));
 
-const VkBufferDeviceAddressInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBufferDeviceAddressInfoKHR", {
-
-}, (V.VkBufferDeviceAddressInfoKHR_sizeof||0))));
-
-
-const VkBufferDeviceAddressInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBufferDeviceAddressInfoEXT", {
-
-}, (V.VkBufferDeviceAddressInfoEXT_sizeof||0))));
+const VkBufferDeviceAddressInfoEXT = new Proxy(function(){}, new C.ConstructProxy("VkBufferDeviceAddressInfo"));
 
 
 const VkBufferOpaqueCaptureAddressCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBufferOpaqueCaptureAddressCreateInfo", {
@@ -5169,10 +4809,7 @@ const VkBufferOpaqueCaptureAddressCreateInfo = new Proxy(function(){}, new C.Con
     opaqueCaptureAddress: "u64("+(V.VkBufferOpaqueCaptureAddressCreateInfo_opaqueCaptureAddress_offsetof||0)+")",
 }, (V.VkBufferOpaqueCaptureAddressCreateInfo_sizeof||0))));
 
-
-const VkBufferOpaqueCaptureAddressCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBufferOpaqueCaptureAddressCreateInfoKHR", {
-
-}, (V.VkBufferOpaqueCaptureAddressCreateInfoKHR_sizeof||0))));
+const VkBufferOpaqueCaptureAddressCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkBufferOpaqueCaptureAddressCreateInfo"));
 
 
 const VkBufferDeviceAddressCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBufferDeviceAddressCreateInfoEXT", {
@@ -5203,10 +4840,7 @@ const VkPhysicalDeviceImagelessFramebufferFeatures = new Proxy(function(){}, new
     imagelessFramebuffer: "u32("+(V.VkPhysicalDeviceImagelessFramebufferFeatures_imagelessFramebuffer_offsetof||0)+")",
 }, (V.VkPhysicalDeviceImagelessFramebufferFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceImagelessFramebufferFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceImagelessFramebufferFeaturesKHR", {
-
-}, (V.VkPhysicalDeviceImagelessFramebufferFeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceImagelessFramebufferFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceImagelessFramebufferFeatures"));
 
 
 const VkFramebufferAttachmentsCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkFramebufferAttachmentsCreateInfo", {
@@ -5216,10 +4850,7 @@ const VkFramebufferAttachmentsCreateInfo = new Proxy(function(){}, new C.Constru
     pAttachmentImageInfos: "u64("+(V.VkFramebufferAttachmentsCreateInfo_pAttachmentImageInfos_offsetof||0)+")",
 }, (V.VkFramebufferAttachmentsCreateInfo_sizeof||0))));
 
-
-const VkFramebufferAttachmentsCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkFramebufferAttachmentsCreateInfoKHR", {
-
-}, (V.VkFramebufferAttachmentsCreateInfoKHR_sizeof||0))));
+const VkFramebufferAttachmentsCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkFramebufferAttachmentsCreateInfo"));
 
 
 const VkFramebufferAttachmentImageInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkFramebufferAttachmentImageInfo", {
@@ -5234,10 +4865,7 @@ const VkFramebufferAttachmentImageInfo = new Proxy(function(){}, new C.Construct
     pViewFormats: "u64("+(V.VkFramebufferAttachmentImageInfo_pViewFormats_offsetof||0)+")",
 }, (V.VkFramebufferAttachmentImageInfo_sizeof||0))));
 
-
-const VkFramebufferAttachmentImageInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkFramebufferAttachmentImageInfoKHR", {
-
-}, (V.VkFramebufferAttachmentImageInfoKHR_sizeof||0))));
+const VkFramebufferAttachmentImageInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkFramebufferAttachmentImageInfo"));
 
 
 const VkRenderPassAttachmentBeginInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkRenderPassAttachmentBeginInfo", {
@@ -5247,10 +4875,7 @@ const VkRenderPassAttachmentBeginInfo = new Proxy(function(){}, new C.ConstructP
     pAttachments: "u64("+(V.VkRenderPassAttachmentBeginInfo_pAttachments_offsetof||0)+")",
 }, (V.VkRenderPassAttachmentBeginInfo_sizeof||0))));
 
-
-const VkRenderPassAttachmentBeginInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkRenderPassAttachmentBeginInfoKHR", {
-
-}, (V.VkRenderPassAttachmentBeginInfoKHR_sizeof||0))));
+const VkRenderPassAttachmentBeginInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkRenderPassAttachmentBeginInfo"));
 
 
 const VkPhysicalDeviceTextureCompressionASTCHDRFeatures = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceTextureCompressionASTCHDRFeatures", {
@@ -5259,10 +4884,7 @@ const VkPhysicalDeviceTextureCompressionASTCHDRFeatures = new Proxy(function(){}
     textureCompressionASTC_HDR: "u32("+(V.VkPhysicalDeviceTextureCompressionASTCHDRFeatures_textureCompressionASTC_HDR_offsetof||0)+")",
 }, (V.VkPhysicalDeviceTextureCompressionASTCHDRFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT", {
-
-}, (V.VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT_sizeof||0))));
+const VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceTextureCompressionASTCHDRFeatures"));
 
 
 const VkPhysicalDeviceCooperativeMatrixFeaturesNV = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceCooperativeMatrixFeaturesNV", {
@@ -5330,10 +4952,7 @@ const VkPipelineCreationFeedback = new Proxy(function(){}, new C.ConstructProxy(
     duration: "u64("+(V.VkPipelineCreationFeedback_duration_offsetof||0)+")",
 }, (V.VkPipelineCreationFeedback_sizeof||0))));
 
-
-const VkPipelineCreationFeedbackEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPipelineCreationFeedbackEXT", {
-
-}, (V.VkPipelineCreationFeedbackEXT_sizeof||0))));
+const VkPipelineCreationFeedbackEXT = new Proxy(function(){}, new C.ConstructProxy("VkPipelineCreationFeedback"));
 
 
 const VkPipelineCreationFeedbackCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPipelineCreationFeedbackCreateInfo", {
@@ -5344,10 +4963,7 @@ const VkPipelineCreationFeedbackCreateInfo = new Proxy(function(){}, new C.Const
     pPipelineStageCreationFeedbacks: "u64("+(V.VkPipelineCreationFeedbackCreateInfo_pPipelineStageCreationFeedbacks_offsetof||0)+")",
 }, (V.VkPipelineCreationFeedbackCreateInfo_sizeof||0))));
 
-
-const VkPipelineCreationFeedbackCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPipelineCreationFeedbackCreateInfoEXT", {
-
-}, (V.VkPipelineCreationFeedbackCreateInfoEXT_sizeof||0))));
+const VkPipelineCreationFeedbackCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy("VkPipelineCreationFeedbackCreateInfo"));
 
 
 const VkSurfaceFullScreenExclusiveInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSurfaceFullScreenExclusiveInfoEXT", {
@@ -5509,10 +5125,7 @@ const VkQueryPoolPerformanceQueryCreateInfoINTEL = new Proxy(function(){}, new C
     performanceCountersSampling: "u32("+(V.VkQueryPoolPerformanceQueryCreateInfoINTEL_performanceCountersSampling_offsetof||0)+")",
 }, (V.VkQueryPoolPerformanceQueryCreateInfoINTEL_sizeof||0))));
 
-
-const VkQueryPoolCreateInfoINTEL = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkQueryPoolCreateInfoINTEL", {
-
-}, (V.VkQueryPoolCreateInfoINTEL_sizeof||0))));
+const VkQueryPoolCreateInfoINTEL = new Proxy(function(){}, new C.ConstructProxy("VkQueryPoolPerformanceQueryCreateInfoINTEL"));
 
 
 const VkPerformanceMarkerInfoINTEL = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPerformanceMarkerInfoINTEL", {
@@ -5590,10 +5203,7 @@ const VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures = new Proxy(function()
     separateDepthStencilLayouts: "u32("+(V.VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures_separateDepthStencilLayouts_offsetof||0)+")",
 }, (V.VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR", {
-
-}, (V.VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures"));
 
 
 const VkAttachmentReferenceStencilLayout = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkAttachmentReferenceStencilLayout", {
@@ -5610,10 +5220,7 @@ const VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT = new Proxy(functi
     primitiveTopologyPatchListRestart: "u32("+(V.VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT_primitiveTopologyPatchListRestart_offsetof||0)+")",
 }, (V.VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT_sizeof||0))));
 
-
-const VkAttachmentReferenceStencilLayoutKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkAttachmentReferenceStencilLayoutKHR", {
-
-}, (V.VkAttachmentReferenceStencilLayoutKHR_sizeof||0))));
+const VkAttachmentReferenceStencilLayoutKHR = new Proxy(function(){}, new C.ConstructProxy("VkAttachmentReferenceStencilLayout"));
 
 
 const VkAttachmentDescriptionStencilLayout = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkAttachmentDescriptionStencilLayout", {
@@ -5623,10 +5230,7 @@ const VkAttachmentDescriptionStencilLayout = new Proxy(function(){}, new C.Const
     stencilFinalLayout: "u32("+(V.VkAttachmentDescriptionStencilLayout_stencilFinalLayout_offsetof||0)+")",
 }, (V.VkAttachmentDescriptionStencilLayout_sizeof||0))));
 
-
-const VkAttachmentDescriptionStencilLayoutKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkAttachmentDescriptionStencilLayoutKHR", {
-
-}, (V.VkAttachmentDescriptionStencilLayoutKHR_sizeof||0))));
+const VkAttachmentDescriptionStencilLayoutKHR = new Proxy(function(){}, new C.ConstructProxy("VkAttachmentDescriptionStencilLayout"));
 
 
 const VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR", {
@@ -5642,10 +5246,7 @@ const VkPipelineInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CSt
     pipeline: "u64("+(V.VkPipelineInfoKHR_pipeline_offsetof||0)+")",
 }, (V.VkPipelineInfoKHR_sizeof||0))));
 
-
-const VkPipelineInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPipelineInfoEXT", {
-
-}, (V.VkPipelineInfoEXT_sizeof||0))));
+const VkPipelineInfoEXT = new Proxy(function(){}, new C.ConstructProxy("VkPipelineInfoKHR"));
 
 
 const VkPipelineExecutablePropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPipelineExecutablePropertiesKHR", {
@@ -5693,10 +5294,7 @@ const VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures = new Proxy(functio
     shaderDemoteToHelperInvocation: "u32("+(V.VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures_shaderDemoteToHelperInvocation_offsetof||0)+")",
 }, (V.VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT", {
-
-}, (V.VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT_sizeof||0))));
+const VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures"));
 
 
 const VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT", {
@@ -5715,10 +5313,7 @@ const VkPhysicalDeviceTexelBufferAlignmentProperties = new Proxy(function(){}, n
     uniformTexelBufferOffsetSingleTexelAlignment: "u32("+(V.VkPhysicalDeviceTexelBufferAlignmentProperties_uniformTexelBufferOffsetSingleTexelAlignment_offsetof||0)+")",
 }, (V.VkPhysicalDeviceTexelBufferAlignmentProperties_sizeof||0))));
 
-
-const VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT", {
-
-}, (V.VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT_sizeof||0))));
+const VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceTexelBufferAlignmentProperties"));
 
 
 const VkPhysicalDeviceSubgroupSizeControlFeatures = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceSubgroupSizeControlFeatures", {
@@ -5728,10 +5323,7 @@ const VkPhysicalDeviceSubgroupSizeControlFeatures = new Proxy(function(){}, new 
     computeFullSubgroups: "u32("+(V.VkPhysicalDeviceSubgroupSizeControlFeatures_computeFullSubgroups_offsetof||0)+")",
 }, (V.VkPhysicalDeviceSubgroupSizeControlFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceSubgroupSizeControlFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceSubgroupSizeControlFeaturesEXT", {
-
-}, (V.VkPhysicalDeviceSubgroupSizeControlFeaturesEXT_sizeof||0))));
+const VkPhysicalDeviceSubgroupSizeControlFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceSubgroupSizeControlFeatures"));
 
 
 const VkPhysicalDeviceSubgroupSizeControlProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceSubgroupSizeControlProperties", {
@@ -5743,10 +5335,7 @@ const VkPhysicalDeviceSubgroupSizeControlProperties = new Proxy(function(){}, ne
     requiredSubgroupSizeStages: "u32("+(V.VkPhysicalDeviceSubgroupSizeControlProperties_requiredSubgroupSizeStages_offsetof||0)+")",
 }, (V.VkPhysicalDeviceSubgroupSizeControlProperties_sizeof||0))));
 
-
-const VkPhysicalDeviceSubgroupSizeControlPropertiesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceSubgroupSizeControlPropertiesEXT", {
-
-}, (V.VkPhysicalDeviceSubgroupSizeControlPropertiesEXT_sizeof||0))));
+const VkPhysicalDeviceSubgroupSizeControlPropertiesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceSubgroupSizeControlProperties"));
 
 
 const VkPipelineShaderStageRequiredSubgroupSizeCreateInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPipelineShaderStageRequiredSubgroupSizeCreateInfo", {
@@ -5755,10 +5344,7 @@ const VkPipelineShaderStageRequiredSubgroupSizeCreateInfo = new Proxy(function()
     requiredSubgroupSize: "u32("+(V.VkPipelineShaderStageRequiredSubgroupSizeCreateInfo_requiredSubgroupSize_offsetof||0)+")",
 }, (V.VkPipelineShaderStageRequiredSubgroupSizeCreateInfo_sizeof||0))));
 
-
-const VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT", {
-
-}, (V.VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT_sizeof||0))));
+const VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy("VkPipelineShaderStageRequiredSubgroupSizeCreateInfo"));
 
 
 const VkSubpassShadingPipelineCreateInfoHUAWEI = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSubpassShadingPipelineCreateInfoHUAWEI", {
@@ -5782,10 +5368,7 @@ const VkMemoryOpaqueCaptureAddressAllocateInfo = new Proxy(function(){}, new C.C
     opaqueCaptureAddress: "u64("+(V.VkMemoryOpaqueCaptureAddressAllocateInfo_opaqueCaptureAddress_offsetof||0)+")",
 }, (V.VkMemoryOpaqueCaptureAddressAllocateInfo_sizeof||0))));
 
-
-const VkMemoryOpaqueCaptureAddressAllocateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkMemoryOpaqueCaptureAddressAllocateInfoKHR", {
-
-}, (V.VkMemoryOpaqueCaptureAddressAllocateInfoKHR_sizeof||0))));
+const VkMemoryOpaqueCaptureAddressAllocateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkMemoryOpaqueCaptureAddressAllocateInfo"));
 
 
 const VkDeviceMemoryOpaqueCaptureAddressInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceMemoryOpaqueCaptureAddressInfo", {
@@ -5794,10 +5377,7 @@ const VkDeviceMemoryOpaqueCaptureAddressInfo = new Proxy(function(){}, new C.Con
     memory: "u64("+(V.VkDeviceMemoryOpaqueCaptureAddressInfo_memory_offsetof||0)+")",
 }, (V.VkDeviceMemoryOpaqueCaptureAddressInfo_sizeof||0))));
 
-
-const VkDeviceMemoryOpaqueCaptureAddressInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDeviceMemoryOpaqueCaptureAddressInfoKHR", {
-
-}, (V.VkDeviceMemoryOpaqueCaptureAddressInfoKHR_sizeof||0))));
+const VkDeviceMemoryOpaqueCaptureAddressInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkDeviceMemoryOpaqueCaptureAddressInfo"));
 
 
 const VkPhysicalDeviceLineRasterizationFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceLineRasterizationFeaturesEXT", {
@@ -5835,10 +5415,7 @@ const VkPhysicalDevicePipelineCreationCacheControlFeatures = new Proxy(function(
     pipelineCreationCacheControl: "u32("+(V.VkPhysicalDevicePipelineCreationCacheControlFeatures_pipelineCreationCacheControl_offsetof||0)+")",
 }, (V.VkPhysicalDevicePipelineCreationCacheControlFeatures_sizeof||0))));
 
-
-const VkPhysicalDevicePipelineCreationCacheControlFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDevicePipelineCreationCacheControlFeaturesEXT", {
-
-}, (V.VkPhysicalDevicePipelineCreationCacheControlFeaturesEXT_sizeof||0))));
+const VkPhysicalDevicePipelineCreationCacheControlFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDevicePipelineCreationCacheControlFeatures"));
 
 
 const VkPhysicalDeviceVulkan11Features = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceVulkan11Features", {
@@ -6087,10 +5664,7 @@ const VkPhysicalDeviceToolProperties = new Proxy(function(){}, new C.ConstructPr
     layer: "u8["+(E.VK_MAX_EXTENSION_NAME_SIZE||1)+"]("+(V.VkPhysicalDeviceToolProperties_layer_offsetof||0)+")",
 }, (V.VkPhysicalDeviceToolProperties_sizeof||0))));
 
-
-const VkPhysicalDeviceToolPropertiesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceToolPropertiesEXT", {
-
-}, (V.VkPhysicalDeviceToolPropertiesEXT_sizeof||0))));
+const VkPhysicalDeviceToolPropertiesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceToolProperties"));
 
 
 const VkSamplerCustomBorderColorCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSamplerCustomBorderColorCreateInfoEXT", {
@@ -6214,10 +5788,7 @@ const VkAabbPositionsKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CS
     maxZ: "f32("+(V.VkAabbPositionsKHR_maxZ_offsetof||0)+")",
 }, (V.VkAabbPositionsKHR_sizeof||0))));
 
-
-const VkAabbPositionsNV = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkAabbPositionsNV", {
-
-}, (V.VkAabbPositionsNV_sizeof||0))));
+const VkAabbPositionsNV = new Proxy(function(){}, new C.ConstructProxy("VkAabbPositionsKHR"));
 
 
 const VkTransformMatrixKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkTransformMatrixKHR", {
@@ -6239,10 +5810,7 @@ const VkAccelerationStructureInstanceKHR = new Proxy(function(){}, new C.Constru
     accelerationStructureReference: "u64("+(V.VkAccelerationStructureInstanceKHR_accelerationStructureReference_offsetof||0)+")",
 }, (V.VkAccelerationStructureInstanceKHR_sizeof||0))));
 
-
-const VkAccelerationStructureInstanceNV = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkAccelerationStructureInstanceNV", {
-
-}, (V.VkAccelerationStructureInstanceNV_sizeof||0))));
+const VkAccelerationStructureInstanceNV = new Proxy(function(){}, new C.ConstructProxy("VkAccelerationStructureInstanceKHR"));
 
 
 const VkAccelerationStructureDeviceAddressInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkAccelerationStructureDeviceAddressInfoKHR", {
@@ -6423,10 +5991,7 @@ const VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures = new Proxy(function
     shaderZeroInitializeWorkgroupMemory: "u32("+(V.VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures_shaderZeroInitializeWorkgroupMemory_offsetof||0)+")",
 }, (V.VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR", {
-
-}, (V.VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures"));
 
 
 const VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR", {
@@ -6459,10 +6024,7 @@ const VkPhysicalDeviceImageRobustnessFeatures = new Proxy(function(){}, new C.Co
     robustImageAccess: "u32("+(V.VkPhysicalDeviceImageRobustnessFeatures_robustImageAccess_offsetof||0)+")",
 }, (V.VkPhysicalDeviceImageRobustnessFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceImageRobustnessFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceImageRobustnessFeaturesEXT", {
-
-}, (V.VkPhysicalDeviceImageRobustnessFeaturesEXT_sizeof||0))));
+const VkPhysicalDeviceImageRobustnessFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceImageRobustnessFeatures"));
 
 
 const VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR", {
@@ -6526,10 +6088,7 @@ const VkBufferCopy2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct
     size: "u64("+(V.VkBufferCopy2_size_offsetof||0)+")",
 }, (V.VkBufferCopy2_sizeof||0))));
 
-
-const VkBufferCopy2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBufferCopy2KHR", {
-
-}, (V.VkBufferCopy2KHR_sizeof||0))));
+const VkBufferCopy2KHR = new Proxy(function(){}, new C.ConstructProxy("VkBufferCopy2"));
 
 
 const VkImageCopy2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageCopy2", {
@@ -6542,10 +6101,7 @@ const VkImageCopy2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct(
     extent: "u32("+(V.VkImageCopy2_extent_offsetof||0)+")",
 }, (V.VkImageCopy2_sizeof||0))));
 
-
-const VkImageCopy2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageCopy2KHR", {
-
-}, (V.VkImageCopy2KHR_sizeof||0))));
+const VkImageCopy2KHR = new Proxy(function(){}, new C.ConstructProxy("VkImageCopy2"));
 
 
 const VkImageBlit2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageBlit2", {
@@ -6557,10 +6113,7 @@ const VkImageBlit2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct(
     dstOffsets: "u32[2]("+(V.VkImageBlit2_dstOffsets_offsetof||0)+")",
 }, (V.VkImageBlit2_sizeof||0))));
 
-
-const VkImageBlit2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageBlit2KHR", {
-
-}, (V.VkImageBlit2KHR_sizeof||0))));
+const VkImageBlit2KHR = new Proxy(function(){}, new C.ConstructProxy("VkImageBlit2"));
 
 
 const VkBufferImageCopy2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBufferImageCopy2", {
@@ -6574,10 +6127,7 @@ const VkBufferImageCopy2 = new Proxy(function(){}, new C.ConstructProxy(new C.CS
     imageExtent: "u32("+(V.VkBufferImageCopy2_imageExtent_offsetof||0)+")",
 }, (V.VkBufferImageCopy2_sizeof||0))));
 
-
-const VkBufferImageCopy2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBufferImageCopy2KHR", {
-
-}, (V.VkBufferImageCopy2KHR_sizeof||0))));
+const VkBufferImageCopy2KHR = new Proxy(function(){}, new C.ConstructProxy("VkBufferImageCopy2"));
 
 
 const VkImageResolve2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageResolve2", {
@@ -6590,10 +6140,7 @@ const VkImageResolve2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStru
     extent: "u32("+(V.VkImageResolve2_extent_offsetof||0)+")",
 }, (V.VkImageResolve2_sizeof||0))));
 
-
-const VkImageResolve2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageResolve2KHR", {
-
-}, (V.VkImageResolve2KHR_sizeof||0))));
+const VkImageResolve2KHR = new Proxy(function(){}, new C.ConstructProxy("VkImageResolve2"));
 
 
 const VkCopyBufferInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkCopyBufferInfo2", {
@@ -6605,10 +6152,7 @@ const VkCopyBufferInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CSt
     pRegions: "u64("+(V.VkCopyBufferInfo2_pRegions_offsetof||0)+")",
 }, (V.VkCopyBufferInfo2_sizeof||0))));
 
-
-const VkCopyBufferInfo2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkCopyBufferInfo2KHR", {
-
-}, (V.VkCopyBufferInfo2KHR_sizeof||0))));
+const VkCopyBufferInfo2KHR = new Proxy(function(){}, new C.ConstructProxy("VkCopyBufferInfo2"));
 
 
 const VkCopyImageInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkCopyImageInfo2", {
@@ -6622,10 +6166,7 @@ const VkCopyImageInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStr
     pRegions: "u64("+(V.VkCopyImageInfo2_pRegions_offsetof||0)+")",
 }, (V.VkCopyImageInfo2_sizeof||0))));
 
-
-const VkCopyImageInfo2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkCopyImageInfo2KHR", {
-
-}, (V.VkCopyImageInfo2KHR_sizeof||0))));
+const VkCopyImageInfo2KHR = new Proxy(function(){}, new C.ConstructProxy("VkCopyImageInfo2"));
 
 
 const VkBlitImageInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBlitImageInfo2", {
@@ -6640,10 +6181,7 @@ const VkBlitImageInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStr
     filter: "u32("+(V.VkBlitImageInfo2_filter_offsetof||0)+")",
 }, (V.VkBlitImageInfo2_sizeof||0))));
 
-
-const VkBlitImageInfo2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBlitImageInfo2KHR", {
-
-}, (V.VkBlitImageInfo2KHR_sizeof||0))));
+const VkBlitImageInfo2KHR = new Proxy(function(){}, new C.ConstructProxy("VkBlitImageInfo2"));
 
 
 const VkCopyBufferToImageInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkCopyBufferToImageInfo2", {
@@ -6656,10 +6194,7 @@ const VkCopyBufferToImageInfo2 = new Proxy(function(){}, new C.ConstructProxy(ne
     pRegions: "u64("+(V.VkCopyBufferToImageInfo2_pRegions_offsetof||0)+")",
 }, (V.VkCopyBufferToImageInfo2_sizeof||0))));
 
-
-const VkCopyBufferToImageInfo2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkCopyBufferToImageInfo2KHR", {
-
-}, (V.VkCopyBufferToImageInfo2KHR_sizeof||0))));
+const VkCopyBufferToImageInfo2KHR = new Proxy(function(){}, new C.ConstructProxy("VkCopyBufferToImageInfo2"));
 
 
 const VkCopyImageToBufferInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkCopyImageToBufferInfo2", {
@@ -6672,10 +6207,7 @@ const VkCopyImageToBufferInfo2 = new Proxy(function(){}, new C.ConstructProxy(ne
     pRegions: "u64("+(V.VkCopyImageToBufferInfo2_pRegions_offsetof||0)+")",
 }, (V.VkCopyImageToBufferInfo2_sizeof||0))));
 
-
-const VkCopyImageToBufferInfo2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkCopyImageToBufferInfo2KHR", {
-
-}, (V.VkCopyImageToBufferInfo2KHR_sizeof||0))));
+const VkCopyImageToBufferInfo2KHR = new Proxy(function(){}, new C.ConstructProxy("VkCopyImageToBufferInfo2"));
 
 
 const VkResolveImageInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkResolveImageInfo2", {
@@ -6689,10 +6221,7 @@ const VkResolveImageInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.C
     pRegions: "u64("+(V.VkResolveImageInfo2_pRegions_offsetof||0)+")",
 }, (V.VkResolveImageInfo2_sizeof||0))));
 
-
-const VkResolveImageInfo2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkResolveImageInfo2KHR", {
-
-}, (V.VkResolveImageInfo2KHR_sizeof||0))));
+const VkResolveImageInfo2KHR = new Proxy(function(){}, new C.ConstructProxy("VkResolveImageInfo2"));
 
 
 const VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT", {
@@ -6765,10 +6294,7 @@ const VkPhysicalDeviceShaderTerminateInvocationFeatures = new Proxy(function(){}
     shaderTerminateInvocation: "u32("+(V.VkPhysicalDeviceShaderTerminateInvocationFeatures_shaderTerminateInvocation_offsetof||0)+")",
 }, (V.VkPhysicalDeviceShaderTerminateInvocationFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceShaderTerminateInvocationFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceShaderTerminateInvocationFeaturesKHR", {
-
-}, (V.VkPhysicalDeviceShaderTerminateInvocationFeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceShaderTerminateInvocationFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceShaderTerminateInvocationFeatures"));
 
 
 const VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV", {
@@ -6819,10 +6345,7 @@ const VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT = new Proxy(function(){},
     mutableDescriptorType: "u32("+(V.VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT_mutableDescriptorType_offsetof||0)+")",
 }, (V.VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT_sizeof||0))));
 
-
-const VkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE", {
-
-}, (V.VkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE_sizeof||0))));
+const VkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT"));
 
 
 const VkMutableDescriptorTypeListEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkMutableDescriptorTypeListEXT", {
@@ -6830,10 +6353,7 @@ const VkMutableDescriptorTypeListEXT = new Proxy(function(){}, new C.ConstructPr
     pDescriptorTypes: "u64("+(V.VkMutableDescriptorTypeListEXT_pDescriptorTypes_offsetof||0)+")",
 }, (V.VkMutableDescriptorTypeListEXT_sizeof||0))));
 
-
-const VkMutableDescriptorTypeListVALVE = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkMutableDescriptorTypeListVALVE", {
-
-}, (V.VkMutableDescriptorTypeListVALVE_sizeof||0))));
+const VkMutableDescriptorTypeListVALVE = new Proxy(function(){}, new C.ConstructProxy("VkMutableDescriptorTypeListEXT"));
 
 
 const VkMutableDescriptorTypeCreateInfoEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkMutableDescriptorTypeCreateInfoEXT", {
@@ -6843,10 +6363,7 @@ const VkMutableDescriptorTypeCreateInfoEXT = new Proxy(function(){}, new C.Const
     pMutableDescriptorTypeLists: "u64("+(V.VkMutableDescriptorTypeCreateInfoEXT_pMutableDescriptorTypeLists_offsetof||0)+")",
 }, (V.VkMutableDescriptorTypeCreateInfoEXT_sizeof||0))));
 
-
-const VkMutableDescriptorTypeCreateInfoVALVE = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkMutableDescriptorTypeCreateInfoVALVE", {
-
-}, (V.VkMutableDescriptorTypeCreateInfoVALVE_sizeof||0))));
+const VkMutableDescriptorTypeCreateInfoVALVE = new Proxy(function(){}, new C.ConstructProxy("VkMutableDescriptorTypeCreateInfoEXT"));
 
 
 const VkPhysicalDeviceDepthClipControlFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceDepthClipControlFeaturesEXT", {
@@ -6921,10 +6438,7 @@ const VkMemoryBarrier2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStr
     dstAccessMask: "u64("+(V.VkMemoryBarrier2_dstAccessMask_offsetof||0)+")",
 }, (V.VkMemoryBarrier2_sizeof||0))));
 
-
-const VkMemoryBarrier2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkMemoryBarrier2KHR", {
-
-}, (V.VkMemoryBarrier2KHR_sizeof||0))));
+const VkMemoryBarrier2KHR = new Proxy(function(){}, new C.ConstructProxy("VkMemoryBarrier2"));
 
 
 const VkImageMemoryBarrier2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageMemoryBarrier2", {
@@ -6942,10 +6456,7 @@ const VkImageMemoryBarrier2 = new Proxy(function(){}, new C.ConstructProxy(new C
     subresourceRange: "u32("+(V.VkImageMemoryBarrier2_subresourceRange_offsetof||0)+")",
 }, (V.VkImageMemoryBarrier2_sizeof||0))));
 
-
-const VkImageMemoryBarrier2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImageMemoryBarrier2KHR", {
-
-}, (V.VkImageMemoryBarrier2KHR_sizeof||0))));
+const VkImageMemoryBarrier2KHR = new Proxy(function(){}, new C.ConstructProxy("VkImageMemoryBarrier2"));
 
 
 const VkBufferMemoryBarrier2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBufferMemoryBarrier2", {
@@ -6962,10 +6473,7 @@ const VkBufferMemoryBarrier2 = new Proxy(function(){}, new C.ConstructProxy(new 
     size: "u64("+(V.VkBufferMemoryBarrier2_size_offsetof||0)+")",
 }, (V.VkBufferMemoryBarrier2_sizeof||0))));
 
-
-const VkBufferMemoryBarrier2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkBufferMemoryBarrier2KHR", {
-
-}, (V.VkBufferMemoryBarrier2KHR_sizeof||0))));
+const VkBufferMemoryBarrier2KHR = new Proxy(function(){}, new C.ConstructProxy("VkBufferMemoryBarrier2"));
 
 
 const VkDependencyInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDependencyInfo", {
@@ -6980,10 +6488,7 @@ const VkDependencyInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStr
     pImageMemoryBarriers: "u64("+(V.VkDependencyInfo_pImageMemoryBarriers_offsetof||0)+")",
 }, (V.VkDependencyInfo_sizeof||0))));
 
-
-const VkDependencyInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDependencyInfoKHR", {
-
-}, (V.VkDependencyInfoKHR_sizeof||0))));
+const VkDependencyInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkDependencyInfo"));
 
 
 const VkSemaphoreSubmitInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSemaphoreSubmitInfo", {
@@ -6995,10 +6500,7 @@ const VkSemaphoreSubmitInfo = new Proxy(function(){}, new C.ConstructProxy(new C
     deviceIndex: "u32("+(V.VkSemaphoreSubmitInfo_deviceIndex_offsetof||0)+")",
 }, (V.VkSemaphoreSubmitInfo_sizeof||0))));
 
-
-const VkSemaphoreSubmitInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSemaphoreSubmitInfoKHR", {
-
-}, (V.VkSemaphoreSubmitInfoKHR_sizeof||0))));
+const VkSemaphoreSubmitInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkSemaphoreSubmitInfo"));
 
 
 const VkCommandBufferSubmitInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkCommandBufferSubmitInfo", {
@@ -7008,10 +6510,7 @@ const VkCommandBufferSubmitInfo = new Proxy(function(){}, new C.ConstructProxy(n
     deviceMask: "u32("+(V.VkCommandBufferSubmitInfo_deviceMask_offsetof||0)+")",
 }, (V.VkCommandBufferSubmitInfo_sizeof||0))));
 
-
-const VkCommandBufferSubmitInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkCommandBufferSubmitInfoKHR", {
-
-}, (V.VkCommandBufferSubmitInfoKHR_sizeof||0))));
+const VkCommandBufferSubmitInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkCommandBufferSubmitInfo"));
 
 
 const VkSubmitInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSubmitInfo2", {
@@ -7026,10 +6525,7 @@ const VkSubmitInfo2 = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct
     pSignalSemaphoreInfos: "u64("+(V.VkSubmitInfo2_pSignalSemaphoreInfos_offsetof||0)+")",
 }, (V.VkSubmitInfo2_sizeof||0))));
 
-
-const VkSubmitInfo2KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkSubmitInfo2KHR", {
-
-}, (V.VkSubmitInfo2KHR_sizeof||0))));
+const VkSubmitInfo2KHR = new Proxy(function(){}, new C.ConstructProxy("VkSubmitInfo2"));
 
 
 const VkQueueFamilyCheckpointProperties2NV = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkQueueFamilyCheckpointProperties2NV", {
@@ -7053,10 +6549,7 @@ const VkPhysicalDeviceSynchronization2Features = new Proxy(function(){}, new C.C
     synchronization2: "u32("+(V.VkPhysicalDeviceSynchronization2Features_synchronization2_offsetof||0)+")",
 }, (V.VkPhysicalDeviceSynchronization2Features_sizeof||0))));
 
-
-const VkPhysicalDeviceSynchronization2FeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceSynchronization2FeaturesKHR", {
-
-}, (V.VkPhysicalDeviceSynchronization2FeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceSynchronization2FeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceSynchronization2Features"));
 
 
 const VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT", {
@@ -7813,10 +7306,7 @@ const VkPhysicalDeviceShaderIntegerDotProductFeatures = new Proxy(function(){}, 
     shaderIntegerDotProduct: "u32("+(V.VkPhysicalDeviceShaderIntegerDotProductFeatures_shaderIntegerDotProduct_offsetof||0)+")",
 }, (V.VkPhysicalDeviceShaderIntegerDotProductFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR", {
-
-}, (V.VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceShaderIntegerDotProductFeatures"));
 
 
 const VkPhysicalDeviceShaderIntegerDotProductProperties = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceShaderIntegerDotProductProperties", {
@@ -7854,10 +7344,7 @@ const VkPhysicalDeviceShaderIntegerDotProductProperties = new Proxy(function(){}
     integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated: "u32("+(V.VkPhysicalDeviceShaderIntegerDotProductProperties_integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated_offsetof||0)+")",
 }, (V.VkPhysicalDeviceShaderIntegerDotProductProperties_sizeof||0))));
 
-
-const VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR", {
-
-}, (V.VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR_sizeof||0))));
+const VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceShaderIntegerDotProductProperties"));
 
 
 const VkPhysicalDeviceDrmPropertiesEXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceDrmPropertiesEXT", {
@@ -8078,10 +7565,7 @@ const VkFormatProperties3 = new Proxy(function(){}, new C.ConstructProxy(new C.C
     bufferFeatures: "u64("+(V.VkFormatProperties3_bufferFeatures_offsetof||0)+")",
 }, (V.VkFormatProperties3_sizeof||0))));
 
-
-const VkFormatProperties3KHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkFormatProperties3KHR", {
-
-}, (V.VkFormatProperties3KHR_sizeof||0))));
+const VkFormatProperties3KHR = new Proxy(function(){}, new C.ConstructProxy("VkFormatProperties3"));
 
 
 const VkDrmFormatModifierPropertiesList2EXT = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkDrmFormatModifierPropertiesList2EXT", {
@@ -8123,10 +7607,7 @@ const VkPipelineRenderingCreateInfo = new Proxy(function(){}, new C.ConstructPro
     stencilAttachmentFormat: "u32("+(V.VkPipelineRenderingCreateInfo_stencilAttachmentFormat_offsetof||0)+")",
 }, (V.VkPipelineRenderingCreateInfo_sizeof||0))));
 
-
-const VkPipelineRenderingCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPipelineRenderingCreateInfoKHR", {
-
-}, (V.VkPipelineRenderingCreateInfoKHR_sizeof||0))));
+const VkPipelineRenderingCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkPipelineRenderingCreateInfo"));
 
 
 const VkRenderingInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkRenderingInfo", {
@@ -8142,10 +7623,7 @@ const VkRenderingInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStru
     pStencilAttachment: "u64("+(V.VkRenderingInfo_pStencilAttachment_offsetof||0)+")",
 }, (V.VkRenderingInfo_sizeof||0))));
 
-
-const VkRenderingInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkRenderingInfoKHR", {
-
-}, (V.VkRenderingInfoKHR_sizeof||0))));
+const VkRenderingInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkRenderingInfo"));
 
 
 const VkRenderingAttachmentInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkRenderingAttachmentInfo", {
@@ -8161,10 +7639,7 @@ const VkRenderingAttachmentInfo = new Proxy(function(){}, new C.ConstructProxy(n
     clearValue: "u32("+(V.VkRenderingAttachmentInfo_clearValue_offsetof||0)+")",
 }, (V.VkRenderingAttachmentInfo_sizeof||0))));
 
-
-const VkRenderingAttachmentInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkRenderingAttachmentInfoKHR", {
-
-}, (V.VkRenderingAttachmentInfoKHR_sizeof||0))));
+const VkRenderingAttachmentInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkRenderingAttachmentInfo"));
 
 
 const VkRenderingFragmentShadingRateAttachmentInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkRenderingFragmentShadingRateAttachmentInfoKHR", {
@@ -8190,10 +7665,7 @@ const VkPhysicalDeviceDynamicRenderingFeatures = new Proxy(function(){}, new C.C
     dynamicRendering: "u32("+(V.VkPhysicalDeviceDynamicRenderingFeatures_dynamicRendering_offsetof||0)+")",
 }, (V.VkPhysicalDeviceDynamicRenderingFeatures_sizeof||0))));
 
-
-const VkPhysicalDeviceDynamicRenderingFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceDynamicRenderingFeaturesKHR", {
-
-}, (V.VkPhysicalDeviceDynamicRenderingFeaturesKHR_sizeof||0))));
+const VkPhysicalDeviceDynamicRenderingFeaturesKHR = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceDynamicRenderingFeatures"));
 
 
 const VkCommandBufferInheritanceRenderingInfo = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkCommandBufferInheritanceRenderingInfo", {
@@ -8208,10 +7680,7 @@ const VkCommandBufferInheritanceRenderingInfo = new Proxy(function(){}, new C.Co
     rasterizationSamples: "u32("+(V.VkCommandBufferInheritanceRenderingInfo_rasterizationSamples_offsetof||0)+")",
 }, (V.VkCommandBufferInheritanceRenderingInfo_sizeof||0))));
 
-
-const VkCommandBufferInheritanceRenderingInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkCommandBufferInheritanceRenderingInfoKHR", {
-
-}, (V.VkCommandBufferInheritanceRenderingInfoKHR_sizeof||0))));
+const VkCommandBufferInheritanceRenderingInfoKHR = new Proxy(function(){}, new C.ConstructProxy("VkCommandBufferInheritanceRenderingInfo"));
 
 
 const VkAttachmentSampleCountInfoAMD = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkAttachmentSampleCountInfoAMD", {
@@ -8222,10 +7691,7 @@ const VkAttachmentSampleCountInfoAMD = new Proxy(function(){}, new C.ConstructPr
     depthStencilAttachmentSamples: "u32("+(V.VkAttachmentSampleCountInfoAMD_depthStencilAttachmentSamples_offsetof||0)+")",
 }, (V.VkAttachmentSampleCountInfoAMD_sizeof||0))));
 
-
-const VkAttachmentSampleCountInfoNV = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkAttachmentSampleCountInfoNV", {
-
-}, (V.VkAttachmentSampleCountInfoNV_sizeof||0))));
+const VkAttachmentSampleCountInfoNV = new Proxy(function(){}, new C.ConstructProxy("VkAttachmentSampleCountInfoAMD"));
 
 
 const VkMultiviewPerViewAttributesInfoNVX = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkMultiviewPerViewAttributesInfoNVX", {
@@ -8258,10 +7724,7 @@ const VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT = new Proxy(
     rasterizationOrderStencilAttachmentAccess: "u32("+(V.VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT_rasterizationOrderStencilAttachmentAccess_offsetof||0)+")",
 }, (V.VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT_sizeof||0))));
 
-
-const VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM", {
-
-}, (V.VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM_sizeof||0))));
+const VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM = new Proxy(function(){}, new C.ConstructProxy("VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT"));
 
 
 const VkPhysicalDeviceLinearColorAttachmentFeaturesNV = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkPhysicalDeviceLinearColorAttachmentFeaturesNV", {

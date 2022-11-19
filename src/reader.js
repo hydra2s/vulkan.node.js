@@ -71,14 +71,14 @@ let getReader = async()=>{
         let tick = 0;
         return types.filter(structsOnly).map((T)=>{
             let parsed = {};
-            parsed.name = T.attributes["name"];
+            parsed = Object.assign(parsed, T.attributes);
             parsed.params = [];
 
             if (T.children) {
                 T.children.forEach((d)=>{
                     let param = {};
                     if (d.type == "element" && d.name == "member" && d.attributes["values"]) { param.value = d.attributes["values"]; };
-                    parsed.params.push({...param, ...parseParam(d.children)});
+                    parsed.params.push({...param, ...d.attributes, ...parseParam(d.children)});
                 });
             };
 
@@ -107,7 +107,7 @@ let getReader = async()=>{
             let parsed = {};
             if (T.children) {
                 T.children.forEach((d)=>{
-                    if (d.type == "element" && d.name == "type") { parsed.type = d.children[0].text; parsed.category = d.attributes["category"]; parsed.name = d.attributes["name"]; };
+                    if (d.type == "element" && d.name == "type") { parsed.type = d.children[0].text; parsed = Object.assign(parsed, d.attributes); };
                     if (d.type == "element" && d.name == "name") { parsed.name = d.children[0].text; };
                 });
             };
@@ -132,11 +132,10 @@ let getReader = async()=>{
                         .replace("2U","1")
                         .replace("0F","0");
                 }
-                parsed.category = d.attributes["category"];
             };
 
             return parsed;
-        }).filter((obj)=>(Object.keys(obj).length > 0)).flat().filter((value, index, self) => index == self.findIndex((t) => (t.name == value.name))) : [];
+        }).filter((obj)=>(Object.keys(obj).length > 0)).flat().filter((value, index, self) => index == self.findIndex((t) => (t.name == value.name || t.name == value.name && t.alias == value.alias))) : [];
     };
 
     // 

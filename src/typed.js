@@ -44,7 +44,12 @@ class ConstructProxy {
     }
     construct(target, args) {
         new target(...args);
-        let classed = this.target.construct(...args);
+        let classed = null;
+        if (typeof this.target == "string") {
+            classed = Types[this.target].construct(...args);
+        } else {
+            classed = this.target.construct(...args);
+        }
         return classed;
     }
     get(target, name) {

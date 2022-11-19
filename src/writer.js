@@ -333,7 +333,12 @@ const ${structure.name} = new C.CStruct("${structure.name}", {
     flags: "u8("+(7+48)+")",
     accelerationStructureReference: "u64("+(8+48)+")",
 }, (V.${structure.name}_sizeof||0));`
-        } else*/ {
+        } else*/ 
+        if (structure.alias) {
+return `const ${structure.name} = new Proxy(function(){}, new C.ConstructProxy("${structure.alias}"));
+`;
+        } else
+        {
     return `
 const ${structure.name} = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("${structure.name}", {
 ${structure.params.map((p)=>(writeParam(structure.name, p, map))).join(`
@@ -347,12 +352,12 @@ ${structure.params.map((p)=>(writeParam(structure.name, p, map))).join(`
     let cvtEnum = (e, map)=>{
         let by = map.usedBy[e.name];
         
-        if (e.name.indexOf(`EXTENSION_NAME`) >= 0 && e.name.indexOf(`VK_MAX_EXTENSION_NAME_SIZE`) < 0) { availableEnums.push(e); return `const ${e.name} = "${eval(e.value)}";`} else
-        if ('value' in e) { availableEnums.push(e); return `const ${e.name} = ${BigInt(eval(e.value))}n;`} else
+        if (e.name.indexOf(`EXTENSION_NAME`) >= 0 && e.name.indexOf(`VK_MAX_EXTENSION_NAME_SIZE`) < 0) { availableEnums.push(e); return `    get ${e.name}() { return "${eval(e.value)}" },`} else
+        if ('value' in e) { availableEnums.push(e); return `    get ${e.name}() { return ${BigInt(eval(e.value))}n },`} else
         if ('bitpos' in e) {
             let value = 1n << BigInt(e.bitpos);
             availableEnums.push(e);
-            return `const ${e.name} = ${BigInt(value)}n;`
+            return `    get ${e.name}() { return ${BigInt(value)}n },`
         } else
         if ('offset' in e) {
             const extBase = 1000000000n;
@@ -363,9 +368,11 @@ ${structure.params.map((p)=>(writeParam(structure.name, p, map))).join(`
             let value = extBase + (extnumber - 1n) * extBlockSize + offset;
             if (e.dir) value *= -1n;
             availableEnums.push(e);
-            return `const ${e.name} = ${BigInt(value)}n;`
+            return `    get ${e.name}() { return ${BigInt(value)}n },`
+        } else
+        if ('alias' in e) {
+            return `    get ${e.name}() { return (E["${e.alias}"]||0n) },`
         }
-
         return ``;
     }
 
@@ -379,13 +386,13 @@ ${structure.params.map((p)=>(writeParam(structure.name, p, map))).join(`
 
         availableEnums = [];
         await fs.promises.writeFile("./vulkan-enums.js", `
+
+const E = {
 ${map.parsedEnums.map((e)=>cvtEnum(e,map)).filter((e)=>(!!e)).join(`
 `)}
-
-export default { 
-    ${availableEnums.map((p)=>p.name).filter((e)=>(!!e)).join(`,
-    `)}
 };
+
+export default E;
 `);
 
   // TODO: use C++ offsets and own classes
