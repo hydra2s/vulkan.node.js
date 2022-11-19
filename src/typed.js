@@ -34,10 +34,28 @@ const asBigInt = (value)=>{
 //
 const Types = {};
 
+// TODO: wrap by proxy
+class ConstructProxy {
+    constructor(target) {
+        this.target = target;
+    }
+    construct(target, args) {
+        new target(...args);
+        let classed = this.target.construct(...args);
+        return classed;
+    }
+    get(target, name) {
+        if (["byteLength", "construct", "setter", "getter", "bigEndian", "type", "offsetof"].indexOf(name) >= 0) {
+            return typeof this.target[name] == "function" ? this.target[name].bind(this.target) : this.target[name];
+        }
+        return null;
+    }
+};
+
 //
 class NumberAccessor {
     constructor(name, byteLength, getter, setter, construct = defaultDataConstruct, bigEndian = false) {
-        if (!(name in Types)) { Types[name] = this; };
+        if (!(name in Types)) { Types[name] = new Proxy(function(...args){}, new ConstructProxy(this)); };
         this.type = name;
         this.bigEndian = bigEndian;
         this.getter = getter;
@@ -50,7 +68,7 @@ class NumberAccessor {
 //
 class ArrayAccessor {
     constructor(name, byteLength, getter, setter, construct, bigEndian = false) {
-        if (!((name+"[arr]") in Types)) { Types[name+"[arr]"] = this; };
+        if (!((name+"[arr]") in Types)) { Types[name+"[arr]"] = new Proxy(function(...args){}, new ConstructProxy(this)); };
         this.type = name+"[arr]";
         this.bigEndian = bigEndian;
         this.getter = getter;
@@ -59,6 +77,31 @@ class ArrayAccessor {
         this.construct = construct;
     }
 }
+
+//
+class StructProxyMethods {
+    constructor(getter, setter) {
+        this.setter = setter;
+        this.getter = getter;
+    }
+    get(target, index) {
+        if (target.struct.types.find((t)=>(t.name==index))) {
+            return target[index];
+        } else
+        if (["length", "byteOffset", "byteLength"].indexOf(index) >= 0) {
+            return target[index];
+        } else 
+        if (["set", "address"].indexOf(index) >= 0) {
+            return target[index].bind(target);
+        }
+        return null;
+    }
+    set(target, index, value) {
+        if (target.struct.types.find((t)=>(t.name==index))) {
+            target[index] = value;
+        }
+    }
+};
 
 //
 class ArrayProxyMethods {
@@ -252,7 +295,7 @@ class CStruct {
         this.byteOffset = 0;
         this.byteLength = byteLength;
         this.isStruct = true;
-        if (!(name in Types)) { Types[name] = this; };
+        if (!(name in Types)) { Types[name] = new Proxy(function(...args){}, new ConstructProxy(this)); };
 
         //
         this.address = this.address.bind(this);
@@ -328,7 +371,7 @@ class CStruct {
             return structed;
         } else
         {
-            return new CStructView(new ArrayBuffer(this.byteLength), 0, this.byteLength, this);
+            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength), 0, this.byteLength, this), new StructProxyMethods());
         }
     }
 
@@ -338,4 +381,4 @@ class CStruct {
 }
 
 //
-export default { CStruct, CStructView, Types };
+export default { CStruct, CStructView, Types, ConstructProxy };

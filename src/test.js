@@ -9,7 +9,7 @@ import { default as T } from "./typed.js";
     let rect2D = S.VkRect2D.construct();
 
     //
-    let appInfo = S.VkApplicationInfo.construct({
+    let appInfo = new S.VkApplicationInfo({
         sType: E.VK_STRUCTURE_TYPE_APPLICATION_INFO,
         pNext: 0n,
         pApplicationName: "NVAPI TEST",
@@ -20,11 +20,11 @@ import { default as T } from "./typed.js";
     });
 
     //
-    let extensions = T.Types["u64[arr]"].construct([]);
-    let layers = T.Types["u64[arr]"].construct(["VK_LAYER_KHRONOS_validation"]);
+    let extensions = new T.Types["u64[arr]"]([]);
+    let layers = new T.Types["u64[arr]"](["VK_LAYER_KHRONOS_validation"]);
 
     //
-    let pInfo = S.VkInstanceCreateInfo.construct({
+    let pInfo = new S.VkInstanceCreateInfo({
         sType: E.VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
         pNext: 0n,
         flags: 0,
