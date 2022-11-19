@@ -355,13 +355,13 @@ ${structure.params.map((p)=>(writeParam(structure.name, p, map))).join(`
     let cvtEnum = (e, map)=>{
         let by = map.usedBy[e.name];
         
-        if (e.name.indexOf(`EXTENSION_NAME`) >= 0) { availableEnums.push(e); return `const ${e.name} = "${eval(e.value)}";`};
-        if ('value' in e) { availableEnums.push(e); return `const ${e.name} = ${eval(e.value)};`};
+        if (e.name.indexOf(`EXTENSION_NAME`) >= 0 && e.name.indexOf(`VK_MAX_EXTENSION_NAME_SIZE`) < 0) { availableEnums.push(e); return `const ${e.name} = "${eval(e.value)}";`} else
+        if ('value' in e) { availableEnums.push(e); return `const ${e.name} = ${BigInt(eval(e.value))}n;`} else
         if ('bitpos' in e) {
-            let value = 1 << e.bitpos;
+            let value = 1n << BigInt(e.bitpos);
             availableEnums.push(e);
-            return `const ${e.name} = ${value};`
-        }
+            return `const ${e.name} = ${BigInt(value)}n;`
+        } else
         if ('offset' in e) {
             const extBase = 1000000000n;
             const extBlockSize = 1000n;
@@ -371,7 +371,7 @@ ${structure.params.map((p)=>(writeParam(structure.name, p, map))).join(`
             let value = extBase + (extnumber - 1n) * extBlockSize + offset;
             if (e.dir) value *= -1n;
             availableEnums.push(e);
-            return `const ${e.name} = ${parseInt(value)};`
+            return `const ${e.name} = ${BigInt(value)}n;`
         }
 
         return ``;
