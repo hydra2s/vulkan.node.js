@@ -43,7 +43,7 @@ const C = T.default;
     });
 
     let handle = new BigUint64Array(1);
-    vulkan.vkCreateInstance(pInfo.address(), 0n, handle.address());
+    vulkan.vkCreateInstance(pInfo.address(), 0n, handle);
     
-    console.log(handle[0]);
+    console.log(handle);
 })();

@@ -45,14 +45,11 @@ static Napi::Value rawCreateInstance(const Napi::CallbackInfo& info_) {
         Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
     }
     
-    if (!info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 0 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkInstanceCreateInfo const*)info_[0].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkInstanceCreateInfo const*)GetAddress(env, info_[0]);
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pInstance)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInstance = (VkInstance*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInstance = (VkInstance*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkCreateInstance(pCreateInfo, pAllocator, pInstance);
     return Napi::Number::New(env, result);
@@ -67,8 +64,7 @@ static Napi::Value rawDestroyInstance(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[1]);
     
     ::vkDestroyInstance(instance, pAllocator);
     return env.Null();
@@ -83,11 +79,9 @@ static Napi::Value rawEnumeratePhysicalDevices(const Napi::CallbackInfo& info_) 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pPhysicalDeviceCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPhysicalDeviceCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPhysicalDeviceCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pPhysicalDevices)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPhysicalDevices = (VkPhysicalDevice*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPhysicalDevices = (VkPhysicalDevice*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkEnumeratePhysicalDevices(instance, pPhysicalDeviceCount, pPhysicalDevices);
     return Napi::Number::New(env, result);
@@ -102,8 +96,7 @@ static Napi::Value rawGetDeviceProcAddr(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pName)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pName = (char const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pName = (char const*)GetAddress(env, info_[1]);
     
     ::vkGetDeviceProcAddr(device, pName);
     return env.Null();
@@ -118,8 +111,7 @@ static Napi::Value rawGetInstanceProcAddr(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pName)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pName = (char const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pName = (char const*)GetAddress(env, info_[1]);
     
     ::vkGetInstanceProcAddr(instance, pName);
     return env.Null();
@@ -134,8 +126,7 @@ static Napi::Value rawGetPhysicalDeviceProperties(const Napi::CallbackInfo& info
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkPhysicalDeviceProperties*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkPhysicalDeviceProperties*)GetAddress(env, info_[1]);
     
     ::vkGetPhysicalDeviceProperties(physicalDevice, pProperties);
     return env.Null();
@@ -150,11 +141,9 @@ static Napi::Value rawGetPhysicalDeviceQueueFamilyProperties(const Napi::Callbac
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pQueueFamilyPropertyCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pQueueFamilyPropertyCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pQueueFamilyPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pQueueFamilyProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pQueueFamilyProperties = (VkQueueFamilyProperties*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pQueueFamilyProperties = (VkQueueFamilyProperties*)GetAddress(env, info_[2]);
     
     ::vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, pQueueFamilyPropertyCount, pQueueFamilyProperties);
     return env.Null();
@@ -169,8 +158,7 @@ static Napi::Value rawGetPhysicalDeviceMemoryProperties(const Napi::CallbackInfo
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pMemoryProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryProperties = (VkPhysicalDeviceMemoryProperties*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryProperties = (VkPhysicalDeviceMemoryProperties*)GetAddress(env, info_[1]);
     
     ::vkGetPhysicalDeviceMemoryProperties(physicalDevice, pMemoryProperties);
     return env.Null();
@@ -185,8 +173,7 @@ static Napi::Value rawGetPhysicalDeviceFeatures(const Napi::CallbackInfo& info_)
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pFeatures)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFeatures = (VkPhysicalDeviceFeatures*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFeatures = (VkPhysicalDeviceFeatures*)GetAddress(env, info_[1]);
     
     ::vkGetPhysicalDeviceFeatures(physicalDevice, pFeatures);
     return env.Null();
@@ -204,8 +191,7 @@ static Napi::Value rawGetPhysicalDeviceFormatProperties(const Napi::CallbackInfo
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (format)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) format = (VkFormat)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pFormatProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFormatProperties = (VkFormatProperties*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFormatProperties = (VkFormatProperties*)GetAddress(env, info_[2]);
     
     ::vkGetPhysicalDeviceFormatProperties(physicalDevice, format, pFormatProperties);
     return env.Null();
@@ -235,8 +221,7 @@ static Napi::Value rawGetPhysicalDeviceImageFormatProperties(const Napi::Callbac
     if (!info_[5].IsNumber() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 5 argument (flags)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) flags = (VkImageCreateFlags)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Uint32Value());
 
-    if (!info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 6 argument (pImageFormatProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pImageFormatProperties = (VkImageFormatProperties*)info_[6].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pImageFormatProperties = (VkImageFormatProperties*)GetAddress(env, info_[6]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceImageFormatProperties(physicalDevice, format, type, tiling, usage, flags, pImageFormatProperties);
     return Napi::Number::New(env, result);
@@ -251,14 +236,11 @@ static Napi::Value rawCreateDevice(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkDeviceCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkDeviceCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pDevice)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDevice = (VkDevice*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDevice = (VkDevice*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateDevice(physicalDevice, pCreateInfo, pAllocator, pDevice);
     return Napi::Number::New(env, result);
@@ -273,8 +255,7 @@ static Napi::Value rawDestroyDevice(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[1]);
     
     ::vkDestroyDevice(device, pAllocator);
     return env.Null();
@@ -286,8 +267,7 @@ static Napi::Value rawEnumerateInstanceVersion(const Napi::CallbackInfo& info_) 
         Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
     }
     
-    if (!info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 0 argument (pApiVersion)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pApiVersion = (uint32_t*)info_[0].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pApiVersion = (uint32_t*)GetAddress(env, info_[0]);
     
     decltype(auto) result = ::vkEnumerateInstanceVersion(pApiVersion);
     return Napi::Number::New(env, result);
@@ -299,11 +279,9 @@ static Napi::Value rawEnumerateInstanceLayerProperties(const Napi::CallbackInfo&
         Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
     }
     
-    if (!info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 0 argument (pPropertyCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPropertyCount = (uint32_t*)info_[0].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[0]);
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkLayerProperties*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkLayerProperties*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkEnumerateInstanceLayerProperties(pPropertyCount, pProperties);
     return Napi::Number::New(env, result);
@@ -315,14 +293,11 @@ static Napi::Value rawEnumerateInstanceExtensionProperties(const Napi::CallbackI
         Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
     }
     
-    if (!info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 0 argument (pLayerName)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pLayerName = (char const*)info_[0].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pLayerName = (char const*)GetAddress(env, info_[0]);
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pPropertyCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPropertyCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkExtensionProperties*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkExtensionProperties*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkEnumerateInstanceExtensionProperties(pLayerName, pPropertyCount, pProperties);
     return Napi::Number::New(env, result);
@@ -337,11 +312,9 @@ static Napi::Value rawEnumerateDeviceLayerProperties(const Napi::CallbackInfo& i
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pPropertyCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPropertyCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkLayerProperties*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkLayerProperties*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkEnumerateDeviceLayerProperties(physicalDevice, pPropertyCount, pProperties);
     return Napi::Number::New(env, result);
@@ -356,14 +329,11 @@ static Napi::Value rawEnumerateDeviceExtensionProperties(const Napi::CallbackInf
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pLayerName)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pLayerName = (char const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pLayerName = (char const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pPropertyCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPropertyCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkExtensionProperties*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkExtensionProperties*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkEnumerateDeviceExtensionProperties(physicalDevice, pLayerName, pPropertyCount, pProperties);
     return Napi::Number::New(env, result);
@@ -384,8 +354,7 @@ static Napi::Value rawGetDeviceQueue(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (queueIndex)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queueIndex = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pQueue)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pQueue = (VkQueue*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pQueue = (VkQueue*)GetAddress(env, info_[3]);
     
     ::vkGetDeviceQueue(device, queueFamilyIndex, queueIndex, pQueue);
     return env.Null();
@@ -403,8 +372,7 @@ static Napi::Value rawQueueSubmit(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (submitCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) submitCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSubmits)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSubmits = (VkSubmitInfo const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSubmits = (VkSubmitInfo const*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (fence)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) fence = (VkFence)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
@@ -448,14 +416,11 @@ static Napi::Value rawAllocateMemory(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pAllocateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocateInfo = (VkMemoryAllocateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocateInfo = (VkMemoryAllocateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pMemory)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemory = (VkDeviceMemory*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemory = (VkDeviceMemory*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkAllocateMemory(device, pAllocateInfo, pAllocator, pMemory);
     return Napi::Number::New(env, result);
@@ -473,8 +438,7 @@ static Napi::Value rawFreeMemory(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (memory)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) memory = (VkDeviceMemory)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkFreeMemory(device, memory, pAllocator);
     return env.Null();
@@ -501,8 +465,7 @@ static Napi::Value rawMapMemory(const Napi::CallbackInfo& info_) {
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (flags)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) flags = (VkMemoryMapFlags)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer of pointers) at 5 argument (ppData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) ppData = (void**)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) ppData = (void**)GetAddress(env, info_[5]);
     
     decltype(auto) result = ::vkMapMemory(device, memory, offset, size, flags, ppData);
     return Napi::Number::New(env, result);
@@ -536,8 +499,7 @@ static Napi::Value rawFlushMappedMemoryRanges(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (memoryRangeCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) memoryRangeCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMemoryRanges)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryRanges = (VkMappedMemoryRange const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryRanges = (VkMappedMemoryRange const*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkFlushMappedMemoryRanges(device, memoryRangeCount, pMemoryRanges);
     return Napi::Number::New(env, result);
@@ -555,8 +517,7 @@ static Napi::Value rawInvalidateMappedMemoryRanges(const Napi::CallbackInfo& inf
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (memoryRangeCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) memoryRangeCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMemoryRanges)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryRanges = (VkMappedMemoryRange const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryRanges = (VkMappedMemoryRange const*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkInvalidateMappedMemoryRanges(device, memoryRangeCount, pMemoryRanges);
     return Napi::Number::New(env, result);
@@ -574,8 +535,7 @@ static Napi::Value rawGetDeviceMemoryCommitment(const Napi::CallbackInfo& info_)
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (memory)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) memory = (VkDeviceMemory)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pCommittedMemoryInBytes)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCommittedMemoryInBytes = (VkDeviceSize*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCommittedMemoryInBytes = (VkDeviceSize*)GetAddress(env, info_[2]);
     
     ::vkGetDeviceMemoryCommitment(device, memory, pCommittedMemoryInBytes);
     return env.Null();
@@ -593,8 +553,7 @@ static Napi::Value rawGetBufferMemoryRequirements(const Napi::CallbackInfo& info
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (buffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) buffer = (VkBuffer)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMemoryRequirements)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryRequirements = (VkMemoryRequirements*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryRequirements = (VkMemoryRequirements*)GetAddress(env, info_[2]);
     
     ::vkGetBufferMemoryRequirements(device, buffer, pMemoryRequirements);
     return env.Null();
@@ -634,8 +593,7 @@ static Napi::Value rawGetImageMemoryRequirements(const Napi::CallbackInfo& info_
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (image)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) image = (VkImage)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMemoryRequirements)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryRequirements = (VkMemoryRequirements*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryRequirements = (VkMemoryRequirements*)GetAddress(env, info_[2]);
     
     ::vkGetImageMemoryRequirements(device, image, pMemoryRequirements);
     return env.Null();
@@ -675,11 +633,9 @@ static Napi::Value rawGetImageSparseMemoryRequirements(const Napi::CallbackInfo&
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (image)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) image = (VkImage)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSparseMemoryRequirementCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSparseMemoryRequirementCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSparseMemoryRequirementCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSparseMemoryRequirements)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSparseMemoryRequirements = (VkSparseImageMemoryRequirements*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSparseMemoryRequirements = (VkSparseImageMemoryRequirements*)GetAddress(env, info_[3]);
     
     ::vkGetImageSparseMemoryRequirements(device, image, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
     return env.Null();
@@ -709,11 +665,9 @@ static Napi::Value rawGetPhysicalDeviceSparseImageFormatProperties(const Napi::C
     if (!info_[5].IsBigInt() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 5 argument (tiling)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) tiling = (VkImageTiling)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Int64Value());
 
-    if (!info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 6 argument (pPropertyCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPropertyCount = (uint32_t*)info_[6].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[6]);
 
-    if (!info_[7].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 7 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkSparseImageFormatProperties*)info_[7].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkSparseImageFormatProperties*)GetAddress(env, info_[7]);
     
     ::vkGetPhysicalDeviceSparseImageFormatProperties(physicalDevice, format, type, samples, usage, tiling, pPropertyCount, pProperties);
     return env.Null();
@@ -731,8 +685,7 @@ static Napi::Value rawQueueBindSparse(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (bindInfoCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) bindInfoCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pBindInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBindInfo = (VkBindSparseInfo const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBindInfo = (VkBindSparseInfo const*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (fence)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) fence = (VkFence)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
@@ -750,14 +703,11 @@ static Napi::Value rawCreateFence(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkFenceCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkFenceCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pFence)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFence = (VkFence*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFence = (VkFence*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateFence(device, pCreateInfo, pAllocator, pFence);
     return Napi::Number::New(env, result);
@@ -775,8 +725,7 @@ static Napi::Value rawDestroyFence(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (fence)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) fence = (VkFence)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyFence(device, fence, pAllocator);
     return env.Null();
@@ -794,8 +743,7 @@ static Napi::Value rawResetFences(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (fenceCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) fenceCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pFences)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFences = (VkFence const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFences = (VkFence const*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkResetFences(device, fenceCount, pFences);
     return Napi::Number::New(env, result);
@@ -829,8 +777,7 @@ static Napi::Value rawWaitForFences(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (fenceCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) fenceCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pFences)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFences = (VkFence const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFences = (VkFence const*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (waitAll)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) waitAll = (VkBool32)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
@@ -851,14 +798,11 @@ static Napi::Value rawCreateSemaphore(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkSemaphoreCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkSemaphoreCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSemaphore)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSemaphore = (VkSemaphore*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSemaphore = (VkSemaphore*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateSemaphore(device, pCreateInfo, pAllocator, pSemaphore);
     return Napi::Number::New(env, result);
@@ -876,8 +820,7 @@ static Napi::Value rawDestroySemaphore(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (semaphore)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) semaphore = (VkSemaphore)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroySemaphore(device, semaphore, pAllocator);
     return env.Null();
@@ -892,14 +835,11 @@ static Napi::Value rawCreateEvent(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkEventCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkEventCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pEvent)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pEvent = (VkEvent*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pEvent = (VkEvent*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateEvent(device, pCreateInfo, pAllocator, pEvent);
     return Napi::Number::New(env, result);
@@ -917,8 +857,7 @@ static Napi::Value rawDestroyEvent(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (event)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) event = (VkEvent)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyEvent(device, event, pAllocator);
     return env.Null();
@@ -981,14 +920,11 @@ static Napi::Value rawCreateQueryPool(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkQueryPoolCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkQueryPoolCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pQueryPool)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pQueryPool = (VkQueryPool*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pQueryPool = (VkQueryPool*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateQueryPool(device, pCreateInfo, pAllocator, pQueryPool);
     return Napi::Number::New(env, result);
@@ -1006,8 +942,7 @@ static Napi::Value rawDestroyQueryPool(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (queryPool)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queryPool = (VkQueryPool)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyQueryPool(device, queryPool, pAllocator);
     return env.Null();
@@ -1034,8 +969,7 @@ static Napi::Value rawGetQueryPoolResults(const Napi::CallbackInfo& info_) {
     if (!info_[4].IsBigInt() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 4 argument (dataSize)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) dataSize = (size_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Int64Value());
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pData = (void*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pData = (void*)GetAddress(env, info_[5]);
 
     if (!info_[6].IsBigInt() && !info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 6 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (VkDeviceSize)(info_[6].IsBigInt() ? info_[6].As<Napi::BigInt>().Uint64Value(&lossless) : info_[6].As<Napi::Number>().Int64Value());
@@ -1078,14 +1012,11 @@ static Napi::Value rawCreateBuffer(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkBufferCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkBufferCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBuffer = (VkBuffer*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBuffer = (VkBuffer*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateBuffer(device, pCreateInfo, pAllocator, pBuffer);
     return Napi::Number::New(env, result);
@@ -1103,8 +1034,7 @@ static Napi::Value rawDestroyBuffer(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (buffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) buffer = (VkBuffer)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyBuffer(device, buffer, pAllocator);
     return env.Null();
@@ -1119,14 +1049,11 @@ static Napi::Value rawCreateBufferView(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkBufferViewCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkBufferViewCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pView)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pView = (VkBufferView*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pView = (VkBufferView*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateBufferView(device, pCreateInfo, pAllocator, pView);
     return Napi::Number::New(env, result);
@@ -1144,8 +1071,7 @@ static Napi::Value rawDestroyBufferView(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (bufferView)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) bufferView = (VkBufferView)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyBufferView(device, bufferView, pAllocator);
     return env.Null();
@@ -1160,14 +1086,11 @@ static Napi::Value rawCreateImage(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkImageCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkImageCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pImage)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pImage = (VkImage*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pImage = (VkImage*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateImage(device, pCreateInfo, pAllocator, pImage);
     return Napi::Number::New(env, result);
@@ -1185,8 +1108,7 @@ static Napi::Value rawDestroyImage(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (image)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) image = (VkImage)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyImage(device, image, pAllocator);
     return env.Null();
@@ -1204,11 +1126,9 @@ static Napi::Value rawGetImageSubresourceLayout(const Napi::CallbackInfo& info_)
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (image)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) image = (VkImage)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSubresource)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSubresource = (VkImageSubresource const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSubresource = (VkImageSubresource const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pLayout)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pLayout = (VkSubresourceLayout*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pLayout = (VkSubresourceLayout*)GetAddress(env, info_[3]);
     
     ::vkGetImageSubresourceLayout(device, image, pSubresource, pLayout);
     return env.Null();
@@ -1223,14 +1143,11 @@ static Napi::Value rawCreateImageView(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkImageViewCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkImageViewCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pView)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pView = (VkImageView*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pView = (VkImageView*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateImageView(device, pCreateInfo, pAllocator, pView);
     return Napi::Number::New(env, result);
@@ -1248,8 +1165,7 @@ static Napi::Value rawDestroyImageView(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (imageView)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) imageView = (VkImageView)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyImageView(device, imageView, pAllocator);
     return env.Null();
@@ -1264,14 +1180,11 @@ static Napi::Value rawCreateShaderModule(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkShaderModuleCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkShaderModuleCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pShaderModule)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pShaderModule = (VkShaderModule*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pShaderModule = (VkShaderModule*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateShaderModule(device, pCreateInfo, pAllocator, pShaderModule);
     return Napi::Number::New(env, result);
@@ -1289,8 +1202,7 @@ static Napi::Value rawDestroyShaderModule(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (shaderModule)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) shaderModule = (VkShaderModule)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyShaderModule(device, shaderModule, pAllocator);
     return env.Null();
@@ -1305,14 +1217,11 @@ static Napi::Value rawCreatePipelineCache(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkPipelineCacheCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkPipelineCacheCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pPipelineCache)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPipelineCache = (VkPipelineCache*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPipelineCache = (VkPipelineCache*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreatePipelineCache(device, pCreateInfo, pAllocator, pPipelineCache);
     return Napi::Number::New(env, result);
@@ -1330,8 +1239,7 @@ static Napi::Value rawDestroyPipelineCache(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (pipelineCache)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) pipelineCache = (VkPipelineCache)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyPipelineCache(device, pipelineCache, pAllocator);
     return env.Null();
@@ -1349,11 +1257,9 @@ static Napi::Value rawGetPipelineCacheData(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (pipelineCache)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) pipelineCache = (VkPipelineCache)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pDataSize)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDataSize = (size_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDataSize = (size_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pData = (void*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pData = (void*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetPipelineCacheData(device, pipelineCache, pDataSize, pData);
     return Napi::Number::New(env, result);
@@ -1374,8 +1280,7 @@ static Napi::Value rawMergePipelineCaches(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (srcCacheCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) srcCacheCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSrcCaches)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSrcCaches = (VkPipelineCache const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSrcCaches = (VkPipelineCache const*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkMergePipelineCaches(device, dstCache, srcCacheCount, pSrcCaches);
     return Napi::Number::New(env, result);
@@ -1396,14 +1301,11 @@ static Napi::Value rawCreateGraphicsPipelines(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (createInfoCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) createInfoCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pCreateInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfos = (VkGraphicsPipelineCreateInfo const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfos = (VkGraphicsPipelineCreateInfo const*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[4]);
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pPipelines)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPipelines = (VkPipeline*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPipelines = (VkPipeline*)GetAddress(env, info_[5]);
     
     decltype(auto) result = ::vkCreateGraphicsPipelines(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
     return Napi::Number::New(env, result);
@@ -1424,14 +1326,11 @@ static Napi::Value rawCreateComputePipelines(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (createInfoCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) createInfoCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pCreateInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfos = (VkComputePipelineCreateInfo const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfos = (VkComputePipelineCreateInfo const*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[4]);
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pPipelines)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPipelines = (VkPipeline*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPipelines = (VkPipeline*)GetAddress(env, info_[5]);
     
     decltype(auto) result = ::vkCreateComputePipelines(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
     return Napi::Number::New(env, result);
@@ -1450,8 +1349,7 @@ static Napi::Value rawGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(const Napi::
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (renderpass)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) renderpass = (VkRenderPass)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMaxWorkgroupSize)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMaxWorkgroupSize = (VkExtent2D*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMaxWorkgroupSize = (VkExtent2D*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(device, renderpass, pMaxWorkgroupSize);
     return Napi::Number::New(env, result);
@@ -1470,8 +1368,7 @@ static Napi::Value rawDestroyPipeline(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (pipeline)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) pipeline = (VkPipeline)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyPipeline(device, pipeline, pAllocator);
     return env.Null();
@@ -1486,14 +1383,11 @@ static Napi::Value rawCreatePipelineLayout(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkPipelineLayoutCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkPipelineLayoutCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pPipelineLayout)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPipelineLayout = (VkPipelineLayout*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPipelineLayout = (VkPipelineLayout*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreatePipelineLayout(device, pCreateInfo, pAllocator, pPipelineLayout);
     return Napi::Number::New(env, result);
@@ -1511,8 +1405,7 @@ static Napi::Value rawDestroyPipelineLayout(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (pipelineLayout)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) pipelineLayout = (VkPipelineLayout)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyPipelineLayout(device, pipelineLayout, pAllocator);
     return env.Null();
@@ -1527,14 +1420,11 @@ static Napi::Value rawCreateSampler(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkSamplerCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkSamplerCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSampler)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSampler = (VkSampler*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSampler = (VkSampler*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateSampler(device, pCreateInfo, pAllocator, pSampler);
     return Napi::Number::New(env, result);
@@ -1552,8 +1442,7 @@ static Napi::Value rawDestroySampler(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (sampler)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) sampler = (VkSampler)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroySampler(device, sampler, pAllocator);
     return env.Null();
@@ -1568,14 +1457,11 @@ static Napi::Value rawCreateDescriptorSetLayout(const Napi::CallbackInfo& info_)
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkDescriptorSetLayoutCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkDescriptorSetLayoutCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSetLayout)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSetLayout = (VkDescriptorSetLayout*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSetLayout = (VkDescriptorSetLayout*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateDescriptorSetLayout(device, pCreateInfo, pAllocator, pSetLayout);
     return Napi::Number::New(env, result);
@@ -1593,8 +1479,7 @@ static Napi::Value rawDestroyDescriptorSetLayout(const Napi::CallbackInfo& info_
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (descriptorSetLayout)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) descriptorSetLayout = (VkDescriptorSetLayout)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyDescriptorSetLayout(device, descriptorSetLayout, pAllocator);
     return env.Null();
@@ -1609,14 +1494,11 @@ static Napi::Value rawCreateDescriptorPool(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkDescriptorPoolCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkDescriptorPoolCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pDescriptorPool)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDescriptorPool = (VkDescriptorPool*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDescriptorPool = (VkDescriptorPool*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateDescriptorPool(device, pCreateInfo, pAllocator, pDescriptorPool);
     return Napi::Number::New(env, result);
@@ -1634,8 +1516,7 @@ static Napi::Value rawDestroyDescriptorPool(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (descriptorPool)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) descriptorPool = (VkDescriptorPool)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyDescriptorPool(device, descriptorPool, pAllocator);
     return env.Null();
@@ -1669,11 +1550,9 @@ static Napi::Value rawAllocateDescriptorSets(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pAllocateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocateInfo = (VkDescriptorSetAllocateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocateInfo = (VkDescriptorSetAllocateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pDescriptorSets)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDescriptorSets = (VkDescriptorSet*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDescriptorSets = (VkDescriptorSet*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkAllocateDescriptorSets(device, pAllocateInfo, pDescriptorSets);
     return Napi::Number::New(env, result);
@@ -1694,8 +1573,7 @@ static Napi::Value rawFreeDescriptorSets(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (descriptorSetCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) descriptorSetCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pDescriptorSets)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDescriptorSets = (VkDescriptorSet const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDescriptorSets = (VkDescriptorSet const*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkFreeDescriptorSets(device, descriptorPool, descriptorSetCount, pDescriptorSets);
     return Napi::Number::New(env, result);
@@ -1713,14 +1591,12 @@ static Napi::Value rawUpdateDescriptorSets(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (descriptorWriteCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) descriptorWriteCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pDescriptorWrites)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDescriptorWrites = (VkWriteDescriptorSet const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDescriptorWrites = (VkWriteDescriptorSet const*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (descriptorCopyCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) descriptorCopyCount = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pDescriptorCopies)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDescriptorCopies = (VkCopyDescriptorSet const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDescriptorCopies = (VkCopyDescriptorSet const*)GetAddress(env, info_[4]);
     
     ::vkUpdateDescriptorSets(device, descriptorWriteCount, pDescriptorWrites, descriptorCopyCount, pDescriptorCopies);
     return env.Null();
@@ -1735,14 +1611,11 @@ static Napi::Value rawCreateFramebuffer(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkFramebufferCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkFramebufferCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pFramebuffer)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFramebuffer = (VkFramebuffer*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFramebuffer = (VkFramebuffer*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateFramebuffer(device, pCreateInfo, pAllocator, pFramebuffer);
     return Napi::Number::New(env, result);
@@ -1760,8 +1633,7 @@ static Napi::Value rawDestroyFramebuffer(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (framebuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) framebuffer = (VkFramebuffer)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyFramebuffer(device, framebuffer, pAllocator);
     return env.Null();
@@ -1776,14 +1648,11 @@ static Napi::Value rawCreateRenderPass(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkRenderPassCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkRenderPassCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pRenderPass)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRenderPass = (VkRenderPass*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRenderPass = (VkRenderPass*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateRenderPass(device, pCreateInfo, pAllocator, pRenderPass);
     return Napi::Number::New(env, result);
@@ -1801,8 +1670,7 @@ static Napi::Value rawDestroyRenderPass(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (renderPass)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) renderPass = (VkRenderPass)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyRenderPass(device, renderPass, pAllocator);
     return env.Null();
@@ -1820,8 +1688,7 @@ static Napi::Value rawGetRenderAreaGranularity(const Napi::CallbackInfo& info_) 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (renderPass)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) renderPass = (VkRenderPass)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pGranularity)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pGranularity = (VkExtent2D*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pGranularity = (VkExtent2D*)GetAddress(env, info_[2]);
     
     ::vkGetRenderAreaGranularity(device, renderPass, pGranularity);
     return env.Null();
@@ -1836,14 +1703,11 @@ static Napi::Value rawCreateCommandPool(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkCommandPoolCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkCommandPoolCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pCommandPool)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCommandPool = (VkCommandPool*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCommandPool = (VkCommandPool*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateCommandPool(device, pCreateInfo, pAllocator, pCommandPool);
     return Napi::Number::New(env, result);
@@ -1861,8 +1725,7 @@ static Napi::Value rawDestroyCommandPool(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (commandPool)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandPool = (VkCommandPool)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyCommandPool(device, commandPool, pAllocator);
     return env.Null();
@@ -1896,11 +1759,9 @@ static Napi::Value rawAllocateCommandBuffers(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pAllocateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocateInfo = (VkCommandBufferAllocateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocateInfo = (VkCommandBufferAllocateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pCommandBuffers)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCommandBuffers = (VkCommandBuffer*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCommandBuffers = (VkCommandBuffer*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkAllocateCommandBuffers(device, pAllocateInfo, pCommandBuffers);
     return Napi::Number::New(env, result);
@@ -1921,8 +1782,7 @@ static Napi::Value rawFreeCommandBuffers(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (commandBufferCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBufferCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pCommandBuffers)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCommandBuffers = (VkCommandBuffer const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCommandBuffers = (VkCommandBuffer const*)GetAddress(env, info_[3]);
     
     ::vkFreeCommandBuffers(device, commandPool, commandBufferCount, pCommandBuffers);
     return env.Null();
@@ -1937,8 +1797,7 @@ static Napi::Value rawBeginCommandBuffer(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pBeginInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBeginInfo = (VkCommandBufferBeginInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBeginInfo = (VkCommandBufferBeginInfo const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkBeginCommandBuffer(commandBuffer, pBeginInfo);
     return Napi::Number::New(env, result);
@@ -2007,8 +1866,7 @@ static Napi::Value rawCmdSetViewport(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (viewportCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) viewportCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pViewports)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pViewports = (VkViewport const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pViewports = (VkViewport const*)GetAddress(env, info_[3]);
     
     ::vkCmdSetViewport(commandBuffer, firstViewport, viewportCount, pViewports);
     return env.Null();
@@ -2029,8 +1887,7 @@ static Napi::Value rawCmdSetScissor(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (scissorCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) scissorCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pScissors)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pScissors = (VkRect2D const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pScissors = (VkRect2D const*)GetAddress(env, info_[3]);
     
     ::vkCmdSetScissor(commandBuffer, firstScissor, scissorCount, pScissors);
     return env.Null();
@@ -2083,8 +1940,7 @@ static Napi::Value rawCmdSetBlendConstants(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (blendConstants)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) blendConstants = (float const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) blendConstants = (float const*)GetAddress(env, info_[1]);
     
     ::vkCmdSetBlendConstants(commandBuffer, blendConstants);
     return env.Null();
@@ -2187,14 +2043,12 @@ static Napi::Value rawCmdBindDescriptorSets(const Napi::CallbackInfo& info_) {
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (descriptorSetCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) descriptorSetCount = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pDescriptorSets)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDescriptorSets = (VkDescriptorSet const*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDescriptorSets = (VkDescriptorSet const*)GetAddress(env, info_[5]);
 
     if (!info_[6].IsNumber() && !info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 6 argument (dynamicOffsetCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) dynamicOffsetCount = (uint32_t)(info_[6].IsBigInt() ? info_[6].As<Napi::BigInt>().Uint64Value(&lossless) : info_[6].As<Napi::Number>().Uint32Value());
 
-    if (!info_[7].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 7 argument (pDynamicOffsets)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDynamicOffsets = (uint32_t const*)info_[7].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDynamicOffsets = (uint32_t const*)GetAddress(env, info_[7]);
     
     ::vkCmdBindDescriptorSets(commandBuffer, pipelineBindPoint, layout, firstSet, descriptorSetCount, pDescriptorSets, dynamicOffsetCount, pDynamicOffsets);
     return env.Null();
@@ -2237,11 +2091,9 @@ static Napi::Value rawCmdBindVertexBuffers(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (bindingCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) bindingCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pBuffers)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBuffers = (VkBuffer const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBuffers = (VkBuffer const*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pOffsets)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pOffsets = (VkDeviceSize const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pOffsets = (VkDeviceSize const*)GetAddress(env, info_[4]);
     
     ::vkCmdBindVertexBuffers(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets);
     return env.Null();
@@ -2313,8 +2165,7 @@ static Napi::Value rawCmdDrawMultiEXT(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (drawCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) drawCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pVertexInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pVertexInfo = (VkMultiDrawInfoEXT const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pVertexInfo = (VkMultiDrawInfoEXT const*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (instanceCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instanceCount = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
@@ -2343,8 +2194,7 @@ static Napi::Value rawCmdDrawMultiIndexedEXT(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (drawCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) drawCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pIndexInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pIndexInfo = (VkMultiDrawIndexedInfoEXT const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pIndexInfo = (VkMultiDrawIndexedInfoEXT const*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (instanceCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instanceCount = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
@@ -2355,8 +2205,7 @@ static Napi::Value rawCmdDrawMultiIndexedEXT(const Napi::CallbackInfo& info_) {
     if (!info_[5].IsNumber() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 5 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (uint32_t)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Uint32Value());
 
-    if (!info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 6 argument (pVertexOffset)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pVertexOffset = (int32_t const*)info_[6].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pVertexOffset = (int32_t const*)GetAddress(env, info_[6]);
     
     ::vkCmdDrawMultiIndexedEXT(commandBuffer, drawCount, pIndexInfo, instanceCount, firstInstance, stride, pVertexOffset);
     return env.Null();
@@ -2487,8 +2336,7 @@ static Napi::Value rawCmdCopyBuffer(const Napi::CallbackInfo& info_) {
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (regionCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) regionCount = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pRegions)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRegions = (VkBufferCopy const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRegions = (VkBufferCopy const*)GetAddress(env, info_[4]);
     
     ::vkCmdCopyBuffer(commandBuffer, srcBuffer, dstBuffer, regionCount, pRegions);
     return env.Null();
@@ -2518,8 +2366,7 @@ static Napi::Value rawCmdCopyImage(const Napi::CallbackInfo& info_) {
     if (!info_[5].IsNumber() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 5 argument (regionCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) regionCount = (uint32_t)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Uint32Value());
 
-    if (!info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 6 argument (pRegions)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRegions = (VkImageCopy const*)info_[6].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRegions = (VkImageCopy const*)GetAddress(env, info_[6]);
     
     ::vkCmdCopyImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
     return env.Null();
@@ -2549,8 +2396,7 @@ static Napi::Value rawCmdBlitImage(const Napi::CallbackInfo& info_) {
     if (!info_[5].IsNumber() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 5 argument (regionCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) regionCount = (uint32_t)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Uint32Value());
 
-    if (!info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 6 argument (pRegions)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRegions = (VkImageBlit const*)info_[6].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRegions = (VkImageBlit const*)GetAddress(env, info_[6]);
 
     if (!info_[7].IsBigInt() && !info_[7].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 7 argument (filter)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) filter = (VkFilter)(info_[7].IsBigInt() ? info_[7].As<Napi::BigInt>().Uint64Value(&lossless) : info_[7].As<Napi::Number>().Int64Value());
@@ -2580,8 +2426,7 @@ static Napi::Value rawCmdCopyBufferToImage(const Napi::CallbackInfo& info_) {
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (regionCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) regionCount = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pRegions)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRegions = (VkBufferImageCopy const*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRegions = (VkBufferImageCopy const*)GetAddress(env, info_[5]);
     
     ::vkCmdCopyBufferToImage(commandBuffer, srcBuffer, dstImage, dstImageLayout, regionCount, pRegions);
     return env.Null();
@@ -2608,8 +2453,7 @@ static Napi::Value rawCmdCopyImageToBuffer(const Napi::CallbackInfo& info_) {
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (regionCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) regionCount = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pRegions)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRegions = (VkBufferImageCopy const*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRegions = (VkBufferImageCopy const*)GetAddress(env, info_[5]);
     
     ::vkCmdCopyImageToBuffer(commandBuffer, srcImage, srcImageLayout, dstBuffer, regionCount, pRegions);
     return env.Null();
@@ -2664,8 +2508,7 @@ static Napi::Value rawCmdCopyMemoryToImageIndirectNV(const Napi::CallbackInfo& i
     if (!info_[5].IsBigInt() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 5 argument (dstImageLayout)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) dstImageLayout = (VkImageLayout)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Int64Value());
 
-    if (!info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 6 argument (pImageSubresources)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pImageSubresources = (VkImageSubresourceLayers const*)info_[6].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pImageSubresources = (VkImageSubresourceLayers const*)GetAddress(env, info_[6]);
     
     ::vkCmdCopyMemoryToImageIndirectNV(commandBuffer, copyBufferAddress, copyCount, stride, dstImage, dstImageLayout, pImageSubresources);
     return env.Null();
@@ -2690,8 +2533,7 @@ static Napi::Value rawCmdUpdateBuffer(const Napi::CallbackInfo& info_) {
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (dataSize)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) dataSize = (VkDeviceSize)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pData = (void const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pData = (void const*)GetAddress(env, info_[4]);
     
     ::vkCmdUpdateBuffer(commandBuffer, dstBuffer, dstOffset, dataSize, pData);
     return env.Null();
@@ -2737,14 +2579,12 @@ static Napi::Value rawCmdClearColorImage(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (imageLayout)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) imageLayout = (VkImageLayout)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pColor)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pColor = (VkClearColorValue const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pColor = (VkClearColorValue const*)GetAddress(env, info_[3]);
 
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (rangeCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) rangeCount = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pRanges)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRanges = (VkImageSubresourceRange const*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRanges = (VkImageSubresourceRange const*)GetAddress(env, info_[5]);
     
     ::vkCmdClearColorImage(commandBuffer, image, imageLayout, pColor, rangeCount, pRanges);
     return env.Null();
@@ -2765,14 +2605,12 @@ static Napi::Value rawCmdClearDepthStencilImage(const Napi::CallbackInfo& info_)
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (imageLayout)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) imageLayout = (VkImageLayout)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pDepthStencil)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDepthStencil = (VkClearDepthStencilValue const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDepthStencil = (VkClearDepthStencilValue const*)GetAddress(env, info_[3]);
 
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (rangeCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) rangeCount = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pRanges)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRanges = (VkImageSubresourceRange const*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRanges = (VkImageSubresourceRange const*)GetAddress(env, info_[5]);
     
     ::vkCmdClearDepthStencilImage(commandBuffer, image, imageLayout, pDepthStencil, rangeCount, pRanges);
     return env.Null();
@@ -2790,14 +2628,12 @@ static Napi::Value rawCmdClearAttachments(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (attachmentCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) attachmentCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAttachments)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAttachments = (VkClearAttachment const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAttachments = (VkClearAttachment const*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (rectCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) rectCount = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pRects)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRects = (VkClearRect const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRects = (VkClearRect const*)GetAddress(env, info_[4]);
     
     ::vkCmdClearAttachments(commandBuffer, attachmentCount, pAttachments, rectCount, pRects);
     return env.Null();
@@ -2827,8 +2663,7 @@ static Napi::Value rawCmdResolveImage(const Napi::CallbackInfo& info_) {
     if (!info_[5].IsNumber() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 5 argument (regionCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) regionCount = (uint32_t)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Uint32Value());
 
-    if (!info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 6 argument (pRegions)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRegions = (VkImageResolve const*)info_[6].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRegions = (VkImageResolve const*)GetAddress(env, info_[6]);
     
     ::vkCmdResolveImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
     return env.Null();
@@ -2884,8 +2719,7 @@ static Napi::Value rawCmdWaitEvents(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (eventCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) eventCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pEvents)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pEvents = (VkEvent const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pEvents = (VkEvent const*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (srcStageMask)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) srcStageMask = (VkPipelineStageFlags)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
@@ -2896,20 +2730,17 @@ static Napi::Value rawCmdWaitEvents(const Napi::CallbackInfo& info_) {
     if (!info_[5].IsNumber() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 5 argument (memoryBarrierCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) memoryBarrierCount = (uint32_t)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Uint32Value());
 
-    if (!info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 6 argument (pMemoryBarriers)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryBarriers = (VkMemoryBarrier const*)info_[6].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryBarriers = (VkMemoryBarrier const*)GetAddress(env, info_[6]);
 
     if (!info_[7].IsNumber() && !info_[7].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 7 argument (bufferMemoryBarrierCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) bufferMemoryBarrierCount = (uint32_t)(info_[7].IsBigInt() ? info_[7].As<Napi::BigInt>().Uint64Value(&lossless) : info_[7].As<Napi::Number>().Uint32Value());
 
-    if (!info_[8].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 8 argument (pBufferMemoryBarriers)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBufferMemoryBarriers = (VkBufferMemoryBarrier const*)info_[8].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBufferMemoryBarriers = (VkBufferMemoryBarrier const*)GetAddress(env, info_[8]);
 
     if (!info_[9].IsNumber() && !info_[9].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 9 argument (imageMemoryBarrierCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) imageMemoryBarrierCount = (uint32_t)(info_[9].IsBigInt() ? info_[9].As<Napi::BigInt>().Uint64Value(&lossless) : info_[9].As<Napi::Number>().Uint32Value());
 
-    if (!info_[10].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 10 argument (pImageMemoryBarriers)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pImageMemoryBarriers = (VkImageMemoryBarrier const*)info_[10].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pImageMemoryBarriers = (VkImageMemoryBarrier const*)GetAddress(env, info_[10]);
     
     ::vkCmdWaitEvents(commandBuffer, eventCount, pEvents, srcStageMask, dstStageMask, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
     return env.Null();
@@ -2936,20 +2767,17 @@ static Napi::Value rawCmdPipelineBarrier(const Napi::CallbackInfo& info_) {
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (memoryBarrierCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) memoryBarrierCount = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pMemoryBarriers)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryBarriers = (VkMemoryBarrier const*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryBarriers = (VkMemoryBarrier const*)GetAddress(env, info_[5]);
 
     if (!info_[6].IsNumber() && !info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 6 argument (bufferMemoryBarrierCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) bufferMemoryBarrierCount = (uint32_t)(info_[6].IsBigInt() ? info_[6].As<Napi::BigInt>().Uint64Value(&lossless) : info_[6].As<Napi::Number>().Uint32Value());
 
-    if (!info_[7].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 7 argument (pBufferMemoryBarriers)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBufferMemoryBarriers = (VkBufferMemoryBarrier const*)info_[7].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBufferMemoryBarriers = (VkBufferMemoryBarrier const*)GetAddress(env, info_[7]);
 
     if (!info_[8].IsNumber() && !info_[8].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 8 argument (imageMemoryBarrierCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) imageMemoryBarrierCount = (uint32_t)(info_[8].IsBigInt() ? info_[8].As<Napi::BigInt>().Uint64Value(&lossless) : info_[8].As<Napi::Number>().Uint32Value());
 
-    if (!info_[9].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 9 argument (pImageMemoryBarriers)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pImageMemoryBarriers = (VkImageMemoryBarrier const*)info_[9].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pImageMemoryBarriers = (VkImageMemoryBarrier const*)GetAddress(env, info_[9]);
     
     ::vkCmdPipelineBarrier(commandBuffer, srcStageMask, dstStageMask, dependencyFlags, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
     return env.Null();
@@ -3006,8 +2834,7 @@ static Napi::Value rawCmdBeginConditionalRenderingEXT(const Napi::CallbackInfo& 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pConditionalRenderingBegin)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pConditionalRenderingBegin = (VkConditionalRenderingBeginInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pConditionalRenderingBegin = (VkConditionalRenderingBeginInfoEXT const*)GetAddress(env, info_[1]);
     
     ::vkCmdBeginConditionalRenderingEXT(commandBuffer, pConditionalRenderingBegin);
     return env.Null();
@@ -3128,8 +2955,7 @@ static Napi::Value rawCmdPushConstants(const Napi::CallbackInfo& info_) {
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (size)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) size = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pValues)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pValues = (void const*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pValues = (void const*)GetAddress(env, info_[5]);
     
     ::vkCmdPushConstants(commandBuffer, layout, stageFlags, offset, size, pValues);
     return env.Null();
@@ -3144,8 +2970,7 @@ static Napi::Value rawCmdBeginRenderPass(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pRenderPassBegin)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRenderPassBegin = (VkRenderPassBeginInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRenderPassBegin = (VkRenderPassBeginInfo const*)GetAddress(env, info_[1]);
 
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (contents)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) contents = (VkSubpassContents)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
@@ -3195,8 +3020,7 @@ static Napi::Value rawCmdExecuteCommands(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (commandBufferCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBufferCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pCommandBuffers)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCommandBuffers = (VkCommandBuffer const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCommandBuffers = (VkCommandBuffer const*)GetAddress(env, info_[2]);
     
     ::vkCmdExecuteCommands(commandBuffer, commandBufferCount, pCommandBuffers);
     return env.Null();
@@ -3212,14 +3036,11 @@ static Napi::Value rawCreateAndroidSurfaceKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkAndroidSurfaceCreateInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkAndroidSurfaceCreateInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurface)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurface = (VkSurfaceKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateAndroidSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
     return Napi::Number::New(env, result);
@@ -3236,11 +3057,9 @@ static Napi::Value rawGetPhysicalDeviceDisplayPropertiesKHR(const Napi::Callback
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pPropertyCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPropertyCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkDisplayPropertiesKHR*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkDisplayPropertiesKHR*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceDisplayPropertiesKHR(physicalDevice, pPropertyCount, pProperties);
     return Napi::Number::New(env, result);
@@ -3257,11 +3076,9 @@ static Napi::Value rawGetPhysicalDeviceDisplayPlanePropertiesKHR(const Napi::Cal
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pPropertyCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPropertyCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkDisplayPlanePropertiesKHR*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkDisplayPlanePropertiesKHR*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice, pPropertyCount, pProperties);
     return Napi::Number::New(env, result);
@@ -3281,11 +3098,9 @@ static Napi::Value rawGetDisplayPlaneSupportedDisplaysKHR(const Napi::CallbackIn
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (planeIndex)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) planeIndex = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pDisplayCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDisplayCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDisplayCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pDisplays)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDisplays = (VkDisplayKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDisplays = (VkDisplayKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetDisplayPlaneSupportedDisplaysKHR(physicalDevice, planeIndex, pDisplayCount, pDisplays);
     return Napi::Number::New(env, result);
@@ -3305,11 +3120,9 @@ static Napi::Value rawGetDisplayModePropertiesKHR(const Napi::CallbackInfo& info
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (display)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) display = (VkDisplayKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pPropertyCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPropertyCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkDisplayModePropertiesKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkDisplayModePropertiesKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetDisplayModePropertiesKHR(physicalDevice, display, pPropertyCount, pProperties);
     return Napi::Number::New(env, result);
@@ -3329,14 +3142,11 @@ static Napi::Value rawCreateDisplayModeKHR(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (display)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) display = (VkDisplayKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkDisplayModeCreateInfoKHR const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkDisplayModeCreateInfoKHR const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pMode)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMode = (VkDisplayModeKHR*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMode = (VkDisplayModeKHR*)GetAddress(env, info_[4]);
     
     decltype(auto) result = ::vkCreateDisplayModeKHR(physicalDevice, display, pCreateInfo, pAllocator, pMode);
     return Napi::Number::New(env, result);
@@ -3359,8 +3169,7 @@ static Napi::Value rawGetDisplayPlaneCapabilitiesKHR(const Napi::CallbackInfo& i
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (planeIndex)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) planeIndex = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pCapabilities)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCapabilities = (VkDisplayPlaneCapabilitiesKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCapabilities = (VkDisplayPlaneCapabilitiesKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetDisplayPlaneCapabilitiesKHR(physicalDevice, mode, planeIndex, pCapabilities);
     return Napi::Number::New(env, result);
@@ -3377,14 +3186,11 @@ static Napi::Value rawCreateDisplayPlaneSurfaceKHR(const Napi::CallbackInfo& inf
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkDisplaySurfaceCreateInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkDisplaySurfaceCreateInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurface)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurface = (VkSurfaceKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateDisplayPlaneSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
     return Napi::Number::New(env, result);
@@ -3404,14 +3210,11 @@ static Napi::Value rawCreateSharedSwapchainsKHR(const Napi::CallbackInfo& info_)
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (swapchainCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) swapchainCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pCreateInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfos = (VkSwapchainCreateInfoKHR const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfos = (VkSwapchainCreateInfoKHR const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pSwapchains)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSwapchains = (VkSwapchainKHR*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSwapchains = (VkSwapchainKHR*)GetAddress(env, info_[4]);
     
     decltype(auto) result = ::vkCreateSharedSwapchainsKHR(device, swapchainCount, pCreateInfos, pAllocator, pSwapchains);
     return Napi::Number::New(env, result);
@@ -3431,8 +3234,7 @@ static Napi::Value rawDestroySurfaceKHR(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (surface)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) surface = (VkSurfaceKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroySurfaceKHR(instance, surface, pAllocator);
     return env.Null();
@@ -3455,8 +3257,7 @@ static Napi::Value rawGetPhysicalDeviceSurfaceSupportKHR(const Napi::CallbackInf
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (surface)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) surface = (VkSurfaceKHR)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSupported)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSupported = (VkBool32*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSupported = (VkBool32*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, queueFamilyIndex, surface, pSupported);
     return Napi::Number::New(env, result);
@@ -3476,8 +3277,7 @@ static Napi::Value rawGetPhysicalDeviceSurfaceCapabilitiesKHR(const Napi::Callba
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (surface)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) surface = (VkSurfaceKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSurfaceCapabilities)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurfaceCapabilities = (VkSurfaceCapabilitiesKHR*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurfaceCapabilities = (VkSurfaceCapabilitiesKHR*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, pSurfaceCapabilities);
     return Napi::Number::New(env, result);
@@ -3497,11 +3297,9 @@ static Napi::Value rawGetPhysicalDeviceSurfaceFormatsKHR(const Napi::CallbackInf
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (surface)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) surface = (VkSurfaceKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSurfaceFormatCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurfaceFormatCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurfaceFormatCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurfaceFormats)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurfaceFormats = (VkSurfaceFormatKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurfaceFormats = (VkSurfaceFormatKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, pSurfaceFormatCount, pSurfaceFormats);
     return Napi::Number::New(env, result);
@@ -3521,11 +3319,9 @@ static Napi::Value rawGetPhysicalDeviceSurfacePresentModesKHR(const Napi::Callba
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (surface)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) surface = (VkSurfaceKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pPresentModeCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPresentModeCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPresentModeCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pPresentModes)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPresentModes = (VkPresentModeKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPresentModes = (VkPresentModeKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, pPresentModeCount, pPresentModes);
     return Napi::Number::New(env, result);
@@ -3542,14 +3338,11 @@ static Napi::Value rawCreateSwapchainKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkSwapchainCreateInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkSwapchainCreateInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSwapchain)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSwapchain = (VkSwapchainKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSwapchain = (VkSwapchainKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateSwapchainKHR(device, pCreateInfo, pAllocator, pSwapchain);
     return Napi::Number::New(env, result);
@@ -3569,8 +3362,7 @@ static Napi::Value rawDestroySwapchainKHR(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (swapchain)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) swapchain = (VkSwapchainKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroySwapchainKHR(device, swapchain, pAllocator);
     return env.Null();
@@ -3590,11 +3382,9 @@ static Napi::Value rawGetSwapchainImagesKHR(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (swapchain)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) swapchain = (VkSwapchainKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSwapchainImageCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSwapchainImageCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSwapchainImageCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSwapchainImages)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSwapchainImages = (VkImage*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSwapchainImages = (VkImage*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetSwapchainImagesKHR(device, swapchain, pSwapchainImageCount, pSwapchainImages);
     return Napi::Number::New(env, result);
@@ -3623,8 +3413,7 @@ static Napi::Value rawAcquireNextImageKHR(const Napi::CallbackInfo& info_) {
     if (!info_[4].IsBigInt() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 4 argument (fence)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) fence = (VkFence)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Int64Value());
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pImageIndex)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pImageIndex = (uint32_t*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pImageIndex = (uint32_t*)GetAddress(env, info_[5]);
     
     decltype(auto) result = ::vkAcquireNextImageKHR(device, swapchain, timeout, semaphore, fence, pImageIndex);
     return Napi::Number::New(env, result);
@@ -3641,8 +3430,7 @@ static Napi::Value rawQueuePresentKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (queue)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queue = (VkQueue)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pPresentInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPresentInfo = (VkPresentInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPresentInfo = (VkPresentInfoKHR const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkQueuePresentKHR(queue, pPresentInfo);
     return Napi::Number::New(env, result);
@@ -3659,14 +3447,11 @@ static Napi::Value rawCreateViSurfaceNN(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkViSurfaceCreateInfoNN const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkViSurfaceCreateInfoNN const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurface)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurface = (VkSurfaceKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateViSurfaceNN(instance, pCreateInfo, pAllocator, pSurface);
     return Napi::Number::New(env, result);
@@ -3683,14 +3468,11 @@ static Napi::Value rawCreateWaylandSurfaceKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkWaylandSurfaceCreateInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkWaylandSurfaceCreateInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurface)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurface = (VkSurfaceKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateWaylandSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
     return Napi::Number::New(env, result);
@@ -3710,8 +3492,7 @@ static Napi::Value rawGetPhysicalDeviceWaylandPresentationSupportKHR(const Napi:
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (queueFamilyIndex)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queueFamilyIndex = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (display)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) display = (wl_display*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) display = (wl_display*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceWaylandPresentationSupportKHR(physicalDevice, queueFamilyIndex, display);
     return Napi::Number::New(env, result);
@@ -3728,14 +3509,11 @@ static Napi::Value rawCreateWin32SurfaceKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkWin32SurfaceCreateInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkWin32SurfaceCreateInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurface)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurface = (VkSurfaceKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateWin32SurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
     return Napi::Number::New(env, result);
@@ -3770,14 +3548,11 @@ static Napi::Value rawCreateXlibSurfaceKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkXlibSurfaceCreateInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkXlibSurfaceCreateInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurface)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurface = (VkSurfaceKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateXlibSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
     return Napi::Number::New(env, result);
@@ -3797,8 +3572,7 @@ static Napi::Value rawGetPhysicalDeviceXlibPresentationSupportKHR(const Napi::Ca
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (queueFamilyIndex)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queueFamilyIndex = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (dpy)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) dpy = (Display*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) dpy = (Display*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (visualID)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) visualID = (VisualID)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
@@ -3818,14 +3592,11 @@ static Napi::Value rawCreateXcbSurfaceKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkXcbSurfaceCreateInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkXcbSurfaceCreateInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurface)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurface = (VkSurfaceKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateXcbSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
     return Napi::Number::New(env, result);
@@ -3845,8 +3616,7 @@ static Napi::Value rawGetPhysicalDeviceXcbPresentationSupportKHR(const Napi::Cal
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (queueFamilyIndex)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queueFamilyIndex = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (connection)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) connection = (xcb_connection_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) connection = (xcb_connection_t*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (visual_id)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) visual_id = (xcb_visualid_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
@@ -3866,14 +3636,11 @@ static Napi::Value rawCreateDirectFBSurfaceEXT(const Napi::CallbackInfo& info_) 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkDirectFBSurfaceCreateInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkDirectFBSurfaceCreateInfoEXT const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurface)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurface = (VkSurfaceKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateDirectFBSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
     return Napi::Number::New(env, result);
@@ -3893,8 +3660,7 @@ static Napi::Value rawGetPhysicalDeviceDirectFBPresentationSupportEXT(const Napi
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (queueFamilyIndex)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queueFamilyIndex = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (dfb)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) dfb = (IDirectFB*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) dfb = (IDirectFB*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceDirectFBPresentationSupportEXT(physicalDevice, queueFamilyIndex, dfb);
     return Napi::Number::New(env, result);
@@ -3911,14 +3677,11 @@ static Napi::Value rawCreateImagePipeSurfaceFUCHSIA(const Napi::CallbackInfo& in
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkImagePipeSurfaceCreateInfoFUCHSIA const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkImagePipeSurfaceCreateInfoFUCHSIA const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurface)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurface = (VkSurfaceKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateImagePipeSurfaceFUCHSIA(instance, pCreateInfo, pAllocator, pSurface);
     return Napi::Number::New(env, result);
@@ -3935,14 +3698,11 @@ static Napi::Value rawCreateStreamDescriptorSurfaceGGP(const Napi::CallbackInfo&
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkStreamDescriptorSurfaceCreateInfoGGP const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkStreamDescriptorSurfaceCreateInfoGGP const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurface)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurface = (VkSurfaceKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateStreamDescriptorSurfaceGGP(instance, pCreateInfo, pAllocator, pSurface);
     return Napi::Number::New(env, result);
@@ -3959,14 +3719,11 @@ static Napi::Value rawCreateScreenSurfaceQNX(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkScreenSurfaceCreateInfoQNX const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkScreenSurfaceCreateInfoQNX const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurface)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurface = (VkSurfaceKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateScreenSurfaceQNX(instance, pCreateInfo, pAllocator, pSurface);
     return Napi::Number::New(env, result);
@@ -3986,8 +3743,7 @@ static Napi::Value rawGetPhysicalDeviceScreenPresentationSupportQNX(const Napi::
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (queueFamilyIndex)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queueFamilyIndex = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (window)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) window = (_screen_window*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) window = (_screen_window*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceScreenPresentationSupportQNX(physicalDevice, queueFamilyIndex, window);
     return Napi::Number::New(env, result);
@@ -4004,14 +3760,11 @@ static Napi::Value rawCreateDebugReportCallbackEXT(const Napi::CallbackInfo& inf
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkDebugReportCallbackCreateInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkDebugReportCallbackCreateInfoEXT const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pCallback)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCallback = (VkDebugReportCallbackEXT*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCallback = (VkDebugReportCallbackEXT*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateDebugReportCallbackEXT(instance, pCreateInfo, pAllocator, pCallback);
     return Napi::Number::New(env, result);
@@ -4031,8 +3784,7 @@ static Napi::Value rawDestroyDebugReportCallbackEXT(const Napi::CallbackInfo& in
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (callback)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) callback = (VkDebugReportCallbackEXT)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyDebugReportCallbackEXT(instance, callback, pAllocator);
     return env.Null();
@@ -4064,11 +3816,9 @@ static Napi::Value rawDebugReportMessageEXT(const Napi::CallbackInfo& info_) {
     if (!info_[5].IsNumber() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 5 argument (messageCode)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) messageCode = (int32_t)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Int64Value(&lossless) : info_[5].As<Napi::Number>().Int32Value());
 
-    if (!info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 6 argument (pLayerPrefix)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pLayerPrefix = (char const*)info_[6].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pLayerPrefix = (char const*)GetAddress(env, info_[6]);
 
-    if (!info_[7].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 7 argument (pMessage)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMessage = (char const*)info_[7].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMessage = (char const*)GetAddress(env, info_[7]);
     
     ::vkDebugReportMessageEXT(instance, flags, objectType, object, location, messageCode, pLayerPrefix, pMessage);
     return env.Null();
@@ -4085,8 +3835,7 @@ static Napi::Value rawDebugMarkerSetObjectNameEXT(const Napi::CallbackInfo& info
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pNameInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pNameInfo = (VkDebugMarkerObjectNameInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pNameInfo = (VkDebugMarkerObjectNameInfoEXT const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkDebugMarkerSetObjectNameEXT(device, pNameInfo);
     return Napi::Number::New(env, result);
@@ -4103,8 +3852,7 @@ static Napi::Value rawDebugMarkerSetObjectTagEXT(const Napi::CallbackInfo& info_
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pTagInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pTagInfo = (VkDebugMarkerObjectTagInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pTagInfo = (VkDebugMarkerObjectTagInfoEXT const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkDebugMarkerSetObjectTagEXT(device, pTagInfo);
     return Napi::Number::New(env, result);
@@ -4121,8 +3869,7 @@ static Napi::Value rawCmdDebugMarkerBeginEXT(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pMarkerInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMarkerInfo = (VkDebugMarkerMarkerInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMarkerInfo = (VkDebugMarkerMarkerInfoEXT const*)GetAddress(env, info_[1]);
     
     ::vkCmdDebugMarkerBeginEXT(commandBuffer, pMarkerInfo);
     return env.Null();
@@ -4154,8 +3901,7 @@ static Napi::Value rawCmdDebugMarkerInsertEXT(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pMarkerInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMarkerInfo = (VkDebugMarkerMarkerInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMarkerInfo = (VkDebugMarkerMarkerInfoEXT const*)GetAddress(env, info_[1]);
     
     ::vkCmdDebugMarkerInsertEXT(commandBuffer, pMarkerInfo);
     return env.Null();
@@ -4190,8 +3936,7 @@ static Napi::Value rawGetPhysicalDeviceExternalImageFormatPropertiesNV(const Nap
     if (!info_[6].IsNumber() && !info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 6 argument (externalHandleType)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) externalHandleType = (VkExternalMemoryHandleTypeFlagsNV)(info_[6].IsBigInt() ? info_[6].As<Napi::BigInt>().Uint64Value(&lossless) : info_[6].As<Napi::Number>().Uint32Value());
 
-    if (!info_[7].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 7 argument (pExternalImageFormatProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pExternalImageFormatProperties = (VkExternalImageFormatPropertiesNV*)info_[7].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pExternalImageFormatProperties = (VkExternalImageFormatPropertiesNV*)GetAddress(env, info_[7]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceExternalImageFormatPropertiesNV(physicalDevice, format, type, tiling, usage, flags, externalHandleType, pExternalImageFormatProperties);
     return Napi::Number::New(env, result);
@@ -4214,8 +3959,7 @@ static Napi::Value rawGetMemoryWin32HandleNV(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (handleType)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) handleType = (VkExternalMemoryHandleTypeFlagsNV)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pHandle)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pHandle = (HANDLE*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pHandle = (HANDLE*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetMemoryWin32HandleNV(device, memory, handleType, pHandle);
     return Napi::Number::New(env, result);
@@ -4235,8 +3979,7 @@ static Napi::Value rawCmdExecuteGeneratedCommandsNV(const Napi::CallbackInfo& in
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (isPreprocessed)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) isPreprocessed = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pGeneratedCommandsInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pGeneratedCommandsInfo = (VkGeneratedCommandsInfoNV const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pGeneratedCommandsInfo = (VkGeneratedCommandsInfoNV const*)GetAddress(env, info_[2]);
     
     ::vkCmdExecuteGeneratedCommandsNV(commandBuffer, isPreprocessed, pGeneratedCommandsInfo);
     return env.Null();
@@ -4253,8 +3996,7 @@ static Napi::Value rawCmdPreprocessGeneratedCommandsNV(const Napi::CallbackInfo&
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pGeneratedCommandsInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pGeneratedCommandsInfo = (VkGeneratedCommandsInfoNV const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pGeneratedCommandsInfo = (VkGeneratedCommandsInfoNV const*)GetAddress(env, info_[1]);
     
     ::vkCmdPreprocessGeneratedCommandsNV(commandBuffer, pGeneratedCommandsInfo);
     return env.Null();
@@ -4295,11 +4037,9 @@ static Napi::Value rawGetGeneratedCommandsMemoryRequirementsNV(const Napi::Callb
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkGeneratedCommandsMemoryRequirementsInfoNV const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkGeneratedCommandsMemoryRequirementsInfoNV const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMemoryRequirements)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryRequirements = (VkMemoryRequirements2*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryRequirements = (VkMemoryRequirements2*)GetAddress(env, info_[2]);
     
     ::vkGetGeneratedCommandsMemoryRequirementsNV(device, pInfo, pMemoryRequirements);
     return env.Null();
@@ -4316,14 +4056,11 @@ static Napi::Value rawCreateIndirectCommandsLayoutNV(const Napi::CallbackInfo& i
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkIndirectCommandsLayoutCreateInfoNV const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkIndirectCommandsLayoutCreateInfoNV const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pIndirectCommandsLayout)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pIndirectCommandsLayout = (VkIndirectCommandsLayoutNV*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pIndirectCommandsLayout = (VkIndirectCommandsLayoutNV*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateIndirectCommandsLayoutNV(device, pCreateInfo, pAllocator, pIndirectCommandsLayout);
     return Napi::Number::New(env, result);
@@ -4343,8 +4080,7 @@ static Napi::Value rawDestroyIndirectCommandsLayoutNV(const Napi::CallbackInfo& 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (indirectCommandsLayout)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) indirectCommandsLayout = (VkIndirectCommandsLayoutNV)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyIndirectCommandsLayoutNV(device, indirectCommandsLayout, pAllocator);
     return env.Null();
@@ -4360,8 +4096,7 @@ static Napi::Value rawGetPhysicalDeviceFeatures2(const Napi::CallbackInfo& info_
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pFeatures)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFeatures = (VkPhysicalDeviceFeatures2*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFeatures = (VkPhysicalDeviceFeatures2*)GetAddress(env, info_[1]);
     
     ::vkGetPhysicalDeviceFeatures2(physicalDevice, pFeatures);
     return env.Null();
@@ -4376,8 +4111,7 @@ static Napi::Value rawGetPhysicalDeviceProperties2(const Napi::CallbackInfo& inf
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkPhysicalDeviceProperties2*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkPhysicalDeviceProperties2*)GetAddress(env, info_[1]);
     
     ::vkGetPhysicalDeviceProperties2(physicalDevice, pProperties);
     return env.Null();
@@ -4395,8 +4129,7 @@ static Napi::Value rawGetPhysicalDeviceFormatProperties2(const Napi::CallbackInf
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (format)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) format = (VkFormat)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pFormatProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFormatProperties = (VkFormatProperties2*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFormatProperties = (VkFormatProperties2*)GetAddress(env, info_[2]);
     
     ::vkGetPhysicalDeviceFormatProperties2(physicalDevice, format, pFormatProperties);
     return env.Null();
@@ -4411,11 +4144,9 @@ static Napi::Value rawGetPhysicalDeviceImageFormatProperties2(const Napi::Callba
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pImageFormatInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pImageFormatInfo = (VkPhysicalDeviceImageFormatInfo2 const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pImageFormatInfo = (VkPhysicalDeviceImageFormatInfo2 const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pImageFormatProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pImageFormatProperties = (VkImageFormatProperties2*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pImageFormatProperties = (VkImageFormatProperties2*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceImageFormatProperties2(physicalDevice, pImageFormatInfo, pImageFormatProperties);
     return Napi::Number::New(env, result);
@@ -4430,11 +4161,9 @@ static Napi::Value rawGetPhysicalDeviceQueueFamilyProperties2(const Napi::Callba
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pQueueFamilyPropertyCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pQueueFamilyPropertyCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pQueueFamilyPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pQueueFamilyProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pQueueFamilyProperties = (VkQueueFamilyProperties2*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pQueueFamilyProperties = (VkQueueFamilyProperties2*)GetAddress(env, info_[2]);
     
     ::vkGetPhysicalDeviceQueueFamilyProperties2(physicalDevice, pQueueFamilyPropertyCount, pQueueFamilyProperties);
     return env.Null();
@@ -4449,8 +4178,7 @@ static Napi::Value rawGetPhysicalDeviceMemoryProperties2(const Napi::CallbackInf
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pMemoryProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryProperties = (VkPhysicalDeviceMemoryProperties2*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryProperties = (VkPhysicalDeviceMemoryProperties2*)GetAddress(env, info_[1]);
     
     ::vkGetPhysicalDeviceMemoryProperties2(physicalDevice, pMemoryProperties);
     return env.Null();
@@ -4465,14 +4193,11 @@ static Napi::Value rawGetPhysicalDeviceSparseImageFormatProperties2(const Napi::
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pFormatInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFormatInfo = (VkPhysicalDeviceSparseImageFormatInfo2 const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFormatInfo = (VkPhysicalDeviceSparseImageFormatInfo2 const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pPropertyCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPropertyCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkSparseImageFormatProperties2*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkSparseImageFormatProperties2*)GetAddress(env, info_[3]);
     
     ::vkGetPhysicalDeviceSparseImageFormatProperties2(physicalDevice, pFormatInfo, pPropertyCount, pProperties);
     return env.Null();
@@ -4500,8 +4225,7 @@ static Napi::Value rawCmdPushDescriptorSetKHR(const Napi::CallbackInfo& info_) {
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (descriptorWriteCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) descriptorWriteCount = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pDescriptorWrites)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDescriptorWrites = (VkWriteDescriptorSet const*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDescriptorWrites = (VkWriteDescriptorSet const*)GetAddress(env, info_[5]);
     
     ::vkCmdPushDescriptorSetKHR(commandBuffer, pipelineBindPoint, layout, set, descriptorWriteCount, pDescriptorWrites);
     return env.Null();
@@ -4536,11 +4260,9 @@ static Napi::Value rawGetPhysicalDeviceExternalBufferProperties(const Napi::Call
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pExternalBufferInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pExternalBufferInfo = (VkPhysicalDeviceExternalBufferInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pExternalBufferInfo = (VkPhysicalDeviceExternalBufferInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pExternalBufferProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pExternalBufferProperties = (VkExternalBufferProperties*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pExternalBufferProperties = (VkExternalBufferProperties*)GetAddress(env, info_[2]);
     
     ::vkGetPhysicalDeviceExternalBufferProperties(physicalDevice, pExternalBufferInfo, pExternalBufferProperties);
     return env.Null();
@@ -4556,11 +4278,9 @@ static Napi::Value rawGetMemoryWin32HandleKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pGetWin32HandleInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pGetWin32HandleInfo = (VkMemoryGetWin32HandleInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pGetWin32HandleInfo = (VkMemoryGetWin32HandleInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pHandle)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pHandle = (HANDLE*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pHandle = (HANDLE*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetMemoryWin32HandleKHR(device, pGetWin32HandleInfo, pHandle);
     return Napi::Number::New(env, result);
@@ -4583,8 +4303,7 @@ static Napi::Value rawGetMemoryWin32HandlePropertiesKHR(const Napi::CallbackInfo
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (handle)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) handle = (HANDLE)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pMemoryWin32HandleProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryWin32HandleProperties = (VkMemoryWin32HandlePropertiesKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryWin32HandleProperties = (VkMemoryWin32HandlePropertiesKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetMemoryWin32HandlePropertiesKHR(device, handleType, handle, pMemoryWin32HandleProperties);
     return Napi::Number::New(env, result);
@@ -4601,11 +4320,9 @@ static Napi::Value rawGetMemoryFdKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pGetFdInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pGetFdInfo = (VkMemoryGetFdInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pGetFdInfo = (VkMemoryGetFdInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pFd)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFd = (int*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFd = (int*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetMemoryFdKHR(device, pGetFdInfo, pFd);
     return Napi::Number::New(env, result);
@@ -4628,8 +4345,7 @@ static Napi::Value rawGetMemoryFdPropertiesKHR(const Napi::CallbackInfo& info_) 
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (fd)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) fd = (int)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pMemoryFdProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryFdProperties = (VkMemoryFdPropertiesKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryFdProperties = (VkMemoryFdPropertiesKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetMemoryFdPropertiesKHR(device, handleType, fd, pMemoryFdProperties);
     return Napi::Number::New(env, result);
@@ -4646,11 +4362,9 @@ static Napi::Value rawGetMemoryZirconHandleFUCHSIA(const Napi::CallbackInfo& inf
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pGetZirconHandleInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pGetZirconHandleInfo = (VkMemoryGetZirconHandleInfoFUCHSIA const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pGetZirconHandleInfo = (VkMemoryGetZirconHandleInfoFUCHSIA const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pZirconHandle)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pZirconHandle = (zx_handle_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pZirconHandle = (zx_handle_t*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetMemoryZirconHandleFUCHSIA(device, pGetZirconHandleInfo, pZirconHandle);
     return Napi::Number::New(env, result);
@@ -4673,8 +4387,7 @@ static Napi::Value rawGetMemoryZirconHandlePropertiesFUCHSIA(const Napi::Callbac
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (zirconHandle)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) zirconHandle = (zx_handle_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pMemoryZirconHandleProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryZirconHandleProperties = (VkMemoryZirconHandlePropertiesFUCHSIA*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryZirconHandleProperties = (VkMemoryZirconHandlePropertiesFUCHSIA*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetMemoryZirconHandlePropertiesFUCHSIA(device, handleType, zirconHandle, pMemoryZirconHandleProperties);
     return Napi::Number::New(env, result);
@@ -4691,11 +4404,9 @@ static Napi::Value rawGetMemoryRemoteAddressNV(const Napi::CallbackInfo& info_) 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pMemoryGetRemoteAddressInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryGetRemoteAddressInfo = (VkMemoryGetRemoteAddressInfoNV const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryGetRemoteAddressInfo = (VkMemoryGetRemoteAddressInfoNV const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAddress)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAddress = (VkRemoteAddressNV*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAddress = (VkRemoteAddressNV*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetMemoryRemoteAddressNV(device, pMemoryGetRemoteAddressInfo, pAddress);
     return Napi::Number::New(env, result);
@@ -4711,11 +4422,9 @@ static Napi::Value rawGetPhysicalDeviceExternalSemaphoreProperties(const Napi::C
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pExternalSemaphoreInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pExternalSemaphoreInfo = (VkPhysicalDeviceExternalSemaphoreInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pExternalSemaphoreInfo = (VkPhysicalDeviceExternalSemaphoreInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pExternalSemaphoreProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pExternalSemaphoreProperties = (VkExternalSemaphoreProperties*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pExternalSemaphoreProperties = (VkExternalSemaphoreProperties*)GetAddress(env, info_[2]);
     
     ::vkGetPhysicalDeviceExternalSemaphoreProperties(physicalDevice, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
     return env.Null();
@@ -4731,11 +4440,9 @@ static Napi::Value rawGetSemaphoreWin32HandleKHR(const Napi::CallbackInfo& info_
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pGetWin32HandleInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pGetWin32HandleInfo = (VkSemaphoreGetWin32HandleInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pGetWin32HandleInfo = (VkSemaphoreGetWin32HandleInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pHandle)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pHandle = (HANDLE*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pHandle = (HANDLE*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetSemaphoreWin32HandleKHR(device, pGetWin32HandleInfo, pHandle);
     return Napi::Number::New(env, result);
@@ -4752,8 +4459,7 @@ static Napi::Value rawImportSemaphoreWin32HandleKHR(const Napi::CallbackInfo& in
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pImportSemaphoreWin32HandleInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pImportSemaphoreWin32HandleInfo = (VkImportSemaphoreWin32HandleInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pImportSemaphoreWin32HandleInfo = (VkImportSemaphoreWin32HandleInfoKHR const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkImportSemaphoreWin32HandleKHR(device, pImportSemaphoreWin32HandleInfo);
     return Napi::Number::New(env, result);
@@ -4770,11 +4476,9 @@ static Napi::Value rawGetSemaphoreFdKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pGetFdInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pGetFdInfo = (VkSemaphoreGetFdInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pGetFdInfo = (VkSemaphoreGetFdInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pFd)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFd = (int*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFd = (int*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetSemaphoreFdKHR(device, pGetFdInfo, pFd);
     return Napi::Number::New(env, result);
@@ -4791,8 +4495,7 @@ static Napi::Value rawImportSemaphoreFdKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pImportSemaphoreFdInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pImportSemaphoreFdInfo = (VkImportSemaphoreFdInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pImportSemaphoreFdInfo = (VkImportSemaphoreFdInfoKHR const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkImportSemaphoreFdKHR(device, pImportSemaphoreFdInfo);
     return Napi::Number::New(env, result);
@@ -4809,11 +4512,9 @@ static Napi::Value rawGetSemaphoreZirconHandleFUCHSIA(const Napi::CallbackInfo& 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pGetZirconHandleInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pGetZirconHandleInfo = (VkSemaphoreGetZirconHandleInfoFUCHSIA const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pGetZirconHandleInfo = (VkSemaphoreGetZirconHandleInfoFUCHSIA const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pZirconHandle)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pZirconHandle = (zx_handle_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pZirconHandle = (zx_handle_t*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetSemaphoreZirconHandleFUCHSIA(device, pGetZirconHandleInfo, pZirconHandle);
     return Napi::Number::New(env, result);
@@ -4830,8 +4531,7 @@ static Napi::Value rawImportSemaphoreZirconHandleFUCHSIA(const Napi::CallbackInf
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pImportSemaphoreZirconHandleInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pImportSemaphoreZirconHandleInfo = (VkImportSemaphoreZirconHandleInfoFUCHSIA const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pImportSemaphoreZirconHandleInfo = (VkImportSemaphoreZirconHandleInfoFUCHSIA const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkImportSemaphoreZirconHandleFUCHSIA(device, pImportSemaphoreZirconHandleInfo);
     return Napi::Number::New(env, result);
@@ -4847,11 +4547,9 @@ static Napi::Value rawGetPhysicalDeviceExternalFenceProperties(const Napi::Callb
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pExternalFenceInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pExternalFenceInfo = (VkPhysicalDeviceExternalFenceInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pExternalFenceInfo = (VkPhysicalDeviceExternalFenceInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pExternalFenceProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pExternalFenceProperties = (VkExternalFenceProperties*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pExternalFenceProperties = (VkExternalFenceProperties*)GetAddress(env, info_[2]);
     
     ::vkGetPhysicalDeviceExternalFenceProperties(physicalDevice, pExternalFenceInfo, pExternalFenceProperties);
     return env.Null();
@@ -4867,11 +4565,9 @@ static Napi::Value rawGetFenceWin32HandleKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pGetWin32HandleInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pGetWin32HandleInfo = (VkFenceGetWin32HandleInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pGetWin32HandleInfo = (VkFenceGetWin32HandleInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pHandle)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pHandle = (HANDLE*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pHandle = (HANDLE*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetFenceWin32HandleKHR(device, pGetWin32HandleInfo, pHandle);
     return Napi::Number::New(env, result);
@@ -4888,8 +4584,7 @@ static Napi::Value rawImportFenceWin32HandleKHR(const Napi::CallbackInfo& info_)
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pImportFenceWin32HandleInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pImportFenceWin32HandleInfo = (VkImportFenceWin32HandleInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pImportFenceWin32HandleInfo = (VkImportFenceWin32HandleInfoKHR const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkImportFenceWin32HandleKHR(device, pImportFenceWin32HandleInfo);
     return Napi::Number::New(env, result);
@@ -4906,11 +4601,9 @@ static Napi::Value rawGetFenceFdKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pGetFdInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pGetFdInfo = (VkFenceGetFdInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pGetFdInfo = (VkFenceGetFdInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pFd)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFd = (int*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFd = (int*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetFenceFdKHR(device, pGetFdInfo, pFd);
     return Napi::Number::New(env, result);
@@ -4927,8 +4620,7 @@ static Napi::Value rawImportFenceFdKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pImportFenceFdInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pImportFenceFdInfo = (VkImportFenceFdInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pImportFenceFdInfo = (VkImportFenceFdInfoKHR const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkImportFenceFdKHR(device, pImportFenceFdInfo);
     return Napi::Number::New(env, result);
@@ -4963,8 +4655,7 @@ static Napi::Value rawAcquireXlibDisplayEXT(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (dpy)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) dpy = (Display*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) dpy = (Display*)GetAddress(env, info_[1]);
 
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (display)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) display = (VkDisplayKHR)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
@@ -4984,14 +4675,12 @@ static Napi::Value rawGetRandROutputDisplayEXT(const Napi::CallbackInfo& info_) 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (dpy)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) dpy = (Display*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) dpy = (Display*)GetAddress(env, info_[1]);
 
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (rrOutput)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) rrOutput = (RROutput)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pDisplay)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDisplay = (VkDisplayKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDisplay = (VkDisplayKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetRandROutputDisplayEXT(physicalDevice, dpy, rrOutput, pDisplay);
     return Napi::Number::New(env, result);
@@ -5029,8 +4718,7 @@ static Napi::Value rawGetWinrtDisplayNV(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (deviceRelativeId)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) deviceRelativeId = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pDisplay)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDisplay = (VkDisplayKHR*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDisplay = (VkDisplayKHR*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetWinrtDisplayNV(physicalDevice, deviceRelativeId, pDisplay);
     return Napi::Number::New(env, result);
@@ -5050,8 +4738,7 @@ static Napi::Value rawDisplayPowerControlEXT(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (display)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) display = (VkDisplayKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pDisplayPowerInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDisplayPowerInfo = (VkDisplayPowerInfoEXT const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDisplayPowerInfo = (VkDisplayPowerInfoEXT const*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkDisplayPowerControlEXT(device, display, pDisplayPowerInfo);
     return Napi::Number::New(env, result);
@@ -5068,14 +4755,11 @@ static Napi::Value rawRegisterDeviceEventEXT(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pDeviceEventInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDeviceEventInfo = (VkDeviceEventInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDeviceEventInfo = (VkDeviceEventInfoEXT const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pFence)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFence = (VkFence*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFence = (VkFence*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkRegisterDeviceEventEXT(device, pDeviceEventInfo, pAllocator, pFence);
     return Napi::Number::New(env, result);
@@ -5095,14 +4779,11 @@ static Napi::Value rawRegisterDisplayEventEXT(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (display)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) display = (VkDisplayKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pDisplayEventInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDisplayEventInfo = (VkDisplayEventInfoEXT const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDisplayEventInfo = (VkDisplayEventInfoEXT const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pFence)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFence = (VkFence*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFence = (VkFence*)GetAddress(env, info_[4]);
     
     decltype(auto) result = ::vkRegisterDisplayEventEXT(device, display, pDisplayEventInfo, pAllocator, pFence);
     return Napi::Number::New(env, result);
@@ -5125,8 +4806,7 @@ static Napi::Value rawGetSwapchainCounterEXT(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (counter)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) counter = (VkSurfaceCounterFlagBitsEXT)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pCounterValue)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCounterValue = (uint64_t*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCounterValue = (uint64_t*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetSwapchainCounterEXT(device, swapchain, counter, pCounterValue);
     return Napi::Number::New(env, result);
@@ -5146,8 +4826,7 @@ static Napi::Value rawGetPhysicalDeviceSurfaceCapabilities2EXT(const Napi::Callb
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (surface)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) surface = (VkSurfaceKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSurfaceCapabilities)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurfaceCapabilities = (VkSurfaceCapabilities2EXT*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurfaceCapabilities = (VkSurfaceCapabilities2EXT*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceSurfaceCapabilities2EXT(physicalDevice, surface, pSurfaceCapabilities);
     return Napi::Number::New(env, result);
@@ -5163,11 +4842,9 @@ static Napi::Value rawEnumeratePhysicalDeviceGroups(const Napi::CallbackInfo& in
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pPhysicalDeviceGroupCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPhysicalDeviceGroupCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPhysicalDeviceGroupCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pPhysicalDeviceGroupProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPhysicalDeviceGroupProperties = (VkPhysicalDeviceGroupProperties*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPhysicalDeviceGroupProperties = (VkPhysicalDeviceGroupProperties*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkEnumeratePhysicalDeviceGroups(instance, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties);
     return Napi::Number::New(env, result);
@@ -5191,8 +4868,7 @@ static Napi::Value rawGetDeviceGroupPeerMemoryFeatures(const Napi::CallbackInfo&
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (remoteDeviceIndex)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) remoteDeviceIndex = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pPeerMemoryFeatures)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPeerMemoryFeatures = (VkPeerMemoryFeatureFlags*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPeerMemoryFeatures = (VkPeerMemoryFeatureFlags*)GetAddress(env, info_[4]);
     
     ::vkGetDeviceGroupPeerMemoryFeatures(device, heapIndex, localDeviceIndex, remoteDeviceIndex, pPeerMemoryFeatures);
     return env.Null();
@@ -5210,8 +4886,7 @@ static Napi::Value rawBindBufferMemory2(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (bindInfoCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) bindInfoCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pBindInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBindInfos = (VkBindBufferMemoryInfo const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBindInfos = (VkBindBufferMemoryInfo const*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkBindBufferMemory2(device, bindInfoCount, pBindInfos);
     return Napi::Number::New(env, result);
@@ -5229,8 +4904,7 @@ static Napi::Value rawBindImageMemory2(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (bindInfoCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) bindInfoCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pBindInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBindInfos = (VkBindImageMemoryInfo const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBindInfos = (VkBindImageMemoryInfo const*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkBindImageMemory2(device, bindInfoCount, pBindInfos);
     return Napi::Number::New(env, result);
@@ -5262,8 +4936,7 @@ static Napi::Value rawGetDeviceGroupPresentCapabilitiesKHR(const Napi::CallbackI
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pDeviceGroupPresentCapabilities)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDeviceGroupPresentCapabilities = (VkDeviceGroupPresentCapabilitiesKHR*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDeviceGroupPresentCapabilities = (VkDeviceGroupPresentCapabilitiesKHR*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkGetDeviceGroupPresentCapabilitiesKHR(device, pDeviceGroupPresentCapabilities);
     return Napi::Number::New(env, result);
@@ -5283,8 +4956,7 @@ static Napi::Value rawGetDeviceGroupSurfacePresentModesKHR(const Napi::CallbackI
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (surface)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) surface = (VkSurfaceKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pModes)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pModes = (VkDeviceGroupPresentModeFlagsKHR*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pModes = (VkDeviceGroupPresentModeFlagsKHR*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetDeviceGroupSurfacePresentModesKHR(device, surface, pModes);
     return Napi::Number::New(env, result);
@@ -5301,11 +4973,9 @@ static Napi::Value rawAcquireNextImage2KHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pAcquireInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAcquireInfo = (VkAcquireNextImageInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAcquireInfo = (VkAcquireNextImageInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pImageIndex)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pImageIndex = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pImageIndex = (uint32_t*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkAcquireNextImage2KHR(device, pAcquireInfo, pImageIndex);
     return Napi::Number::New(env, result);
@@ -5356,11 +5026,9 @@ static Napi::Value rawGetPhysicalDevicePresentRectanglesKHR(const Napi::Callback
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (surface)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) surface = (VkSurfaceKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pRectCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRectCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRectCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pRects)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRects = (VkRect2D*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRects = (VkRect2D*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetPhysicalDevicePresentRectanglesKHR(physicalDevice, surface, pRectCount, pRects);
     return Napi::Number::New(env, result);
@@ -5376,14 +5044,11 @@ static Napi::Value rawCreateDescriptorUpdateTemplate(const Napi::CallbackInfo& i
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkDescriptorUpdateTemplateCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkDescriptorUpdateTemplateCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pDescriptorUpdateTemplate)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDescriptorUpdateTemplate = (VkDescriptorUpdateTemplate*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDescriptorUpdateTemplate = (VkDescriptorUpdateTemplate*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateDescriptorUpdateTemplate(device, pCreateInfo, pAllocator, pDescriptorUpdateTemplate);
     return Napi::Number::New(env, result);
@@ -5401,8 +5066,7 @@ static Napi::Value rawDestroyDescriptorUpdateTemplate(const Napi::CallbackInfo& 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (descriptorUpdateTemplate)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) descriptorUpdateTemplate = (VkDescriptorUpdateTemplate)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyDescriptorUpdateTemplate(device, descriptorUpdateTemplate, pAllocator);
     return env.Null();
@@ -5423,8 +5087,7 @@ static Napi::Value rawUpdateDescriptorSetWithTemplate(const Napi::CallbackInfo& 
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (descriptorUpdateTemplate)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) descriptorUpdateTemplate = (VkDescriptorUpdateTemplate)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pData = (void const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pData = (void const*)GetAddress(env, info_[3]);
     
     ::vkUpdateDescriptorSetWithTemplate(device, descriptorSet, descriptorUpdateTemplate, pData);
     return env.Null();
@@ -5449,8 +5112,7 @@ static Napi::Value rawCmdPushDescriptorSetWithTemplateKHR(const Napi::CallbackIn
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (set)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) set = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pData = (void const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pData = (void const*)GetAddress(env, info_[4]);
     
     ::vkCmdPushDescriptorSetWithTemplateKHR(commandBuffer, descriptorUpdateTemplate, layout, set, pData);
     return env.Null();
@@ -5470,11 +5132,9 @@ static Napi::Value rawSetHdrMetadataEXT(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (swapchainCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) swapchainCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSwapchains)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSwapchains = (VkSwapchainKHR const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSwapchains = (VkSwapchainKHR const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pMetadata)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMetadata = (VkHdrMetadataEXT const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMetadata = (VkHdrMetadataEXT const*)GetAddress(env, info_[3]);
     
     ::vkSetHdrMetadataEXT(device, swapchainCount, pSwapchains, pMetadata);
     return env.Null();
@@ -5512,8 +5172,7 @@ static Napi::Value rawGetRefreshCycleDurationGOOGLE(const Napi::CallbackInfo& in
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (swapchain)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) swapchain = (VkSwapchainKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pDisplayTimingProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDisplayTimingProperties = (VkRefreshCycleDurationGOOGLE*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDisplayTimingProperties = (VkRefreshCycleDurationGOOGLE*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetRefreshCycleDurationGOOGLE(device, swapchain, pDisplayTimingProperties);
     return Napi::Number::New(env, result);
@@ -5533,11 +5192,9 @@ static Napi::Value rawGetPastPresentationTimingGOOGLE(const Napi::CallbackInfo& 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (swapchain)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) swapchain = (VkSwapchainKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pPresentationTimingCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPresentationTimingCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPresentationTimingCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pPresentationTimings)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPresentationTimings = (VkPastPresentationTimingGOOGLE*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPresentationTimings = (VkPastPresentationTimingGOOGLE*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetPastPresentationTimingGOOGLE(device, swapchain, pPresentationTimingCount, pPresentationTimings);
     return Napi::Number::New(env, result);
@@ -5554,14 +5211,11 @@ static Napi::Value rawCreateIOSSurfaceMVK(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkIOSSurfaceCreateInfoMVK const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkIOSSurfaceCreateInfoMVK const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurface)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurface = (VkSurfaceKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateIOSSurfaceMVK(instance, pCreateInfo, pAllocator, pSurface);
     return Napi::Number::New(env, result);
@@ -5578,14 +5232,11 @@ static Napi::Value rawCreateMacOSSurfaceMVK(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkMacOSSurfaceCreateInfoMVK const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkMacOSSurfaceCreateInfoMVK const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurface)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurface = (VkSurfaceKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateMacOSSurfaceMVK(instance, pCreateInfo, pAllocator, pSurface);
     return Napi::Number::New(env, result);
@@ -5602,14 +5253,11 @@ static Napi::Value rawCreateMetalSurfaceEXT(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkMetalSurfaceCreateInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkMetalSurfaceCreateInfoEXT const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurface)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurface = (VkSurfaceKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateMetalSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
     return Napi::Number::New(env, result);
@@ -5632,8 +5280,7 @@ static Napi::Value rawCmdSetViewportWScalingNV(const Napi::CallbackInfo& info_) 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (viewportCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) viewportCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pViewportWScalings)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pViewportWScalings = (VkViewportWScalingNV const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pViewportWScalings = (VkViewportWScalingNV const*)GetAddress(env, info_[3]);
     
     ::vkCmdSetViewportWScalingNV(commandBuffer, firstViewport, viewportCount, pViewportWScalings);
     return env.Null();
@@ -5656,8 +5303,7 @@ static Napi::Value rawCmdSetDiscardRectangleEXT(const Napi::CallbackInfo& info_)
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (discardRectangleCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) discardRectangleCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pDiscardRectangles)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDiscardRectangles = (VkRect2D const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDiscardRectangles = (VkRect2D const*)GetAddress(env, info_[3]);
     
     ::vkCmdSetDiscardRectangleEXT(commandBuffer, firstDiscardRectangle, discardRectangleCount, pDiscardRectangles);
     return env.Null();
@@ -5674,8 +5320,7 @@ static Napi::Value rawCmdSetSampleLocationsEXT(const Napi::CallbackInfo& info_) 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pSampleLocationsInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSampleLocationsInfo = (VkSampleLocationsInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSampleLocationsInfo = (VkSampleLocationsInfoEXT const*)GetAddress(env, info_[1]);
     
     ::vkCmdSetSampleLocationsEXT(commandBuffer, pSampleLocationsInfo);
     return env.Null();
@@ -5695,8 +5340,7 @@ static Napi::Value rawGetPhysicalDeviceMultisamplePropertiesEXT(const Napi::Call
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (samples)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) samples = (VkSampleCountFlagBits)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMultisampleProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMultisampleProperties = (VkMultisamplePropertiesEXT*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMultisampleProperties = (VkMultisamplePropertiesEXT*)GetAddress(env, info_[2]);
     
     ::vkGetPhysicalDeviceMultisamplePropertiesEXT(physicalDevice, samples, pMultisampleProperties);
     return env.Null();
@@ -5713,11 +5357,9 @@ static Napi::Value rawGetPhysicalDeviceSurfaceCapabilities2KHR(const Napi::Callb
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pSurfaceInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurfaceInfo = (VkPhysicalDeviceSurfaceInfo2KHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurfaceInfo = (VkPhysicalDeviceSurfaceInfo2KHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSurfaceCapabilities)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurfaceCapabilities = (VkSurfaceCapabilities2KHR*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurfaceCapabilities = (VkSurfaceCapabilities2KHR*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceSurfaceCapabilities2KHR(physicalDevice, pSurfaceInfo, pSurfaceCapabilities);
     return Napi::Number::New(env, result);
@@ -5734,14 +5376,11 @@ static Napi::Value rawGetPhysicalDeviceSurfaceFormats2KHR(const Napi::CallbackIn
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pSurfaceInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurfaceInfo = (VkPhysicalDeviceSurfaceInfo2KHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurfaceInfo = (VkPhysicalDeviceSurfaceInfo2KHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSurfaceFormatCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurfaceFormatCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurfaceFormatCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurfaceFormats)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurfaceFormats = (VkSurfaceFormat2KHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurfaceFormats = (VkSurfaceFormat2KHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceSurfaceFormats2KHR(physicalDevice, pSurfaceInfo, pSurfaceFormatCount, pSurfaceFormats);
     return Napi::Number::New(env, result);
@@ -5758,11 +5397,9 @@ static Napi::Value rawGetPhysicalDeviceDisplayProperties2KHR(const Napi::Callbac
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pPropertyCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPropertyCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkDisplayProperties2KHR*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkDisplayProperties2KHR*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceDisplayProperties2KHR(physicalDevice, pPropertyCount, pProperties);
     return Napi::Number::New(env, result);
@@ -5779,11 +5416,9 @@ static Napi::Value rawGetPhysicalDeviceDisplayPlaneProperties2KHR(const Napi::Ca
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pPropertyCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPropertyCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkDisplayPlaneProperties2KHR*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkDisplayPlaneProperties2KHR*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceDisplayPlaneProperties2KHR(physicalDevice, pPropertyCount, pProperties);
     return Napi::Number::New(env, result);
@@ -5803,11 +5438,9 @@ static Napi::Value rawGetDisplayModeProperties2KHR(const Napi::CallbackInfo& inf
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (display)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) display = (VkDisplayKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pPropertyCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPropertyCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkDisplayModeProperties2KHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkDisplayModeProperties2KHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetDisplayModeProperties2KHR(physicalDevice, display, pPropertyCount, pProperties);
     return Napi::Number::New(env, result);
@@ -5824,11 +5457,9 @@ static Napi::Value rawGetDisplayPlaneCapabilities2KHR(const Napi::CallbackInfo& 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pDisplayPlaneInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDisplayPlaneInfo = (VkDisplayPlaneInfo2KHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDisplayPlaneInfo = (VkDisplayPlaneInfo2KHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pCapabilities)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCapabilities = (VkDisplayPlaneCapabilities2KHR*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCapabilities = (VkDisplayPlaneCapabilities2KHR*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetDisplayPlaneCapabilities2KHR(physicalDevice, pDisplayPlaneInfo, pCapabilities);
     return Napi::Number::New(env, result);
@@ -5844,11 +5475,9 @@ static Napi::Value rawGetBufferMemoryRequirements2(const Napi::CallbackInfo& inf
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkBufferMemoryRequirementsInfo2 const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkBufferMemoryRequirementsInfo2 const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMemoryRequirements)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryRequirements = (VkMemoryRequirements2*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryRequirements = (VkMemoryRequirements2*)GetAddress(env, info_[2]);
     
     ::vkGetBufferMemoryRequirements2(device, pInfo, pMemoryRequirements);
     return env.Null();
@@ -5863,11 +5492,9 @@ static Napi::Value rawGetImageMemoryRequirements2(const Napi::CallbackInfo& info
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkImageMemoryRequirementsInfo2 const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkImageMemoryRequirementsInfo2 const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMemoryRequirements)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryRequirements = (VkMemoryRequirements2*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryRequirements = (VkMemoryRequirements2*)GetAddress(env, info_[2]);
     
     ::vkGetImageMemoryRequirements2(device, pInfo, pMemoryRequirements);
     return env.Null();
@@ -5882,14 +5509,11 @@ static Napi::Value rawGetImageSparseMemoryRequirements2(const Napi::CallbackInfo
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkImageSparseMemoryRequirementsInfo2 const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkImageSparseMemoryRequirementsInfo2 const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSparseMemoryRequirementCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSparseMemoryRequirementCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSparseMemoryRequirementCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSparseMemoryRequirements)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSparseMemoryRequirements = (VkSparseImageMemoryRequirements2*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSparseMemoryRequirements = (VkSparseImageMemoryRequirements2*)GetAddress(env, info_[3]);
     
     ::vkGetImageSparseMemoryRequirements2(device, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
     return env.Null();
@@ -5904,11 +5528,9 @@ static Napi::Value rawGetDeviceBufferMemoryRequirements(const Napi::CallbackInfo
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkDeviceBufferMemoryRequirements const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkDeviceBufferMemoryRequirements const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMemoryRequirements)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryRequirements = (VkMemoryRequirements2*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryRequirements = (VkMemoryRequirements2*)GetAddress(env, info_[2]);
     
     ::vkGetDeviceBufferMemoryRequirements(device, pInfo, pMemoryRequirements);
     return env.Null();
@@ -5923,11 +5545,9 @@ static Napi::Value rawGetDeviceImageMemoryRequirements(const Napi::CallbackInfo&
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkDeviceImageMemoryRequirements const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkDeviceImageMemoryRequirements const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMemoryRequirements)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryRequirements = (VkMemoryRequirements2*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryRequirements = (VkMemoryRequirements2*)GetAddress(env, info_[2]);
     
     ::vkGetDeviceImageMemoryRequirements(device, pInfo, pMemoryRequirements);
     return env.Null();
@@ -5942,14 +5562,11 @@ static Napi::Value rawGetDeviceImageSparseMemoryRequirements(const Napi::Callbac
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkDeviceImageMemoryRequirements const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkDeviceImageMemoryRequirements const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSparseMemoryRequirementCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSparseMemoryRequirementCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSparseMemoryRequirementCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSparseMemoryRequirements)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSparseMemoryRequirements = (VkSparseImageMemoryRequirements2*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSparseMemoryRequirements = (VkSparseImageMemoryRequirements2*)GetAddress(env, info_[3]);
     
     ::vkGetDeviceImageSparseMemoryRequirements(device, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
     return env.Null();
@@ -5964,14 +5581,11 @@ static Napi::Value rawCreateSamplerYcbcrConversion(const Napi::CallbackInfo& inf
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkSamplerYcbcrConversionCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkSamplerYcbcrConversionCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pYcbcrConversion)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pYcbcrConversion = (VkSamplerYcbcrConversion*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pYcbcrConversion = (VkSamplerYcbcrConversion*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateSamplerYcbcrConversion(device, pCreateInfo, pAllocator, pYcbcrConversion);
     return Napi::Number::New(env, result);
@@ -5989,8 +5603,7 @@ static Napi::Value rawDestroySamplerYcbcrConversion(const Napi::CallbackInfo& in
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (ycbcrConversion)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) ycbcrConversion = (VkSamplerYcbcrConversion)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroySamplerYcbcrConversion(device, ycbcrConversion, pAllocator);
     return env.Null();
@@ -6005,11 +5618,9 @@ static Napi::Value rawGetDeviceQueue2(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pQueueInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pQueueInfo = (VkDeviceQueueInfo2 const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pQueueInfo = (VkDeviceQueueInfo2 const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pQueue)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pQueue = (VkQueue*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pQueue = (VkQueue*)GetAddress(env, info_[2]);
     
     ::vkGetDeviceQueue2(device, pQueueInfo, pQueue);
     return env.Null();
@@ -6025,14 +5636,11 @@ static Napi::Value rawCreateValidationCacheEXT(const Napi::CallbackInfo& info_) 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkValidationCacheCreateInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkValidationCacheCreateInfoEXT const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pValidationCache)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pValidationCache = (VkValidationCacheEXT*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pValidationCache = (VkValidationCacheEXT*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateValidationCacheEXT(device, pCreateInfo, pAllocator, pValidationCache);
     return Napi::Number::New(env, result);
@@ -6052,8 +5660,7 @@ static Napi::Value rawDestroyValidationCacheEXT(const Napi::CallbackInfo& info_)
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (validationCache)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) validationCache = (VkValidationCacheEXT)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyValidationCacheEXT(device, validationCache, pAllocator);
     return env.Null();
@@ -6073,11 +5680,9 @@ static Napi::Value rawGetValidationCacheDataEXT(const Napi::CallbackInfo& info_)
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (validationCache)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) validationCache = (VkValidationCacheEXT)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pDataSize)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDataSize = (size_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDataSize = (size_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pData = (void*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pData = (void*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetValidationCacheDataEXT(device, validationCache, pDataSize, pData);
     return Napi::Number::New(env, result);
@@ -6100,8 +5705,7 @@ static Napi::Value rawMergeValidationCachesEXT(const Napi::CallbackInfo& info_) 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (srcCacheCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) srcCacheCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSrcCaches)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSrcCaches = (VkValidationCacheEXT const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSrcCaches = (VkValidationCacheEXT const*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkMergeValidationCachesEXT(device, dstCache, srcCacheCount, pSrcCaches);
     return Napi::Number::New(env, result);
@@ -6117,11 +5721,9 @@ static Napi::Value rawGetDescriptorSetLayoutSupport(const Napi::CallbackInfo& in
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkDescriptorSetLayoutCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkDescriptorSetLayoutCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSupport)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSupport = (VkDescriptorSetLayoutSupport*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSupport = (VkDescriptorSetLayoutSupport*)GetAddress(env, info_[2]);
     
     ::vkGetDescriptorSetLayoutSupport(device, pCreateInfo, pSupport);
     return env.Null();
@@ -6143,8 +5745,7 @@ static Napi::Value rawGetSwapchainGrallocUsageANDROID(const Napi::CallbackInfo& 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (imageUsage)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) imageUsage = (VkImageUsageFlags)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (grallocUsage)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) grallocUsage = (int*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) grallocUsage = (int*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetSwapchainGrallocUsageANDROID(device, format, imageUsage, grallocUsage);
     return Napi::Number::New(env, result);
@@ -6170,11 +5771,9 @@ static Napi::Value rawGetSwapchainGrallocUsage2ANDROID(const Napi::CallbackInfo&
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (swapchainImageUsage)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) swapchainImageUsage = (VkSwapchainImageUsageFlagsANDROID)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (grallocConsumerUsage)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) grallocConsumerUsage = (uint64_t*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) grallocConsumerUsage = (uint64_t*)GetAddress(env, info_[4]);
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (grallocProducerUsage)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) grallocProducerUsage = (uint64_t*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) grallocProducerUsage = (uint64_t*)GetAddress(env, info_[5]);
     
     decltype(auto) result = ::vkGetSwapchainGrallocUsage2ANDROID(device, format, imageUsage, swapchainImageUsage, grallocConsumerUsage, grallocProducerUsage);
     return Napi::Number::New(env, result);
@@ -6221,14 +5820,12 @@ static Napi::Value rawQueueSignalReleaseImageANDROID(const Napi::CallbackInfo& i
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (waitSemaphoreCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) waitSemaphoreCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pWaitSemaphores)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pWaitSemaphores = (VkSemaphore const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pWaitSemaphores = (VkSemaphore const*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (image)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) image = (VkImage)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pNativeFenceFd)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pNativeFenceFd = (int*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pNativeFenceFd = (int*)GetAddress(env, info_[4]);
     
     decltype(auto) result = ::vkQueueSignalReleaseImageANDROID(queue, waitSemaphoreCount, pWaitSemaphores, image, pNativeFenceFd);
     return Napi::Number::New(env, result);
@@ -6254,11 +5851,9 @@ static Napi::Value rawGetShaderInfoAMD(const Napi::CallbackInfo& info_) {
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (infoType)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) infoType = (VkShaderInfoTypeAMD)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pInfoSize)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfoSize = (size_t*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfoSize = (size_t*)GetAddress(env, info_[4]);
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (void*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (void*)GetAddress(env, info_[5]);
     
     decltype(auto) result = ::vkGetShaderInfoAMD(device, pipeline, shaderStage, infoType, pInfoSize, pInfo);
     return Napi::Number::New(env, result);
@@ -6296,11 +5891,9 @@ static Napi::Value rawGetPhysicalDeviceCalibrateableTimeDomainsEXT(const Napi::C
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pTimeDomainCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pTimeDomainCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pTimeDomainCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pTimeDomains)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pTimeDomains = (VkTimeDomainEXT*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pTimeDomains = (VkTimeDomainEXT*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(physicalDevice, pTimeDomainCount, pTimeDomains);
     return Napi::Number::New(env, result);
@@ -6320,14 +5913,11 @@ static Napi::Value rawGetCalibratedTimestampsEXT(const Napi::CallbackInfo& info_
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (timestampCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) timestampCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pTimestampInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pTimestampInfos = (VkCalibratedTimestampInfoEXT const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pTimestampInfos = (VkCalibratedTimestampInfoEXT const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pTimestamps)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pTimestamps = (uint64_t*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pTimestamps = (uint64_t*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pMaxDeviation)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMaxDeviation = (uint64_t*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMaxDeviation = (uint64_t*)GetAddress(env, info_[4]);
     
     decltype(auto) result = ::vkGetCalibratedTimestampsEXT(device, timestampCount, pTimestampInfos, pTimestamps, pMaxDeviation);
     return Napi::Number::New(env, result);
@@ -6344,8 +5934,7 @@ static Napi::Value rawSetDebugUtilsObjectNameEXT(const Napi::CallbackInfo& info_
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pNameInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pNameInfo = (VkDebugUtilsObjectNameInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pNameInfo = (VkDebugUtilsObjectNameInfoEXT const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkSetDebugUtilsObjectNameEXT(device, pNameInfo);
     return Napi::Number::New(env, result);
@@ -6362,8 +5951,7 @@ static Napi::Value rawSetDebugUtilsObjectTagEXT(const Napi::CallbackInfo& info_)
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pTagInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pTagInfo = (VkDebugUtilsObjectTagInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pTagInfo = (VkDebugUtilsObjectTagInfoEXT const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkSetDebugUtilsObjectTagEXT(device, pTagInfo);
     return Napi::Number::New(env, result);
@@ -6380,8 +5968,7 @@ static Napi::Value rawQueueBeginDebugUtilsLabelEXT(const Napi::CallbackInfo& inf
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (queue)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queue = (VkQueue)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pLabelInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pLabelInfo = (VkDebugUtilsLabelEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pLabelInfo = (VkDebugUtilsLabelEXT const*)GetAddress(env, info_[1]);
     
     ::vkQueueBeginDebugUtilsLabelEXT(queue, pLabelInfo);
     return env.Null();
@@ -6413,8 +6000,7 @@ static Napi::Value rawQueueInsertDebugUtilsLabelEXT(const Napi::CallbackInfo& in
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (queue)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queue = (VkQueue)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pLabelInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pLabelInfo = (VkDebugUtilsLabelEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pLabelInfo = (VkDebugUtilsLabelEXT const*)GetAddress(env, info_[1]);
     
     ::vkQueueInsertDebugUtilsLabelEXT(queue, pLabelInfo);
     return env.Null();
@@ -6431,8 +6017,7 @@ static Napi::Value rawCmdBeginDebugUtilsLabelEXT(const Napi::CallbackInfo& info_
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pLabelInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pLabelInfo = (VkDebugUtilsLabelEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pLabelInfo = (VkDebugUtilsLabelEXT const*)GetAddress(env, info_[1]);
     
     ::vkCmdBeginDebugUtilsLabelEXT(commandBuffer, pLabelInfo);
     return env.Null();
@@ -6464,8 +6049,7 @@ static Napi::Value rawCmdInsertDebugUtilsLabelEXT(const Napi::CallbackInfo& info
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pLabelInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pLabelInfo = (VkDebugUtilsLabelEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pLabelInfo = (VkDebugUtilsLabelEXT const*)GetAddress(env, info_[1]);
     
     ::vkCmdInsertDebugUtilsLabelEXT(commandBuffer, pLabelInfo);
     return env.Null();
@@ -6482,14 +6066,11 @@ static Napi::Value rawCreateDebugUtilsMessengerEXT(const Napi::CallbackInfo& inf
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkDebugUtilsMessengerCreateInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkDebugUtilsMessengerCreateInfoEXT const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pMessenger)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMessenger = (VkDebugUtilsMessengerEXT*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMessenger = (VkDebugUtilsMessengerEXT*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateDebugUtilsMessengerEXT(instance, pCreateInfo, pAllocator, pMessenger);
     return Napi::Number::New(env, result);
@@ -6509,8 +6090,7 @@ static Napi::Value rawDestroyDebugUtilsMessengerEXT(const Napi::CallbackInfo& in
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (messenger)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) messenger = (VkDebugUtilsMessengerEXT)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyDebugUtilsMessengerEXT(instance, messenger, pAllocator);
     return env.Null();
@@ -6533,8 +6113,7 @@ static Napi::Value rawSubmitDebugUtilsMessageEXT(const Napi::CallbackInfo& info_
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (messageTypes)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) messageTypes = (VkDebugUtilsMessageTypeFlagsEXT)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pCallbackData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCallbackData = (VkDebugUtilsMessengerCallbackDataEXT const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCallbackData = (VkDebugUtilsMessengerCallbackDataEXT const*)GetAddress(env, info_[3]);
     
     ::vkSubmitDebugUtilsMessageEXT(instance, messageSeverity, messageTypes, pCallbackData);
     return env.Null();
@@ -6554,11 +6133,9 @@ static Napi::Value rawGetMemoryHostPointerPropertiesEXT(const Napi::CallbackInfo
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (handleType)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) handleType = (VkExternalMemoryHandleTypeFlagBits)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pHostPointer)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pHostPointer = (void const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pHostPointer = (void const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pMemoryHostPointerProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryHostPointerProperties = (VkMemoryHostPointerPropertiesEXT*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryHostPointerProperties = (VkMemoryHostPointerPropertiesEXT*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetMemoryHostPointerPropertiesEXT(device, handleType, pHostPointer, pMemoryHostPointerProperties);
     return Napi::Number::New(env, result);
@@ -6601,14 +6178,11 @@ static Napi::Value rawCreateRenderPass2(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkRenderPassCreateInfo2 const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkRenderPassCreateInfo2 const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pRenderPass)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRenderPass = (VkRenderPass*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRenderPass = (VkRenderPass*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateRenderPass2(device, pCreateInfo, pAllocator, pRenderPass);
     return Napi::Number::New(env, result);
@@ -6623,11 +6197,9 @@ static Napi::Value rawCmdBeginRenderPass2(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pRenderPassBegin)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRenderPassBegin = (VkRenderPassBeginInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRenderPassBegin = (VkRenderPassBeginInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSubpassBeginInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSubpassBeginInfo = (VkSubpassBeginInfo const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSubpassBeginInfo = (VkSubpassBeginInfo const*)GetAddress(env, info_[2]);
     
     ::vkCmdBeginRenderPass2(commandBuffer, pRenderPassBegin, pSubpassBeginInfo);
     return env.Null();
@@ -6642,11 +6214,9 @@ static Napi::Value rawCmdNextSubpass2(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pSubpassBeginInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSubpassBeginInfo = (VkSubpassBeginInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSubpassBeginInfo = (VkSubpassBeginInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSubpassEndInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSubpassEndInfo = (VkSubpassEndInfo const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSubpassEndInfo = (VkSubpassEndInfo const*)GetAddress(env, info_[2]);
     
     ::vkCmdNextSubpass2(commandBuffer, pSubpassBeginInfo, pSubpassEndInfo);
     return env.Null();
@@ -6661,8 +6231,7 @@ static Napi::Value rawCmdEndRenderPass2(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pSubpassEndInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSubpassEndInfo = (VkSubpassEndInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSubpassEndInfo = (VkSubpassEndInfo const*)GetAddress(env, info_[1]);
     
     ::vkCmdEndRenderPass2(commandBuffer, pSubpassEndInfo);
     return env.Null();
@@ -6680,8 +6249,7 @@ static Napi::Value rawGetSemaphoreCounterValue(const Napi::CallbackInfo& info_) 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (semaphore)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) semaphore = (VkSemaphore)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pValue)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pValue = (uint64_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pValue = (uint64_t*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetSemaphoreCounterValue(device, semaphore, pValue);
     return Napi::Number::New(env, result);
@@ -6696,8 +6264,7 @@ static Napi::Value rawWaitSemaphores(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pWaitInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pWaitInfo = (VkSemaphoreWaitInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pWaitInfo = (VkSemaphoreWaitInfo const*)GetAddress(env, info_[1]);
 
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (timeout)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) timeout = (uint64_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
@@ -6715,8 +6282,7 @@ static Napi::Value rawSignalSemaphore(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pSignalInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSignalInfo = (VkSemaphoreSignalInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSignalInfo = (VkSemaphoreSignalInfo const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkSignalSemaphore(device, pSignalInfo);
     return Napi::Number::New(env, result);
@@ -6732,11 +6298,9 @@ static Napi::Value rawGetAndroidHardwareBufferPropertiesANDROID(const Napi::Call
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (buffer)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) buffer = (AHardwareBuffer const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) buffer = (AHardwareBuffer const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkAndroidHardwareBufferPropertiesANDROID*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkAndroidHardwareBufferPropertiesANDROID*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetAndroidHardwareBufferPropertiesANDROID(device, buffer, pProperties);
     return Napi::Number::New(env, result);
@@ -6753,11 +6317,9 @@ static Napi::Value rawGetMemoryAndroidHardwareBufferANDROID(const Napi::Callback
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkMemoryGetAndroidHardwareBufferInfoANDROID const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkMemoryGetAndroidHardwareBufferInfoANDROID const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer of pointers) at 2 argument (pBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBuffer = (AHardwareBuffer**)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBuffer = (AHardwareBuffer**)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetMemoryAndroidHardwareBufferANDROID(device, pInfo, pBuffer);
     return Napi::Number::New(env, result);
@@ -6836,8 +6398,7 @@ static Napi::Value rawCmdSetCheckpointNV(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCheckpointMarker)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCheckpointMarker = (void const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCheckpointMarker = (void const*)GetAddress(env, info_[1]);
     
     ::vkCmdSetCheckpointNV(commandBuffer, pCheckpointMarker);
     return env.Null();
@@ -6854,11 +6415,9 @@ static Napi::Value rawGetQueueCheckpointDataNV(const Napi::CallbackInfo& info_) 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (queue)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queue = (VkQueue)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCheckpointDataCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCheckpointDataCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCheckpointDataCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pCheckpointData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCheckpointData = (VkCheckpointDataNV*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCheckpointData = (VkCheckpointDataNV*)GetAddress(env, info_[2]);
     
     ::vkGetQueueCheckpointDataNV(queue, pCheckpointDataCount, pCheckpointData);
     return env.Null();
@@ -6881,14 +6440,11 @@ static Napi::Value rawCmdBindTransformFeedbackBuffersEXT(const Napi::CallbackInf
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (bindingCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) bindingCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pBuffers)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBuffers = (VkBuffer const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBuffers = (VkBuffer const*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pOffsets)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pOffsets = (VkDeviceSize const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pOffsets = (VkDeviceSize const*)GetAddress(env, info_[4]);
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pSizes)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSizes = (VkDeviceSize const*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSizes = (VkDeviceSize const*)GetAddress(env, info_[5]);
     
     ::vkCmdBindTransformFeedbackBuffersEXT(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets, pSizes);
     return env.Null();
@@ -6911,11 +6467,9 @@ static Napi::Value rawCmdBeginTransformFeedbackEXT(const Napi::CallbackInfo& inf
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (counterBufferCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) counterBufferCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pCounterBuffers)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCounterBuffers = (VkBuffer const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCounterBuffers = (VkBuffer const*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pCounterBufferOffsets)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCounterBufferOffsets = (VkDeviceSize const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCounterBufferOffsets = (VkDeviceSize const*)GetAddress(env, info_[4]);
     
     ::vkCmdBeginTransformFeedbackEXT(commandBuffer, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
     return env.Null();
@@ -6938,11 +6492,9 @@ static Napi::Value rawCmdEndTransformFeedbackEXT(const Napi::CallbackInfo& info_
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (counterBufferCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) counterBufferCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pCounterBuffers)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCounterBuffers = (VkBuffer const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCounterBuffers = (VkBuffer const*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pCounterBufferOffsets)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCounterBufferOffsets = (VkDeviceSize const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCounterBufferOffsets = (VkDeviceSize const*)GetAddress(env, info_[4]);
     
     ::vkCmdEndTransformFeedbackEXT(commandBuffer, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
     return env.Null();
@@ -7049,8 +6601,7 @@ static Napi::Value rawCmdSetExclusiveScissorNV(const Napi::CallbackInfo& info_) 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (exclusiveScissorCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) exclusiveScissorCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pExclusiveScissors)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pExclusiveScissors = (VkRect2D const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pExclusiveScissors = (VkRect2D const*)GetAddress(env, info_[3]);
     
     ::vkCmdSetExclusiveScissorNV(commandBuffer, firstExclusiveScissor, exclusiveScissorCount, pExclusiveScissors);
     return env.Null();
@@ -7094,8 +6645,7 @@ static Napi::Value rawCmdSetViewportShadingRatePaletteNV(const Napi::CallbackInf
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (viewportCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) viewportCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pShadingRatePalettes)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pShadingRatePalettes = (VkShadingRatePaletteNV const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pShadingRatePalettes = (VkShadingRatePaletteNV const*)GetAddress(env, info_[3]);
     
     ::vkCmdSetViewportShadingRatePaletteNV(commandBuffer, firstViewport, viewportCount, pShadingRatePalettes);
     return env.Null();
@@ -7118,8 +6668,7 @@ static Napi::Value rawCmdSetCoarseSampleOrderNV(const Napi::CallbackInfo& info_)
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (customSampleOrderCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) customSampleOrderCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pCustomSampleOrders)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCustomSampleOrders = (VkCoarseSampleOrderCustomNV const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCustomSampleOrders = (VkCoarseSampleOrderCustomNV const*)GetAddress(env, info_[3]);
     
     ::vkCmdSetCoarseSampleOrderNV(commandBuffer, sampleOrderType, customSampleOrderCount, pCustomSampleOrders);
     return env.Null();
@@ -7322,14 +6871,11 @@ static Napi::Value rawCreateAccelerationStructureNV(const Napi::CallbackInfo& in
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkAccelerationStructureCreateInfoNV const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkAccelerationStructureCreateInfoNV const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pAccelerationStructure)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAccelerationStructure = (VkAccelerationStructureNV*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAccelerationStructure = (VkAccelerationStructureNV*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateAccelerationStructureNV(device, pCreateInfo, pAllocator, pAccelerationStructure);
     return Napi::Number::New(env, result);
@@ -7370,8 +6916,7 @@ static Napi::Value rawDestroyAccelerationStructureKHR(const Napi::CallbackInfo& 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (accelerationStructure)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) accelerationStructure = (VkAccelerationStructureKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyAccelerationStructureKHR(device, accelerationStructure, pAllocator);
     return env.Null();
@@ -7391,8 +6936,7 @@ static Napi::Value rawDestroyAccelerationStructureNV(const Napi::CallbackInfo& i
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (accelerationStructure)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) accelerationStructure = (VkAccelerationStructureNV)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyAccelerationStructureNV(device, accelerationStructure, pAllocator);
     return env.Null();
@@ -7409,11 +6953,9 @@ static Napi::Value rawGetAccelerationStructureMemoryRequirementsNV(const Napi::C
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkAccelerationStructureMemoryRequirementsInfoNV const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkAccelerationStructureMemoryRequirementsInfoNV const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMemoryRequirements)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryRequirements = (VkMemoryRequirements2KHR*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryRequirements = (VkMemoryRequirements2KHR*)GetAddress(env, info_[2]);
     
     ::vkGetAccelerationStructureMemoryRequirementsNV(device, pInfo, pMemoryRequirements);
     return env.Null();
@@ -7433,8 +6975,7 @@ static Napi::Value rawBindAccelerationStructureMemoryNV(const Napi::CallbackInfo
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (bindInfoCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) bindInfoCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pBindInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBindInfos = (VkBindAccelerationStructureMemoryInfoNV const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBindInfos = (VkBindAccelerationStructureMemoryInfoNV const*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkBindAccelerationStructureMemoryNV(device, bindInfoCount, pBindInfos);
     return Napi::Number::New(env, result);
@@ -7475,8 +7016,7 @@ static Napi::Value rawCmdCopyAccelerationStructureKHR(const Napi::CallbackInfo& 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkCopyAccelerationStructureInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkCopyAccelerationStructureInfoKHR const*)GetAddress(env, info_[1]);
     
     ::vkCmdCopyAccelerationStructureKHR(commandBuffer, pInfo);
     return env.Null();
@@ -7496,8 +7036,7 @@ static Napi::Value rawCopyAccelerationStructureKHR(const Napi::CallbackInfo& inf
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (deferredOperation)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) deferredOperation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkCopyAccelerationStructureInfoKHR const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkCopyAccelerationStructureInfoKHR const*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkCopyAccelerationStructureKHR(device, deferredOperation, pInfo);
     return Napi::Number::New(env, result);
@@ -7514,8 +7053,7 @@ static Napi::Value rawCmdCopyAccelerationStructureToMemoryKHR(const Napi::Callba
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkCopyAccelerationStructureToMemoryInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkCopyAccelerationStructureToMemoryInfoKHR const*)GetAddress(env, info_[1]);
     
     ::vkCmdCopyAccelerationStructureToMemoryKHR(commandBuffer, pInfo);
     return env.Null();
@@ -7535,8 +7073,7 @@ static Napi::Value rawCopyAccelerationStructureToMemoryKHR(const Napi::CallbackI
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (deferredOperation)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) deferredOperation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkCopyAccelerationStructureToMemoryInfoKHR const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkCopyAccelerationStructureToMemoryInfoKHR const*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkCopyAccelerationStructureToMemoryKHR(device, deferredOperation, pInfo);
     return Napi::Number::New(env, result);
@@ -7553,8 +7090,7 @@ static Napi::Value rawCmdCopyMemoryToAccelerationStructureKHR(const Napi::Callba
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkCopyMemoryToAccelerationStructureInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkCopyMemoryToAccelerationStructureInfoKHR const*)GetAddress(env, info_[1]);
     
     ::vkCmdCopyMemoryToAccelerationStructureKHR(commandBuffer, pInfo);
     return env.Null();
@@ -7574,8 +7110,7 @@ static Napi::Value rawCopyMemoryToAccelerationStructureKHR(const Napi::CallbackI
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (deferredOperation)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) deferredOperation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkCopyMemoryToAccelerationStructureInfoKHR const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkCopyMemoryToAccelerationStructureInfoKHR const*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkCopyMemoryToAccelerationStructureKHR(device, deferredOperation, pInfo);
     return Napi::Number::New(env, result);
@@ -7595,8 +7130,7 @@ static Napi::Value rawCmdWriteAccelerationStructuresPropertiesKHR(const Napi::Ca
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (accelerationStructureCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) accelerationStructureCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAccelerationStructures)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAccelerationStructures = (VkAccelerationStructureKHR const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAccelerationStructures = (VkAccelerationStructureKHR const*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (queryType)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queryType = (VkQueryType)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
@@ -7625,8 +7159,7 @@ static Napi::Value rawCmdWriteAccelerationStructuresPropertiesNV(const Napi::Cal
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (accelerationStructureCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) accelerationStructureCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAccelerationStructures)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAccelerationStructures = (VkAccelerationStructureNV const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAccelerationStructures = (VkAccelerationStructureNV const*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (queryType)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queryType = (VkQueryType)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
@@ -7652,8 +7185,7 @@ static Napi::Value rawCmdBuildAccelerationStructureNV(const Napi::CallbackInfo& 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkAccelerationStructureInfoNV const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkAccelerationStructureInfoNV const*)GetAddress(env, info_[1]);
 
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (instanceData)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instanceData = (VkBuffer)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
@@ -7694,8 +7226,7 @@ static Napi::Value rawWriteAccelerationStructuresPropertiesKHR(const Napi::Callb
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (accelerationStructureCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) accelerationStructureCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAccelerationStructures)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAccelerationStructures = (VkAccelerationStructureKHR const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAccelerationStructures = (VkAccelerationStructureKHR const*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (queryType)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queryType = (VkQueryType)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
@@ -7703,8 +7234,7 @@ static Napi::Value rawWriteAccelerationStructuresPropertiesKHR(const Napi::Callb
     if (!info_[4].IsBigInt() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 4 argument (dataSize)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) dataSize = (size_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Int64Value());
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pData = (void*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pData = (void*)GetAddress(env, info_[5]);
 
     if (!info_[6].IsBigInt() && !info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 6 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (size_t)(info_[6].IsBigInt() ? info_[6].As<Napi::BigInt>().Uint64Value(&lossless) : info_[6].As<Napi::Number>().Int64Value());
@@ -7724,17 +7254,13 @@ static Napi::Value rawCmdTraceRaysKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pRaygenShaderBindingTable)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRaygenShaderBindingTable = (VkStridedDeviceAddressRegionKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRaygenShaderBindingTable = (VkStridedDeviceAddressRegionKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMissShaderBindingTable)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMissShaderBindingTable = (VkStridedDeviceAddressRegionKHR const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMissShaderBindingTable = (VkStridedDeviceAddressRegionKHR const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pHitShaderBindingTable)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pHitShaderBindingTable = (VkStridedDeviceAddressRegionKHR const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pHitShaderBindingTable = (VkStridedDeviceAddressRegionKHR const*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pCallableShaderBindingTable)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCallableShaderBindingTable = (VkStridedDeviceAddressRegionKHR const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCallableShaderBindingTable = (VkStridedDeviceAddressRegionKHR const*)GetAddress(env, info_[4]);
 
     if (!info_[5].IsNumber() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 5 argument (width)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) width = (uint32_t)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Uint32Value());
@@ -7829,8 +7355,7 @@ static Napi::Value rawGetRayTracingShaderGroupHandlesKHR(const Napi::CallbackInf
     if (!info_[4].IsBigInt() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 4 argument (dataSize)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) dataSize = (size_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Int64Value());
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pData = (void*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pData = (void*)GetAddress(env, info_[5]);
     
     decltype(auto) result = ::vkGetRayTracingShaderGroupHandlesKHR(device, pipeline, firstGroup, groupCount, dataSize, pData);
     return Napi::Number::New(env, result);
@@ -7859,8 +7384,7 @@ static Napi::Value rawGetRayTracingCaptureReplayShaderGroupHandlesKHR(const Napi
     if (!info_[4].IsBigInt() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 4 argument (dataSize)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) dataSize = (size_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Int64Value());
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pData = (void*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pData = (void*)GetAddress(env, info_[5]);
     
     decltype(auto) result = ::vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(device, pipeline, firstGroup, groupCount, dataSize, pData);
     return Napi::Number::New(env, result);
@@ -7883,8 +7407,7 @@ static Napi::Value rawGetAccelerationStructureHandleNV(const Napi::CallbackInfo&
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (dataSize)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) dataSize = (size_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pData = (void*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pData = (void*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetAccelerationStructureHandleNV(device, accelerationStructure, dataSize, pData);
     return Napi::Number::New(env, result);
@@ -7907,14 +7430,11 @@ static Napi::Value rawCreateRayTracingPipelinesNV(const Napi::CallbackInfo& info
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (createInfoCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) createInfoCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pCreateInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfos = (VkRayTracingPipelineCreateInfoNV const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfos = (VkRayTracingPipelineCreateInfoNV const*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[4]);
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pPipelines)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPipelines = (VkPipeline*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPipelines = (VkPipeline*)GetAddress(env, info_[5]);
     
     decltype(auto) result = ::vkCreateRayTracingPipelinesNV(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
     return Napi::Number::New(env, result);
@@ -7940,14 +7460,11 @@ static Napi::Value rawCreateRayTracingPipelinesKHR(const Napi::CallbackInfo& inf
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (createInfoCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) createInfoCount = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pCreateInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfos = (VkRayTracingPipelineCreateInfoKHR const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfos = (VkRayTracingPipelineCreateInfoKHR const*)GetAddress(env, info_[4]);
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[5]);
 
-    if (!info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 6 argument (pPipelines)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPipelines = (VkPipeline*)info_[6].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPipelines = (VkPipeline*)GetAddress(env, info_[6]);
     
     decltype(auto) result = ::vkCreateRayTracingPipelinesKHR(device, deferredOperation, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
     return Napi::Number::New(env, result);
@@ -7964,11 +7481,9 @@ static Napi::Value rawGetPhysicalDeviceCooperativeMatrixPropertiesNV(const Napi:
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pPropertyCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPropertyCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkCooperativeMatrixPropertiesNV*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkCooperativeMatrixPropertiesNV*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(physicalDevice, pPropertyCount, pProperties);
     return Napi::Number::New(env, result);
@@ -7985,17 +7500,13 @@ static Napi::Value rawCmdTraceRaysIndirectKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pRaygenShaderBindingTable)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRaygenShaderBindingTable = (VkStridedDeviceAddressRegionKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRaygenShaderBindingTable = (VkStridedDeviceAddressRegionKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMissShaderBindingTable)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMissShaderBindingTable = (VkStridedDeviceAddressRegionKHR const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMissShaderBindingTable = (VkStridedDeviceAddressRegionKHR const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pHitShaderBindingTable)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pHitShaderBindingTable = (VkStridedDeviceAddressRegionKHR const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pHitShaderBindingTable = (VkStridedDeviceAddressRegionKHR const*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pCallableShaderBindingTable)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCallableShaderBindingTable = (VkStridedDeviceAddressRegionKHR const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCallableShaderBindingTable = (VkStridedDeviceAddressRegionKHR const*)GetAddress(env, info_[4]);
 
     if (!info_[5].IsBigInt() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 5 argument (indirectDeviceAddress)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) indirectDeviceAddress = (VkDeviceAddress)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Int64Value());
@@ -8033,11 +7544,9 @@ static Napi::Value rawGetDeviceAccelerationStructureCompatibilityKHR(const Napi:
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pVersionInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pVersionInfo = (VkAccelerationStructureVersionInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pVersionInfo = (VkAccelerationStructureVersionInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pCompatibility)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCompatibility = (VkAccelerationStructureCompatibilityKHR*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCompatibility = (VkAccelerationStructureCompatibilityKHR*)GetAddress(env, info_[2]);
     
     ::vkGetDeviceAccelerationStructureCompatibilityKHR(device, pVersionInfo, pCompatibility);
     return env.Null();
@@ -8096,8 +7605,7 @@ static Napi::Value rawGetImageViewHandleNVX(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkImageViewHandleInfoNVX const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkImageViewHandleInfoNVX const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkGetImageViewHandleNVX(device, pInfo);
     return Napi::Number::New(env, result);
@@ -8117,8 +7625,7 @@ static Napi::Value rawGetImageViewAddressNVX(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (imageView)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) imageView = (VkImageView)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkImageViewAddressPropertiesNVX*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkImageViewAddressPropertiesNVX*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetImageViewAddressNVX(device, imageView, pProperties);
     return Napi::Number::New(env, result);
@@ -8135,14 +7642,11 @@ static Napi::Value rawGetPhysicalDeviceSurfacePresentModes2EXT(const Napi::Callb
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pSurfaceInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurfaceInfo = (VkPhysicalDeviceSurfaceInfo2KHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurfaceInfo = (VkPhysicalDeviceSurfaceInfo2KHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pPresentModeCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPresentModeCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPresentModeCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pPresentModes)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPresentModes = (VkPresentModeKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPresentModes = (VkPresentModeKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceSurfacePresentModes2EXT(physicalDevice, pSurfaceInfo, pPresentModeCount, pPresentModes);
     return Napi::Number::New(env, result);
@@ -8159,11 +7663,9 @@ static Napi::Value rawGetDeviceGroupSurfacePresentModes2EXT(const Napi::Callback
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pSurfaceInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurfaceInfo = (VkPhysicalDeviceSurfaceInfo2KHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurfaceInfo = (VkPhysicalDeviceSurfaceInfo2KHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pModes)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pModes = (VkDeviceGroupPresentModeFlagsKHR*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pModes = (VkDeviceGroupPresentModeFlagsKHR*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetDeviceGroupSurfacePresentModes2EXT(device, pSurfaceInfo, pModes);
     return Napi::Number::New(env, result);
@@ -8219,14 +7721,11 @@ static Napi::Value rawEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCounters
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (queueFamilyIndex)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queueFamilyIndex = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pCounterCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCounterCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCounterCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pCounters)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCounters = (VkPerformanceCounterKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCounters = (VkPerformanceCounterKHR*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pCounterDescriptions)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCounterDescriptions = (VkPerformanceCounterDescriptionKHR*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCounterDescriptions = (VkPerformanceCounterDescriptionKHR*)GetAddress(env, info_[4]);
     
     decltype(auto) result = ::vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(physicalDevice, queueFamilyIndex, pCounterCount, pCounters, pCounterDescriptions);
     return Napi::Number::New(env, result);
@@ -8243,11 +7742,9 @@ static Napi::Value rawGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(cons
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pPerformanceQueryCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPerformanceQueryCreateInfo = (VkQueryPoolPerformanceCreateInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPerformanceQueryCreateInfo = (VkQueryPoolPerformanceCreateInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pNumPasses)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pNumPasses = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pNumPasses = (uint32_t*)GetAddress(env, info_[2]);
     
     ::vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(physicalDevice, pPerformanceQueryCreateInfo, pNumPasses);
     return env.Null();
@@ -8264,8 +7761,7 @@ static Napi::Value rawAcquireProfilingLockKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkAcquireProfilingLockInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkAcquireProfilingLockInfoKHR const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkAcquireProfilingLockKHR(device, pInfo);
     return Napi::Number::New(env, result);
@@ -8300,8 +7796,7 @@ static Napi::Value rawGetImageDrmFormatModifierPropertiesEXT(const Napi::Callbac
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (image)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) image = (VkImage)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkImageDrmFormatModifierPropertiesEXT*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkImageDrmFormatModifierPropertiesEXT*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetImageDrmFormatModifierPropertiesEXT(device, image, pProperties);
     return Napi::Number::New(env, result);
@@ -8317,8 +7812,7 @@ static Napi::Value rawGetBufferOpaqueCaptureAddress(const Napi::CallbackInfo& in
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkBufferDeviceAddressInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkBufferDeviceAddressInfo const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkGetBufferOpaqueCaptureAddress(device, pInfo);
     return Napi::BigInt::New(env, (uint64_t)result);
@@ -8333,8 +7827,7 @@ static Napi::Value rawGetBufferDeviceAddress(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkBufferDeviceAddressInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkBufferDeviceAddressInfo const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkGetBufferDeviceAddress(device, pInfo);
     return Napi::BigInt::New(env, (uint64_t)result);
@@ -8350,14 +7843,11 @@ static Napi::Value rawCreateHeadlessSurfaceEXT(const Napi::CallbackInfo& info_) 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (instance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkHeadlessSurfaceCreateInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkHeadlessSurfaceCreateInfoEXT const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSurface)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSurface = (VkSurfaceKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateHeadlessSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
     return Napi::Number::New(env, result);
@@ -8374,11 +7864,9 @@ static Napi::Value rawGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinati
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCombinationCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCombinationCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCombinationCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pCombinations)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCombinations = (VkFramebufferMixedSamplesCombinationNV*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCombinations = (VkFramebufferMixedSamplesCombinationNV*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(physicalDevice, pCombinationCount, pCombinations);
     return Napi::Number::New(env, result);
@@ -8395,8 +7883,7 @@ static Napi::Value rawInitializePerformanceApiINTEL(const Napi::CallbackInfo& in
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInitializeInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInitializeInfo = (VkInitializePerformanceApiInfoINTEL const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInitializeInfo = (VkInitializePerformanceApiInfoINTEL const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkInitializePerformanceApiINTEL(device, pInitializeInfo);
     return Napi::Number::New(env, result);
@@ -8428,8 +7915,7 @@ static Napi::Value rawCmdSetPerformanceMarkerINTEL(const Napi::CallbackInfo& inf
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pMarkerInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMarkerInfo = (VkPerformanceMarkerInfoINTEL const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMarkerInfo = (VkPerformanceMarkerInfoINTEL const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkCmdSetPerformanceMarkerINTEL(commandBuffer, pMarkerInfo);
     return Napi::Number::New(env, result);
@@ -8446,8 +7932,7 @@ static Napi::Value rawCmdSetPerformanceStreamMarkerINTEL(const Napi::CallbackInf
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pMarkerInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMarkerInfo = (VkPerformanceStreamMarkerInfoINTEL const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMarkerInfo = (VkPerformanceStreamMarkerInfoINTEL const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkCmdSetPerformanceStreamMarkerINTEL(commandBuffer, pMarkerInfo);
     return Napi::Number::New(env, result);
@@ -8464,8 +7949,7 @@ static Napi::Value rawCmdSetPerformanceOverrideINTEL(const Napi::CallbackInfo& i
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pOverrideInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pOverrideInfo = (VkPerformanceOverrideInfoINTEL const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pOverrideInfo = (VkPerformanceOverrideInfoINTEL const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkCmdSetPerformanceOverrideINTEL(commandBuffer, pOverrideInfo);
     return Napi::Number::New(env, result);
@@ -8482,11 +7966,9 @@ static Napi::Value rawAcquirePerformanceConfigurationINTEL(const Napi::CallbackI
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pAcquireInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAcquireInfo = (VkPerformanceConfigurationAcquireInfoINTEL const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAcquireInfo = (VkPerformanceConfigurationAcquireInfoINTEL const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pConfiguration)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pConfiguration = (VkPerformanceConfigurationINTEL*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pConfiguration = (VkPerformanceConfigurationINTEL*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkAcquirePerformanceConfigurationINTEL(device, pAcquireInfo, pConfiguration);
     return Napi::Number::New(env, result);
@@ -8542,8 +8024,7 @@ static Napi::Value rawGetPerformanceParameterINTEL(const Napi::CallbackInfo& inf
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (parameter)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) parameter = (VkPerformanceParameterTypeINTEL)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pValue)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pValue = (VkPerformanceValueINTEL*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pValue = (VkPerformanceValueINTEL*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPerformanceParameterINTEL(device, parameter, pValue);
     return Napi::Number::New(env, result);
@@ -8559,8 +8040,7 @@ static Napi::Value rawGetDeviceMemoryOpaqueCaptureAddress(const Napi::CallbackIn
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkDeviceMemoryOpaqueCaptureAddressInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkDeviceMemoryOpaqueCaptureAddressInfo const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkGetDeviceMemoryOpaqueCaptureAddress(device, pInfo);
     return Napi::BigInt::New(env, (uint64_t)result);
@@ -8576,14 +8056,11 @@ static Napi::Value rawGetPipelineExecutablePropertiesKHR(const Napi::CallbackInf
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pPipelineInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPipelineInfo = (VkPipelineInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPipelineInfo = (VkPipelineInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pExecutableCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pExecutableCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pExecutableCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkPipelineExecutablePropertiesKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkPipelineExecutablePropertiesKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetPipelineExecutablePropertiesKHR(device, pPipelineInfo, pExecutableCount, pProperties);
     return Napi::Number::New(env, result);
@@ -8600,14 +8077,11 @@ static Napi::Value rawGetPipelineExecutableStatisticsKHR(const Napi::CallbackInf
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pExecutableInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pExecutableInfo = (VkPipelineExecutableInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pExecutableInfo = (VkPipelineExecutableInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pStatisticCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pStatisticCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pStatisticCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pStatistics)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pStatistics = (VkPipelineExecutableStatisticKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pStatistics = (VkPipelineExecutableStatisticKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetPipelineExecutableStatisticsKHR(device, pExecutableInfo, pStatisticCount, pStatistics);
     return Napi::Number::New(env, result);
@@ -8624,14 +8098,11 @@ static Napi::Value rawGetPipelineExecutableInternalRepresentationsKHR(const Napi
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pExecutableInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pExecutableInfo = (VkPipelineExecutableInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pExecutableInfo = (VkPipelineExecutableInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pInternalRepresentationCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInternalRepresentationCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInternalRepresentationCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pInternalRepresentations)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInternalRepresentations = (VkPipelineExecutableInternalRepresentationKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInternalRepresentations = (VkPipelineExecutableInternalRepresentationKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetPipelineExecutableInternalRepresentationsKHR(device, pExecutableInfo, pInternalRepresentationCount, pInternalRepresentations);
     return Napi::Number::New(env, result);
@@ -8668,11 +8139,9 @@ static Napi::Value rawGetPhysicalDeviceToolProperties(const Napi::CallbackInfo& 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pToolCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pToolCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pToolCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pToolProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pToolProperties = (VkPhysicalDeviceToolProperties*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pToolProperties = (VkPhysicalDeviceToolProperties*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceToolProperties(physicalDevice, pToolCount, pToolProperties);
     return Napi::Number::New(env, result);
@@ -8688,14 +8157,11 @@ static Napi::Value rawCreateAccelerationStructureKHR(const Napi::CallbackInfo& i
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkAccelerationStructureCreateInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkAccelerationStructureCreateInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pAccelerationStructure)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAccelerationStructure = (VkAccelerationStructureKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAccelerationStructure = (VkAccelerationStructureKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateAccelerationStructureKHR(device, pCreateInfo, pAllocator, pAccelerationStructure);
     return Napi::Number::New(env, result);
@@ -8715,11 +8181,9 @@ static Napi::Value rawCmdBuildAccelerationStructuresKHR(const Napi::CallbackInfo
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (infoCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) infoCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfos = (VkAccelerationStructureBuildGeometryInfoKHR const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfos = (VkAccelerationStructureBuildGeometryInfoKHR const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer of pointers) at 3 argument (ppBuildRangeInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) ppBuildRangeInfos = (VkAccelerationStructureBuildRangeInfoKHR* const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) ppBuildRangeInfos = (VkAccelerationStructureBuildRangeInfoKHR* const*)GetAddress(env, info_[3]);
     
     ::vkCmdBuildAccelerationStructuresKHR(commandBuffer, infoCount, pInfos, ppBuildRangeInfos);
     return env.Null();
@@ -8739,17 +8203,13 @@ static Napi::Value rawCmdBuildAccelerationStructuresIndirectKHR(const Napi::Call
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (infoCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) infoCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfos = (VkAccelerationStructureBuildGeometryInfoKHR const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfos = (VkAccelerationStructureBuildGeometryInfoKHR const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pIndirectDeviceAddresses)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pIndirectDeviceAddresses = (VkDeviceAddress const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pIndirectDeviceAddresses = (VkDeviceAddress const*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pIndirectStrides)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pIndirectStrides = (uint32_t const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pIndirectStrides = (uint32_t const*)GetAddress(env, info_[4]);
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer of pointers) at 5 argument (ppMaxPrimitiveCounts)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) ppMaxPrimitiveCounts = (uint32_t* const*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) ppMaxPrimitiveCounts = (uint32_t* const*)GetAddress(env, info_[5]);
     
     ::vkCmdBuildAccelerationStructuresIndirectKHR(commandBuffer, infoCount, pInfos, pIndirectDeviceAddresses, pIndirectStrides, ppMaxPrimitiveCounts);
     return env.Null();
@@ -8772,11 +8232,9 @@ static Napi::Value rawBuildAccelerationStructuresKHR(const Napi::CallbackInfo& i
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (infoCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) infoCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfos = (VkAccelerationStructureBuildGeometryInfoKHR const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfos = (VkAccelerationStructureBuildGeometryInfoKHR const*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer of pointers) at 4 argument (ppBuildRangeInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) ppBuildRangeInfos = (VkAccelerationStructureBuildRangeInfoKHR* const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) ppBuildRangeInfos = (VkAccelerationStructureBuildRangeInfoKHR* const*)GetAddress(env, info_[4]);
     
     decltype(auto) result = ::vkBuildAccelerationStructuresKHR(device, deferredOperation, infoCount, pInfos, ppBuildRangeInfos);
     return Napi::Number::New(env, result);
@@ -8793,8 +8251,7 @@ static Napi::Value rawGetAccelerationStructureDeviceAddressKHR(const Napi::Callb
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkAccelerationStructureDeviceAddressInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkAccelerationStructureDeviceAddressInfoKHR const*)GetAddress(env, info_[1]);
     
     decltype(auto) result = ::vkGetAccelerationStructureDeviceAddressKHR(device, pInfo);
     return Napi::BigInt::New(env, (uint64_t)result);
@@ -8811,11 +8268,9 @@ static Napi::Value rawCreateDeferredOperationKHR(const Napi::CallbackInfo& info_
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pDeferredOperation)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDeferredOperation = (VkDeferredOperationKHR*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDeferredOperation = (VkDeferredOperationKHR*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkCreateDeferredOperationKHR(device, pAllocator, pDeferredOperation);
     return Napi::Number::New(env, result);
@@ -8835,8 +8290,7 @@ static Napi::Value rawDestroyDeferredOperationKHR(const Napi::CallbackInfo& info
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (operation)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) operation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyDeferredOperationKHR(device, operation, pAllocator);
     return env.Null();
@@ -8957,8 +8411,7 @@ static Napi::Value rawCmdSetViewportWithCount(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (viewportCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) viewportCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pViewports)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pViewports = (VkViewport const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pViewports = (VkViewport const*)GetAddress(env, info_[2]);
     
     ::vkCmdSetViewportWithCount(commandBuffer, viewportCount, pViewports);
     return env.Null();
@@ -8976,8 +8429,7 @@ static Napi::Value rawCmdSetScissorWithCount(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (scissorCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) scissorCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pScissors)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pScissors = (VkRect2D const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pScissors = (VkRect2D const*)GetAddress(env, info_[2]);
     
     ::vkCmdSetScissorWithCount(commandBuffer, scissorCount, pScissors);
     return env.Null();
@@ -8998,17 +8450,13 @@ static Napi::Value rawCmdBindVertexBuffers2(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (bindingCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) bindingCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pBuffers)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBuffers = (VkBuffer const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBuffers = (VkBuffer const*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pOffsets)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pOffsets = (VkDeviceSize const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pOffsets = (VkDeviceSize const*)GetAddress(env, info_[4]);
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pSizes)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSizes = (VkDeviceSize const*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSizes = (VkDeviceSize const*)GetAddress(env, info_[5]);
 
-    if (!info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 6 argument (pStrides)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pStrides = (VkDeviceSize const*)info_[6].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pStrides = (VkDeviceSize const*)GetAddress(env, info_[6]);
     
     ::vkCmdBindVertexBuffers2(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets, pSizes, pStrides);
     return env.Null();
@@ -9291,8 +8739,7 @@ static Napi::Value rawCmdSetSampleMaskEXT(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (samples)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) samples = (VkSampleCountFlagBits)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSampleMask)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSampleMask = (VkSampleMask const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSampleMask = (VkSampleMask const*)GetAddress(env, info_[2]);
     
     ::vkCmdSetSampleMaskEXT(commandBuffer, samples, pSampleMask);
     return env.Null();
@@ -9369,8 +8816,7 @@ static Napi::Value rawCmdSetColorBlendEnableEXT(const Napi::CallbackInfo& info_)
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (attachmentCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) attachmentCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pColorBlendEnables)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pColorBlendEnables = (VkBool32 const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pColorBlendEnables = (VkBool32 const*)GetAddress(env, info_[3]);
     
     ::vkCmdSetColorBlendEnableEXT(commandBuffer, firstAttachment, attachmentCount, pColorBlendEnables);
     return env.Null();
@@ -9393,8 +8839,7 @@ static Napi::Value rawCmdSetColorBlendEquationEXT(const Napi::CallbackInfo& info
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (attachmentCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) attachmentCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pColorBlendEquations)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pColorBlendEquations = (VkColorBlendEquationEXT const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pColorBlendEquations = (VkColorBlendEquationEXT const*)GetAddress(env, info_[3]);
     
     ::vkCmdSetColorBlendEquationEXT(commandBuffer, firstAttachment, attachmentCount, pColorBlendEquations);
     return env.Null();
@@ -9417,8 +8862,7 @@ static Napi::Value rawCmdSetColorWriteMaskEXT(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (attachmentCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) attachmentCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pColorWriteMasks)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pColorWriteMasks = (VkColorComponentFlags const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pColorWriteMasks = (VkColorComponentFlags const*)GetAddress(env, info_[3]);
     
     ::vkCmdSetColorWriteMaskEXT(commandBuffer, firstAttachment, attachmentCount, pColorWriteMasks);
     return env.Null();
@@ -9531,8 +8975,7 @@ static Napi::Value rawCmdSetColorBlendAdvancedEXT(const Napi::CallbackInfo& info
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (attachmentCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) attachmentCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pColorBlendAdvanced)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pColorBlendAdvanced = (VkColorBlendAdvancedEXT const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pColorBlendAdvanced = (VkColorBlendAdvancedEXT const*)GetAddress(env, info_[3]);
     
     ::vkCmdSetColorBlendAdvancedEXT(commandBuffer, firstAttachment, attachmentCount, pColorBlendAdvanced);
     return env.Null();
@@ -9645,8 +9088,7 @@ static Napi::Value rawCmdSetViewportSwizzleNV(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (viewportCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) viewportCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pViewportSwizzles)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pViewportSwizzles = (VkViewportSwizzleNV const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pViewportSwizzles = (VkViewportSwizzleNV const*)GetAddress(env, info_[3]);
     
     ::vkCmdSetViewportSwizzleNV(commandBuffer, firstViewport, viewportCount, pViewportSwizzles);
     return env.Null();
@@ -9738,8 +9180,7 @@ static Napi::Value rawCmdSetCoverageModulationTableNV(const Napi::CallbackInfo& 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (coverageModulationTableCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) coverageModulationTableCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pCoverageModulationTable)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCoverageModulationTable = (float const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCoverageModulationTable = (float const*)GetAddress(env, info_[2]);
     
     ::vkCmdSetCoverageModulationTableNV(commandBuffer, coverageModulationTableCount, pCoverageModulationTable);
     return env.Null();
@@ -9809,14 +9250,11 @@ static Napi::Value rawCreatePrivateDataSlot(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkPrivateDataSlotCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkPrivateDataSlotCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pPrivateDataSlot)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPrivateDataSlot = (VkPrivateDataSlot*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPrivateDataSlot = (VkPrivateDataSlot*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreatePrivateDataSlot(device, pCreateInfo, pAllocator, pPrivateDataSlot);
     return Napi::Number::New(env, result);
@@ -9834,8 +9272,7 @@ static Napi::Value rawDestroyPrivateDataSlot(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (privateDataSlot)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) privateDataSlot = (VkPrivateDataSlot)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyPrivateDataSlot(device, privateDataSlot, pAllocator);
     return env.Null();
@@ -9884,8 +9321,7 @@ static Napi::Value rawGetPrivateData(const Napi::CallbackInfo& info_) {
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (privateDataSlot)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) privateDataSlot = (VkPrivateDataSlot)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pData = (uint64_t*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pData = (uint64_t*)GetAddress(env, info_[4]);
     
     ::vkGetPrivateData(device, objectType, objectHandle, privateDataSlot, pData);
     return env.Null();
@@ -9900,8 +9336,7 @@ static Napi::Value rawCmdCopyBuffer2(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCopyBufferInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCopyBufferInfo = (VkCopyBufferInfo2 const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCopyBufferInfo = (VkCopyBufferInfo2 const*)GetAddress(env, info_[1]);
     
     ::vkCmdCopyBuffer2(commandBuffer, pCopyBufferInfo);
     return env.Null();
@@ -9916,8 +9351,7 @@ static Napi::Value rawCmdCopyImage2(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCopyImageInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCopyImageInfo = (VkCopyImageInfo2 const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCopyImageInfo = (VkCopyImageInfo2 const*)GetAddress(env, info_[1]);
     
     ::vkCmdCopyImage2(commandBuffer, pCopyImageInfo);
     return env.Null();
@@ -9932,8 +9366,7 @@ static Napi::Value rawCmdBlitImage2(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pBlitImageInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBlitImageInfo = (VkBlitImageInfo2 const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBlitImageInfo = (VkBlitImageInfo2 const*)GetAddress(env, info_[1]);
     
     ::vkCmdBlitImage2(commandBuffer, pBlitImageInfo);
     return env.Null();
@@ -9948,8 +9381,7 @@ static Napi::Value rawCmdCopyBufferToImage2(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCopyBufferToImageInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCopyBufferToImageInfo = (VkCopyBufferToImageInfo2 const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCopyBufferToImageInfo = (VkCopyBufferToImageInfo2 const*)GetAddress(env, info_[1]);
     
     ::vkCmdCopyBufferToImage2(commandBuffer, pCopyBufferToImageInfo);
     return env.Null();
@@ -9964,8 +9396,7 @@ static Napi::Value rawCmdCopyImageToBuffer2(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCopyImageToBufferInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCopyImageToBufferInfo = (VkCopyImageToBufferInfo2 const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCopyImageToBufferInfo = (VkCopyImageToBufferInfo2 const*)GetAddress(env, info_[1]);
     
     ::vkCmdCopyImageToBuffer2(commandBuffer, pCopyImageToBufferInfo);
     return env.Null();
@@ -9980,8 +9411,7 @@ static Napi::Value rawCmdResolveImage2(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pResolveImageInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pResolveImageInfo = (VkResolveImageInfo2 const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pResolveImageInfo = (VkResolveImageInfo2 const*)GetAddress(env, info_[1]);
     
     ::vkCmdResolveImage2(commandBuffer, pResolveImageInfo);
     return env.Null();
@@ -9997,11 +9427,9 @@ static Napi::Value rawCmdSetFragmentShadingRateKHR(const Napi::CallbackInfo& inf
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pFragmentSize)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFragmentSize = (VkExtent2D const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFragmentSize = (VkExtent2D const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (combinerOps)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) combinerOps = (VkFragmentShadingRateCombinerOpKHR const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) combinerOps = (VkFragmentShadingRateCombinerOpKHR const*)GetAddress(env, info_[2]);
     
     ::vkCmdSetFragmentShadingRateKHR(commandBuffer, pFragmentSize, combinerOps);
     return env.Null();
@@ -10018,11 +9446,9 @@ static Napi::Value rawGetPhysicalDeviceFragmentShadingRatesKHR(const Napi::Callb
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pFragmentShadingRateCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFragmentShadingRateCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFragmentShadingRateCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pFragmentShadingRates)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFragmentShadingRates = (VkPhysicalDeviceFragmentShadingRateKHR*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFragmentShadingRates = (VkPhysicalDeviceFragmentShadingRateKHR*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceFragmentShadingRatesKHR(physicalDevice, pFragmentShadingRateCount, pFragmentShadingRates);
     return Napi::Number::New(env, result);
@@ -10042,8 +9468,7 @@ static Napi::Value rawCmdSetFragmentShadingRateEnumNV(const Napi::CallbackInfo& 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (shadingRate)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) shadingRate = (VkFragmentShadingRateNV)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (combinerOps)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) combinerOps = (VkFragmentShadingRateCombinerOpKHR const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) combinerOps = (VkFragmentShadingRateCombinerOpKHR const*)GetAddress(env, info_[2]);
     
     ::vkCmdSetFragmentShadingRateEnumNV(commandBuffer, shadingRate, combinerOps);
     return env.Null();
@@ -10063,14 +9488,11 @@ static Napi::Value rawGetAccelerationStructureBuildSizesKHR(const Napi::Callback
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (buildType)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) buildType = (VkAccelerationStructureBuildTypeKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pBuildInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBuildInfo = (VkAccelerationStructureBuildGeometryInfoKHR const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBuildInfo = (VkAccelerationStructureBuildGeometryInfoKHR const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pMaxPrimitiveCounts)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMaxPrimitiveCounts = (uint32_t const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMaxPrimitiveCounts = (uint32_t const*)GetAddress(env, info_[3]);
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pSizeInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSizeInfo = (VkAccelerationStructureBuildSizesInfoKHR*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSizeInfo = (VkAccelerationStructureBuildSizesInfoKHR*)GetAddress(env, info_[4]);
     
     ::vkGetAccelerationStructureBuildSizesKHR(device, buildType, pBuildInfo, pMaxPrimitiveCounts, pSizeInfo);
     return env.Null();
@@ -10090,14 +9512,12 @@ static Napi::Value rawCmdSetVertexInputEXT(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (vertexBindingDescriptionCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) vertexBindingDescriptionCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pVertexBindingDescriptions)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pVertexBindingDescriptions = (VkVertexInputBindingDescription2EXT const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pVertexBindingDescriptions = (VkVertexInputBindingDescription2EXT const*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (vertexAttributeDescriptionCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) vertexAttributeDescriptionCount = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
 
-    if (!info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 4 argument (pVertexAttributeDescriptions)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pVertexAttributeDescriptions = (VkVertexInputAttributeDescription2EXT const*)info_[4].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pVertexAttributeDescriptions = (VkVertexInputAttributeDescription2EXT const*)GetAddress(env, info_[4]);
     
     ::vkCmdSetVertexInputEXT(commandBuffer, vertexBindingDescriptionCount, pVertexBindingDescriptions, vertexAttributeDescriptionCount, pVertexAttributeDescriptions);
     return env.Null();
@@ -10117,8 +9537,7 @@ static Napi::Value rawCmdSetColorWriteEnableEXT(const Napi::CallbackInfo& info_)
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (attachmentCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) attachmentCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pColorWriteEnables)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pColorWriteEnables = (VkBool32 const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pColorWriteEnables = (VkBool32 const*)GetAddress(env, info_[2]);
     
     ::vkCmdSetColorWriteEnableEXT(commandBuffer, attachmentCount, pColorWriteEnables);
     return env.Null();
@@ -10137,8 +9556,7 @@ static Napi::Value rawCmdSetEvent2(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (event)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) event = (VkEvent)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pDependencyInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDependencyInfo = (VkDependencyInfo const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDependencyInfo = (VkDependencyInfo const*)GetAddress(env, info_[2]);
     
     ::vkCmdSetEvent2(commandBuffer, event, pDependencyInfo);
     return env.Null();
@@ -10175,11 +9593,9 @@ static Napi::Value rawCmdWaitEvents2(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (eventCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) eventCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pEvents)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pEvents = (VkEvent const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pEvents = (VkEvent const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pDependencyInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDependencyInfos = (VkDependencyInfo const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDependencyInfos = (VkDependencyInfo const*)GetAddress(env, info_[3]);
     
     ::vkCmdWaitEvents2(commandBuffer, eventCount, pEvents, pDependencyInfos);
     return env.Null();
@@ -10194,8 +9610,7 @@ static Napi::Value rawCmdPipelineBarrier2(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pDependencyInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDependencyInfo = (VkDependencyInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDependencyInfo = (VkDependencyInfo const*)GetAddress(env, info_[1]);
     
     ::vkCmdPipelineBarrier2(commandBuffer, pDependencyInfo);
     return env.Null();
@@ -10213,8 +9628,7 @@ static Napi::Value rawQueueSubmit2(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (submitCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) submitCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSubmits)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSubmits = (VkSubmitInfo2 const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSubmits = (VkSubmitInfo2 const*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (fence)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) fence = (VkFence)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
@@ -10282,11 +9696,9 @@ static Napi::Value rawGetQueueCheckpointData2NV(const Napi::CallbackInfo& info_)
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (queue)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queue = (VkQueue)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCheckpointDataCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCheckpointDataCount = (uint32_t*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCheckpointDataCount = (uint32_t*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pCheckpointData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCheckpointData = (VkCheckpointData2NV*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCheckpointData = (VkCheckpointData2NV*)GetAddress(env, info_[2]);
     
     ::vkGetQueueCheckpointData2NV(queue, pCheckpointDataCount, pCheckpointData);
     return env.Null();
@@ -10303,11 +9715,9 @@ static Napi::Value rawGetPhysicalDeviceVideoCapabilitiesKHR(const Napi::Callback
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pVideoProfile)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pVideoProfile = (VkVideoProfileInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pVideoProfile = (VkVideoProfileInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pCapabilities)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCapabilities = (VkVideoCapabilitiesKHR*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCapabilities = (VkVideoCapabilitiesKHR*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceVideoCapabilitiesKHR(physicalDevice, pVideoProfile, pCapabilities);
     return Napi::Number::New(env, result);
@@ -10324,14 +9734,11 @@ static Napi::Value rawGetPhysicalDeviceVideoFormatPropertiesKHR(const Napi::Call
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pVideoFormatInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pVideoFormatInfo = (VkPhysicalDeviceVideoFormatInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pVideoFormatInfo = (VkPhysicalDeviceVideoFormatInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pVideoFormatPropertyCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pVideoFormatPropertyCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pVideoFormatPropertyCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pVideoFormatProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pVideoFormatProperties = (VkVideoFormatPropertiesKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pVideoFormatProperties = (VkVideoFormatPropertiesKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceVideoFormatPropertiesKHR(physicalDevice, pVideoFormatInfo, pVideoFormatPropertyCount, pVideoFormatProperties);
     return Napi::Number::New(env, result);
@@ -10348,14 +9755,11 @@ static Napi::Value rawCreateVideoSessionKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkVideoSessionCreateInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkVideoSessionCreateInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pVideoSession)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pVideoSession = (VkVideoSessionKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pVideoSession = (VkVideoSessionKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateVideoSessionKHR(device, pCreateInfo, pAllocator, pVideoSession);
     return Napi::Number::New(env, result);
@@ -10375,8 +9779,7 @@ static Napi::Value rawDestroyVideoSessionKHR(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (videoSession)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) videoSession = (VkVideoSessionKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyVideoSessionKHR(device, videoSession, pAllocator);
     return env.Null();
@@ -10393,14 +9796,11 @@ static Napi::Value rawCreateVideoSessionParametersKHR(const Napi::CallbackInfo& 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkVideoSessionParametersCreateInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkVideoSessionParametersCreateInfoKHR const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pVideoSessionParameters)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pVideoSessionParameters = (VkVideoSessionParametersKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pVideoSessionParameters = (VkVideoSessionParametersKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateVideoSessionParametersKHR(device, pCreateInfo, pAllocator, pVideoSessionParameters);
     return Napi::Number::New(env, result);
@@ -10420,8 +9820,7 @@ static Napi::Value rawUpdateVideoSessionParametersKHR(const Napi::CallbackInfo& 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (videoSessionParameters)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) videoSessionParameters = (VkVideoSessionParametersKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pUpdateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pUpdateInfo = (VkVideoSessionParametersUpdateInfoKHR const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pUpdateInfo = (VkVideoSessionParametersUpdateInfoKHR const*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkUpdateVideoSessionParametersKHR(device, videoSessionParameters, pUpdateInfo);
     return Napi::Number::New(env, result);
@@ -10441,8 +9840,7 @@ static Napi::Value rawDestroyVideoSessionParametersKHR(const Napi::CallbackInfo&
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (videoSessionParameters)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) videoSessionParameters = (VkVideoSessionParametersKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyVideoSessionParametersKHR(device, videoSessionParameters, pAllocator);
     return env.Null();
@@ -10462,11 +9860,9 @@ static Napi::Value rawGetVideoSessionMemoryRequirementsKHR(const Napi::CallbackI
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (videoSession)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) videoSession = (VkVideoSessionKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMemoryRequirementsCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryRequirementsCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryRequirementsCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pMemoryRequirements)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMemoryRequirements = (VkVideoSessionMemoryRequirementsKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMemoryRequirements = (VkVideoSessionMemoryRequirementsKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetVideoSessionMemoryRequirementsKHR(device, videoSession, pMemoryRequirementsCount, pMemoryRequirements);
     return Napi::Number::New(env, result);
@@ -10489,8 +9885,7 @@ static Napi::Value rawBindVideoSessionMemoryKHR(const Napi::CallbackInfo& info_)
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (bindSessionMemoryInfoCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) bindSessionMemoryInfoCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pBindSessionMemoryInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBindSessionMemoryInfos = (VkBindVideoSessionMemoryInfoKHR const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBindSessionMemoryInfos = (VkBindVideoSessionMemoryInfoKHR const*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkBindVideoSessionMemoryKHR(device, videoSession, bindSessionMemoryInfoCount, pBindSessionMemoryInfos);
     return Napi::Number::New(env, result);
@@ -10507,8 +9902,7 @@ static Napi::Value rawCmdDecodeVideoKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pDecodeInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDecodeInfo = (VkVideoDecodeInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDecodeInfo = (VkVideoDecodeInfoKHR const*)GetAddress(env, info_[1]);
     
     ::vkCmdDecodeVideoKHR(commandBuffer, pDecodeInfo);
     return env.Null();
@@ -10525,8 +9919,7 @@ static Napi::Value rawCmdBeginVideoCodingKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pBeginInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBeginInfo = (VkVideoBeginCodingInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBeginInfo = (VkVideoBeginCodingInfoKHR const*)GetAddress(env, info_[1]);
     
     ::vkCmdBeginVideoCodingKHR(commandBuffer, pBeginInfo);
     return env.Null();
@@ -10543,8 +9936,7 @@ static Napi::Value rawCmdControlVideoCodingKHR(const Napi::CallbackInfo& info_) 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCodingControlInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCodingControlInfo = (VkVideoCodingControlInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCodingControlInfo = (VkVideoCodingControlInfoKHR const*)GetAddress(env, info_[1]);
     
     ::vkCmdControlVideoCodingKHR(commandBuffer, pCodingControlInfo);
     return env.Null();
@@ -10561,8 +9953,7 @@ static Napi::Value rawCmdEndVideoCodingKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pEndCodingInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pEndCodingInfo = (VkVideoEndCodingInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pEndCodingInfo = (VkVideoEndCodingInfoKHR const*)GetAddress(env, info_[1]);
     
     ::vkCmdEndVideoCodingKHR(commandBuffer, pEndCodingInfo);
     return env.Null();
@@ -10579,8 +9970,7 @@ static Napi::Value rawCmdEncodeVideoKHR(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pEncodeInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pEncodeInfo = (VkVideoEncodeInfoKHR const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pEncodeInfo = (VkVideoEncodeInfoKHR const*)GetAddress(env, info_[1]);
     
     ::vkCmdEncodeVideoKHR(commandBuffer, pEncodeInfo);
     return env.Null();
@@ -10600,8 +9990,7 @@ static Napi::Value rawCmdDecompressMemoryNV(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (decompressRegionCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) decompressRegionCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pDecompressMemoryRegions)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pDecompressMemoryRegions = (VkDecompressMemoryRegionNV const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pDecompressMemoryRegions = (VkDecompressMemoryRegionNV const*)GetAddress(env, info_[2]);
     
     ::vkCmdDecompressMemoryNV(commandBuffer, decompressRegionCount, pDecompressMemoryRegions);
     return env.Null();
@@ -10642,14 +10031,11 @@ static Napi::Value rawCreateCuModuleNVX(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkCuModuleCreateInfoNVX const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkCuModuleCreateInfoNVX const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pModule)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pModule = (VkCuModuleNVX*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pModule = (VkCuModuleNVX*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateCuModuleNVX(device, pCreateInfo, pAllocator, pModule);
     return Napi::Number::New(env, result);
@@ -10666,14 +10052,11 @@ static Napi::Value rawCreateCuFunctionNVX(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkCuFunctionCreateInfoNVX const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkCuFunctionCreateInfoNVX const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pFunction)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFunction = (VkCuFunctionNVX*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFunction = (VkCuFunctionNVX*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateCuFunctionNVX(device, pCreateInfo, pAllocator, pFunction);
     return Napi::Number::New(env, result);
@@ -10693,8 +10076,7 @@ static Napi::Value rawDestroyCuModuleNVX(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (module)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) module = (VkCuModuleNVX)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyCuModuleNVX(device, module, pAllocator);
     return env.Null();
@@ -10714,8 +10096,7 @@ static Napi::Value rawDestroyCuFunctionNVX(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (function)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) function = (VkCuFunctionNVX)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyCuFunctionNVX(device, function, pAllocator);
     return env.Null();
@@ -10732,8 +10113,7 @@ static Napi::Value rawCmdCuLaunchKernelNVX(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pLaunchInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pLaunchInfo = (VkCuLaunchInfoNVX const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pLaunchInfo = (VkCuLaunchInfoNVX const*)GetAddress(env, info_[1]);
     
     ::vkCmdCuLaunchKernelNVX(commandBuffer, pLaunchInfo);
     return env.Null();
@@ -10798,8 +10178,7 @@ static Napi::Value rawGetDrmDisplayEXT(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (connectorId)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) connectorId = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (display)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) display = (VkDisplayKHR*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) display = (VkDisplayKHR*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetDrmDisplayEXT(physicalDevice, drmFd, connectorId, display);
     return Napi::Number::New(env, result);
@@ -10840,14 +10219,11 @@ static Napi::Value rawCreateBufferCollectionFUCHSIA(const Napi::CallbackInfo& in
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkBufferCollectionCreateInfoFUCHSIA const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkBufferCollectionCreateInfoFUCHSIA const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pCollection)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCollection = (VkBufferCollectionFUCHSIA*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCollection = (VkBufferCollectionFUCHSIA*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateBufferCollectionFUCHSIA(device, pCreateInfo, pAllocator, pCollection);
     return Napi::Number::New(env, result);
@@ -10867,8 +10243,7 @@ static Napi::Value rawSetBufferCollectionBufferConstraintsFUCHSIA(const Napi::Ca
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (collection)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) collection = (VkBufferCollectionFUCHSIA)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pBufferConstraintsInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBufferConstraintsInfo = (VkBufferConstraintsInfoFUCHSIA const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBufferConstraintsInfo = (VkBufferConstraintsInfoFUCHSIA const*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkSetBufferCollectionBufferConstraintsFUCHSIA(device, collection, pBufferConstraintsInfo);
     return Napi::Number::New(env, result);
@@ -10888,8 +10263,7 @@ static Napi::Value rawSetBufferCollectionImageConstraintsFUCHSIA(const Napi::Cal
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (collection)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) collection = (VkBufferCollectionFUCHSIA)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pImageConstraintsInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pImageConstraintsInfo = (VkImageConstraintsInfoFUCHSIA const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pImageConstraintsInfo = (VkImageConstraintsInfoFUCHSIA const*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkSetBufferCollectionImageConstraintsFUCHSIA(device, collection, pImageConstraintsInfo);
     return Napi::Number::New(env, result);
@@ -10909,8 +10283,7 @@ static Napi::Value rawDestroyBufferCollectionFUCHSIA(const Napi::CallbackInfo& i
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (collection)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) collection = (VkBufferCollectionFUCHSIA)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyBufferCollectionFUCHSIA(device, collection, pAllocator);
     return env.Null();
@@ -10930,8 +10303,7 @@ static Napi::Value rawGetBufferCollectionPropertiesFUCHSIA(const Napi::CallbackI
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (collection)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) collection = (VkBufferCollectionFUCHSIA)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkBufferCollectionPropertiesFUCHSIA*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkBufferCollectionPropertiesFUCHSIA*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetBufferCollectionPropertiesFUCHSIA(device, collection, pProperties);
     return Napi::Number::New(env, result);
@@ -10947,8 +10319,7 @@ static Napi::Value rawCmdBeginRendering(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pRenderingInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRenderingInfo = (VkRenderingInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRenderingInfo = (VkRenderingInfo const*)GetAddress(env, info_[1]);
     
     ::vkCmdBeginRendering(commandBuffer, pRenderingInfo);
     return env.Null();
@@ -10977,11 +10348,9 @@ static Napi::Value rawGetDescriptorSetLayoutHostMappingInfoVALVE(const Napi::Cal
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pBindingReference)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBindingReference = (VkDescriptorSetBindingReferenceVALVE const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBindingReference = (VkDescriptorSetBindingReferenceVALVE const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pHostMapping)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pHostMapping = (VkDescriptorSetLayoutHostMappingInfoVALVE*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pHostMapping = (VkDescriptorSetLayoutHostMappingInfoVALVE*)GetAddress(env, info_[2]);
     
     ::vkGetDescriptorSetLayoutHostMappingInfoVALVE(device, pBindingReference, pHostMapping);
     return env.Null();
@@ -11001,8 +10370,7 @@ static Napi::Value rawGetDescriptorSetHostMappingVALVE(const Napi::CallbackInfo&
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (descriptorSet)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) descriptorSet = (VkDescriptorSet)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer of pointers) at 2 argument (ppData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) ppData = (void**)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) ppData = (void**)GetAddress(env, info_[2]);
     
     ::vkGetDescriptorSetHostMappingVALVE(device, descriptorSet, ppData);
     return env.Null();
@@ -11019,14 +10387,11 @@ static Napi::Value rawCreateMicromapEXT(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkMicromapCreateInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkMicromapCreateInfoEXT const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pMicromap)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMicromap = (VkMicromapEXT*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMicromap = (VkMicromapEXT*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateMicromapEXT(device, pCreateInfo, pAllocator, pMicromap);
     return Napi::Number::New(env, result);
@@ -11046,8 +10411,7 @@ static Napi::Value rawCmdBuildMicromapsEXT(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (infoCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) infoCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfos = (VkMicromapBuildInfoEXT const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfos = (VkMicromapBuildInfoEXT const*)GetAddress(env, info_[2]);
     
     ::vkCmdBuildMicromapsEXT(commandBuffer, infoCount, pInfos);
     return env.Null();
@@ -11070,8 +10434,7 @@ static Napi::Value rawBuildMicromapsEXT(const Napi::CallbackInfo& info_) {
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (infoCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) infoCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pInfos)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfos = (VkMicromapBuildInfoEXT const*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfos = (VkMicromapBuildInfoEXT const*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkBuildMicromapsEXT(device, deferredOperation, infoCount, pInfos);
     return Napi::Number::New(env, result);
@@ -11091,8 +10454,7 @@ static Napi::Value rawDestroyMicromapEXT(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (micromap)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) micromap = (VkMicromapEXT)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyMicromapEXT(device, micromap, pAllocator);
     return env.Null();
@@ -11109,8 +10471,7 @@ static Napi::Value rawCmdCopyMicromapEXT(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkCopyMicromapInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkCopyMicromapInfoEXT const*)GetAddress(env, info_[1]);
     
     ::vkCmdCopyMicromapEXT(commandBuffer, pInfo);
     return env.Null();
@@ -11130,8 +10491,7 @@ static Napi::Value rawCopyMicromapEXT(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (deferredOperation)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) deferredOperation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkCopyMicromapInfoEXT const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkCopyMicromapInfoEXT const*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkCopyMicromapEXT(device, deferredOperation, pInfo);
     return Napi::Number::New(env, result);
@@ -11148,8 +10508,7 @@ static Napi::Value rawCmdCopyMicromapToMemoryEXT(const Napi::CallbackInfo& info_
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkCopyMicromapToMemoryInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkCopyMicromapToMemoryInfoEXT const*)GetAddress(env, info_[1]);
     
     ::vkCmdCopyMicromapToMemoryEXT(commandBuffer, pInfo);
     return env.Null();
@@ -11169,8 +10528,7 @@ static Napi::Value rawCopyMicromapToMemoryEXT(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (deferredOperation)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) deferredOperation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkCopyMicromapToMemoryInfoEXT const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkCopyMicromapToMemoryInfoEXT const*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkCopyMicromapToMemoryEXT(device, deferredOperation, pInfo);
     return Napi::Number::New(env, result);
@@ -11187,8 +10545,7 @@ static Napi::Value rawCmdCopyMemoryToMicromapEXT(const Napi::CallbackInfo& info_
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkCopyMemoryToMicromapInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkCopyMemoryToMicromapInfoEXT const*)GetAddress(env, info_[1]);
     
     ::vkCmdCopyMemoryToMicromapEXT(commandBuffer, pInfo);
     return env.Null();
@@ -11208,8 +10565,7 @@ static Napi::Value rawCopyMemoryToMicromapEXT(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (deferredOperation)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) deferredOperation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pInfo = (VkCopyMemoryToMicromapInfoEXT const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pInfo = (VkCopyMemoryToMicromapInfoEXT const*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkCopyMemoryToMicromapEXT(device, deferredOperation, pInfo);
     return Napi::Number::New(env, result);
@@ -11229,8 +10585,7 @@ static Napi::Value rawCmdWriteMicromapsPropertiesEXT(const Napi::CallbackInfo& i
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (micromapCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) micromapCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMicromaps)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMicromaps = (VkMicromapEXT const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMicromaps = (VkMicromapEXT const*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (queryType)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queryType = (VkQueryType)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
@@ -11259,8 +10614,7 @@ static Napi::Value rawWriteMicromapsPropertiesEXT(const Napi::CallbackInfo& info
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (micromapCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) micromapCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pMicromaps)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMicromaps = (VkMicromapEXT const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMicromaps = (VkMicromapEXT const*)GetAddress(env, info_[2]);
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (queryType)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queryType = (VkQueryType)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
@@ -11268,8 +10622,7 @@ static Napi::Value rawWriteMicromapsPropertiesEXT(const Napi::CallbackInfo& info
     if (!info_[4].IsBigInt() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 4 argument (dataSize)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) dataSize = (size_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Int64Value());
 
-    if (!info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 5 argument (pData)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pData = (void*)info_[5].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pData = (void*)GetAddress(env, info_[5]);
 
     if (!info_[6].IsBigInt() && !info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 6 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (size_t)(info_[6].IsBigInt() ? info_[6].As<Napi::BigInt>().Uint64Value(&lossless) : info_[6].As<Napi::Number>().Int64Value());
@@ -11289,11 +10642,9 @@ static Napi::Value rawGetDeviceMicromapCompatibilityEXT(const Napi::CallbackInfo
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pVersionInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pVersionInfo = (VkMicromapVersionInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pVersionInfo = (VkMicromapVersionInfoEXT const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pCompatibility)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCompatibility = (VkAccelerationStructureCompatibilityKHR*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCompatibility = (VkAccelerationStructureCompatibilityKHR*)GetAddress(env, info_[2]);
     
     ::vkGetDeviceMicromapCompatibilityEXT(device, pVersionInfo, pCompatibility);
     return env.Null();
@@ -11313,11 +10664,9 @@ static Napi::Value rawGetMicromapBuildSizesEXT(const Napi::CallbackInfo& info_) 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (buildType)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) buildType = (VkAccelerationStructureBuildTypeKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pBuildInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pBuildInfo = (VkMicromapBuildInfoEXT const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pBuildInfo = (VkMicromapBuildInfoEXT const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSizeInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSizeInfo = (VkMicromapBuildSizesInfoEXT*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSizeInfo = (VkMicromapBuildSizesInfoEXT*)GetAddress(env, info_[3]);
     
     ::vkGetMicromapBuildSizesEXT(device, buildType, pBuildInfo, pSizeInfo);
     return env.Null();
@@ -11337,8 +10686,7 @@ static Napi::Value rawGetShaderModuleIdentifierEXT(const Napi::CallbackInfo& inf
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (shaderModule)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) shaderModule = (VkShaderModule)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pIdentifier)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pIdentifier = (VkShaderModuleIdentifierEXT*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pIdentifier = (VkShaderModuleIdentifierEXT*)GetAddress(env, info_[2]);
     
     ::vkGetShaderModuleIdentifierEXT(device, shaderModule, pIdentifier);
     return env.Null();
@@ -11355,11 +10703,9 @@ static Napi::Value rawGetShaderModuleCreateInfoIdentifierEXT(const Napi::Callbac
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkShaderModuleCreateInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkShaderModuleCreateInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pIdentifier)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pIdentifier = (VkShaderModuleIdentifierEXT*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pIdentifier = (VkShaderModuleIdentifierEXT*)GetAddress(env, info_[2]);
     
     ::vkGetShaderModuleCreateInfoIdentifierEXT(device, pCreateInfo, pIdentifier);
     return env.Null();
@@ -11379,11 +10725,9 @@ static Napi::Value rawGetImageSubresourceLayout2EXT(const Napi::CallbackInfo& in
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (image)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) image = (VkImage)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pSubresource)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSubresource = (VkImageSubresource2EXT const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSubresource = (VkImageSubresource2EXT const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pLayout)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pLayout = (VkSubresourceLayout2EXT*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pLayout = (VkSubresourceLayout2EXT*)GetAddress(env, info_[3]);
     
     ::vkGetImageSubresourceLayout2EXT(device, image, pSubresource, pLayout);
     return env.Null();
@@ -11400,11 +10744,9 @@ static Napi::Value rawGetPipelinePropertiesEXT(const Napi::CallbackInfo& info_) 
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pPipelineInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPipelineInfo = (VkPipelineInfoEXT const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPipelineInfo = (VkPipelineInfoEXT const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pPipelineProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPipelineProperties = (VkBaseOutStructure*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPipelineProperties = (VkBaseOutStructure*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetPipelinePropertiesEXT(device, pPipelineInfo, pPipelineProperties);
     return Napi::Number::New(env, result);
@@ -11421,8 +10763,7 @@ static Napi::Value rawExportMetalObjectsEXT(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pMetalObjectsInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pMetalObjectsInfo = (VkExportMetalObjectsInfoEXT*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pMetalObjectsInfo = (VkExportMetalObjectsInfoEXT*)GetAddress(env, info_[1]);
     
     ::vkExportMetalObjectsEXT(device, pMetalObjectsInfo);
     return env.Null();
@@ -11442,11 +10783,9 @@ static Napi::Value rawGetFramebufferTilePropertiesQCOM(const Napi::CallbackInfo&
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (framebuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) framebuffer = (VkFramebuffer)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pPropertiesCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pPropertiesCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pPropertiesCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkTilePropertiesQCOM*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkTilePropertiesQCOM*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetFramebufferTilePropertiesQCOM(device, framebuffer, pPropertiesCount, pProperties);
     return Napi::Number::New(env, result);
@@ -11463,11 +10802,9 @@ static Napi::Value rawGetDynamicRenderingTilePropertiesQCOM(const Napi::Callback
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pRenderingInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pRenderingInfo = (VkRenderingInfo const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pRenderingInfo = (VkRenderingInfo const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pProperties = (VkTilePropertiesQCOM*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pProperties = (VkTilePropertiesQCOM*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetDynamicRenderingTilePropertiesQCOM(device, pRenderingInfo, pProperties);
     return Napi::Number::New(env, result);
@@ -11484,14 +10821,11 @@ static Napi::Value rawGetPhysicalDeviceOpticalFlowImageFormatsNV(const Napi::Cal
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (physicalDevice)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pOpticalFlowImageFormatInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pOpticalFlowImageFormatInfo = (VkOpticalFlowImageFormatInfoNV const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pOpticalFlowImageFormatInfo = (VkOpticalFlowImageFormatInfoNV const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pFormatCount)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFormatCount = (uint32_t*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFormatCount = (uint32_t*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pImageFormatProperties)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pImageFormatProperties = (VkOpticalFlowImageFormatPropertiesNV*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pImageFormatProperties = (VkOpticalFlowImageFormatPropertiesNV*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkGetPhysicalDeviceOpticalFlowImageFormatsNV(physicalDevice, pOpticalFlowImageFormatInfo, pFormatCount, pImageFormatProperties);
     return Napi::Number::New(env, result);
@@ -11508,14 +10842,11 @@ static Napi::Value rawCreateOpticalFlowSessionNV(const Napi::CallbackInfo& info_
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pCreateInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pCreateInfo = (VkOpticalFlowSessionCreateInfoNV const*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pCreateInfo = (VkOpticalFlowSessionCreateInfoNV const*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
-    if (!info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 3 argument (pSession)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pSession = (VkOpticalFlowSessionNV*)info_[3].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pSession = (VkOpticalFlowSessionNV*)GetAddress(env, info_[3]);
     
     decltype(auto) result = ::vkCreateOpticalFlowSessionNV(device, pCreateInfo, pAllocator, pSession);
     return Napi::Number::New(env, result);
@@ -11535,8 +10866,7 @@ static Napi::Value rawDestroyOpticalFlowSessionNV(const Napi::CallbackInfo& info
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (session)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) session = (VkOpticalFlowSessionNV)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pAllocator)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pAllocator = (VkAllocationCallbacks const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
     
     ::vkDestroyOpticalFlowSessionNV(device, session, pAllocator);
     return env.Null();
@@ -11583,8 +10913,7 @@ static Napi::Value rawCmdOpticalFlowExecuteNV(const Napi::CallbackInfo& info_) {
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (session)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) session = (VkOpticalFlowSessionNV)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pExecuteInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pExecuteInfo = (VkOpticalFlowExecuteInfoNV const*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pExecuteInfo = (VkOpticalFlowExecuteInfoNV const*)GetAddress(env, info_[2]);
     
     ::vkCmdOpticalFlowExecuteNV(commandBuffer, session, pExecuteInfo);
     return env.Null();
@@ -11601,11 +10930,9 @@ static Napi::Value rawGetDeviceFaultInfoEXT(const Napi::CallbackInfo& info_) {
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
-    if (!info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 1 argument (pFaultCounts)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFaultCounts = (VkDeviceFaultCountsEXT*)info_[1].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFaultCounts = (VkDeviceFaultCountsEXT*)GetAddress(env, info_[1]);
 
-    if (!info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at 2 argument (pFaultInfo)").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) pFaultInfo = (VkDeviceFaultInfoEXT*)info_[2].As<Napi::BigInt>().Uint64Value(&lossless);;
+    decltype(auto) pFaultInfo = (VkDeviceFaultInfoEXT*)GetAddress(env, info_[2]);
     
     decltype(auto) result = ::vkGetDeviceFaultInfoEXT(device, pFaultCounts, pFaultInfo);
     return Napi::Number::New(env, result);
@@ -25539,7 +24866,7 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
     exports["uint64"] = Napi::Function::New(env, DebugUint64);
     exports["float32"] = Napi::Function::New(env, DebugFloat32);
     exports["float64"] = Napi::Function::New(env, DebugFloat64);
-    exports["nativeAddress"] = Napi::Function::New(env, GetAddress);
+    exports["nativeAddress"] = Napi::Function::New(env, GetAddressJS);
     exports["arrayBuffer"] = Napi::Function::New(env, WrapArrayBuffer);
     exports["buffer"] = Napi::Function::New(env, WrapBuffer);
     exports["string"] = Napi::Function::New(env, WrapString);

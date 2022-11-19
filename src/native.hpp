@@ -14,40 +14,59 @@ static Napi::Value Dealloc(const Napi::CallbackInfo& info_) {
     return Napi::BigInt::New(env, (uint64_t)0ull);
 }
 
-static Napi::Value GetAddress(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
-
+static uint64_t GetAddress(Napi::Env env, const Napi::Value& value_) {
+    bool lossless = true;
     uint64_t address = 0ull;
-    if (info_[0].IsString()) {
-        decltype(auto) STR = info_[0].As<Napi::String>().Utf8Value();
+    
+    if (value_.IsBigInt()) {
+        return value_.As<Napi::BigInt>().Uint64Value(&lossless);
+    } else
+    if (value_.IsString()) {
+        decltype(auto) STR = value_.As<Napi::String>().Utf8Value();
         decltype(auto) ptr = Napi::Uint8Array::New(env, STR.length()); // you can't use directly c_str, it should to be context visible
         memcpy(ptr.Data(), STR.c_str(), STR.size());
         address = uint64_t(ptr.Data());
-    }
-    if (info_[0].IsTypedArray()) {
-        decltype(auto) TA = info_[0].As<Napi::TypedArray>();
+    } else
+    if (value_.IsTypedArray()) {
+        decltype(auto) TA = value_.As<Napi::TypedArray>();
         decltype(auto) AB = TA.ArrayBuffer();
         address = uint64_t(AB.Data()) + TA.ByteOffset();
-    }
-    if (info_[0].IsDataView()) {
-        decltype(auto) TA = info_[0].As<Napi::DataView>();
+    } else
+    if (value_.IsDataView()) {
+        decltype(auto) TA = value_.As<Napi::DataView>();
         decltype(auto) AB = TA.ArrayBuffer();
         address = uint64_t(AB.Data()) + TA.ByteOffset();
-    }
-    if (info_[0].IsArrayBuffer()) {
-        decltype(auto) AB = info_[0].As<Napi::ArrayBuffer>();
+    } else
+    if (value_.IsArrayBuffer()) {
+        decltype(auto) AB = value_.As<Napi::ArrayBuffer>();
         address = uint64_t(AB.Data());
-    }
-    if (info_[0].IsBuffer()) {
-        decltype(auto) AB = info_[0].As<Napi::Buffer<uint8_t>>();
+    } else
+    if (value_.IsBuffer()) {
+        decltype(auto) AB = value_.As<Napi::Buffer<uint8_t>>();
         address = uint64_t(AB.Data());
-    }
-    if (info_[0].IsExternal()) {
-        decltype(auto) AB = info_[0].As<Napi::External<void>>();
+    } else
+    if (value_.IsExternal()) {
+        decltype(auto) AB = value_.As<Napi::External<void>>();
         address = uint64_t(AB.Data());
+    } else
+    if (value_.IsObject()) {
+        decltype(auto) OBJ = value_.As<Napi::Object>();
+        if (OBJ.Has("address")) {
+            decltype(auto) MTD = OBJ.Get("address");
+            if (MTD.IsFunction()) {
+                address = MTD.As<Napi::Function>().Call(std::vector<napi_value>{}).As<Napi::BigInt>().Uint64Value(&lossless);
+            }
+        }
+    } else {
+        Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer of pointers) at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return address;
     }
 
-    return Napi::BigInt::New(env, (uint64_t)address);
+    return address;
+}
+
+static Napi::Value GetAddressJS(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    return Napi::BigInt::New(env, GetAddress(env, info_[0]));
 }
 
 static Napi::ArrayBuffer WrapArrayBuffer(const Napi::CallbackInfo& info_) {

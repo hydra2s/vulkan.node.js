@@ -117,30 +117,22 @@ let getWriter = async()=>{
     let Uint64Getter = (I=0)=> `info_[${I}].As<Napi::BigInt>().Uint64Value(&lossless);`
     let Uint64Return = (N)=> `Napi::BigInt::New(env, (uint64_t)${N});`;
 
-    
-
-    
-
     //
     let passArg = (param, I) => {
         if (param.isPointerSet) {
             return param.isConst ?
             `
-    if (!info_[${I}].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer of pointers) at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) ${param.name} = (${param.type}* const*)${Uint64Getter(I)};` : 
+    decltype(auto) ${param.name} = (${param.type}* const*)GetAddress(env, info_[${I}]);` : 
             `
-    if (!info_[${I}].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer of pointers) at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) ${param.name} = (${param.type}**)${Uint64Getter(I)};`
+    decltype(auto) ${param.name} = (${param.type}**)GetAddress(env, info_[${I}]);`
         } else
 
         if (param.isPointer || param.isFixedArray) {
             return param.isConst ?
             `
-    if (!info_[${I}].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) ${param.name} = (${param.type} const*)${Uint64Getter(I)};` :
+    decltype(auto) ${param.name} = (${param.type} const*)GetAddress(env, info_[${I}]);` :
             `
-    if (!info_[${I}].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs BigInt (pointer) at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
-    decltype(auto) ${param.name} = (${param.type}*)${Uint64Getter(I)};`
+    decltype(auto) ${param.name} = (${param.type}*)GetAddress(env, info_[${I}]);`
         } else
 
         if (IsFloat32(param.type)) {
@@ -675,7 +667,7 @@ ${map.parsed.map((cmd,i)=>{
     exports["uint64"] = Napi::Function::New(env, DebugUint64);
     exports["float32"] = Napi::Function::New(env, DebugFloat32);
     exports["float64"] = Napi::Function::New(env, DebugFloat64);
-    exports["nativeAddress"] = Napi::Function::New(env, GetAddress);
+    exports["nativeAddress"] = Napi::Function::New(env, GetAddressJS);
     exports["arrayBuffer"] = Napi::Function::New(env, WrapArrayBuffer);
     exports["buffer"] = Napi::Function::New(env, WrapBuffer);
     exports["string"] = Napi::Function::New(env, WrapString);
