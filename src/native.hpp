@@ -18,8 +18,11 @@ static uint64_t GetAddress(Napi::Env env, const Napi::Value& value_) {
     bool lossless = true;
     uint64_t address = 0ull;
     
+    if (value_.IsNumber()) {
+        address = value_.As<Napi::Number>().Uint32Value();
+    } else
     if (value_.IsBigInt()) {
-        return value_.As<Napi::BigInt>().Uint64Value(&lossless);
+        address = value_.As<Napi::BigInt>().Uint64Value(&lossless);
     } else
     if (value_.IsString()) {
         decltype(auto) STR = value_.As<Napi::String>().Utf8Value();
@@ -97,19 +100,18 @@ static Napi::Buffer<uint8_t> WrapBuffer(const Napi::CallbackInfo& info_) {
 
 static Napi::Value WrapString(const Napi::CallbackInfo& info_) {
     Napi::Env env = info_.Env();
-    uint64_t address = 0ull;
     bool lossless = true;
-    if (info_[0].IsBigInt()) {
-        address = info_[0].As<Napi::BigInt>().Uint64Value(&lossless);;
-    }
 
-    size_t length = 0ull;
     if (info_.Length() < 1) {
         Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
         return env.Null();
     }
-    if (info_[0].IsBigInt()) { length = info_[0].As<Napi::BigInt>().Uint64Value(&lossless); }
+
+    uint64_t address = GetAddress(env, info_[0]);
+
+    size_t length = 0ull;
     if (info_.Length() == 2) {
+        if (info_[1].IsBigInt()) { length = info_[1].As<Napi::BigInt>().Uint64Value(&lossless); }
         if (info_[1].IsNumber()) { length = info_[1].As<Napi::Number>().Uint32Value(); }
     }
 
@@ -123,19 +125,18 @@ static Napi::Value WrapString(const Napi::CallbackInfo& info_) {
 
 static Napi::Value WrapStringUTF16(const Napi::CallbackInfo& info_) {
     Napi::Env env = info_.Env();
-    uint64_t address = 0ull;
     bool lossless = true;
-    if (info_[0].IsBigInt()) {
-        address = info_[0].As<Napi::BigInt>().Uint64Value(&lossless);;
-    }
-    
-    size_t length = 0ull;
+
     if (info_.Length() < 1) {
         Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
         return env.Null();
     }
-    if (info_[0].IsBigInt()) { length = info_[0].As<Napi::BigInt>().Uint64Value(&lossless); }
+
+    uint64_t address = GetAddress(env, info_[0]);
+
+    size_t length = 0ull;
     if (info_.Length() == 2) {
+        if (info_[1].IsBigInt()) { length = info_[1].As<Napi::BigInt>().Uint64Value(&lossless); }
         if (info_[1].IsNumber()) { length = info_[1].As<Napi::Number>().Uint32Value(); }
     }
 

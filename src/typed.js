@@ -10,7 +10,7 @@ const isAbv = (value) => {
 
 // TODO: special array and arrays support
 const asBigInt = (value)=>{
-    if (typeof value == "bigint" || typeof value == "number") {
+    if (typeof value == "number" || typeof value == "bigint" || Number.isInteger(value) || typeof value == "string" && /^\+?\d+$/.test(value)) {
         return BigInt(value);
     } else
     if (ArrayBuffer.isView(value)) {
@@ -67,8 +67,8 @@ class ArrayProxyMethods {
         this.getter = getter;
     }
     get(target, index) {
-        if (typeof index == "number" || typeof index == "bigint") {
-            return this.getter(target, index);
+        if (typeof index == "number" || typeof index == "bigint" || Number.isInteger(index) || typeof index == "string" && /^\+?\d+$/.test(index)) {
+            return this.getter(target, parseInt(index));
         } else 
         if (index == "byteLength" || index == "byteOffset" || index == "length") {
             return target[index];

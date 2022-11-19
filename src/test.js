@@ -23,6 +23,7 @@ import { default as T } from "./typed.js";
     let extensions = T.Types["u64[arr]"].construct([]);
     let layers = T.Types["u64[arr]"].construct(["VK_LAYER_KHRONOS_validation"]);
 
+    //
     let pInfo = S.VkInstanceCreateInfo.construct({
         sType: E.VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
         pNext: 0n,
