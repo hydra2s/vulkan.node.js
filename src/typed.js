@@ -69,7 +69,10 @@ class CStructView {
         });
     }
 
-    offsetof(name) { return (this.struct.offsetof(name) + this.byteOffset); };
+    // member utils
+    offsetof(name) { return this.struct.offsetof(name); };
+    bufferOffsetOf(name) { return this.byteOffset + this.offsetof(name); };
+    addressOffsetOf(name) { return this.address() + this.offsetof(name); };
 
     construct(buffer, byteOffset = 0, byteLength = 0) {
         if (isAbv(buffer ? (buffer.buffer || buffer) : null)) {
