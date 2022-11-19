@@ -41,7 +41,6 @@ const C = T.default;
         enabledExtensionCount: 0,
         ppEnabledExtensionNames: 0n
     });
-    
 
     let handle = new BigUint64Array(1);
     vulkan.vkCreateInstance(pInfo.address(), 0n, handle.address());

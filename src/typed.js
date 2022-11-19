@@ -64,6 +64,33 @@ class CStructView {
         });
     }
 
+    // for conversion struct or member
+    as(tname, mname = "") {
+        let length = 1;
+        let offset = 0;
+
+        if (typeof tname == "string") {
+            if (tname.indexOf("[") >= 0 && tname.indexOf("]") >= 0) {
+                let match = tname.match(/\[(-?\d+)\]/);
+                length = (match ? parseInt(match[1]) : 1) || 1;
+                tname = tname.replace(/\[\d+\]/g, "");
+            };
+            if (tname.indexOf("(") >= 0 && tname.indexOf(")") >= 0) {
+                let match = tname.match(/\((-?\d+)\)/);
+                offset = (match ? parseInt(match[1]) : 0) || 0;
+                tname = tname.replace(/\(\d+\)/g, "");
+            };
+        } else 
+
+        if (typeof tname == "array") {
+            length = tname[2] || 1;
+            offset = tname[1] || 0;
+            tname = tname[0];
+        }
+
+        return types[tname+(length>1?"arr":"")]?.construct(this.buffer, this.byteOffset + offset + this.offsetof(mname));
+    }
+
     // member utils
     offsetof(name) { return this.struct.offsetof(name); };
     bufferOffsetOf(name) { return this.byteOffset + this.offsetof(name); };
@@ -123,9 +150,9 @@ class CStruct {
                 };
             } else 
             if (typeof struct[name] == "array") {
-                tname = types[struct[name]][0];
                 length = struct[name][2] || 1;
                 offset = struct[name][1] || 0;
+                tname = struct[name][0];
             }
 
             // correctify offset, if not defined
@@ -171,10 +198,10 @@ class CStruct {
             return new CStructView(buffer.buffer || buffer, (buffer.byteOffset||0) + byteOffset, byteLength || this.byteLength, this);
         } else 
         if (typeof buffer == "number") {
-            return new CStructView(new ArrayBuffer(buffer), (buffer.byteOffset||0), buffer || this.byteLength, this);
+            return new CStructView(new ArrayBuffer(buffer || this.byteLength), (buffer.byteOffset||0), buffer || this.byteLength, this);
         } else 
         if (typeof buffer == "object") {
-            let structed = new CStructView(new ArrayBuffer(this.byteLength), 0, this.byteLength, this);
+            let structed = new CStructView(new ArrayBuffer(byteLength || this.byteLength), 0, this.byteLength, this);
             //for (let k in buffer) { if (this.types.find((t)=>(t.name == k))) { structed[k] = buffer[k]; }; }; // reduce the some time
             for (let t of this.types) { let k = t.name; if (k in buffer) { structed[k] = buffer[k]; }; }; // supports correct order
             return structed;
