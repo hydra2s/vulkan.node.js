@@ -42,7 +42,7 @@ const asBigInt = (value)=>{
 //
 const Types = {};
 
-// TODO: wrap by proxy
+// TODO: replace by types itself
 class ConstructProxy {
     constructor(target) {
         this.target = target;
@@ -65,7 +65,7 @@ class ConstructProxy {
     }
 };
 
-//
+// TODO: make as Proxy methods itself
 class NumberAccessor {
     constructor(name, byteLength, getter, setter, construct = defaultDataConstruct, bigEndian = false) {
         if (!(name in Types)) { Types[name] = new Proxy(function(...args){}, new ConstructProxy(this)); };
@@ -78,7 +78,7 @@ class NumberAccessor {
     }
 }
 
-//
+// TODO: make as Proxy methods itself
 class ArrayAccessor {
     constructor(name, byteLength, getter, setter, construct, bigEndian = false) {
         if (!((name+"[arr]") in Types)) { Types[name+"[arr]"] = new Proxy(function(...args){}, new ConstructProxy(this)); };
@@ -91,7 +91,7 @@ class ArrayAccessor {
     }
 }
 
-//
+// TODO: remove as extra feature
 class StructProxyMethods {
     constructor(getter, setter) {
         this.setter = setter;
@@ -116,7 +116,7 @@ class StructProxyMethods {
     }
 };
 
-//
+// Still needed for typed arrays
 class ArrayProxyMethods {
     constructor(getter, setter) {
         this.setter = setter;
@@ -311,7 +311,7 @@ class CStructView {
     }
 }
 
-// 
+// TODO: make as Proxy methods itself
 class CStruct {
     constructor(name, struct, byteLength) {
         this.types = [];
@@ -320,6 +320,7 @@ class CStruct {
         this.byteLength = byteLength;
         this.isStruct = true;
         if (!(name in Types)) { Types[name] = new Proxy(function(...args){}, new ConstructProxy(this)); };
+        //if (!(name in Types)) { Types[name] = new Proxy(function(...args){}, this); };
 
         //
         this.address = this.address.bind(this);
@@ -392,10 +393,21 @@ class CStruct {
         };
     }
 
+    //
+    get(target, name) {
+        return null;
+    }
+    
+    // TODO: make as setter for Proxy
+    set(target, name, value) {
+
+    }
+
     offsetof(name) {
         return this.types.find((e)=>(e.name==name))?.byteOffset || 0;
     }
 
+    // TODO: make as constructor for Proxy
     construct(buffer, byteOffset = 0, byteLength = 0) {
         if (isAbv(buffer ? (buffer.buffer || buffer) : null)) {
             return new Proxy(new CStructView(buffer.buffer || buffer, (buffer.byteOffset||0) + byteOffset, byteLength || this.byteLength, this), new StructProxyMethods());
