@@ -57,6 +57,8 @@ static Napi::Value rawCreateInstance(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateInstance").ThrowAsJavaScriptException();
     }
+    volkLoadInstance(*pInstance);
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyInstance(const Napi::CallbackInfo& info_) {
@@ -92,6 +94,8 @@ static Napi::Value rawEnumeratePhysicalDevices(const Napi::CallbackInfo& info_) 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkEnumeratePhysicalDevices").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawGetDeviceProcAddr(const Napi::CallbackInfo& info_) {
@@ -235,6 +239,8 @@ static Napi::Value rawGetPhysicalDeviceImageFormatProperties(const Napi::Callbac
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceImageFormatProperties").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawCreateDevice(const Napi::CallbackInfo& info_) {
@@ -257,6 +263,8 @@ static Napi::Value rawCreateDevice(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDevice").ThrowAsJavaScriptException();
     }
+    
+    volkLoadDevice(*pDevice);
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyDevice(const Napi::CallbackInfo& info_) {
@@ -287,6 +295,8 @@ static Napi::Value rawEnumerateInstanceVersion(const Napi::CallbackInfo& info_) 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkEnumerateInstanceVersion").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawEnumerateInstanceLayerProperties(const Napi::CallbackInfo& info_) {
@@ -304,6 +314,8 @@ static Napi::Value rawEnumerateInstanceLayerProperties(const Napi::CallbackInfo&
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkEnumerateInstanceLayerProperties").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawEnumerateInstanceExtensionProperties(const Napi::CallbackInfo& info_) {
@@ -323,6 +335,8 @@ static Napi::Value rawEnumerateInstanceExtensionProperties(const Napi::CallbackI
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkEnumerateInstanceExtensionProperties").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawEnumerateDeviceLayerProperties(const Napi::CallbackInfo& info_) {
@@ -343,6 +357,8 @@ static Napi::Value rawEnumerateDeviceLayerProperties(const Napi::CallbackInfo& i
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkEnumerateDeviceLayerProperties").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawEnumerateDeviceExtensionProperties(const Napi::CallbackInfo& info_) {
@@ -365,6 +381,8 @@ static Napi::Value rawEnumerateDeviceExtensionProperties(const Napi::CallbackInf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkEnumerateDeviceExtensionProperties").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawGetDeviceQueue(const Napi::CallbackInfo& info_) {
@@ -410,6 +428,8 @@ static Napi::Value rawQueueSubmit(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkQueueSubmit").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawQueueWaitIdle(const Napi::CallbackInfo& info_) {
@@ -426,6 +446,8 @@ static Napi::Value rawQueueWaitIdle(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkQueueWaitIdle").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDeviceWaitIdle(const Napi::CallbackInfo& info_) {
@@ -442,6 +464,8 @@ static Napi::Value rawDeviceWaitIdle(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkDeviceWaitIdle").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawAllocateMemory(const Napi::CallbackInfo& info_) {
@@ -464,6 +488,8 @@ static Napi::Value rawAllocateMemory(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkAllocateMemory").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawFreeMemory(const Napi::CallbackInfo& info_) {
@@ -512,6 +538,8 @@ static Napi::Value rawMapMemory(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkMapMemory").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawUnmapMemory(const Napi::CallbackInfo& info_) {
@@ -549,6 +577,8 @@ static Napi::Value rawFlushMappedMemoryRanges(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkFlushMappedMemoryRanges").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawInvalidateMappedMemoryRanges(const Napi::CallbackInfo& info_) {
@@ -570,6 +600,8 @@ static Napi::Value rawInvalidateMappedMemoryRanges(const Napi::CallbackInfo& inf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkInvalidateMappedMemoryRanges").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawGetDeviceMemoryCommitment(const Napi::CallbackInfo& info_) {
@@ -631,6 +663,8 @@ static Napi::Value rawBindBufferMemory(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkBindBufferMemory").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawGetImageMemoryRequirements(const Napi::CallbackInfo& info_) {
@@ -674,6 +708,8 @@ static Napi::Value rawBindImageMemory(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkBindImageMemory").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawGetImageSparseMemoryRequirements(const Napi::CallbackInfo& info_) {
@@ -750,6 +786,8 @@ static Napi::Value rawQueueBindSparse(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkQueueBindSparse").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawCreateFence(const Napi::CallbackInfo& info_) {
@@ -772,6 +810,8 @@ static Napi::Value rawCreateFence(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateFence").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyFence(const Napi::CallbackInfo& info_) {
@@ -811,6 +851,8 @@ static Napi::Value rawResetFences(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkResetFences").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawGetFenceStatus(const Napi::CallbackInfo& info_) {
@@ -830,6 +872,8 @@ static Napi::Value rawGetFenceStatus(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetFenceStatus").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawWaitForFences(const Napi::CallbackInfo& info_) {
@@ -857,6 +901,8 @@ static Napi::Value rawWaitForFences(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkWaitForFences").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawCreateSemaphore(const Napi::CallbackInfo& info_) {
@@ -879,6 +925,8 @@ static Napi::Value rawCreateSemaphore(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateSemaphore").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroySemaphore(const Napi::CallbackInfo& info_) {
@@ -919,6 +967,8 @@ static Napi::Value rawCreateEvent(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateEvent").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyEvent(const Napi::CallbackInfo& info_) {
@@ -956,6 +1006,8 @@ static Napi::Value rawGetEventStatus(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetEventStatus").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawSetEvent(const Napi::CallbackInfo& info_) {
@@ -975,6 +1027,8 @@ static Napi::Value rawSetEvent(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkSetEvent").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawResetEvent(const Napi::CallbackInfo& info_) {
@@ -994,6 +1048,8 @@ static Napi::Value rawResetEvent(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkResetEvent").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawCreateQueryPool(const Napi::CallbackInfo& info_) {
@@ -1016,6 +1072,8 @@ static Napi::Value rawCreateQueryPool(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateQueryPool").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyQueryPool(const Napi::CallbackInfo& info_) {
@@ -1070,6 +1128,8 @@ static Napi::Value rawGetQueryPoolResults(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetQueryPoolResults").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawResetQueryPool(const Napi::CallbackInfo& info_) {
@@ -1114,6 +1174,8 @@ static Napi::Value rawCreateBuffer(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateBuffer").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyBuffer(const Napi::CallbackInfo& info_) {
@@ -1154,6 +1216,8 @@ static Napi::Value rawCreateBufferView(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateBufferView").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyBufferView(const Napi::CallbackInfo& info_) {
@@ -1194,6 +1258,8 @@ static Napi::Value rawCreateImage(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateImage").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyImage(const Napi::CallbackInfo& info_) {
@@ -1254,6 +1320,8 @@ static Napi::Value rawCreateImageView(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateImageView").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyImageView(const Napi::CallbackInfo& info_) {
@@ -1294,6 +1362,8 @@ static Napi::Value rawCreateShaderModule(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateShaderModule").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyShaderModule(const Napi::CallbackInfo& info_) {
@@ -1334,6 +1404,8 @@ static Napi::Value rawCreatePipelineCache(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreatePipelineCache").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyPipelineCache(const Napi::CallbackInfo& info_) {
@@ -1375,6 +1447,8 @@ static Napi::Value rawGetPipelineCacheData(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPipelineCacheData").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawMergePipelineCaches(const Napi::CallbackInfo& info_) {
@@ -1399,6 +1473,8 @@ static Napi::Value rawMergePipelineCaches(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkMergePipelineCaches").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawCreateGraphicsPipelines(const Napi::CallbackInfo& info_) {
@@ -1427,6 +1503,8 @@ static Napi::Value rawCreateGraphicsPipelines(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateGraphicsPipelines").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawCreateComputePipelines(const Napi::CallbackInfo& info_) {
@@ -1455,6 +1533,8 @@ static Napi::Value rawCreateComputePipelines(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateComputePipelines").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #ifdef VK_HUAWEI_subpass_shading
@@ -1477,6 +1557,8 @@ static Napi::Value rawGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(const Napi::
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -1518,6 +1600,8 @@ static Napi::Value rawCreatePipelineLayout(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreatePipelineLayout").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyPipelineLayout(const Napi::CallbackInfo& info_) {
@@ -1558,6 +1642,8 @@ static Napi::Value rawCreateSampler(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateSampler").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroySampler(const Napi::CallbackInfo& info_) {
@@ -1598,6 +1684,8 @@ static Napi::Value rawCreateDescriptorSetLayout(const Napi::CallbackInfo& info_)
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDescriptorSetLayout").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyDescriptorSetLayout(const Napi::CallbackInfo& info_) {
@@ -1638,6 +1726,8 @@ static Napi::Value rawCreateDescriptorPool(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDescriptorPool").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyDescriptorPool(const Napi::CallbackInfo& info_) {
@@ -1678,6 +1768,8 @@ static Napi::Value rawResetDescriptorPool(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkResetDescriptorPool").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawAllocateDescriptorSets(const Napi::CallbackInfo& info_) {
@@ -1698,6 +1790,8 @@ static Napi::Value rawAllocateDescriptorSets(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkAllocateDescriptorSets").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawFreeDescriptorSets(const Napi::CallbackInfo& info_) {
@@ -1722,6 +1816,8 @@ static Napi::Value rawFreeDescriptorSets(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkFreeDescriptorSets").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawUpdateDescriptorSets(const Napi::CallbackInfo& info_) {
@@ -1767,6 +1863,8 @@ static Napi::Value rawCreateFramebuffer(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateFramebuffer").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyFramebuffer(const Napi::CallbackInfo& info_) {
@@ -1807,6 +1905,8 @@ static Napi::Value rawCreateRenderPass(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateRenderPass").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyRenderPass(const Napi::CallbackInfo& info_) {
@@ -1865,6 +1965,8 @@ static Napi::Value rawCreateCommandPool(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateCommandPool").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyCommandPool(const Napi::CallbackInfo& info_) {
@@ -1905,6 +2007,8 @@ static Napi::Value rawResetCommandPool(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkResetCommandPool").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawAllocateCommandBuffers(const Napi::CallbackInfo& info_) {
@@ -1925,6 +2029,8 @@ static Napi::Value rawAllocateCommandBuffers(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkAllocateCommandBuffers").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawFreeCommandBuffers(const Napi::CallbackInfo& info_) {
@@ -1964,6 +2070,8 @@ static Napi::Value rawBeginCommandBuffer(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkBeginCommandBuffer").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawEndCommandBuffer(const Napi::CallbackInfo& info_) {
@@ -1980,6 +2088,8 @@ static Napi::Value rawEndCommandBuffer(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkEndCommandBuffer").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawResetCommandBuffer(const Napi::CallbackInfo& info_) {
@@ -1999,6 +2109,8 @@ static Napi::Value rawResetCommandBuffer(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkResetCommandBuffer").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawCmdBindPipeline(const Napi::CallbackInfo& info_) {
@@ -3216,6 +3328,8 @@ static Napi::Value rawCreateAndroidSurfaceKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateAndroidSurfaceKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3238,6 +3352,8 @@ static Napi::Value rawGetPhysicalDeviceDisplayPropertiesKHR(const Napi::Callback
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceDisplayPropertiesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3260,6 +3376,8 @@ static Napi::Value rawGetPhysicalDeviceDisplayPlanePropertiesKHR(const Napi::Cal
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceDisplayPlanePropertiesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3285,6 +3403,8 @@ static Napi::Value rawGetDisplayPlaneSupportedDisplaysKHR(const Napi::CallbackIn
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetDisplayPlaneSupportedDisplaysKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3310,6 +3430,8 @@ static Napi::Value rawGetDisplayModePropertiesKHR(const Napi::CallbackInfo& info
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetDisplayModePropertiesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3337,6 +3459,8 @@ static Napi::Value rawCreateDisplayModeKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDisplayModeKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3363,6 +3487,8 @@ static Napi::Value rawGetDisplayPlaneCapabilitiesKHR(const Napi::CallbackInfo& i
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetDisplayPlaneCapabilitiesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3387,6 +3513,8 @@ static Napi::Value rawCreateDisplayPlaneSurfaceKHR(const Napi::CallbackInfo& inf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDisplayPlaneSurfaceKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3414,6 +3542,8 @@ static Napi::Value rawCreateSharedSwapchainsKHR(const Napi::CallbackInfo& info_)
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateSharedSwapchainsKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3460,6 +3590,8 @@ static Napi::Value rawGetPhysicalDeviceSurfaceSupportKHR(const Napi::CallbackInf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSurfaceSupportKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3483,6 +3615,8 @@ static Napi::Value rawGetPhysicalDeviceSurfaceCapabilitiesKHR(const Napi::Callba
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSurfaceCapabilitiesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3508,6 +3642,8 @@ static Napi::Value rawGetPhysicalDeviceSurfaceFormatsKHR(const Napi::CallbackInf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSurfaceFormatsKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3533,6 +3669,8 @@ static Napi::Value rawGetPhysicalDeviceSurfacePresentModesKHR(const Napi::Callba
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSurfacePresentModesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3557,6 +3695,8 @@ static Napi::Value rawCreateSwapchainKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateSwapchainKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3602,6 +3742,8 @@ static Napi::Value rawGetSwapchainImagesKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetSwapchainImagesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3634,6 +3776,8 @@ static Napi::Value rawAcquireNextImageKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkAcquireNextImageKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3654,6 +3798,8 @@ static Napi::Value rawQueuePresentKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkQueuePresentKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3678,6 +3824,8 @@ static Napi::Value rawCreateViSurfaceNN(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateViSurfaceNN").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3702,6 +3850,8 @@ static Napi::Value rawCreateWaylandSurfaceKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateWaylandSurfaceKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3725,6 +3875,8 @@ static Napi::Value rawGetPhysicalDeviceWaylandPresentationSupportKHR(const Napi:
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceWaylandPresentationSupportKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3749,6 +3901,8 @@ static Napi::Value rawCreateWin32SurfaceKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateWin32SurfaceKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3770,6 +3924,8 @@ static Napi::Value rawGetPhysicalDeviceWin32PresentationSupportKHR(const Napi::C
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceWin32PresentationSupportKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3794,6 +3950,8 @@ static Napi::Value rawCreateXlibSurfaceKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateXlibSurfaceKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3820,6 +3978,8 @@ static Napi::Value rawGetPhysicalDeviceXlibPresentationSupportKHR(const Napi::Ca
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceXlibPresentationSupportKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3844,6 +4004,8 @@ static Napi::Value rawCreateXcbSurfaceKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateXcbSurfaceKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3870,6 +4032,8 @@ static Napi::Value rawGetPhysicalDeviceXcbPresentationSupportKHR(const Napi::Cal
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceXcbPresentationSupportKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3894,6 +4058,8 @@ static Napi::Value rawCreateDirectFBSurfaceEXT(const Napi::CallbackInfo& info_) 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDirectFBSurfaceEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3917,6 +4083,8 @@ static Napi::Value rawGetPhysicalDeviceDirectFBPresentationSupportEXT(const Napi
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceDirectFBPresentationSupportEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3941,6 +4109,8 @@ static Napi::Value rawCreateImagePipeSurfaceFUCHSIA(const Napi::CallbackInfo& in
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateImagePipeSurfaceFUCHSIA").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3965,6 +4135,8 @@ static Napi::Value rawCreateStreamDescriptorSurfaceGGP(const Napi::CallbackInfo&
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateStreamDescriptorSurfaceGGP").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -3989,6 +4161,8 @@ static Napi::Value rawCreateScreenSurfaceQNX(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateScreenSurfaceQNX").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4012,6 +4186,8 @@ static Napi::Value rawGetPhysicalDeviceScreenPresentationSupportQNX(const Napi::
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceScreenPresentationSupportQNX").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4036,6 +4212,8 @@ static Napi::Value rawCreateDebugReportCallbackEXT(const Napi::CallbackInfo& inf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDebugReportCallbackEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4110,6 +4288,8 @@ static Napi::Value rawDebugMarkerSetObjectNameEXT(const Napi::CallbackInfo& info
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkDebugMarkerSetObjectNameEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4130,6 +4310,8 @@ static Napi::Value rawDebugMarkerSetObjectTagEXT(const Napi::CallbackInfo& info_
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkDebugMarkerSetObjectTagEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4217,6 +4399,8 @@ static Napi::Value rawGetPhysicalDeviceExternalImageFormatPropertiesNV(const Nap
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceExternalImageFormatPropertiesNV").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4243,6 +4427,8 @@ static Napi::Value rawGetMemoryWin32HandleNV(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryWin32HandleNV").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4347,6 +4533,8 @@ static Napi::Value rawCreateIndirectCommandsLayoutNV(const Napi::CallbackInfo& i
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateIndirectCommandsLayoutNV").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4436,6 +4624,8 @@ static Napi::Value rawGetPhysicalDeviceImageFormatProperties2(const Napi::Callba
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceImageFormatProperties2").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawGetPhysicalDeviceQueueFamilyProperties2(const Napi::CallbackInfo& info_) {
@@ -4573,6 +4763,8 @@ static Napi::Value rawGetMemoryWin32HandleKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryWin32HandleKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4599,6 +4791,8 @@ static Napi::Value rawGetMemoryWin32HandlePropertiesKHR(const Napi::CallbackInfo
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryWin32HandlePropertiesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4621,6 +4815,8 @@ static Napi::Value rawGetMemoryFdKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryFdKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4647,6 +4843,8 @@ static Napi::Value rawGetMemoryFdPropertiesKHR(const Napi::CallbackInfo& info_) 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryFdPropertiesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4669,6 +4867,8 @@ static Napi::Value rawGetMemoryZirconHandleFUCHSIA(const Napi::CallbackInfo& inf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryZirconHandleFUCHSIA").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4695,6 +4895,8 @@ static Napi::Value rawGetMemoryZirconHandlePropertiesFUCHSIA(const Napi::Callbac
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryZirconHandlePropertiesFUCHSIA").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4717,6 +4919,8 @@ static Napi::Value rawGetMemoryRemoteAddressNV(const Napi::CallbackInfo& info_) 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryRemoteAddressNV").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4756,6 +4960,8 @@ static Napi::Value rawGetSemaphoreWin32HandleKHR(const Napi::CallbackInfo& info_
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetSemaphoreWin32HandleKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4776,6 +4982,8 @@ static Napi::Value rawImportSemaphoreWin32HandleKHR(const Napi::CallbackInfo& in
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkImportSemaphoreWin32HandleKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4798,6 +5006,8 @@ static Napi::Value rawGetSemaphoreFdKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetSemaphoreFdKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4818,6 +5028,8 @@ static Napi::Value rawImportSemaphoreFdKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkImportSemaphoreFdKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4840,6 +5052,8 @@ static Napi::Value rawGetSemaphoreZirconHandleFUCHSIA(const Napi::CallbackInfo& 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetSemaphoreZirconHandleFUCHSIA").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4860,6 +5074,8 @@ static Napi::Value rawImportSemaphoreZirconHandleFUCHSIA(const Napi::CallbackInf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkImportSemaphoreZirconHandleFUCHSIA").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4899,6 +5115,8 @@ static Napi::Value rawGetFenceWin32HandleKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetFenceWin32HandleKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4919,6 +5137,8 @@ static Napi::Value rawImportFenceWin32HandleKHR(const Napi::CallbackInfo& info_)
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkImportFenceWin32HandleKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4941,6 +5161,8 @@ static Napi::Value rawGetFenceFdKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetFenceFdKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4961,6 +5183,8 @@ static Napi::Value rawImportFenceFdKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkImportFenceFdKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -4982,6 +5206,8 @@ static Napi::Value rawReleaseDisplayEXT(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkReleaseDisplayEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5005,6 +5231,8 @@ static Napi::Value rawAcquireXlibDisplayEXT(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkAcquireXlibDisplayEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5030,6 +5258,8 @@ static Napi::Value rawGetRandROutputDisplayEXT(const Napi::CallbackInfo& info_) 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetRandROutputDisplayEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5051,6 +5281,8 @@ static Napi::Value rawAcquireWinrtDisplayNV(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkAcquireWinrtDisplayNV").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5074,6 +5306,8 @@ static Napi::Value rawGetWinrtDisplayNV(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetWinrtDisplayNV").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5097,6 +5331,8 @@ static Napi::Value rawDisplayPowerControlEXT(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkDisplayPowerControlEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5121,6 +5357,8 @@ static Napi::Value rawRegisterDeviceEventEXT(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkRegisterDeviceEventEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5148,6 +5386,8 @@ static Napi::Value rawRegisterDisplayEventEXT(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkRegisterDisplayEventEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5174,6 +5414,8 @@ static Napi::Value rawGetSwapchainCounterEXT(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetSwapchainCounterEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5197,6 +5439,8 @@ static Napi::Value rawGetPhysicalDeviceSurfaceCapabilities2EXT(const Napi::Callb
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSurfaceCapabilities2EXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5218,6 +5462,8 @@ static Napi::Value rawEnumeratePhysicalDeviceGroups(const Napi::CallbackInfo& in
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkEnumeratePhysicalDeviceGroups").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawGetDeviceGroupPeerMemoryFeatures(const Napi::CallbackInfo& info_) {
@@ -5263,6 +5509,8 @@ static Napi::Value rawBindBufferMemory2(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkBindBufferMemory2").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawBindImageMemory2(const Napi::CallbackInfo& info_) {
@@ -5284,6 +5532,8 @@ static Napi::Value rawBindImageMemory2(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkBindImageMemory2").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawCmdSetDeviceMask(const Napi::CallbackInfo& info_) {
@@ -5319,6 +5569,8 @@ static Napi::Value rawGetDeviceGroupPresentCapabilitiesKHR(const Napi::CallbackI
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetDeviceGroupPresentCapabilitiesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5342,6 +5594,8 @@ static Napi::Value rawGetDeviceGroupSurfacePresentModesKHR(const Napi::CallbackI
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetDeviceGroupSurfacePresentModesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5364,6 +5618,8 @@ static Napi::Value rawAcquireNextImage2KHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkAcquireNextImage2KHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5420,6 +5676,8 @@ static Napi::Value rawGetPhysicalDevicePresentRectanglesKHR(const Napi::Callback
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDevicePresentRectanglesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5443,6 +5701,8 @@ static Napi::Value rawCreateDescriptorUpdateTemplate(const Napi::CallbackInfo& i
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDescriptorUpdateTemplate").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyDescriptorUpdateTemplate(const Napi::CallbackInfo& info_) {
@@ -5550,6 +5810,8 @@ static Napi::Value rawGetSwapchainStatusKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetSwapchainStatusKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5573,6 +5835,8 @@ static Napi::Value rawGetRefreshCycleDurationGOOGLE(const Napi::CallbackInfo& in
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetRefreshCycleDurationGOOGLE").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5598,6 +5862,8 @@ static Napi::Value rawGetPastPresentationTimingGOOGLE(const Napi::CallbackInfo& 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPastPresentationTimingGOOGLE").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5622,6 +5888,8 @@ static Napi::Value rawCreateIOSSurfaceMVK(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateIOSSurfaceMVK").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5646,6 +5914,8 @@ static Napi::Value rawCreateMacOSSurfaceMVK(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateMacOSSurfaceMVK").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5670,6 +5940,8 @@ static Napi::Value rawCreateMetalSurfaceEXT(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateMetalSurfaceEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5775,6 +6047,8 @@ static Napi::Value rawGetPhysicalDeviceSurfaceCapabilities2KHR(const Napi::Callb
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSurfaceCapabilities2KHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5799,6 +6073,8 @@ static Napi::Value rawGetPhysicalDeviceSurfaceFormats2KHR(const Napi::CallbackIn
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSurfaceFormats2KHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5821,6 +6097,8 @@ static Napi::Value rawGetPhysicalDeviceDisplayProperties2KHR(const Napi::Callbac
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceDisplayProperties2KHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5843,6 +6121,8 @@ static Napi::Value rawGetPhysicalDeviceDisplayPlaneProperties2KHR(const Napi::Ca
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceDisplayPlaneProperties2KHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5868,6 +6148,8 @@ static Napi::Value rawGetDisplayModeProperties2KHR(const Napi::CallbackInfo& inf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetDisplayModeProperties2KHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -5890,6 +6172,8 @@ static Napi::Value rawGetDisplayPlaneCapabilities2KHR(const Napi::CallbackInfo& 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetDisplayPlaneCapabilities2KHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -6019,6 +6303,8 @@ static Napi::Value rawCreateSamplerYcbcrConversion(const Napi::CallbackInfo& inf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateSamplerYcbcrConversion").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroySamplerYcbcrConversion(const Napi::CallbackInfo& info_) {
@@ -6077,6 +6363,8 @@ static Napi::Value rawCreateValidationCacheEXT(const Napi::CallbackInfo& info_) 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateValidationCacheEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -6122,6 +6410,8 @@ static Napi::Value rawGetValidationCacheDataEXT(const Napi::CallbackInfo& info_)
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetValidationCacheDataEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -6148,6 +6438,8 @@ static Napi::Value rawMergeValidationCachesEXT(const Napi::CallbackInfo& info_) 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkMergeValidationCachesEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -6191,6 +6483,8 @@ static Napi::Value rawGetSwapchainGrallocUsageANDROID(const Napi::CallbackInfo& 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetSwapchainGrallocUsageANDROID").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -6222,6 +6516,8 @@ static Napi::Value rawGetSwapchainGrallocUsage2ANDROID(const Napi::CallbackInfo&
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetSwapchainGrallocUsage2ANDROID").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -6252,6 +6548,8 @@ static Napi::Value rawAcquireImageANDROID(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkAcquireImageANDROID").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -6280,6 +6578,8 @@ static Napi::Value rawQueueSignalReleaseImageANDROID(const Napi::CallbackInfo& i
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkQueueSignalReleaseImageANDROID").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -6311,6 +6611,8 @@ static Napi::Value rawGetShaderInfoAMD(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetShaderInfoAMD").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -6354,6 +6656,8 @@ static Napi::Value rawGetPhysicalDeviceCalibrateableTimeDomainsEXT(const Napi::C
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceCalibrateableTimeDomainsEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -6381,6 +6685,8 @@ static Napi::Value rawGetCalibratedTimestampsEXT(const Napi::CallbackInfo& info_
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetCalibratedTimestampsEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -6401,6 +6707,8 @@ static Napi::Value rawSetDebugUtilsObjectNameEXT(const Napi::CallbackInfo& info_
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkSetDebugUtilsObjectNameEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -6421,6 +6729,8 @@ static Napi::Value rawSetDebugUtilsObjectTagEXT(const Napi::CallbackInfo& info_)
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkSetDebugUtilsObjectTagEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -6543,6 +6853,8 @@ static Napi::Value rawCreateDebugUtilsMessengerEXT(const Napi::CallbackInfo& inf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDebugUtilsMessengerEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -6611,6 +6923,8 @@ static Napi::Value rawGetMemoryHostPointerPropertiesEXT(const Napi::CallbackInfo
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryHostPointerPropertiesEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -6661,6 +6975,8 @@ static Napi::Value rawCreateRenderPass2(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateRenderPass2").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawCmdBeginRenderPass2(const Napi::CallbackInfo& info_) {
@@ -6731,6 +7047,8 @@ static Napi::Value rawGetSemaphoreCounterValue(const Napi::CallbackInfo& info_) 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetSemaphoreCounterValue").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawWaitSemaphores(const Napi::CallbackInfo& info_) {
@@ -6752,6 +7070,8 @@ static Napi::Value rawWaitSemaphores(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkWaitSemaphores").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawSignalSemaphore(const Napi::CallbackInfo& info_) {
@@ -6770,6 +7090,8 @@ static Napi::Value rawSignalSemaphore(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkSignalSemaphore").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #ifdef VK_ANDROID_external_memory_android_hardware_buffer
@@ -6791,6 +7113,8 @@ static Napi::Value rawGetAndroidHardwareBufferPropertiesANDROID(const Napi::Call
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetAndroidHardwareBufferPropertiesANDROID").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -6813,6 +7137,8 @@ static Napi::Value rawGetMemoryAndroidHardwareBufferANDROID(const Napi::Callback
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryAndroidHardwareBufferANDROID").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -7351,6 +7677,8 @@ static Napi::Value rawCompileDeferredNV(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCompileDeferredNV").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -7375,6 +7703,8 @@ static Napi::Value rawCreateAccelerationStructureNV(const Napi::CallbackInfo& in
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateAccelerationStructureNV").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -7478,6 +7808,8 @@ static Napi::Value rawBindAccelerationStructureMemoryNV(const Napi::CallbackInfo
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkBindAccelerationStructureMemoryNV").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -7542,6 +7874,8 @@ static Napi::Value rawCopyAccelerationStructureKHR(const Napi::CallbackInfo& inf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCopyAccelerationStructureKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -7582,6 +7916,8 @@ static Napi::Value rawCopyAccelerationStructureToMemoryKHR(const Napi::CallbackI
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCopyAccelerationStructureToMemoryKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -7622,6 +7958,8 @@ static Napi::Value rawCopyMemoryToAccelerationStructureKHR(const Napi::CallbackI
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCopyMemoryToAccelerationStructureKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -7752,6 +8090,8 @@ static Napi::Value rawWriteAccelerationStructuresPropertiesKHR(const Napi::Callb
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkWriteAccelerationStructuresPropertiesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -7873,6 +8213,8 @@ static Napi::Value rawGetRayTracingShaderGroupHandlesKHR(const Napi::CallbackInf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetRayTracingShaderGroupHandlesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -7905,6 +8247,8 @@ static Napi::Value rawGetRayTracingCaptureReplayShaderGroupHandlesKHR(const Napi
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetRayTracingCaptureReplayShaderGroupHandlesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -7931,6 +8275,8 @@ static Napi::Value rawGetAccelerationStructureHandleNV(const Napi::CallbackInfo&
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetAccelerationStructureHandleNV").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -7961,6 +8307,8 @@ static Napi::Value rawCreateRayTracingPipelinesNV(const Napi::CallbackInfo& info
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateRayTracingPipelinesNV").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -7994,6 +8342,8 @@ static Napi::Value rawCreateRayTracingPipelinesKHR(const Napi::CallbackInfo& inf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateRayTracingPipelinesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8016,6 +8366,8 @@ static Napi::Value rawGetPhysicalDeviceCooperativeMatrixPropertiesNV(const Napi:
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceCooperativeMatrixPropertiesNV").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8141,6 +8493,8 @@ static Napi::Value rawGetImageViewHandleNVX(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetImageViewHandleNVX").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8164,6 +8518,8 @@ static Napi::Value rawGetImageViewAddressNVX(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetImageViewAddressNVX").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8188,6 +8544,8 @@ static Napi::Value rawGetPhysicalDeviceSurfacePresentModes2EXT(const Napi::Callb
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSurfacePresentModes2EXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8210,6 +8568,8 @@ static Napi::Value rawGetDeviceGroupSurfacePresentModes2EXT(const Napi::Callback
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetDeviceGroupSurfacePresentModes2EXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8231,6 +8591,8 @@ static Napi::Value rawAcquireFullScreenExclusiveModeEXT(const Napi::CallbackInfo
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkAcquireFullScreenExclusiveModeEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8252,6 +8614,8 @@ static Napi::Value rawReleaseFullScreenExclusiveModeEXT(const Napi::CallbackInfo
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkReleaseFullScreenExclusiveModeEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8279,6 +8643,8 @@ static Napi::Value rawEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCounters
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8318,6 +8684,8 @@ static Napi::Value rawAcquireProfilingLockKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkAcquireProfilingLockKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8356,6 +8724,8 @@ static Napi::Value rawGetImageDrmFormatModifierPropertiesEXT(const Napi::Callbac
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetImageDrmFormatModifierPropertiesEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8410,6 +8780,8 @@ static Napi::Value rawCreateHeadlessSurfaceEXT(const Napi::CallbackInfo& info_) 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateHeadlessSurfaceEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8432,6 +8804,8 @@ static Napi::Value rawGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinati
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8452,6 +8826,8 @@ static Napi::Value rawInitializePerformanceApiINTEL(const Napi::CallbackInfo& in
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkInitializePerformanceApiINTEL").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8487,6 +8863,8 @@ static Napi::Value rawCmdSetPerformanceMarkerINTEL(const Napi::CallbackInfo& inf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCmdSetPerformanceMarkerINTEL").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8507,6 +8885,8 @@ static Napi::Value rawCmdSetPerformanceStreamMarkerINTEL(const Napi::CallbackInf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCmdSetPerformanceStreamMarkerINTEL").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8527,6 +8907,8 @@ static Napi::Value rawCmdSetPerformanceOverrideINTEL(const Napi::CallbackInfo& i
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCmdSetPerformanceOverrideINTEL").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8549,6 +8931,8 @@ static Napi::Value rawAcquirePerformanceConfigurationINTEL(const Napi::CallbackI
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkAcquirePerformanceConfigurationINTEL").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8570,6 +8954,8 @@ static Napi::Value rawReleasePerformanceConfigurationINTEL(const Napi::CallbackI
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkReleasePerformanceConfigurationINTEL").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8591,6 +8977,8 @@ static Napi::Value rawQueueSetPerformanceConfigurationINTEL(const Napi::Callback
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkQueueSetPerformanceConfigurationINTEL").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8614,6 +9002,8 @@ static Napi::Value rawGetPerformanceParameterINTEL(const Napi::CallbackInfo& inf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPerformanceParameterINTEL").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8653,6 +9043,8 @@ static Napi::Value rawGetPipelineExecutablePropertiesKHR(const Napi::CallbackInf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPipelineExecutablePropertiesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8677,6 +9069,8 @@ static Napi::Value rawGetPipelineExecutableStatisticsKHR(const Napi::CallbackInf
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPipelineExecutableStatisticsKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8701,6 +9095,8 @@ static Napi::Value rawGetPipelineExecutableInternalRepresentationsKHR(const Napi
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPipelineExecutableInternalRepresentationsKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8743,6 +9139,8 @@ static Napi::Value rawGetPhysicalDeviceToolProperties(const Napi::CallbackInfo& 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceToolProperties").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #ifdef VK_KHR_acceleration_structure
@@ -8766,6 +9164,8 @@ static Napi::Value rawCreateAccelerationStructureKHR(const Napi::CallbackInfo& i
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateAccelerationStructureKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8842,6 +9242,8 @@ static Napi::Value rawBuildAccelerationStructuresKHR(const Napi::CallbackInfo& i
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkBuildAccelerationStructuresKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8881,6 +9283,8 @@ static Napi::Value rawCreateDeferredOperationKHR(const Napi::CallbackInfo& info_
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDeferredOperationKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8922,6 +9326,8 @@ static Napi::Value rawGetDeferredOperationMaxConcurrencyKHR(const Napi::Callback
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetDeferredOperationMaxConcurrencyKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8943,6 +9349,8 @@ static Napi::Value rawGetDeferredOperationResultKHR(const Napi::CallbackInfo& in
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetDeferredOperationResultKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -8964,6 +9372,8 @@ static Napi::Value rawDeferredOperationJoinKHR(const Napi::CallbackInfo& info_) 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkDeferredOperationJoinKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -9877,6 +10287,8 @@ static Napi::Value rawCreatePrivateDataSlot(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreatePrivateDataSlot").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawDestroyPrivateDataSlot(const Napi::CallbackInfo& info_) {
@@ -9923,6 +10335,8 @@ static Napi::Value rawSetPrivateData(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkSetPrivateData").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawGetPrivateData(const Napi::CallbackInfo& info_) {
@@ -10077,6 +10491,8 @@ static Napi::Value rawGetPhysicalDeviceFragmentShadingRatesKHR(const Napi::Callb
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceFragmentShadingRatesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -10263,6 +10679,8 @@ static Napi::Value rawQueueSubmit2(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkQueueSubmit2").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 static Napi::Value rawCmdWriteTimestamp2(const Napi::CallbackInfo& info_) {
@@ -10352,6 +10770,8 @@ static Napi::Value rawGetPhysicalDeviceVideoCapabilitiesKHR(const Napi::Callback
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceVideoCapabilitiesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -10376,6 +10796,8 @@ static Napi::Value rawGetPhysicalDeviceVideoFormatPropertiesKHR(const Napi::Call
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceVideoFormatPropertiesKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -10400,6 +10822,8 @@ static Napi::Value rawCreateVideoSessionKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateVideoSessionKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -10444,6 +10868,8 @@ static Napi::Value rawCreateVideoSessionParametersKHR(const Napi::CallbackInfo& 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateVideoSessionParametersKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -10467,6 +10893,8 @@ static Napi::Value rawUpdateVideoSessionParametersKHR(const Napi::CallbackInfo& 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkUpdateVideoSessionParametersKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -10512,6 +10940,8 @@ static Napi::Value rawGetVideoSessionMemoryRequirementsKHR(const Napi::CallbackI
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetVideoSessionMemoryRequirementsKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -10538,6 +10968,8 @@ static Napi::Value rawBindVideoSessionMemoryKHR(const Napi::CallbackInfo& info_)
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkBindVideoSessionMemoryKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -10691,6 +11123,8 @@ static Napi::Value rawCreateCuModuleNVX(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateCuModuleNVX").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -10715,6 +11149,8 @@ static Napi::Value rawCreateCuFunctionNVX(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateCuFunctionNVX").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -10934,6 +11370,8 @@ static Napi::Value rawGetBufferOpaqueCaptureDescriptorDataEXT(const Napi::Callba
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetBufferOpaqueCaptureDescriptorDataEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -10956,6 +11394,8 @@ static Napi::Value rawGetImageOpaqueCaptureDescriptorDataEXT(const Napi::Callbac
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetImageOpaqueCaptureDescriptorDataEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -10978,6 +11418,8 @@ static Napi::Value rawGetImageViewOpaqueCaptureDescriptorDataEXT(const Napi::Cal
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetImageViewOpaqueCaptureDescriptorDataEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11000,6 +11442,8 @@ static Napi::Value rawGetSamplerOpaqueCaptureDescriptorDataEXT(const Napi::Callb
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetSamplerOpaqueCaptureDescriptorDataEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11022,6 +11466,8 @@ static Napi::Value rawGetAccelerationStructureOpaqueCaptureDescriptorDataEXT(con
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11067,6 +11513,8 @@ static Napi::Value rawAcquireDrmDisplayEXT(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkAcquireDrmDisplayEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11093,6 +11541,8 @@ static Napi::Value rawGetDrmDisplayEXT(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetDrmDisplayEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11120,6 +11570,8 @@ static Napi::Value rawWaitForPresentKHR(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkWaitForPresentKHR").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11144,6 +11596,8 @@ static Napi::Value rawCreateBufferCollectionFUCHSIA(const Napi::CallbackInfo& in
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateBufferCollectionFUCHSIA").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11167,6 +11621,8 @@ static Napi::Value rawSetBufferCollectionBufferConstraintsFUCHSIA(const Napi::Ca
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkSetBufferCollectionBufferConstraintsFUCHSIA").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11190,6 +11646,8 @@ static Napi::Value rawSetBufferCollectionImageConstraintsFUCHSIA(const Napi::Cal
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkSetBufferCollectionImageConstraintsFUCHSIA").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11233,6 +11691,8 @@ static Napi::Value rawGetBufferCollectionPropertiesFUCHSIA(const Napi::CallbackI
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetBufferCollectionPropertiesFUCHSIA").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11324,6 +11784,8 @@ static Napi::Value rawCreateMicromapEXT(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateMicromapEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11370,6 +11832,8 @@ static Napi::Value rawBuildMicromapsEXT(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkBuildMicromapsEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11430,6 +11894,8 @@ static Napi::Value rawCopyMicromapEXT(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCopyMicromapEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11470,6 +11936,8 @@ static Napi::Value rawCopyMicromapToMemoryEXT(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCopyMicromapToMemoryEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11510,6 +11978,8 @@ static Napi::Value rawCopyMemoryToMicromapEXT(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCopyMemoryToMicromapEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11573,6 +12043,8 @@ static Napi::Value rawWriteMicromapsPropertiesEXT(const Napi::CallbackInfo& info
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkWriteMicromapsPropertiesEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11697,6 +12169,8 @@ static Napi::Value rawGetPipelinePropertiesEXT(const Napi::CallbackInfo& info_) 
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPipelinePropertiesEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11739,6 +12213,8 @@ static Napi::Value rawGetFramebufferTilePropertiesQCOM(const Napi::CallbackInfo&
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetFramebufferTilePropertiesQCOM").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11761,6 +12237,8 @@ static Napi::Value rawGetDynamicRenderingTilePropertiesQCOM(const Napi::Callback
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetDynamicRenderingTilePropertiesQCOM").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11785,6 +12263,8 @@ static Napi::Value rawGetPhysicalDeviceOpticalFlowImageFormatsNV(const Napi::Cal
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceOpticalFlowImageFormatsNV").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11809,6 +12289,8 @@ static Napi::Value rawCreateOpticalFlowSessionNV(const Napi::CallbackInfo& info_
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkCreateOpticalFlowSessionNV").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11859,6 +12341,8 @@ static Napi::Value rawBindOpticalFlowSessionImageNV(const Napi::CallbackInfo& in
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkBindOpticalFlowSessionImageNV").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif
@@ -11901,6 +12385,8 @@ static Napi::Value rawGetDeviceFaultInfoEXT(const Napi::CallbackInfo& info_) {
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetDeviceFaultInfoEXT").ThrowAsJavaScriptException();
     }
+    
+    
     return Napi::Number::New(env, result);
 }
 #endif

@@ -204,6 +204,8 @@ let getWriter = async()=>{
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
         Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in ${proto.name}").ThrowAsJavaScriptException();
     }
+    ${proto.name == "vkCreateInstance" ? "volkLoadInstance(*pInstance);" : ""}
+    ${proto.name == "vkCreateDevice" ? "volkLoadDevice(*pDevice);" : ""}
     return Napi::Number::New(env, result);
 `;
         } else 

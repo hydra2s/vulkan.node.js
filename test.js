@@ -30,8 +30,20 @@
         ppEnabledExtensionNames: extensions
     });
 
-    let handle = new BigUint64Array(1);
-    V.vkCreateInstance(pInfo, 0n, handle);
+    let instance = new BigUint64Array(1);
+    V.vkCreateInstance(pInfo, 0n, instance);
 
-    console.log(handle);
+    //console.log(instance);
+    
+    //await new Promise((r)=>{ setTimeout(r, 10000); });
+    
+    let deviceCount = new Uint32Array(1);
+    let result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, 0n);
+    console.log(deviceCount);
+    
+    if (deviceCount <= 0) console.error("Error: No render devices available!");
+    let devices = new BigUint64Array(deviceCount[0]);
+    result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, devices);
+    console.log(devices);
+    
 })();
