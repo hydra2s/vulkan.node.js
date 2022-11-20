@@ -401,6 +401,8 @@ class CStruct {
             if (["set", "address", "as", "offsetof", "bufferOffsetOf", "addressOffsetOf"].indexOf(index) >= 0) {
                 return Target[index].bind(Target);
             }
+        } else {
+            if (index == "sizeof") { return this.byteLength; };
         }
         return null;
     }
