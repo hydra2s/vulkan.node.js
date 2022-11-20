@@ -25,3 +25,6 @@
 [submodule "gl-matrix"]
 	path = gl-matrix
 	url = https://github.com/toji/gl-matrix.git
+[submodule "Vulkan-Headers"]
+	path = Vulkan-Headers
+	url = https://github.com/KhronosGroup/Vulkan-Headers
