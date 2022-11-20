@@ -322,7 +322,7 @@ return paramStr;
         if (structure.name == "VkTransformMatrixKHR" || structure.name == "VkTransformMatrixNV") {
 return `
 const ${structure.name} = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("${structure.name}", {
-    matrix: "u32(0)[12]:[1,0,0,0, 0,1,0,0, 0,0,1,0]",
+    matrix: "u32(0)[12]",
 }, (V.${structure.name}_sizeof||0))));    
 `       } else
         /*if (structure.name == "VkAccelerationStructureInstanceKHR" || structure.name == "VkAccelerationStructureInstanceNV") {

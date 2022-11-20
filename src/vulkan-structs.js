@@ -5792,12 +5792,12 @@ const VkAabbPositionsNV = new Proxy(function(){}, new C.ConstructProxy("VkAabbPo
 
 
 const VkTransformMatrixKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkTransformMatrixKHR", {
-    matrix: "u32(0)[12]:[1,0,0,0, 0,1,0,0, 0,0,1,0]",
+    matrix: "u32(0)[12]",
 }, (V.VkTransformMatrixKHR_sizeof||0))));    
 
 
 const VkTransformMatrixNV = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkTransformMatrixNV", {
-    matrix: "u32(0)[12]:[1,0,0,0, 0,1,0,0, 0,0,1,0]",
+    matrix: "u32(0)[12]",
 }, (V.VkTransformMatrixNV_sizeof||0))));    
 
 
