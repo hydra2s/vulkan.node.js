@@ -10740,6 +10740,123 @@
         "attributes": {
           "offset": "0",
           "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "1",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "2",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "3",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_DESCRIPTOR_ADDRESS_INFO_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "4",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_DESCRIPTOR_GET_INFO_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "5",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "6",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "7",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "8",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "10",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "11",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_INFO_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "12",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "9",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "0",
+          "extends": "VkStructureType",
           "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT"
         }
       },
@@ -16577,6 +16694,33 @@
         "type": "element",
         "name": "enum",
         "attributes": {
+          "bitpos": "21",
+          "extends": "VkBufferUsageFlagBits",
+          "name": "VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "bitpos": "22",
+          "extends": "VkBufferUsageFlagBits",
+          "name": "VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "bitpos": "26",
+          "extends": "VkBufferUsageFlagBits",
+          "name": "VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
           "bitpos": "23",
           "extends": "VkBufferUsageFlagBits",
           "name": "VK_BUFFER_USAGE_MICROMAP_BUILD_INPUT_READ_ONLY_BIT_EXT"
@@ -16653,6 +16797,15 @@
           "extends": "VkBufferCreateFlagBits",
           "name": "VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_KHR",
           "alias": "VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "bitpos": "5",
+          "extends": "VkBufferCreateFlagBits",
+          "name": "VK_BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT"
         }
       },
       {
@@ -17246,6 +17399,15 @@
         "type": "element",
         "name": "enum",
         "attributes": {
+          "bitpos": "16",
+          "extends": "VkImageCreateFlagBits",
+          "name": "VK_IMAGE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
           "bitpos": "18",
           "extends": "VkImageCreateFlagBits",
           "name": "VK_IMAGE_CREATE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_BIT_EXT"
@@ -17359,6 +17521,15 @@
         "type": "element",
         "name": "enum",
         "attributes": {
+          "bitpos": "2",
+          "extends": "VkImageViewCreateFlagBits",
+          "name": "VK_IMAGE_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
           "bitpos": "1",
           "extends": "VkImageViewCreateFlagBits",
           "name": "VK_IMAGE_VIEW_CREATE_FRAGMENT_DENSITY_MAP_DEFERRED_BIT_EXT"
@@ -17390,6 +17561,15 @@
           "bitpos": "1",
           "extends": "VkSamplerCreateFlagBits",
           "name": "VK_SAMPLER_CREATE_SUBSAMPLED_COARSE_RECONSTRUCTION_BIT_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "bitpos": "3",
+          "extends": "VkSamplerCreateFlagBits",
+          "name": "VK_SAMPLER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT"
         }
       },
       {
@@ -17625,6 +17805,15 @@
           "extends": "VkPipelineCreateFlagBits",
           "name": "VK_PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT_EXT",
           "alias": "VK_PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "bitpos": "29",
+          "extends": "VkPipelineCreateFlagBits",
+          "name": "VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT"
         }
       },
       {
@@ -20880,6 +21069,24 @@
         "type": "element",
         "name": "enum",
         "attributes": {
+          "bitpos": "4",
+          "extends": "VkDescriptorSetLayoutCreateFlagBits",
+          "name": "VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "bitpos": "5",
+          "extends": "VkDescriptorSetLayoutCreateFlagBits",
+          "name": "VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
           "extends": "VkDescriptorSetLayoutCreateFlagBits",
           "name": "VK_DESCRIPTOR_SET_LAYOUT_CREATE_HOST_ONLY_POOL_BIT_VALVE",
           "alias": "VK_DESCRIPTOR_SET_LAYOUT_CREATE_HOST_ONLY_POOL_BIT_EXT"
@@ -23779,6 +23986,15 @@
         "type": "element",
         "name": "enum",
         "attributes": {
+          "bitpos": "3",
+          "extends": "VkAccelerationStructureCreateFlagBitsKHR",
+          "name": "VK_ACCELERATION_STRUCTURE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
           "bitpos": "2",
           "extends": "VkAccelerationStructureCreateFlagBitsKHR",
           "name": "VK_ACCELERATION_STRUCTURE_CREATE_MOTION_BIT_NV"
@@ -26063,6 +26279,15 @@
           "bitpos": "19",
           "extends": "VkAccessFlagBits2",
           "name": "VK_ACCESS_2_COLOR_ATTACHMENT_READ_NONCOHERENT_BIT_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "bitpos": "41",
+          "extends": "VkAccessFlagBits2",
+          "name": "VK_ACCESS_2_DESCRIPTOR_BUFFER_READ_BIT_EXT"
         }
       },
       {
@@ -42071,6 +42296,197 @@
         "name": "command",
         "attributes": {
           "name": "vkGetQueueCheckpointData2NV"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "value": "1",
+          "name": "VK_EXT_DESCRIPTOR_BUFFER_SPEC_VERSION"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "value": "\"VK_EXT_descriptor_buffer\"",
+          "name": "VK_EXT_DESCRIPTOR_BUFFER_EXTENSION_NAME"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkPhysicalDeviceDescriptorBufferPropertiesEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkPhysicalDeviceDescriptorBufferFeaturesEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkDescriptorAddressInfoEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkDescriptorBufferBindingInfoEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkDescriptorBufferBindingPushDescriptorBufferHandleEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkDescriptorDataEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkDescriptorGetInfoEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkBufferCaptureDescriptorDataInfoEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkImageCaptureDescriptorDataInfoEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkImageViewCaptureDescriptorDataInfoEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkSamplerCaptureDescriptorDataInfoEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkOpaqueCaptureDescriptorDataCreateInfoEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "name": "vkGetDescriptorSetLayoutSizeEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "name": "vkGetDescriptorSetLayoutBindingOffsetEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "name": "vkGetDescriptorEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "name": "vkCmdBindDescriptorBuffersEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "name": "vkCmdSetDescriptorBufferOffsetsEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "name": "vkCmdBindDescriptorBufferEmbeddedSamplersEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "name": "vkGetBufferOpaqueCaptureDescriptorDataEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "name": "vkGetImageOpaqueCaptureDescriptorDataEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "name": "vkGetImageViewOpaqueCaptureDescriptorDataEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "name": "vkGetSamplerOpaqueCaptureDescriptorDataEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkAccelerationStructureCaptureDescriptorDataInfoEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "name": "vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT"
         }
       },
       {

@@ -59111,6 +59111,1138 @@
   },
   {
     "category": "struct",
+    "name": "VkPhysicalDeviceDescriptorBufferFeaturesEXT",
+    "structextends": "VkPhysicalDeviceFeatures2,VkDeviceCreateInfo",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT",
+        "values": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pNext",
+        "parts": [
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "descriptorBuffer",
+        "type": "VkBool32",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkBool32 descriptorBuffer",
+        "parts": [
+          "VkBool32",
+          "descriptorBuffer"
+        ]
+      },
+      {
+        "name": "descriptorBufferCaptureReplay",
+        "type": "VkBool32",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkBool32 descriptorBufferCaptureReplay",
+        "parts": [
+          "VkBool32",
+          "descriptorBufferCaptureReplay"
+        ]
+      },
+      {
+        "name": "descriptorBufferImageLayoutIgnored",
+        "type": "VkBool32",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkBool32 descriptorBufferImageLayoutIgnored",
+        "parts": [
+          "VkBool32",
+          "descriptorBufferImageLayoutIgnored"
+        ]
+      },
+      {
+        "name": "descriptorBufferPushDescriptors",
+        "type": "VkBool32",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkBool32 descriptorBufferPushDescriptors",
+        "parts": [
+          "VkBool32",
+          "descriptorBufferPushDescriptors"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkPhysicalDeviceDescriptorBufferPropertiesEXT",
+    "returnedonly": "true",
+    "structextends": "VkPhysicalDeviceProperties2",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT",
+        "values": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pNext",
+        "parts": [
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "limittype": "noauto",
+        "name": "combinedImageSamplerDescriptorSingleArray",
+        "type": "VkBool32",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkBool32 combinedImageSamplerDescriptorSingleArray",
+        "parts": [
+          "VkBool32",
+          "combinedImageSamplerDescriptorSingleArray"
+        ]
+      },
+      {
+        "limittype": "noauto",
+        "name": "bufferlessPushDescriptors",
+        "type": "VkBool32",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkBool32 bufferlessPushDescriptors",
+        "parts": [
+          "VkBool32",
+          "bufferlessPushDescriptors"
+        ]
+      },
+      {
+        "limittype": "noauto",
+        "name": "allowSamplerImageViewPostSubmitCreation",
+        "type": "VkBool32",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkBool32 allowSamplerImageViewPostSubmitCreation",
+        "parts": [
+          "VkBool32",
+          "allowSamplerImageViewPostSubmitCreation"
+        ]
+      },
+      {
+        "limittype": "noauto",
+        "name": "descriptorBufferOffsetAlignment",
+        "type": "VkDeviceSize",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDeviceSize descriptorBufferOffsetAlignment",
+        "parts": [
+          "VkDeviceSize",
+          "descriptorBufferOffsetAlignment"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "maxDescriptorBufferBindings",
+        "type": "uint32_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "uint32_t maxDescriptorBufferBindings",
+        "parts": [
+          "uint32_t",
+          "maxDescriptorBufferBindings"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "maxResourceDescriptorBufferBindings",
+        "type": "uint32_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "uint32_t maxResourceDescriptorBufferBindings",
+        "parts": [
+          "uint32_t",
+          "maxResourceDescriptorBufferBindings"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "maxSamplerDescriptorBufferBindings",
+        "type": "uint32_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "uint32_t maxSamplerDescriptorBufferBindings",
+        "parts": [
+          "uint32_t",
+          "maxSamplerDescriptorBufferBindings"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "maxEmbeddedImmutableSamplerBindings",
+        "type": "uint32_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "uint32_t maxEmbeddedImmutableSamplerBindings",
+        "parts": [
+          "uint32_t",
+          "maxEmbeddedImmutableSamplerBindings"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "maxEmbeddedImmutableSamplers",
+        "type": "uint32_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "uint32_t maxEmbeddedImmutableSamplers",
+        "parts": [
+          "uint32_t",
+          "maxEmbeddedImmutableSamplers"
+        ]
+      },
+      {
+        "limittype": "noauto",
+        "name": "bufferCaptureReplayDescriptorDataSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t bufferCaptureReplayDescriptorDataSize",
+        "parts": [
+          "size_t",
+          "bufferCaptureReplayDescriptorDataSize"
+        ]
+      },
+      {
+        "limittype": "noauto",
+        "name": "imageCaptureReplayDescriptorDataSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t imageCaptureReplayDescriptorDataSize",
+        "parts": [
+          "size_t",
+          "imageCaptureReplayDescriptorDataSize"
+        ]
+      },
+      {
+        "limittype": "noauto",
+        "name": "imageViewCaptureReplayDescriptorDataSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t imageViewCaptureReplayDescriptorDataSize",
+        "parts": [
+          "size_t",
+          "imageViewCaptureReplayDescriptorDataSize"
+        ]
+      },
+      {
+        "limittype": "noauto",
+        "name": "samplerCaptureReplayDescriptorDataSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t samplerCaptureReplayDescriptorDataSize",
+        "parts": [
+          "size_t",
+          "samplerCaptureReplayDescriptorDataSize"
+        ]
+      },
+      {
+        "limittype": "noauto",
+        "name": "accelerationStructureCaptureReplayDescriptorDataSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t accelerationStructureCaptureReplayDescriptorDataSize",
+        "parts": [
+          "size_t",
+          "accelerationStructureCaptureReplayDescriptorDataSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "samplerDescriptorSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t samplerDescriptorSize",
+        "parts": [
+          "size_t",
+          "samplerDescriptorSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "combinedImageSamplerDescriptorSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t combinedImageSamplerDescriptorSize",
+        "parts": [
+          "size_t",
+          "combinedImageSamplerDescriptorSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "sampledImageDescriptorSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t sampledImageDescriptorSize",
+        "parts": [
+          "size_t",
+          "sampledImageDescriptorSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "storageImageDescriptorSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t storageImageDescriptorSize",
+        "parts": [
+          "size_t",
+          "storageImageDescriptorSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "uniformTexelBufferDescriptorSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t uniformTexelBufferDescriptorSize",
+        "parts": [
+          "size_t",
+          "uniformTexelBufferDescriptorSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "robustUniformTexelBufferDescriptorSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t robustUniformTexelBufferDescriptorSize",
+        "parts": [
+          "size_t",
+          "robustUniformTexelBufferDescriptorSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "storageTexelBufferDescriptorSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t storageTexelBufferDescriptorSize",
+        "parts": [
+          "size_t",
+          "storageTexelBufferDescriptorSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "robustStorageTexelBufferDescriptorSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t robustStorageTexelBufferDescriptorSize",
+        "parts": [
+          "size_t",
+          "robustStorageTexelBufferDescriptorSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "uniformBufferDescriptorSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t uniformBufferDescriptorSize",
+        "parts": [
+          "size_t",
+          "uniformBufferDescriptorSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "robustUniformBufferDescriptorSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t robustUniformBufferDescriptorSize",
+        "parts": [
+          "size_t",
+          "robustUniformBufferDescriptorSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "storageBufferDescriptorSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t storageBufferDescriptorSize",
+        "parts": [
+          "size_t",
+          "storageBufferDescriptorSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "robustStorageBufferDescriptorSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t robustStorageBufferDescriptorSize",
+        "parts": [
+          "size_t",
+          "robustStorageBufferDescriptorSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "inputAttachmentDescriptorSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t inputAttachmentDescriptorSize",
+        "parts": [
+          "size_t",
+          "inputAttachmentDescriptorSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "accelerationStructureDescriptorSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t accelerationStructureDescriptorSize",
+        "parts": [
+          "size_t",
+          "accelerationStructureDescriptorSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "maxSamplerDescriptorBufferRange",
+        "type": "VkDeviceSize",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDeviceSize maxSamplerDescriptorBufferRange",
+        "parts": [
+          "VkDeviceSize",
+          "maxSamplerDescriptorBufferRange"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "maxResourceDescriptorBufferRange",
+        "type": "VkDeviceSize",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDeviceSize maxResourceDescriptorBufferRange",
+        "parts": [
+          "VkDeviceSize",
+          "maxResourceDescriptorBufferRange"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "samplerDescriptorBufferAddressSpaceSize",
+        "type": "VkDeviceSize",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDeviceSize samplerDescriptorBufferAddressSpaceSize",
+        "parts": [
+          "VkDeviceSize",
+          "samplerDescriptorBufferAddressSpaceSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "resourceDescriptorBufferAddressSpaceSize",
+        "type": "VkDeviceSize",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDeviceSize resourceDescriptorBufferAddressSpaceSize",
+        "parts": [
+          "VkDeviceSize",
+          "resourceDescriptorBufferAddressSpaceSize"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "descriptorBufferAddressSpaceSize",
+        "type": "VkDeviceSize",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDeviceSize descriptorBufferAddressSpaceSize",
+        "parts": [
+          "VkDeviceSize",
+          "descriptorBufferAddressSpaceSize"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT",
+    "returnedonly": "true",
+    "structextends": "VkPhysicalDeviceProperties2",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT",
+        "values": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pNext",
+        "parts": [
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "limittype": "max",
+        "name": "combinedImageSamplerDensityMapDescriptorSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t combinedImageSamplerDensityMapDescriptorSize",
+        "parts": [
+          "size_t",
+          "combinedImageSamplerDensityMapDescriptorSize"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkDescriptorAddressInfoEXT",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_DESCRIPTOR_ADDRESS_INFO_EXT",
+        "values": "VK_STRUCTURE_TYPE_DESCRIPTOR_ADDRESS_INFO_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pNext",
+        "parts": [
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "address",
+        "type": "VkDeviceAddress",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDeviceAddress address",
+        "parts": [
+          "VkDeviceAddress",
+          "address"
+        ]
+      },
+      {
+        "name": "range",
+        "type": "VkDeviceSize",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDeviceSize range",
+        "parts": [
+          "VkDeviceSize",
+          "range"
+        ]
+      },
+      {
+        "name": "format",
+        "type": "VkFormat",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkFormat format",
+        "parts": [
+          "VkFormat",
+          "format"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkDescriptorBufferBindingInfoEXT",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_INFO_EXT",
+        "values": "VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_INFO_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pNext",
+        "parts": [
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "address",
+        "type": "VkDeviceAddress",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDeviceAddress address",
+        "parts": [
+          "VkDeviceAddress",
+          "address"
+        ]
+      },
+      {
+        "name": "usage",
+        "type": "VkBufferUsageFlags",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkBufferUsageFlags usage",
+        "parts": [
+          "VkBufferUsageFlags",
+          "usage"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkDescriptorBufferBindingPushDescriptorBufferHandleEXT",
+    "structextends": "VkDescriptorBufferBindingInfoEXT",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT",
+        "values": "VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pNext",
+        "parts": [
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "buffer",
+        "type": "VkBuffer",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkBuffer buffer",
+        "parts": [
+          "VkBuffer",
+          "buffer"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkDescriptorGetInfoEXT",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_DESCRIPTOR_GET_INFO_EXT",
+        "values": "VK_STRUCTURE_TYPE_DESCRIPTOR_GET_INFO_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const void * pNext",
+        "parts": [
+          "const",
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "type",
+        "type": "VkDescriptorType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDescriptorType type",
+        "parts": [
+          "VkDescriptorType",
+          "type"
+        ]
+      },
+      {
+        "selector": "type",
+        "noautovalidity": "true",
+        "name": "data",
+        "type": "VkDescriptorDataEXT",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDescriptorDataEXT data",
+        "parts": [
+          "VkDescriptorDataEXT",
+          "data"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkBufferCaptureDescriptorDataInfoEXT",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT",
+        "values": "VK_STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const void * pNext",
+        "parts": [
+          "const",
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "buffer",
+        "type": "VkBuffer",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkBuffer buffer",
+        "parts": [
+          "VkBuffer",
+          "buffer"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkImageCaptureDescriptorDataInfoEXT",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT",
+        "values": "VK_STRUCTURE_TYPE_IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const void * pNext",
+        "parts": [
+          "const",
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "image",
+        "type": "VkImage",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkImage image",
+        "parts": [
+          "VkImage",
+          "image"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkImageViewCaptureDescriptorDataInfoEXT",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT",
+        "values": "VK_STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const void * pNext",
+        "parts": [
+          "const",
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "imageView",
+        "type": "VkImageView",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkImageView imageView",
+        "parts": [
+          "VkImageView",
+          "imageView"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkSamplerCaptureDescriptorDataInfoEXT",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT",
+        "values": "VK_STRUCTURE_TYPE_SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const void * pNext",
+        "parts": [
+          "const",
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "sampler",
+        "type": "VkSampler",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkSampler sampler",
+        "parts": [
+          "VkSampler",
+          "sampler"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkAccelerationStructureCaptureDescriptorDataInfoEXT",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT",
+        "values": "VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const void * pNext",
+        "parts": [
+          "const",
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "accelerationStructure",
+        "type": "VkAccelerationStructureKHR",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkAccelerationStructureKHR accelerationStructure",
+        "parts": [
+          "VkAccelerationStructureKHR",
+          "accelerationStructure"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "accelerationStructureNV",
+        "type": "VkAccelerationStructureNV",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkAccelerationStructureNV accelerationStructureNV",
+        "parts": [
+          "VkAccelerationStructureNV",
+          "accelerationStructureNV"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkOpaqueCaptureDescriptorDataCreateInfoEXT",
+    "structextends": "VkBufferCreateInfo,VkImageCreateInfo,VkImageViewCreateInfo,VkSamplerCreateInfo,VkAccelerationStructureCreateInfoKHR,VkAccelerationStructureCreateInfoNV",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT",
+        "values": "VK_STRUCTURE_TYPE_OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const void * pNext",
+        "parts": [
+          "const",
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "opaqueCaptureDescriptorData",
+        "type": "void",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const void * opaqueCaptureDescriptorData",
+        "parts": [
+          "const",
+          "void",
+          "*",
+          "opaqueCaptureDescriptorData"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
     "name": "VkPhysicalDeviceShaderIntegerDotProductFeatures",
     "structextends": "VkPhysicalDeviceFeatures2,VkDeviceCreateInfo",
     "params": [

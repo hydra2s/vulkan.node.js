@@ -8132,7 +8132,7 @@
         "name": "command",
         "attributes": {
           "successcodes": "VK_SUCCESS",
-          "errorcodes": "VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY,VK_ERROR_COMPRESSION_EXHAUSTED_EXT"
+          "errorcodes": "VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY,VK_ERROR_COMPRESSION_EXHAUSTED_EXT,VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR"
         },
         "children": [
           {
@@ -8609,7 +8609,7 @@
         "name": "command",
         "attributes": {
           "successcodes": "VK_SUCCESS",
-          "errorcodes": "VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY"
+          "errorcodes": "VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY,VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR"
         },
         "children": [
           {
@@ -10944,7 +10944,7 @@
         "name": "command",
         "attributes": {
           "successcodes": "VK_SUCCESS",
-          "errorcodes": "VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY"
+          "errorcodes": "VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY,VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR"
         },
         "children": [
           {
@@ -75637,6 +75637,1710 @@
                   {
                     "type": "text",
                     "text": "pLaunchInfo"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {},
+        "children": [
+          {
+            "type": "element",
+            "name": "proto",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "void"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "vkGetDescriptorSetLayoutSizeEXT"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkDevice"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "device"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkDescriptorSetLayout"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "layout"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkDeviceSize"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pLayoutSizeInBytes"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {},
+        "children": [
+          {
+            "type": "element",
+            "name": "proto",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "void"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "vkGetDescriptorSetLayoutBindingOffsetEXT"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkDevice"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "device"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkDescriptorSetLayout"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "layout"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "uint32_t"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "binding"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkDeviceSize"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pOffset"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {},
+        "children": [
+          {
+            "type": "element",
+            "name": "proto",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "void"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "vkGetDescriptorEXT"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkDevice"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "device"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "text",
+                "text": "const"
+              },
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkDescriptorGetInfoEXT"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pDescriptorInfo"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "size_t"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "dataSize"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {
+              "len": "dataSize"
+            },
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "void"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pDescriptor"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "queues": "graphics,compute",
+          "renderpass": "both",
+          "cmdbufferlevel": "primary,secondary",
+          "tasks": "state"
+        },
+        "children": [
+          {
+            "type": "element",
+            "name": "proto",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "void"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "vkCmdBindDescriptorBuffersEXT"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {
+              "externsync": "true"
+            },
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkCommandBuffer"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "commandBuffer"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "uint32_t"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "bufferCount"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {
+              "len": "bufferCount"
+            },
+            "children": [
+              {
+                "type": "text",
+                "text": "const"
+              },
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkDescriptorBufferBindingInfoEXT"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pBindingInfos"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "queues": "graphics,compute",
+          "renderpass": "both",
+          "cmdbufferlevel": "primary,secondary",
+          "tasks": "state"
+        },
+        "children": [
+          {
+            "type": "element",
+            "name": "proto",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "void"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "vkCmdSetDescriptorBufferOffsetsEXT"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {
+              "externsync": "true"
+            },
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkCommandBuffer"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "commandBuffer"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkPipelineBindPoint"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pipelineBindPoint"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkPipelineLayout"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "layout"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "uint32_t"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "firstSet"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "uint32_t"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "setCount"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {
+              "len": "setCount"
+            },
+            "children": [
+              {
+                "type": "text",
+                "text": "const"
+              },
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "uint32_t"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pBufferIndices"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {
+              "len": "setCount"
+            },
+            "children": [
+              {
+                "type": "text",
+                "text": "const"
+              },
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkDeviceSize"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pOffsets"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "queues": "graphics,compute",
+          "renderpass": "both",
+          "cmdbufferlevel": "primary,secondary",
+          "tasks": "state"
+        },
+        "children": [
+          {
+            "type": "element",
+            "name": "proto",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "void"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "vkCmdBindDescriptorBufferEmbeddedSamplersEXT"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {
+              "externsync": "true"
+            },
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkCommandBuffer"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "commandBuffer"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkPipelineBindPoint"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pipelineBindPoint"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkPipelineLayout"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "layout"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "uint32_t"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "set"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "successcodes": "VK_SUCCESS",
+          "errorcodes": "VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY"
+        },
+        "children": [
+          {
+            "type": "element",
+            "name": "proto",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkResult"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "vkGetBufferOpaqueCaptureDescriptorDataEXT"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkDevice"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "device"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "text",
+                "text": "const"
+              },
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkBufferCaptureDescriptorDataInfoEXT"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pInfo"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "void"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pData"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "successcodes": "VK_SUCCESS",
+          "errorcodes": "VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY"
+        },
+        "children": [
+          {
+            "type": "element",
+            "name": "proto",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkResult"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "vkGetImageOpaqueCaptureDescriptorDataEXT"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkDevice"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "device"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "text",
+                "text": "const"
+              },
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkImageCaptureDescriptorDataInfoEXT"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pInfo"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "void"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pData"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "successcodes": "VK_SUCCESS",
+          "errorcodes": "VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY"
+        },
+        "children": [
+          {
+            "type": "element",
+            "name": "proto",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkResult"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "vkGetImageViewOpaqueCaptureDescriptorDataEXT"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkDevice"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "device"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "text",
+                "text": "const"
+              },
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkImageViewCaptureDescriptorDataInfoEXT"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pInfo"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "void"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pData"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "successcodes": "VK_SUCCESS",
+          "errorcodes": "VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY"
+        },
+        "children": [
+          {
+            "type": "element",
+            "name": "proto",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkResult"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "vkGetSamplerOpaqueCaptureDescriptorDataEXT"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkDevice"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "device"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "text",
+                "text": "const"
+              },
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkSamplerCaptureDescriptorDataInfoEXT"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pInfo"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "void"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pData"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "successcodes": "VK_SUCCESS",
+          "errorcodes": "VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY"
+        },
+        "children": [
+          {
+            "type": "element",
+            "name": "proto",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkResult"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkDevice"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "device"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "text",
+                "text": "const"
+              },
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkAccelerationStructureCaptureDescriptorDataInfoEXT"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pInfo"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "void"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pData"
                   }
                 ]
               }

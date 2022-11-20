@@ -27427,96 +27427,473 @@
     "contact": "Martin Dinkov @mdinkov",
     "supported": "disabled"
   },
-  "VK_AMD_EXTENSION_317_SPEC_VERSION": {
-    "name": "VK_AMD_extension_317",
+  "VK_EXT_DESCRIPTOR_BUFFER_SPEC_VERSION": {
+    "name": "VK_EXT_descriptor_buffer",
     "number": "317",
-    "author": "AMD",
-    "contact": "Martin Dinkov @mdinkov",
-    "supported": "disabled"
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
   },
-  "VK_AMD_EXTENSION_317_EXTENSION_NAME": {
-    "name": "VK_AMD_extension_317",
+  "VK_EXT_DESCRIPTOR_BUFFER_EXTENSION_NAME": {
+    "name": "VK_EXT_descriptor_buffer",
     "number": "317",
-    "author": "AMD",
-    "contact": "Martin Dinkov @mdinkov",
-    "supported": "disabled"
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
   },
-  "VK_DESCRIPTOR_SET_LAYOUT_CREATE_RESERVED_4_BIT_AMD": {
-    "name": "VK_AMD_extension_317",
+  "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
     "number": "317",
-    "author": "AMD",
-    "contact": "Martin Dinkov @mdinkov",
-    "supported": "disabled"
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
   },
-  "VK_DESCRIPTOR_SET_LAYOUT_CREATE_RESERVED_5_BIT_AMD": {
-    "name": "VK_AMD_extension_317",
+  "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
     "number": "317",
-    "author": "AMD",
-    "contact": "Martin Dinkov @mdinkov",
-    "supported": "disabled"
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
   },
-  "VK_BUFFER_USAGE_RESERVED_21_BIT_AMD": {
-    "name": "VK_AMD_extension_317",
+  "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
     "number": "317",
-    "author": "AMD",
-    "contact": "Martin Dinkov @mdinkov",
-    "supported": "disabled"
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
   },
-  "VK_BUFFER_USAGE_RESERVED_22_BIT_AMD": {
-    "name": "VK_AMD_extension_317",
+  "VK_STRUCTURE_TYPE_DESCRIPTOR_ADDRESS_INFO_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
     "number": "317",
-    "author": "AMD",
-    "contact": "Martin Dinkov @mdinkov",
-    "supported": "disabled"
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
   },
-  "VK_BUFFER_CREATE_RESERVED_5_BIT_AMD": {
-    "name": "VK_AMD_extension_317",
+  "VK_STRUCTURE_TYPE_DESCRIPTOR_GET_INFO_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
     "number": "317",
-    "author": "AMD",
-    "contact": "Martin Dinkov @mdinkov",
-    "supported": "disabled"
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
   },
-  "VK_IMAGE_CREATE_RESERVED_16_BIT_AMD": {
-    "name": "VK_AMD_extension_317",
+  "VK_STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
     "number": "317",
-    "author": "AMD",
-    "contact": "Martin Dinkov @mdinkov",
-    "supported": "disabled"
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
   },
-  "VK_SAMPLER_CREATE_RESERVED_3_BIT_AMD": {
-    "name": "VK_AMD_extension_317",
+  "VK_STRUCTURE_TYPE_IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
     "number": "317",
-    "author": "AMD",
-    "contact": "Martin Dinkov @mdinkov",
-    "supported": "disabled"
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
   },
-  "VK_ACCESS_2_RESERVED_41_BIT_AMD": {
-    "name": "VK_AMD_extension_317",
+  "VK_STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
     "number": "317",
-    "author": "AMD",
-    "contact": "Martin Dinkov @mdinkov",
-    "supported": "disabled"
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
   },
-  "VK_IMAGE_VIEW_CREATE_RESERVED_2_BIT_AMD": {
-    "name": "VK_AMD_extension_317",
+  "VK_STRUCTURE_TYPE_SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
     "number": "317",
-    "author": "AMD",
-    "contact": "Martin Dinkov @mdinkov",
-    "supported": "disabled"
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
   },
-  "VK_PIPELINE_CREATE_RESERVED_29_AMD": {
-    "name": "VK_AMD_extension_317",
+  "VK_STRUCTURE_TYPE_OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
     "number": "317",
-    "author": "AMD",
-    "contact": "Martin Dinkov @mdinkov",
-    "supported": "disabled"
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
   },
-  "VK_ACCELERATION_STRUCTURE_CREATE_RESERVED_3_BIT_AMD": {
-    "name": "VK_AMD_extension_317",
+  "VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_INFO_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
     "number": "317",
-    "author": "AMD",
-    "contact": "Martin Dinkov @mdinkov",
-    "supported": "disabled"
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VK_BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VK_IMAGE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VK_IMAGE_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VK_SAMPLER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VK_ACCELERATION_STRUCTURE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VK_ACCESS_2_DESCRIPTOR_BUFFER_READ_BIT_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VkPhysicalDeviceDescriptorBufferPropertiesEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VkPhysicalDeviceDescriptorBufferFeaturesEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VkDescriptorAddressInfoEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VkDescriptorBufferBindingInfoEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VkDescriptorBufferBindingPushDescriptorBufferHandleEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VkDescriptorDataEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VkDescriptorGetInfoEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VkBufferCaptureDescriptorDataInfoEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VkImageCaptureDescriptorDataInfoEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VkImageViewCaptureDescriptorDataInfoEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VkSamplerCaptureDescriptorDataInfoEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VkOpaqueCaptureDescriptorDataCreateInfoEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "vkGetDescriptorSetLayoutSizeEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "vkGetDescriptorSetLayoutBindingOffsetEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "vkGetDescriptorEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "vkCmdBindDescriptorBuffersEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "vkCmdSetDescriptorBufferOffsetsEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "vkCmdBindDescriptorBufferEmbeddedSamplersEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "vkGetBufferOpaqueCaptureDescriptorDataEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "vkGetImageOpaqueCaptureDescriptorDataEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "vkGetImageViewOpaqueCaptureDescriptorDataEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "vkGetSamplerOpaqueCaptureDescriptorDataEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "VkAccelerationStructureCaptureDescriptorDataInfoEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
+  },
+  "vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT": {
+    "name": "VK_EXT_descriptor_buffer",
+    "number": "317",
+    "type": "device",
+    "author": "EXT",
+    "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_buffer_device_address,VK_KHR_synchronization2,VK_EXT_descriptor_indexing",
+    "contact": "Tobias Hector @tobski",
+    "supported": "vulkan"
   },
   "VK_AMD_EXTENSION_318_SPEC_VERSION": {
     "name": "VK_AMD_extension_318",
@@ -28150,6 +28527,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28160,6 +28538,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28170,6 +28549,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28180,6 +28560,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28190,6 +28571,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28200,6 +28582,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28210,6 +28593,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28220,6 +28604,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28230,6 +28615,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28240,6 +28626,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28250,6 +28637,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28260,6 +28648,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28270,6 +28659,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28280,6 +28670,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28290,6 +28681,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28300,6 +28692,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28310,6 +28703,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -28320,6 +28714,7 @@
     "name": "VK_EXT_mesh_shader",
     "number": "329",
     "type": "device",
+    "requiresCore": "1.1",
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_spirv_1_4",
     "author": "EXT",
     "sortorder": "1",
@@ -32797,6 +33192,20 @@
     "contact": "Hueilong Wang @wyvernathuawei",
     "supported": "disabled"
   },
+  "VK_PIPELINE_STAGE_2_RESEVED_41_BIT_HUAWEI": {
+    "name": "VK_HUAWEI_extension_405",
+    "number": "405",
+    "author": "HUAWEI",
+    "contact": "Hueilong Wang @wyvernathuawei",
+    "supported": "disabled"
+  },
+  "VK_SHADER_STAGE_RESERVED_19_BIT_HUAWEI": {
+    "name": "VK_HUAWEI_extension_405",
+    "number": "405",
+    "author": "HUAWEI",
+    "contact": "Hueilong Wang @wyvernathuawei",
+    "supported": "disabled"
+  },
   "VK_HUAWEI_EXTENSION_406_SPEC_VERSION": {
     "name": "VK_HUAWEI_extension_406",
     "number": "406",
@@ -36573,6 +36982,70 @@
     "author": "EXT",
     "contact": "Piers Daniell @pdaniell-nv",
     "type": "device",
+    "supported": "disabled"
+  },
+  "VK_EXT_EXTENSION_501_SPEC_VERSION": {
+    "name": "VK_EXT_extension_501",
+    "number": "501",
+    "author": "SEC",
+    "contact": "Chris Hambacher @chambacher",
+    "type": "device",
+    "supported": "disabled"
+  },
+  "VK_EXT_EXTENSION_501_EXTENSION_NAME": {
+    "name": "VK_EXT_extension_501",
+    "number": "501",
+    "author": "SEC",
+    "contact": "Chris Hambacher @chambacher",
+    "type": "device",
+    "supported": "disabled"
+  },
+  "VK_EXT_EXTENSION_502_SPEC_VERSION": {
+    "name": "VK_EXT_extension_502",
+    "number": "502",
+    "author": "HUAWEI",
+    "contact": "Pan Gao @PanGao-h",
+    "type": "device",
+    "supported": "disabled"
+  },
+  "VK_EXT_EXTENSION_502_EXTENSION_NAME": {
+    "name": "VK_EXT_extension_502",
+    "number": "502",
+    "author": "HUAWEI",
+    "contact": "Pan Gao @PanGao-h",
+    "type": "device",
+    "supported": "disabled"
+  },
+  "VK_EXT_EXTENSION_503_SPEC_VERSION": {
+    "name": "VK_EXT_extension_503",
+    "number": "503",
+    "author": "HUAWEI",
+    "contact": "Pan Gao @PanGao-h",
+    "type": "device",
+    "supported": "disabled"
+  },
+  "VK_EXT_EXTENSION_503_EXTENSION_NAME": {
+    "name": "VK_EXT_extension_503",
+    "number": "503",
+    "author": "HUAWEI",
+    "contact": "Pan Gao @PanGao-h",
+    "type": "device",
+    "supported": "disabled"
+  },
+  "VK_NV_EXTENSION_504_SPEC_VERSION": {
+    "name": "VK_NV_extension_504",
+    "number": "504",
+    "author": "NV",
+    "contact": "Piers Daniell @pdaniell-nv",
+    "type": "instance",
+    "supported": "disabled"
+  },
+  "VK_NV_EXTENSION_504_EXTENSION_NAME": {
+    "name": "VK_NV_extension_504",
+    "number": "504",
+    "author": "NV",
+    "contact": "Piers Daniell @pdaniell-nv",
+    "type": "instance",
     "supported": "disabled"
   }
 }

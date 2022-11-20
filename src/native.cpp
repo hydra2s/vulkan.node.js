@@ -10775,6 +10775,256 @@ static Napi::Value rawCmdCuLaunchKernelNVX(const Napi::CallbackInfo& info_) {
     return env.Null();
 }
 #endif
+#ifdef VK_EXT_descriptor_buffer
+static Napi::Value rawGetDescriptorSetLayoutSizeEXT(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    bool lossless = true;
+    if (info_.Length() < 3) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
+    }
+    
+    if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
+
+    if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (layout)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) layout = (VkDescriptorSetLayout)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
+
+    decltype(auto) pLayoutSizeInBytes = (VkDeviceSize*)GetAddress(env, info_[2]);
+    
+    ::vkGetDescriptorSetLayoutSizeEXT(device, layout, pLayoutSizeInBytes);
+    return env.Null();
+}
+#endif
+#ifdef VK_EXT_descriptor_buffer
+static Napi::Value rawGetDescriptorSetLayoutBindingOffsetEXT(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    bool lossless = true;
+    if (info_.Length() < 4) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
+    }
+    
+    if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
+
+    if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (layout)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) layout = (VkDescriptorSetLayout)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
+
+    if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (binding)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) binding = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
+
+    decltype(auto) pOffset = (VkDeviceSize*)GetAddress(env, info_[3]);
+    
+    ::vkGetDescriptorSetLayoutBindingOffsetEXT(device, layout, binding, pOffset);
+    return env.Null();
+}
+#endif
+#ifdef VK_EXT_descriptor_buffer
+static Napi::Value rawGetDescriptorEXT(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    bool lossless = true;
+    if (info_.Length() < 4) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
+    }
+    
+    if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
+
+    decltype(auto) pDescriptorInfo = (VkDescriptorGetInfoEXT const*)GetAddress(env, info_[1]);
+
+    if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (dataSize)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) dataSize = (size_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
+
+    decltype(auto) pDescriptor = (void*)GetAddress(env, info_[3]);
+    
+    ::vkGetDescriptorEXT(device, pDescriptorInfo, dataSize, pDescriptor);
+    return env.Null();
+}
+#endif
+#ifdef VK_EXT_descriptor_buffer
+static Napi::Value rawCmdBindDescriptorBuffersEXT(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    bool lossless = true;
+    if (info_.Length() < 3) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
+    }
+    
+    if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
+
+    if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (bufferCount)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) bufferCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
+
+    decltype(auto) pBindingInfos = (VkDescriptorBufferBindingInfoEXT const*)GetAddress(env, info_[2]);
+    
+    ::vkCmdBindDescriptorBuffersEXT(commandBuffer, bufferCount, pBindingInfos);
+    return env.Null();
+}
+#endif
+#ifdef VK_EXT_descriptor_buffer
+static Napi::Value rawCmdSetDescriptorBufferOffsetsEXT(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    bool lossless = true;
+    if (info_.Length() < 7) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
+    }
+    
+    if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
+
+    if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (pipelineBindPoint)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) pipelineBindPoint = (VkPipelineBindPoint)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
+
+    if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (layout)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) layout = (VkPipelineLayout)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
+
+    if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (firstSet)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) firstSet = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
+
+    if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (setCount)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) setCount = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
+
+    decltype(auto) pBufferIndices = (uint32_t const*)GetAddress(env, info_[5]);
+
+    decltype(auto) pOffsets = (VkDeviceSize const*)GetAddress(env, info_[6]);
+    
+    ::vkCmdSetDescriptorBufferOffsetsEXT(commandBuffer, pipelineBindPoint, layout, firstSet, setCount, pBufferIndices, pOffsets);
+    return env.Null();
+}
+#endif
+#ifdef VK_EXT_descriptor_buffer
+static Napi::Value rawCmdBindDescriptorBufferEmbeddedSamplersEXT(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    bool lossless = true;
+    if (info_.Length() < 4) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
+    }
+    
+    if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
+
+    if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (pipelineBindPoint)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) pipelineBindPoint = (VkPipelineBindPoint)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
+
+    if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (layout)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) layout = (VkPipelineLayout)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
+
+    if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (set)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) set = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
+    
+    ::vkCmdBindDescriptorBufferEmbeddedSamplersEXT(commandBuffer, pipelineBindPoint, layout, set);
+    return env.Null();
+}
+#endif
+#ifdef VK_EXT_descriptor_buffer
+static Napi::Value rawGetBufferOpaqueCaptureDescriptorDataEXT(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    bool lossless = true;
+    if (info_.Length() < 3) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
+    }
+    
+    if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
+
+    decltype(auto) pInfo = (VkBufferCaptureDescriptorDataInfoEXT const*)GetAddress(env, info_[1]);
+
+    decltype(auto) pData = (void*)GetAddress(env, info_[2]);
+    
+    decltype(auto) result = ::vkGetBufferOpaqueCaptureDescriptorDataEXT(device, pInfo, pData);
+    if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
+        Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetBufferOpaqueCaptureDescriptorDataEXT").ThrowAsJavaScriptException();
+    }
+    return Napi::Number::New(env, result);
+}
+#endif
+#ifdef VK_EXT_descriptor_buffer
+static Napi::Value rawGetImageOpaqueCaptureDescriptorDataEXT(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    bool lossless = true;
+    if (info_.Length() < 3) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
+    }
+    
+    if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
+
+    decltype(auto) pInfo = (VkImageCaptureDescriptorDataInfoEXT const*)GetAddress(env, info_[1]);
+
+    decltype(auto) pData = (void*)GetAddress(env, info_[2]);
+    
+    decltype(auto) result = ::vkGetImageOpaqueCaptureDescriptorDataEXT(device, pInfo, pData);
+    if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
+        Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetImageOpaqueCaptureDescriptorDataEXT").ThrowAsJavaScriptException();
+    }
+    return Napi::Number::New(env, result);
+}
+#endif
+#ifdef VK_EXT_descriptor_buffer
+static Napi::Value rawGetImageViewOpaqueCaptureDescriptorDataEXT(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    bool lossless = true;
+    if (info_.Length() < 3) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
+    }
+    
+    if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
+
+    decltype(auto) pInfo = (VkImageViewCaptureDescriptorDataInfoEXT const*)GetAddress(env, info_[1]);
+
+    decltype(auto) pData = (void*)GetAddress(env, info_[2]);
+    
+    decltype(auto) result = ::vkGetImageViewOpaqueCaptureDescriptorDataEXT(device, pInfo, pData);
+    if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
+        Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetImageViewOpaqueCaptureDescriptorDataEXT").ThrowAsJavaScriptException();
+    }
+    return Napi::Number::New(env, result);
+}
+#endif
+#ifdef VK_EXT_descriptor_buffer
+static Napi::Value rawGetSamplerOpaqueCaptureDescriptorDataEXT(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    bool lossless = true;
+    if (info_.Length() < 3) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
+    }
+    
+    if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
+
+    decltype(auto) pInfo = (VkSamplerCaptureDescriptorDataInfoEXT const*)GetAddress(env, info_[1]);
+
+    decltype(auto) pData = (void*)GetAddress(env, info_[2]);
+    
+    decltype(auto) result = ::vkGetSamplerOpaqueCaptureDescriptorDataEXT(device, pInfo, pData);
+    if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
+        Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetSamplerOpaqueCaptureDescriptorDataEXT").ThrowAsJavaScriptException();
+    }
+    return Napi::Number::New(env, result);
+}
+#endif
+#ifdef VK_EXT_descriptor_buffer
+static Napi::Value rawGetAccelerationStructureOpaqueCaptureDescriptorDataEXT(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    bool lossless = true;
+    if (info_.Length() < 3) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
+    }
+    
+    if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
+
+    decltype(auto) pInfo = (VkAccelerationStructureCaptureDescriptorDataInfoEXT const*)GetAddress(env, info_[1]);
+
+    decltype(auto) pData = (void*)GetAddress(env, info_[2]);
+    
+    decltype(auto) result = ::vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT(device, pInfo, pData);
+    if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
+        Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT").ThrowAsJavaScriptException();
+    }
+    return Napi::Number::New(env, result);
+}
+#endif
 #ifdef VK_EXT_pageable_device_local_memory
 static Napi::Value rawSetDeviceMemoryPriorityEXT(const Napi::CallbackInfo& info_) {
     Napi::Env env = info_.Env();
@@ -22386,6 +22636,282 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
 #ifdef VK_NVX_binary_import
     exports["VkCuLaunchInfoNVX_sizeof"] = Napi::Number::New(env, sizeof(VkCuLaunchInfoNVX));
 #endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferFeaturesEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferFeaturesEXT, sType));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferFeaturesEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferFeaturesEXT, pNext));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferFeaturesEXT_descriptorBuffer_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferFeaturesEXT, descriptorBuffer));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferFeaturesEXT_descriptorBufferCaptureReplay_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferFeaturesEXT, descriptorBufferCaptureReplay));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferFeaturesEXT_descriptorBufferImageLayoutIgnored_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferFeaturesEXT, descriptorBufferImageLayoutIgnored));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferFeaturesEXT_descriptorBufferPushDescriptors_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferFeaturesEXT, descriptorBufferPushDescriptors));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferFeaturesEXT_sizeof"] = Napi::Number::New(env, sizeof(VkPhysicalDeviceDescriptorBufferFeaturesEXT));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, sType));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, pNext));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_combinedImageSamplerDescriptorSingleArray_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, combinedImageSamplerDescriptorSingleArray));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_bufferlessPushDescriptors_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, bufferlessPushDescriptors));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_allowSamplerImageViewPostSubmitCreation_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, allowSamplerImageViewPostSubmitCreation));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_descriptorBufferOffsetAlignment_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, descriptorBufferOffsetAlignment));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_maxDescriptorBufferBindings_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, maxDescriptorBufferBindings));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_maxResourceDescriptorBufferBindings_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, maxResourceDescriptorBufferBindings));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_maxSamplerDescriptorBufferBindings_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, maxSamplerDescriptorBufferBindings));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_maxEmbeddedImmutableSamplerBindings_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, maxEmbeddedImmutableSamplerBindings));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_maxEmbeddedImmutableSamplers_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, maxEmbeddedImmutableSamplers));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_bufferCaptureReplayDescriptorDataSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, bufferCaptureReplayDescriptorDataSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_imageCaptureReplayDescriptorDataSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, imageCaptureReplayDescriptorDataSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_imageViewCaptureReplayDescriptorDataSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, imageViewCaptureReplayDescriptorDataSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_samplerCaptureReplayDescriptorDataSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, samplerCaptureReplayDescriptorDataSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_accelerationStructureCaptureReplayDescriptorDataSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, accelerationStructureCaptureReplayDescriptorDataSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_samplerDescriptorSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, samplerDescriptorSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_combinedImageSamplerDescriptorSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, combinedImageSamplerDescriptorSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_sampledImageDescriptorSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, sampledImageDescriptorSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_storageImageDescriptorSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, storageImageDescriptorSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_uniformTexelBufferDescriptorSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, uniformTexelBufferDescriptorSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_robustUniformTexelBufferDescriptorSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, robustUniformTexelBufferDescriptorSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_storageTexelBufferDescriptorSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, storageTexelBufferDescriptorSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_robustStorageTexelBufferDescriptorSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, robustStorageTexelBufferDescriptorSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_uniformBufferDescriptorSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, uniformBufferDescriptorSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_robustUniformBufferDescriptorSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, robustUniformBufferDescriptorSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_storageBufferDescriptorSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, storageBufferDescriptorSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_robustStorageBufferDescriptorSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, robustStorageBufferDescriptorSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_inputAttachmentDescriptorSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, inputAttachmentDescriptorSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_accelerationStructureDescriptorSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, accelerationStructureDescriptorSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_maxSamplerDescriptorBufferRange_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, maxSamplerDescriptorBufferRange));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_maxResourceDescriptorBufferRange_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, maxResourceDescriptorBufferRange));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_samplerDescriptorBufferAddressSpaceSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, samplerDescriptorBufferAddressSpaceSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_resourceDescriptorBufferAddressSpaceSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, resourceDescriptorBufferAddressSpaceSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_descriptorBufferAddressSpaceSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferPropertiesEXT, descriptorBufferAddressSpaceSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferPropertiesEXT_sizeof"] = Napi::Number::New(env, sizeof(VkPhysicalDeviceDescriptorBufferPropertiesEXT));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT, sType));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT, pNext));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT_combinedImageSamplerDensityMapDescriptorSize_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT, combinedImageSamplerDensityMapDescriptorSize));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT_sizeof"] = Napi::Number::New(env, sizeof(VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorAddressInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkDescriptorAddressInfoEXT, sType));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorAddressInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkDescriptorAddressInfoEXT, pNext));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorAddressInfoEXT_address_offsetof"] = Napi::Number::New(env, offsetof(VkDescriptorAddressInfoEXT, address));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorAddressInfoEXT_range_offsetof"] = Napi::Number::New(env, offsetof(VkDescriptorAddressInfoEXT, range));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorAddressInfoEXT_format_offsetof"] = Napi::Number::New(env, offsetof(VkDescriptorAddressInfoEXT, format));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorAddressInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkDescriptorAddressInfoEXT));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorBufferBindingInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkDescriptorBufferBindingInfoEXT, sType));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorBufferBindingInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkDescriptorBufferBindingInfoEXT, pNext));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorBufferBindingInfoEXT_address_offsetof"] = Napi::Number::New(env, offsetof(VkDescriptorBufferBindingInfoEXT, address));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorBufferBindingInfoEXT_usage_offsetof"] = Napi::Number::New(env, offsetof(VkDescriptorBufferBindingInfoEXT, usage));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorBufferBindingInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkDescriptorBufferBindingInfoEXT));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorBufferBindingPushDescriptorBufferHandleEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkDescriptorBufferBindingPushDescriptorBufferHandleEXT, sType));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorBufferBindingPushDescriptorBufferHandleEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkDescriptorBufferBindingPushDescriptorBufferHandleEXT, pNext));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorBufferBindingPushDescriptorBufferHandleEXT_buffer_offsetof"] = Napi::Number::New(env, offsetof(VkDescriptorBufferBindingPushDescriptorBufferHandleEXT, buffer));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorBufferBindingPushDescriptorBufferHandleEXT_sizeof"] = Napi::Number::New(env, sizeof(VkDescriptorBufferBindingPushDescriptorBufferHandleEXT));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorGetInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkDescriptorGetInfoEXT, sType));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorGetInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkDescriptorGetInfoEXT, pNext));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorGetInfoEXT_type_offsetof"] = Napi::Number::New(env, offsetof(VkDescriptorGetInfoEXT, type));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorGetInfoEXT_data_offsetof"] = Napi::Number::New(env, offsetof(VkDescriptorGetInfoEXT, data));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkDescriptorGetInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkDescriptorGetInfoEXT));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkBufferCaptureDescriptorDataInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkBufferCaptureDescriptorDataInfoEXT, sType));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkBufferCaptureDescriptorDataInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkBufferCaptureDescriptorDataInfoEXT, pNext));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkBufferCaptureDescriptorDataInfoEXT_buffer_offsetof"] = Napi::Number::New(env, offsetof(VkBufferCaptureDescriptorDataInfoEXT, buffer));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkBufferCaptureDescriptorDataInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkBufferCaptureDescriptorDataInfoEXT));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkImageCaptureDescriptorDataInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkImageCaptureDescriptorDataInfoEXT, sType));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkImageCaptureDescriptorDataInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkImageCaptureDescriptorDataInfoEXT, pNext));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkImageCaptureDescriptorDataInfoEXT_image_offsetof"] = Napi::Number::New(env, offsetof(VkImageCaptureDescriptorDataInfoEXT, image));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkImageCaptureDescriptorDataInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkImageCaptureDescriptorDataInfoEXT));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkImageViewCaptureDescriptorDataInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkImageViewCaptureDescriptorDataInfoEXT, sType));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkImageViewCaptureDescriptorDataInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkImageViewCaptureDescriptorDataInfoEXT, pNext));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkImageViewCaptureDescriptorDataInfoEXT_imageView_offsetof"] = Napi::Number::New(env, offsetof(VkImageViewCaptureDescriptorDataInfoEXT, imageView));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkImageViewCaptureDescriptorDataInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkImageViewCaptureDescriptorDataInfoEXT));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkSamplerCaptureDescriptorDataInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkSamplerCaptureDescriptorDataInfoEXT, sType));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkSamplerCaptureDescriptorDataInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkSamplerCaptureDescriptorDataInfoEXT, pNext));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkSamplerCaptureDescriptorDataInfoEXT_sampler_offsetof"] = Napi::Number::New(env, offsetof(VkSamplerCaptureDescriptorDataInfoEXT, sampler));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkSamplerCaptureDescriptorDataInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkSamplerCaptureDescriptorDataInfoEXT));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkAccelerationStructureCaptureDescriptorDataInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkAccelerationStructureCaptureDescriptorDataInfoEXT, sType));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkAccelerationStructureCaptureDescriptorDataInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkAccelerationStructureCaptureDescriptorDataInfoEXT, pNext));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkAccelerationStructureCaptureDescriptorDataInfoEXT_accelerationStructure_offsetof"] = Napi::Number::New(env, offsetof(VkAccelerationStructureCaptureDescriptorDataInfoEXT, accelerationStructure));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkAccelerationStructureCaptureDescriptorDataInfoEXT_accelerationStructureNV_offsetof"] = Napi::Number::New(env, offsetof(VkAccelerationStructureCaptureDescriptorDataInfoEXT, accelerationStructureNV));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkAccelerationStructureCaptureDescriptorDataInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkAccelerationStructureCaptureDescriptorDataInfoEXT));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkOpaqueCaptureDescriptorDataCreateInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkOpaqueCaptureDescriptorDataCreateInfoEXT, sType));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkOpaqueCaptureDescriptorDataCreateInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkOpaqueCaptureDescriptorDataCreateInfoEXT, pNext));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkOpaqueCaptureDescriptorDataCreateInfoEXT_opaqueCaptureDescriptorData_offsetof"] = Napi::Number::New(env, offsetof(VkOpaqueCaptureDescriptorDataCreateInfoEXT, opaqueCaptureDescriptorData));
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["VkOpaqueCaptureDescriptorDataCreateInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkOpaqueCaptureDescriptorDataCreateInfoEXT));
+#endif
     exports["VkPhysicalDeviceShaderIntegerDotProductFeatures_sType_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceShaderIntegerDotProductFeatures, sType));
     exports["VkPhysicalDeviceShaderIntegerDotProductFeatures_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceShaderIntegerDotProductFeatures, pNext));
     exports["VkPhysicalDeviceShaderIntegerDotProductFeatures_shaderIntegerDotProduct_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceShaderIntegerDotProductFeatures, shaderIntegerDotProduct));
@@ -25457,6 +25983,39 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
 #endif
 #ifdef VK_NVX_binary_import
     exports["vkCmdCuLaunchKernelNVX"] = Napi::Function::New(env, rawCmdCuLaunchKernelNVX);
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["vkGetDescriptorSetLayoutSizeEXT"] = Napi::Function::New(env, rawGetDescriptorSetLayoutSizeEXT);
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["vkGetDescriptorSetLayoutBindingOffsetEXT"] = Napi::Function::New(env, rawGetDescriptorSetLayoutBindingOffsetEXT);
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["vkGetDescriptorEXT"] = Napi::Function::New(env, rawGetDescriptorEXT);
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["vkCmdBindDescriptorBuffersEXT"] = Napi::Function::New(env, rawCmdBindDescriptorBuffersEXT);
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["vkCmdSetDescriptorBufferOffsetsEXT"] = Napi::Function::New(env, rawCmdSetDescriptorBufferOffsetsEXT);
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["vkCmdBindDescriptorBufferEmbeddedSamplersEXT"] = Napi::Function::New(env, rawCmdBindDescriptorBufferEmbeddedSamplersEXT);
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["vkGetBufferOpaqueCaptureDescriptorDataEXT"] = Napi::Function::New(env, rawGetBufferOpaqueCaptureDescriptorDataEXT);
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["vkGetImageOpaqueCaptureDescriptorDataEXT"] = Napi::Function::New(env, rawGetImageOpaqueCaptureDescriptorDataEXT);
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["vkGetImageViewOpaqueCaptureDescriptorDataEXT"] = Napi::Function::New(env, rawGetImageViewOpaqueCaptureDescriptorDataEXT);
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["vkGetSamplerOpaqueCaptureDescriptorDataEXT"] = Napi::Function::New(env, rawGetSamplerOpaqueCaptureDescriptorDataEXT);
+#endif
+#ifdef VK_EXT_descriptor_buffer
+    exports["vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT"] = Napi::Function::New(env, rawGetAccelerationStructureOpaqueCaptureDescriptorDataEXT);
 #endif
 #ifdef VK_EXT_pageable_device_local_memory
     exports["vkSetDeviceMemoryPriorityEXT"] = Napi::Function::New(env, rawSetDeviceMemoryPriorityEXT);

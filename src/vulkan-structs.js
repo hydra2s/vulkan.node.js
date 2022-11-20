@@ -7300,6 +7300,137 @@ const VkCuLaunchInfoNVX = new Proxy(C.CStructView, new C.CStruct("VkCuLaunchInfo
 }, (V.VkCuLaunchInfoNVX_sizeof||0)));
 
 
+const VkPhysicalDeviceDescriptorBufferFeaturesEXT = new Proxy(C.CStructView, new C.CStruct("VkPhysicalDeviceDescriptorBufferFeaturesEXT", {
+    sType: "u32("+(V.VkPhysicalDeviceDescriptorBufferFeaturesEXT_sType_offsetof||0)+")"+":"+E.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT,
+    pNext: "u64("+(V.VkPhysicalDeviceDescriptorBufferFeaturesEXT_pNext_offsetof||0)+")",
+    descriptorBuffer: "u32("+(V.VkPhysicalDeviceDescriptorBufferFeaturesEXT_descriptorBuffer_offsetof||0)+")",
+    descriptorBufferCaptureReplay: "u32("+(V.VkPhysicalDeviceDescriptorBufferFeaturesEXT_descriptorBufferCaptureReplay_offsetof||0)+")",
+    descriptorBufferImageLayoutIgnored: "u32("+(V.VkPhysicalDeviceDescriptorBufferFeaturesEXT_descriptorBufferImageLayoutIgnored_offsetof||0)+")",
+    descriptorBufferPushDescriptors: "u32("+(V.VkPhysicalDeviceDescriptorBufferFeaturesEXT_descriptorBufferPushDescriptors_offsetof||0)+")",
+}, (V.VkPhysicalDeviceDescriptorBufferFeaturesEXT_sizeof||0)));
+
+
+const VkPhysicalDeviceDescriptorBufferPropertiesEXT = new Proxy(C.CStructView, new C.CStruct("VkPhysicalDeviceDescriptorBufferPropertiesEXT", {
+    sType: "u32("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_sType_offsetof||0)+")"+":"+E.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT,
+    pNext: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_pNext_offsetof||0)+")",
+    combinedImageSamplerDescriptorSingleArray: "u32("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_combinedImageSamplerDescriptorSingleArray_offsetof||0)+")",
+    bufferlessPushDescriptors: "u32("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_bufferlessPushDescriptors_offsetof||0)+")",
+    allowSamplerImageViewPostSubmitCreation: "u32("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_allowSamplerImageViewPostSubmitCreation_offsetof||0)+")",
+    descriptorBufferOffsetAlignment: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_descriptorBufferOffsetAlignment_offsetof||0)+")",
+    maxDescriptorBufferBindings: "u32("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_maxDescriptorBufferBindings_offsetof||0)+")",
+    maxResourceDescriptorBufferBindings: "u32("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_maxResourceDescriptorBufferBindings_offsetof||0)+")",
+    maxSamplerDescriptorBufferBindings: "u32("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_maxSamplerDescriptorBufferBindings_offsetof||0)+")",
+    maxEmbeddedImmutableSamplerBindings: "u32("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_maxEmbeddedImmutableSamplerBindings_offsetof||0)+")",
+    maxEmbeddedImmutableSamplers: "u32("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_maxEmbeddedImmutableSamplers_offsetof||0)+")",
+    bufferCaptureReplayDescriptorDataSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_bufferCaptureReplayDescriptorDataSize_offsetof||0)+")",
+    imageCaptureReplayDescriptorDataSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_imageCaptureReplayDescriptorDataSize_offsetof||0)+")",
+    imageViewCaptureReplayDescriptorDataSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_imageViewCaptureReplayDescriptorDataSize_offsetof||0)+")",
+    samplerCaptureReplayDescriptorDataSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_samplerCaptureReplayDescriptorDataSize_offsetof||0)+")",
+    accelerationStructureCaptureReplayDescriptorDataSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_accelerationStructureCaptureReplayDescriptorDataSize_offsetof||0)+")",
+    samplerDescriptorSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_samplerDescriptorSize_offsetof||0)+")",
+    combinedImageSamplerDescriptorSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_combinedImageSamplerDescriptorSize_offsetof||0)+")",
+    sampledImageDescriptorSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_sampledImageDescriptorSize_offsetof||0)+")",
+    storageImageDescriptorSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_storageImageDescriptorSize_offsetof||0)+")",
+    uniformTexelBufferDescriptorSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_uniformTexelBufferDescriptorSize_offsetof||0)+")",
+    robustUniformTexelBufferDescriptorSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_robustUniformTexelBufferDescriptorSize_offsetof||0)+")",
+    storageTexelBufferDescriptorSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_storageTexelBufferDescriptorSize_offsetof||0)+")",
+    robustStorageTexelBufferDescriptorSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_robustStorageTexelBufferDescriptorSize_offsetof||0)+")",
+    uniformBufferDescriptorSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_uniformBufferDescriptorSize_offsetof||0)+")",
+    robustUniformBufferDescriptorSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_robustUniformBufferDescriptorSize_offsetof||0)+")",
+    storageBufferDescriptorSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_storageBufferDescriptorSize_offsetof||0)+")",
+    robustStorageBufferDescriptorSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_robustStorageBufferDescriptorSize_offsetof||0)+")",
+    inputAttachmentDescriptorSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_inputAttachmentDescriptorSize_offsetof||0)+")",
+    accelerationStructureDescriptorSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_accelerationStructureDescriptorSize_offsetof||0)+")",
+    maxSamplerDescriptorBufferRange: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_maxSamplerDescriptorBufferRange_offsetof||0)+")",
+    maxResourceDescriptorBufferRange: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_maxResourceDescriptorBufferRange_offsetof||0)+")",
+    samplerDescriptorBufferAddressSpaceSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_samplerDescriptorBufferAddressSpaceSize_offsetof||0)+")",
+    resourceDescriptorBufferAddressSpaceSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_resourceDescriptorBufferAddressSpaceSize_offsetof||0)+")",
+    descriptorBufferAddressSpaceSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_descriptorBufferAddressSpaceSize_offsetof||0)+")",
+}, (V.VkPhysicalDeviceDescriptorBufferPropertiesEXT_sizeof||0)));
+
+
+const VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT = new Proxy(C.CStructView, new C.CStruct("VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT", {
+    sType: "u32("+(V.VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT_sType_offsetof||0)+")"+":"+E.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT,
+    pNext: "u64("+(V.VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT_pNext_offsetof||0)+")",
+    combinedImageSamplerDensityMapDescriptorSize: "u64("+(V.VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT_combinedImageSamplerDensityMapDescriptorSize_offsetof||0)+")",
+}, (V.VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT_sizeof||0)));
+
+
+const VkDescriptorAddressInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkDescriptorAddressInfoEXT", {
+    sType: "u32("+(V.VkDescriptorAddressInfoEXT_sType_offsetof||0)+")"+":"+E.VK_STRUCTURE_TYPE_DESCRIPTOR_ADDRESS_INFO_EXT,
+    pNext: "u64("+(V.VkDescriptorAddressInfoEXT_pNext_offsetof||0)+")",
+    address: "u64("+(V.VkDescriptorAddressInfoEXT_address_offsetof||0)+")",
+    range: "u64("+(V.VkDescriptorAddressInfoEXT_range_offsetof||0)+")",
+    format: "u32("+(V.VkDescriptorAddressInfoEXT_format_offsetof||0)+")",
+}, (V.VkDescriptorAddressInfoEXT_sizeof||0)));
+
+
+const VkDescriptorBufferBindingInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkDescriptorBufferBindingInfoEXT", {
+    sType: "u32("+(V.VkDescriptorBufferBindingInfoEXT_sType_offsetof||0)+")"+":"+E.VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_INFO_EXT,
+    pNext: "u64("+(V.VkDescriptorBufferBindingInfoEXT_pNext_offsetof||0)+")",
+    address: "u64("+(V.VkDescriptorBufferBindingInfoEXT_address_offsetof||0)+")",
+    usage: "u32("+(V.VkDescriptorBufferBindingInfoEXT_usage_offsetof||0)+")",
+}, (V.VkDescriptorBufferBindingInfoEXT_sizeof||0)));
+
+
+const VkDescriptorBufferBindingPushDescriptorBufferHandleEXT = new Proxy(C.CStructView, new C.CStruct("VkDescriptorBufferBindingPushDescriptorBufferHandleEXT", {
+    sType: "u32("+(V.VkDescriptorBufferBindingPushDescriptorBufferHandleEXT_sType_offsetof||0)+")"+":"+E.VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT,
+    pNext: "u64("+(V.VkDescriptorBufferBindingPushDescriptorBufferHandleEXT_pNext_offsetof||0)+")",
+    buffer: "u64("+(V.VkDescriptorBufferBindingPushDescriptorBufferHandleEXT_buffer_offsetof||0)+")",
+}, (V.VkDescriptorBufferBindingPushDescriptorBufferHandleEXT_sizeof||0)));
+
+
+const VkDescriptorGetInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkDescriptorGetInfoEXT", {
+    sType: "u32("+(V.VkDescriptorGetInfoEXT_sType_offsetof||0)+")"+":"+E.VK_STRUCTURE_TYPE_DESCRIPTOR_GET_INFO_EXT,
+    pNext: "u64("+(V.VkDescriptorGetInfoEXT_pNext_offsetof||0)+")",
+    type: "u32("+(V.VkDescriptorGetInfoEXT_type_offsetof||0)+")",
+    data: "u32("+(V.VkDescriptorGetInfoEXT_data_offsetof||0)+")",
+}, (V.VkDescriptorGetInfoEXT_sizeof||0)));
+
+
+const VkBufferCaptureDescriptorDataInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkBufferCaptureDescriptorDataInfoEXT", {
+    sType: "u32("+(V.VkBufferCaptureDescriptorDataInfoEXT_sType_offsetof||0)+")"+":"+E.VK_STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
+    pNext: "u64("+(V.VkBufferCaptureDescriptorDataInfoEXT_pNext_offsetof||0)+")",
+    buffer: "u64("+(V.VkBufferCaptureDescriptorDataInfoEXT_buffer_offsetof||0)+")",
+}, (V.VkBufferCaptureDescriptorDataInfoEXT_sizeof||0)));
+
+
+const VkImageCaptureDescriptorDataInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkImageCaptureDescriptorDataInfoEXT", {
+    sType: "u32("+(V.VkImageCaptureDescriptorDataInfoEXT_sType_offsetof||0)+")"+":"+E.VK_STRUCTURE_TYPE_IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
+    pNext: "u64("+(V.VkImageCaptureDescriptorDataInfoEXT_pNext_offsetof||0)+")",
+    image: "u64("+(V.VkImageCaptureDescriptorDataInfoEXT_image_offsetof||0)+")",
+}, (V.VkImageCaptureDescriptorDataInfoEXT_sizeof||0)));
+
+
+const VkImageViewCaptureDescriptorDataInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkImageViewCaptureDescriptorDataInfoEXT", {
+    sType: "u32("+(V.VkImageViewCaptureDescriptorDataInfoEXT_sType_offsetof||0)+")"+":"+E.VK_STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
+    pNext: "u64("+(V.VkImageViewCaptureDescriptorDataInfoEXT_pNext_offsetof||0)+")",
+    imageView: "u32("+(V.VkImageViewCaptureDescriptorDataInfoEXT_imageView_offsetof||0)+")",
+}, (V.VkImageViewCaptureDescriptorDataInfoEXT_sizeof||0)));
+
+
+const VkSamplerCaptureDescriptorDataInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkSamplerCaptureDescriptorDataInfoEXT", {
+    sType: "u32("+(V.VkSamplerCaptureDescriptorDataInfoEXT_sType_offsetof||0)+")"+":"+E.VK_STRUCTURE_TYPE_SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
+    pNext: "u64("+(V.VkSamplerCaptureDescriptorDataInfoEXT_pNext_offsetof||0)+")",
+    sampler: "u64("+(V.VkSamplerCaptureDescriptorDataInfoEXT_sampler_offsetof||0)+")",
+}, (V.VkSamplerCaptureDescriptorDataInfoEXT_sizeof||0)));
+
+
+const VkAccelerationStructureCaptureDescriptorDataInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkAccelerationStructureCaptureDescriptorDataInfoEXT", {
+    sType: "u32("+(V.VkAccelerationStructureCaptureDescriptorDataInfoEXT_sType_offsetof||0)+")"+":"+E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
+    pNext: "u64("+(V.VkAccelerationStructureCaptureDescriptorDataInfoEXT_pNext_offsetof||0)+")",
+    accelerationStructure: "u64("+(V.VkAccelerationStructureCaptureDescriptorDataInfoEXT_accelerationStructure_offsetof||0)+")",
+    accelerationStructureNV: "u32("+(V.VkAccelerationStructureCaptureDescriptorDataInfoEXT_accelerationStructureNV_offsetof||0)+")",
+}, (V.VkAccelerationStructureCaptureDescriptorDataInfoEXT_sizeof||0)));
+
+
+const VkOpaqueCaptureDescriptorDataCreateInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkOpaqueCaptureDescriptorDataCreateInfoEXT", {
+    sType: "u32("+(V.VkOpaqueCaptureDescriptorDataCreateInfoEXT_sType_offsetof||0)+")"+":"+E.VK_STRUCTURE_TYPE_OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT,
+    pNext: "u64("+(V.VkOpaqueCaptureDescriptorDataCreateInfoEXT_pNext_offsetof||0)+")",
+    opaqueCaptureDescriptorData: "u64("+(V.VkOpaqueCaptureDescriptorDataCreateInfoEXT_opaqueCaptureDescriptorData_offsetof||0)+")",
+}, (V.VkOpaqueCaptureDescriptorDataCreateInfoEXT_sizeof||0)));
+
+
 const VkPhysicalDeviceShaderIntegerDotProductFeatures = new Proxy(C.CStructView, new C.CStruct("VkPhysicalDeviceShaderIntegerDotProductFeatures", {
     sType: "u32("+(V.VkPhysicalDeviceShaderIntegerDotProductFeatures_sType_offsetof||0)+")"+":"+E.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES,
     pNext: "u64("+(V.VkPhysicalDeviceShaderIntegerDotProductFeatures_pNext_offsetof||0)+")",
@@ -9317,6 +9448,19 @@ export default {
     VkCuModuleCreateInfoNVX,
     VkCuFunctionCreateInfoNVX,
     VkCuLaunchInfoNVX,
+    VkPhysicalDeviceDescriptorBufferFeaturesEXT,
+    VkPhysicalDeviceDescriptorBufferPropertiesEXT,
+    VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT,
+    VkDescriptorAddressInfoEXT,
+    VkDescriptorBufferBindingInfoEXT,
+    VkDescriptorBufferBindingPushDescriptorBufferHandleEXT,
+    VkDescriptorGetInfoEXT,
+    VkBufferCaptureDescriptorDataInfoEXT,
+    VkImageCaptureDescriptorDataInfoEXT,
+    VkImageViewCaptureDescriptorDataInfoEXT,
+    VkSamplerCaptureDescriptorDataInfoEXT,
+    VkAccelerationStructureCaptureDescriptorDataInfoEXT,
+    VkOpaqueCaptureDescriptorDataCreateInfoEXT,
     VkPhysicalDeviceShaderIntegerDotProductFeatures,
     VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR,
     VkPhysicalDeviceShaderIntegerDotProductProperties,

@@ -29678,6 +29678,688 @@
   },
   {
     "proto": {
+      "name": "vkGetDescriptorSetLayoutSizeEXT",
+      "type": "void",
+      "isPointer": false,
+      "isConst": false,
+      "isPointerSet": false,
+      "text": "void vkGetDescriptorSetLayoutSizeEXT",
+      "parts": [
+        "void",
+        "vkGetDescriptorSetLayoutSizeEXT"
+      ]
+    },
+    "params": [
+      {
+        "name": "device",
+        "type": "VkDevice",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDevice device",
+        "parts": [
+          "VkDevice",
+          "device"
+        ]
+      },
+      {
+        "name": "layout",
+        "type": "VkDescriptorSetLayout",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDescriptorSetLayout layout",
+        "parts": [
+          "VkDescriptorSetLayout",
+          "layout"
+        ]
+      },
+      {
+        "name": "pLayoutSizeInBytes",
+        "type": "VkDeviceSize",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDeviceSize * pLayoutSizeInBytes",
+        "parts": [
+          "VkDeviceSize",
+          "*",
+          "pLayoutSizeInBytes"
+        ]
+      }
+    ]
+  },
+  {
+    "proto": {
+      "name": "vkGetDescriptorSetLayoutBindingOffsetEXT",
+      "type": "void",
+      "isPointer": false,
+      "isConst": false,
+      "isPointerSet": false,
+      "text": "void vkGetDescriptorSetLayoutBindingOffsetEXT",
+      "parts": [
+        "void",
+        "vkGetDescriptorSetLayoutBindingOffsetEXT"
+      ]
+    },
+    "params": [
+      {
+        "name": "device",
+        "type": "VkDevice",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDevice device",
+        "parts": [
+          "VkDevice",
+          "device"
+        ]
+      },
+      {
+        "name": "layout",
+        "type": "VkDescriptorSetLayout",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDescriptorSetLayout layout",
+        "parts": [
+          "VkDescriptorSetLayout",
+          "layout"
+        ]
+      },
+      {
+        "name": "binding",
+        "type": "uint32_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "uint32_t binding",
+        "parts": [
+          "uint32_t",
+          "binding"
+        ]
+      },
+      {
+        "name": "pOffset",
+        "type": "VkDeviceSize",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDeviceSize * pOffset",
+        "parts": [
+          "VkDeviceSize",
+          "*",
+          "pOffset"
+        ]
+      }
+    ]
+  },
+  {
+    "proto": {
+      "name": "vkGetDescriptorEXT",
+      "type": "void",
+      "isPointer": false,
+      "isConst": false,
+      "isPointerSet": false,
+      "text": "void vkGetDescriptorEXT",
+      "parts": [
+        "void",
+        "vkGetDescriptorEXT"
+      ]
+    },
+    "params": [
+      {
+        "name": "device",
+        "type": "VkDevice",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDevice device",
+        "parts": [
+          "VkDevice",
+          "device"
+        ]
+      },
+      {
+        "name": "pDescriptorInfo",
+        "type": "VkDescriptorGetInfoEXT",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const VkDescriptorGetInfoEXT * pDescriptorInfo",
+        "parts": [
+          "const",
+          "VkDescriptorGetInfoEXT",
+          "*",
+          "pDescriptorInfo"
+        ]
+      },
+      {
+        "name": "dataSize",
+        "type": "size_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "size_t dataSize",
+        "parts": [
+          "size_t",
+          "dataSize"
+        ]
+      },
+      {
+        "name": "pDescriptor",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pDescriptor",
+        "parts": [
+          "void",
+          "*",
+          "pDescriptor"
+        ]
+      }
+    ]
+  },
+  {
+    "proto": {
+      "name": "vkCmdBindDescriptorBuffersEXT",
+      "type": "void",
+      "isPointer": false,
+      "isConst": false,
+      "isPointerSet": false,
+      "text": "void vkCmdBindDescriptorBuffersEXT",
+      "parts": [
+        "void",
+        "vkCmdBindDescriptorBuffersEXT"
+      ]
+    },
+    "params": [
+      {
+        "name": "commandBuffer",
+        "type": "VkCommandBuffer",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkCommandBuffer commandBuffer",
+        "parts": [
+          "VkCommandBuffer",
+          "commandBuffer"
+        ]
+      },
+      {
+        "name": "bufferCount",
+        "type": "uint32_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "uint32_t bufferCount",
+        "parts": [
+          "uint32_t",
+          "bufferCount"
+        ]
+      },
+      {
+        "name": "pBindingInfos",
+        "type": "VkDescriptorBufferBindingInfoEXT",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const VkDescriptorBufferBindingInfoEXT * pBindingInfos",
+        "parts": [
+          "const",
+          "VkDescriptorBufferBindingInfoEXT",
+          "*",
+          "pBindingInfos"
+        ]
+      }
+    ]
+  },
+  {
+    "proto": {
+      "name": "vkCmdSetDescriptorBufferOffsetsEXT",
+      "type": "void",
+      "isPointer": false,
+      "isConst": false,
+      "isPointerSet": false,
+      "text": "void vkCmdSetDescriptorBufferOffsetsEXT",
+      "parts": [
+        "void",
+        "vkCmdSetDescriptorBufferOffsetsEXT"
+      ]
+    },
+    "params": [
+      {
+        "name": "commandBuffer",
+        "type": "VkCommandBuffer",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkCommandBuffer commandBuffer",
+        "parts": [
+          "VkCommandBuffer",
+          "commandBuffer"
+        ]
+      },
+      {
+        "name": "pipelineBindPoint",
+        "type": "VkPipelineBindPoint",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkPipelineBindPoint pipelineBindPoint",
+        "parts": [
+          "VkPipelineBindPoint",
+          "pipelineBindPoint"
+        ]
+      },
+      {
+        "name": "layout",
+        "type": "VkPipelineLayout",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkPipelineLayout layout",
+        "parts": [
+          "VkPipelineLayout",
+          "layout"
+        ]
+      },
+      {
+        "name": "firstSet",
+        "type": "uint32_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "uint32_t firstSet",
+        "parts": [
+          "uint32_t",
+          "firstSet"
+        ]
+      },
+      {
+        "name": "setCount",
+        "type": "uint32_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "uint32_t setCount",
+        "parts": [
+          "uint32_t",
+          "setCount"
+        ]
+      },
+      {
+        "name": "pBufferIndices",
+        "type": "uint32_t",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const uint32_t * pBufferIndices",
+        "parts": [
+          "const",
+          "uint32_t",
+          "*",
+          "pBufferIndices"
+        ]
+      },
+      {
+        "name": "pOffsets",
+        "type": "VkDeviceSize",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const VkDeviceSize * pOffsets",
+        "parts": [
+          "const",
+          "VkDeviceSize",
+          "*",
+          "pOffsets"
+        ]
+      }
+    ]
+  },
+  {
+    "proto": {
+      "name": "vkCmdBindDescriptorBufferEmbeddedSamplersEXT",
+      "type": "void",
+      "isPointer": false,
+      "isConst": false,
+      "isPointerSet": false,
+      "text": "void vkCmdBindDescriptorBufferEmbeddedSamplersEXT",
+      "parts": [
+        "void",
+        "vkCmdBindDescriptorBufferEmbeddedSamplersEXT"
+      ]
+    },
+    "params": [
+      {
+        "name": "commandBuffer",
+        "type": "VkCommandBuffer",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkCommandBuffer commandBuffer",
+        "parts": [
+          "VkCommandBuffer",
+          "commandBuffer"
+        ]
+      },
+      {
+        "name": "pipelineBindPoint",
+        "type": "VkPipelineBindPoint",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkPipelineBindPoint pipelineBindPoint",
+        "parts": [
+          "VkPipelineBindPoint",
+          "pipelineBindPoint"
+        ]
+      },
+      {
+        "name": "layout",
+        "type": "VkPipelineLayout",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkPipelineLayout layout",
+        "parts": [
+          "VkPipelineLayout",
+          "layout"
+        ]
+      },
+      {
+        "name": "set",
+        "type": "uint32_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "uint32_t set",
+        "parts": [
+          "uint32_t",
+          "set"
+        ]
+      }
+    ]
+  },
+  {
+    "proto": {
+      "name": "vkGetBufferOpaqueCaptureDescriptorDataEXT",
+      "type": "VkResult",
+      "isPointer": false,
+      "isConst": false,
+      "isPointerSet": false,
+      "text": "VkResult vkGetBufferOpaqueCaptureDescriptorDataEXT",
+      "parts": [
+        "VkResult",
+        "vkGetBufferOpaqueCaptureDescriptorDataEXT"
+      ]
+    },
+    "params": [
+      {
+        "name": "device",
+        "type": "VkDevice",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDevice device",
+        "parts": [
+          "VkDevice",
+          "device"
+        ]
+      },
+      {
+        "name": "pInfo",
+        "type": "VkBufferCaptureDescriptorDataInfoEXT",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const VkBufferCaptureDescriptorDataInfoEXT * pInfo",
+        "parts": [
+          "const",
+          "VkBufferCaptureDescriptorDataInfoEXT",
+          "*",
+          "pInfo"
+        ]
+      },
+      {
+        "name": "pData",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pData",
+        "parts": [
+          "void",
+          "*",
+          "pData"
+        ]
+      }
+    ]
+  },
+  {
+    "proto": {
+      "name": "vkGetImageOpaqueCaptureDescriptorDataEXT",
+      "type": "VkResult",
+      "isPointer": false,
+      "isConst": false,
+      "isPointerSet": false,
+      "text": "VkResult vkGetImageOpaqueCaptureDescriptorDataEXT",
+      "parts": [
+        "VkResult",
+        "vkGetImageOpaqueCaptureDescriptorDataEXT"
+      ]
+    },
+    "params": [
+      {
+        "name": "device",
+        "type": "VkDevice",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDevice device",
+        "parts": [
+          "VkDevice",
+          "device"
+        ]
+      },
+      {
+        "name": "pInfo",
+        "type": "VkImageCaptureDescriptorDataInfoEXT",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const VkImageCaptureDescriptorDataInfoEXT * pInfo",
+        "parts": [
+          "const",
+          "VkImageCaptureDescriptorDataInfoEXT",
+          "*",
+          "pInfo"
+        ]
+      },
+      {
+        "name": "pData",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pData",
+        "parts": [
+          "void",
+          "*",
+          "pData"
+        ]
+      }
+    ]
+  },
+  {
+    "proto": {
+      "name": "vkGetImageViewOpaqueCaptureDescriptorDataEXT",
+      "type": "VkResult",
+      "isPointer": false,
+      "isConst": false,
+      "isPointerSet": false,
+      "text": "VkResult vkGetImageViewOpaqueCaptureDescriptorDataEXT",
+      "parts": [
+        "VkResult",
+        "vkGetImageViewOpaqueCaptureDescriptorDataEXT"
+      ]
+    },
+    "params": [
+      {
+        "name": "device",
+        "type": "VkDevice",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDevice device",
+        "parts": [
+          "VkDevice",
+          "device"
+        ]
+      },
+      {
+        "name": "pInfo",
+        "type": "VkImageViewCaptureDescriptorDataInfoEXT",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const VkImageViewCaptureDescriptorDataInfoEXT * pInfo",
+        "parts": [
+          "const",
+          "VkImageViewCaptureDescriptorDataInfoEXT",
+          "*",
+          "pInfo"
+        ]
+      },
+      {
+        "name": "pData",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pData",
+        "parts": [
+          "void",
+          "*",
+          "pData"
+        ]
+      }
+    ]
+  },
+  {
+    "proto": {
+      "name": "vkGetSamplerOpaqueCaptureDescriptorDataEXT",
+      "type": "VkResult",
+      "isPointer": false,
+      "isConst": false,
+      "isPointerSet": false,
+      "text": "VkResult vkGetSamplerOpaqueCaptureDescriptorDataEXT",
+      "parts": [
+        "VkResult",
+        "vkGetSamplerOpaqueCaptureDescriptorDataEXT"
+      ]
+    },
+    "params": [
+      {
+        "name": "device",
+        "type": "VkDevice",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDevice device",
+        "parts": [
+          "VkDevice",
+          "device"
+        ]
+      },
+      {
+        "name": "pInfo",
+        "type": "VkSamplerCaptureDescriptorDataInfoEXT",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const VkSamplerCaptureDescriptorDataInfoEXT * pInfo",
+        "parts": [
+          "const",
+          "VkSamplerCaptureDescriptorDataInfoEXT",
+          "*",
+          "pInfo"
+        ]
+      },
+      {
+        "name": "pData",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pData",
+        "parts": [
+          "void",
+          "*",
+          "pData"
+        ]
+      }
+    ]
+  },
+  {
+    "proto": {
+      "name": "vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT",
+      "type": "VkResult",
+      "isPointer": false,
+      "isConst": false,
+      "isPointerSet": false,
+      "text": "VkResult vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT",
+      "parts": [
+        "VkResult",
+        "vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT"
+      ]
+    },
+    "params": [
+      {
+        "name": "device",
+        "type": "VkDevice",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDevice device",
+        "parts": [
+          "VkDevice",
+          "device"
+        ]
+      },
+      {
+        "name": "pInfo",
+        "type": "VkAccelerationStructureCaptureDescriptorDataInfoEXT",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const VkAccelerationStructureCaptureDescriptorDataInfoEXT * pInfo",
+        "parts": [
+          "const",
+          "VkAccelerationStructureCaptureDescriptorDataInfoEXT",
+          "*",
+          "pInfo"
+        ]
+      },
+      {
+        "name": "pData",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pData",
+        "parts": [
+          "void",
+          "*",
+          "pData"
+        ]
+      }
+    ]
+  },
+  {
+    "proto": {
       "name": "vkSetDeviceMemoryPriorityEXT",
       "type": "void",
       "isPointer": false,

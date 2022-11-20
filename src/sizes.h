@@ -1442,6 +1442,45 @@ size_t vkGetStructureSizeBySType(VkStructureType sType) {
 #ifdef VK_NVX_binary_import
         case VK_STRUCTURE_TYPE_CU_LAUNCH_INFO_NVX: return sizeof(VkCuLaunchInfoNVX); break;
 #endif
+#ifdef VK_EXT_descriptor_buffer
+        case VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT: return sizeof(VkPhysicalDeviceDescriptorBufferFeaturesEXT); break;
+#endif
+#ifdef VK_EXT_descriptor_buffer
+        case VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT: return sizeof(VkPhysicalDeviceDescriptorBufferPropertiesEXT); break;
+#endif
+#ifdef VK_EXT_descriptor_buffer
+        case VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT: return sizeof(VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT); break;
+#endif
+#ifdef VK_EXT_descriptor_buffer
+        case VK_STRUCTURE_TYPE_DESCRIPTOR_ADDRESS_INFO_EXT: return sizeof(VkDescriptorAddressInfoEXT); break;
+#endif
+#ifdef VK_EXT_descriptor_buffer
+        case VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_INFO_EXT: return sizeof(VkDescriptorBufferBindingInfoEXT); break;
+#endif
+#ifdef VK_EXT_descriptor_buffer
+        case VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT: return sizeof(VkDescriptorBufferBindingPushDescriptorBufferHandleEXT); break;
+#endif
+#ifdef VK_EXT_descriptor_buffer
+        case VK_STRUCTURE_TYPE_DESCRIPTOR_GET_INFO_EXT: return sizeof(VkDescriptorGetInfoEXT); break;
+#endif
+#ifdef VK_EXT_descriptor_buffer
+        case VK_STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: return sizeof(VkBufferCaptureDescriptorDataInfoEXT); break;
+#endif
+#ifdef VK_EXT_descriptor_buffer
+        case VK_STRUCTURE_TYPE_IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: return sizeof(VkImageCaptureDescriptorDataInfoEXT); break;
+#endif
+#ifdef VK_EXT_descriptor_buffer
+        case VK_STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: return sizeof(VkImageViewCaptureDescriptorDataInfoEXT); break;
+#endif
+#ifdef VK_EXT_descriptor_buffer
+        case VK_STRUCTURE_TYPE_SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: return sizeof(VkSamplerCaptureDescriptorDataInfoEXT); break;
+#endif
+#ifdef VK_EXT_descriptor_buffer
+        case VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: return sizeof(VkAccelerationStructureCaptureDescriptorDataInfoEXT); break;
+#endif
+#ifdef VK_EXT_descriptor_buffer
+        case VK_STRUCTURE_TYPE_OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT: return sizeof(VkOpaqueCaptureDescriptorDataCreateInfoEXT); break;
+#endif
         case VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES: return sizeof(VkPhysicalDeviceShaderIntegerDotProductFeatures); break;
         case VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES: return sizeof(VkPhysicalDeviceShaderIntegerDotProductProperties); break;
 #ifdef VK_EXT_physical_device_drm

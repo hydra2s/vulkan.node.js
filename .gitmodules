@@ -19,3 +19,9 @@
 [submodule "volk"]
 	path = volk
 	url = https://github.com/zeux/volk.git
+[submodule "Vulkan-Docs"]
+	path = Vulkan-Docs
+	url = https://github.com/KhronosGroup/Vulkan-Docs.git
+[submodule "gl-matrix"]
+	path = gl-matrix
+	url = https://github.com/toji/gl-matrix.git
