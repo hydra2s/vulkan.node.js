@@ -1,9 +1,4 @@
 //
-const defaultDataConstruct = (...ags) => new DataView(...ags);
-const defaultArrayGetter = (dv, offset)=>{ return dv; };
-const defaultArraySetter = (dv, offset, value)=>{ dv.set(value, offset); };
-
-//
 const isAbv = (value) => {
     return value && value.byteLength != undefined && (value instanceof ArrayBuffer);
 }
@@ -13,7 +8,7 @@ const IsNumber = (index) => {
     return typeof index == "number" || typeof index == "bigint" || Number.isInteger(index) || typeof index == "string" && /^\+?\d+$/.test(index.trim());
 }
 
-// TODO: special array and arrays support
+// 
 const asBigInt = (value)=>{
     if (IsNumber(value)) {
         return BigInt(value);
@@ -42,13 +37,13 @@ const asBigInt = (value)=>{
 //
 const Types = {};
 
-// TODO: replace by types itself
+// 
 class ConstructProxy {
     constructor(target) {
         this.target = target;
     }
-    construct(target, args) {
-        new target(...args);
+    construct(_stub, args) {
+        new _stub(...args);
         let classed = null;
         if (typeof this.target == "string") {
             classed = Types[this.target].construct(...args);
@@ -57,135 +52,130 @@ class ConstructProxy {
         }
         return classed;
     }
-    get(target, name) {
-        if (["byteLength", "construct", "setter", "getter", "bigEndian", "type", "offsetof"].indexOf(name) >= 0) {
-            return typeof this.target[name] == "function" ? this.target[name].bind(this.target) : this.target[name];
-        }
-        return null;
-    }
-};
+}
 
-// TODO: make as Proxy methods itself
+function isConstructor(obj) {
+    return !!obj.prototype && !!obj.prototype.constructor.name;
+}
+
+// 
 class NumberAccessor {
-    constructor(name, byteLength, getter, setter, construct = defaultDataConstruct, bigEndian = false) {
-        if (!(name in Types)) { Types[name] = new Proxy(function(...args){}, new ConstructProxy(this)); };
+    constructor(name, byteLength, get, set, construct = DataView, bigEndian = false) {
+        if (!(name in Types)) { Types[name] = new Proxy(this._class = construct, this); };
         this.type = name;
         this.bigEndian = bigEndian;
-        this.getter = getter;
-        this.setter = setter;
+        this._get = get;//.bind(this);
+        this._set = set;//.bind(this);
         this.byteLength = byteLength;
-        this.construct = construct;
+    }
+
+    get(Target, index) {
+        if (["byteLength"].indexOf(index) >= 0) {
+            return this[index];
+        }
+        if (!isConstructor(Target)) {
+            return this._get(Target, index);
+        }
+        return null;
+    }
+
+    set(Target, index, value) {
+        if (!isConstructor(Target)) {
+            this._set(Target, index, value);
+            return true;
+        }
+    }
+
+    construct(Target, args) {
+        return new Proxy(new Target(...args), this);
     }
 }
 
-// TODO: make as Proxy methods itself
+// 
 class ArrayAccessor {
-    constructor(name, byteLength, getter, setter, construct, bigEndian = false) {
-        if (!((name+"[arr]") in Types)) { Types[name+"[arr]"] = new Proxy(function(...args){}, new ConstructProxy(this)); };
+    constructor(name, byteLength, get, set, construct, handler, bigEndian = false) {
+        if (!((name+"[arr]") in Types)) { Types[name+"[arr]"] = new Proxy(this._class = construct, this); };
         this.type = name+"[arr]";
         this.bigEndian = bigEndian;
-        this.getter = getter;
-        this.setter = setter;
+        this._get = get;
+        this._set = set;
         this.byteLength = byteLength;
-        this.construct = construct;
+        this.handler = handler;
     }
-}
 
-// TODO: remove as extra feature
-class StructProxyMethods {
-    constructor(getter, setter) {
-        this.setter = setter;
-        this.getter = getter;
-    }
-    get(target, index) {
-        if (target.struct.types.find((t)=>(t.name==index))) {
-            return target[index];
-        } else
-        if (["length", "byteOffset", "byteLength"].indexOf(index) >= 0) {
-            return target[index];
-        } else 
-        if (["set", "address", "as", "offsetof", "bufferOffsetOf", "addressOffsetOf"].indexOf(index) >= 0) {
-            return target[index].bind(target);
+    get(Target, index) {
+        if (!isConstructor(Target)) {
+            if (IsNumber(index)) {
+                return this._get(Target, parseInt(index));
+            } else 
+            if (["byteLength", "byteOffset", "length"].indexOf(index) >= 0) {
+                return Target[index];
+            } else 
+            if (["address", "set"].indexOf(index) >= 0) {
+                return Target[index].bind(Target);
+            }
         }
         return null;
     }
-    set(target, index, value) {
-        if (target.struct.types.find((t)=>(t.name==index))) {
-            target[index] = value;
-        }
-    }
-};
 
-// Still needed for typed arrays
-class ArrayProxyMethods {
-    constructor(getter, setter) {
-        this.setter = setter;
-        this.getter = getter;
-    }
-    get(target, index) {
-        if (IsNumber(index)) {
-            return this.getter(target, parseInt(index));
-        } else 
-        if (["byteLength", "byteOffset", "length"].indexOf(index) >= 0) {
-            return target[index];
-        } else 
-        if (["address", "set"].indexOf(index) >= 0) {
-            return target[index].bind(target);
-        }
-        return null;
-    }
-    set(target, index, value) {
-        if (IsNumber(index)) {
-            return this.setter(target, index, value);
+    set(Target, index, value) {
+        if (!isConstructor(Target)) {
+            if (IsNumber(index)) {
+                this._set(Target, index, value);
+                return true;
+            }
         }
     }
-};
+
+    construct(Target, args) {
+        return new Proxy(new Target(...this.handler(args)), this);
+    }
+}
 
 //
-const getInt = (target, index = 0) => {
+const getInt = (Target, index = 0) => {
     return target[index];
 }
 
 //
-const getBigInt = (target, index = 0) => {
+const getBigInt = (Target, index = 0) => {
     return target[index];
 }
 
 //
-const getFloat = (target, index = 0) => {
+const getFloat = (Target, index = 0) => {
     return target[index];
 }
 
 //
-const setFloat = (target, index = 0, value = 0) => {
+const setFloat = (Target, index = 0, value = 0) => {
     target[index] = parseFloat(value);
 }
 
 //
-const setInt = (target, index = 0, value = 0) => {
+const setInt = (Target, index = 0, value = 0) => {
     target[index] = parseInt(value);
 }
 
 //
-const setBigInt = (target, index = 0, value = 0n) => {
+const setBigInt = (Target, index = 0, value = 0n) => {
     target[index] = asBigInt(value);
 }
 
 // default accessor types
-new NumberAccessor("u8", 1, (dv, offset)=>{ return dv.getUint8(offset, true); }, (dv, offset, value)=>{ dv.setUint8(offset, parseInt(value), true); }, defaultDataConstruct);
-new NumberAccessor("i8", 1, (dv, offset)=>{ return dv.getInt8(offset, true); }, (dv, offset, value)=>{ dv.setInt8(offset, parseInt(value), true); }, defaultDataConstruct);
-new NumberAccessor("u16", 2, (dv, offset)=>{ return dv.getUint16(offset, true); }, (dv, offset, value)=>{ dv.setUint16(offset, parseInt(value), true); }, defaultDataConstruct);
-new NumberAccessor("i16", 2, (dv, offset)=>{ return dv.getInt16(offset, true); }, (dv, offset, value)=>{ dv.setInt16(offset, parseInt(value), true); }, defaultDataConstruct);
-new NumberAccessor("f32", 4, (dv, offset)=>{ return dv.getFloat32(offset, true); }, (dv, offset, value)=>{ dv.setFloat32(offset, parseFloat(value), true); }, defaultDataConstruct);
-new NumberAccessor("u32", 4, (dv, offset)=>{ return dv.getUint32(offset, true); }, (dv, offset, value)=>{ dv.setUint32(offset, parseInt(value), true); }, defaultDataConstruct);
-new NumberAccessor("i32", 4, (dv, offset)=>{ return dv.getInt32(offset, true); }, (dv, offset, value)=>{ dv.setInt32(offset, parseInt(value), true); }, defaultDataConstruct);
-new NumberAccessor("f64", 8, (dv, offset)=>{ return dv.getFloat64(offset, true); }, (dv, offset, value)=>{ dv.setFloat64(offset, parseFloat(value), true); }, defaultDataConstruct);
-new NumberAccessor("u64", 8, (dv, offset)=>{ return dv.getBigUint64(offset, true); }, (dv, offset, value)=>{ dv.setBigUint64(offset, asBigInt(value), true); }, defaultDataConstruct);
-new NumberAccessor("i64", 8, (dv, offset)=>{ return dv.getBigInt64(offset, true); }, (dv, offset, value)=>{ dv.setBigInt64(offset, asBigInt(value), true); }, defaultDataConstruct);
+new NumberAccessor("u8", 1, (dv, offset)=>{ return dv.getUint8(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setUint8(parseInt(offset), parseInt(value), true); });
+new NumberAccessor("i8", 1, (dv, offset)=>{ return dv.getInt8(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setInt8(parseInt(offset), parseInt(value), true); });
+new NumberAccessor("u16", 2, (dv, offset)=>{ return dv.getUint16(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setUint16(parseInt(offset), parseInt(value), true); });
+new NumberAccessor("i16", 2, (dv, offset)=>{ return dv.getInt16(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setInt16(parseInt(offset), parseInt(value), true); });
+new NumberAccessor("f32", 4, (dv, offset)=>{ return dv.getFloat32(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setFloat32(parseInt(offset), parseFloat(value), true); });
+new NumberAccessor("u32", 4, (dv, offset)=>{ return dv.getUint32(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setUint32(parseInt(offset), parseInt(value), true); });
+new NumberAccessor("i32", 4, (dv, offset)=>{ return dv.getInt32(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setInt32(parseInt(offset), parseInt(value), true); });
+new NumberAccessor("f64", 8, (dv, offset)=>{ return dv.getFloat64(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setFloat64(parseInt(offset), parseFloat(value), true); });
+new NumberAccessor("u64", 8, (dv, offset)=>{ return dv.getBigUint64(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setBigUint64(parseInt(offset), asBigInt(value), true); });
+new NumberAccessor("i64", 8, (dv, offset)=>{ return dv.getBigInt64(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setBigInt64(parseInt(offset), asBigInt(value), true); });
 new NumberAccessor("u24", 3, 
-(dv, offset)=>{ return (dv.getUint8(offset, true)|(dv.getUint8(offset+1, true)<<8)|(dv.getUint8(offset+2, true)<<16)); }, 
-(dv, offset, value)=>{ dv.setUint8(offset, (parseInt(value) & 0xFF), true); dv.setUint8(offset+1, (parseInt(value) >> 8) & 0xFF, true); dv.setUint8(offset+2, (parseInt(value) >> 16) & 0xFF, true); }, 
-defaultDataConstruct);
+(dv, offset)=>{ return (dv.getUint8(parseInt(offset), true)|(dv.getUint8(parseInt(offset)+1, true)<<8)|(dv.getUint8(parseInt(offset)+2, true)<<16)); }, 
+(dv, offset, value)=>{ dv.setUint8(parseInt(offset), (parseInt(value) & 0xFF), true); dv.setUint8(parseInt(offset)+1, (parseInt(value) >> 8) & 0xFF, true); dv.setUint8(parseInt(offset)+2, (parseInt(value) >> 16) & 0xFF, true); });
 
 //
 const re64 = (args)=>{
@@ -204,16 +194,16 @@ const ref = (args)=>{
 }
 
 // default array types
-new ArrayAccessor("u8", 1, defaultArrayGetter, defaultArraySetter, (...ags) => new Proxy(new Uint8Array(...rei(ags)), new ArrayProxyMethods( getInt, setInt )));
-new ArrayAccessor("i8", 1, defaultArrayGetter, defaultArraySetter, (...ags) => new Proxy(new Int8Array(...rei(ags)), new ArrayProxyMethods( getInt, setInt )));
-new ArrayAccessor("u16", 2, defaultArrayGetter, defaultArraySetter, (...ags) => new Proxy(new Uint16Array(...rei(ags)), new ArrayProxyMethods( getInt, setInt )));
-new ArrayAccessor("i16", 2, defaultArrayGetter, defaultArraySetter, (...ags) => new Proxy(new Int16Array(...rei(ags)), new ArrayProxyMethods( getInt, setInt )));
-new ArrayAccessor("f32", 4, defaultArrayGetter, defaultArraySetter, (...ags) => new Proxy(new Float32Array(...ref(ags)), new ArrayProxyMethods( getFloat, setFloat )));
-new ArrayAccessor("u32", 4, defaultArrayGetter, defaultArraySetter, (...ags) => new Proxy(new Uint32Array(...rei(ags)), new ArrayProxyMethods( getInt, setInt )));
-new ArrayAccessor("i32", 4, defaultArrayGetter, defaultArraySetter, (...ags) => new Proxy(new Int32Array(...rei(ags)), new ArrayProxyMethods( getInt, setInt )));
-new ArrayAccessor("f64", 8, defaultArrayGetter, defaultArraySetter, (...ags) => new Proxy(new Float64Array(...ref(ags)), new ArrayProxyMethods( getFloat, setFloat )));
-new ArrayAccessor("u64", 8, defaultArrayGetter, defaultArraySetter, (...ags) => new Proxy(new BigUint64Array(...re64(ags)), new ArrayProxyMethods( getBigInt, setBigInt )));
-new ArrayAccessor("i64", 8, defaultArrayGetter, defaultArraySetter, (...ags) => new Proxy(new BigInt64Array(...re64(ags)), new ArrayProxyMethods( getBigInt, setBigInt )));
+new ArrayAccessor("u8", 1, getInt, setInt, Uint8Array, rei);
+new ArrayAccessor("i8", 1, getInt, setInt, Int8Array, rei);
+new ArrayAccessor("u16", 2, getInt, setInt, Uint16Array, rei);
+new ArrayAccessor("i16", 2, getInt, setInt, Int16Array, rei);
+new ArrayAccessor("f32", 4, getFloat, setFloat, Float32Array, ref);
+new ArrayAccessor("u32", 4, getInt, setInt, Uint32Array, rei);
+new ArrayAccessor("i32", 4, getInt, setInt, Int32Array, rei);
+new ArrayAccessor("f64", 8, getFloat, setFloat, Float64Array, ref);
+new ArrayAccessor("u64", 8, getBigInt, setBigInt, BigUint64Array, re64);
+new ArrayAccessor("i64", 8, getBigInt, setBigInt, BigInt64Array, re64);
 
 //
 class CStructView {
@@ -221,21 +211,19 @@ class CStructView {
         this.buffer = buffer;
         this.byteOffset = byteOffset  + struct.byteOffset;
         this.byteLength = byteLength || struct.byteLength;
-        this.getter = struct.getter; // copy getter
-        this.setter = struct.setter; // copy setter
         this.type = struct.type;
         this.parent = null;
         
         //
         (this.struct = struct).types.forEach((tp)=>{
             const t = tp.type;
-            const array = t.construct(this.buffer, this.byteOffset + tp.byteOffset, tp.byteLength);
-
+            const array = new t(this.buffer, this.byteOffset + tp.byteOffset, tp.byteLength);
+            
             //array.parent = this; // prefer to have parent node
             Object.defineProperties(this, {
                 [tp.name]: {
-                    set: (v)=>{ t.setter(array, 0, v); },
-                    get: ()=>{ return t.getter(array, 0); }
+                    set: (v)=>{ array[0] = v; },
+                    get: ()=>{ return array[0]; }
                 }
             });
 
@@ -291,18 +279,19 @@ class CStructView {
         return this;
     }
 
-    construct(buffer, byteOffset = 0, byteLength = 0) {
+    construct(Target, args) {
+        let [buffer, byteOffset, byteLength] = args; byteOffset ||= 0, byteLength ||= 0; // NEW syntax!
         if (isAbv(buffer ? (buffer.buffer || buffer) : null)) {
-            return new Proxy(new CStructView(buffer.buffer || buffer, this.byteOffset + (buffer.byteOffset||0) + byteOffset, byteLength || this.byteLength, this.struct), new StructProxyMethods());
+            return new Proxy(new CStructView(buffer.buffer || buffer, this.byteOffset + (buffer.byteOffset||0) + byteOffset, byteLength || this.byteLength || 0, this.struct), this);
         } else 
         if (typeof buffer == "number") {
-            return new Proxy(new CStructView(new ArrayBuffer(buffer), this.byteOffset + (buffer.byteOffset||0), buffer || this.byteLength, this.struct), new StructProxyMethods());
+            return new Proxy(new CStructView(new ArrayBuffer(buffer), this.byteOffset + (buffer.byteOffset||0), buffer || this.byteLength, this.struct), this);
         } else 
         if (typeof buffer == "object") {
-            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength), 0, this.byteLength, this.struct).set(buffer), new StructProxyMethods());
+            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength), 0, this.byteLength, this.struct).set(buffer), this);
         } else
         {
-            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength), 0, this.byteLength, this.struct), new StructProxyMethods());
+            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength), 0, this.byteLength, this.struct), this);
         }
     }
 
@@ -311,7 +300,7 @@ class CStructView {
     }
 }
 
-// TODO: make as Proxy methods itself
+// 
 class CStruct {
     constructor(name, struct, byteLength) {
         this.types = [];
@@ -319,7 +308,7 @@ class CStruct {
         this.byteOffset = 0;
         this.byteLength = byteLength;
         this.isStruct = true;
-        if (!(name in Types)) { Types[name] = new Proxy(function(...args){}, new ConstructProxy(this)); };
+        if (!(name in Types)) { Types[name] = new Proxy(CStructView, this); };
         //if (!(name in Types)) { Types[name] = new Proxy(function(...args){}, this); };
 
         //
@@ -365,9 +354,12 @@ class CStruct {
                 }
             }
 
+            
+
             // correctify offset, if not defined
             if (!offset && prev != undefined) { offset = this.types[prev].byteOffset + this.types[prev].byteLength; }; 
             if (!type) { type = Types[tname+(length>1?"[arr]":"")]; };
+
             prev = this.types.length; this.types.push({type, dfv, name, length, byteOffset: offset, byteLength: (type?.byteLength || 1) * length });
 
             //
@@ -382,25 +374,30 @@ class CStruct {
         if (!this.byteLength && this.types.length >= 1) { 
             this.byteLength = this.types[this.types.length-1].byteOffset + this.types[this.types.length-1].byteLength; 
         };
-
-        //
-        this.getter = (dv, offset)=>{ return (offset ? new CStructView(dv.buffer, dv.byteOffset + offset, dv.byteLength, this) : dv); };
-
-        // offset isn't supported
-        this.setter = (dv, offset, value)=>{
-            dv.set(value, offset);
-            //if (typeof value == "object") { for (let t of this.types) { let k = t.name; if (k in value) { dv[k] = value[k]; }; }; }
-        };
     }
 
-    //
-    get(target, name) {
+    get(Target, index) {
+        if (!isConstructor(Target)) {
+            if (Target.struct.types.find((t)=>(t.name==index))) {
+                return Target[index];
+            } else
+            if (["length", "byteOffset", "byteLength"].indexOf(index) >= 0) {
+                return Target[index];
+            } else 
+            if (["set", "address", "as", "offsetof", "bufferOffsetOf", "addressOffsetOf"].indexOf(index) >= 0) {
+                return Target[index].bind(Target);
+            }
+        }
         return null;
     }
-    
-    // TODO: make as setter for Proxy
-    set(target, name, value) {
 
+    set(Target, index, value) {
+        if (!isConstructor(Target)) {
+            if (Target.struct.types.find((t)=>(t.name==index))) {
+                Target[index] = value;
+                return true;
+            }
+        }
     }
 
     offsetof(name) {
@@ -408,18 +405,19 @@ class CStruct {
     }
 
     // TODO: make as constructor for Proxy
-    construct(buffer, byteOffset = 0, byteLength = 0) {
+    construct(Target, args) {
+        let [buffer, byteOffset, byteLength] = args; byteOffset ||= 0, byteLength ||= 0; // NEW syntax!
         if (isAbv(buffer ? (buffer.buffer || buffer) : null)) {
-            return new Proxy(new CStructView(buffer.buffer || buffer, (buffer.byteOffset||0) + byteOffset, byteLength || this.byteLength, this), new StructProxyMethods());
+            return new Proxy(new CStructView(buffer.buffer || buffer, (buffer.byteOffset||0) + byteOffset, byteLength || this.byteLength || 1, this), this);
         } else 
         if (typeof buffer == "number") {
-            return new Proxy(new CStructView(new ArrayBuffer(buffer || this.byteLength), (buffer.byteOffset||0), buffer || this.byteLength, this), new StructProxyMethods());
+            return new Proxy(new CStructView(new ArrayBuffer(buffer || this.byteLength), (buffer.byteOffset||0), buffer || this.byteLength || 1, this), this);
         } else 
         if (typeof buffer == "object") {
-            return new Proxy(new CStructView(new ArrayBuffer(byteLength || this.byteLength), 0, this.byteLength, this).set(buffer), new StructProxyMethods());
+            return new Proxy(new CStructView(new ArrayBuffer(byteLength || this.byteLength), 0, this.byteLength, this).set(buffer), this);
         } else
         {
-            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength), 0, this.byteLength, this), new StructProxyMethods());
+            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength), 0, this.byteLength, this), this);
         }
     }
 

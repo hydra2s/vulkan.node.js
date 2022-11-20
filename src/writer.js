@@ -321,9 +321,9 @@ return paramStr;
     let writeStructure = (structure, map)=> {
         if (structure.name == "VkTransformMatrixKHR" || structure.name == "VkTransformMatrixNV") {
 return `
-const ${structure.name} = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("${structure.name}", {
+const ${structure.name} = new Proxy(C.CStructView, new C.CStruct("${structure.name}", {
     matrix: "u32(0)[12]",
-}, (V.${structure.name}_sizeof||0))));    
+}, (V.${structure.name}_sizeof||0)));    
 `       } else
         /*if (structure.name == "VkAccelerationStructureInstanceKHR" || structure.name == "VkAccelerationStructureInstanceNV") {
 return `
@@ -337,15 +337,15 @@ const ${structure.name} = new C.CStruct("${structure.name}", {
 }, (V.${structure.name}_sizeof||0));`
         } else*/ 
         if (structure.alias) {
-return `const ${structure.name} = new Proxy(function(){}, new C.ConstructProxy("${structure.alias}"));
+return `const ${structure.name} = new Proxy(C.CStructView, new C.ConstructProxy("${structure.alias}"));
 `;
         } else
         {
     return `
-const ${structure.name} = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("${structure.name}", {
+const ${structure.name} = new Proxy(C.CStructView, new C.CStruct("${structure.name}", {
 ${structure.params.map((p)=>(writeParam(structure.name, p, map))).join(`
 `)}
-}, (V.${structure.name}_sizeof||0))));
+}, (V.${structure.name}_sizeof||0)));
 `
         }
     };
