@@ -48,7 +48,6 @@ import { default as V } from "./index.js";
 
     //
     let appInfo = new V.VkApplicationInfo({
-        sType: V.VK_STRUCTURE_TYPE_APPLICATION_INFO,
         pNext: 0n,
         pApplicationName: "NVAPI TEST",
         applicationVersion: V.VK_MAKE_API_VERSION(0, 1, 3, 234),
@@ -63,7 +62,6 @@ import { default as V } from "./index.js";
 
     //
     let pInfo = new V.VkInstanceCreateInfo({
-        sType: V.VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
         pNext: 0n,
         flags: 0,
         pApplicationInfo: appInfo,

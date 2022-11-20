@@ -294,10 +294,10 @@ return params.join(`
     let AsFixedArray = (name, param, typed) => {
         if (param.isFixedArray) {
             if (!isNaN(param.length)) 
-                { return `"${typed}[${parseInt(param.length)||1}]("+(V.${name}_${param.name}_offsetof||0)+")"`; } else 
-                { return `"${typed}["+(E.${param.length}||1)+"]("+(V.${name}_${param.name}_offsetof||0)+")"`; };
+                { return `"${typed}[${parseInt(param.length)||1}]("+(V.${name}_${param.name}_offsetof||0)+")"` + (param.values ? `+":"+E.${param.values}` : ``); } else 
+                { return `"${typed}["+(E.${param.length}||1)+"]("+(V.${name}_${param.name}_offsetof||0)+")"` + (param.values ? `+":"+E.${param.values}` : ``); };
         }
-        return `"${typed}("+(V.${name}_${param.name}_offsetof||0)+")"`;
+        return `"${typed}("+(V.${name}_${param.name}_offsetof||0)+")"` + (param.values ? `+":"+E.${param.values}` : ``);
     }
 
     let writeParam = (name, param, map)=>{
@@ -322,7 +322,7 @@ return paramStr;
         if (structure.name == "VkTransformMatrixKHR" || structure.name == "VkTransformMatrixNV") {
 return `
 const ${structure.name} = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("${structure.name}", {
-    matrix: "u32(0)[12]",
+    matrix: "u32(0)[12]:[1,0,0,0, 0,1,0,0, 0,0,1,0]",
 }, (V.${structure.name}_sizeof||0))));    
 `       } else
         /*if (structure.name == "VkAccelerationStructureInstanceKHR" || structure.name == "VkAccelerationStructureInstanceNV") {

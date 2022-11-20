@@ -230,6 +230,7 @@ class CStructView {
         (this.struct = struct).types.forEach((tp)=>{
             const t = tp.type;
             const array = t.construct(this.buffer, this.byteOffset + tp.byteOffset, tp.byteLength);
+
             //array.parent = this; // prefer to have parent node
             Object.defineProperties(this, {
                 [tp.name]: {
@@ -237,6 +238,11 @@ class CStructView {
                     get: ()=>{ return t.getter(array, 0); }
                 }
             });
+
+            //
+            if (tp.dfv != undefined && tp.dfv !== null) { 
+                this[tp.name] = tp.dfv;
+            };
         });
 
         // re-bind for native
@@ -325,6 +331,7 @@ class CStruct {
             let offset = 0;
             let tname = null;
             let type = null;
+            let dfv = null;
 
             if (typeof struct[name] == "object" && struct[name].type) {
                 type = struct[name];
@@ -341,6 +348,11 @@ class CStruct {
                     offset = (match ? parseInt(match[1]) : 0) || 0;
                     tname = tname.replace(/\(\d+\)/g, "");
                 };
+                if (tname.indexOf(":") >= 0) {
+                    let names = tname.split(":");
+                    tname = names[0];
+                    dfv = names[1];
+                }
             } else 
             if (typeof struct[name] == "array") {
                 length = struct[name][2] || 1;
@@ -355,7 +367,7 @@ class CStruct {
             // correctify offset, if not defined
             if (!offset && prev != undefined) { offset = this.types[prev].byteOffset + this.types[prev].byteLength; }; 
             if (!type) { type = Types[tname+(length>1?"[arr]":"")]; };
-            prev = this.types.length; this.types.push({type, name, length, byteOffset: offset, byteLength: (type?.byteLength || 1) * length });
+            prev = this.types.length; this.types.push({type, dfv, name, length, byteOffset: offset, byteLength: (type?.byteLength || 1) * length });
 
             //
             this.types = this.types.sort(function(a, b) {
