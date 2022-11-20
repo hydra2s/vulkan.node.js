@@ -358,7 +358,7 @@ class CStruct {
             // correctify offset, if not defined
             if (!offset && prev != undefined) { offset = this.types[prev].byteOffset + this.types[prev].byteLength; }; 
             if (!type) { type = Types[tname+(length>1?"[arr]":"")]; };
-            prev = this.types.length; this.types.push({type, name, length, byteOffset: offset, byteLength: type?.byteLength || 1 });
+            prev = this.types.length; this.types.push({type, name, length, byteOffset: offset, byteLength: (type?.byteLength || 1) * length });
 
             //
             this.types = this.types.sort(function(a, b) {
