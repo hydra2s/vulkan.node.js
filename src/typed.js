@@ -43,7 +43,7 @@ class ConstructProxy {
         this.target = target;
     }
     construct(_stub, args) {
-        new _stub(...args);
+        //new _stub(...args);
         let classed = null;
         if (typeof this.target == "string") {
             classed = new Types[this.target](...args);
