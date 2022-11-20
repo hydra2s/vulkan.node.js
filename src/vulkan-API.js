@@ -2,7 +2,6 @@
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const native = require('bindings')('native');
-const sharedStructs = require('shared-structs');
 const fs = require('fs');
 const path = require('path');
 
