@@ -105,6 +105,9 @@ class ArrayAccessor {
 
     get(Target, index) {
         if (!isConstructor(Target)) {
+            if (index == "") {
+                return new Proxy(Target, this);
+            } else
             if (IsNumber(index)) {
                 return this._get(Target, parseInt(index));
             } else 
@@ -120,6 +123,10 @@ class ArrayAccessor {
 
     set(Target, index, value) {
         if (!isConstructor(Target)) {
+            if (index == "") {
+                Target.set(value);
+                return true;
+            } else
             if (IsNumber(index)) {
                 this._set(Target, index, value);
                 return true;
@@ -163,19 +170,19 @@ const setBigInt = (Target, index = 0, value = 0n) => {
 }
 
 // default accessor types
-new NumberAccessor("u8", 1, (dv, offset)=>{ return dv.getUint8(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setUint8(parseInt(offset), parseInt(value), true); });
-new NumberAccessor("i8", 1, (dv, offset)=>{ return dv.getInt8(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setInt8(parseInt(offset), parseInt(value), true); });
-new NumberAccessor("u16", 2, (dv, offset)=>{ return dv.getUint16(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setUint16(parseInt(offset), parseInt(value), true); });
-new NumberAccessor("i16", 2, (dv, offset)=>{ return dv.getInt16(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setInt16(parseInt(offset), parseInt(value), true); });
-new NumberAccessor("f32", 4, (dv, offset)=>{ return dv.getFloat32(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setFloat32(parseInt(offset), parseFloat(value), true); });
-new NumberAccessor("u32", 4, (dv, offset)=>{ return dv.getUint32(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setUint32(parseInt(offset), parseInt(value), true); });
-new NumberAccessor("i32", 4, (dv, offset)=>{ return dv.getInt32(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setInt32(parseInt(offset), parseInt(value), true); });
-new NumberAccessor("f64", 8, (dv, offset)=>{ return dv.getFloat64(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setFloat64(parseInt(offset), parseFloat(value), true); });
-new NumberAccessor("u64", 8, (dv, offset)=>{ return dv.getBigUint64(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setBigUint64(parseInt(offset), asBigInt(value), true); });
-new NumberAccessor("i64", 8, (dv, offset)=>{ return dv.getBigInt64(parseInt(offset), true); }, (dv, offset, value)=>{ dv.setBigInt64(parseInt(offset), asBigInt(value), true); });
+new NumberAccessor("u8", 1, (dv, offset)=>{ return dv.getUint8(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setUint8(parseInt(offset)||0, parseInt(value), true); });
+new NumberAccessor("i8", 1, (dv, offset)=>{ return dv.getInt8(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setInt8(parseInt(offset)||0, parseInt(value), true); });
+new NumberAccessor("u16", 2, (dv, offset)=>{ return dv.getUint16(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setUint16(parseInt(offset)||0, parseInt(value), true); });
+new NumberAccessor("i16", 2, (dv, offset)=>{ return dv.getInt16(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setInt16(parseInt(offset)||0, parseInt(value), true); });
+new NumberAccessor("f32", 4, (dv, offset)=>{ return dv.getFloat32(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setFloat32(parseInt(offset)||0, parseFloat(value), true); });
+new NumberAccessor("u32", 4, (dv, offset)=>{ return dv.getUint32(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setUint32(parseInt(offset)||0, parseInt(value), true); });
+new NumberAccessor("i32", 4, (dv, offset)=>{ return dv.getInt32(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setInt32(parseInt(offset)||0, parseInt(value), true); });
+new NumberAccessor("f64", 8, (dv, offset)=>{ return dv.getFloat64(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setFloat64(parseInt(offset)||0, parseFloat(value), true); });
+new NumberAccessor("u64", 8, (dv, offset)=>{ return dv.getBigUint64(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setBigUint64(parseInt(offset)||0, asBigInt(value), true); });
+new NumberAccessor("i64", 8, (dv, offset)=>{ return dv.getBigInt64(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setBigInt64(parseInt(offset)||0, asBigInt(value), true); });
 new NumberAccessor("u24", 3, 
-(dv, offset)=>{ return (dv.getUint8(parseInt(offset), true)|(dv.getUint8(parseInt(offset)+1, true)<<8)|(dv.getUint8(parseInt(offset)+2, true)<<16)); }, 
-(dv, offset, value)=>{ dv.setUint8(parseInt(offset), (parseInt(value) & 0xFF), true); dv.setUint8(parseInt(offset)+1, (parseInt(value) >> 8) & 0xFF, true); dv.setUint8(parseInt(offset)+2, (parseInt(value) >> 16) & 0xFF, true); });
+(dv, offset)=>{ return (dv.getUint8(parseInt(offset)||0, true)|(dv.getUint8((parseInt(offset)||0)+1, true)<<8)|(dv.getUint8((parseInt(offset)||0)+2, true)<<16)); }, 
+(dv, offset, value)=>{ dv.setUint8(parseInt(offset)||0, (parseInt(value) & 0xFF), true); dv.setUint8((parseInt(offset)||0)+1, (parseInt(value) >> 8) & 0xFF, true); dv.setUint8((parseInt(offset)||0)+2, (parseInt(value) >> 16) & 0xFF, true); });
 
 //
 const re64 = (args)=>{
@@ -222,8 +229,8 @@ class CStructView {
             //array.parent = this; // prefer to have parent node
             Object.defineProperties(this, {
                 [tp.name]: {
-                    set: (v)=>{ array[0] = v; },
-                    get: ()=>{ return array[0]; }
+                    set: (v)=>{ array[""] = v; },
+                    get: ()=>{ return array[""]; }
                 }
             });
 
@@ -378,6 +385,9 @@ class CStruct {
 
     get(Target, index) {
         if (!isConstructor(Target)) {
+            if (index == "") {
+                return new Proxy(Target, this);
+            } else
             if (Target.struct.types.find((t)=>(t.name==index))) {
                 return Target[index];
             } else
@@ -393,6 +403,10 @@ class CStruct {
 
     set(Target, index, value) {
         if (!isConstructor(Target)) {
+            if (index == "") {
+                Target.set(value);
+                return true;
+            } else
             if (Target.struct.types.find((t)=>(t.name==index))) {
                 Target[index] = value;
                 return true;
