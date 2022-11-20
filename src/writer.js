@@ -200,6 +200,9 @@ let getWriter = async()=>{
         if (IsUint32(proto.type) || IsUint16(proto.type) || IsUint8(proto.type) || IsInt32(proto.type) || IsInt16(proto.type) || IsInt8(proto.type) || IsFloat32(proto.type) || IsFloat64(proto.type)) {
             return `
     decltype(auto) result = ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
+    if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
+        Napi::TypeError::New(env, "Vulkan API Exception: " + std::to_string(result)).ThrowAsJavaScriptException();
+    }
     return Napi::Number::New(env, result);
 `;
         } else 
@@ -441,6 +444,8 @@ export default {
 #pragma pack(pop)
 
 //
+#include <string>
+#include <sstream>
 #include <napi.h>
 #include "./sizes.h"
 #include "./native.hpp"

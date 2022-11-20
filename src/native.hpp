@@ -1,6 +1,9 @@
 #pragma once
+
 //
 #include <napi.h>
+#include <string>
+#include <sstream>
 
 //
 static Napi::Value Dealloc(const Napi::CallbackInfo& info_) {
