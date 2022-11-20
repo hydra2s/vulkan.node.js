@@ -8,9 +8,14 @@ const isAbv = (value) => {
     return value && value.byteLength != undefined && (value instanceof ArrayBuffer);
 }
 
+//
+const IsNumber = (index) => {
+    return typeof index == "number" || typeof index == "bigint" || Number.isInteger(index) || typeof index == "string" && /^\+?\d+$/.test(index.trim());
+}
+
 // TODO: special array and arrays support
 const asBigInt = (value)=>{
-    if (typeof value == "number" || typeof value == "bigint" || Number.isInteger(value) || typeof value == "string" && /^\+?\d+$/.test(value.trim())) {
+    if (IsNumber(value)) {
         return BigInt(value);
     } else
     if (ArrayBuffer.isView(value)) {
@@ -118,7 +123,7 @@ class ArrayProxyMethods {
         this.getter = getter;
     }
     get(target, index) {
-        if (typeof index == "number" || typeof index == "bigint" || Number.isInteger(index) || typeof index == "string" && /^\+?\d+$/.test(index.trim())) {
+        if (IsNumber(index)) {
             return this.getter(target, parseInt(index));
         } else 
         if (["byteLength", "byteOffset", "length"].indexOf(index) >= 0) {
@@ -130,7 +135,7 @@ class ArrayProxyMethods {
         return null;
     }
     set(target, index, value) {
-        if (typeof index == "number" || typeof index == "bigint") {
+        if (IsNumber(index)) {
             return this.setter(target, index, value);
         }
     }
