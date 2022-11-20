@@ -46,9 +46,9 @@ class ConstructProxy {
         new _stub(...args);
         let classed = null;
         if (typeof this.target == "string") {
-            classed = Types[this.target].construct(...args);
+            classed = new Types[this.target](...args);
         } else {
-            classed = this.target.construct(...args);
+            classed = new this.target(...args);
         }
         return classed;
     }
@@ -268,7 +268,7 @@ class CStructView {
             tname = tname[0];
         }
 
-        return Types[tname+(length>1?"[arr]":"")]?.construct(this.buffer, this.byteOffset + offset + this.offsetof(mname));
+        return new Types[tname+(length>1?"[arr]":"")](this.buffer, this.byteOffset + offset + this.offsetof(mname));
     }
 
     // member utils
