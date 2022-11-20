@@ -41,7 +41,7 @@
     let result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, 0n);
     //console.log(deviceCount);
     
-    if (deviceCount <= 0) console.error("Error: No render devices available!");
+    if (deviceCount[0] <= 0) console.error("Error: No render devices available!");
     let devices = new BigUint64Array(deviceCount[0]);
     result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, devices);
     //console.log(devices);
