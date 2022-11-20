@@ -335,6 +335,14 @@ class CStruct {
             } else
             if (typeof struct[name] == "string") {
                 tname = struct[name];
+
+                if (tname.indexOf(":") >= 0) {
+                    let names = tname.split(":");
+                    tname = names[0];
+                    if (names.length >= 2 && names[1] && names[1] != "undefined") {
+                        dfv = JSON.parse(names[1]);//JSON.parse(`{"_stub":${names[1]||0}}`)["_stub"];
+                    }
+                };
                 if (tname.indexOf("[") >= 0 && tname.indexOf("]") >= 0) {
                     let match = tname.match(/\[(-?\d+)\]/);
                     length = (match ? parseInt(match[1]) : 1) || 1;
@@ -345,11 +353,7 @@ class CStruct {
                     offset = (match ? parseInt(match[1]) : 0) || 0;
                     tname = tname.replace(/\(\d+\)/g, "");
                 };
-                if (tname.indexOf(":") >= 0) {
-                    let names = tname.split(":");
-                    tname = names[0];
-                    dfv = names[1];
-                }
+                
             } else 
             if (typeof struct[name] == "array") {
                 length = struct[name][2] || 1;

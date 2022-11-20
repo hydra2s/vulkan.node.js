@@ -5792,12 +5792,12 @@ const VkAabbPositionsNV = new Proxy(C.CStructView, new C.ConstructProxy("VkAabbP
 
 
 const VkTransformMatrixKHR = new Proxy(C.CStructView, new C.CStruct("VkTransformMatrixKHR", {
-    matrix: "u32(0)[12]",
+    matrix: "f32(0)[12]:[1,0,0,0, 0,1,0,0, 0,0,1,0]",
 }, (V.VkTransformMatrixKHR_sizeof||0)));    
 
 
 const VkTransformMatrixNV = new Proxy(C.CStructView, new C.CStruct("VkTransformMatrixNV", {
-    matrix: "u32(0)[12]",
+    matrix: "f32(0)[12]:[1,0,0,0, 0,1,0,0, 0,0,1,0]",
 }, (V.VkTransformMatrixNV_sizeof||0)));    
 
 
