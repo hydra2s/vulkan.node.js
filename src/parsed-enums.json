@@ -301,6 +301,54 @@
     "name": "VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT"
   },
   {
+    "extends": "VkImageLayout",
+    "extnumber": "118",
+    "offset": "0",
+    "name": "VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL"
+  },
+  {
+    "extends": "VkImageLayout",
+    "extnumber": "118",
+    "offset": "1",
+    "name": "VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL"
+  },
+  {
+    "offset": "0",
+    "extends": "VkImageLayout",
+    "extnumber": "242",
+    "name": "VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL"
+  },
+  {
+    "offset": "1",
+    "extends": "VkImageLayout",
+    "extnumber": "242",
+    "name": "VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL"
+  },
+  {
+    "offset": "2",
+    "extends": "VkImageLayout",
+    "extnumber": "242",
+    "name": "VK_IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL"
+  },
+  {
+    "offset": "3",
+    "extends": "VkImageLayout",
+    "extnumber": "242",
+    "name": "VK_IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL"
+  },
+  {
+    "offset": "0",
+    "extends": "VkImageLayout",
+    "extnumber": "315",
+    "name": "VK_IMAGE_LAYOUT_READ_ONLY_OPTIMAL"
+  },
+  {
+    "offset": "1",
+    "extends": "VkImageLayout",
+    "extnumber": "315",
+    "name": "VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL"
+  },
+  {
     "value": "0",
     "name": "VK_ATTACHMENT_LOAD_OP_LOAD"
   },
@@ -339,6 +387,12 @@
     "extends": "VkAttachmentStoreOp",
     "name": "VK_ATTACHMENT_STORE_OP_NONE_EXT",
     "alias": "VK_ATTACHMENT_STORE_OP_NONE"
+  },
+  {
+    "offset": "0",
+    "extends": "VkAttachmentStoreOp",
+    "extnumber": "302",
+    "name": "VK_ATTACHMENT_STORE_OP_NONE"
   },
   {
     "value": "0",
@@ -510,6 +564,12 @@
     "name": "VK_DESCRIPTOR_TYPE_MUTABLE_EXT"
   },
   {
+    "offset": "0",
+    "extends": "VkDescriptorType",
+    "extnumber": "139",
+    "name": "VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK"
+  },
+  {
     "value": "0",
     "name": "VK_QUERY_TYPE_OCCLUSION"
   },
@@ -661,6 +721,11 @@
     "extends": "VkPipelineCacheCreateFlagBits",
     "name": "VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT_EXT",
     "alias": "VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT"
+  },
+  {
+    "bitpos": "0",
+    "extends": "VkPipelineCacheCreateFlagBits",
+    "name": "VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT"
   },
   {
     "value": "0",
@@ -2380,6 +2445,330 @@
     "offset": "0",
     "extends": "VkFormat",
     "name": "VK_FORMAT_R16G16_S10_5_NV"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "0",
+    "name": "VK_FORMAT_G8B8G8R8_422_UNORM"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "1",
+    "name": "VK_FORMAT_B8G8R8G8_422_UNORM"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "2",
+    "name": "VK_FORMAT_G8_B8_R8_3PLANE_420_UNORM"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "3",
+    "name": "VK_FORMAT_G8_B8R8_2PLANE_420_UNORM"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "4",
+    "name": "VK_FORMAT_G8_B8_R8_3PLANE_422_UNORM"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "5",
+    "name": "VK_FORMAT_G8_B8R8_2PLANE_422_UNORM"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "6",
+    "name": "VK_FORMAT_G8_B8_R8_3PLANE_444_UNORM"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "7",
+    "name": "VK_FORMAT_R10X6_UNORM_PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "8",
+    "name": "VK_FORMAT_R10X6G10X6_UNORM_2PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "9",
+    "name": "VK_FORMAT_R10X6G10X6B10X6A10X6_UNORM_4PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "10",
+    "name": "VK_FORMAT_G10X6B10X6G10X6R10X6_422_UNORM_4PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "11",
+    "name": "VK_FORMAT_B10X6G10X6R10X6G10X6_422_UNORM_4PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "12",
+    "name": "VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "13",
+    "name": "VK_FORMAT_G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "14",
+    "name": "VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "15",
+    "name": "VK_FORMAT_G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "16",
+    "name": "VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "17",
+    "name": "VK_FORMAT_R12X4_UNORM_PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "18",
+    "name": "VK_FORMAT_R12X4G12X4_UNORM_2PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "19",
+    "name": "VK_FORMAT_R12X4G12X4B12X4A12X4_UNORM_4PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "20",
+    "name": "VK_FORMAT_G12X4B12X4G12X4R12X4_422_UNORM_4PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "21",
+    "name": "VK_FORMAT_B12X4G12X4R12X4G12X4_422_UNORM_4PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "22",
+    "name": "VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_420_UNORM_3PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "23",
+    "name": "VK_FORMAT_G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "24",
+    "name": "VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_422_UNORM_3PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "25",
+    "name": "VK_FORMAT_G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "26",
+    "name": "VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_444_UNORM_3PACK16"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "27",
+    "name": "VK_FORMAT_G16B16G16R16_422_UNORM"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "28",
+    "name": "VK_FORMAT_B16G16R16G16_422_UNORM"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "29",
+    "name": "VK_FORMAT_G16_B16_R16_3PLANE_420_UNORM"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "30",
+    "name": "VK_FORMAT_G16_B16R16_2PLANE_420_UNORM"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "31",
+    "name": "VK_FORMAT_G16_B16_R16_3PLANE_422_UNORM"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "32",
+    "name": "VK_FORMAT_G16_B16R16_2PLANE_422_UNORM"
+  },
+  {
+    "extends": "VkFormat",
+    "extnumber": "157",
+    "offset": "33",
+    "name": "VK_FORMAT_G16_B16_R16_3PLANE_444_UNORM"
+  },
+  {
+    "offset": "0",
+    "extends": "VkFormat",
+    "extnumber": "331",
+    "name": "VK_FORMAT_G8_B8R8_2PLANE_444_UNORM"
+  },
+  {
+    "offset": "1",
+    "extends": "VkFormat",
+    "extnumber": "331",
+    "name": "VK_FORMAT_G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16"
+  },
+  {
+    "offset": "2",
+    "extends": "VkFormat",
+    "extnumber": "331",
+    "name": "VK_FORMAT_G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16"
+  },
+  {
+    "offset": "3",
+    "extends": "VkFormat",
+    "extnumber": "331",
+    "name": "VK_FORMAT_G16_B16R16_2PLANE_444_UNORM"
+  },
+  {
+    "offset": "0",
+    "extends": "VkFormat",
+    "extnumber": "341",
+    "name": "VK_FORMAT_A4R4G4B4_UNORM_PACK16"
+  },
+  {
+    "offset": "1",
+    "extends": "VkFormat",
+    "extnumber": "341",
+    "name": "VK_FORMAT_A4B4G4R4_UNORM_PACK16"
+  },
+  {
+    "offset": "0",
+    "extends": "VkFormat",
+    "extnumber": "67",
+    "name": "VK_FORMAT_ASTC_4x4_SFLOAT_BLOCK"
+  },
+  {
+    "offset": "1",
+    "extends": "VkFormat",
+    "extnumber": "67",
+    "name": "VK_FORMAT_ASTC_5x4_SFLOAT_BLOCK"
+  },
+  {
+    "offset": "2",
+    "extends": "VkFormat",
+    "extnumber": "67",
+    "name": "VK_FORMAT_ASTC_5x5_SFLOAT_BLOCK"
+  },
+  {
+    "offset": "3",
+    "extends": "VkFormat",
+    "extnumber": "67",
+    "name": "VK_FORMAT_ASTC_6x5_SFLOAT_BLOCK"
+  },
+  {
+    "offset": "4",
+    "extends": "VkFormat",
+    "extnumber": "67",
+    "name": "VK_FORMAT_ASTC_6x6_SFLOAT_BLOCK"
+  },
+  {
+    "offset": "5",
+    "extends": "VkFormat",
+    "extnumber": "67",
+    "name": "VK_FORMAT_ASTC_8x5_SFLOAT_BLOCK"
+  },
+  {
+    "offset": "6",
+    "extends": "VkFormat",
+    "extnumber": "67",
+    "name": "VK_FORMAT_ASTC_8x6_SFLOAT_BLOCK"
+  },
+  {
+    "offset": "7",
+    "extends": "VkFormat",
+    "extnumber": "67",
+    "name": "VK_FORMAT_ASTC_8x8_SFLOAT_BLOCK"
+  },
+  {
+    "offset": "8",
+    "extends": "VkFormat",
+    "extnumber": "67",
+    "name": "VK_FORMAT_ASTC_10x5_SFLOAT_BLOCK"
+  },
+  {
+    "offset": "9",
+    "extends": "VkFormat",
+    "extnumber": "67",
+    "name": "VK_FORMAT_ASTC_10x6_SFLOAT_BLOCK"
+  },
+  {
+    "offset": "10",
+    "extends": "VkFormat",
+    "extnumber": "67",
+    "name": "VK_FORMAT_ASTC_10x8_SFLOAT_BLOCK"
+  },
+  {
+    "offset": "11",
+    "extends": "VkFormat",
+    "extnumber": "67",
+    "name": "VK_FORMAT_ASTC_10x10_SFLOAT_BLOCK"
+  },
+  {
+    "offset": "12",
+    "extends": "VkFormat",
+    "extnumber": "67",
+    "name": "VK_FORMAT_ASTC_12x10_SFLOAT_BLOCK"
+  },
+  {
+    "offset": "13",
+    "extends": "VkFormat",
+    "extnumber": "67",
+    "name": "VK_FORMAT_ASTC_12x12_SFLOAT_BLOCK"
   },
   {
     "value": "0",
@@ -6052,6 +6441,1012 @@
     "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_PROPERTIES_ARM"
   },
   {
+    "extends": "VkStructureType",
+    "extnumber": "95",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "158",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_BIND_BUFFER_MEMORY_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "158",
+    "offset": "1",
+    "name": "VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "84",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "128",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "128",
+    "offset": "1",
+    "name": "VK_STRUCTURE_TYPE_MEMORY_DEDICATED_ALLOCATE_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "61",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_FLAGS_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "61",
+    "offset": "3",
+    "name": "VK_STRUCTURE_TYPE_DEVICE_GROUP_RENDER_PASS_BEGIN_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "61",
+    "offset": "4",
+    "name": "VK_STRUCTURE_TYPE_DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "61",
+    "offset": "5",
+    "name": "VK_STRUCTURE_TYPE_DEVICE_GROUP_SUBMIT_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "61",
+    "offset": "6",
+    "name": "VK_STRUCTURE_TYPE_DEVICE_GROUP_BIND_SPARSE_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "61",
+    "offset": "13",
+    "name": "VK_STRUCTURE_TYPE_BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "61",
+    "offset": "14",
+    "name": "VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "71",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GROUP_PROPERTIES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "71",
+    "offset": "1",
+    "name": "VK_STRUCTURE_TYPE_DEVICE_GROUP_DEVICE_CREATE_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "147",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "147",
+    "offset": "1",
+    "name": "VK_STRUCTURE_TYPE_IMAGE_MEMORY_REQUIREMENTS_INFO_2"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "147",
+    "offset": "2",
+    "name": "VK_STRUCTURE_TYPE_IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "147",
+    "offset": "3",
+    "name": "VK_STRUCTURE_TYPE_MEMORY_REQUIREMENTS_2"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "147",
+    "offset": "4",
+    "name": "VK_STRUCTURE_TYPE_SPARSE_IMAGE_MEMORY_REQUIREMENTS_2"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "60",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "60",
+    "offset": "1",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROPERTIES_2"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "60",
+    "offset": "2",
+    "name": "VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_2"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "60",
+    "offset": "3",
+    "name": "VK_STRUCTURE_TYPE_IMAGE_FORMAT_PROPERTIES_2"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "60",
+    "offset": "4",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "60",
+    "offset": "5",
+    "name": "VK_STRUCTURE_TYPE_QUEUE_FAMILY_PROPERTIES_2"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "60",
+    "offset": "6",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_PROPERTIES_2"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "60",
+    "offset": "7",
+    "name": "VK_STRUCTURE_TYPE_SPARSE_IMAGE_FORMAT_PROPERTIES_2"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "60",
+    "offset": "8",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "118",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "118",
+    "offset": "1",
+    "name": "VK_STRUCTURE_TYPE_RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "118",
+    "offset": "2",
+    "name": "VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "118",
+    "offset": "3",
+    "name": "VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "54",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_RENDER_PASS_MULTIVIEW_CREATE_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "54",
+    "offset": "1",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_FEATURES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "54",
+    "offset": "2",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "121",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES"
+  },
+  {
+    "extends": "VkStructureType",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTER_FEATURES",
+    "alias": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "146",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_PROTECTED_SUBMIT_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "146",
+    "offset": "1",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "146",
+    "offset": "2",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "146",
+    "offset": "3",
+    "name": "VK_STRUCTURE_TYPE_DEVICE_QUEUE_INFO_2"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "157",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_CREATE_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "157",
+    "offset": "1",
+    "name": "VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "157",
+    "offset": "2",
+    "name": "VK_STRUCTURE_TYPE_BIND_IMAGE_PLANE_MEMORY_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "157",
+    "offset": "3",
+    "name": "VK_STRUCTURE_TYPE_IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "157",
+    "offset": "4",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "157",
+    "offset": "5",
+    "name": "VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "86",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "72",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "72",
+    "offset": "1",
+    "name": "VK_STRUCTURE_TYPE_EXTERNAL_IMAGE_FORMAT_PROPERTIES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "72",
+    "offset": "2",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "72",
+    "offset": "3",
+    "name": "VK_STRUCTURE_TYPE_EXTERNAL_BUFFER_PROPERTIES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "72",
+    "offset": "4",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ID_PROPERTIES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "73",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_BUFFER_CREATE_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "73",
+    "offset": "1",
+    "name": "VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_IMAGE_CREATE_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "73",
+    "offset": "2",
+    "name": "VK_STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "113",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "113",
+    "offset": "1",
+    "name": "VK_STRUCTURE_TYPE_EXTERNAL_FENCE_PROPERTIES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "114",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_EXPORT_FENCE_CREATE_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "78",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_EXPORT_SEMAPHORE_CREATE_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "77",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "77",
+    "offset": "1",
+    "name": "VK_STRUCTURE_TYPE_EXTERNAL_SEMAPHORE_PROPERTIES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "169",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "169",
+    "offset": "1",
+    "name": "VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_SUPPORT"
+  },
+  {
+    "extends": "VkStructureType",
+    "extnumber": "64",
+    "offset": "0",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES"
+  },
+  {
+    "extends": "VkStructureType",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DRAW_PARAMETER_FEATURES",
+    "alias": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES"
+  },
+  {
+    "extends": "VkStructureType",
+    "value": "49",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_1_FEATURES"
+  },
+  {
+    "extends": "VkStructureType",
+    "value": "50",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_1_PROPERTIES"
+  },
+  {
+    "extends": "VkStructureType",
+    "value": "51",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_FEATURES"
+  },
+  {
+    "extends": "VkStructureType",
+    "value": "52",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "148",
+    "name": "VK_STRUCTURE_TYPE_IMAGE_FORMAT_LIST_CREATE_INFO"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "110",
+    "name": "VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_2"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "110",
+    "name": "VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_2"
+  },
+  {
+    "offset": "2",
+    "extends": "VkStructureType",
+    "extnumber": "110",
+    "name": "VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2"
+  },
+  {
+    "offset": "3",
+    "extends": "VkStructureType",
+    "extnumber": "110",
+    "name": "VK_STRUCTURE_TYPE_SUBPASS_DEPENDENCY_2"
+  },
+  {
+    "offset": "4",
+    "extends": "VkStructureType",
+    "extnumber": "110",
+    "name": "VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO_2"
+  },
+  {
+    "offset": "5",
+    "extends": "VkStructureType",
+    "extnumber": "110",
+    "name": "VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO"
+  },
+  {
+    "offset": "6",
+    "extends": "VkStructureType",
+    "extnumber": "110",
+    "name": "VK_STRUCTURE_TYPE_SUBPASS_END_INFO"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "178",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "197",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DRIVER_PROPERTIES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "181",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "83",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "198",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "162",
+    "name": "VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "162",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES"
+  },
+  {
+    "offset": "2",
+    "extends": "VkStructureType",
+    "extnumber": "162",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES"
+  },
+  {
+    "offset": "3",
+    "extends": "VkStructureType",
+    "extnumber": "162",
+    "name": "VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO"
+  },
+  {
+    "offset": "4",
+    "extends": "VkStructureType",
+    "extnumber": "162",
+    "name": "VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "200",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "200",
+    "name": "VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "222",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "247",
+    "name": "VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_CREATE_INFO"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "131",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "131",
+    "name": "VK_STRUCTURE_TYPE_SAMPLER_REDUCTION_MODE_CREATE_INFO"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "212",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "109",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "109",
+    "name": "VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENTS_CREATE_INFO"
+  },
+  {
+    "offset": "2",
+    "extends": "VkStructureType",
+    "extnumber": "109",
+    "name": "VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENT_IMAGE_INFO"
+  },
+  {
+    "offset": "3",
+    "extends": "VkStructureType",
+    "extnumber": "109",
+    "name": "VK_STRUCTURE_TYPE_RENDER_PASS_ATTACHMENT_BEGIN_INFO"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "254",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "176",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "242",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "242",
+    "name": "VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_STENCIL_LAYOUT"
+  },
+  {
+    "offset": "2",
+    "extends": "VkStructureType",
+    "extnumber": "242",
+    "name": "VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "262",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "208",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "208",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES"
+  },
+  {
+    "offset": "2",
+    "extends": "VkStructureType",
+    "extnumber": "208",
+    "name": "VK_STRUCTURE_TYPE_SEMAPHORE_TYPE_CREATE_INFO"
+  },
+  {
+    "offset": "3",
+    "extends": "VkStructureType",
+    "extnumber": "208",
+    "name": "VK_STRUCTURE_TYPE_TIMELINE_SEMAPHORE_SUBMIT_INFO"
+  },
+  {
+    "offset": "4",
+    "extends": "VkStructureType",
+    "extnumber": "208",
+    "name": "VK_STRUCTURE_TYPE_SEMAPHORE_WAIT_INFO"
+  },
+  {
+    "offset": "5",
+    "extends": "VkStructureType",
+    "extnumber": "208",
+    "name": "VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "258",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "245",
+    "name": "VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_INFO"
+  },
+  {
+    "offset": "2",
+    "extends": "VkStructureType",
+    "extnumber": "258",
+    "name": "VK_STRUCTURE_TYPE_BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO"
+  },
+  {
+    "offset": "3",
+    "extends": "VkStructureType",
+    "extnumber": "258",
+    "name": "VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO"
+  },
+  {
+    "offset": "4",
+    "extends": "VkStructureType",
+    "extnumber": "258",
+    "name": "VK_STRUCTURE_TYPE_DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO"
+  },
+  {
+    "extends": "VkStructureType",
+    "value": "53",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES"
+  },
+  {
+    "extends": "VkStructureType",
+    "value": "54",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "193",
+    "name": "VK_STRUCTURE_TYPE_PIPELINE_CREATION_FEEDBACK_CREATE_INFO"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "216",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "246",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TOOL_PROPERTIES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "277",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "296",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "296",
+    "name": "VK_STRUCTURE_TYPE_DEVICE_PRIVATE_DATA_CREATE_INFO"
+  },
+  {
+    "offset": "2",
+    "extends": "VkStructureType",
+    "extnumber": "296",
+    "name": "VK_STRUCTURE_TYPE_PRIVATE_DATA_SLOT_CREATE_INFO"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "298",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "315",
+    "name": "VK_STRUCTURE_TYPE_MEMORY_BARRIER_2"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "315",
+    "name": "VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER_2"
+  },
+  {
+    "offset": "2",
+    "extends": "VkStructureType",
+    "extnumber": "315",
+    "name": "VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER_2"
+  },
+  {
+    "offset": "3",
+    "extends": "VkStructureType",
+    "extnumber": "315",
+    "name": "VK_STRUCTURE_TYPE_DEPENDENCY_INFO"
+  },
+  {
+    "offset": "4",
+    "extends": "VkStructureType",
+    "extnumber": "315",
+    "name": "VK_STRUCTURE_TYPE_SUBMIT_INFO_2"
+  },
+  {
+    "offset": "5",
+    "extends": "VkStructureType",
+    "extnumber": "315",
+    "name": "VK_STRUCTURE_TYPE_SEMAPHORE_SUBMIT_INFO"
+  },
+  {
+    "offset": "6",
+    "extends": "VkStructureType",
+    "extnumber": "315",
+    "name": "VK_STRUCTURE_TYPE_COMMAND_BUFFER_SUBMIT_INFO"
+  },
+  {
+    "offset": "7",
+    "extends": "VkStructureType",
+    "extnumber": "315",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "326",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "336",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "338",
+    "name": "VK_STRUCTURE_TYPE_COPY_BUFFER_INFO_2"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "338",
+    "name": "VK_STRUCTURE_TYPE_COPY_IMAGE_INFO_2"
+  },
+  {
+    "offset": "2",
+    "extends": "VkStructureType",
+    "extnumber": "338",
+    "name": "VK_STRUCTURE_TYPE_COPY_BUFFER_TO_IMAGE_INFO_2"
+  },
+  {
+    "offset": "3",
+    "extends": "VkStructureType",
+    "extnumber": "338",
+    "name": "VK_STRUCTURE_TYPE_COPY_IMAGE_TO_BUFFER_INFO_2"
+  },
+  {
+    "offset": "4",
+    "extends": "VkStructureType",
+    "extnumber": "338",
+    "name": "VK_STRUCTURE_TYPE_BLIT_IMAGE_INFO_2"
+  },
+  {
+    "offset": "5",
+    "extends": "VkStructureType",
+    "extnumber": "338",
+    "name": "VK_STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2"
+  },
+  {
+    "offset": "6",
+    "extends": "VkStructureType",
+    "extnumber": "338",
+    "name": "VK_STRUCTURE_TYPE_BUFFER_COPY_2"
+  },
+  {
+    "offset": "7",
+    "extends": "VkStructureType",
+    "extnumber": "338",
+    "name": "VK_STRUCTURE_TYPE_IMAGE_COPY_2"
+  },
+  {
+    "offset": "8",
+    "extends": "VkStructureType",
+    "extnumber": "338",
+    "name": "VK_STRUCTURE_TYPE_IMAGE_BLIT_2"
+  },
+  {
+    "offset": "9",
+    "extends": "VkStructureType",
+    "extnumber": "338",
+    "name": "VK_STRUCTURE_TYPE_BUFFER_IMAGE_COPY_2"
+  },
+  {
+    "offset": "10",
+    "extends": "VkStructureType",
+    "extnumber": "338",
+    "name": "VK_STRUCTURE_TYPE_IMAGE_RESOLVE_2"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "226",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "226",
+    "name": "VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO"
+  },
+  {
+    "offset": "2",
+    "extends": "VkStructureType",
+    "extnumber": "226",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "139",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "139",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES"
+  },
+  {
+    "offset": "2",
+    "extends": "VkStructureType",
+    "extnumber": "139",
+    "name": "VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK"
+  },
+  {
+    "offset": "3",
+    "extends": "VkStructureType",
+    "extnumber": "139",
+    "name": "VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "67",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "45",
+    "name": "VK_STRUCTURE_TYPE_RENDERING_INFO"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "45",
+    "name": "VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO"
+  },
+  {
+    "offset": "2",
+    "extends": "VkStructureType",
+    "extnumber": "45",
+    "name": "VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO"
+  },
+  {
+    "offset": "3",
+    "extends": "VkStructureType",
+    "extnumber": "45",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES"
+  },
+  {
+    "offset": "4",
+    "extends": "VkStructureType",
+    "extnumber": "45",
+    "name": "VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_RENDERING_INFO"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "281",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "281",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "282",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "361",
+    "name": "VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_3"
+  },
+  {
+    "offset": "0",
+    "extends": "VkStructureType",
+    "extnumber": "414",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES"
+  },
+  {
+    "offset": "1",
+    "extends": "VkStructureType",
+    "extnumber": "414",
+    "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES"
+  },
+  {
+    "offset": "2",
+    "extends": "VkStructureType",
+    "extnumber": "414",
+    "name": "VK_STRUCTURE_TYPE_DEVICE_BUFFER_MEMORY_REQUIREMENTS"
+  },
+  {
+    "offset": "3",
+    "extends": "VkStructureType",
+    "extnumber": "414",
+    "name": "VK_STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS"
+  },
+  {
     "value": "0",
     "name": "VK_SUBPASS_CONTENTS_INLINE"
   },
@@ -6321,6 +7716,40 @@
     "dir": "-",
     "extends": "VkResult",
     "name": "VK_ERROR_COMPRESSION_EXHAUSTED_EXT"
+  },
+  {
+    "extends": "VkResult",
+    "extnumber": "70",
+    "offset": "0",
+    "dir": "-",
+    "name": "VK_ERROR_OUT_OF_POOL_MEMORY"
+  },
+  {
+    "extends": "VkResult",
+    "extnumber": "73",
+    "offset": "3",
+    "dir": "-",
+    "name": "VK_ERROR_INVALID_EXTERNAL_HANDLE"
+  },
+  {
+    "offset": "0",
+    "dir": "-",
+    "extends": "VkResult",
+    "extnumber": "162",
+    "name": "VK_ERROR_FRAGMENTATION"
+  },
+  {
+    "offset": "0",
+    "dir": "-",
+    "extends": "VkResult",
+    "extnumber": "258",
+    "name": "VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS"
+  },
+  {
+    "offset": "0",
+    "extends": "VkResult",
+    "extnumber": "298",
+    "name": "VK_PIPELINE_COMPILE_REQUIRED"
   },
   {
     "value": "0",
@@ -6656,6 +8085,96 @@
     "name": "VK_DYNAMIC_STATE_COVERAGE_REDUCTION_MODE_NV"
   },
   {
+    "offset": "0",
+    "extends": "VkDynamicState",
+    "extnumber": "268",
+    "name": "VK_DYNAMIC_STATE_CULL_MODE"
+  },
+  {
+    "offset": "1",
+    "extends": "VkDynamicState",
+    "extnumber": "268",
+    "name": "VK_DYNAMIC_STATE_FRONT_FACE"
+  },
+  {
+    "offset": "2",
+    "extends": "VkDynamicState",
+    "extnumber": "268",
+    "name": "VK_DYNAMIC_STATE_PRIMITIVE_TOPOLOGY"
+  },
+  {
+    "offset": "3",
+    "extends": "VkDynamicState",
+    "extnumber": "268",
+    "name": "VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT"
+  },
+  {
+    "offset": "4",
+    "extends": "VkDynamicState",
+    "extnumber": "268",
+    "name": "VK_DYNAMIC_STATE_SCISSOR_WITH_COUNT"
+  },
+  {
+    "offset": "5",
+    "extends": "VkDynamicState",
+    "extnumber": "268",
+    "name": "VK_DYNAMIC_STATE_VERTEX_INPUT_BINDING_STRIDE"
+  },
+  {
+    "offset": "6",
+    "extends": "VkDynamicState",
+    "extnumber": "268",
+    "name": "VK_DYNAMIC_STATE_DEPTH_TEST_ENABLE"
+  },
+  {
+    "offset": "7",
+    "extends": "VkDynamicState",
+    "extnumber": "268",
+    "name": "VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE"
+  },
+  {
+    "offset": "8",
+    "extends": "VkDynamicState",
+    "extnumber": "268",
+    "name": "VK_DYNAMIC_STATE_DEPTH_COMPARE_OP"
+  },
+  {
+    "offset": "9",
+    "extends": "VkDynamicState",
+    "extnumber": "268",
+    "name": "VK_DYNAMIC_STATE_DEPTH_BOUNDS_TEST_ENABLE"
+  },
+  {
+    "offset": "10",
+    "extends": "VkDynamicState",
+    "extnumber": "268",
+    "name": "VK_DYNAMIC_STATE_STENCIL_TEST_ENABLE"
+  },
+  {
+    "offset": "11",
+    "extends": "VkDynamicState",
+    "extnumber": "268",
+    "name": "VK_DYNAMIC_STATE_STENCIL_OP"
+  },
+  {
+    "offset": "1",
+    "extends": "VkDynamicState",
+    "extnumber": "378",
+    "name": "VK_DYNAMIC_STATE_RASTERIZER_DISCARD_ENABLE"
+  },
+  {
+    "offset": "2",
+    "extends": "VkDynamicState",
+    "extnumber": "378",
+    "name": "VK_DYNAMIC_STATE_DEPTH_BIAS_ENABLE"
+  },
+  {
+    "offset": "4",
+    "extends": "VkDynamicState",
+    "extnumber": "378",
+    "name": "VK_DYNAMIC_STATE_PRIMITIVE_RESTART_ENABLE"
+  },
+  {
     "value": "0",
     "name": "VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET",
     "comment": "Create descriptor update template for descriptor set updates"
@@ -6891,6 +8410,24 @@
     "name": "VK_OBJECT_TYPE_OPTICAL_FLOW_SESSION_NV"
   },
   {
+    "extends": "VkObjectType",
+    "extnumber": "157",
+    "offset": "0",
+    "name": "VK_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION"
+  },
+  {
+    "extends": "VkObjectType",
+    "extnumber": "86",
+    "offset": "0",
+    "name": "VK_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE"
+  },
+  {
+    "offset": "0",
+    "extends": "VkObjectType",
+    "extnumber": "296",
+    "name": "VK_OBJECT_TYPE_PRIVATE_DATA_SLOT"
+  },
+  {
     "value": "0",
     "name": "VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_NV"
   },
@@ -6936,6 +8473,12 @@
     "name": "VK_QUEUE_OPTICAL_FLOW_BIT_NV"
   },
   {
+    "bitpos": "4",
+    "extends": "VkQueueFlagBits",
+    "name": "VK_QUEUE_PROTECTED_BIT",
+    "comment": "Queues may support protected operations"
+  },
+  {
     "value": "0",
     "name": "VK_CULL_MODE_NONE"
   },
@@ -6955,6 +8498,12 @@
     "bitpos": "1",
     "extends": "VkRenderPassCreateFlagBits",
     "name": "VK_RENDER_PASS_CREATE_TRANSFORM_BIT_QCOM"
+  },
+  {
+    "bitpos": "0",
+    "extends": "VkDeviceQueueCreateFlagBits",
+    "name": "VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT",
+    "comment": "Queue is a protected-capable device queue"
   },
   {
     "bitpos": "0",
@@ -6997,6 +8546,12 @@
     "name": "VK_MEMORY_PROPERTY_RDMA_CAPABLE_BIT_NV"
   },
   {
+    "bitpos": "5",
+    "extends": "VkMemoryPropertyFlagBits",
+    "name": "VK_MEMORY_PROPERTY_PROTECTED_BIT",
+    "comment": "Memory is protected"
+  },
+  {
     "bitpos": "0",
     "name": "VK_MEMORY_HEAP_DEVICE_LOCAL_BIT",
     "comment": "If set, heap represents device memory"
@@ -7005,6 +8560,12 @@
     "extends": "VkMemoryHeapFlagBits",
     "name": "VK_MEMORY_HEAP_MULTI_INSTANCE_BIT_KHR",
     "alias": "VK_MEMORY_HEAP_MULTI_INSTANCE_BIT"
+  },
+  {
+    "bitpos": "1",
+    "extends": "VkMemoryHeapFlagBits",
+    "name": "VK_MEMORY_HEAP_MULTI_INSTANCE_BIT",
+    "comment": "If set, heap allocations allocate multiple instances by default"
   },
   {
     "bitpos": "0",
@@ -7168,6 +8729,11 @@
     "alias": "VK_ACCESS_NONE"
   },
   {
+    "value": "0",
+    "extends": "VkAccessFlagBits",
+    "name": "VK_ACCESS_NONE"
+  },
+  {
     "bitpos": "0",
     "name": "VK_BUFFER_USAGE_TRANSFER_SRC_BIT",
     "comment": "Can be used as a source of transfer operations"
@@ -7293,6 +8859,11 @@
     "name": "VK_BUFFER_USAGE_MICROMAP_STORAGE_BIT_EXT"
   },
   {
+    "bitpos": "17",
+    "extends": "VkBufferUsageFlagBits",
+    "name": "VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT"
+  },
+  {
     "bitpos": "0",
     "name": "VK_BUFFER_CREATE_SPARSE_BINDING_BIT",
     "comment": "Buffer should support sparse backing"
@@ -7316,6 +8887,17 @@
     "extends": "VkBufferCreateFlagBits",
     "name": "VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_KHR",
     "alias": "VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT"
+  },
+  {
+    "bitpos": "3",
+    "extends": "VkBufferCreateFlagBits",
+    "name": "VK_BUFFER_CREATE_PROTECTED_BIT",
+    "comment": "Buffer requires protected memory"
+  },
+  {
+    "bitpos": "4",
+    "extends": "VkBufferCreateFlagBits",
+    "name": "VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT"
   },
   {
     "bitpos": "0",
@@ -7632,6 +9214,44 @@
     "name": "VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM"
   },
   {
+    "bitpos": "10",
+    "extends": "VkImageCreateFlagBits",
+    "name": "VK_IMAGE_CREATE_ALIAS_BIT"
+  },
+  {
+    "bitpos": "6",
+    "extends": "VkImageCreateFlagBits",
+    "name": "VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT",
+    "comment": "Allows using VkBindImageMemoryDeviceGroupInfo::pSplitInstanceBindRegions when binding memory to the image"
+  },
+  {
+    "bitpos": "5",
+    "extends": "VkImageCreateFlagBits",
+    "name": "VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT",
+    "comment": "The 3D image can be viewed as a 2D or 2D array image"
+  },
+  {
+    "bitpos": "7",
+    "extends": "VkImageCreateFlagBits",
+    "name": "VK_IMAGE_CREATE_BLOCK_TEXEL_VIEW_COMPATIBLE_BIT"
+  },
+  {
+    "bitpos": "8",
+    "extends": "VkImageCreateFlagBits",
+    "name": "VK_IMAGE_CREATE_EXTENDED_USAGE_BIT"
+  },
+  {
+    "bitpos": "11",
+    "extends": "VkImageCreateFlagBits",
+    "name": "VK_IMAGE_CREATE_PROTECTED_BIT",
+    "comment": "Image requires protected memory"
+  },
+  {
+    "bitpos": "9",
+    "extends": "VkImageCreateFlagBits",
+    "name": "VK_IMAGE_CREATE_DISJOINT_BIT"
+  },
+  {
     "bitpos": "0",
     "extends": "VkImageViewCreateFlagBits",
     "name": "VK_IMAGE_VIEW_CREATE_FRAGMENT_DENSITY_MAP_DYNAMIC_BIT_EXT"
@@ -7816,6 +9436,31 @@
     "name": "VK_PIPELINE_CREATE_PROTECTED_ACCESS_ONLY_BIT_EXT"
   },
   {
+    "bitpos": "3",
+    "extends": "VkPipelineCreateFlagBits",
+    "name": "VK_PIPELINE_CREATE_VIEW_INDEX_FROM_DEVICE_INDEX_BIT"
+  },
+  {
+    "bitpos": "4",
+    "extends": "VkPipelineCreateFlagBits",
+    "name": "VK_PIPELINE_CREATE_DISPATCH_BASE_BIT"
+  },
+  {
+    "extends": "VkPipelineCreateFlagBits",
+    "name": "VK_PIPELINE_CREATE_DISPATCH_BASE",
+    "alias": "VK_PIPELINE_CREATE_DISPATCH_BASE_BIT"
+  },
+  {
+    "bitpos": "8",
+    "extends": "VkPipelineCreateFlagBits",
+    "name": "VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT"
+  },
+  {
+    "bitpos": "9",
+    "extends": "VkPipelineCreateFlagBits",
+    "name": "VK_PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT"
+  },
+  {
     "extends": "VkPipelineShaderStageCreateFlagBits",
     "name": "VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT",
     "alias": "VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT"
@@ -7824,6 +9469,16 @@
     "extends": "VkPipelineShaderStageCreateFlagBits",
     "name": "VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT",
     "alias": "VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT"
+  },
+  {
+    "bitpos": "0",
+    "extends": "VkPipelineShaderStageCreateFlagBits",
+    "name": "VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT"
+  },
+  {
+    "bitpos": "1",
+    "extends": "VkPipelineShaderStageCreateFlagBits",
+    "name": "VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT"
   },
   {
     "bitpos": "0",
@@ -8011,6 +9666,64 @@
     "protect": "VK_ENABLE_BETA_EXTENSIONS"
   },
   {
+    "bitpos": "14",
+    "extends": "VkFormatFeatureFlagBits",
+    "name": "VK_FORMAT_FEATURE_TRANSFER_SRC_BIT",
+    "comment": "Format can be used as the source image of image transfer commands"
+  },
+  {
+    "bitpos": "15",
+    "extends": "VkFormatFeatureFlagBits",
+    "name": "VK_FORMAT_FEATURE_TRANSFER_DST_BIT",
+    "comment": "Format can be used as the destination image of image transfer commands"
+  },
+  {
+    "bitpos": "17",
+    "extends": "VkFormatFeatureFlagBits",
+    "name": "VK_FORMAT_FEATURE_MIDPOINT_CHROMA_SAMPLES_BIT",
+    "comment": "Format can have midpoint rather than cosited chroma samples"
+  },
+  {
+    "bitpos": "18",
+    "extends": "VkFormatFeatureFlagBits",
+    "name": "VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT",
+    "comment": "Format can be used with linear filtering whilst color conversion is enabled"
+  },
+  {
+    "bitpos": "19",
+    "extends": "VkFormatFeatureFlagBits",
+    "name": "VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT",
+    "comment": "Format can have different chroma, min and mag filters"
+  },
+  {
+    "bitpos": "20",
+    "extends": "VkFormatFeatureFlagBits",
+    "name": "VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT"
+  },
+  {
+    "bitpos": "21",
+    "extends": "VkFormatFeatureFlagBits",
+    "name": "VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT"
+  },
+  {
+    "bitpos": "22",
+    "extends": "VkFormatFeatureFlagBits",
+    "name": "VK_FORMAT_FEATURE_DISJOINT_BIT",
+    "comment": "Format supports disjoint planes"
+  },
+  {
+    "bitpos": "23",
+    "extends": "VkFormatFeatureFlagBits",
+    "name": "VK_FORMAT_FEATURE_COSITED_CHROMA_SAMPLES_BIT",
+    "comment": "Format can have cosited rather than midpoint chroma samples"
+  },
+  {
+    "bitpos": "16",
+    "extends": "VkFormatFeatureFlagBits",
+    "name": "VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT",
+    "comment": "Format can be used with min/max reduction filtering"
+  },
+  {
     "bitpos": "0",
     "name": "VK_QUERY_CONTROL_PRECISE_BIT",
     "comment": "Require precise results to be collected by the query"
@@ -8174,6 +9887,26 @@
     "extends": "VkImageAspectFlagBits",
     "name": "VK_IMAGE_ASPECT_NONE_KHR",
     "alias": "VK_IMAGE_ASPECT_NONE"
+  },
+  {
+    "bitpos": "4",
+    "extends": "VkImageAspectFlagBits",
+    "name": "VK_IMAGE_ASPECT_PLANE_0_BIT"
+  },
+  {
+    "bitpos": "5",
+    "extends": "VkImageAspectFlagBits",
+    "name": "VK_IMAGE_ASPECT_PLANE_1_BIT"
+  },
+  {
+    "bitpos": "6",
+    "extends": "VkImageAspectFlagBits",
+    "name": "VK_IMAGE_ASPECT_PLANE_2_BIT"
+  },
+  {
+    "value": "0",
+    "extends": "VkImageAspectFlagBits",
+    "name": "VK_IMAGE_ASPECT_NONE"
   },
   {
     "bitpos": "0",
@@ -8357,6 +10090,11 @@
     "name": "VK_PIPELINE_STAGE_MESH_SHADER_BIT_EXT"
   },
   {
+    "value": "0",
+    "extends": "VkPipelineStageFlagBits",
+    "name": "VK_PIPELINE_STAGE_NONE"
+  },
+  {
     "bitpos": "0",
     "name": "VK_COMMAND_POOL_CREATE_TRANSIENT_BIT",
     "comment": "Command buffers have a short lifetime"
@@ -8365,6 +10103,12 @@
     "bitpos": "1",
     "name": "VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT",
     "comment": "Command buffers may release their memory individually"
+  },
+  {
+    "bitpos": "2",
+    "extends": "VkCommandPoolCreateFlagBits",
+    "name": "VK_COMMAND_POOL_CREATE_PROTECTED_BIT",
+    "comment": "Command buffers allocated from pool are protected command buffers"
   },
   {
     "bitpos": "0",
@@ -8457,6 +10201,11 @@
     "name": "VK_DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT"
   },
   {
+    "bitpos": "1",
+    "extends": "VkDescriptorPoolCreateFlagBits",
+    "name": "VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT"
+  },
+  {
     "bitpos": "0",
     "name": "VK_DEPENDENCY_BY_REGION_BIT",
     "comment": "Dependency is per pixel region "
@@ -8476,6 +10225,17 @@
     "extends": "VkDependencyFlagBits",
     "name": "VK_DEPENDENCY_FEEDBACK_LOOP_BIT_EXT",
     "comment": "Dependency may be a feedback loop"
+  },
+  {
+    "bitpos": "2",
+    "extends": "VkDependencyFlagBits",
+    "name": "VK_DEPENDENCY_DEVICE_GROUP_BIT",
+    "comment": "Dependency is across devices"
+  },
+  {
+    "bitpos": "1",
+    "extends": "VkDependencyFlagBits",
+    "name": "VK_DEPENDENCY_VIEW_LOCAL_BIT"
   },
   {
     "value": "0",
@@ -9149,6 +10909,11 @@
     "name": "VK_DESCRIPTOR_SET_LAYOUT_CREATE_HOST_ONLY_POOL_BIT_EXT"
   },
   {
+    "bitpos": "1",
+    "extends": "VkDescriptorSetLayoutCreateFlagBits",
+    "name": "VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT"
+  },
+  {
     "bitpos": "0",
     "name": "VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT"
   },
@@ -9500,6 +11265,16 @@
     "extends": "VkMemoryAllocateFlagBits",
     "name": "VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_KHR",
     "alias": "VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT"
+  },
+  {
+    "bitpos": "1",
+    "extends": "VkMemoryAllocateFlagBits",
+    "name": "VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT"
+  },
+  {
+    "bitpos": "2",
+    "extends": "VkMemoryAllocateFlagBits",
+    "name": "VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT"
   },
   {
     "bitpos": "0",
@@ -10582,6 +12357,11 @@
     "extends": "VkFramebufferCreateFlagBits",
     "name": "VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT_KHR",
     "alias": "VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT"
+  },
+  {
+    "bitpos": "0",
+    "extends": "VkFramebufferCreateFlagBits",
+    "name": "VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT"
   },
   {
     "value": "1",
@@ -11722,6 +13502,11 @@
     "extends": "VkEventCreateFlagBits",
     "name": "VK_EVENT_CREATE_DEVICE_ONLY_BIT_KHR",
     "alias": "VK_EVENT_CREATE_DEVICE_ONLY_BIT"
+  },
+  {
+    "bitpos": "0",
+    "extends": "VkEventCreateFlagBits",
+    "name": "VK_EVENT_CREATE_DEVICE_ONLY_BIT"
   },
   {
     "bitpos": "1",

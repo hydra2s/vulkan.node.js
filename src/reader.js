@@ -145,9 +145,10 @@ let getReader = async()=>{
         let enums = registry.children.filter((e,i)=>{ return e.type == "element" && e.name == "enums"; }).flatMap(filterNoSpaced);
         let structs = types[0].children.filter((e,i)=>{ return e.type == "element" && e.name == "type" && e.attributes["category"] == "struct"; }).map(filterNoSpaced).filter(noSpaces);
         let extensions = filterNoSpaced(registry.children.find((e,i)=>{ return e.type == "element" && e.name == "extensions"; }));
+        let features = registry.children.filter((e,i)=>{ return e.type == "element" && e.name == "feature"; }).map(filterNoSpaced);
         let commands = registry.children.filter((e,i)=>{ return e.type == "element" && e.name == "commands"; }).map(filterNoSpaced);
-        return { registry, types: types[0], enums, structs, extensions, commands };
-    };
+        return { registry, types: types[0], enums, structs, extensions, features, commands };
+    };//
 
     
 
@@ -212,7 +213,7 @@ let getReader = async()=>{
     let formExtensionTypeMap = (extensions)=>{
         let usedBy = {};
         extensions.children.filter((e,i)=>{
-            return e.type == "element" && e.name == "extension";
+            return e.type == "element" && e.name == "extension" || e.name == "feature";
         }).map((e,i)=>{
             e.children.filter((ec,ic)=>{  return ec.type == "element" && ec.name == "require"; }).map((ec,ic)=>{
                 ec.children.filter((em,im)=>{ return em.type == "element" && !!em.name; }).map((em,im)=>{
@@ -224,28 +225,49 @@ let getReader = async()=>{
     };
 
     //
-    let preloadFromExtensions = (enums, extensions) => {
-        return (enums = enums.concat(extensions.children.filter((e)=>(e.attributes["supported"] != "disabled")).forEach((e)=>{
-            let extName = e.attributes["name"];
-            e.children.filter((ec,ic)=>{ return ec.type == "element" && ec.name == "require"; }).map((ec,ic)=>{
-                ec.children.filter((em,im)=>{ return em.type == "element" && !!em.name; }).map((em,im)=>{
-                    let found = enums.find((e)=>e.attributes["name"] == em.attributes["extends"]);
-                    if (found) {
-                        (found.children = (found.children || [])).push(em);
-                        found.children = (found.children = (found.children || [])).concat(em.children||[]);
-                    } else { enums.push(em); };
-                });
+    let preloadFromExtensionOrFeature = (enums, e)=>{
+        e.filter((ec,ic)=>{ return ec.type == "element" && ec.name == "require"; }).map((ec,ic)=>{
+            ec.children?.filter((em,im)=>{ return em.type == "element" && !!em.name; }).map((em,im)=>{
+                let found = enums.find((e)=>e.attributes["name"] == em.attributes["extends"]);
+                if (found) {
+                    //console.log("found enums");
+                    //console.log(JSON.stringify(found, null, 2));
+                    //console.log("additional enum");
+                    //console.log(JSON.stringify(em, null, 2));
+                    (found.children = (found.children || [])).push(em);
+                    //found.children = (found.children = (found.children || [])).concat(em.children||[]);
+                } else { enums.push(em); };
             });
-        })));
+        });
+        return enums;
+    }
+
+    //
+    let preloadFromExtensions = (enums, extensions) => {
+        extensions.children.filter((e)=>(e.attributes["supported"] != "disabled")).forEach((e)=>{
+            preloadFromExtensionOrFeature(enums, e.children);
+        });
+        return enums;
     };
+
+    //
+    let preloadFromFeatures = (enums, features)=>{
+        features.forEach((e)=>{
+            preloadFromExtensionOrFeature(enums, e.children);
+        });
+        return enums;
+    }
 
     // 
     let parseDocs = async (path = "../../Vulkan-Docs/xml/vk.xml")=>{
         let docs = await getDocs(path); await fs.promises.writeFile("vulkan.json", JSON.stringify(filterNoSpaced(JSON5.parse(JSON5.stringify(docs))), null, 2).trim(), "utf8");
-        let loaded = getComponents(docs); loaded.enums = preloadFromExtensions(loaded.enums, loaded.extensions);
+        let loaded = getComponents(docs); 
+        loaded.enums = preloadFromExtensions(loaded.enums, loaded.extensions);
+        loaded.enums = preloadFromFeatures(loaded.enums, loaded.features);
         await fs.promises.writeFile("commands.json", JSON.stringify(loaded.commands, null, 2).trim(), "utf8");
         await fs.promises.writeFile("types.json", JSON.stringify(loaded.types, null, 2).trim(), "utf8");
         await fs.promises.writeFile("enums.json", (JSON.stringify(loaded.enums, null, 2)||"").trim(), "utf8");
+        await fs.promises.writeFile("features.json", (JSON.stringify(loaded.features, null, 2)||"").trim(), "utf8");
         
         //
         let parsed = parseCommands(loaded.commands[0].children);
