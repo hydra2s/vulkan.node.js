@@ -21,26 +21,6 @@ MACRO(ADD_MSVC_PRECOMPILED_HEADER PrecompiledHeader PrecompiledSource SourcesVar
 ENDMACRO(ADD_MSVC_PRECOMPILED_HEADER)
 
 # 
-IF (WIN32)
-  IF(NOT DEFINED VCPKG_PATH OR NOT DEFINED ${VCPKG_PATH})
-    set (VCPKG_PATH "C:/vcpkg/")
-  ENDIF()
-
-  # trying load GLFW3 from VCPKG in Windows
-  IF(NOT DEFINED CMAKE_TOOLCHAIN_FILE OR NOT DEFINED ${CMAKE_TOOLCHAIN_FILE})
-    set (CMAKE_TOOLCHAIN_FILE "${VCPKG_PATH}/scripts/buildsystems/vcpkg.cmake")
-  ENDIF()
-
-  IF(NOT DEFINED CMAKE_MODULE_PATH OR NOT DEFINED ${CMAKE_MODULE_PATH})
-    set (CMAKE_MODULE_PATH "${VCPKG_PATH}/installed/x64-windows")
-  ENDIF()
-  
-  IF(NOT DEFINED glfw3_DIR OR NOT DEFINED ${glfw3_DIR})
-    set (glfw3_DIR "${CMAKE_MODULE_PATH}/share/glfw3")
-  ENDIF()
-ENDIF()
-
-# 
 find_package(Vulkan REQUIRED)
 
 #
@@ -88,8 +68,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   ${PROJECT_SOURCE_DIR}/node_modules/node-addon-api/
   ${PROJECT_SOURCE_DIR}/../*
   ${PROJECT_SOURCE_DIR}/../*/include
-  ${PROJECT_SOURCE_DIR}/../*/vulkan
-  ${PROJECT_SOURCE_DIR}/../*/vma
   ${Vulkan_INCLUDE_DIR}/volk
   ${Vulkan_INCLUDE_DIR}/vma
   ${Vulkan_INCLUDE_DIR}/vulkan

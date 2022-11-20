@@ -30,6 +30,9 @@
     "bindings": "^1.5.0",
     "gl-matrix": "^3.4.3",
     "glfw-raub": "^4.6.2",
+    "json-6": "^1.1.4",
+    "json5": "^2.2.1",
+    "jsox": "^1.2.116",
     "node-addon-api": "^5.0.0",
     "node-gyp": "^9.3.0",
     "win32-api": "^20.1.0"
