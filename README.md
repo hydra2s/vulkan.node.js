@@ -1,5 +1,9 @@
 # 🍵 Raw Node.JS Vulkan API bindings 🍵
 
+### ℹ️ [Info Center](https://github.com/hydra2s-info) ℹ️ 
+### 💬 [Обсуждения/Discussions](https://github.com/hydra2s-info/about/discussions) 💬
+### 🐞 [Баг-Репорты/Bug-Tracker](https://github.com/hydra2s-info/about/issues) 🐞
+
 Our Node.JS bindings for Vulkan API support (latest version, as possible). Currently, still in development. 
 
 ## Made for...
@@ -75,12 +79,6 @@ import { default as V } from "./index.js";
     console.log(handle);
 })();
 ```
-
-## Hydra.D2S
-
-### ℹ️ [Info Center](https://github.com/hydra2s-info) ℹ️ 
-### 💬 [Обсуждения/Discussions](https://github.com/hydra2s-info/about/discussions) 💬
-### 🐞 [Баг-Репорты/Bug-Tracker](https://github.com/hydra2s-info/about/issues) 🐞
 
 ## Projects
 
