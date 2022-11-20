@@ -322,7 +322,11 @@ class CStruct {
             let length = 1;
             let offset = 0;
             let tname = null;
+            let type = null;
 
+            if (typeof struct[name] == "object" && struct[name].type) {
+                type = struct[name];
+            } else
             if (typeof struct[name] == "string") {
                 tname = struct[name];
                 if (tname.indexOf("[") >= 0 && tname.indexOf("]") >= 0) {
@@ -339,12 +343,16 @@ class CStruct {
             if (typeof struct[name] == "array") {
                 length = struct[name][2] || 1;
                 offset = struct[name][1] || 0;
-                tname = struct[name][0];
+                if (typeof struct[name] == "object" && struct[name].type) {
+                    type = struct[name][0];
+                } else {
+                    tname = struct[name][0];
+                }
             }
 
             // correctify offset, if not defined
             if (!offset && prev != undefined) { offset = this.types[prev].byteOffset + this.types[prev].byteLength; }; 
-            let type = Types[tname+(length>1?"[arr]":"")];
+            if (!type) { type = Types[tname+(length>1?"[arr]":"")]; };
             prev = this.types.length; this.types.push({type, name, length, byteOffset: offset, byteLength: type?.byteLength || 1 });
 
             //
