@@ -1,0 +1,6065 @@
+[
+  {
+    "type": "uint32_t",
+    "value": "256",
+    "name": "VK_MAX_PHYSICAL_DEVICE_NAME_SIZE"
+  },
+  {
+    "type": "uint32_t",
+    "value": "16",
+    "name": "VK_UUID_SIZE"
+  },
+  {
+    "type": "uint32_t",
+    "value": "8",
+    "name": "VK_LUID_SIZE"
+  },
+  {
+    "name": "VK_LUID_SIZE_KHR",
+    "alias": "VK_LUID_SIZE"
+  },
+  {
+    "type": "uint32_t",
+    "value": "256",
+    "name": "VK_MAX_EXTENSION_NAME_SIZE"
+  },
+  {
+    "type": "uint32_t",
+    "value": "256",
+    "name": "VK_MAX_DESCRIPTION_SIZE"
+  },
+  {
+    "type": "uint32_t",
+    "value": "32",
+    "name": "VK_MAX_MEMORY_TYPES"
+  },
+  {
+    "type": "uint32_t",
+    "value": "16",
+    "name": "VK_MAX_MEMORY_HEAPS",
+    "comment": "The maximum number of unique memory heaps, each of which supporting 1 or more memory types"
+  },
+  {
+    "type": "float",
+    "value": "1000.0",
+    "name": "VK_LOD_CLAMP_NONE"
+  },
+  {
+    "type": "uint32_t",
+    "value": "(~0)",
+    "name": "VK_REMAINING_MIP_LEVELS"
+  },
+  {
+    "type": "uint32_t",
+    "value": "(~0)",
+    "name": "VK_REMAINING_ARRAY_LAYERS"
+  },
+  {
+    "type": "uint64_t",
+    "value": "(~0n)",
+    "name": "VK_WHOLE_SIZE"
+  },
+  {
+    "type": "uint32_t",
+    "value": "(~0)",
+    "name": "VK_ATTACHMENT_UNUSED"
+  },
+  {
+    "type": "uint32_t",
+    "value": "1",
+    "name": "VK_TRUE"
+  },
+  {
+    "type": "uint32_t",
+    "value": "0",
+    "name": "VK_FALSE"
+  },
+  {
+    "type": "uint32_t",
+    "value": "(~0)",
+    "name": "VK_QUEUE_FAMILY_IGNORED"
+  },
+  {
+    "type": "uint32_t",
+    "value": "(~1)",
+    "name": "VK_QUEUE_FAMILY_EXTERNAL"
+  },
+  {
+    "name": "VK_QUEUE_FAMILY_EXTERNAL_KHR",
+    "alias": "VK_QUEUE_FAMILY_EXTERNAL"
+  },
+  {
+    "type": "uint32_t",
+    "value": "(~1)",
+    "name": "VK_QUEUE_FAMILY_FOREIGN_EXT"
+  },
+  {
+    "type": "uint32_t",
+    "value": "(~0)",
+    "name": "VK_SUBPASS_EXTERNAL"
+  },
+  {
+    "type": "uint32_t",
+    "value": "32",
+    "name": "VK_MAX_DEVICE_GROUP_SIZE"
+  },
+  {
+    "name": "VK_MAX_DEVICE_GROUP_SIZE_KHR",
+    "alias": "VK_MAX_DEVICE_GROUP_SIZE"
+  },
+  {
+    "type": "uint32_t",
+    "value": "256",
+    "name": "VK_MAX_DRIVER_NAME_SIZE"
+  },
+  {
+    "name": "VK_MAX_DRIVER_NAME_SIZE_KHR",
+    "alias": "VK_MAX_DRIVER_NAME_SIZE"
+  },
+  {
+    "type": "uint32_t",
+    "value": "256",
+    "name": "VK_MAX_DRIVER_INFO_SIZE"
+  },
+  {
+    "name": "VK_MAX_DRIVER_INFO_SIZE_KHR",
+    "alias": "VK_MAX_DRIVER_INFO_SIZE"
+  },
+  {
+    "type": "uint32_t",
+    "value": "(~0)",
+    "name": "VK_SHADER_UNUSED_KHR"
+  },
+  {
+    "name": "VK_SHADER_UNUSED_NV",
+    "alias": "VK_SHADER_UNUSED_KHR"
+  },
+  {
+    "type": "uint32_t",
+    "value": "16",
+    "name": "VK_MAX_GLOBAL_PRIORITY_SIZE_KHR"
+  },
+  {
+    "name": "VK_MAX_GLOBAL_PRIORITY_SIZE_EXT",
+    "alias": "VK_MAX_GLOBAL_PRIORITY_SIZE_KHR"
+  },
+  {
+    "type": "uint32_t",
+    "value": "32",
+    "name": "VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_IMAGE_LAYOUT_UNDEFINED",
+    "comment": "Implicit layout an image is when its contents are undefined due to various reasons (e.g. right after creation)"
+  },
+  {
+    "value": "1",
+    "name": "VK_IMAGE_LAYOUT_GENERAL",
+    "comment": "General layout when image can be used for any kind of access"
+  },
+  {
+    "value": "2",
+    "name": "VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL",
+    "comment": "Optimal layout when image is only used for color attachment read/write"
+  },
+  {
+    "value": "3",
+    "name": "VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL",
+    "comment": "Optimal layout when image is only used for depth/stencil attachment read/write"
+  },
+  {
+    "value": "4",
+    "name": "VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL",
+    "comment": "Optimal layout when image is used for read only depth/stencil attachment and shader access"
+  },
+  {
+    "value": "5",
+    "name": "VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL",
+    "comment": "Optimal layout when image is used for read only shader access"
+  },
+  {
+    "value": "6",
+    "name": "VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL",
+    "comment": "Optimal layout when image is used only as source of transfer operations"
+  },
+  {
+    "value": "7",
+    "name": "VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL",
+    "comment": "Optimal layout when image is used only as destination of transfer operations"
+  },
+  {
+    "value": "8",
+    "name": "VK_IMAGE_LAYOUT_PREINITIALIZED",
+    "comment": "Initial layout used when the data is populated by the CPU"
+  },
+  {
+    "value": "0",
+    "name": "VK_ATTACHMENT_LOAD_OP_LOAD"
+  },
+  {
+    "value": "1",
+    "name": "VK_ATTACHMENT_LOAD_OP_CLEAR"
+  },
+  {
+    "value": "2",
+    "name": "VK_ATTACHMENT_LOAD_OP_DONT_CARE"
+  },
+  {
+    "value": "0",
+    "name": "VK_ATTACHMENT_STORE_OP_STORE"
+  },
+  {
+    "value": "1",
+    "name": "VK_ATTACHMENT_STORE_OP_DONT_CARE"
+  },
+  {
+    "value": "0",
+    "name": "VK_IMAGE_TYPE_1D"
+  },
+  {
+    "value": "1",
+    "name": "VK_IMAGE_TYPE_2D"
+  },
+  {
+    "value": "2",
+    "name": "VK_IMAGE_TYPE_3D"
+  },
+  {
+    "value": "0",
+    "name": "VK_IMAGE_TILING_OPTIMAL"
+  },
+  {
+    "value": "1",
+    "name": "VK_IMAGE_TILING_LINEAR"
+  },
+  {
+    "value": "0",
+    "name": "VK_IMAGE_VIEW_TYPE_1D"
+  },
+  {
+    "value": "1",
+    "name": "VK_IMAGE_VIEW_TYPE_2D"
+  },
+  {
+    "value": "2",
+    "name": "VK_IMAGE_VIEW_TYPE_3D"
+  },
+  {
+    "value": "3",
+    "name": "VK_IMAGE_VIEW_TYPE_CUBE"
+  },
+  {
+    "value": "4",
+    "name": "VK_IMAGE_VIEW_TYPE_1D_ARRAY"
+  },
+  {
+    "value": "5",
+    "name": "VK_IMAGE_VIEW_TYPE_2D_ARRAY"
+  },
+  {
+    "value": "6",
+    "name": "VK_IMAGE_VIEW_TYPE_CUBE_ARRAY"
+  },
+  {
+    "value": "0",
+    "name": "VK_COMMAND_BUFFER_LEVEL_PRIMARY"
+  },
+  {
+    "value": "1",
+    "name": "VK_COMMAND_BUFFER_LEVEL_SECONDARY"
+  },
+  {
+    "value": "0",
+    "name": "VK_COMPONENT_SWIZZLE_IDENTITY"
+  },
+  {
+    "value": "1",
+    "name": "VK_COMPONENT_SWIZZLE_ZERO"
+  },
+  {
+    "value": "2",
+    "name": "VK_COMPONENT_SWIZZLE_ONE"
+  },
+  {
+    "value": "3",
+    "name": "VK_COMPONENT_SWIZZLE_R"
+  },
+  {
+    "value": "4",
+    "name": "VK_COMPONENT_SWIZZLE_G"
+  },
+  {
+    "value": "5",
+    "name": "VK_COMPONENT_SWIZZLE_B"
+  },
+  {
+    "value": "6",
+    "name": "VK_COMPONENT_SWIZZLE_A"
+  },
+  {
+    "value": "0",
+    "name": "VK_DESCRIPTOR_TYPE_SAMPLER"
+  },
+  {
+    "value": "1",
+    "name": "VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER"
+  },
+  {
+    "value": "2",
+    "name": "VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE"
+  },
+  {
+    "value": "3",
+    "name": "VK_DESCRIPTOR_TYPE_STORAGE_IMAGE"
+  },
+  {
+    "value": "4",
+    "name": "VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER"
+  },
+  {
+    "value": "5",
+    "name": "VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER"
+  },
+  {
+    "value": "6",
+    "name": "VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER"
+  },
+  {
+    "value": "7",
+    "name": "VK_DESCRIPTOR_TYPE_STORAGE_BUFFER"
+  },
+  {
+    "value": "8",
+    "name": "VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC"
+  },
+  {
+    "value": "9",
+    "name": "VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC"
+  },
+  {
+    "value": "10",
+    "name": "VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT"
+  },
+  {
+    "value": "0",
+    "name": "VK_QUERY_TYPE_OCCLUSION"
+  },
+  {
+    "value": "1",
+    "name": "VK_QUERY_TYPE_PIPELINE_STATISTICS",
+    "comment": "Optional"
+  },
+  {
+    "value": "2",
+    "name": "VK_QUERY_TYPE_TIMESTAMP"
+  },
+  {
+    "value": "0",
+    "name": "VK_BORDER_COLOR_FLOAT_TRANSPARENT_BLACK"
+  },
+  {
+    "value": "1",
+    "name": "VK_BORDER_COLOR_INT_TRANSPARENT_BLACK"
+  },
+  {
+    "value": "2",
+    "name": "VK_BORDER_COLOR_FLOAT_OPAQUE_BLACK"
+  },
+  {
+    "value": "3",
+    "name": "VK_BORDER_COLOR_INT_OPAQUE_BLACK"
+  },
+  {
+    "value": "4",
+    "name": "VK_BORDER_COLOR_FLOAT_OPAQUE_WHITE"
+  },
+  {
+    "value": "5",
+    "name": "VK_BORDER_COLOR_INT_OPAQUE_WHITE"
+  },
+  {
+    "value": "0",
+    "name": "VK_PIPELINE_BIND_POINT_GRAPHICS"
+  },
+  {
+    "value": "1",
+    "name": "VK_PIPELINE_BIND_POINT_COMPUTE"
+  },
+  {
+    "value": "1",
+    "name": "VK_PIPELINE_CACHE_HEADER_VERSION_ONE"
+  },
+  {
+    "value": "0",
+    "name": "VK_PRIMITIVE_TOPOLOGY_POINT_LIST"
+  },
+  {
+    "value": "1",
+    "name": "VK_PRIMITIVE_TOPOLOGY_LINE_LIST"
+  },
+  {
+    "value": "2",
+    "name": "VK_PRIMITIVE_TOPOLOGY_LINE_STRIP"
+  },
+  {
+    "value": "3",
+    "name": "VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST"
+  },
+  {
+    "value": "4",
+    "name": "VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP"
+  },
+  {
+    "value": "5",
+    "name": "VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN"
+  },
+  {
+    "value": "6",
+    "name": "VK_PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY"
+  },
+  {
+    "value": "7",
+    "name": "VK_PRIMITIVE_TOPOLOGY_LINE_STRIP_WITH_ADJACENCY"
+  },
+  {
+    "value": "8",
+    "name": "VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY"
+  },
+  {
+    "value": "9",
+    "name": "VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY"
+  },
+  {
+    "value": "10",
+    "name": "VK_PRIMITIVE_TOPOLOGY_PATCH_LIST"
+  },
+  {
+    "value": "0",
+    "name": "VK_SHARING_MODE_EXCLUSIVE"
+  },
+  {
+    "value": "1",
+    "name": "VK_SHARING_MODE_CONCURRENT"
+  },
+  {
+    "value": "0",
+    "name": "VK_INDEX_TYPE_UINT16"
+  },
+  {
+    "value": "1",
+    "name": "VK_INDEX_TYPE_UINT32"
+  },
+  {
+    "value": "0",
+    "name": "VK_FILTER_NEAREST"
+  },
+  {
+    "value": "1",
+    "name": "VK_FILTER_LINEAR"
+  },
+  {
+    "value": "0",
+    "name": "VK_SAMPLER_MIPMAP_MODE_NEAREST",
+    "comment": "Choose nearest mip level"
+  },
+  {
+    "value": "1",
+    "name": "VK_SAMPLER_MIPMAP_MODE_LINEAR",
+    "comment": "Linear filter between mip levels"
+  },
+  {
+    "value": "0",
+    "name": "VK_SAMPLER_ADDRESS_MODE_REPEAT"
+  },
+  {
+    "value": "1",
+    "name": "VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT"
+  },
+  {
+    "value": "2",
+    "name": "VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE"
+  },
+  {
+    "value": "3",
+    "name": "VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER"
+  },
+  {
+    "value": "0",
+    "name": "VK_COMPARE_OP_NEVER"
+  },
+  {
+    "value": "1",
+    "name": "VK_COMPARE_OP_LESS"
+  },
+  {
+    "value": "2",
+    "name": "VK_COMPARE_OP_EQUAL"
+  },
+  {
+    "value": "3",
+    "name": "VK_COMPARE_OP_LESS_OR_EQUAL"
+  },
+  {
+    "value": "4",
+    "name": "VK_COMPARE_OP_GREATER"
+  },
+  {
+    "value": "5",
+    "name": "VK_COMPARE_OP_NOT_EQUAL"
+  },
+  {
+    "value": "6",
+    "name": "VK_COMPARE_OP_GREATER_OR_EQUAL"
+  },
+  {
+    "value": "7",
+    "name": "VK_COMPARE_OP_ALWAYS"
+  },
+  {
+    "value": "0",
+    "name": "VK_POLYGON_MODE_FILL"
+  },
+  {
+    "value": "1",
+    "name": "VK_POLYGON_MODE_LINE"
+  },
+  {
+    "value": "2",
+    "name": "VK_POLYGON_MODE_POINT"
+  },
+  {
+    "value": "0",
+    "name": "VK_FRONT_FACE_COUNTER_CLOCKWISE"
+  },
+  {
+    "value": "1",
+    "name": "VK_FRONT_FACE_CLOCKWISE"
+  },
+  {
+    "value": "0",
+    "name": "VK_BLEND_FACTOR_ZERO"
+  },
+  {
+    "value": "1",
+    "name": "VK_BLEND_FACTOR_ONE"
+  },
+  {
+    "value": "2",
+    "name": "VK_BLEND_FACTOR_SRC_COLOR"
+  },
+  {
+    "value": "3",
+    "name": "VK_BLEND_FACTOR_ONE_MINUS_SRC_COLOR"
+  },
+  {
+    "value": "4",
+    "name": "VK_BLEND_FACTOR_DST_COLOR"
+  },
+  {
+    "value": "5",
+    "name": "VK_BLEND_FACTOR_ONE_MINUS_DST_COLOR"
+  },
+  {
+    "value": "6",
+    "name": "VK_BLEND_FACTOR_SRC_ALPHA"
+  },
+  {
+    "value": "7",
+    "name": "VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA"
+  },
+  {
+    "value": "8",
+    "name": "VK_BLEND_FACTOR_DST_ALPHA"
+  },
+  {
+    "value": "9",
+    "name": "VK_BLEND_FACTOR_ONE_MINUS_DST_ALPHA"
+  },
+  {
+    "value": "10",
+    "name": "VK_BLEND_FACTOR_CONSTANT_COLOR"
+  },
+  {
+    "value": "11",
+    "name": "VK_BLEND_FACTOR_ONE_MINUS_CONSTANT_COLOR"
+  },
+  {
+    "value": "12",
+    "name": "VK_BLEND_FACTOR_CONSTANT_ALPHA"
+  },
+  {
+    "value": "13",
+    "name": "VK_BLEND_FACTOR_ONE_MINUS_CONSTANT_ALPHA"
+  },
+  {
+    "value": "14",
+    "name": "VK_BLEND_FACTOR_SRC_ALPHA_SATURATE"
+  },
+  {
+    "value": "15",
+    "name": "VK_BLEND_FACTOR_SRC1_COLOR"
+  },
+  {
+    "value": "16",
+    "name": "VK_BLEND_FACTOR_ONE_MINUS_SRC1_COLOR"
+  },
+  {
+    "value": "17",
+    "name": "VK_BLEND_FACTOR_SRC1_ALPHA"
+  },
+  {
+    "value": "18",
+    "name": "VK_BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA"
+  },
+  {
+    "value": "0",
+    "name": "VK_BLEND_OP_ADD"
+  },
+  {
+    "value": "1",
+    "name": "VK_BLEND_OP_SUBTRACT"
+  },
+  {
+    "value": "2",
+    "name": "VK_BLEND_OP_REVERSE_SUBTRACT"
+  },
+  {
+    "value": "3",
+    "name": "VK_BLEND_OP_MIN"
+  },
+  {
+    "value": "4",
+    "name": "VK_BLEND_OP_MAX"
+  },
+  {
+    "value": "0",
+    "name": "VK_STENCIL_OP_KEEP"
+  },
+  {
+    "value": "1",
+    "name": "VK_STENCIL_OP_ZERO"
+  },
+  {
+    "value": "2",
+    "name": "VK_STENCIL_OP_REPLACE"
+  },
+  {
+    "value": "3",
+    "name": "VK_STENCIL_OP_INCREMENT_AND_CLAMP"
+  },
+  {
+    "value": "4",
+    "name": "VK_STENCIL_OP_DECREMENT_AND_CLAMP"
+  },
+  {
+    "value": "5",
+    "name": "VK_STENCIL_OP_INVERT"
+  },
+  {
+    "value": "6",
+    "name": "VK_STENCIL_OP_INCREMENT_AND_WRAP"
+  },
+  {
+    "value": "7",
+    "name": "VK_STENCIL_OP_DECREMENT_AND_WRAP"
+  },
+  {
+    "value": "0",
+    "name": "VK_LOGIC_OP_CLEAR"
+  },
+  {
+    "value": "1",
+    "name": "VK_LOGIC_OP_AND"
+  },
+  {
+    "value": "2",
+    "name": "VK_LOGIC_OP_AND_REVERSE"
+  },
+  {
+    "value": "3",
+    "name": "VK_LOGIC_OP_COPY"
+  },
+  {
+    "value": "4",
+    "name": "VK_LOGIC_OP_AND_INVERTED"
+  },
+  {
+    "value": "5",
+    "name": "VK_LOGIC_OP_NO_OP"
+  },
+  {
+    "value": "6",
+    "name": "VK_LOGIC_OP_XOR"
+  },
+  {
+    "value": "7",
+    "name": "VK_LOGIC_OP_OR"
+  },
+  {
+    "value": "8",
+    "name": "VK_LOGIC_OP_NOR"
+  },
+  {
+    "value": "9",
+    "name": "VK_LOGIC_OP_EQUIVALENT"
+  },
+  {
+    "value": "10",
+    "name": "VK_LOGIC_OP_INVERT"
+  },
+  {
+    "value": "11",
+    "name": "VK_LOGIC_OP_OR_REVERSE"
+  },
+  {
+    "value": "12",
+    "name": "VK_LOGIC_OP_COPY_INVERTED"
+  },
+  {
+    "value": "13",
+    "name": "VK_LOGIC_OP_OR_INVERTED"
+  },
+  {
+    "value": "14",
+    "name": "VK_LOGIC_OP_NAND"
+  },
+  {
+    "value": "15",
+    "name": "VK_LOGIC_OP_SET"
+  },
+  {
+    "value": "0",
+    "name": "VK_INTERNAL_ALLOCATION_TYPE_EXECUTABLE"
+  },
+  {
+    "value": "0",
+    "name": "VK_SYSTEM_ALLOCATION_SCOPE_COMMAND"
+  },
+  {
+    "value": "1",
+    "name": "VK_SYSTEM_ALLOCATION_SCOPE_OBJECT"
+  },
+  {
+    "value": "2",
+    "name": "VK_SYSTEM_ALLOCATION_SCOPE_CACHE"
+  },
+  {
+    "value": "3",
+    "name": "VK_SYSTEM_ALLOCATION_SCOPE_DEVICE"
+  },
+  {
+    "value": "4",
+    "name": "VK_SYSTEM_ALLOCATION_SCOPE_INSTANCE"
+  },
+  {
+    "value": "0",
+    "name": "VK_PHYSICAL_DEVICE_TYPE_OTHER"
+  },
+  {
+    "value": "1",
+    "name": "VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU"
+  },
+  {
+    "value": "2",
+    "name": "VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU"
+  },
+  {
+    "value": "3",
+    "name": "VK_PHYSICAL_DEVICE_TYPE_VIRTUAL_GPU"
+  },
+  {
+    "value": "4",
+    "name": "VK_PHYSICAL_DEVICE_TYPE_CPU"
+  },
+  {
+    "value": "0",
+    "name": "VK_VERTEX_INPUT_RATE_VERTEX"
+  },
+  {
+    "value": "1",
+    "name": "VK_VERTEX_INPUT_RATE_INSTANCE"
+  },
+  {
+    "value": "0",
+    "name": "VK_FORMAT_UNDEFINED"
+  },
+  {
+    "value": "1",
+    "name": "VK_FORMAT_R4G4_UNORM_PACK8"
+  },
+  {
+    "value": "2",
+    "name": "VK_FORMAT_R4G4B4A4_UNORM_PACK16"
+  },
+  {
+    "value": "3",
+    "name": "VK_FORMAT_B4G4R4A4_UNORM_PACK16"
+  },
+  {
+    "value": "4",
+    "name": "VK_FORMAT_R5G6B5_UNORM_PACK16"
+  },
+  {
+    "value": "5",
+    "name": "VK_FORMAT_B5G6R5_UNORM_PACK16"
+  },
+  {
+    "value": "6",
+    "name": "VK_FORMAT_R5G5B5A1_UNORM_PACK16"
+  },
+  {
+    "value": "7",
+    "name": "VK_FORMAT_B5G5R5A1_UNORM_PACK16"
+  },
+  {
+    "value": "8",
+    "name": "VK_FORMAT_A1R5G5B5_UNORM_PACK16"
+  },
+  {
+    "value": "9",
+    "name": "VK_FORMAT_R8_UNORM"
+  },
+  {
+    "value": "10",
+    "name": "VK_FORMAT_R8_SNORM"
+  },
+  {
+    "value": "11",
+    "name": "VK_FORMAT_R8_USCALED"
+  },
+  {
+    "value": "12",
+    "name": "VK_FORMAT_R8_SSCALED"
+  },
+  {
+    "value": "13",
+    "name": "VK_FORMAT_R8_UINT"
+  },
+  {
+    "value": "14",
+    "name": "VK_FORMAT_R8_SINT"
+  },
+  {
+    "value": "15",
+    "name": "VK_FORMAT_R8_SRGB"
+  },
+  {
+    "value": "16",
+    "name": "VK_FORMAT_R8G8_UNORM"
+  },
+  {
+    "value": "17",
+    "name": "VK_FORMAT_R8G8_SNORM"
+  },
+  {
+    "value": "18",
+    "name": "VK_FORMAT_R8G8_USCALED"
+  },
+  {
+    "value": "19",
+    "name": "VK_FORMAT_R8G8_SSCALED"
+  },
+  {
+    "value": "20",
+    "name": "VK_FORMAT_R8G8_UINT"
+  },
+  {
+    "value": "21",
+    "name": "VK_FORMAT_R8G8_SINT"
+  },
+  {
+    "value": "22",
+    "name": "VK_FORMAT_R8G8_SRGB"
+  },
+  {
+    "value": "23",
+    "name": "VK_FORMAT_R8G8B8_UNORM"
+  },
+  {
+    "value": "24",
+    "name": "VK_FORMAT_R8G8B8_SNORM"
+  },
+  {
+    "value": "25",
+    "name": "VK_FORMAT_R8G8B8_USCALED"
+  },
+  {
+    "value": "26",
+    "name": "VK_FORMAT_R8G8B8_SSCALED"
+  },
+  {
+    "value": "27",
+    "name": "VK_FORMAT_R8G8B8_UINT"
+  },
+  {
+    "value": "28",
+    "name": "VK_FORMAT_R8G8B8_SINT"
+  },
+  {
+    "value": "29",
+    "name": "VK_FORMAT_R8G8B8_SRGB"
+  },
+  {
+    "value": "30",
+    "name": "VK_FORMAT_B8G8R8_UNORM"
+  },
+  {
+    "value": "31",
+    "name": "VK_FORMAT_B8G8R8_SNORM"
+  },
+  {
+    "value": "32",
+    "name": "VK_FORMAT_B8G8R8_USCALED"
+  },
+  {
+    "value": "33",
+    "name": "VK_FORMAT_B8G8R8_SSCALED"
+  },
+  {
+    "value": "34",
+    "name": "VK_FORMAT_B8G8R8_UINT"
+  },
+  {
+    "value": "35",
+    "name": "VK_FORMAT_B8G8R8_SINT"
+  },
+  {
+    "value": "36",
+    "name": "VK_FORMAT_B8G8R8_SRGB"
+  },
+  {
+    "value": "37",
+    "name": "VK_FORMAT_R8G8B8A8_UNORM"
+  },
+  {
+    "value": "38",
+    "name": "VK_FORMAT_R8G8B8A8_SNORM"
+  },
+  {
+    "value": "39",
+    "name": "VK_FORMAT_R8G8B8A8_USCALED"
+  },
+  {
+    "value": "40",
+    "name": "VK_FORMAT_R8G8B8A8_SSCALED"
+  },
+  {
+    "value": "41",
+    "name": "VK_FORMAT_R8G8B8A8_UINT"
+  },
+  {
+    "value": "42",
+    "name": "VK_FORMAT_R8G8B8A8_SINT"
+  },
+  {
+    "value": "43",
+    "name": "VK_FORMAT_R8G8B8A8_SRGB"
+  },
+  {
+    "value": "44",
+    "name": "VK_FORMAT_B8G8R8A8_UNORM"
+  },
+  {
+    "value": "45",
+    "name": "VK_FORMAT_B8G8R8A8_SNORM"
+  },
+  {
+    "value": "46",
+    "name": "VK_FORMAT_B8G8R8A8_USCALED"
+  },
+  {
+    "value": "47",
+    "name": "VK_FORMAT_B8G8R8A8_SSCALED"
+  },
+  {
+    "value": "48",
+    "name": "VK_FORMAT_B8G8R8A8_UINT"
+  },
+  {
+    "value": "49",
+    "name": "VK_FORMAT_B8G8R8A8_SINT"
+  },
+  {
+    "value": "50",
+    "name": "VK_FORMAT_B8G8R8A8_SRGB"
+  },
+  {
+    "value": "51",
+    "name": "VK_FORMAT_A8B8G8R8_UNORM_PACK32"
+  },
+  {
+    "value": "52",
+    "name": "VK_FORMAT_A8B8G8R8_SNORM_PACK32"
+  },
+  {
+    "value": "53",
+    "name": "VK_FORMAT_A8B8G8R8_USCALED_PACK32"
+  },
+  {
+    "value": "54",
+    "name": "VK_FORMAT_A8B8G8R8_SSCALED_PACK32"
+  },
+  {
+    "value": "55",
+    "name": "VK_FORMAT_A8B8G8R8_UINT_PACK32"
+  },
+  {
+    "value": "56",
+    "name": "VK_FORMAT_A8B8G8R8_SINT_PACK32"
+  },
+  {
+    "value": "57",
+    "name": "VK_FORMAT_A8B8G8R8_SRGB_PACK32"
+  },
+  {
+    "value": "58",
+    "name": "VK_FORMAT_A2R10G10B10_UNORM_PACK32"
+  },
+  {
+    "value": "59",
+    "name": "VK_FORMAT_A2R10G10B10_SNORM_PACK32"
+  },
+  {
+    "value": "60",
+    "name": "VK_FORMAT_A2R10G10B10_USCALED_PACK32"
+  },
+  {
+    "value": "61",
+    "name": "VK_FORMAT_A2R10G10B10_SSCALED_PACK32"
+  },
+  {
+    "value": "62",
+    "name": "VK_FORMAT_A2R10G10B10_UINT_PACK32"
+  },
+  {
+    "value": "63",
+    "name": "VK_FORMAT_A2R10G10B10_SINT_PACK32"
+  },
+  {
+    "value": "64",
+    "name": "VK_FORMAT_A2B10G10R10_UNORM_PACK32"
+  },
+  {
+    "value": "65",
+    "name": "VK_FORMAT_A2B10G10R10_SNORM_PACK32"
+  },
+  {
+    "value": "66",
+    "name": "VK_FORMAT_A2B10G10R10_USCALED_PACK32"
+  },
+  {
+    "value": "67",
+    "name": "VK_FORMAT_A2B10G10R10_SSCALED_PACK32"
+  },
+  {
+    "value": "68",
+    "name": "VK_FORMAT_A2B10G10R10_UINT_PACK32"
+  },
+  {
+    "value": "69",
+    "name": "VK_FORMAT_A2B10G10R10_SINT_PACK32"
+  },
+  {
+    "value": "70",
+    "name": "VK_FORMAT_R16_UNORM"
+  },
+  {
+    "value": "71",
+    "name": "VK_FORMAT_R16_SNORM"
+  },
+  {
+    "value": "72",
+    "name": "VK_FORMAT_R16_USCALED"
+  },
+  {
+    "value": "73",
+    "name": "VK_FORMAT_R16_SSCALED"
+  },
+  {
+    "value": "74",
+    "name": "VK_FORMAT_R16_UINT"
+  },
+  {
+    "value": "75",
+    "name": "VK_FORMAT_R16_SINT"
+  },
+  {
+    "value": "76",
+    "name": "VK_FORMAT_R16_SFLOAT"
+  },
+  {
+    "value": "77",
+    "name": "VK_FORMAT_R16G16_UNORM"
+  },
+  {
+    "value": "78",
+    "name": "VK_FORMAT_R16G16_SNORM"
+  },
+  {
+    "value": "79",
+    "name": "VK_FORMAT_R16G16_USCALED"
+  },
+  {
+    "value": "80",
+    "name": "VK_FORMAT_R16G16_SSCALED"
+  },
+  {
+    "value": "81",
+    "name": "VK_FORMAT_R16G16_UINT"
+  },
+  {
+    "value": "82",
+    "name": "VK_FORMAT_R16G16_SINT"
+  },
+  {
+    "value": "83",
+    "name": "VK_FORMAT_R16G16_SFLOAT"
+  },
+  {
+    "value": "84",
+    "name": "VK_FORMAT_R16G16B16_UNORM"
+  },
+  {
+    "value": "85",
+    "name": "VK_FORMAT_R16G16B16_SNORM"
+  },
+  {
+    "value": "86",
+    "name": "VK_FORMAT_R16G16B16_USCALED"
+  },
+  {
+    "value": "87",
+    "name": "VK_FORMAT_R16G16B16_SSCALED"
+  },
+  {
+    "value": "88",
+    "name": "VK_FORMAT_R16G16B16_UINT"
+  },
+  {
+    "value": "89",
+    "name": "VK_FORMAT_R16G16B16_SINT"
+  },
+  {
+    "value": "90",
+    "name": "VK_FORMAT_R16G16B16_SFLOAT"
+  },
+  {
+    "value": "91",
+    "name": "VK_FORMAT_R16G16B16A16_UNORM"
+  },
+  {
+    "value": "92",
+    "name": "VK_FORMAT_R16G16B16A16_SNORM"
+  },
+  {
+    "value": "93",
+    "name": "VK_FORMAT_R16G16B16A16_USCALED"
+  },
+  {
+    "value": "94",
+    "name": "VK_FORMAT_R16G16B16A16_SSCALED"
+  },
+  {
+    "value": "95",
+    "name": "VK_FORMAT_R16G16B16A16_UINT"
+  },
+  {
+    "value": "96",
+    "name": "VK_FORMAT_R16G16B16A16_SINT"
+  },
+  {
+    "value": "97",
+    "name": "VK_FORMAT_R16G16B16A16_SFLOAT"
+  },
+  {
+    "value": "98",
+    "name": "VK_FORMAT_R32_UINT"
+  },
+  {
+    "value": "99",
+    "name": "VK_FORMAT_R32_SINT"
+  },
+  {
+    "value": "100",
+    "name": "VK_FORMAT_R32_SFLOAT"
+  },
+  {
+    "value": "101",
+    "name": "VK_FORMAT_R32G32_UINT"
+  },
+  {
+    "value": "102",
+    "name": "VK_FORMAT_R32G32_SINT"
+  },
+  {
+    "value": "103",
+    "name": "VK_FORMAT_R32G32_SFLOAT"
+  },
+  {
+    "value": "104",
+    "name": "VK_FORMAT_R32G32B32_UINT"
+  },
+  {
+    "value": "105",
+    "name": "VK_FORMAT_R32G32B32_SINT"
+  },
+  {
+    "value": "106",
+    "name": "VK_FORMAT_R32G32B32_SFLOAT"
+  },
+  {
+    "value": "107",
+    "name": "VK_FORMAT_R32G32B32A32_UINT"
+  },
+  {
+    "value": "108",
+    "name": "VK_FORMAT_R32G32B32A32_SINT"
+  },
+  {
+    "value": "109",
+    "name": "VK_FORMAT_R32G32B32A32_SFLOAT"
+  },
+  {
+    "value": "110",
+    "name": "VK_FORMAT_R64_UINT"
+  },
+  {
+    "value": "111",
+    "name": "VK_FORMAT_R64_SINT"
+  },
+  {
+    "value": "112",
+    "name": "VK_FORMAT_R64_SFLOAT"
+  },
+  {
+    "value": "113",
+    "name": "VK_FORMAT_R64G64_UINT"
+  },
+  {
+    "value": "114",
+    "name": "VK_FORMAT_R64G64_SINT"
+  },
+  {
+    "value": "115",
+    "name": "VK_FORMAT_R64G64_SFLOAT"
+  },
+  {
+    "value": "116",
+    "name": "VK_FORMAT_R64G64B64_UINT"
+  },
+  {
+    "value": "117",
+    "name": "VK_FORMAT_R64G64B64_SINT"
+  },
+  {
+    "value": "118",
+    "name": "VK_FORMAT_R64G64B64_SFLOAT"
+  },
+  {
+    "value": "119",
+    "name": "VK_FORMAT_R64G64B64A64_UINT"
+  },
+  {
+    "value": "120",
+    "name": "VK_FORMAT_R64G64B64A64_SINT"
+  },
+  {
+    "value": "121",
+    "name": "VK_FORMAT_R64G64B64A64_SFLOAT"
+  },
+  {
+    "value": "122",
+    "name": "VK_FORMAT_B10G11R11_UFLOAT_PACK32"
+  },
+  {
+    "value": "123",
+    "name": "VK_FORMAT_E5B9G9R9_UFLOAT_PACK32"
+  },
+  {
+    "value": "124",
+    "name": "VK_FORMAT_D16_UNORM"
+  },
+  {
+    "value": "125",
+    "name": "VK_FORMAT_X8_D24_UNORM_PACK32"
+  },
+  {
+    "value": "126",
+    "name": "VK_FORMAT_D32_SFLOAT"
+  },
+  {
+    "value": "127",
+    "name": "VK_FORMAT_S8_UINT"
+  },
+  {
+    "value": "128",
+    "name": "VK_FORMAT_D16_UNORM_S8_UINT"
+  },
+  {
+    "value": "129",
+    "name": "VK_FORMAT_D24_UNORM_S8_UINT"
+  },
+  {
+    "value": "130",
+    "name": "VK_FORMAT_D32_SFLOAT_S8_UINT"
+  },
+  {
+    "value": "131",
+    "name": "VK_FORMAT_BC1_RGB_UNORM_BLOCK"
+  },
+  {
+    "value": "132",
+    "name": "VK_FORMAT_BC1_RGB_SRGB_BLOCK"
+  },
+  {
+    "value": "133",
+    "name": "VK_FORMAT_BC1_RGBA_UNORM_BLOCK"
+  },
+  {
+    "value": "134",
+    "name": "VK_FORMAT_BC1_RGBA_SRGB_BLOCK"
+  },
+  {
+    "value": "135",
+    "name": "VK_FORMAT_BC2_UNORM_BLOCK"
+  },
+  {
+    "value": "136",
+    "name": "VK_FORMAT_BC2_SRGB_BLOCK"
+  },
+  {
+    "value": "137",
+    "name": "VK_FORMAT_BC3_UNORM_BLOCK"
+  },
+  {
+    "value": "138",
+    "name": "VK_FORMAT_BC3_SRGB_BLOCK"
+  },
+  {
+    "value": "139",
+    "name": "VK_FORMAT_BC4_UNORM_BLOCK"
+  },
+  {
+    "value": "140",
+    "name": "VK_FORMAT_BC4_SNORM_BLOCK"
+  },
+  {
+    "value": "141",
+    "name": "VK_FORMAT_BC5_UNORM_BLOCK"
+  },
+  {
+    "value": "142",
+    "name": "VK_FORMAT_BC5_SNORM_BLOCK"
+  },
+  {
+    "value": "143",
+    "name": "VK_FORMAT_BC6H_UFLOAT_BLOCK"
+  },
+  {
+    "value": "144",
+    "name": "VK_FORMAT_BC6H_SFLOAT_BLOCK"
+  },
+  {
+    "value": "145",
+    "name": "VK_FORMAT_BC7_UNORM_BLOCK"
+  },
+  {
+    "value": "146",
+    "name": "VK_FORMAT_BC7_SRGB_BLOCK"
+  },
+  {
+    "value": "147",
+    "name": "VK_FORMAT_ETC2_R8G8B8_UNORM_BLOCK"
+  },
+  {
+    "value": "148",
+    "name": "VK_FORMAT_ETC2_R8G8B8_SRGB_BLOCK"
+  },
+  {
+    "value": "149",
+    "name": "VK_FORMAT_ETC2_R8G8B8A1_UNORM_BLOCK"
+  },
+  {
+    "value": "150",
+    "name": "VK_FORMAT_ETC2_R8G8B8A1_SRGB_BLOCK"
+  },
+  {
+    "value": "151",
+    "name": "VK_FORMAT_ETC2_R8G8B8A8_UNORM_BLOCK"
+  },
+  {
+    "value": "152",
+    "name": "VK_FORMAT_ETC2_R8G8B8A8_SRGB_BLOCK"
+  },
+  {
+    "value": "153",
+    "name": "VK_FORMAT_EAC_R11_UNORM_BLOCK"
+  },
+  {
+    "value": "154",
+    "name": "VK_FORMAT_EAC_R11_SNORM_BLOCK"
+  },
+  {
+    "value": "155",
+    "name": "VK_FORMAT_EAC_R11G11_UNORM_BLOCK"
+  },
+  {
+    "value": "156",
+    "name": "VK_FORMAT_EAC_R11G11_SNORM_BLOCK"
+  },
+  {
+    "value": "157",
+    "name": "VK_FORMAT_ASTC_4x4_UNORM_BLOCK"
+  },
+  {
+    "value": "158",
+    "name": "VK_FORMAT_ASTC_4x4_SRGB_BLOCK"
+  },
+  {
+    "value": "159",
+    "name": "VK_FORMAT_ASTC_5x4_UNORM_BLOCK"
+  },
+  {
+    "value": "160",
+    "name": "VK_FORMAT_ASTC_5x4_SRGB_BLOCK"
+  },
+  {
+    "value": "161",
+    "name": "VK_FORMAT_ASTC_5x5_UNORM_BLOCK"
+  },
+  {
+    "value": "162",
+    "name": "VK_FORMAT_ASTC_5x5_SRGB_BLOCK"
+  },
+  {
+    "value": "163",
+    "name": "VK_FORMAT_ASTC_6x5_UNORM_BLOCK"
+  },
+  {
+    "value": "164",
+    "name": "VK_FORMAT_ASTC_6x5_SRGB_BLOCK"
+  },
+  {
+    "value": "165",
+    "name": "VK_FORMAT_ASTC_6x6_UNORM_BLOCK"
+  },
+  {
+    "value": "166",
+    "name": "VK_FORMAT_ASTC_6x6_SRGB_BLOCK"
+  },
+  {
+    "value": "167",
+    "name": "VK_FORMAT_ASTC_8x5_UNORM_BLOCK"
+  },
+  {
+    "value": "168",
+    "name": "VK_FORMAT_ASTC_8x5_SRGB_BLOCK"
+  },
+  {
+    "value": "169",
+    "name": "VK_FORMAT_ASTC_8x6_UNORM_BLOCK"
+  },
+  {
+    "value": "170",
+    "name": "VK_FORMAT_ASTC_8x6_SRGB_BLOCK"
+  },
+  {
+    "value": "171",
+    "name": "VK_FORMAT_ASTC_8x8_UNORM_BLOCK"
+  },
+  {
+    "value": "172",
+    "name": "VK_FORMAT_ASTC_8x8_SRGB_BLOCK"
+  },
+  {
+    "value": "173",
+    "name": "VK_FORMAT_ASTC_10x5_UNORM_BLOCK"
+  },
+  {
+    "value": "174",
+    "name": "VK_FORMAT_ASTC_10x5_SRGB_BLOCK"
+  },
+  {
+    "value": "175",
+    "name": "VK_FORMAT_ASTC_10x6_UNORM_BLOCK"
+  },
+  {
+    "value": "176",
+    "name": "VK_FORMAT_ASTC_10x6_SRGB_BLOCK"
+  },
+  {
+    "value": "177",
+    "name": "VK_FORMAT_ASTC_10x8_UNORM_BLOCK"
+  },
+  {
+    "value": "178",
+    "name": "VK_FORMAT_ASTC_10x8_SRGB_BLOCK"
+  },
+  {
+    "value": "179",
+    "name": "VK_FORMAT_ASTC_10x10_UNORM_BLOCK"
+  },
+  {
+    "value": "180",
+    "name": "VK_FORMAT_ASTC_10x10_SRGB_BLOCK"
+  },
+  {
+    "value": "181",
+    "name": "VK_FORMAT_ASTC_12x10_UNORM_BLOCK"
+  },
+  {
+    "value": "182",
+    "name": "VK_FORMAT_ASTC_12x10_SRGB_BLOCK"
+  },
+  {
+    "value": "183",
+    "name": "VK_FORMAT_ASTC_12x12_UNORM_BLOCK"
+  },
+  {
+    "value": "184",
+    "name": "VK_FORMAT_ASTC_12x12_SRGB_BLOCK"
+  },
+  {
+    "value": "0",
+    "name": "VK_STRUCTURE_TYPE_APPLICATION_INFO"
+  },
+  {
+    "value": "1",
+    "name": "VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO"
+  },
+  {
+    "value": "2",
+    "name": "VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO"
+  },
+  {
+    "value": "3",
+    "name": "VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO"
+  },
+  {
+    "value": "4",
+    "name": "VK_STRUCTURE_TYPE_SUBMIT_INFO"
+  },
+  {
+    "value": "5",
+    "name": "VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO"
+  },
+  {
+    "value": "6",
+    "name": "VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE"
+  },
+  {
+    "value": "7",
+    "name": "VK_STRUCTURE_TYPE_BIND_SPARSE_INFO"
+  },
+  {
+    "value": "8",
+    "name": "VK_STRUCTURE_TYPE_FENCE_CREATE_INFO"
+  },
+  {
+    "value": "9",
+    "name": "VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO"
+  },
+  {
+    "value": "10",
+    "name": "VK_STRUCTURE_TYPE_EVENT_CREATE_INFO"
+  },
+  {
+    "value": "11",
+    "name": "VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO"
+  },
+  {
+    "value": "12",
+    "name": "VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO"
+  },
+  {
+    "value": "13",
+    "name": "VK_STRUCTURE_TYPE_BUFFER_VIEW_CREATE_INFO"
+  },
+  {
+    "value": "14",
+    "name": "VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO"
+  },
+  {
+    "value": "15",
+    "name": "VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO"
+  },
+  {
+    "value": "16",
+    "name": "VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO"
+  },
+  {
+    "value": "17",
+    "name": "VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO"
+  },
+  {
+    "value": "18",
+    "name": "VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO"
+  },
+  {
+    "value": "19",
+    "name": "VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO"
+  },
+  {
+    "value": "20",
+    "name": "VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO"
+  },
+  {
+    "value": "21",
+    "name": "VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_STATE_CREATE_INFO"
+  },
+  {
+    "value": "22",
+    "name": "VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO"
+  },
+  {
+    "value": "23",
+    "name": "VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO"
+  },
+  {
+    "value": "24",
+    "name": "VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO"
+  },
+  {
+    "value": "25",
+    "name": "VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO"
+  },
+  {
+    "value": "26",
+    "name": "VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO"
+  },
+  {
+    "value": "27",
+    "name": "VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO"
+  },
+  {
+    "value": "28",
+    "name": "VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO"
+  },
+  {
+    "value": "29",
+    "name": "VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO"
+  },
+  {
+    "value": "30",
+    "name": "VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO"
+  },
+  {
+    "value": "31",
+    "name": "VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO"
+  },
+  {
+    "value": "32",
+    "name": "VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO"
+  },
+  {
+    "value": "33",
+    "name": "VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO"
+  },
+  {
+    "value": "34",
+    "name": "VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO"
+  },
+  {
+    "value": "35",
+    "name": "VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET"
+  },
+  {
+    "value": "36",
+    "name": "VK_STRUCTURE_TYPE_COPY_DESCRIPTOR_SET"
+  },
+  {
+    "value": "37",
+    "name": "VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO"
+  },
+  {
+    "value": "38",
+    "name": "VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO"
+  },
+  {
+    "value": "39",
+    "name": "VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO"
+  },
+  {
+    "value": "40",
+    "name": "VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO"
+  },
+  {
+    "value": "41",
+    "name": "VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO"
+  },
+  {
+    "value": "42",
+    "name": "VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO"
+  },
+  {
+    "value": "43",
+    "name": "VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO"
+  },
+  {
+    "value": "44",
+    "name": "VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER"
+  },
+  {
+    "value": "45",
+    "name": "VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER"
+  },
+  {
+    "value": "46",
+    "name": "VK_STRUCTURE_TYPE_MEMORY_BARRIER"
+  },
+  {
+    "value": "47",
+    "name": "VK_STRUCTURE_TYPE_LOADER_INSTANCE_CREATE_INFO",
+    "comment": "Reserved for internal use by the loader, layers, and ICDs"
+  },
+  {
+    "value": "48",
+    "name": "VK_STRUCTURE_TYPE_LOADER_DEVICE_CREATE_INFO",
+    "comment": "Reserved for internal use by the loader, layers, and ICDs"
+  },
+  {
+    "value": "0",
+    "name": "VK_SUBPASS_CONTENTS_INLINE"
+  },
+  {
+    "value": "1",
+    "name": "VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS"
+  },
+  {
+    "value": "0",
+    "name": "VK_SUCCESS",
+    "comment": "Command completed successfully"
+  },
+  {
+    "value": "1",
+    "name": "VK_NOT_READY",
+    "comment": "A fence or query has not yet completed"
+  },
+  {
+    "value": "2",
+    "name": "VK_TIMEOUT",
+    "comment": "A wait operation has not completed in the specified time"
+  },
+  {
+    "value": "3",
+    "name": "VK_EVENT_SET",
+    "comment": "An event is signaled"
+  },
+  {
+    "value": "4",
+    "name": "VK_EVENT_RESET",
+    "comment": "An event is unsignaled"
+  },
+  {
+    "value": "5",
+    "name": "VK_INCOMPLETE",
+    "comment": "A return array was too small for the result"
+  },
+  {
+    "value": "-1",
+    "name": "VK_ERROR_OUT_OF_HOST_MEMORY",
+    "comment": "A host memory allocation has failed"
+  },
+  {
+    "value": "-2",
+    "name": "VK_ERROR_OUT_OF_DEVICE_MEMORY",
+    "comment": "A device memory allocation has failed"
+  },
+  {
+    "value": "-3",
+    "name": "VK_ERROR_INITIALIZATION_FAILED",
+    "comment": "Initialization of an object has failed"
+  },
+  {
+    "value": "-4",
+    "name": "VK_ERROR_DEVICE_LOST",
+    "comment": "The logical device has been lost. See <<devsandqueues-lost-device>>"
+  },
+  {
+    "value": "-5",
+    "name": "VK_ERROR_MEMORY_MAP_FAILED",
+    "comment": "Mapping of a memory object has failed"
+  },
+  {
+    "value": "-6",
+    "name": "VK_ERROR_LAYER_NOT_PRESENT",
+    "comment": "Layer specified does not exist"
+  },
+  {
+    "value": "-7",
+    "name": "VK_ERROR_EXTENSION_NOT_PRESENT",
+    "comment": "Extension specified does not exist"
+  },
+  {
+    "value": "-8",
+    "name": "VK_ERROR_FEATURE_NOT_PRESENT",
+    "comment": "Requested feature is not available on this device"
+  },
+  {
+    "value": "-9",
+    "name": "VK_ERROR_INCOMPATIBLE_DRIVER",
+    "comment": "Unable to find a Vulkan driver"
+  },
+  {
+    "value": "-10",
+    "name": "VK_ERROR_TOO_MANY_OBJECTS",
+    "comment": "Too many objects of the type have already been created"
+  },
+  {
+    "value": "-11",
+    "name": "VK_ERROR_FORMAT_NOT_SUPPORTED",
+    "comment": "Requested format is not supported on this device"
+  },
+  {
+    "value": "-12",
+    "name": "VK_ERROR_FRAGMENTED_POOL",
+    "comment": "A requested pool allocation has failed due to fragmentation of the pool's memory"
+  },
+  {
+    "value": "-13",
+    "name": "VK_ERROR_UNKNOWN",
+    "comment": "An unknown error has occurred, due to an implementation or application bug"
+  },
+  {
+    "value": "0",
+    "name": "VK_DYNAMIC_STATE_VIEWPORT"
+  },
+  {
+    "value": "1",
+    "name": "VK_DYNAMIC_STATE_SCISSOR"
+  },
+  {
+    "value": "2",
+    "name": "VK_DYNAMIC_STATE_LINE_WIDTH"
+  },
+  {
+    "value": "3",
+    "name": "VK_DYNAMIC_STATE_DEPTH_BIAS"
+  },
+  {
+    "value": "4",
+    "name": "VK_DYNAMIC_STATE_BLEND_CONSTANTS"
+  },
+  {
+    "value": "5",
+    "name": "VK_DYNAMIC_STATE_DEPTH_BOUNDS"
+  },
+  {
+    "value": "6",
+    "name": "VK_DYNAMIC_STATE_STENCIL_COMPARE_MASK"
+  },
+  {
+    "value": "7",
+    "name": "VK_DYNAMIC_STATE_STENCIL_WRITE_MASK"
+  },
+  {
+    "value": "8",
+    "name": "VK_DYNAMIC_STATE_STENCIL_REFERENCE"
+  },
+  {
+    "value": "0",
+    "name": "VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET",
+    "comment": "Create descriptor update template for descriptor set updates"
+  },
+  {
+    "value": "0",
+    "name": "VK_OBJECT_TYPE_UNKNOWN"
+  },
+  {
+    "value": "1",
+    "name": "VK_OBJECT_TYPE_INSTANCE"
+  },
+  {
+    "value": "2",
+    "name": "VK_OBJECT_TYPE_PHYSICAL_DEVICE"
+  },
+  {
+    "value": "3",
+    "name": "VK_OBJECT_TYPE_DEVICE"
+  },
+  {
+    "value": "4",
+    "name": "VK_OBJECT_TYPE_QUEUE"
+  },
+  {
+    "value": "5",
+    "name": "VK_OBJECT_TYPE_SEMAPHORE"
+  },
+  {
+    "value": "6",
+    "name": "VK_OBJECT_TYPE_COMMAND_BUFFER"
+  },
+  {
+    "value": "7",
+    "name": "VK_OBJECT_TYPE_FENCE"
+  },
+  {
+    "value": "8",
+    "name": "VK_OBJECT_TYPE_DEVICE_MEMORY"
+  },
+  {
+    "value": "9",
+    "name": "VK_OBJECT_TYPE_BUFFER"
+  },
+  {
+    "value": "10",
+    "name": "VK_OBJECT_TYPE_IMAGE"
+  },
+  {
+    "value": "11",
+    "name": "VK_OBJECT_TYPE_EVENT"
+  },
+  {
+    "value": "12",
+    "name": "VK_OBJECT_TYPE_QUERY_POOL"
+  },
+  {
+    "value": "13",
+    "name": "VK_OBJECT_TYPE_BUFFER_VIEW"
+  },
+  {
+    "value": "14",
+    "name": "VK_OBJECT_TYPE_IMAGE_VIEW"
+  },
+  {
+    "value": "15",
+    "name": "VK_OBJECT_TYPE_SHADER_MODULE"
+  },
+  {
+    "value": "16",
+    "name": "VK_OBJECT_TYPE_PIPELINE_CACHE"
+  },
+  {
+    "value": "17",
+    "name": "VK_OBJECT_TYPE_PIPELINE_LAYOUT"
+  },
+  {
+    "value": "18",
+    "name": "VK_OBJECT_TYPE_RENDER_PASS"
+  },
+  {
+    "value": "19",
+    "name": "VK_OBJECT_TYPE_PIPELINE"
+  },
+  {
+    "value": "20",
+    "name": "VK_OBJECT_TYPE_DESCRIPTOR_SET_LAYOUT"
+  },
+  {
+    "value": "21",
+    "name": "VK_OBJECT_TYPE_SAMPLER"
+  },
+  {
+    "value": "22",
+    "name": "VK_OBJECT_TYPE_DESCRIPTOR_POOL"
+  },
+  {
+    "value": "23",
+    "name": "VK_OBJECT_TYPE_DESCRIPTOR_SET"
+  },
+  {
+    "value": "24",
+    "name": "VK_OBJECT_TYPE_FRAMEBUFFER"
+  },
+  {
+    "value": "25",
+    "name": "VK_OBJECT_TYPE_COMMAND_POOL"
+  },
+  {
+    "value": "0",
+    "name": "VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_NV"
+  },
+  {
+    "value": "1",
+    "name": "VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_NV"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_QUEUE_GRAPHICS_BIT",
+    "comment": "Queue supports graphics operations"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_QUEUE_COMPUTE_BIT",
+    "comment": "Queue supports compute operations"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_QUEUE_TRANSFER_BIT",
+    "comment": "Queue supports transfer operations"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_QUEUE_SPARSE_BINDING_BIT",
+    "comment": "Queue supports sparse resource memory management operations"
+  },
+  {
+    "value": "0",
+    "name": "VK_CULL_MODE_NONE"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_CULL_MODE_FRONT_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_CULL_MODE_BACK_BIT"
+  },
+  {
+    "value": "0x00000003",
+    "name": "VK_CULL_MODE_FRONT_AND_BACK"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT",
+    "comment": "If otherwise stated, then allocate memory on device"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT",
+    "comment": "Memory is mappable by host"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_MEMORY_PROPERTY_HOST_COHERENT_BIT",
+    "comment": "Memory will have i/o coherency. If not set, application may need to use vkFlushMappedMemoryRanges and vkInvalidateMappedMemoryRanges to flush/invalidate host cache"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_MEMORY_PROPERTY_HOST_CACHED_BIT",
+    "comment": "Memory will be cached by the host"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT",
+    "comment": "Memory may be allocated by the driver when it is required"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_MEMORY_HEAP_DEVICE_LOCAL_BIT",
+    "comment": "If set, heap represents device memory"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_ACCESS_INDIRECT_COMMAND_READ_BIT",
+    "comment": "Controls coherency of indirect command reads"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_ACCESS_INDEX_READ_BIT",
+    "comment": "Controls coherency of index reads"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT",
+    "comment": "Controls coherency of vertex attribute reads"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_ACCESS_UNIFORM_READ_BIT",
+    "comment": "Controls coherency of uniform buffer reads"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_ACCESS_INPUT_ATTACHMENT_READ_BIT",
+    "comment": "Controls coherency of input attachment reads"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_ACCESS_SHADER_READ_BIT",
+    "comment": "Controls coherency of shader reads"
+  },
+  {
+    "bitpos": "6",
+    "name": "VK_ACCESS_SHADER_WRITE_BIT",
+    "comment": "Controls coherency of shader writes"
+  },
+  {
+    "bitpos": "7",
+    "name": "VK_ACCESS_COLOR_ATTACHMENT_READ_BIT",
+    "comment": "Controls coherency of color attachment reads"
+  },
+  {
+    "bitpos": "8",
+    "name": "VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT",
+    "comment": "Controls coherency of color attachment writes"
+  },
+  {
+    "bitpos": "9",
+    "name": "VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT",
+    "comment": "Controls coherency of depth/stencil attachment reads"
+  },
+  {
+    "bitpos": "10",
+    "name": "VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT",
+    "comment": "Controls coherency of depth/stencil attachment writes"
+  },
+  {
+    "bitpos": "11",
+    "name": "VK_ACCESS_TRANSFER_READ_BIT",
+    "comment": "Controls coherency of transfer reads"
+  },
+  {
+    "bitpos": "12",
+    "name": "VK_ACCESS_TRANSFER_WRITE_BIT",
+    "comment": "Controls coherency of transfer writes"
+  },
+  {
+    "bitpos": "13",
+    "name": "VK_ACCESS_HOST_READ_BIT",
+    "comment": "Controls coherency of host reads"
+  },
+  {
+    "bitpos": "14",
+    "name": "VK_ACCESS_HOST_WRITE_BIT",
+    "comment": "Controls coherency of host writes"
+  },
+  {
+    "bitpos": "15",
+    "name": "VK_ACCESS_MEMORY_READ_BIT",
+    "comment": "Controls coherency of memory reads"
+  },
+  {
+    "bitpos": "16",
+    "name": "VK_ACCESS_MEMORY_WRITE_BIT",
+    "comment": "Controls coherency of memory writes"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_BUFFER_USAGE_TRANSFER_SRC_BIT",
+    "comment": "Can be used as a source of transfer operations"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_BUFFER_USAGE_TRANSFER_DST_BIT",
+    "comment": "Can be used as a destination of transfer operations"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT",
+    "comment": "Can be used as TBO"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT",
+    "comment": "Can be used as IBO"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT",
+    "comment": "Can be used as UBO"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_BUFFER_USAGE_STORAGE_BUFFER_BIT",
+    "comment": "Can be used as SSBO"
+  },
+  {
+    "bitpos": "6",
+    "name": "VK_BUFFER_USAGE_INDEX_BUFFER_BIT",
+    "comment": "Can be used as source of fixed-function index fetch (index buffer)"
+  },
+  {
+    "bitpos": "7",
+    "name": "VK_BUFFER_USAGE_VERTEX_BUFFER_BIT",
+    "comment": "Can be used as source of fixed-function vertex fetch (VBO)"
+  },
+  {
+    "bitpos": "8",
+    "name": "VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT",
+    "comment": "Can be the source of indirect parameters (e.g. indirect buffer, parameter buffer)"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_BUFFER_CREATE_SPARSE_BINDING_BIT",
+    "comment": "Buffer should support sparse backing"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT",
+    "comment": "Buffer should support sparse backing with partial residency"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_BUFFER_CREATE_SPARSE_ALIASED_BIT",
+    "comment": "Buffer should support constant data access to physical memory ranges mapped into multiple locations of sparse buffers"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_SHADER_STAGE_VERTEX_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_SHADER_STAGE_GEOMETRY_BIT"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_SHADER_STAGE_FRAGMENT_BIT"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_SHADER_STAGE_COMPUTE_BIT"
+  },
+  {
+    "value": "0x0000001F",
+    "name": "VK_SHADER_STAGE_ALL_GRAPHICS"
+  },
+  {
+    "value": "0x7FFFFFFF",
+    "name": "VK_SHADER_STAGE_ALL"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_IMAGE_USAGE_TRANSFER_SRC_BIT",
+    "comment": "Can be used as a source of transfer operations"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_IMAGE_USAGE_TRANSFER_DST_BIT",
+    "comment": "Can be used as a destination of transfer operations"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_IMAGE_USAGE_SAMPLED_BIT",
+    "comment": "Can be sampled from (SAMPLED_IMAGE and COMBINED_IMAGE_SAMPLER descriptor types)"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_IMAGE_USAGE_STORAGE_BIT",
+    "comment": "Can be used as storage image (STORAGE_IMAGE descriptor type)"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT",
+    "comment": "Can be used as framebuffer color attachment"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT",
+    "comment": "Can be used as framebuffer depth/stencil attachment"
+  },
+  {
+    "bitpos": "6",
+    "name": "VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT",
+    "comment": "Image data not needed outside of rendering"
+  },
+  {
+    "bitpos": "7",
+    "name": "VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT",
+    "comment": "Can be used as framebuffer input attachment"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_IMAGE_CREATE_SPARSE_BINDING_BIT",
+    "comment": "Image should support sparse backing"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT",
+    "comment": "Image should support sparse backing with partial residency"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_IMAGE_CREATE_SPARSE_ALIASED_BIT",
+    "comment": "Image should support constant data access to physical memory ranges mapped into multiple locations of sparse images"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT",
+    "comment": "Allows image views to have different format than the base image"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT",
+    "comment": "Allows creating image views with cube type from the created image"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_PIPELINE_CREATE_DISABLE_OPTIMIZATION_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_PIPELINE_CREATE_ALLOW_DERIVATIVES_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_PIPELINE_CREATE_DERIVATIVE_BIT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_COLOR_COMPONENT_R_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_COLOR_COMPONENT_G_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_COLOR_COMPONENT_B_BIT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_COLOR_COMPONENT_A_BIT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_FENCE_CREATE_SIGNALED_BIT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT",
+    "comment": "Format can be used for sampled images (SAMPLED_IMAGE and COMBINED_IMAGE_SAMPLER descriptor types)"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT",
+    "comment": "Format can be used for storage images (STORAGE_IMAGE descriptor type)"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT",
+    "comment": "Format supports atomic operations in case it is used for storage images"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT",
+    "comment": "Format can be used for uniform texel buffers (TBOs)"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT",
+    "comment": "Format can be used for storage texel buffers (IBOs)"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT",
+    "comment": "Format supports atomic operations in case it is used for storage texel buffers"
+  },
+  {
+    "bitpos": "6",
+    "name": "VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT",
+    "comment": "Format can be used for vertex buffers (VBOs)"
+  },
+  {
+    "bitpos": "7",
+    "name": "VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT",
+    "comment": "Format can be used for color attachment images"
+  },
+  {
+    "bitpos": "8",
+    "name": "VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT",
+    "comment": "Format supports blending in case it is used for color attachment images"
+  },
+  {
+    "bitpos": "9",
+    "name": "VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT",
+    "comment": "Format can be used for depth/stencil attachment images"
+  },
+  {
+    "bitpos": "10",
+    "name": "VK_FORMAT_FEATURE_BLIT_SRC_BIT",
+    "comment": "Format can be used as the source image of blits with vkCmdBlitImage"
+  },
+  {
+    "bitpos": "11",
+    "name": "VK_FORMAT_FEATURE_BLIT_DST_BIT",
+    "comment": "Format can be used as the destination image of blits with vkCmdBlitImage"
+  },
+  {
+    "bitpos": "12",
+    "name": "VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT",
+    "comment": "Format can be filtered with VK_FILTER_LINEAR when being sampled"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_QUERY_CONTROL_PRECISE_BIT",
+    "comment": "Require precise results to be collected by the query"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_QUERY_RESULT_64_BIT",
+    "comment": "Results of the queries are written to the destination buffer as 64-bit values"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_QUERY_RESULT_WAIT_BIT",
+    "comment": "Results of the queries are waited on before proceeding with the result copy"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_QUERY_RESULT_WITH_AVAILABILITY_BIT",
+    "comment": "Besides the results of the query, the availability of the results is also written"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_QUERY_RESULT_PARTIAL_BIT",
+    "comment": "Copy the partial results of the query even if the final results are not available"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT",
+    "comment": "Command buffer may be submitted/executed more than once simultaneously"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_QUERY_PIPELINE_STATISTIC_INPUT_ASSEMBLY_VERTICES_BIT",
+    "comment": "Optional"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_QUERY_PIPELINE_STATISTIC_INPUT_ASSEMBLY_PRIMITIVES_BIT",
+    "comment": "Optional"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_QUERY_PIPELINE_STATISTIC_VERTEX_SHADER_INVOCATIONS_BIT",
+    "comment": "Optional"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_QUERY_PIPELINE_STATISTIC_GEOMETRY_SHADER_INVOCATIONS_BIT",
+    "comment": "Optional"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_QUERY_PIPELINE_STATISTIC_GEOMETRY_SHADER_PRIMITIVES_BIT",
+    "comment": "Optional"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_QUERY_PIPELINE_STATISTIC_CLIPPING_INVOCATIONS_BIT",
+    "comment": "Optional"
+  },
+  {
+    "bitpos": "6",
+    "name": "VK_QUERY_PIPELINE_STATISTIC_CLIPPING_PRIMITIVES_BIT",
+    "comment": "Optional"
+  },
+  {
+    "bitpos": "7",
+    "name": "VK_QUERY_PIPELINE_STATISTIC_FRAGMENT_SHADER_INVOCATIONS_BIT",
+    "comment": "Optional"
+  },
+  {
+    "bitpos": "8",
+    "name": "VK_QUERY_PIPELINE_STATISTIC_TESSELLATION_CONTROL_SHADER_PATCHES_BIT",
+    "comment": "Optional"
+  },
+  {
+    "bitpos": "9",
+    "name": "VK_QUERY_PIPELINE_STATISTIC_TESSELLATION_EVALUATION_SHADER_INVOCATIONS_BIT",
+    "comment": "Optional"
+  },
+  {
+    "bitpos": "10",
+    "name": "VK_QUERY_PIPELINE_STATISTIC_COMPUTE_SHADER_INVOCATIONS_BIT",
+    "comment": "Optional"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_IMAGE_ASPECT_COLOR_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_IMAGE_ASPECT_DEPTH_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_IMAGE_ASPECT_STENCIL_BIT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_IMAGE_ASPECT_METADATA_BIT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_SPARSE_IMAGE_FORMAT_SINGLE_MIPTAIL_BIT",
+    "comment": "Image uses a single mip tail region for all array layers"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_SPARSE_IMAGE_FORMAT_ALIGNED_MIP_SIZE_BIT",
+    "comment": "Image requires mip level dimensions to be an integer multiple of the sparse image block dimensions for non-tail mip levels."
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_SPARSE_IMAGE_FORMAT_NONSTANDARD_BLOCK_SIZE_BIT",
+    "comment": "Image uses a non-standard sparse image block dimensions"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_SPARSE_MEMORY_BIND_METADATA_BIT",
+    "comment": "Operation binds resource metadata to memory"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT",
+    "comment": "Before subsequent commands are processed"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_PIPELINE_STAGE_DRAW_INDIRECT_BIT",
+    "comment": "Draw/DispatchIndirect command fetch"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_PIPELINE_STAGE_VERTEX_INPUT_BIT",
+    "comment": "Vertex/index fetch"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_PIPELINE_STAGE_VERTEX_SHADER_BIT",
+    "comment": "Vertex shading"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT",
+    "comment": "Tessellation control shading"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT",
+    "comment": "Tessellation evaluation shading"
+  },
+  {
+    "bitpos": "6",
+    "name": "VK_PIPELINE_STAGE_GEOMETRY_SHADER_BIT",
+    "comment": "Geometry shading"
+  },
+  {
+    "bitpos": "7",
+    "name": "VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT",
+    "comment": "Fragment shading"
+  },
+  {
+    "bitpos": "8",
+    "name": "VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT",
+    "comment": "Early fragment (depth and stencil) tests"
+  },
+  {
+    "bitpos": "9",
+    "name": "VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT",
+    "comment": "Late fragment (depth and stencil) tests"
+  },
+  {
+    "bitpos": "10",
+    "name": "VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT",
+    "comment": "Color attachment writes"
+  },
+  {
+    "bitpos": "11",
+    "name": "VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT",
+    "comment": "Compute shading"
+  },
+  {
+    "bitpos": "12",
+    "name": "VK_PIPELINE_STAGE_TRANSFER_BIT",
+    "comment": "Transfer/copy operations"
+  },
+  {
+    "bitpos": "13",
+    "name": "VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT",
+    "comment": "After previous commands have completed"
+  },
+  {
+    "bitpos": "14",
+    "name": "VK_PIPELINE_STAGE_HOST_BIT",
+    "comment": "Indicates host (CPU) is a source/sink of the dependency"
+  },
+  {
+    "bitpos": "15",
+    "name": "VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT",
+    "comment": "All stages of the graphics pipeline"
+  },
+  {
+    "bitpos": "16",
+    "name": "VK_PIPELINE_STAGE_ALL_COMMANDS_BIT",
+    "comment": "All stages supported on the queue"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_COMMAND_POOL_CREATE_TRANSIENT_BIT",
+    "comment": "Command buffers have a short lifetime"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT",
+    "comment": "Command buffers may release their memory individually"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_COMMAND_POOL_RESET_RELEASE_RESOURCES_BIT",
+    "comment": "Release resources owned by the pool"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT",
+    "comment": "Release resources owned by the buffer"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_SAMPLE_COUNT_1_BIT",
+    "comment": "Sample count 1 supported"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_SAMPLE_COUNT_2_BIT",
+    "comment": "Sample count 2 supported"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_SAMPLE_COUNT_4_BIT",
+    "comment": "Sample count 4 supported"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_SAMPLE_COUNT_8_BIT",
+    "comment": "Sample count 8 supported"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_SAMPLE_COUNT_16_BIT",
+    "comment": "Sample count 16 supported"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_SAMPLE_COUNT_32_BIT",
+    "comment": "Sample count 32 supported"
+  },
+  {
+    "bitpos": "6",
+    "name": "VK_SAMPLE_COUNT_64_BIT",
+    "comment": "Sample count 64 supported"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT",
+    "comment": "The attachment may alias physical memory of another attachment in the same render pass"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_STENCIL_FACE_FRONT_BIT",
+    "comment": "Front face"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_STENCIL_FACE_BACK_BIT",
+    "comment": "Back face"
+  },
+  {
+    "value": "0x00000003",
+    "name": "VK_STENCIL_FACE_FRONT_AND_BACK",
+    "comment": "Front and back faces"
+  },
+  {
+    "name": "VK_STENCIL_FRONT_AND_BACK",
+    "alias": "VK_STENCIL_FACE_FRONT_AND_BACK",
+    "comment": "Backwards-compatible alias containing a typo"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT",
+    "comment": "Descriptor sets may be freed individually"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_DEPENDENCY_BY_REGION_BIT",
+    "comment": "Dependency is per pixel region "
+  },
+  {
+    "value": "0",
+    "name": "VK_SEMAPHORE_TYPE_BINARY"
+  },
+  {
+    "value": "1",
+    "name": "VK_SEMAPHORE_TYPE_TIMELINE"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_SEMAPHORE_WAIT_ANY_BIT"
+  },
+  {
+    "value": "0",
+    "name": "VK_PRESENT_MODE_IMMEDIATE_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_PRESENT_MODE_MAILBOX_KHR"
+  },
+  {
+    "value": "2",
+    "name": "VK_PRESENT_MODE_FIFO_KHR"
+  },
+  {
+    "value": "3",
+    "name": "VK_PRESENT_MODE_FIFO_RELAXED_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_COLOR_SPACE_SRGB_NONLINEAR_KHR"
+  },
+  {
+    "name": "VK_COLORSPACE_SRGB_NONLINEAR_KHR",
+    "alias": "VK_COLOR_SPACE_SRGB_NONLINEAR_KHR",
+    "comment": "Backwards-compatible alias containing a typo"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_DISPLAY_PLANE_ALPHA_OPAQUE_BIT_KHR"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_DISPLAY_PLANE_ALPHA_GLOBAL_BIT_KHR"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_DISPLAY_PLANE_ALPHA_PER_PIXEL_BIT_KHR"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_DISPLAY_PLANE_ALPHA_PER_PIXEL_PREMULTIPLIED_BIT_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_SURFACE_TRANSFORM_ROTATE_90_BIT_KHR"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_SURFACE_TRANSFORM_ROTATE_180_BIT_KHR"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_SURFACE_TRANSFORM_ROTATE_270_BIT_KHR"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_BIT_KHR"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_ROTATE_90_BIT_KHR"
+  },
+  {
+    "bitpos": "6",
+    "name": "VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_ROTATE_180_BIT_KHR"
+  },
+  {
+    "bitpos": "7",
+    "name": "VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_ROTATE_270_BIT_KHR"
+  },
+  {
+    "bitpos": "8",
+    "name": "VK_SURFACE_TRANSFORM_INHERIT_BIT_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_SWAPCHAIN_IMAGE_USAGE_SHARED_BIT_ANDROID"
+  },
+  {
+    "value": "0",
+    "name": "VK_TIME_DOMAIN_DEVICE_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_TIME_DOMAIN_CLOCK_MONOTONIC_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_TIME_DOMAIN_CLOCK_MONOTONIC_RAW_EXT"
+  },
+  {
+    "value": "3",
+    "name": "VK_TIME_DOMAIN_QUERY_PERFORMANCE_COUNTER_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_DEBUG_REPORT_INFORMATION_BIT_EXT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_DEBUG_REPORT_WARNING_BIT_EXT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_DEBUG_REPORT_ERROR_BIT_EXT"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_DEBUG_REPORT_DEBUG_BIT_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_UNKNOWN_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_INSTANCE_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_PHYSICAL_DEVICE_EXT"
+  },
+  {
+    "value": "3",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_DEVICE_EXT"
+  },
+  {
+    "value": "4",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_QUEUE_EXT"
+  },
+  {
+    "value": "5",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_SEMAPHORE_EXT"
+  },
+  {
+    "value": "6",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_COMMAND_BUFFER_EXT"
+  },
+  {
+    "value": "7",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_FENCE_EXT"
+  },
+  {
+    "value": "8",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_DEVICE_MEMORY_EXT"
+  },
+  {
+    "value": "9",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_EXT"
+  },
+  {
+    "value": "10",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_IMAGE_EXT"
+  },
+  {
+    "value": "11",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_EVENT_EXT"
+  },
+  {
+    "value": "12",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_QUERY_POOL_EXT"
+  },
+  {
+    "value": "13",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_VIEW_EXT"
+  },
+  {
+    "value": "14",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_IMAGE_VIEW_EXT"
+  },
+  {
+    "value": "15",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_SHADER_MODULE_EXT"
+  },
+  {
+    "value": "16",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_PIPELINE_CACHE_EXT"
+  },
+  {
+    "value": "17",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_PIPELINE_LAYOUT_EXT"
+  },
+  {
+    "value": "18",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_RENDER_PASS_EXT"
+  },
+  {
+    "value": "19",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_PIPELINE_EXT"
+  },
+  {
+    "value": "20",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_SET_LAYOUT_EXT"
+  },
+  {
+    "value": "21",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_EXT"
+  },
+  {
+    "value": "22",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_POOL_EXT"
+  },
+  {
+    "value": "23",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_SET_EXT"
+  },
+  {
+    "value": "24",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_FRAMEBUFFER_EXT"
+  },
+  {
+    "value": "25",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_COMMAND_POOL_EXT"
+  },
+  {
+    "value": "26",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_SURFACE_KHR_EXT"
+  },
+  {
+    "value": "27",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_SWAPCHAIN_KHR_EXT"
+  },
+  {
+    "value": "28",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_CALLBACK_EXT_EXT"
+  },
+  {
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_EXT",
+    "alias": "VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_CALLBACK_EXT_EXT",
+    "comment": "Backwards-compatible alias containing a typo"
+  },
+  {
+    "value": "29",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_DISPLAY_KHR_EXT"
+  },
+  {
+    "value": "30",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_DISPLAY_MODE_KHR_EXT"
+  },
+  {
+    "value": "33",
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT_EXT"
+  },
+  {
+    "name": "VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT",
+    "alias": "VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT_EXT",
+    "comment": "Backwards-compatible alias containing a typo"
+  },
+  {
+    "value": "0",
+    "name": "VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_ALLOCATE_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_FREE_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_IMPORT_EXT"
+  },
+  {
+    "value": "3",
+    "name": "VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_UNIMPORT_EXT"
+  },
+  {
+    "value": "4",
+    "name": "VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_ALLOCATION_FAILED_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_RASTERIZATION_ORDER_STRICT_AMD"
+  },
+  {
+    "value": "1",
+    "name": "VK_RASTERIZATION_ORDER_RELAXED_AMD"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT_NV"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT_NV"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_IMAGE_BIT_NV"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_IMAGE_KMT_BIT_NV"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_EXTERNAL_MEMORY_FEATURE_DEDICATED_ONLY_BIT_NV"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_EXTERNAL_MEMORY_FEATURE_EXPORTABLE_BIT_NV"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_EXTERNAL_MEMORY_FEATURE_IMPORTABLE_BIT_NV"
+  },
+  {
+    "value": "0",
+    "name": "VK_VALIDATION_CHECK_ALL_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_VALIDATION_CHECK_SHADERS_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_RESERVE_BINDING_SLOT_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_VALIDATION_FEATURE_ENABLE_BEST_PRACTICES_EXT"
+  },
+  {
+    "value": "3",
+    "name": "VK_VALIDATION_FEATURE_ENABLE_DEBUG_PRINTF_EXT"
+  },
+  {
+    "value": "4",
+    "name": "VK_VALIDATION_FEATURE_ENABLE_SYNCHRONIZATION_VALIDATION_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_VALIDATION_FEATURE_DISABLE_ALL_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_VALIDATION_FEATURE_DISABLE_SHADERS_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_VALIDATION_FEATURE_DISABLE_THREAD_SAFETY_EXT"
+  },
+  {
+    "value": "3",
+    "name": "VK_VALIDATION_FEATURE_DISABLE_API_PARAMETERS_EXT"
+  },
+  {
+    "value": "4",
+    "name": "VK_VALIDATION_FEATURE_DISABLE_OBJECT_LIFETIMES_EXT"
+  },
+  {
+    "value": "5",
+    "name": "VK_VALIDATION_FEATURE_DISABLE_CORE_CHECKS_EXT"
+  },
+  {
+    "value": "6",
+    "name": "VK_VALIDATION_FEATURE_DISABLE_UNIQUE_HANDLES_EXT"
+  },
+  {
+    "value": "7",
+    "name": "VK_VALIDATION_FEATURE_DISABLE_SHADER_VALIDATION_CACHE_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_SUBGROUP_FEATURE_BASIC_BIT",
+    "comment": "Basic subgroup operations"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_SUBGROUP_FEATURE_VOTE_BIT",
+    "comment": "Vote subgroup operations"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_SUBGROUP_FEATURE_ARITHMETIC_BIT",
+    "comment": "Arithmetic subgroup operations"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_SUBGROUP_FEATURE_BALLOT_BIT",
+    "comment": "Ballot subgroup operations"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_SUBGROUP_FEATURE_SHUFFLE_BIT",
+    "comment": "Shuffle subgroup operations"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_SUBGROUP_FEATURE_SHUFFLE_RELATIVE_BIT",
+    "comment": "Shuffle relative subgroup operations"
+  },
+  {
+    "bitpos": "6",
+    "name": "VK_SUBGROUP_FEATURE_CLUSTERED_BIT",
+    "comment": "Clustered subgroup operations"
+  },
+  {
+    "bitpos": "7",
+    "name": "VK_SUBGROUP_FEATURE_QUAD_BIT",
+    "comment": "Quad subgroup operations"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_INDIRECT_COMMANDS_LAYOUT_USAGE_EXPLICIT_PREPROCESS_BIT_NV"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_INDIRECT_COMMANDS_LAYOUT_USAGE_INDEXED_SEQUENCES_BIT_NV"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_INDIRECT_COMMANDS_LAYOUT_USAGE_UNORDERED_SEQUENCES_BIT_NV"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_INDIRECT_STATE_FLAG_FRONTFACE_BIT_NV"
+  },
+  {
+    "value": "0",
+    "name": "VK_INDIRECT_COMMANDS_TOKEN_TYPE_SHADER_GROUP_NV"
+  },
+  {
+    "value": "1",
+    "name": "VK_INDIRECT_COMMANDS_TOKEN_TYPE_STATE_FLAGS_NV"
+  },
+  {
+    "value": "2",
+    "name": "VK_INDIRECT_COMMANDS_TOKEN_TYPE_INDEX_BUFFER_NV"
+  },
+  {
+    "value": "3",
+    "name": "VK_INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_NV"
+  },
+  {
+    "value": "4",
+    "name": "VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_NV"
+  },
+  {
+    "value": "5",
+    "name": "VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_NV"
+  },
+  {
+    "value": "6",
+    "name": "VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_NV"
+  },
+  {
+    "value": "7",
+    "name": "VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_TASKS_NV"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_BIT"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_KMT_BIT"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_HEAP_BIT"
+  },
+  {
+    "bitpos": "6",
+    "name": "VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_RESOURCE_BIT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_EXTERNAL_MEMORY_FEATURE_DEDICATED_ONLY_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_EXTERNAL_MEMORY_FEATURE_EXPORTABLE_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_EXTERNAL_MEMORY_FEATURE_IMPORTABLE_BIT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_FD_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_WIN32_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_D3D12_FENCE_BIT"
+  },
+  {
+    "name": "VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_D3D11_FENCE_BIT",
+    "alias": "VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_D3D12_FENCE_BIT"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_EXTERNAL_SEMAPHORE_FEATURE_EXPORTABLE_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_EXTERNAL_SEMAPHORE_FEATURE_IMPORTABLE_BIT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_SEMAPHORE_IMPORT_TEMPORARY_BIT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_FD_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_WIN32_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_EXTERNAL_FENCE_FEATURE_EXPORTABLE_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_EXTERNAL_FENCE_FEATURE_IMPORTABLE_BIT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_FENCE_IMPORT_TEMPORARY_BIT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_SURFACE_COUNTER_VBLANK_BIT_EXT"
+  },
+  {
+    "name": "VK_SURFACE_COUNTER_VBLANK_EXT",
+    "alias": "VK_SURFACE_COUNTER_VBLANK_BIT_EXT",
+    "comment": "Backwards-compatible alias containing a typo"
+  },
+  {
+    "value": "0",
+    "name": "VK_DISPLAY_POWER_STATE_OFF_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_DISPLAY_POWER_STATE_SUSPEND_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_DISPLAY_POWER_STATE_ON_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_DEVICE_EVENT_TYPE_DISPLAY_HOTPLUG_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_DISPLAY_EVENT_TYPE_FIRST_PIXEL_OUT_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_PEER_MEMORY_FEATURE_COPY_SRC_BIT",
+    "comment": "Can read with vkCmdCopy commands"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_PEER_MEMORY_FEATURE_COPY_DST_BIT",
+    "comment": "Can write with vkCmdCopy commands"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_PEER_MEMORY_FEATURE_GENERIC_SRC_BIT",
+    "comment": "Can read with any access type/command"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_PEER_MEMORY_FEATURE_GENERIC_DST_BIT",
+    "comment": "Can write with and access type/command"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_MEMORY_ALLOCATE_DEVICE_MASK_BIT",
+    "comment": "Force allocation on specific devices"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_DEVICE_GROUP_PRESENT_MODE_LOCAL_BIT_KHR",
+    "comment": "Present from local memory"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_DEVICE_GROUP_PRESENT_MODE_REMOTE_BIT_KHR",
+    "comment": "Present from remote memory"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_DEVICE_GROUP_PRESENT_MODE_SUM_BIT_KHR",
+    "comment": "Present sum of local and/or remote memory"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_DEVICE_GROUP_PRESENT_MODE_LOCAL_MULTI_DEVICE_BIT_KHR",
+    "comment": "Each physical device presents from local memory"
+  },
+  {
+    "value": "0",
+    "name": "VK_VIEWPORT_COORDINATE_SWIZZLE_POSITIVE_X_NV"
+  },
+  {
+    "value": "1",
+    "name": "VK_VIEWPORT_COORDINATE_SWIZZLE_NEGATIVE_X_NV"
+  },
+  {
+    "value": "2",
+    "name": "VK_VIEWPORT_COORDINATE_SWIZZLE_POSITIVE_Y_NV"
+  },
+  {
+    "value": "3",
+    "name": "VK_VIEWPORT_COORDINATE_SWIZZLE_NEGATIVE_Y_NV"
+  },
+  {
+    "value": "4",
+    "name": "VK_VIEWPORT_COORDINATE_SWIZZLE_POSITIVE_Z_NV"
+  },
+  {
+    "value": "5",
+    "name": "VK_VIEWPORT_COORDINATE_SWIZZLE_NEGATIVE_Z_NV"
+  },
+  {
+    "value": "6",
+    "name": "VK_VIEWPORT_COORDINATE_SWIZZLE_POSITIVE_W_NV"
+  },
+  {
+    "value": "7",
+    "name": "VK_VIEWPORT_COORDINATE_SWIZZLE_NEGATIVE_W_NV"
+  },
+  {
+    "value": "0",
+    "name": "VK_DISCARD_RECTANGLE_MODE_INCLUSIVE_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_DISCARD_RECTANGLE_MODE_EXCLUSIVE_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_POINT_CLIPPING_BEHAVIOR_ALL_CLIP_PLANES"
+  },
+  {
+    "value": "1",
+    "name": "VK_POINT_CLIPPING_BEHAVIOR_USER_CLIP_PLANES_ONLY"
+  },
+  {
+    "value": "0",
+    "name": "VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE"
+  },
+  {
+    "value": "1",
+    "name": "VK_SAMPLER_REDUCTION_MODE_MIN"
+  },
+  {
+    "value": "2",
+    "name": "VK_SAMPLER_REDUCTION_MODE_MAX"
+  },
+  {
+    "value": "0",
+    "name": "VK_TESSELLATION_DOMAIN_ORIGIN_UPPER_LEFT"
+  },
+  {
+    "value": "1",
+    "name": "VK_TESSELLATION_DOMAIN_ORIGIN_LOWER_LEFT"
+  },
+  {
+    "value": "0",
+    "name": "VK_SAMPLER_YCBCR_MODEL_CONVERSION_RGB_IDENTITY"
+  },
+  {
+    "value": "1",
+    "name": "VK_SAMPLER_YCBCR_MODEL_CONVERSION_YCBCR_IDENTITY",
+    "comment": "just range expansion"
+  },
+  {
+    "value": "2",
+    "name": "VK_SAMPLER_YCBCR_MODEL_CONVERSION_YCBCR_709",
+    "comment": "aka HD YUV"
+  },
+  {
+    "value": "3",
+    "name": "VK_SAMPLER_YCBCR_MODEL_CONVERSION_YCBCR_601",
+    "comment": "aka SD YUV"
+  },
+  {
+    "value": "4",
+    "name": "VK_SAMPLER_YCBCR_MODEL_CONVERSION_YCBCR_2020",
+    "comment": "aka UHD YUV"
+  },
+  {
+    "value": "0",
+    "name": "VK_SAMPLER_YCBCR_RANGE_ITU_FULL",
+    "comment": "Luma 0..1 maps to 0..255, chroma -0.5..0.5 to 1..255 (clamped)"
+  },
+  {
+    "value": "1",
+    "name": "VK_SAMPLER_YCBCR_RANGE_ITU_NARROW",
+    "comment": "Luma 0..1 maps to 16..235, chroma -0.5..0.5 to 16..240"
+  },
+  {
+    "value": "0",
+    "name": "VK_CHROMA_LOCATION_COSITED_EVEN"
+  },
+  {
+    "value": "1",
+    "name": "VK_CHROMA_LOCATION_MIDPOINT"
+  },
+  {
+    "value": "0",
+    "name": "VK_BLEND_OVERLAP_UNCORRELATED_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_BLEND_OVERLAP_DISJOINT_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_BLEND_OVERLAP_CONJOINT_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_COVERAGE_MODULATION_MODE_NONE_NV"
+  },
+  {
+    "value": "1",
+    "name": "VK_COVERAGE_MODULATION_MODE_RGB_NV"
+  },
+  {
+    "value": "2",
+    "name": "VK_COVERAGE_MODULATION_MODE_ALPHA_NV"
+  },
+  {
+    "value": "3",
+    "name": "VK_COVERAGE_MODULATION_MODE_RGBA_NV"
+  },
+  {
+    "value": "0",
+    "name": "VK_COVERAGE_REDUCTION_MODE_MERGE_NV"
+  },
+  {
+    "value": "1",
+    "name": "VK_COVERAGE_REDUCTION_MODE_TRUNCATE_NV"
+  },
+  {
+    "value": "1",
+    "name": "VK_VALIDATION_CACHE_HEADER_VERSION_ONE_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_SHADER_INFO_TYPE_STATISTICS_AMD"
+  },
+  {
+    "value": "1",
+    "name": "VK_SHADER_INFO_TYPE_BINARY_AMD"
+  },
+  {
+    "value": "2",
+    "name": "VK_SHADER_INFO_TYPE_DISASSEMBLY_AMD"
+  },
+  {
+    "value": "128",
+    "name": "VK_QUEUE_GLOBAL_PRIORITY_LOW_KHR"
+  },
+  {
+    "value": "256",
+    "name": "VK_QUEUE_GLOBAL_PRIORITY_MEDIUM_KHR"
+  },
+  {
+    "value": "512",
+    "name": "VK_QUEUE_GLOBAL_PRIORITY_HIGH_KHR"
+  },
+  {
+    "value": "1024",
+    "name": "VK_QUEUE_GLOBAL_PRIORITY_REALTIME_KHR"
+  },
+  {
+    "name": "VK_QUEUE_GLOBAL_PRIORITY_LOW_EXT",
+    "alias": "VK_QUEUE_GLOBAL_PRIORITY_LOW_KHR"
+  },
+  {
+    "name": "VK_QUEUE_GLOBAL_PRIORITY_MEDIUM_EXT",
+    "alias": "VK_QUEUE_GLOBAL_PRIORITY_MEDIUM_KHR"
+  },
+  {
+    "name": "VK_QUEUE_GLOBAL_PRIORITY_HIGH_EXT",
+    "alias": "VK_QUEUE_GLOBAL_PRIORITY_HIGH_KHR"
+  },
+  {
+    "name": "VK_QUEUE_GLOBAL_PRIORITY_REALTIME_EXT",
+    "alias": "VK_QUEUE_GLOBAL_PRIORITY_REALTIME_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT"
+  },
+  {
+    "bitpos": "8",
+    "name": "VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT"
+  },
+  {
+    "bitpos": "12",
+    "name": "VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_CONSERVATIVE_RASTERIZATION_MODE_DISABLED_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_CONSERVATIVE_RASTERIZATION_MODE_OVERESTIMATE_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_CONSERVATIVE_RASTERIZATION_MODE_UNDERESTIMATE_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_DESCRIPTOR_BINDING_UPDATE_UNUSED_WHILE_PENDING_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT"
+  },
+  {
+    "value": "0x10001",
+    "name": "VK_VENDOR_ID_VIV",
+    "comment": "Vivante vendor ID"
+  },
+  {
+    "value": "0x10002",
+    "name": "VK_VENDOR_ID_VSI",
+    "comment": "VeriSilicon vendor ID"
+  },
+  {
+    "value": "0x10003",
+    "name": "VK_VENDOR_ID_KAZAN",
+    "comment": "Kazan Software Renderer"
+  },
+  {
+    "value": "0x10004",
+    "name": "VK_VENDOR_ID_CODEPLAY",
+    "comment": "Codeplay Software Ltd. vendor ID"
+  },
+  {
+    "value": "0x10005",
+    "name": "VK_VENDOR_ID_MESA",
+    "comment": "Mesa vendor ID"
+  },
+  {
+    "value": "0x10006",
+    "name": "VK_VENDOR_ID_POCL",
+    "comment": "PoCL vendor ID"
+  },
+  {
+    "value": "1",
+    "name": "VK_DRIVER_ID_AMD_PROPRIETARY",
+    "comment": "Advanced Micro Devices, Inc."
+  },
+  {
+    "value": "2",
+    "name": "VK_DRIVER_ID_AMD_OPEN_SOURCE",
+    "comment": "Advanced Micro Devices, Inc."
+  },
+  {
+    "value": "3",
+    "name": "VK_DRIVER_ID_MESA_RADV",
+    "comment": "Mesa open source project"
+  },
+  {
+    "value": "4",
+    "name": "VK_DRIVER_ID_NVIDIA_PROPRIETARY",
+    "comment": "NVIDIA Corporation"
+  },
+  {
+    "value": "5",
+    "name": "VK_DRIVER_ID_INTEL_PROPRIETARY_WINDOWS",
+    "comment": "Intel Corporation"
+  },
+  {
+    "value": "6",
+    "name": "VK_DRIVER_ID_INTEL_OPEN_SOURCE_MESA",
+    "comment": "Intel Corporation"
+  },
+  {
+    "value": "7",
+    "name": "VK_DRIVER_ID_IMAGINATION_PROPRIETARY",
+    "comment": "Imagination Technologies"
+  },
+  {
+    "value": "8",
+    "name": "VK_DRIVER_ID_QUALCOMM_PROPRIETARY",
+    "comment": "Qualcomm Technologies, Inc."
+  },
+  {
+    "value": "9",
+    "name": "VK_DRIVER_ID_ARM_PROPRIETARY",
+    "comment": "Arm Limited"
+  },
+  {
+    "value": "10",
+    "name": "VK_DRIVER_ID_GOOGLE_SWIFTSHADER",
+    "comment": "Google LLC"
+  },
+  {
+    "value": "11",
+    "name": "VK_DRIVER_ID_GGP_PROPRIETARY",
+    "comment": "Google LLC"
+  },
+  {
+    "value": "12",
+    "name": "VK_DRIVER_ID_BROADCOM_PROPRIETARY",
+    "comment": "Broadcom Inc."
+  },
+  {
+    "value": "13",
+    "name": "VK_DRIVER_ID_MESA_LLVMPIPE",
+    "comment": "Mesa"
+  },
+  {
+    "value": "14",
+    "name": "VK_DRIVER_ID_MOLTENVK",
+    "comment": "MoltenVK"
+  },
+  {
+    "value": "15",
+    "name": "VK_DRIVER_ID_COREAVI_PROPRIETARY",
+    "comment": "Core Avionics & Industrial Inc."
+  },
+  {
+    "value": "16",
+    "name": "VK_DRIVER_ID_JUICE_PROPRIETARY",
+    "comment": "Juice Technologies, Inc."
+  },
+  {
+    "value": "17",
+    "name": "VK_DRIVER_ID_VERISILICON_PROPRIETARY",
+    "comment": "Verisilicon, Inc."
+  },
+  {
+    "value": "18",
+    "name": "VK_DRIVER_ID_MESA_TURNIP",
+    "comment": "Mesa open source project"
+  },
+  {
+    "value": "19",
+    "name": "VK_DRIVER_ID_MESA_V3DV",
+    "comment": "Mesa open source project"
+  },
+  {
+    "value": "20",
+    "name": "VK_DRIVER_ID_MESA_PANVK",
+    "comment": "Mesa open source project"
+  },
+  {
+    "value": "21",
+    "name": "VK_DRIVER_ID_SAMSUNG_PROPRIETARY",
+    "comment": "Samsung Electronics Co., Ltd."
+  },
+  {
+    "value": "22",
+    "name": "VK_DRIVER_ID_MESA_VENUS",
+    "comment": "Mesa open source project"
+  },
+  {
+    "value": "23",
+    "name": "VK_DRIVER_ID_MESA_DOZEN",
+    "comment": "Mesa open source project"
+  },
+  {
+    "value": "24",
+    "name": "VK_DRIVER_ID_MESA_NVK",
+    "comment": "Mesa open source project"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_CONDITIONAL_RENDERING_INVERTED_BIT_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_RESOLVE_MODE_NONE"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_RESOLVE_MODE_SAMPLE_ZERO_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_RESOLVE_MODE_AVERAGE_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_RESOLVE_MODE_MIN_BIT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_RESOLVE_MODE_MAX_BIT"
+  },
+  {
+    "value": "0",
+    "name": "VK_SHADING_RATE_PALETTE_ENTRY_NO_INVOCATIONS_NV"
+  },
+  {
+    "value": "1",
+    "name": "VK_SHADING_RATE_PALETTE_ENTRY_16_INVOCATIONS_PER_PIXEL_NV"
+  },
+  {
+    "value": "2",
+    "name": "VK_SHADING_RATE_PALETTE_ENTRY_8_INVOCATIONS_PER_PIXEL_NV"
+  },
+  {
+    "value": "3",
+    "name": "VK_SHADING_RATE_PALETTE_ENTRY_4_INVOCATIONS_PER_PIXEL_NV"
+  },
+  {
+    "value": "4",
+    "name": "VK_SHADING_RATE_PALETTE_ENTRY_2_INVOCATIONS_PER_PIXEL_NV"
+  },
+  {
+    "value": "5",
+    "name": "VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_PIXEL_NV"
+  },
+  {
+    "value": "6",
+    "name": "VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_2X1_PIXELS_NV"
+  },
+  {
+    "value": "7",
+    "name": "VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_1X2_PIXELS_NV"
+  },
+  {
+    "value": "8",
+    "name": "VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_2X2_PIXELS_NV"
+  },
+  {
+    "value": "9",
+    "name": "VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_4X2_PIXELS_NV"
+  },
+  {
+    "value": "10",
+    "name": "VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_2X4_PIXELS_NV"
+  },
+  {
+    "value": "11",
+    "name": "VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_4X4_PIXELS_NV"
+  },
+  {
+    "value": "0",
+    "name": "VK_COARSE_SAMPLE_ORDER_TYPE_DEFAULT_NV"
+  },
+  {
+    "value": "1",
+    "name": "VK_COARSE_SAMPLE_ORDER_TYPE_CUSTOM_NV"
+  },
+  {
+    "value": "2",
+    "name": "VK_COARSE_SAMPLE_ORDER_TYPE_PIXEL_MAJOR_NV"
+  },
+  {
+    "value": "3",
+    "name": "VK_COARSE_SAMPLE_ORDER_TYPE_SAMPLE_MAJOR_NV"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_GEOMETRY_INSTANCE_TRIANGLE_FACING_CULL_DISABLE_BIT_KHR"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_GEOMETRY_INSTANCE_TRIANGLE_FLIP_FACING_BIT_KHR"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_GEOMETRY_INSTANCE_FORCE_OPAQUE_BIT_KHR"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_GEOMETRY_INSTANCE_FORCE_NO_OPAQUE_BIT_KHR"
+  },
+  {
+    "name": "VK_GEOMETRY_INSTANCE_TRIANGLE_FRONT_COUNTERCLOCKWISE_BIT_KHR",
+    "alias": "VK_GEOMETRY_INSTANCE_TRIANGLE_FLIP_FACING_BIT_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_GEOMETRY_OPAQUE_BIT_KHR"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_GEOMETRY_NO_DUPLICATE_ANY_HIT_INVOCATION_BIT_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_KHR"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_COMPACTION_BIT_KHR"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_KHR"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_BUILD_BIT_KHR"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_BUILD_ACCELERATION_STRUCTURE_LOW_MEMORY_BIT_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_ACCELERATION_STRUCTURE_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_COPY_ACCELERATION_STRUCTURE_MODE_CLONE_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_COPY_ACCELERATION_STRUCTURE_MODE_COMPACT_KHR"
+  },
+  {
+    "value": "2",
+    "name": "VK_COPY_ACCELERATION_STRUCTURE_MODE_SERIALIZE_KHR"
+  },
+  {
+    "value": "3",
+    "name": "VK_COPY_ACCELERATION_STRUCTURE_MODE_DESERIALIZE_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_BUILD_ACCELERATION_STRUCTURE_MODE_BUILD_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR"
+  },
+  {
+    "value": "2",
+    "name": "VK_ACCELERATION_STRUCTURE_TYPE_GENERIC_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_GEOMETRY_TYPE_TRIANGLES_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_GEOMETRY_TYPE_AABBS_KHR"
+  },
+  {
+    "value": "2",
+    "name": "VK_GEOMETRY_TYPE_INSTANCES_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_OBJECT_NV"
+  },
+  {
+    "value": "1",
+    "name": "VK_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_BUILD_SCRATCH_NV"
+  },
+  {
+    "value": "2",
+    "name": "VK_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_UPDATE_SCRATCH_NV"
+  },
+  {
+    "value": "0",
+    "name": "VK_ACCELERATION_STRUCTURE_BUILD_TYPE_HOST_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_ACCELERATION_STRUCTURE_BUILD_TYPE_DEVICE_KHR"
+  },
+  {
+    "value": "2",
+    "name": "VK_ACCELERATION_STRUCTURE_BUILD_TYPE_HOST_OR_DEVICE_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_RAY_TRACING_SHADER_GROUP_TYPE_GENERAL_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_RAY_TRACING_SHADER_GROUP_TYPE_TRIANGLES_HIT_GROUP_KHR"
+  },
+  {
+    "value": "2",
+    "name": "VK_RAY_TRACING_SHADER_GROUP_TYPE_PROCEDURAL_HIT_GROUP_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_ACCELERATION_STRUCTURE_COMPATIBILITY_COMPATIBLE_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_ACCELERATION_STRUCTURE_COMPATIBILITY_INCOMPATIBLE_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_SHADER_GROUP_SHADER_GENERAL_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_SHADER_GROUP_SHADER_CLOSEST_HIT_KHR"
+  },
+  {
+    "value": "2",
+    "name": "VK_SHADER_GROUP_SHADER_ANY_HIT_KHR"
+  },
+  {
+    "value": "3",
+    "name": "VK_SHADER_GROUP_SHADER_INTERSECTION_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_MEMORY_OVERALLOCATION_BEHAVIOR_DEFAULT_AMD"
+  },
+  {
+    "value": "1",
+    "name": "VK_MEMORY_OVERALLOCATION_BEHAVIOR_ALLOWED_AMD"
+  },
+  {
+    "value": "2",
+    "name": "VK_MEMORY_OVERALLOCATION_BEHAVIOR_DISALLOWED_AMD"
+  },
+  {
+    "value": "1",
+    "name": "VK_SCOPE_DEVICE_NV"
+  },
+  {
+    "value": "2",
+    "name": "VK_SCOPE_WORKGROUP_NV"
+  },
+  {
+    "value": "3",
+    "name": "VK_SCOPE_SUBGROUP_NV"
+  },
+  {
+    "value": "5",
+    "name": "VK_SCOPE_QUEUE_FAMILY_NV"
+  },
+  {
+    "value": "0",
+    "name": "VK_COMPONENT_TYPE_FLOAT16_NV"
+  },
+  {
+    "value": "1",
+    "name": "VK_COMPONENT_TYPE_FLOAT32_NV"
+  },
+  {
+    "value": "2",
+    "name": "VK_COMPONENT_TYPE_FLOAT64_NV"
+  },
+  {
+    "value": "3",
+    "name": "VK_COMPONENT_TYPE_SINT8_NV"
+  },
+  {
+    "value": "4",
+    "name": "VK_COMPONENT_TYPE_SINT16_NV"
+  },
+  {
+    "value": "5",
+    "name": "VK_COMPONENT_TYPE_SINT32_NV"
+  },
+  {
+    "value": "6",
+    "name": "VK_COMPONENT_TYPE_SINT64_NV"
+  },
+  {
+    "value": "7",
+    "name": "VK_COMPONENT_TYPE_UINT8_NV"
+  },
+  {
+    "value": "8",
+    "name": "VK_COMPONENT_TYPE_UINT16_NV"
+  },
+  {
+    "value": "9",
+    "name": "VK_COMPONENT_TYPE_UINT32_NV"
+  },
+  {
+    "value": "10",
+    "name": "VK_COMPONENT_TYPE_UINT64_NV"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_SHADER_DEBUG_INFO_BIT_NV"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_RESOURCE_TRACKING_BIT_NV"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_AUTOMATIC_CHECKPOINTS_BIT_NV"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_SHADER_ERROR_REPORTING_BIT_NV"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_PIPELINE_CREATION_FEEDBACK_VALID_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_CREATION_FEEDBACK_VALID_BIT_EXT",
+    "alias": "VK_PIPELINE_CREATION_FEEDBACK_VALID_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_PIPELINE_CREATION_FEEDBACK_APPLICATION_PIPELINE_CACHE_HIT_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_CREATION_FEEDBACK_APPLICATION_PIPELINE_CACHE_HIT_BIT_EXT",
+    "alias": "VK_PIPELINE_CREATION_FEEDBACK_APPLICATION_PIPELINE_CACHE_HIT_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_PIPELINE_CREATION_FEEDBACK_BASE_PIPELINE_ACCELERATION_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_CREATION_FEEDBACK_BASE_PIPELINE_ACCELERATION_BIT_EXT",
+    "alias": "VK_PIPELINE_CREATION_FEEDBACK_BASE_PIPELINE_ACCELERATION_BIT"
+  },
+  {
+    "value": "0",
+    "name": "VK_FULL_SCREEN_EXCLUSIVE_DEFAULT_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_FULL_SCREEN_EXCLUSIVE_ALLOWED_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_FULL_SCREEN_EXCLUSIVE_DISALLOWED_EXT"
+  },
+  {
+    "value": "3",
+    "name": "VK_FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_PERFORMANCE_COUNTER_SCOPE_COMMAND_BUFFER_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_PERFORMANCE_COUNTER_SCOPE_RENDER_PASS_KHR"
+  },
+  {
+    "value": "2",
+    "name": "VK_PERFORMANCE_COUNTER_SCOPE_COMMAND_KHR"
+  },
+  {
+    "name": "VK_QUERY_SCOPE_COMMAND_BUFFER_KHR",
+    "alias": "VK_PERFORMANCE_COUNTER_SCOPE_COMMAND_BUFFER_KHR",
+    "comment": "Backwards-compatible alias containing a typo"
+  },
+  {
+    "name": "VK_QUERY_SCOPE_RENDER_PASS_KHR",
+    "alias": "VK_PERFORMANCE_COUNTER_SCOPE_RENDER_PASS_KHR",
+    "comment": "Backwards-compatible alias containing a typo"
+  },
+  {
+    "name": "VK_QUERY_SCOPE_COMMAND_KHR",
+    "alias": "VK_PERFORMANCE_COUNTER_SCOPE_COMMAND_KHR",
+    "comment": "Backwards-compatible alias containing a typo"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_MEMORY_DECOMPRESSION_METHOD_GDEFLATE_1_0_BIT_NV"
+  },
+  {
+    "value": "0",
+    "name": "VK_PERFORMANCE_COUNTER_UNIT_GENERIC_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_PERFORMANCE_COUNTER_UNIT_PERCENTAGE_KHR"
+  },
+  {
+    "value": "2",
+    "name": "VK_PERFORMANCE_COUNTER_UNIT_NANOSECONDS_KHR"
+  },
+  {
+    "value": "3",
+    "name": "VK_PERFORMANCE_COUNTER_UNIT_BYTES_KHR"
+  },
+  {
+    "value": "4",
+    "name": "VK_PERFORMANCE_COUNTER_UNIT_BYTES_PER_SECOND_KHR"
+  },
+  {
+    "value": "5",
+    "name": "VK_PERFORMANCE_COUNTER_UNIT_KELVIN_KHR"
+  },
+  {
+    "value": "6",
+    "name": "VK_PERFORMANCE_COUNTER_UNIT_WATTS_KHR"
+  },
+  {
+    "value": "7",
+    "name": "VK_PERFORMANCE_COUNTER_UNIT_VOLTS_KHR"
+  },
+  {
+    "value": "8",
+    "name": "VK_PERFORMANCE_COUNTER_UNIT_AMPS_KHR"
+  },
+  {
+    "value": "9",
+    "name": "VK_PERFORMANCE_COUNTER_UNIT_HERTZ_KHR"
+  },
+  {
+    "value": "10",
+    "name": "VK_PERFORMANCE_COUNTER_UNIT_CYCLES_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_PERFORMANCE_COUNTER_STORAGE_INT32_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_PERFORMANCE_COUNTER_STORAGE_INT64_KHR"
+  },
+  {
+    "value": "2",
+    "name": "VK_PERFORMANCE_COUNTER_STORAGE_UINT32_KHR"
+  },
+  {
+    "value": "3",
+    "name": "VK_PERFORMANCE_COUNTER_STORAGE_UINT64_KHR"
+  },
+  {
+    "value": "4",
+    "name": "VK_PERFORMANCE_COUNTER_STORAGE_FLOAT32_KHR"
+  },
+  {
+    "value": "5",
+    "name": "VK_PERFORMANCE_COUNTER_STORAGE_FLOAT64_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_PERFORMANCE_COUNTER_DESCRIPTION_PERFORMANCE_IMPACTING_BIT_KHR"
+  },
+  {
+    "name": "VK_PERFORMANCE_COUNTER_DESCRIPTION_PERFORMANCE_IMPACTING_KHR",
+    "alias": "VK_PERFORMANCE_COUNTER_DESCRIPTION_PERFORMANCE_IMPACTING_BIT_KHR",
+    "comment": "Backwards-compatible alias containing a typo"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_PERFORMANCE_COUNTER_DESCRIPTION_CONCURRENTLY_IMPACTED_BIT_KHR"
+  },
+  {
+    "name": "VK_PERFORMANCE_COUNTER_DESCRIPTION_CONCURRENTLY_IMPACTED_KHR",
+    "alias": "VK_PERFORMANCE_COUNTER_DESCRIPTION_CONCURRENTLY_IMPACTED_BIT_KHR",
+    "comment": "Backwards-compatible alias containing a typo"
+  },
+  {
+    "value": "0",
+    "name": "VK_PERFORMANCE_CONFIGURATION_TYPE_COMMAND_QUEUE_METRICS_DISCOVERY_ACTIVATED_INTEL"
+  },
+  {
+    "value": "0",
+    "name": "VK_QUERY_POOL_SAMPLING_MODE_MANUAL_INTEL"
+  },
+  {
+    "value": "0",
+    "name": "VK_PERFORMANCE_OVERRIDE_TYPE_NULL_HARDWARE_INTEL"
+  },
+  {
+    "value": "1",
+    "name": "VK_PERFORMANCE_OVERRIDE_TYPE_FLUSH_GPU_CACHES_INTEL"
+  },
+  {
+    "value": "0",
+    "name": "VK_PERFORMANCE_PARAMETER_TYPE_HW_COUNTERS_SUPPORTED_INTEL"
+  },
+  {
+    "value": "1",
+    "name": "VK_PERFORMANCE_PARAMETER_TYPE_STREAM_MARKER_VALID_BITS_INTEL"
+  },
+  {
+    "value": "0",
+    "name": "VK_PERFORMANCE_VALUE_TYPE_UINT32_INTEL"
+  },
+  {
+    "value": "1",
+    "name": "VK_PERFORMANCE_VALUE_TYPE_UINT64_INTEL"
+  },
+  {
+    "value": "2",
+    "name": "VK_PERFORMANCE_VALUE_TYPE_FLOAT_INTEL"
+  },
+  {
+    "value": "3",
+    "name": "VK_PERFORMANCE_VALUE_TYPE_BOOL_INTEL"
+  },
+  {
+    "value": "4",
+    "name": "VK_PERFORMANCE_VALUE_TYPE_STRING_INTEL"
+  },
+  {
+    "value": "0",
+    "name": "VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_32_BIT_ONLY"
+  },
+  {
+    "value": "1",
+    "name": "VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_ALL"
+  },
+  {
+    "value": "2",
+    "name": "VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_NONE"
+  },
+  {
+    "value": "0",
+    "name": "VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_BOOL32_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_INT64_KHR"
+  },
+  {
+    "value": "2",
+    "name": "VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_UINT64_KHR"
+  },
+  {
+    "value": "3",
+    "name": "VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_FLOAT64_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_LINE_RASTERIZATION_MODE_DEFAULT_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_LINE_RASTERIZATION_MODE_RECTANGULAR_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_LINE_RASTERIZATION_MODE_BRESENHAM_EXT"
+  },
+  {
+    "value": "3",
+    "name": "VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_TOOL_PURPOSE_VALIDATION_BIT"
+  },
+  {
+    "name": "VK_TOOL_PURPOSE_VALIDATION_BIT_EXT",
+    "alias": "VK_TOOL_PURPOSE_VALIDATION_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_TOOL_PURPOSE_PROFILING_BIT"
+  },
+  {
+    "name": "VK_TOOL_PURPOSE_PROFILING_BIT_EXT",
+    "alias": "VK_TOOL_PURPOSE_PROFILING_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_TOOL_PURPOSE_TRACING_BIT"
+  },
+  {
+    "name": "VK_TOOL_PURPOSE_TRACING_BIT_EXT",
+    "alias": "VK_TOOL_PURPOSE_TRACING_BIT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_TOOL_PURPOSE_ADDITIONAL_FEATURES_BIT"
+  },
+  {
+    "name": "VK_TOOL_PURPOSE_ADDITIONAL_FEATURES_BIT_EXT",
+    "alias": "VK_TOOL_PURPOSE_ADDITIONAL_FEATURES_BIT"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_TOOL_PURPOSE_MODIFYING_FEATURES_BIT"
+  },
+  {
+    "name": "VK_TOOL_PURPOSE_MODIFYING_FEATURES_BIT_EXT",
+    "alias": "VK_TOOL_PURPOSE_MODIFYING_FEATURES_BIT"
+  },
+  {
+    "value": "0",
+    "name": "VK_FRAGMENT_SHADING_RATE_COMBINER_OP_KEEP_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_FRAGMENT_SHADING_RATE_COMBINER_OP_REPLACE_KHR"
+  },
+  {
+    "value": "2",
+    "name": "VK_FRAGMENT_SHADING_RATE_COMBINER_OP_MIN_KHR"
+  },
+  {
+    "value": "3",
+    "name": "VK_FRAGMENT_SHADING_RATE_COMBINER_OP_MAX_KHR"
+  },
+  {
+    "value": "4",
+    "name": "VK_FRAGMENT_SHADING_RATE_COMBINER_OP_MUL_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_FRAGMENT_SHADING_RATE_1_INVOCATION_PER_PIXEL_NV"
+  },
+  {
+    "value": "1",
+    "name": "VK_FRAGMENT_SHADING_RATE_1_INVOCATION_PER_1X2_PIXELS_NV"
+  },
+  {
+    "value": "4",
+    "name": "VK_FRAGMENT_SHADING_RATE_1_INVOCATION_PER_2X1_PIXELS_NV"
+  },
+  {
+    "value": "5",
+    "name": "VK_FRAGMENT_SHADING_RATE_1_INVOCATION_PER_2X2_PIXELS_NV"
+  },
+  {
+    "value": "6",
+    "name": "VK_FRAGMENT_SHADING_RATE_1_INVOCATION_PER_2X4_PIXELS_NV"
+  },
+  {
+    "value": "9",
+    "name": "VK_FRAGMENT_SHADING_RATE_1_INVOCATION_PER_4X2_PIXELS_NV"
+  },
+  {
+    "value": "10",
+    "name": "VK_FRAGMENT_SHADING_RATE_1_INVOCATION_PER_4X4_PIXELS_NV"
+  },
+  {
+    "value": "11",
+    "name": "VK_FRAGMENT_SHADING_RATE_2_INVOCATIONS_PER_PIXEL_NV"
+  },
+  {
+    "value": "12",
+    "name": "VK_FRAGMENT_SHADING_RATE_4_INVOCATIONS_PER_PIXEL_NV"
+  },
+  {
+    "value": "13",
+    "name": "VK_FRAGMENT_SHADING_RATE_8_INVOCATIONS_PER_PIXEL_NV"
+  },
+  {
+    "value": "14",
+    "name": "VK_FRAGMENT_SHADING_RATE_16_INVOCATIONS_PER_PIXEL_NV"
+  },
+  {
+    "value": "15",
+    "name": "VK_FRAGMENT_SHADING_RATE_NO_INVOCATIONS_NV"
+  },
+  {
+    "value": "0",
+    "name": "VK_FRAGMENT_SHADING_RATE_TYPE_FRAGMENT_SIZE_NV"
+  },
+  {
+    "value": "1",
+    "name": "VK_FRAGMENT_SHADING_RATE_TYPE_ENUMS_NV"
+  },
+  {
+    "value": "0",
+    "name": "VK_SUBPASS_MERGE_STATUS_MERGED_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_SUBPASS_MERGE_STATUS_DISALLOWED_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_SUBPASS_MERGE_STATUS_NOT_MERGED_SIDE_EFFECTS_EXT"
+  },
+  {
+    "value": "3",
+    "name": "VK_SUBPASS_MERGE_STATUS_NOT_MERGED_SAMPLES_MISMATCH_EXT"
+  },
+  {
+    "value": "4",
+    "name": "VK_SUBPASS_MERGE_STATUS_NOT_MERGED_VIEWS_MISMATCH_EXT"
+  },
+  {
+    "value": "5",
+    "name": "VK_SUBPASS_MERGE_STATUS_NOT_MERGED_ALIASING_EXT"
+  },
+  {
+    "value": "6",
+    "name": "VK_SUBPASS_MERGE_STATUS_NOT_MERGED_DEPENDENCIES_EXT"
+  },
+  {
+    "value": "7",
+    "name": "VK_SUBPASS_MERGE_STATUS_NOT_MERGED_INCOMPATIBLE_INPUT_ATTACHMENT_EXT"
+  },
+  {
+    "value": "8",
+    "name": "VK_SUBPASS_MERGE_STATUS_NOT_MERGED_TOO_MANY_ATTACHMENTS_EXT"
+  },
+  {
+    "value": "9",
+    "name": "VK_SUBPASS_MERGE_STATUS_NOT_MERGED_INSUFFICIENT_STORAGE_EXT"
+  },
+  {
+    "value": "10",
+    "name": "VK_SUBPASS_MERGE_STATUS_NOT_MERGED_DEPTH_STENCIL_COUNT_EXT"
+  },
+  {
+    "value": "11",
+    "name": "VK_SUBPASS_MERGE_STATUS_NOT_MERGED_RESOLVE_ATTACHMENT_REUSE_EXT"
+  },
+  {
+    "value": "12",
+    "name": "VK_SUBPASS_MERGE_STATUS_NOT_MERGED_SINGLE_SUBPASS_EXT"
+  },
+  {
+    "value": "13",
+    "name": "VK_SUBPASS_MERGE_STATUS_NOT_MERGED_UNSPECIFIED_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_ACCESS_2_NONE"
+  },
+  {
+    "name": "VK_ACCESS_2_NONE_KHR",
+    "alias": "VK_ACCESS_2_NONE"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_ACCESS_2_INDIRECT_COMMAND_READ_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_INDIRECT_COMMAND_READ_BIT_KHR",
+    "alias": "VK_ACCESS_2_INDIRECT_COMMAND_READ_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_ACCESS_2_INDEX_READ_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_INDEX_READ_BIT_KHR",
+    "alias": "VK_ACCESS_2_INDEX_READ_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_ACCESS_2_VERTEX_ATTRIBUTE_READ_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_VERTEX_ATTRIBUTE_READ_BIT_KHR",
+    "alias": "VK_ACCESS_2_VERTEX_ATTRIBUTE_READ_BIT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_ACCESS_2_UNIFORM_READ_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_UNIFORM_READ_BIT_KHR",
+    "alias": "VK_ACCESS_2_UNIFORM_READ_BIT"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_ACCESS_2_INPUT_ATTACHMENT_READ_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_INPUT_ATTACHMENT_READ_BIT_KHR",
+    "alias": "VK_ACCESS_2_INPUT_ATTACHMENT_READ_BIT"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_ACCESS_2_SHADER_READ_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_SHADER_READ_BIT_KHR",
+    "alias": "VK_ACCESS_2_SHADER_READ_BIT"
+  },
+  {
+    "bitpos": "6",
+    "name": "VK_ACCESS_2_SHADER_WRITE_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_SHADER_WRITE_BIT_KHR",
+    "alias": "VK_ACCESS_2_SHADER_WRITE_BIT"
+  },
+  {
+    "bitpos": "7",
+    "name": "VK_ACCESS_2_COLOR_ATTACHMENT_READ_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_COLOR_ATTACHMENT_READ_BIT_KHR",
+    "alias": "VK_ACCESS_2_COLOR_ATTACHMENT_READ_BIT"
+  },
+  {
+    "bitpos": "8",
+    "name": "VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT_KHR",
+    "alias": "VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT"
+  },
+  {
+    "bitpos": "9",
+    "name": "VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_READ_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_READ_BIT_KHR",
+    "alias": "VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_READ_BIT"
+  },
+  {
+    "bitpos": "10",
+    "name": "VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT_KHR",
+    "alias": "VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT"
+  },
+  {
+    "bitpos": "11",
+    "name": "VK_ACCESS_2_TRANSFER_READ_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_TRANSFER_READ_BIT_KHR",
+    "alias": "VK_ACCESS_2_TRANSFER_READ_BIT"
+  },
+  {
+    "bitpos": "12",
+    "name": "VK_ACCESS_2_TRANSFER_WRITE_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_TRANSFER_WRITE_BIT_KHR",
+    "alias": "VK_ACCESS_2_TRANSFER_WRITE_BIT"
+  },
+  {
+    "bitpos": "13",
+    "name": "VK_ACCESS_2_HOST_READ_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_HOST_READ_BIT_KHR",
+    "alias": "VK_ACCESS_2_HOST_READ_BIT"
+  },
+  {
+    "bitpos": "14",
+    "name": "VK_ACCESS_2_HOST_WRITE_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_HOST_WRITE_BIT_KHR",
+    "alias": "VK_ACCESS_2_HOST_WRITE_BIT"
+  },
+  {
+    "bitpos": "15",
+    "name": "VK_ACCESS_2_MEMORY_READ_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_MEMORY_READ_BIT_KHR",
+    "alias": "VK_ACCESS_2_MEMORY_READ_BIT"
+  },
+  {
+    "bitpos": "16",
+    "name": "VK_ACCESS_2_MEMORY_WRITE_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_MEMORY_WRITE_BIT_KHR",
+    "alias": "VK_ACCESS_2_MEMORY_WRITE_BIT"
+  },
+  {
+    "bitpos": "32",
+    "name": "VK_ACCESS_2_SHADER_SAMPLED_READ_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_SHADER_SAMPLED_READ_BIT_KHR",
+    "alias": "VK_ACCESS_2_SHADER_SAMPLED_READ_BIT"
+  },
+  {
+    "bitpos": "33",
+    "name": "VK_ACCESS_2_SHADER_STORAGE_READ_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_SHADER_STORAGE_READ_BIT_KHR",
+    "alias": "VK_ACCESS_2_SHADER_STORAGE_READ_BIT"
+  },
+  {
+    "bitpos": "34",
+    "name": "VK_ACCESS_2_SHADER_STORAGE_WRITE_BIT"
+  },
+  {
+    "name": "VK_ACCESS_2_SHADER_STORAGE_WRITE_BIT_KHR",
+    "alias": "VK_ACCESS_2_SHADER_STORAGE_WRITE_BIT"
+  },
+  {
+    "value": "0",
+    "name": "VK_PIPELINE_STAGE_2_NONE"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_NONE_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_NONE"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_PIPELINE_STAGE_2_TOP_OF_PIPE_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_TOP_OF_PIPE_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_TOP_OF_PIPE_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_PIPELINE_STAGE_2_VERTEX_INPUT_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_VERTEX_INPUT_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_VERTEX_INPUT_BIT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT"
+  },
+  {
+    "bitpos": "6",
+    "name": "VK_PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT"
+  },
+  {
+    "bitpos": "7",
+    "name": "VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT"
+  },
+  {
+    "bitpos": "8",
+    "name": "VK_PIPELINE_STAGE_2_EARLY_FRAGMENT_TESTS_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_EARLY_FRAGMENT_TESTS_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_EARLY_FRAGMENT_TESTS_BIT"
+  },
+  {
+    "bitpos": "9",
+    "name": "VK_PIPELINE_STAGE_2_LATE_FRAGMENT_TESTS_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_LATE_FRAGMENT_TESTS_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_LATE_FRAGMENT_TESTS_BIT"
+  },
+  {
+    "bitpos": "10",
+    "name": "VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT"
+  },
+  {
+    "bitpos": "11",
+    "name": "VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT"
+  },
+  {
+    "bitpos": "12",
+    "name": "VK_PIPELINE_STAGE_2_ALL_TRANSFER_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_ALL_TRANSFER_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_ALL_TRANSFER_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_TRANSFER_BIT",
+    "alias": "VK_PIPELINE_STAGE_2_ALL_TRANSFER_BIT_KHR"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_TRANSFER_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_ALL_TRANSFER_BIT"
+  },
+  {
+    "bitpos": "13",
+    "name": "VK_PIPELINE_STAGE_2_BOTTOM_OF_PIPE_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_BOTTOM_OF_PIPE_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_BOTTOM_OF_PIPE_BIT"
+  },
+  {
+    "bitpos": "14",
+    "name": "VK_PIPELINE_STAGE_2_HOST_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_HOST_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_HOST_BIT"
+  },
+  {
+    "bitpos": "15",
+    "name": "VK_PIPELINE_STAGE_2_ALL_GRAPHICS_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_ALL_GRAPHICS_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_ALL_GRAPHICS_BIT"
+  },
+  {
+    "bitpos": "16",
+    "name": "VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT"
+  },
+  {
+    "bitpos": "32",
+    "name": "VK_PIPELINE_STAGE_2_COPY_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_COPY_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_COPY_BIT"
+  },
+  {
+    "bitpos": "33",
+    "name": "VK_PIPELINE_STAGE_2_RESOLVE_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_RESOLVE_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_RESOLVE_BIT"
+  },
+  {
+    "bitpos": "34",
+    "name": "VK_PIPELINE_STAGE_2_BLIT_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_BLIT_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_BLIT_BIT"
+  },
+  {
+    "bitpos": "35",
+    "name": "VK_PIPELINE_STAGE_2_CLEAR_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_CLEAR_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_CLEAR_BIT"
+  },
+  {
+    "bitpos": "36",
+    "name": "VK_PIPELINE_STAGE_2_INDEX_INPUT_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_INDEX_INPUT_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_INDEX_INPUT_BIT"
+  },
+  {
+    "bitpos": "37",
+    "name": "VK_PIPELINE_STAGE_2_VERTEX_ATTRIBUTE_INPUT_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_VERTEX_ATTRIBUTE_INPUT_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_VERTEX_ATTRIBUTE_INPUT_BIT"
+  },
+  {
+    "bitpos": "38",
+    "name": "VK_PIPELINE_STAGE_2_PRE_RASTERIZATION_SHADERS_BIT"
+  },
+  {
+    "name": "VK_PIPELINE_STAGE_2_PRE_RASTERIZATION_SHADERS_BIT_KHR",
+    "alias": "VK_PIPELINE_STAGE_2_PRE_RASTERIZATION_SHADERS_BIT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_SUBMIT_PROTECTED_BIT"
+  },
+  {
+    "name": "VK_SUBMIT_PROTECTED_BIT_KHR",
+    "alias": "VK_SUBMIT_PROTECTED_BIT"
+  },
+  {
+    "value": "0",
+    "name": "VK_PROVOKING_VERTEX_MODE_FIRST_VERTEX_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_ACCELERATION_STRUCTURE_MOTION_INSTANCE_TYPE_STATIC_NV"
+  },
+  {
+    "value": "1",
+    "name": "VK_ACCELERATION_STRUCTURE_MOTION_INSTANCE_TYPE_MATRIX_MOTION_NV"
+  },
+  {
+    "value": "2",
+    "name": "VK_ACCELERATION_STRUCTURE_MOTION_INSTANCE_TYPE_SRT_MOTION_NV"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_GRAPHICS_PIPELINE_LIBRARY_VERTEX_INPUT_INTERFACE_BIT_EXT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_GRAPHICS_PIPELINE_LIBRARY_PRE_RASTERIZATION_SHADERS_BIT_EXT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_DEVICE_ADDRESS_BINDING_INTERNAL_OBJECT_BIT_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_DEVICE_ADDRESS_BINDING_TYPE_BIND_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_DEVICE_ADDRESS_BINDING_TYPE_UNBIND_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_VIDEO_CODEC_OPERATION_NONE_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_VIDEO_CHROMA_SUBSAMPLING_INVALID_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_CHROMA_SUBSAMPLING_MONOCHROME_BIT_KHR"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_VIDEO_CHROMA_SUBSAMPLING_420_BIT_KHR"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_VIDEO_CHROMA_SUBSAMPLING_422_BIT_KHR"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_VIDEO_CHROMA_SUBSAMPLING_444_BIT_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_VIDEO_COMPONENT_BIT_DEPTH_INVALID_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_COMPONENT_BIT_DEPTH_8_BIT_KHR"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_VIDEO_COMPONENT_BIT_DEPTH_10_BIT_KHR"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_VIDEO_COMPONENT_BIT_DEPTH_12_BIT_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_CAPABILITY_PROTECTED_CONTENT_BIT_KHR"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_VIDEO_CAPABILITY_SEPARATE_REFERENCE_IMAGES_BIT_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_SESSION_CREATE_PROTECTED_CONTENT_BIT_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_PROGRESSIVE_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_INTERLEAVED_LINES_BIT_EXT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_CODING_CONTROL_RESET_BIT_KHR"
+  },
+  {
+    "value": "-1",
+    "name": "VK_QUERY_RESULT_STATUS_ERROR_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_QUERY_RESULT_STATUS_NOT_READY_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_QUERY_RESULT_STATUS_COMPLETE_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_VIDEO_DECODE_USAGE_DEFAULT_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_DECODE_USAGE_TRANSCODING_BIT_KHR"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_VIDEO_DECODE_USAGE_OFFLINE_BIT_KHR"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_VIDEO_DECODE_USAGE_STREAMING_BIT_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_VIDEO_ENCODE_USAGE_DEFAULT_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_ENCODE_USAGE_TRANSCODING_BIT_KHR"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_VIDEO_ENCODE_USAGE_STREAMING_BIT_KHR"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_VIDEO_ENCODE_USAGE_RECORDING_BIT_KHR"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_VIDEO_ENCODE_USAGE_CONFERENCING_BIT_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_VIDEO_ENCODE_CONTENT_DEFAULT_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_ENCODE_CONTENT_CAMERA_BIT_KHR"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_VIDEO_ENCODE_CONTENT_DESKTOP_BIT_KHR"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_VIDEO_ENCODE_CONTENT_RENDERED_BIT_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_VIDEO_ENCODE_TUNING_MODE_DEFAULT_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_VIDEO_ENCODE_TUNING_MODE_HIGH_QUALITY_KHR"
+  },
+  {
+    "value": "2",
+    "name": "VK_VIDEO_ENCODE_TUNING_MODE_LOW_LATENCY_KHR"
+  },
+  {
+    "value": "3",
+    "name": "VK_VIDEO_ENCODE_TUNING_MODE_ULTRA_LOW_LATENCY_KHR"
+  },
+  {
+    "value": "4",
+    "name": "VK_VIDEO_ENCODE_TUNING_MODE_LOSSLESS_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_ENCODE_CAPABILITY_PRECEDING_EXTERNALLY_ENCODED_BYTES_BIT_KHR"
+  },
+  {
+    "value": "0",
+    "name": "VK_VIDEO_ENCODE_RATE_CONTROL_MODE_NONE_BIT_KHR"
+  },
+  {
+    "value": "1",
+    "name": "VK_VIDEO_ENCODE_RATE_CONTROL_MODE_CBR_BIT_KHR"
+  },
+  {
+    "value": "2",
+    "name": "VK_VIDEO_ENCODE_RATE_CONTROL_MODE_VBR_BIT_KHR"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_DIRECT_8X8_INFERENCE_ENABLED_BIT_EXT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_DIRECT_8X8_INFERENCE_DISABLED_BIT_EXT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_SEPARATE_COLOUR_PLANE_BIT_EXT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_QPPRIME_Y_ZERO_TRANSFORM_BYPASS_BIT_EXT"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_SCALING_LISTS_BIT_EXT"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_HRD_COMPLIANCE_BIT_EXT"
+  },
+  {
+    "bitpos": "6",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_CHROMA_QP_OFFSET_BIT_EXT"
+  },
+  {
+    "bitpos": "7",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_SECOND_CHROMA_QP_OFFSET_BIT_EXT"
+  },
+  {
+    "bitpos": "8",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_PIC_INIT_QP_MINUS26_BIT_EXT"
+  },
+  {
+    "bitpos": "9",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_WEIGHTED_PRED_BIT_EXT"
+  },
+  {
+    "bitpos": "10",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_WEIGHTED_BIPRED_EXPLICIT_BIT_EXT"
+  },
+  {
+    "bitpos": "11",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_WEIGHTED_BIPRED_IMPLICIT_BIT_EXT"
+  },
+  {
+    "bitpos": "12",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_WEIGHTED_PRED_NO_TABLE_BIT_EXT"
+  },
+  {
+    "bitpos": "13",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_TRANSFORM_8X8_BIT_EXT"
+  },
+  {
+    "bitpos": "14",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_CABAC_BIT_EXT"
+  },
+  {
+    "bitpos": "15",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_CAVLC_BIT_EXT"
+  },
+  {
+    "bitpos": "16",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_DEBLOCKING_FILTER_DISABLED_BIT_EXT"
+  },
+  {
+    "bitpos": "17",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_DEBLOCKING_FILTER_ENABLED_BIT_EXT"
+  },
+  {
+    "bitpos": "18",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_DEBLOCKING_FILTER_PARTIAL_BIT_EXT"
+  },
+  {
+    "bitpos": "19",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_DISABLE_DIRECT_SPATIAL_MV_PRED_BIT_EXT"
+  },
+  {
+    "bitpos": "20",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_MULTIPLE_SLICE_PER_FRAME_BIT_EXT"
+  },
+  {
+    "bitpos": "21",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_SLICE_MB_COUNT_BIT_EXT"
+  },
+  {
+    "bitpos": "22",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_ROW_UNALIGNED_SLICE_BIT_EXT"
+  },
+  {
+    "bitpos": "23",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_DIFFERENT_SLICE_TYPE_BIT_EXT"
+  },
+  {
+    "bitpos": "24",
+    "name": "VK_VIDEO_ENCODE_H264_CAPABILITY_B_FRAME_IN_L1_LIST_BIT_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_ENCODE_H264_INPUT_MODE_FRAME_BIT_EXT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_VIDEO_ENCODE_H264_INPUT_MODE_SLICE_BIT_EXT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_VIDEO_ENCODE_H264_INPUT_MODE_NON_VCL_BIT_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_ENCODE_H264_OUTPUT_MODE_FRAME_BIT_EXT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_VIDEO_ENCODE_H264_OUTPUT_MODE_SLICE_BIT_EXT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_VIDEO_ENCODE_H264_OUTPUT_MODE_NON_VCL_BIT_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_VIDEO_ENCODE_H264_RATE_CONTROL_STRUCTURE_UNKNOWN_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_VIDEO_ENCODE_H264_RATE_CONTROL_STRUCTURE_FLAT_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_VIDEO_ENCODE_H264_RATE_CONTROL_STRUCTURE_DYADIC_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_IMAGE_CONSTRAINTS_INFO_CPU_READ_RARELY_FUCHSIA"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_IMAGE_CONSTRAINTS_INFO_CPU_READ_OFTEN_FUCHSIA"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_IMAGE_CONSTRAINTS_INFO_CPU_WRITE_RARELY_FUCHSIA"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_IMAGE_CONSTRAINTS_INFO_CPU_WRITE_OFTEN_FUCHSIA"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_IMAGE_CONSTRAINTS_INFO_PROTECTED_OPTIONAL_FUCHSIA"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_FORMAT_FEATURE_2_STORAGE_IMAGE_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_STORAGE_IMAGE_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_STORAGE_IMAGE_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_FORMAT_FEATURE_2_STORAGE_IMAGE_ATOMIC_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_STORAGE_IMAGE_ATOMIC_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_STORAGE_IMAGE_ATOMIC_BIT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_FORMAT_FEATURE_2_UNIFORM_TEXEL_BUFFER_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_UNIFORM_TEXEL_BUFFER_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_UNIFORM_TEXEL_BUFFER_BIT"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_BIT"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_ATOMIC_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_ATOMIC_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_ATOMIC_BIT"
+  },
+  {
+    "bitpos": "6",
+    "name": "VK_FORMAT_FEATURE_2_VERTEX_BUFFER_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_VERTEX_BUFFER_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_VERTEX_BUFFER_BIT"
+  },
+  {
+    "bitpos": "7",
+    "name": "VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BIT"
+  },
+  {
+    "bitpos": "8",
+    "name": "VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BLEND_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BLEND_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BLEND_BIT"
+  },
+  {
+    "bitpos": "9",
+    "name": "VK_FORMAT_FEATURE_2_DEPTH_STENCIL_ATTACHMENT_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_DEPTH_STENCIL_ATTACHMENT_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_DEPTH_STENCIL_ATTACHMENT_BIT"
+  },
+  {
+    "bitpos": "10",
+    "name": "VK_FORMAT_FEATURE_2_BLIT_SRC_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_BLIT_SRC_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_BLIT_SRC_BIT"
+  },
+  {
+    "bitpos": "11",
+    "name": "VK_FORMAT_FEATURE_2_BLIT_DST_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_BLIT_DST_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_BLIT_DST_BIT"
+  },
+  {
+    "bitpos": "12",
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_LINEAR_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_LINEAR_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_LINEAR_BIT"
+  },
+  {
+    "bitpos": "13",
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_CUBIC_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_CUBIC_BIT_EXT",
+    "alias": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_CUBIC_BIT"
+  },
+  {
+    "bitpos": "14",
+    "name": "VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT"
+  },
+  {
+    "bitpos": "15",
+    "name": "VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT"
+  },
+  {
+    "bitpos": "16",
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_MINMAX_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_MINMAX_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_MINMAX_BIT"
+  },
+  {
+    "bitpos": "17",
+    "name": "VK_FORMAT_FEATURE_2_MIDPOINT_CHROMA_SAMPLES_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_MIDPOINT_CHROMA_SAMPLES_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_MIDPOINT_CHROMA_SAMPLES_BIT"
+  },
+  {
+    "bitpos": "18",
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT"
+  },
+  {
+    "bitpos": "19",
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT"
+  },
+  {
+    "bitpos": "20",
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT"
+  },
+  {
+    "bitpos": "21",
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT"
+  },
+  {
+    "bitpos": "22",
+    "name": "VK_FORMAT_FEATURE_2_DISJOINT_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_DISJOINT_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_DISJOINT_BIT"
+  },
+  {
+    "bitpos": "23",
+    "name": "VK_FORMAT_FEATURE_2_COSITED_CHROMA_SAMPLES_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_COSITED_CHROMA_SAMPLES_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_COSITED_CHROMA_SAMPLES_BIT"
+  },
+  {
+    "bitpos": "31",
+    "name": "VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT"
+  },
+  {
+    "bitpos": "32",
+    "name": "VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT"
+  },
+  {
+    "bitpos": "33",
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT"
+  },
+  {
+    "name": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT_KHR",
+    "alias": "VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT"
+  },
+  {
+    "name": "VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT_KHR",
+    "alias": "VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_RENDERING_SUSPENDING_BIT"
+  },
+  {
+    "name": "VK_RENDERING_SUSPENDING_BIT_KHR",
+    "alias": "VK_RENDERING_SUSPENDING_BIT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_RENDERING_RESUMING_BIT"
+  },
+  {
+    "name": "VK_RENDERING_RESUMING_BIT_KHR",
+    "alias": "VK_RENDERING_RESUMING_BIT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_SEPARATE_COLOUR_PLANE_BIT_EXT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_SCALING_LISTS_BIT_EXT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_SAMPLE_ADAPTIVE_OFFSET_ENABLED_BIT_EXT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_PCM_ENABLE_BIT_EXT"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_SPS_TEMPORAL_MVP_ENABLED_BIT_EXT"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_HRD_COMPLIANCE_BIT_EXT"
+  },
+  {
+    "bitpos": "6",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_INIT_QP_MINUS26_BIT_EXT"
+  },
+  {
+    "bitpos": "7",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_LOG2_PARALLEL_MERGE_LEVEL_MINUS2_BIT_EXT"
+  },
+  {
+    "bitpos": "8",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_SIGN_DATA_HIDING_ENABLED_BIT_EXT"
+  },
+  {
+    "bitpos": "9",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_TRANSFORM_SKIP_ENABLED_BIT_EXT"
+  },
+  {
+    "bitpos": "10",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_TRANSFORM_SKIP_DISABLED_BIT_EXT"
+  },
+  {
+    "bitpos": "11",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_PPS_SLICE_CHROMA_QP_OFFSETS_PRESENT_BIT_EXT"
+  },
+  {
+    "bitpos": "12",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_WEIGHTED_PRED_BIT_EXT"
+  },
+  {
+    "bitpos": "13",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_WEIGHTED_BIPRED_BIT_EXT"
+  },
+  {
+    "bitpos": "14",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_WEIGHTED_PRED_NO_TABLE_BIT_EXT"
+  },
+  {
+    "bitpos": "15",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_TRANSQUANT_BYPASS_ENABLED_BIT_EXT"
+  },
+  {
+    "bitpos": "16",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_ENTROPY_CODING_SYNC_ENABLED_BIT_EXT"
+  },
+  {
+    "bitpos": "17",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_DEBLOCKING_FILTER_OVERRIDE_ENABLED_BIT_EXT"
+  },
+  {
+    "bitpos": "18",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_MULTIPLE_TILE_PER_FRAME_BIT_EXT"
+  },
+  {
+    "bitpos": "19",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_MULTIPLE_SLICE_PER_TILE_BIT_EXT"
+  },
+  {
+    "bitpos": "20",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_MULTIPLE_TILE_PER_SLICE_BIT_EXT"
+  },
+  {
+    "bitpos": "21",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_SLICE_SEGMENT_CTB_COUNT_BIT_EXT"
+  },
+  {
+    "bitpos": "22",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_ROW_UNALIGNED_SLICE_SEGMENT_BIT_EXT"
+  },
+  {
+    "bitpos": "23",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_DEPENDENT_SLICE_SEGMENT_BIT_EXT"
+  },
+  {
+    "bitpos": "24",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_DIFFERENT_SLICE_TYPE_BIT_EXT"
+  },
+  {
+    "bitpos": "25",
+    "name": "VK_VIDEO_ENCODE_H265_CAPABILITY_B_FRAME_IN_L1_LIST_BIT_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_ENCODE_H265_INPUT_MODE_FRAME_BIT_EXT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_VIDEO_ENCODE_H265_INPUT_MODE_SLICE_SEGMENT_BIT_EXT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_VIDEO_ENCODE_H265_INPUT_MODE_NON_VCL_BIT_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_ENCODE_H265_OUTPUT_MODE_FRAME_BIT_EXT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_VIDEO_ENCODE_H265_OUTPUT_MODE_SLICE_SEGMENT_BIT_EXT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_VIDEO_ENCODE_H265_OUTPUT_MODE_NON_VCL_BIT_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_VIDEO_ENCODE_H265_RATE_CONTROL_STRUCTURE_UNKNOWN_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_VIDEO_ENCODE_H265_RATE_CONTROL_STRUCTURE_FLAT_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_VIDEO_ENCODE_H265_RATE_CONTROL_STRUCTURE_DYADIC_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_ENCODE_H265_CTB_SIZE_16_BIT_EXT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_VIDEO_ENCODE_H265_CTB_SIZE_32_BIT_EXT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_VIDEO_ENCODE_H265_CTB_SIZE_64_BIT_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_VIDEO_ENCODE_H265_TRANSFORM_BLOCK_SIZE_4_BIT_EXT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_VIDEO_ENCODE_H265_TRANSFORM_BLOCK_SIZE_8_BIT_EXT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_VIDEO_ENCODE_H265_TRANSFORM_BLOCK_SIZE_16_BIT_EXT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_VIDEO_ENCODE_H265_TRANSFORM_BLOCK_SIZE_32_BIT_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_EXPORT_METAL_OBJECT_TYPE_METAL_DEVICE_BIT_EXT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_EXPORT_METAL_OBJECT_TYPE_METAL_COMMAND_QUEUE_BIT_EXT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_EXPORT_METAL_OBJECT_TYPE_METAL_BUFFER_BIT_EXT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_EXPORT_METAL_OBJECT_TYPE_METAL_TEXTURE_BIT_EXT"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_EXPORT_METAL_OBJECT_TYPE_METAL_IOSURFACE_BIT_EXT"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_EXPORT_METAL_OBJECT_TYPE_METAL_SHARED_EVENT_BIT_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_IMAGE_COMPRESSION_DEFAULT_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_DEFAULT_EXT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_EXPLICIT_EXT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_IMAGE_COMPRESSION_DISABLED_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_NONE_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_1BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_2BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_3BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_4BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_5BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "5",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_6BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "6",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_7BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "7",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_8BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "8",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_9BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "9",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_10BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "10",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_11BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "11",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_12BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "12",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_13BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "13",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_14BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "14",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_15BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "15",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_16BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "16",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_17BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "17",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_18BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "18",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_19BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "19",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_20BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "20",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_21BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "21",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_22BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "22",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_23BPC_BIT_EXT"
+  },
+  {
+    "bitpos": "23",
+    "name": "VK_IMAGE_COMPRESSION_FIXED_RATE_24BPC_BIT_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DISABLED_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_EXT"
+  },
+  {
+    "value": "3",
+    "name": "VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_DEVICE_DEFAULT_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_DISABLED_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_ROBUST_IMAGE_ACCESS_EXT"
+  },
+  {
+    "value": "3",
+    "name": "VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_ROBUST_IMAGE_ACCESS_2_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_OPTICAL_FLOW_GRID_SIZE_UNKNOWN_NV"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_OPTICAL_FLOW_GRID_SIZE_1X1_BIT_NV"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_OPTICAL_FLOW_GRID_SIZE_2X2_BIT_NV"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_OPTICAL_FLOW_GRID_SIZE_4X4_BIT_NV"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_OPTICAL_FLOW_GRID_SIZE_8X8_BIT_NV"
+  },
+  {
+    "value": "0",
+    "name": "VK_OPTICAL_FLOW_USAGE_UNKNOWN_NV"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_OPTICAL_FLOW_USAGE_INPUT_BIT_NV"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_OPTICAL_FLOW_USAGE_OUTPUT_BIT_NV"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_OPTICAL_FLOW_USAGE_HINT_BIT_NV"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_OPTICAL_FLOW_USAGE_COST_BIT_NV"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_OPTICAL_FLOW_USAGE_GLOBAL_FLOW_BIT_NV"
+  },
+  {
+    "value": "0",
+    "name": "VK_OPTICAL_FLOW_PERFORMANCE_LEVEL_UNKNOWN_NV"
+  },
+  {
+    "value": "1",
+    "name": "VK_OPTICAL_FLOW_PERFORMANCE_LEVEL_SLOW_NV"
+  },
+  {
+    "value": "2",
+    "name": "VK_OPTICAL_FLOW_PERFORMANCE_LEVEL_MEDIUM_NV"
+  },
+  {
+    "value": "3",
+    "name": "VK_OPTICAL_FLOW_PERFORMANCE_LEVEL_FAST_NV"
+  },
+  {
+    "value": "0",
+    "name": "VK_OPTICAL_FLOW_SESSION_BINDING_POINT_UNKNOWN_NV"
+  },
+  {
+    "value": "1",
+    "name": "VK_OPTICAL_FLOW_SESSION_BINDING_POINT_INPUT_NV"
+  },
+  {
+    "value": "2",
+    "name": "VK_OPTICAL_FLOW_SESSION_BINDING_POINT_REFERENCE_NV"
+  },
+  {
+    "value": "3",
+    "name": "VK_OPTICAL_FLOW_SESSION_BINDING_POINT_HINT_NV"
+  },
+  {
+    "value": "4",
+    "name": "VK_OPTICAL_FLOW_SESSION_BINDING_POINT_FLOW_VECTOR_NV"
+  },
+  {
+    "value": "5",
+    "name": "VK_OPTICAL_FLOW_SESSION_BINDING_POINT_BACKWARD_FLOW_VECTOR_NV"
+  },
+  {
+    "value": "6",
+    "name": "VK_OPTICAL_FLOW_SESSION_BINDING_POINT_COST_NV"
+  },
+  {
+    "value": "7",
+    "name": "VK_OPTICAL_FLOW_SESSION_BINDING_POINT_BACKWARD_COST_NV"
+  },
+  {
+    "value": "8",
+    "name": "VK_OPTICAL_FLOW_SESSION_BINDING_POINT_GLOBAL_FLOW_NV"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_OPTICAL_FLOW_SESSION_CREATE_ENABLE_HINT_BIT_NV"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_OPTICAL_FLOW_SESSION_CREATE_ENABLE_COST_BIT_NV"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_OPTICAL_FLOW_SESSION_CREATE_ENABLE_GLOBAL_FLOW_BIT_NV"
+  },
+  {
+    "bitpos": "3",
+    "name": "VK_OPTICAL_FLOW_SESSION_CREATE_ALLOW_REGIONS_BIT_NV"
+  },
+  {
+    "bitpos": "4",
+    "name": "VK_OPTICAL_FLOW_SESSION_CREATE_BOTH_DIRECTIONS_BIT_NV"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_OPTICAL_FLOW_EXECUTE_DISABLE_TEMPORAL_HINTS_BIT_NV"
+  },
+  {
+    "value": "0",
+    "name": "VK_MICROMAP_TYPE_OPACITY_MICROMAP_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_BUILD_MICROMAP_PREFER_FAST_TRACE_BIT_EXT"
+  },
+  {
+    "bitpos": "1",
+    "name": "VK_BUILD_MICROMAP_PREFER_FAST_BUILD_BIT_EXT"
+  },
+  {
+    "bitpos": "2",
+    "name": "VK_BUILD_MICROMAP_ALLOW_COMPACTION_BIT_EXT"
+  },
+  {
+    "bitpos": "0",
+    "name": "VK_MICROMAP_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_COPY_MICROMAP_MODE_CLONE_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_COPY_MICROMAP_MODE_SERIALIZE_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_COPY_MICROMAP_MODE_DESERIALIZE_EXT"
+  },
+  {
+    "value": "3",
+    "name": "VK_COPY_MICROMAP_MODE_COMPACT_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_BUILD_MICROMAP_MODE_BUILD_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_OPACITY_MICROMAP_FORMAT_2_STATE_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_OPACITY_MICROMAP_FORMAT_4_STATE_EXT"
+  },
+  {
+    "value": "-1",
+    "name": "VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_TRANSPARENT_EXT"
+  },
+  {
+    "value": "-2",
+    "name": "VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_OPAQUE_EXT"
+  },
+  {
+    "value": "-3",
+    "name": "VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_TRANSPARENT_EXT"
+  },
+  {
+    "value": "-4",
+    "name": "VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_OPAQUE_EXT"
+  },
+  {
+    "value": "0",
+    "name": "VK_DEVICE_FAULT_ADDRESS_TYPE_NONE_EXT",
+    "comment": "Currently unused"
+  },
+  {
+    "value": "1",
+    "name": "VK_DEVICE_FAULT_ADDRESS_TYPE_READ_INVALID_EXT"
+  },
+  {
+    "value": "2",
+    "name": "VK_DEVICE_FAULT_ADDRESS_TYPE_WRITE_INVALID_EXT"
+  },
+  {
+    "value": "3",
+    "name": "VK_DEVICE_FAULT_ADDRESS_TYPE_EXECUTE_INVALID_EXT"
+  },
+  {
+    "value": "4",
+    "name": "VK_DEVICE_FAULT_ADDRESS_TYPE_INSTRUCTION_POINTER_UNKNOWN_EXT"
+  },
+  {
+    "value": "5",
+    "name": "VK_DEVICE_FAULT_ADDRESS_TYPE_INSTRUCTION_POINTER_INVALID_EXT"
+  },
+  {
+    "value": "6",
+    "name": "VK_DEVICE_FAULT_ADDRESS_TYPE_INSTRUCTION_POINTER_FAULT_EXT"
+  },
+  {
+    "value": "1",
+    "name": "VK_DEVICE_FAULT_VENDOR_BINARY_HEADER_VERSION_ONE_EXT"
+  }
+]
