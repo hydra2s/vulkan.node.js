@@ -120,7 +120,7 @@ let getReader = async()=>{
         return enums ? enums.map((d)=>{
             
             let parsed = {};
-            if (d.type == "element" && d.name == "enum") { 
+            if (d && d.type == "element" && d.name == "enum") { 
                 parsed = Object.assign(parsed, d.attributes);
                 parsed.type = d.attributes["type"];
                 parsed.name = d.attributes["name"];
@@ -227,10 +227,13 @@ let getReader = async()=>{
     let preloadFromExtensions = (enums, extensions) => {
         return (enums = enums.concat(extensions.children.filter((e)=>(e.attributes["supported"] != "disabled")).forEach((e)=>{
             let extName = e.attributes["name"];
-            return e.children.filter((ec,ic)=>{  return ec.type == "element" && ec.name == "require"; }).map((ec,ic)=>{
-                return ec.children.filter((em,im)=>{ return em.type == "element" && !!em.name; }).map((em,im)=>{
+            e.children.filter((ec,ic)=>{ return ec.type == "element" && ec.name == "require"; }).map((ec,ic)=>{
+                ec.children.filter((em,im)=>{ return em.type == "element" && !!em.name; }).map((em,im)=>{
                     let found = enums.find((e)=>e.attributes["name"] == em.attributes["extends"]);
-                    if (found) { (found.children = (found.children || [])).concat(em.children); } else { enums.push(em); };
+                    if (found) {
+                        (found.children = (found.children || [])).push(em);
+                        found.children = (found.children = (found.children || [])).concat(em.children||[]);
+                    } else { enums.push(em); };
                 });
             });
         })));
