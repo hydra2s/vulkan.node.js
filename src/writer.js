@@ -201,7 +201,7 @@ let getWriter = async()=>{
             return `
     decltype(auto) result = ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
     if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-        Napi::TypeError::New(env, "Vulkan API Exception: " + std::to_string(result)).ThrowAsJavaScriptException();
+        Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result)).ThrowAsJavaScriptException();
     }
     return Napi::Number::New(env, result);
 `;
