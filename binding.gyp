@@ -4,7 +4,7 @@
       "target_name": "native",
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
-      "sources": [ "./src/vulkan-API.cpp", "./volk/volk.c" ],
+      "sources": [ "./src/native.cpp", "./volk/volk.c" ],
       "include_dirs": [
         "./"
         "<!@(node -p \"require('node-addon-api').include\")",

@@ -1,5 +1,5 @@
 
-import {default as V} from "./vulkan-API.js";
+import {default as V} from "./native.js";
 import {default as E} from "./vulkan-enums.js";
 import {default as C} from "./typed.js";
 const callof = (fn)=>{ return fn ? fn() : 0; };

@@ -398,7 +398,7 @@ export default E;
 
   // TODO: use C++ offsets and own classes
         await fs.promises.writeFile("./vulkan-structs.js", `
-import {default as V} from "./vulkan-API.js";
+import {default as V} from "./native.js";
 import {default as E} from "./vulkan-enums.js";
 import {default as C} from "./typed.js";
 const callof = (fn)=>{ return fn ? fn() : 0; };
@@ -418,7 +418,7 @@ export default {
 };
 `);
 
-        await fs.promises.writeFile("./vulkan-API.cpp", `#pragma once 
+        await fs.promises.writeFile("./native.cpp", `#pragma once 
 //
 #ifndef NAPI_VERSION
 #define NAPI_VERSION 8
