@@ -1,6 +1,6 @@
-import { default as V } from "./index.js";
-
 (async()=>{
+    //
+    const V = (await import("./index.js")).default;
 
     //
     let rect2D = new V.VkRect2D();

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node test.js",
+    "test2": "electron main.cjs",
     "install": "cd src && node main.js && cd ../ && cmake-js -r node --debug",
     "asbuild:debug": "asc assembly/index.ts --target debug",
     "asbuild:release": "asc assembly/index.ts --target release",
@@ -25,9 +26,11 @@
   "license": "MIT",
   "gypfile": true,
   "dependencies": {
+    "@electron/remote": "^2.0.8",
     "@mapbox/node-pre-gyp": "^1.0.10",
     "@rgrove/parse-xml": "^4.0.1",
     "bindings": "^1.5.0",
+    "electron-esm": "^1.0.1",
     "gl-matrix": "^3.4.3",
     "glfw-raub": "^4.6.2",
     "json-6": "^1.1.4",
@@ -39,7 +42,8 @@
   },
   "devDependencies": {
     "assemblyscript": "^0.24.0",
-    "cmake-js": "^7.0.0"
+    "cmake-js": "^7.0.0",
+    "electron-nightly": "^23.0.0-nightly.20221118"
   },
   "type": "module",
   "exports": {
