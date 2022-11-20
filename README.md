@@ -32,6 +32,7 @@ Our Node.JS bindings for Vulkan API support (latest version, as possible). Curre
 
 - [ ] More type casting
 - [ ] Support `set` operation for everything
+- [ ] WebAssembly and AssemblyScript support
 - [ ] Fix common bugs and issues
 
 ## Test code
