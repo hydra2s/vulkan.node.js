@@ -68,9 +68,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   ${PROJECT_SOURCE_DIR}/node_modules/node-addon-api/
   ${PROJECT_SOURCE_DIR}/../*
   ${PROJECT_SOURCE_DIR}/../*/include
-  ${Vulkan_INCLUDE_DIR}/volk
-  ${Vulkan_INCLUDE_DIR}/vma
-  ${Vulkan_INCLUDE_DIR}/vulkan
+  ${PROJECT_SOURCE_DIR}/Vulkan-Headers/include/
   ${Vulkan_INCLUDE_DIR}
   ${Vulkan_INCLUDE_DIRS}
   ${CMAKE_JS_INC}
