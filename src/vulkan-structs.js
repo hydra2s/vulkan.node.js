@@ -2211,7 +2211,7 @@ const VkExportFenceCreateInfoKHR = new Proxy(function(){}, new C.ConstructProxy(
 const VkImportFenceWin32HandleInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImportFenceWin32HandleInfoKHR", {
     sType: "u32("+(V.VkImportFenceWin32HandleInfoKHR_sType_offsetof||0)+")",
     pNext: "u64("+(V.VkImportFenceWin32HandleInfoKHR_pNext_offsetof||0)+")",
-    fence: "u32("+(V.VkImportFenceWin32HandleInfoKHR_fence_offsetof||0)+")",
+    fence: "u64("+(V.VkImportFenceWin32HandleInfoKHR_fence_offsetof||0)+")",
     flags: "u32("+(V.VkImportFenceWin32HandleInfoKHR_flags_offsetof||0)+")",
     handleType: "u32("+(V.VkImportFenceWin32HandleInfoKHR_handleType_offsetof||0)+")",
     handle: "u64("+(V.VkImportFenceWin32HandleInfoKHR_handle_offsetof||0)+")",
@@ -2231,7 +2231,7 @@ const VkExportFenceWin32HandleInfoKHR = new Proxy(function(){}, new C.ConstructP
 const VkFenceGetWin32HandleInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkFenceGetWin32HandleInfoKHR", {
     sType: "u32("+(V.VkFenceGetWin32HandleInfoKHR_sType_offsetof||0)+")",
     pNext: "u64("+(V.VkFenceGetWin32HandleInfoKHR_pNext_offsetof||0)+")",
-    fence: "u32("+(V.VkFenceGetWin32HandleInfoKHR_fence_offsetof||0)+")",
+    fence: "u64("+(V.VkFenceGetWin32HandleInfoKHR_fence_offsetof||0)+")",
     handleType: "u32("+(V.VkFenceGetWin32HandleInfoKHR_handleType_offsetof||0)+")",
 }, (V.VkFenceGetWin32HandleInfoKHR_sizeof||0))));
 
@@ -2239,7 +2239,7 @@ const VkFenceGetWin32HandleInfoKHR = new Proxy(function(){}, new C.ConstructProx
 const VkImportFenceFdInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkImportFenceFdInfoKHR", {
     sType: "u32("+(V.VkImportFenceFdInfoKHR_sType_offsetof||0)+")",
     pNext: "u64("+(V.VkImportFenceFdInfoKHR_pNext_offsetof||0)+")",
-    fence: "u32("+(V.VkImportFenceFdInfoKHR_fence_offsetof||0)+")",
+    fence: "u64("+(V.VkImportFenceFdInfoKHR_fence_offsetof||0)+")",
     flags: "u32("+(V.VkImportFenceFdInfoKHR_flags_offsetof||0)+")",
     handleType: "u32("+(V.VkImportFenceFdInfoKHR_handleType_offsetof||0)+")",
     fd: "u32("+(V.VkImportFenceFdInfoKHR_fd_offsetof||0)+")",
@@ -2249,7 +2249,7 @@ const VkImportFenceFdInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new 
 const VkFenceGetFdInfoKHR = new Proxy(function(){}, new C.ConstructProxy(new C.CStruct("VkFenceGetFdInfoKHR", {
     sType: "u32("+(V.VkFenceGetFdInfoKHR_sType_offsetof||0)+")",
     pNext: "u64("+(V.VkFenceGetFdInfoKHR_pNext_offsetof||0)+")",
-    fence: "u32("+(V.VkFenceGetFdInfoKHR_fence_offsetof||0)+")",
+    fence: "u64("+(V.VkFenceGetFdInfoKHR_fence_offsetof||0)+")",
     handleType: "u32("+(V.VkFenceGetFdInfoKHR_handleType_offsetof||0)+")",
 }, (V.VkFenceGetFdInfoKHR_sizeof||0))));
 
@@ -2472,7 +2472,7 @@ const VkAcquireNextImageInfoKHR = new Proxy(function(){}, new C.ConstructProxy(n
     swapchain: "u64("+(V.VkAcquireNextImageInfoKHR_swapchain_offsetof||0)+")",
     timeout: "u64("+(V.VkAcquireNextImageInfoKHR_timeout_offsetof||0)+")",
     semaphore: "u64("+(V.VkAcquireNextImageInfoKHR_semaphore_offsetof||0)+")",
-    fence: "u32("+(V.VkAcquireNextImageInfoKHR_fence_offsetof||0)+")",
+    fence: "u64("+(V.VkAcquireNextImageInfoKHR_fence_offsetof||0)+")",
     deviceMask: "u32("+(V.VkAcquireNextImageInfoKHR_deviceMask_offsetof||0)+")",
 }, (V.VkAcquireNextImageInfoKHR_sizeof||0))));
 
