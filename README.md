@@ -24,12 +24,9 @@ Our Node.JS bindings for Vulkan API support (latest version, as possible). Curre
 
 ## TODO
 
-- [ ] User friendly interfaces as possible
-- [ ] Protective proxies and classes for `typed.js` types
-- [ ] More specific types (such as arrays, number accessors)
-- [ ] Optimizations on JS side
-- [ ] Variable type acception for API callables (such as typed arrays, array buffers, strings, etc.)
-- [ ] Variable acceptors for JS types (for string, typed arrays, array buffers, native address, etc.)
+- [ ] More type casting
+- [ ] Support `set` operation for everything
+- [ ] Fix common bugs and issues
 
 ## Test code
 
