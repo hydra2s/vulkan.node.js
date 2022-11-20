@@ -21,6 +21,8 @@ Our Node.JS bindings for Vulkan API support (latest version, as possible). Curre
 - Some handmade fixes (such as bitfield structures)
 - Planned support for glMatrix fully
 - Planned support for WebAssembly bindings and memory
+- Error and exception handling support
+- Some syntax sugar for user-friendly
 
 ## TODO
 
