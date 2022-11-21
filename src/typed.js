@@ -295,22 +295,6 @@ class CStructView {
         return this;
     }
 
-    construct(Target, args) {
-        let [buffer, byteOffset, byteLength] = args; byteOffset ||= 0, byteLength ||= 0; // NEW syntax!
-        if (isAbv(buffer ? (buffer.buffer || buffer) : null)) {
-            return new Proxy(new CStructView(buffer.buffer || buffer, this.byteOffset + (buffer.byteOffset||0) + byteOffset, byteLength || this.byteLength || 0, this.struct), this);
-        } else 
-        if (typeof buffer == "number") {
-            return new Proxy(new CStructView(new ArrayBuffer(buffer), this.byteOffset + (buffer.byteOffset||0), buffer || this.byteLength, this.struct), this);
-        } else 
-        if (typeof buffer == "object") {
-            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength), 0, this.byteLength, this.struct).set(buffer), this);
-        } else
-        {
-            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength), 0, this.byteLength, this.struct), this);
-        }
-    }
-
     address() {
         return this.buffer.address() + BigInt(this.byteOffset);
     }
@@ -436,18 +420,18 @@ class CStruct {
 
     // TODO: make as constructor for Proxy
     construct(Target, args) {
-        let [buffer, byteOffset, byteLength] = args; byteOffset ||= 0, byteLength ||= 0; // NEW syntax!
+        let [buffer, byteOffset, byteLength] = args; byteOffset ||= 0, byteLength ||= 1; // NEW syntax!
         if (isAbv(buffer ? (buffer.buffer || buffer) : null)) {
-            return new Proxy(new CStructView(buffer.buffer || buffer, (buffer.byteOffset||0) + byteOffset, byteLength || this.byteLength || 1, this), this);
+            return new Proxy(new CStructView(buffer.buffer || buffer, (buffer.byteOffset||0) + byteOffset, (this.byteLength * byteLength) || 1, this), this);
         } else 
         if (typeof buffer == "number") {
-            return new Proxy(new CStructView(new ArrayBuffer(buffer || this.byteLength), (buffer.byteOffset||0), buffer || this.byteLength || 1, this), this);
+            return new Proxy(new CStructView(new ArrayBuffer((this.byteLength * buffer) || 1), 0, (this.byteLength * buffer) || 1, this), this);
         } else 
         if (typeof buffer == "object") {
-            return new Proxy(new CStructView(new ArrayBuffer(byteLength || this.byteLength), 0, this.byteLength, this).set(buffer), this);
+            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength || 1), 0, (this.byteLength || 1), this).set(buffer), this);
         } else
         {
-            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength), 0, this.byteLength, this), this);
+            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength || 1), 0, (this.byteLength || 1), this), this);
         }
     }
 

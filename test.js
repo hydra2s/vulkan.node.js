@@ -172,7 +172,7 @@ const vert_shader_spv = new Uint8Array([
     V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, dExtensions);
 
     for (let I=0;I<dExtensionCount[0];I++) {
-        let property = new V.VkExtensionProperties(dExtensions, I*V.VkExtensionProperties.sizeof, V.VkExtensionProperties.sizeof);
+        let property = new V.VkExtensionProperties(dExtensions, I*V.VkExtensionProperties.sizeof);
         let string = String.fromAddress(property.extensionName);
         console.log(string);
     }
@@ -188,7 +188,7 @@ const vert_shader_spv = new Uint8Array([
     //
     let queueIndex = -1;
     for (let I=0;I<queueFamilyCount[0];I++) {
-        let property = new V.VkQueueFamilyProperties(queueFamilyProperties, I*V.VkQueueFamilyProperties.sizeof, V.VkQueueFamilyProperties.sizeof);
+        let property = new V.VkQueueFamilyProperties(queueFamilyProperties, I*V.VkQueueFamilyProperties.sizeof);
         if (property.queueFlags & parseInt(V.VK_QUEUE_GRAPHICS_BIT)) {
             queueIndex = I; break;
         }
