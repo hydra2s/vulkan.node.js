@@ -79,6 +79,32 @@ import { default as V } from "./index.js";
 })();
 ```
 
+But continue, currently, not so fair. Needs sizeof de-facto.
+
+```js
+    let deviceCount = new Uint32Array(1);
+    let result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, 0n);
+    //console.log(deviceCount);
+    
+    if (deviceCount[0] <= 0) console.error("Error: No render devices available!");
+    let devices = new BigUint64Array(deviceCount[0]);
+    result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, devices);
+    //console.log(devices);
+
+    //
+    let dExtensionCount = new Uint32Array(1);
+    V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, 0n);
+    
+    let dExtensions = new Uint8Array(dExtensionCount[0]*V.VkExtensionProperties.sizeof);
+    V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, dExtensions);
+
+    for (let I=0;I<dExtensionCount[0];I++) {
+        let property = new V.VkExtensionProperties(dExtensions, I*V.VkExtensionProperties.sizeof, V.VkExtensionProperties.sizeof);
+        let string = String.fromAddress(property.extensionName);
+        console.log(string);
+    }
+```
+
 ## Projects
 
 ### 📀 [vk-utils](https://github.com/hydra2s/vk-utils), our helpers for Vulkan API development 
