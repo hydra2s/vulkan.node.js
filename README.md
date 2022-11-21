@@ -86,7 +86,7 @@ But continue, currently, not so fair. Needs sizeof de-facto.
     let deviceCount = new Uint32Array(1);
     let result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, 0n);
     //console.log(deviceCount);
-    
+
     if (deviceCount[0] <= 0) console.error("Error: No render devices available!");
     let devices = new BigUint64Array(deviceCount[0]);
     result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, devices);
@@ -95,15 +95,34 @@ But continue, currently, not so fair. Needs sizeof de-facto.
     //
     let dExtensionCount = new Uint32Array(1);
     V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, 0n);
-    
+
     let dExtensions = new Uint8Array(dExtensionCount[0]*V.VkExtensionProperties.sizeof);
     V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, dExtensions);
 
     for (let I=0;I<dExtensionCount[0];I++) {
-        let property = new V.VkExtensionProperties(dExtensions, I*V.VkExtensionProperties.sizeof, V.VkExtensionProperties.sizeof);
+        let property = new V.VkExtensionProperties(dExtensions, I*V.VkExtensionProperties.sizeof);
         let string = String.fromAddress(property.extensionName);
         console.log(string);
     }
+
+    //
+    const queueFamilyCount = new Uint32Array(1);
+    V.vkGetPhysicalDeviceQueueFamilyProperties(devices[0], queueFamilyCount, 0n);
+
+    //
+    const queueFamilyProperties = new Uint8Array(V.VkQueueFamilyProperties.sizeof * queueFamilyCount[0]);
+    V.vkGetPhysicalDeviceQueueFamilyProperties(devices[0], queueFamilyCount, queueFamilyProperties);
+
+    //
+    let queueIndex = -1;
+    for (let I=0;I<queueFamilyCount[0];I++) {
+        let property = new V.VkQueueFamilyProperties(queueFamilyProperties, I*V.VkQueueFamilyProperties.sizeof);
+        if (property.queueFlags & parseInt(V.VK_QUEUE_GRAPHICS_BIT)) {
+            queueIndex = I; break;
+        }
+    }
+
+    console.log(queueIndex);
 ```
 
 ## Projects
