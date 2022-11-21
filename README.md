@@ -44,7 +44,6 @@ Currently, not for production use.
 import { default as V } from "./index.js";
 
 (async()=>{
-
     //
     const rect2D = new V.VkRect2D();
 
@@ -62,11 +61,11 @@ import { default as V } from "./index.js";
     const extensions = [];
     const layers = ["VK_LAYER_KHRONOS_validation"];
 
-	//
-	const amountOfLayers = new Uint32Array(1);
-	V.vkEnumerateInstanceLayerProperties(amountOfLayers, null);
-	const availableLayers = new V.VkLayerProperties(amountOfLayers[0]);
-	V.vkEnumerateInstanceLayerProperties(amountOfLayers, availableLayers);
+    //
+    const amountOfLayers = new Uint32Array(1);
+    V.vkEnumerateInstanceLayerProperties(amountOfLayers, null);
+    const availableLayers = new V.VkLayerProperties(amountOfLayers[0]);
+    V.vkEnumerateInstanceLayerProperties(amountOfLayers, availableLayers);
 
     //
     let pInfo = new V.VkInstanceCreateInfo({
@@ -79,10 +78,9 @@ import { default as V } from "./index.js";
         ppEnabledExtensionNames: extensions
     });
 
-	// 
+    // 
     const instance = new BigUint64Array(1);
     V.vkCreateInstance(pInfo, null, instance);
-
 })();
 ```
 
