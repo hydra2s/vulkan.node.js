@@ -109,6 +109,7 @@ class ArrayAccessor {
     get(Target, index) {
         if (index == "type") { return this.type; };
         if (index == "BYTES_PER_ELEMENT") { return Target[index]; }
+        
         if (!isConstructor(Target)) {
             if (index == "") {
                 return new Proxy(Target, this);
@@ -122,6 +123,8 @@ class ArrayAccessor {
             if (["address", "set"].indexOf(index) >= 0) {
                 return Target[index].bind(Target);
             }
+        } else {
+            if (index == "byteLength") { return this.byteLength; };
         }
         return null;
     }
@@ -146,32 +149,32 @@ class ArrayAccessor {
 
 //
 const getInt = (Target, index = 0) => {
-    return target[index];
+    return Target[index];
 }
 
 //
 const getBigInt = (Target, index = 0) => {
-    return target[index];
+    return Target[index];
 }
 
 //
 const getFloat = (Target, index = 0) => {
-    return target[index];
+    return Target[index];
 }
 
 //
 const setFloat = (Target, index = 0, value = 0) => {
-    target[index] = parseFloat(value);
+    Target[index] = parseFloat(value);
 }
 
 //
 const setInt = (Target, index = 0, value = 0) => {
-    target[index] = parseInt(value);
+    Target[index] = parseInt(value);
 }
 
 //
 const setBigInt = (Target, index = 0, value = 0n) => {
-    target[index] = asBigInt(value);
+    Target[index] = asBigInt(value);
 }
 
 // default accessor types
@@ -193,18 +196,33 @@ new NumberAccessor("u24", 3,
 const re64 = (args)=>{
     if (typeof args[0] == "array" || Array.isArray(args[0])) { return [args[0].map(asBigInt)] };
     if (IsNumber(args[0])) { return [parseInt(args[0])]; };
+    if (isAbv(args[0]?.buffer || args[0])) { // PMV
+        if (args.length < 2) { args.push(0); };
+        if (args.length < 3) { args.push(1); };
+        return args;
+    }
     return args;
 }
 
 //
 const rei = (args)=>{
     if (IsNumber(args[0])) { return [parseInt(args[0])]; };
+    if (isAbv(args[0]?.buffer || args[0])) { // PMV
+        if (args.length < 2) { args.push(0); };
+        if (args.length < 3) { args.push(1); };
+        return args;
+    }
     return args;
 }
 
 //
 const ref = (args)=>{
     if (IsNumber(args[0])) { return [parseInt(args[0])]; };
+    if (isAbv(args[0]?.buffer || args[0])) { // PMV
+        if (args.length < 2) { args.push(0); };
+        if (args.length < 3) { args.push(1); };
+        return args;
+    }
     return args;
 }
 
@@ -293,8 +311,7 @@ class CStructView {
         }
 
         if (!type) { type = Types[tname+(length>1?"[arr]":"")]; };
-
-        return new type(this.buffer, this.byteOffset + offset + this.offsetof(mname)||0, length*this.lengthof(mname))[""];
+        return new type(this.buffer, this.byteOffset + offset + (this.offsetof(mname)||0), (length||1)*Math.max(type.byteLength||1,type.BYTES_PER_ELEMENT||1)/(type.BYTES_PER_ELEMENT||1))[""];
     }
 
     // member utils
@@ -395,7 +412,7 @@ class CStruct {
         // if length is not defined
         if (!this.byteLength && this.types.length >= 1) { 
             this.byteLength = this.types[this.types.length-1].byteOffset + this.types[this.types.length-1].byteLength; 
-        };
+        }
     }
 
     get(Target, index) {

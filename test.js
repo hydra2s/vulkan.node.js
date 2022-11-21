@@ -319,4 +319,10 @@ const vert_shader_spv = new Uint8Array([
 	//console.log(deviceFeatures.as("VkPhysicalDeviceFeatures", "features"));
 	console.log(deviceFeatures.as(V.VkPhysicalDeviceFeatures, "features"));
 
+	// also, you can set or get uint32 values
+	//console.log(deviceFeatures.as("u32[arr]")[0]);
+
+	// or only to get uint32
+	//console.log(deviceFeatures.as("u32"));
+
 })();
