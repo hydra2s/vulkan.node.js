@@ -344,7 +344,7 @@ class CStruct {
         this.byteOffset = 0;
         this.byteLength = byteLength;
         this.isStruct = true;
-        if (!(name in Types)) { Types[name] = new Proxy(CStructView, this); };
+        if (!(name in Types)) { this._class = Types[name] = new Proxy(CStructView, this); };
         //if (!(name in Types)) { Types[name] = new Proxy(function(...args){}, this); };
 
         //
@@ -417,7 +417,7 @@ class CStruct {
     }
 
     fromAddress(address, length=1) {
-        return new Types[this.type](ArrayBuffer.fromAddress(asBigInt(address), length * this.byteLength), 0, length * this.byteLength);
+        return new this._class(ArrayBuffer.fromAddress(asBigInt(address), length * this.byteLength), 0, length * this.byteLength);
     }
 
     get(Target, index) {
@@ -427,7 +427,7 @@ class CStruct {
             } else
             if (IsNumber(index)) {
                 index = parseInt(index);
-                return new Types[this.type](Target.buffer, Target.byteOffset + this.byteLength * index, Target.byteLength - this.byteLength * index)[""];
+                return new this._class(Target.buffer, Target.byteOffset + this.byteLength * index, Target.byteLength - this.byteLength * index)[""];
             } else
             if (Target.struct.types.find((t)=>(t.name==index))) {
                 return Target[index];
@@ -456,7 +456,7 @@ class CStruct {
             } else
             if (IsNumber(index)) {
                 index = parseInt(index);
-                new Types[this.type](Target.buffer, Target.byteOffset + this.byteLength * index, Target.byteLength - this.byteLength * index)[""] = value;
+                new this._class(Target.buffer, Target.byteOffset + this.byteLength * index, Target.byteLength - this.byteLength * index)[""] = value;
                 return true;
             } else
             if (Target.struct.types.find((t)=>(t.name==index))) {
