@@ -418,7 +418,7 @@ class CStruct {
         return this.types.find((e)=>(e.name==name))?.byteOffset || 0;
     }
 
-    // TODO: make as constructor for Proxy
+    // 
     construct(Target, args) {
         let [buffer, byteOffset, byteLength] = args; byteOffset ||= 0, byteLength ||= 1; // NEW syntax!
         if (isAbv(buffer ? (buffer.buffer || buffer) : null)) {
