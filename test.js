@@ -225,10 +225,10 @@ const vert_shader_spv = new Uint8Array([
 
 
     //
-    let rect2D = new V.VkRect2D();
+    const rect2D = new V.VkRect2D();
 
     //
-    let appInfo = new V.VkApplicationInfo({
+    const appInfo = new V.VkApplicationInfo({
         pNext: null,
         pApplicationName: "NVAPI TEST",
         applicationVersion: V.VK_MAKE_API_VERSION(0, 1, 3, 234),
@@ -238,13 +238,13 @@ const vert_shader_spv = new Uint8Array([
     });
 
     //
-    let extensions = [];
-    let layers = ["VK_LAYER_KHRONOS_validation"];
+    const extensions = [];
+    const layers = ["VK_LAYER_KHRONOS_validation"];
 
 	//
-	let amountOfLayers = new Uint32Array(1);
+	const amountOfLayers = new Uint32Array(1);
 	V.vkEnumerateInstanceLayerProperties(amountOfLayers, null);
-	let availableLayers = new Uint8Array(V.VkLayerProperties.sizeof * amountOfLayers[0]);
+	const availableLayers = new Uint8Array(V.VkLayerProperties.sizeof * amountOfLayers[0]);
 	V.vkEnumerateInstanceLayerProperties(amountOfLayers, availableLayers);
 
     //
@@ -259,7 +259,7 @@ const vert_shader_spv = new Uint8Array([
     });
 
 	// 
-    let instance = new BigUint64Array(1);
+    const instance = new BigUint64Array(1);
     V.vkCreateInstance(pInfo, null, instance);
 
 	// // // // // // // // // // // // // // // //
@@ -267,20 +267,20 @@ const vert_shader_spv = new Uint8Array([
 	// // // // // // // // // // // // // // // //
 
 	//
-    let deviceCount = new Uint32Array(1);
+    const deviceCount = new Uint32Array(1);
     let result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, null);
     //console.log(deviceCount);
 
 	//
     if (deviceCount[0] <= 0) console.error("Error: No render devices available!");
-    let devices = new BigUint64Array(deviceCount[0]);
+    const devices = new BigUint64Array(deviceCount[0]);
     result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, devices);
     //console.log(devices);
 
     //
-    let dExtensionCount = new Uint32Array(1);
+    const dExtensionCount = new Uint32Array(1);
     V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, null);
-    let dExtensions = new Uint8Array(dExtensionCount[0]*V.VkExtensionProperties.sizeof);
+    const dExtensions = new Uint8Array(dExtensionCount[0]*V.VkExtensionProperties.sizeof);
     V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, dExtensions);
 
 	//
@@ -305,8 +305,8 @@ const vert_shader_spv = new Uint8Array([
     }
 
 	//
-    let deviceFeatures = new V.VkPhysicalDeviceFeatures2();
-	let deviceProperties = new V.VkPhysicalDeviceProperties2();
+    const deviceFeatures = new V.VkPhysicalDeviceFeatures2();
+	const deviceProperties = new V.VkPhysicalDeviceProperties2();
 
 	//
 	V.vkGetPhysicalDeviceProperties2(devices[0], deviceProperties);

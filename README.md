@@ -46,11 +46,11 @@ import { default as V } from "./index.js";
 (async()=>{
 
     //
-    let rect2D = new V.VkRect2D();
+    const rect2D = new V.VkRect2D();
 
     //
-    let appInfo = new V.VkApplicationInfo({
-        pNext: 0n,
+    const appInfo = new V.VkApplicationInfo({
+        pNext: null,
         pApplicationName: "NVAPI TEST",
         applicationVersion: V.VK_MAKE_API_VERSION(0, 1, 3, 234),
         pEngineName: "NVAPI",
@@ -59,12 +59,18 @@ import { default as V } from "./index.js";
     });
 
     //
-    let extensions = [];
-    let layers = ["VK_LAYER_KHRONOS_validation"];
+    const extensions = [];
+    const layers = ["VK_LAYER_KHRONOS_validation"];
+
+	//
+	const amountOfLayers = new Uint32Array(1);
+	V.vkEnumerateInstanceLayerProperties(amountOfLayers, null);
+	const availableLayers = new Uint8Array(V.VkLayerProperties.sizeof * amountOfLayers[0]);
+	V.vkEnumerateInstanceLayerProperties(amountOfLayers, availableLayers);
 
     //
-    let pInfo = new V.VkInstanceCreateInfo({
-        pNext: 0n,
+    const pInfo = new V.VkInstanceCreateInfo({
+        pNext: null,
         flags: 0,
         pApplicationInfo: appInfo,
         enabledLayerCount: layers.length,
@@ -73,10 +79,9 @@ import { default as V } from "./index.js";
         ppEnabledExtensionNames: extensions
     });
 
-    let handle = new BigUint64Array(1);
-    V.vkCreateInstance(pInfo, 0n, handle);
-
-    console.log(handle);
+	// 
+    const instance = new BigUint64Array(1);
+    V.vkCreateInstance(pInfo, null, instance);
 })();
 ```
 
@@ -84,8 +89,8 @@ But continue, currently, not so fair. Needs sizeof de-facto. But now looks bette
 
 ```js
 	//
-    let deviceCount = new Uint32Array(1);
-    let result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, 0n);
+    const deviceCount = new Uint32Array(1);
+    let result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, null);
     //console.log(deviceCount);
 
 	//
@@ -95,9 +100,9 @@ But continue, currently, not so fair. Needs sizeof de-facto. But now looks bette
     //console.log(devices);
 
     //
-    let dExtensionCount = new Uint32Array(1);
-    V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, 0n);
-    let dExtensions = new Uint8Array(dExtensionCount[0]*V.VkExtensionProperties.sizeof);
+    const dExtensionCount = new Uint32Array(1);
+    V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, null);
+    const dExtensions = new Uint8Array(dExtensionCount[0]*V.VkExtensionProperties.sizeof);
     V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, dExtensions);
 
 	//
@@ -108,7 +113,7 @@ But continue, currently, not so fair. Needs sizeof de-facto. But now looks bette
 
     //
     const queueFamilyCount = new Uint32Array(1);
-    V.vkGetPhysicalDeviceQueueFamilyProperties(devices[0], queueFamilyCount, 0n);
+    V.vkGetPhysicalDeviceQueueFamilyProperties(devices[0], queueFamilyCount, null);
     const queueFamilyProperties = new Uint8Array(V.VkQueueFamilyProperties.sizeof * queueFamilyCount[0]);
     V.vkGetPhysicalDeviceQueueFamilyProperties(devices[0], queueFamilyCount, queueFamilyProperties);
 
@@ -122,8 +127,8 @@ But continue, currently, not so fair. Needs sizeof de-facto. But now looks bette
     }
 
 	//
-    let deviceFeatures = new V.VkPhysicalDeviceFeatures2();
-	let deviceProperties = new V.VkPhysicalDeviceProperties2();
+    const deviceFeatures = new V.VkPhysicalDeviceFeatures2();
+	const deviceProperties = new V.VkPhysicalDeviceProperties2();
 
 	//
 	V.vkGetPhysicalDeviceProperties2(devices[0], deviceProperties);
@@ -135,6 +140,15 @@ But continue, currently, not so fair. Needs sizeof de-facto. But now looks bette
 	// you can also hack and typecast members (californium bullets)
 	//console.log(deviceFeatures.as("VkPhysicalDeviceFeatures", "features"));
 	console.log(deviceFeatures.as(V.VkPhysicalDeviceFeatures, "features"));
+
+	// also, you can set or get uint32 values
+	//console.log(deviceFeatures.as("u32[arr]")[0]);
+
+	// or only to get uint32
+	//console.log(deviceFeatures.as("u32"));
+
+	// you construct struct from address
+	//console.log(V.VkPhysicalDeviceFeatures.fromAddress(deviceFeatures.address()));
 ```
 
 ## Projects
