@@ -257,8 +257,16 @@ class CStructView {
     as(tname, mname = "") {
         let length = 1;
         let offset = 0;
+        let dfv = null;
 
         if (typeof tname == "string") {
+            if (tname.indexOf(";") >= 0) {
+                let names = tname.split(";");
+                tname = names[0];
+                if (names.length >= 2 && names[1] && names[1] != "undefined") {
+                    dfv = JSON.parse(names[1]);//JSON.parse(`{"_stub":${names[1]||0}}`)["_stub"];
+                }
+            };
             if (tname.indexOf("[") >= 0 && tname.indexOf("]") >= 0) {
                 let match = tname.match(/\[(-?\d+)\]/);
                 length = (match ? parseInt(match[1]) : 1) || 1;
@@ -277,10 +285,11 @@ class CStructView {
             tname = tname[0];
         }
 
-        return new Types[tname+(length>1?"[arr]":"")](this.buffer, this.byteOffset + offset + this.offsetof(mname));
+        return new Types[tname+(length>1?"[arr]":"")](this.buffer, this.byteOffset + offset + this.offsetof(mname)||0, length*this.lengthof(mname));
     }
 
     // member utils
+    lengthof(name) { return this.struct.lengthof(name); };
     offsetof(name) { return this.struct.offsetof(name); };
     bufferOffsetOf(name) { return this.byteOffset + this.offsetof(name); };
     addressOffsetOf(name) { return this.address() + this.offsetof(name); };
@@ -415,8 +424,13 @@ class CStruct {
         }
     }
 
+    lengthof(name) {
+        let type = this.types.find((e)=>(e.name==name)) || this;
+        return (type?.byteLength || 1) / (type?.BYTES_PER_ELEMENT || 1);
+    }
+
     offsetof(name) {
-        return this.types.find((e)=>(e.name==name))?.byteOffset || 0;
+        return (this.types.find((e)=>(e.name==name)) || this)?.byteOffset || 0;
     }
 
     // 
