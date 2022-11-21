@@ -27,6 +27,7 @@ Our Node.JS bindings for Vulkan API support (latest version, as possible). Curre
 - Planned support for WebAssembly bindings and memory
 - Error and exception handling support
 - Some syntax sugar for user-friendly
+- Better error handling (with additional info)
 
 ## TODO
 
