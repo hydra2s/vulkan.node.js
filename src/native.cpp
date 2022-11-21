@@ -73,6 +73,7 @@ static Napi::Value rawCreateInstance(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateInstance command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateInstance)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
         std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
@@ -97,6 +98,7 @@ static Napi::Value rawDestroyInstance(const Napi::CallbackInfo& info_) {
         ::vkDestroyInstance(instance, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyInstance command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyInstance)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
@@ -132,6 +134,7 @@ static Napi::Value rawEnumeratePhysicalDevices(const Napi::CallbackInfo& info_) 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkEnumeratePhysicalDevices command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkEnumeratePhysicalDevices)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pPhysicalDeviceCount: " << (uint64_t)(pPhysicalDeviceCount) << std::endl;
@@ -156,6 +159,7 @@ static Napi::Value rawGetDeviceProcAddr(const Napi::CallbackInfo& info_) {
         ::vkGetDeviceProcAddr(device, pName);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeviceProcAddr command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeviceProcAddr)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pName: " << (uint64_t)(pName) << std::endl;
@@ -179,6 +183,7 @@ static Napi::Value rawGetInstanceProcAddr(const Napi::CallbackInfo& info_) {
         ::vkGetInstanceProcAddr(instance, pName);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetInstanceProcAddr command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetInstanceProcAddr)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pName: " << (uint64_t)(pName) << std::endl;
@@ -202,6 +207,7 @@ static Napi::Value rawGetPhysicalDeviceProperties(const Napi::CallbackInfo& info
         ::vkGetPhysicalDeviceProperties(physicalDevice, pProperties);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceProperties command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceProperties)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pProperties: " << (uint64_t)(pProperties) << std::endl;
@@ -227,6 +233,7 @@ static Napi::Value rawGetPhysicalDeviceQueueFamilyProperties(const Napi::Callbac
         ::vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, pQueueFamilyPropertyCount, pQueueFamilyProperties);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceQueueFamilyProperties command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceQueueFamilyProperties)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pQueueFamilyPropertyCount: " << (uint64_t)(pQueueFamilyPropertyCount) << std::endl;
@@ -251,6 +258,7 @@ static Napi::Value rawGetPhysicalDeviceMemoryProperties(const Napi::CallbackInfo
         ::vkGetPhysicalDeviceMemoryProperties(physicalDevice, pMemoryProperties);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceMemoryProperties command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceMemoryProperties)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pMemoryProperties: " << (uint64_t)(pMemoryProperties) << std::endl;
@@ -274,6 +282,7 @@ static Napi::Value rawGetPhysicalDeviceFeatures(const Napi::CallbackInfo& info_)
         ::vkGetPhysicalDeviceFeatures(physicalDevice, pFeatures);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceFeatures command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceFeatures)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pFeatures: " << (uint64_t)(pFeatures) << std::endl;
@@ -300,6 +309,7 @@ static Napi::Value rawGetPhysicalDeviceFormatProperties(const Napi::CallbackInfo
         ::vkGetPhysicalDeviceFormatProperties(physicalDevice, format, pFormatProperties);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceFormatProperties command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceFormatProperties)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    format: " << (uint64_t)(format) << std::endl;
@@ -349,6 +359,7 @@ static Napi::Value rawGetPhysicalDeviceImageFormatProperties(const Napi::Callbac
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceImageFormatProperties command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceImageFormatProperties)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    format: " << (uint64_t)(format) << std::endl;
@@ -391,6 +402,7 @@ static Napi::Value rawCreateDevice(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateDevice command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateDevice)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -416,6 +428,7 @@ static Napi::Value rawDestroyDevice(const Napi::CallbackInfo& info_) {
         ::vkDestroyDevice(device, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyDevice command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyDevice)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
@@ -446,6 +459,7 @@ static Napi::Value rawEnumerateInstanceVersion(const Napi::CallbackInfo& info_) 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkEnumerateInstanceVersion command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkEnumerateInstanceVersion)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    pApiVersion: " << (uint64_t)(pApiVersion) << std::endl;
         Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
@@ -477,6 +491,7 @@ static Napi::Value rawEnumerateInstanceLayerProperties(const Napi::CallbackInfo&
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkEnumerateInstanceLayerProperties command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkEnumerateInstanceLayerProperties)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    pPropertyCount: " << (uint64_t)(pPropertyCount) << std::endl;
         std::cerr << "    pProperties: " << (uint64_t)(pProperties) << std::endl;
@@ -511,6 +526,7 @@ static Napi::Value rawEnumerateInstanceExtensionProperties(const Napi::CallbackI
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkEnumerateInstanceExtensionProperties command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkEnumerateInstanceExtensionProperties)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    pLayerName: " << (uint64_t)(pLayerName) << std::endl;
         std::cerr << "    pPropertyCount: " << (uint64_t)(pPropertyCount) << std::endl;
@@ -547,6 +563,7 @@ static Napi::Value rawEnumerateDeviceLayerProperties(const Napi::CallbackInfo& i
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkEnumerateDeviceLayerProperties command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkEnumerateDeviceLayerProperties)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pPropertyCount: " << (uint64_t)(pPropertyCount) << std::endl;
@@ -585,6 +602,7 @@ static Napi::Value rawEnumerateDeviceExtensionProperties(const Napi::CallbackInf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkEnumerateDeviceExtensionProperties command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkEnumerateDeviceExtensionProperties)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pLayerName: " << (uint64_t)(pLayerName) << std::endl;
@@ -616,6 +634,7 @@ static Napi::Value rawGetDeviceQueue(const Napi::CallbackInfo& info_) {
         ::vkGetDeviceQueue(device, queueFamilyIndex, queueIndex, pQueue);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeviceQueue command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeviceQueue)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    queueFamilyIndex: " << (uint64_t)(queueFamilyIndex) << std::endl;
@@ -657,6 +676,7 @@ static Napi::Value rawQueueSubmit(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkQueueSubmit command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkQueueSubmit)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
         std::cerr << "    submitCount: " << (uint64_t)(submitCount) << std::endl;
@@ -690,6 +710,7 @@ static Napi::Value rawQueueWaitIdle(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkQueueWaitIdle command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkQueueWaitIdle)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
         Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
@@ -720,6 +741,7 @@ static Napi::Value rawDeviceWaitIdle(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDeviceWaitIdle command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDeviceWaitIdle)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
@@ -756,6 +778,7 @@ static Napi::Value rawAllocateMemory(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkAllocateMemory command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkAllocateMemory)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pAllocateInfo: " << (uint64_t)(pAllocateInfo) << std::endl;
@@ -784,6 +807,7 @@ static Napi::Value rawFreeMemory(const Napi::CallbackInfo& info_) {
         ::vkFreeMemory(device, memory, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkFreeMemory command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkFreeMemory)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    memory: " << (uint64_t)(memory) << std::endl;
@@ -830,6 +854,7 @@ static Napi::Value rawMapMemory(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkMapMemory command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkMapMemory)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    memory: " << (uint64_t)(memory) << std::endl;
@@ -858,6 +883,7 @@ static Napi::Value rawUnmapMemory(const Napi::CallbackInfo& info_) {
         ::vkUnmapMemory(device, memory);
     } catch(std::exception e) {
         std::cerr << "Exception with vkUnmapMemory command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkUnmapMemory)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    memory: " << (uint64_t)(memory) << std::endl;
@@ -894,6 +920,7 @@ static Napi::Value rawFlushMappedMemoryRanges(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkFlushMappedMemoryRanges command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkFlushMappedMemoryRanges)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    memoryRangeCount: " << (uint64_t)(memoryRangeCount) << std::endl;
@@ -931,6 +958,7 @@ static Napi::Value rawInvalidateMappedMemoryRanges(const Napi::CallbackInfo& inf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkInvalidateMappedMemoryRanges command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkInvalidateMappedMemoryRanges)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    memoryRangeCount: " << (uint64_t)(memoryRangeCount) << std::endl;
@@ -958,6 +986,7 @@ static Napi::Value rawGetDeviceMemoryCommitment(const Napi::CallbackInfo& info_)
         ::vkGetDeviceMemoryCommitment(device, memory, pCommittedMemoryInBytes);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeviceMemoryCommitment command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeviceMemoryCommitment)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    memory: " << (uint64_t)(memory) << std::endl;
@@ -985,6 +1014,7 @@ static Napi::Value rawGetBufferMemoryRequirements(const Napi::CallbackInfo& info
         ::vkGetBufferMemoryRequirements(device, buffer, pMemoryRequirements);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetBufferMemoryRequirements command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetBufferMemoryRequirements)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
@@ -1026,6 +1056,7 @@ static Napi::Value rawBindBufferMemory(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkBindBufferMemory command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkBindBufferMemory)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
@@ -1054,6 +1085,7 @@ static Napi::Value rawGetImageMemoryRequirements(const Napi::CallbackInfo& info_
         ::vkGetImageMemoryRequirements(device, image, pMemoryRequirements);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetImageMemoryRequirements command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetImageMemoryRequirements)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    image: " << (uint64_t)(image) << std::endl;
@@ -1095,6 +1127,7 @@ static Napi::Value rawBindImageMemory(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkBindImageMemory command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkBindImageMemory)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    image: " << (uint64_t)(image) << std::endl;
@@ -1125,6 +1158,7 @@ static Napi::Value rawGetImageSparseMemoryRequirements(const Napi::CallbackInfo&
         ::vkGetImageSparseMemoryRequirements(device, image, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetImageSparseMemoryRequirements command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetImageSparseMemoryRequirements)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    image: " << (uint64_t)(image) << std::endl;
@@ -1167,6 +1201,7 @@ static Napi::Value rawGetPhysicalDeviceSparseImageFormatProperties(const Napi::C
         ::vkGetPhysicalDeviceSparseImageFormatProperties(physicalDevice, format, type, samples, usage, tiling, pPropertyCount, pProperties);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceSparseImageFormatProperties command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceSparseImageFormatProperties)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    format: " << (uint64_t)(format) << std::endl;
@@ -1212,6 +1247,7 @@ static Napi::Value rawQueueBindSparse(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkQueueBindSparse command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkQueueBindSparse)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
         std::cerr << "    bindInfoCount: " << (uint64_t)(bindInfoCount) << std::endl;
@@ -1251,6 +1287,7 @@ static Napi::Value rawCreateFence(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateFence command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateFence)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -1279,6 +1316,7 @@ static Napi::Value rawDestroyFence(const Napi::CallbackInfo& info_) {
         ::vkDestroyFence(device, fence, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyFence command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyFence)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    fence: " << (uint64_t)(fence) << std::endl;
@@ -1316,6 +1354,7 @@ static Napi::Value rawResetFences(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkResetFences command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkResetFences)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    fenceCount: " << (uint64_t)(fenceCount) << std::endl;
@@ -1351,6 +1390,7 @@ static Napi::Value rawGetFenceStatus(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetFenceStatus command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetFenceStatus)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    fence: " << (uint64_t)(fence) << std::endl;
@@ -1393,6 +1433,7 @@ static Napi::Value rawWaitForFences(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkWaitForFences command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkWaitForFences)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    fenceCount: " << (uint64_t)(fenceCount) << std::endl;
@@ -1433,6 +1474,7 @@ static Napi::Value rawCreateSemaphore(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateSemaphore command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateSemaphore)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -1461,6 +1503,7 @@ static Napi::Value rawDestroySemaphore(const Napi::CallbackInfo& info_) {
         ::vkDestroySemaphore(device, semaphore, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroySemaphore command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroySemaphore)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    semaphore: " << (uint64_t)(semaphore) << std::endl;
@@ -1499,6 +1542,7 @@ static Napi::Value rawCreateEvent(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateEvent command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateEvent)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -1527,6 +1571,7 @@ static Napi::Value rawDestroyEvent(const Napi::CallbackInfo& info_) {
         ::vkDestroyEvent(device, event, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyEvent command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyEvent)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    event: " << (uint64_t)(event) << std::endl;
@@ -1562,6 +1607,7 @@ static Napi::Value rawGetEventStatus(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetEventStatus command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetEventStatus)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    event: " << (uint64_t)(event) << std::endl;
@@ -1596,6 +1642,7 @@ static Napi::Value rawSetEvent(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkSetEvent command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkSetEvent)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    event: " << (uint64_t)(event) << std::endl;
@@ -1630,6 +1677,7 @@ static Napi::Value rawResetEvent(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkResetEvent command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkResetEvent)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    event: " << (uint64_t)(event) << std::endl;
@@ -1667,6 +1715,7 @@ static Napi::Value rawCreateQueryPool(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateQueryPool command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateQueryPool)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -1695,6 +1744,7 @@ static Napi::Value rawDestroyQueryPool(const Napi::CallbackInfo& info_) {
         ::vkDestroyQueryPool(device, queryPool, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyQueryPool command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyQueryPool)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
@@ -1747,6 +1797,7 @@ static Napi::Value rawGetQueryPoolResults(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetQueryPoolResults command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetQueryPoolResults)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
@@ -1783,6 +1834,7 @@ static Napi::Value rawResetQueryPool(const Napi::CallbackInfo& info_) {
         ::vkResetQueryPool(device, queryPool, firstQuery, queryCount);
     } catch(std::exception e) {
         std::cerr << "Exception with vkResetQueryPool command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkResetQueryPool)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
@@ -1822,6 +1874,7 @@ static Napi::Value rawCreateBuffer(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateBuffer command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateBuffer)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -1850,6 +1903,7 @@ static Napi::Value rawDestroyBuffer(const Napi::CallbackInfo& info_) {
         ::vkDestroyBuffer(device, buffer, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyBuffer command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyBuffer)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
@@ -1888,6 +1942,7 @@ static Napi::Value rawCreateBufferView(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateBufferView command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateBufferView)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -1916,6 +1971,7 @@ static Napi::Value rawDestroyBufferView(const Napi::CallbackInfo& info_) {
         ::vkDestroyBufferView(device, bufferView, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyBufferView command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyBufferView)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    bufferView: " << (uint64_t)(bufferView) << std::endl;
@@ -1954,6 +2010,7 @@ static Napi::Value rawCreateImage(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateImage command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateImage)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -1982,6 +2039,7 @@ static Napi::Value rawDestroyImage(const Napi::CallbackInfo& info_) {
         ::vkDestroyImage(device, image, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyImage command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyImage)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    image: " << (uint64_t)(image) << std::endl;
@@ -2011,6 +2069,7 @@ static Napi::Value rawGetImageSubresourceLayout(const Napi::CallbackInfo& info_)
         ::vkGetImageSubresourceLayout(device, image, pSubresource, pLayout);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetImageSubresourceLayout command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetImageSubresourceLayout)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    image: " << (uint64_t)(image) << std::endl;
@@ -2050,6 +2109,7 @@ static Napi::Value rawCreateImageView(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateImageView command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateImageView)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -2078,6 +2138,7 @@ static Napi::Value rawDestroyImageView(const Napi::CallbackInfo& info_) {
         ::vkDestroyImageView(device, imageView, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyImageView command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyImageView)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    imageView: " << (uint64_t)(imageView) << std::endl;
@@ -2116,6 +2177,7 @@ static Napi::Value rawCreateShaderModule(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateShaderModule command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateShaderModule)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -2144,6 +2206,7 @@ static Napi::Value rawDestroyShaderModule(const Napi::CallbackInfo& info_) {
         ::vkDestroyShaderModule(device, shaderModule, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyShaderModule command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyShaderModule)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    shaderModule: " << (uint64_t)(shaderModule) << std::endl;
@@ -2182,6 +2245,7 @@ static Napi::Value rawCreatePipelineCache(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreatePipelineCache command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreatePipelineCache)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -2210,6 +2274,7 @@ static Napi::Value rawDestroyPipelineCache(const Napi::CallbackInfo& info_) {
         ::vkDestroyPipelineCache(device, pipelineCache, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyPipelineCache command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyPipelineCache)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pipelineCache: " << (uint64_t)(pipelineCache) << std::endl;
@@ -2249,6 +2314,7 @@ static Napi::Value rawGetPipelineCacheData(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPipelineCacheData command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPipelineCacheData)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pipelineCache: " << (uint64_t)(pipelineCache) << std::endl;
@@ -2290,6 +2356,7 @@ static Napi::Value rawMergePipelineCaches(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkMergePipelineCaches command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkMergePipelineCaches)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    dstCache: " << (uint64_t)(dstCache) << std::endl;
@@ -2335,6 +2402,7 @@ static Napi::Value rawCreateGraphicsPipelines(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateGraphicsPipelines command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateGraphicsPipelines)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pipelineCache: " << (uint64_t)(pipelineCache) << std::endl;
@@ -2382,6 +2450,7 @@ static Napi::Value rawCreateComputePipelines(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateComputePipelines command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateComputePipelines)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pipelineCache: " << (uint64_t)(pipelineCache) << std::endl;
@@ -2423,6 +2492,7 @@ static Napi::Value rawGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(const Napi::
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    renderpass: " << (uint64_t)(renderpass) << std::endl;
@@ -2451,6 +2521,7 @@ static Napi::Value rawDestroyPipeline(const Napi::CallbackInfo& info_) {
         ::vkDestroyPipeline(device, pipeline, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyPipeline command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyPipeline)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pipeline: " << (uint64_t)(pipeline) << std::endl;
@@ -2489,6 +2560,7 @@ static Napi::Value rawCreatePipelineLayout(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreatePipelineLayout command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreatePipelineLayout)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -2517,6 +2589,7 @@ static Napi::Value rawDestroyPipelineLayout(const Napi::CallbackInfo& info_) {
         ::vkDestroyPipelineLayout(device, pipelineLayout, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyPipelineLayout command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyPipelineLayout)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pipelineLayout: " << (uint64_t)(pipelineLayout) << std::endl;
@@ -2555,6 +2628,7 @@ static Napi::Value rawCreateSampler(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateSampler command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateSampler)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -2583,6 +2657,7 @@ static Napi::Value rawDestroySampler(const Napi::CallbackInfo& info_) {
         ::vkDestroySampler(device, sampler, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroySampler command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroySampler)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    sampler: " << (uint64_t)(sampler) << std::endl;
@@ -2621,6 +2696,7 @@ static Napi::Value rawCreateDescriptorSetLayout(const Napi::CallbackInfo& info_)
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateDescriptorSetLayout command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateDescriptorSetLayout)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -2649,6 +2725,7 @@ static Napi::Value rawDestroyDescriptorSetLayout(const Napi::CallbackInfo& info_
         ::vkDestroyDescriptorSetLayout(device, descriptorSetLayout, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyDescriptorSetLayout command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyDescriptorSetLayout)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    descriptorSetLayout: " << (uint64_t)(descriptorSetLayout) << std::endl;
@@ -2687,6 +2764,7 @@ static Napi::Value rawCreateDescriptorPool(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateDescriptorPool command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateDescriptorPool)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -2715,6 +2793,7 @@ static Napi::Value rawDestroyDescriptorPool(const Napi::CallbackInfo& info_) {
         ::vkDestroyDescriptorPool(device, descriptorPool, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyDescriptorPool command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyDescriptorPool)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    descriptorPool: " << (uint64_t)(descriptorPool) << std::endl;
@@ -2753,6 +2832,7 @@ static Napi::Value rawResetDescriptorPool(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkResetDescriptorPool command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkResetDescriptorPool)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    descriptorPool: " << (uint64_t)(descriptorPool) << std::endl;
@@ -2789,6 +2869,7 @@ static Napi::Value rawAllocateDescriptorSets(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkAllocateDescriptorSets command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkAllocateDescriptorSets)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pAllocateInfo: " << (uint64_t)(pAllocateInfo) << std::endl;
@@ -2829,6 +2910,7 @@ static Napi::Value rawFreeDescriptorSets(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkFreeDescriptorSets command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkFreeDescriptorSets)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    descriptorPool: " << (uint64_t)(descriptorPool) << std::endl;
@@ -2862,6 +2944,7 @@ static Napi::Value rawUpdateDescriptorSets(const Napi::CallbackInfo& info_) {
         ::vkUpdateDescriptorSets(device, descriptorWriteCount, pDescriptorWrites, descriptorCopyCount, pDescriptorCopies);
     } catch(std::exception e) {
         std::cerr << "Exception with vkUpdateDescriptorSets command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkUpdateDescriptorSets)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    descriptorWriteCount: " << (uint64_t)(descriptorWriteCount) << std::endl;
@@ -2902,6 +2985,7 @@ static Napi::Value rawCreateFramebuffer(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateFramebuffer command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateFramebuffer)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -2930,6 +3014,7 @@ static Napi::Value rawDestroyFramebuffer(const Napi::CallbackInfo& info_) {
         ::vkDestroyFramebuffer(device, framebuffer, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyFramebuffer command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyFramebuffer)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    framebuffer: " << (uint64_t)(framebuffer) << std::endl;
@@ -2968,6 +3053,7 @@ static Napi::Value rawCreateRenderPass(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateRenderPass command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateRenderPass)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -2996,6 +3082,7 @@ static Napi::Value rawDestroyRenderPass(const Napi::CallbackInfo& info_) {
         ::vkDestroyRenderPass(device, renderPass, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyRenderPass command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyRenderPass)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    renderPass: " << (uint64_t)(renderPass) << std::endl;
@@ -3023,6 +3110,7 @@ static Napi::Value rawGetRenderAreaGranularity(const Napi::CallbackInfo& info_) 
         ::vkGetRenderAreaGranularity(device, renderPass, pGranularity);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetRenderAreaGranularity command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetRenderAreaGranularity)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    renderPass: " << (uint64_t)(renderPass) << std::endl;
@@ -3061,6 +3149,7 @@ static Napi::Value rawCreateCommandPool(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateCommandPool command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateCommandPool)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -3089,6 +3178,7 @@ static Napi::Value rawDestroyCommandPool(const Napi::CallbackInfo& info_) {
         ::vkDestroyCommandPool(device, commandPool, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyCommandPool command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyCommandPool)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    commandPool: " << (uint64_t)(commandPool) << std::endl;
@@ -3127,6 +3217,7 @@ static Napi::Value rawResetCommandPool(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkResetCommandPool command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkResetCommandPool)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    commandPool: " << (uint64_t)(commandPool) << std::endl;
@@ -3163,6 +3254,7 @@ static Napi::Value rawAllocateCommandBuffers(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkAllocateCommandBuffers command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkAllocateCommandBuffers)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pAllocateInfo: " << (uint64_t)(pAllocateInfo) << std::endl;
@@ -3193,6 +3285,7 @@ static Napi::Value rawFreeCommandBuffers(const Napi::CallbackInfo& info_) {
         ::vkFreeCommandBuffers(device, commandPool, commandBufferCount, pCommandBuffers);
     } catch(std::exception e) {
         std::cerr << "Exception with vkFreeCommandBuffers command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkFreeCommandBuffers)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    commandPool: " << (uint64_t)(commandPool) << std::endl;
@@ -3228,6 +3321,7 @@ static Napi::Value rawBeginCommandBuffer(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkBeginCommandBuffer command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkBeginCommandBuffer)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pBeginInfo: " << (uint64_t)(pBeginInfo) << std::endl;
@@ -3259,6 +3353,7 @@ static Napi::Value rawEndCommandBuffer(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkEndCommandBuffer command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkEndCommandBuffer)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
@@ -3292,6 +3387,7 @@ static Napi::Value rawResetCommandBuffer(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkResetCommandBuffer command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkResetCommandBuffer)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    flags: " << (uint64_t)(flags) << std::endl;
@@ -3319,6 +3415,7 @@ static Napi::Value rawCmdBindPipeline(const Napi::CallbackInfo& info_) {
         ::vkCmdBindPipeline(commandBuffer, pipelineBindPoint, pipeline);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBindPipeline command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBindPipeline)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pipelineBindPoint: " << (uint64_t)(pipelineBindPoint) << std::endl;
@@ -3349,6 +3446,7 @@ static Napi::Value rawCmdSetViewport(const Napi::CallbackInfo& info_) {
         ::vkCmdSetViewport(commandBuffer, firstViewport, viewportCount, pViewports);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetViewport command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetViewport)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    firstViewport: " << (uint64_t)(firstViewport) << std::endl;
@@ -3380,6 +3478,7 @@ static Napi::Value rawCmdSetScissor(const Napi::CallbackInfo& info_) {
         ::vkCmdSetScissor(commandBuffer, firstScissor, scissorCount, pScissors);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetScissor command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetScissor)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    firstScissor: " << (uint64_t)(firstScissor) << std::endl;
@@ -3406,6 +3505,7 @@ static Napi::Value rawCmdSetLineWidth(const Napi::CallbackInfo& info_) {
         ::vkCmdSetLineWidth(commandBuffer, lineWidth);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetLineWidth command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetLineWidth)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    lineWidth: " << (uint64_t)(lineWidth) << std::endl;
@@ -3436,6 +3536,7 @@ static Napi::Value rawCmdSetDepthBias(const Napi::CallbackInfo& info_) {
         ::vkCmdSetDepthBias(commandBuffer, depthBiasConstantFactor, depthBiasClamp, depthBiasSlopeFactor);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetDepthBias command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetDepthBias)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    depthBiasConstantFactor: " << (uint64_t)(depthBiasConstantFactor) << std::endl;
@@ -3461,6 +3562,7 @@ static Napi::Value rawCmdSetBlendConstants(const Napi::CallbackInfo& info_) {
         ::vkCmdSetBlendConstants(commandBuffer, blendConstants);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetBlendConstants command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetBlendConstants)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    blendConstants: " << (uint64_t)(blendConstants) << std::endl;
@@ -3488,6 +3590,7 @@ static Napi::Value rawCmdSetDepthBounds(const Napi::CallbackInfo& info_) {
         ::vkCmdSetDepthBounds(commandBuffer, minDepthBounds, maxDepthBounds);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetDepthBounds command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetDepthBounds)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    minDepthBounds: " << (uint64_t)(minDepthBounds) << std::endl;
@@ -3516,6 +3619,7 @@ static Napi::Value rawCmdSetStencilCompareMask(const Napi::CallbackInfo& info_) 
         ::vkCmdSetStencilCompareMask(commandBuffer, faceMask, compareMask);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetStencilCompareMask command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetStencilCompareMask)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    faceMask: " << (uint64_t)(faceMask) << std::endl;
@@ -3544,6 +3648,7 @@ static Napi::Value rawCmdSetStencilWriteMask(const Napi::CallbackInfo& info_) {
         ::vkCmdSetStencilWriteMask(commandBuffer, faceMask, writeMask);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetStencilWriteMask command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetStencilWriteMask)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    faceMask: " << (uint64_t)(faceMask) << std::endl;
@@ -3572,6 +3677,7 @@ static Napi::Value rawCmdSetStencilReference(const Napi::CallbackInfo& info_) {
         ::vkCmdSetStencilReference(commandBuffer, faceMask, reference);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetStencilReference command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetStencilReference)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    faceMask: " << (uint64_t)(faceMask) << std::endl;
@@ -3613,6 +3719,7 @@ static Napi::Value rawCmdBindDescriptorSets(const Napi::CallbackInfo& info_) {
         ::vkCmdBindDescriptorSets(commandBuffer, pipelineBindPoint, layout, firstSet, descriptorSetCount, pDescriptorSets, dynamicOffsetCount, pDynamicOffsets);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBindDescriptorSets command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBindDescriptorSets)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pipelineBindPoint: " << (uint64_t)(pipelineBindPoint) << std::endl;
@@ -3649,6 +3756,7 @@ static Napi::Value rawCmdBindIndexBuffer(const Napi::CallbackInfo& info_) {
         ::vkCmdBindIndexBuffer(commandBuffer, buffer, offset, indexType);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBindIndexBuffer command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBindIndexBuffer)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
@@ -3682,6 +3790,7 @@ static Napi::Value rawCmdBindVertexBuffers(const Napi::CallbackInfo& info_) {
         ::vkCmdBindVertexBuffers(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBindVertexBuffers command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBindVertexBuffers)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    firstBinding: " << (uint64_t)(firstBinding) << std::endl;
@@ -3718,6 +3827,7 @@ static Napi::Value rawCmdDraw(const Napi::CallbackInfo& info_) {
         ::vkCmdDraw(commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDraw command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDraw)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    vertexCount: " << (uint64_t)(vertexCount) << std::endl;
@@ -3757,6 +3867,7 @@ static Napi::Value rawCmdDrawIndexed(const Napi::CallbackInfo& info_) {
         ::vkCmdDrawIndexed(commandBuffer, indexCount, instanceCount, firstIndex, vertexOffset, firstInstance);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDrawIndexed command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDrawIndexed)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    indexCount: " << (uint64_t)(indexCount) << std::endl;
@@ -3797,6 +3908,7 @@ static Napi::Value rawCmdDrawMultiEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdDrawMultiEXT(commandBuffer, drawCount, pVertexInfo, instanceCount, firstInstance, stride);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDrawMultiEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDrawMultiEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    drawCount: " << (uint64_t)(drawCount) << std::endl;
@@ -3840,6 +3952,7 @@ static Napi::Value rawCmdDrawMultiIndexedEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdDrawMultiIndexedEXT(commandBuffer, drawCount, pIndexInfo, instanceCount, firstInstance, stride, pVertexOffset);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDrawMultiIndexedEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDrawMultiIndexedEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    drawCount: " << (uint64_t)(drawCount) << std::endl;
@@ -3879,6 +3992,7 @@ static Napi::Value rawCmdDrawIndirect(const Napi::CallbackInfo& info_) {
         ::vkCmdDrawIndirect(commandBuffer, buffer, offset, drawCount, stride);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDrawIndirect command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDrawIndirect)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
@@ -3915,6 +4029,7 @@ static Napi::Value rawCmdDrawIndexedIndirect(const Napi::CallbackInfo& info_) {
         ::vkCmdDrawIndexedIndirect(commandBuffer, buffer, offset, drawCount, stride);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDrawIndexedIndirect command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDrawIndexedIndirect)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
@@ -3948,6 +4063,7 @@ static Napi::Value rawCmdDispatch(const Napi::CallbackInfo& info_) {
         ::vkCmdDispatch(commandBuffer, groupCountX, groupCountY, groupCountZ);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDispatch command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDispatch)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    groupCountX: " << (uint64_t)(groupCountX) << std::endl;
@@ -3977,6 +4093,7 @@ static Napi::Value rawCmdDispatchIndirect(const Napi::CallbackInfo& info_) {
         ::vkCmdDispatchIndirect(commandBuffer, buffer, offset);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDispatchIndirect command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDispatchIndirect)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
@@ -4000,6 +4117,7 @@ static Napi::Value rawCmdSubpassShadingHUAWEI(const Napi::CallbackInfo& info_) {
         ::vkCmdSubpassShadingHUAWEI(commandBuffer);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSubpassShadingHUAWEI command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSubpassShadingHUAWEI)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
@@ -4032,6 +4150,7 @@ static Napi::Value rawCmdCopyBuffer(const Napi::CallbackInfo& info_) {
         ::vkCmdCopyBuffer(commandBuffer, srcBuffer, dstBuffer, regionCount, pRegions);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyBuffer command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyBuffer)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    srcBuffer: " << (uint64_t)(srcBuffer) << std::endl;
@@ -4073,6 +4192,7 @@ static Napi::Value rawCmdCopyImage(const Napi::CallbackInfo& info_) {
         ::vkCmdCopyImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyImage command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyImage)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    srcImage: " << (uint64_t)(srcImage) << std::endl;
@@ -4119,6 +4239,7 @@ static Napi::Value rawCmdBlitImage(const Napi::CallbackInfo& info_) {
         ::vkCmdBlitImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions, filter);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBlitImage command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBlitImage)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    srcImage: " << (uint64_t)(srcImage) << std::endl;
@@ -4160,6 +4281,7 @@ static Napi::Value rawCmdCopyBufferToImage(const Napi::CallbackInfo& info_) {
         ::vkCmdCopyBufferToImage(commandBuffer, srcBuffer, dstImage, dstImageLayout, regionCount, pRegions);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyBufferToImage command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyBufferToImage)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    srcBuffer: " << (uint64_t)(srcBuffer) << std::endl;
@@ -4199,6 +4321,7 @@ static Napi::Value rawCmdCopyImageToBuffer(const Napi::CallbackInfo& info_) {
         ::vkCmdCopyImageToBuffer(commandBuffer, srcImage, srcImageLayout, dstBuffer, regionCount, pRegions);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyImageToBuffer command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyImageToBuffer)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    srcImage: " << (uint64_t)(srcImage) << std::endl;
@@ -4234,6 +4357,7 @@ static Napi::Value rawCmdCopyMemoryIndirectNV(const Napi::CallbackInfo& info_) {
         ::vkCmdCopyMemoryIndirectNV(commandBuffer, copyBufferAddress, copyCount, stride);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyMemoryIndirectNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyMemoryIndirectNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    copyBufferAddress: " << (uint64_t)(copyBufferAddress) << std::endl;
@@ -4276,6 +4400,7 @@ static Napi::Value rawCmdCopyMemoryToImageIndirectNV(const Napi::CallbackInfo& i
         ::vkCmdCopyMemoryToImageIndirectNV(commandBuffer, copyBufferAddress, copyCount, stride, dstImage, dstImageLayout, pImageSubresources);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyMemoryToImageIndirectNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyMemoryToImageIndirectNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    copyBufferAddress: " << (uint64_t)(copyBufferAddress) << std::endl;
@@ -4314,6 +4439,7 @@ static Napi::Value rawCmdUpdateBuffer(const Napi::CallbackInfo& info_) {
         ::vkCmdUpdateBuffer(commandBuffer, dstBuffer, dstOffset, dataSize, pData);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdUpdateBuffer command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdUpdateBuffer)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    dstBuffer: " << (uint64_t)(dstBuffer) << std::endl;
@@ -4350,6 +4476,7 @@ static Napi::Value rawCmdFillBuffer(const Napi::CallbackInfo& info_) {
         ::vkCmdFillBuffer(commandBuffer, dstBuffer, dstOffset, size, data);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdFillBuffer command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdFillBuffer)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    dstBuffer: " << (uint64_t)(dstBuffer) << std::endl;
@@ -4387,6 +4514,7 @@ static Napi::Value rawCmdClearColorImage(const Napi::CallbackInfo& info_) {
         ::vkCmdClearColorImage(commandBuffer, image, imageLayout, pColor, rangeCount, pRanges);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdClearColorImage command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdClearColorImage)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    image: " << (uint64_t)(image) << std::endl;
@@ -4425,6 +4553,7 @@ static Napi::Value rawCmdClearDepthStencilImage(const Napi::CallbackInfo& info_)
         ::vkCmdClearDepthStencilImage(commandBuffer, image, imageLayout, pDepthStencil, rangeCount, pRanges);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdClearDepthStencilImage command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdClearDepthStencilImage)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    image: " << (uint64_t)(image) << std::endl;
@@ -4460,6 +4589,7 @@ static Napi::Value rawCmdClearAttachments(const Napi::CallbackInfo& info_) {
         ::vkCmdClearAttachments(commandBuffer, attachmentCount, pAttachments, rectCount, pRects);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdClearAttachments command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdClearAttachments)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    attachmentCount: " << (uint64_t)(attachmentCount) << std::endl;
@@ -4501,6 +4631,7 @@ static Napi::Value rawCmdResolveImage(const Napi::CallbackInfo& info_) {
         ::vkCmdResolveImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdResolveImage command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdResolveImage)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    srcImage: " << (uint64_t)(srcImage) << std::endl;
@@ -4533,6 +4664,7 @@ static Napi::Value rawCmdSetEvent(const Napi::CallbackInfo& info_) {
         ::vkCmdSetEvent(commandBuffer, event, stageMask);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetEvent command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetEvent)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    event: " << (uint64_t)(event) << std::endl;
@@ -4561,6 +4693,7 @@ static Napi::Value rawCmdResetEvent(const Napi::CallbackInfo& info_) {
         ::vkCmdResetEvent(commandBuffer, event, stageMask);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdResetEvent command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdResetEvent)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    event: " << (uint64_t)(event) << std::endl;
@@ -4609,6 +4742,7 @@ static Napi::Value rawCmdWaitEvents(const Napi::CallbackInfo& info_) {
         ::vkCmdWaitEvents(commandBuffer, eventCount, pEvents, srcStageMask, dstStageMask, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdWaitEvents command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdWaitEvents)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    eventCount: " << (uint64_t)(eventCount) << std::endl;
@@ -4663,6 +4797,7 @@ static Napi::Value rawCmdPipelineBarrier(const Napi::CallbackInfo& info_) {
         ::vkCmdPipelineBarrier(commandBuffer, srcStageMask, dstStageMask, dependencyFlags, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdPipelineBarrier command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdPipelineBarrier)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    srcStageMask: " << (uint64_t)(srcStageMask) << std::endl;
@@ -4701,6 +4836,7 @@ static Napi::Value rawCmdBeginQuery(const Napi::CallbackInfo& info_) {
         ::vkCmdBeginQuery(commandBuffer, queryPool, query, flags);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBeginQuery command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBeginQuery)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
@@ -4730,6 +4866,7 @@ static Napi::Value rawCmdEndQuery(const Napi::CallbackInfo& info_) {
         ::vkCmdEndQuery(commandBuffer, queryPool, query);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdEndQuery command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdEndQuery)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
@@ -4755,6 +4892,7 @@ static Napi::Value rawCmdBeginConditionalRenderingEXT(const Napi::CallbackInfo& 
         ::vkCmdBeginConditionalRenderingEXT(commandBuffer, pConditionalRenderingBegin);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBeginConditionalRenderingEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBeginConditionalRenderingEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pConditionalRenderingBegin: " << (uint64_t)(pConditionalRenderingBegin) << std::endl;
@@ -4778,6 +4916,7 @@ static Napi::Value rawCmdEndConditionalRenderingEXT(const Napi::CallbackInfo& in
         ::vkCmdEndConditionalRenderingEXT(commandBuffer);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdEndConditionalRenderingEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdEndConditionalRenderingEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
@@ -4808,6 +4947,7 @@ static Napi::Value rawCmdResetQueryPool(const Napi::CallbackInfo& info_) {
         ::vkCmdResetQueryPool(commandBuffer, queryPool, firstQuery, queryCount);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdResetQueryPool command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdResetQueryPool)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
@@ -4840,6 +4980,7 @@ static Napi::Value rawCmdWriteTimestamp(const Napi::CallbackInfo& info_) {
         ::vkCmdWriteTimestamp(commandBuffer, pipelineStage, queryPool, query);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdWriteTimestamp command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdWriteTimestamp)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pipelineStage: " << (uint64_t)(pipelineStage) << std::endl;
@@ -4884,6 +5025,7 @@ static Napi::Value rawCmdCopyQueryPoolResults(const Napi::CallbackInfo& info_) {
         ::vkCmdCopyQueryPoolResults(commandBuffer, queryPool, firstQuery, queryCount, dstBuffer, dstOffset, stride, flags);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyQueryPoolResults command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyQueryPoolResults)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
@@ -4925,6 +5067,7 @@ static Napi::Value rawCmdPushConstants(const Napi::CallbackInfo& info_) {
         ::vkCmdPushConstants(commandBuffer, layout, stageFlags, offset, size, pValues);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdPushConstants command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdPushConstants)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    layout: " << (uint64_t)(layout) << std::endl;
@@ -4955,6 +5098,7 @@ static Napi::Value rawCmdBeginRenderPass(const Napi::CallbackInfo& info_) {
         ::vkCmdBeginRenderPass(commandBuffer, pRenderPassBegin, contents);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBeginRenderPass command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBeginRenderPass)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pRenderPassBegin: " << (uint64_t)(pRenderPassBegin) << std::endl;
@@ -4980,6 +5124,7 @@ static Napi::Value rawCmdNextSubpass(const Napi::CallbackInfo& info_) {
         ::vkCmdNextSubpass(commandBuffer, contents);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdNextSubpass command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdNextSubpass)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    contents: " << (uint64_t)(contents) << std::endl;
@@ -5001,6 +5146,7 @@ static Napi::Value rawCmdEndRenderPass(const Napi::CallbackInfo& info_) {
         ::vkCmdEndRenderPass(commandBuffer);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdEndRenderPass command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdEndRenderPass)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
@@ -5026,6 +5172,7 @@ static Napi::Value rawCmdExecuteCommands(const Napi::CallbackInfo& info_) {
         ::vkCmdExecuteCommands(commandBuffer, commandBufferCount, pCommandBuffers);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdExecuteCommands command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdExecuteCommands)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    commandBufferCount: " << (uint64_t)(commandBufferCount) << std::endl;
@@ -5065,6 +5212,7 @@ static Napi::Value rawCreateAndroidSurfaceKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateAndroidSurfaceKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateAndroidSurfaceKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -5104,6 +5252,7 @@ static Napi::Value rawGetPhysicalDeviceDisplayPropertiesKHR(const Napi::Callback
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceDisplayPropertiesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceDisplayPropertiesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pPropertyCount: " << (uint64_t)(pPropertyCount) << std::endl;
@@ -5142,6 +5291,7 @@ static Napi::Value rawGetPhysicalDeviceDisplayPlanePropertiesKHR(const Napi::Cal
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceDisplayPlanePropertiesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceDisplayPlanePropertiesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pPropertyCount: " << (uint64_t)(pPropertyCount) << std::endl;
@@ -5183,6 +5333,7 @@ static Napi::Value rawGetDisplayPlaneSupportedDisplaysKHR(const Napi::CallbackIn
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDisplayPlaneSupportedDisplaysKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDisplayPlaneSupportedDisplaysKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    planeIndex: " << (uint64_t)(planeIndex) << std::endl;
@@ -5225,6 +5376,7 @@ static Napi::Value rawGetDisplayModePropertiesKHR(const Napi::CallbackInfo& info
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDisplayModePropertiesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDisplayModePropertiesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    display: " << (uint64_t)(display) << std::endl;
@@ -5269,6 +5421,7 @@ static Napi::Value rawCreateDisplayModeKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateDisplayModeKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateDisplayModeKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    display: " << (uint64_t)(display) << std::endl;
@@ -5313,6 +5466,7 @@ static Napi::Value rawGetDisplayPlaneCapabilitiesKHR(const Napi::CallbackInfo& i
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDisplayPlaneCapabilitiesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDisplayPlaneCapabilitiesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    mode: " << (uint64_t)(mode) << std::endl;
@@ -5354,6 +5508,7 @@ static Napi::Value rawCreateDisplayPlaneSurfaceKHR(const Napi::CallbackInfo& inf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateDisplayPlaneSurfaceKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateDisplayPlaneSurfaceKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -5398,6 +5553,7 @@ static Napi::Value rawCreateSharedSwapchainsKHR(const Napi::CallbackInfo& info_)
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateSharedSwapchainsKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateSharedSwapchainsKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    swapchainCount: " << (uint64_t)(swapchainCount) << std::endl;
@@ -5429,6 +5585,7 @@ static Napi::Value rawDestroySurfaceKHR(const Napi::CallbackInfo& info_) {
         ::vkDestroySurfaceKHR(instance, surface, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroySurfaceKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroySurfaceKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    surface: " << (uint64_t)(surface) << std::endl;
@@ -5471,6 +5628,7 @@ static Napi::Value rawGetPhysicalDeviceSurfaceSupportKHR(const Napi::CallbackInf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceSurfaceSupportKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceSurfaceSupportKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    queueFamilyIndex: " << (uint64_t)(queueFamilyIndex) << std::endl;
@@ -5511,6 +5669,7 @@ static Napi::Value rawGetPhysicalDeviceSurfaceCapabilitiesKHR(const Napi::Callba
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceSurfaceCapabilitiesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceSurfaceCapabilitiesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    surface: " << (uint64_t)(surface) << std::endl;
@@ -5552,6 +5711,7 @@ static Napi::Value rawGetPhysicalDeviceSurfaceFormatsKHR(const Napi::CallbackInf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceSurfaceFormatsKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceSurfaceFormatsKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    surface: " << (uint64_t)(surface) << std::endl;
@@ -5594,6 +5754,7 @@ static Napi::Value rawGetPhysicalDeviceSurfacePresentModesKHR(const Napi::Callba
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceSurfacePresentModesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceSurfacePresentModesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    surface: " << (uint64_t)(surface) << std::endl;
@@ -5635,6 +5796,7 @@ static Napi::Value rawCreateSwapchainKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateSwapchainKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateSwapchainKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -5665,6 +5827,7 @@ static Napi::Value rawDestroySwapchainKHR(const Napi::CallbackInfo& info_) {
         ::vkDestroySwapchainKHR(device, swapchain, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroySwapchainKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroySwapchainKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    swapchain: " << (uint64_t)(swapchain) << std::endl;
@@ -5706,6 +5869,7 @@ static Napi::Value rawGetSwapchainImagesKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetSwapchainImagesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetSwapchainImagesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    swapchain: " << (uint64_t)(swapchain) << std::endl;
@@ -5755,6 +5919,7 @@ static Napi::Value rawAcquireNextImageKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkAcquireNextImageKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkAcquireNextImageKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    swapchain: " << (uint64_t)(swapchain) << std::endl;
@@ -5794,6 +5959,7 @@ static Napi::Value rawQueuePresentKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkQueuePresentKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkQueuePresentKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
         std::cerr << "    pPresentInfo: " << (uint64_t)(pPresentInfo) << std::endl;
@@ -5833,6 +5999,7 @@ static Napi::Value rawCreateViSurfaceNN(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateViSurfaceNN command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateViSurfaceNN)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -5874,6 +6041,7 @@ static Napi::Value rawCreateWaylandSurfaceKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateWaylandSurfaceKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateWaylandSurfaceKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -5914,6 +6082,7 @@ static Napi::Value rawGetPhysicalDeviceWaylandPresentationSupportKHR(const Napi:
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceWaylandPresentationSupportKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceWaylandPresentationSupportKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    queueFamilyIndex: " << (uint64_t)(queueFamilyIndex) << std::endl;
@@ -5954,6 +6123,7 @@ static Napi::Value rawCreateWin32SurfaceKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateWin32SurfaceKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateWin32SurfaceKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -5992,6 +6162,7 @@ static Napi::Value rawGetPhysicalDeviceWin32PresentationSupportKHR(const Napi::C
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceWin32PresentationSupportKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceWin32PresentationSupportKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    queueFamilyIndex: " << (uint64_t)(queueFamilyIndex) << std::endl;
@@ -6031,6 +6202,7 @@ static Napi::Value rawCreateXlibSurfaceKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateXlibSurfaceKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateXlibSurfaceKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -6074,6 +6246,7 @@ static Napi::Value rawGetPhysicalDeviceXlibPresentationSupportKHR(const Napi::Ca
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceXlibPresentationSupportKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceXlibPresentationSupportKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    queueFamilyIndex: " << (uint64_t)(queueFamilyIndex) << std::endl;
@@ -6115,6 +6288,7 @@ static Napi::Value rawCreateXcbSurfaceKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateXcbSurfaceKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateXcbSurfaceKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -6158,6 +6332,7 @@ static Napi::Value rawGetPhysicalDeviceXcbPresentationSupportKHR(const Napi::Cal
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceXcbPresentationSupportKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceXcbPresentationSupportKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    queueFamilyIndex: " << (uint64_t)(queueFamilyIndex) << std::endl;
@@ -6199,6 +6374,7 @@ static Napi::Value rawCreateDirectFBSurfaceEXT(const Napi::CallbackInfo& info_) 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateDirectFBSurfaceEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateDirectFBSurfaceEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -6239,6 +6415,7 @@ static Napi::Value rawGetPhysicalDeviceDirectFBPresentationSupportEXT(const Napi
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceDirectFBPresentationSupportEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceDirectFBPresentationSupportEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    queueFamilyIndex: " << (uint64_t)(queueFamilyIndex) << std::endl;
@@ -6279,6 +6456,7 @@ static Napi::Value rawCreateImagePipeSurfaceFUCHSIA(const Napi::CallbackInfo& in
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateImagePipeSurfaceFUCHSIA command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateImagePipeSurfaceFUCHSIA)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -6320,6 +6498,7 @@ static Napi::Value rawCreateStreamDescriptorSurfaceGGP(const Napi::CallbackInfo&
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateStreamDescriptorSurfaceGGP command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateStreamDescriptorSurfaceGGP)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -6361,6 +6540,7 @@ static Napi::Value rawCreateScreenSurfaceQNX(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateScreenSurfaceQNX command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateScreenSurfaceQNX)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -6401,6 +6581,7 @@ static Napi::Value rawGetPhysicalDeviceScreenPresentationSupportQNX(const Napi::
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceScreenPresentationSupportQNX command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceScreenPresentationSupportQNX)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    queueFamilyIndex: " << (uint64_t)(queueFamilyIndex) << std::endl;
@@ -6441,6 +6622,7 @@ static Napi::Value rawCreateDebugReportCallbackEXT(const Napi::CallbackInfo& inf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateDebugReportCallbackEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateDebugReportCallbackEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -6471,6 +6653,7 @@ static Napi::Value rawDestroyDebugReportCallbackEXT(const Napi::CallbackInfo& in
         ::vkDestroyDebugReportCallbackEXT(instance, callback, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyDebugReportCallbackEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyDebugReportCallbackEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    callback: " << (uint64_t)(callback) << std::endl;
@@ -6514,6 +6697,7 @@ static Napi::Value rawDebugReportMessageEXT(const Napi::CallbackInfo& info_) {
         ::vkDebugReportMessageEXT(instance, flags, objectType, object, location, messageCode, pLayerPrefix, pMessage);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDebugReportMessageEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDebugReportMessageEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    flags: " << (uint64_t)(flags) << std::endl;
@@ -6555,6 +6739,7 @@ static Napi::Value rawDebugMarkerSetObjectNameEXT(const Napi::CallbackInfo& info
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDebugMarkerSetObjectNameEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDebugMarkerSetObjectNameEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pNameInfo: " << (uint64_t)(pNameInfo) << std::endl;
@@ -6590,6 +6775,7 @@ static Napi::Value rawDebugMarkerSetObjectTagEXT(const Napi::CallbackInfo& info_
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDebugMarkerSetObjectTagEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDebugMarkerSetObjectTagEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pTagInfo: " << (uint64_t)(pTagInfo) << std::endl;
@@ -6615,6 +6801,7 @@ static Napi::Value rawCmdDebugMarkerBeginEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdDebugMarkerBeginEXT(commandBuffer, pMarkerInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDebugMarkerBeginEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDebugMarkerBeginEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pMarkerInfo: " << (uint64_t)(pMarkerInfo) << std::endl;
@@ -6638,6 +6825,7 @@ static Napi::Value rawCmdDebugMarkerEndEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdDebugMarkerEndEXT(commandBuffer);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDebugMarkerEndEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDebugMarkerEndEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
@@ -6662,6 +6850,7 @@ static Napi::Value rawCmdDebugMarkerInsertEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdDebugMarkerInsertEXT(commandBuffer, pMarkerInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDebugMarkerInsertEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDebugMarkerInsertEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pMarkerInfo: " << (uint64_t)(pMarkerInfo) << std::endl;
@@ -6715,6 +6904,7 @@ static Napi::Value rawGetPhysicalDeviceExternalImageFormatPropertiesNV(const Nap
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceExternalImageFormatPropertiesNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceExternalImageFormatPropertiesNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    format: " << (uint64_t)(format) << std::endl;
@@ -6762,6 +6952,7 @@ static Napi::Value rawGetMemoryWin32HandleNV(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetMemoryWin32HandleNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetMemoryWin32HandleNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    memory: " << (uint64_t)(memory) << std::endl;
@@ -6792,6 +6983,7 @@ static Napi::Value rawCmdExecuteGeneratedCommandsNV(const Napi::CallbackInfo& in
         ::vkCmdExecuteGeneratedCommandsNV(commandBuffer, isPreprocessed, pGeneratedCommandsInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdExecuteGeneratedCommandsNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdExecuteGeneratedCommandsNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    isPreprocessed: " << (uint64_t)(isPreprocessed) << std::endl;
@@ -6818,6 +7010,7 @@ static Napi::Value rawCmdPreprocessGeneratedCommandsNV(const Napi::CallbackInfo&
         ::vkCmdPreprocessGeneratedCommandsNV(commandBuffer, pGeneratedCommandsInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdPreprocessGeneratedCommandsNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdPreprocessGeneratedCommandsNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pGeneratedCommandsInfo: " << (uint64_t)(pGeneratedCommandsInfo) << std::endl;
@@ -6850,6 +7043,7 @@ static Napi::Value rawCmdBindPipelineShaderGroupNV(const Napi::CallbackInfo& inf
         ::vkCmdBindPipelineShaderGroupNV(commandBuffer, pipelineBindPoint, pipeline, groupIndex);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBindPipelineShaderGroupNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBindPipelineShaderGroupNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pipelineBindPoint: " << (uint64_t)(pipelineBindPoint) << std::endl;
@@ -6879,6 +7073,7 @@ static Napi::Value rawGetGeneratedCommandsMemoryRequirementsNV(const Napi::Callb
         ::vkGetGeneratedCommandsMemoryRequirementsNV(device, pInfo, pMemoryRequirements);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetGeneratedCommandsMemoryRequirementsNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetGeneratedCommandsMemoryRequirementsNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -6919,6 +7114,7 @@ static Napi::Value rawCreateIndirectCommandsLayoutNV(const Napi::CallbackInfo& i
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateIndirectCommandsLayoutNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateIndirectCommandsLayoutNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -6949,6 +7145,7 @@ static Napi::Value rawDestroyIndirectCommandsLayoutNV(const Napi::CallbackInfo& 
         ::vkDestroyIndirectCommandsLayoutNV(device, indirectCommandsLayout, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyIndirectCommandsLayoutNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyIndirectCommandsLayoutNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    indirectCommandsLayout: " << (uint64_t)(indirectCommandsLayout) << std::endl;
@@ -6974,6 +7171,7 @@ static Napi::Value rawGetPhysicalDeviceFeatures2(const Napi::CallbackInfo& info_
         ::vkGetPhysicalDeviceFeatures2(physicalDevice, pFeatures);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceFeatures2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceFeatures2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pFeatures: " << (uint64_t)(pFeatures) << std::endl;
@@ -6997,6 +7195,7 @@ static Napi::Value rawGetPhysicalDeviceProperties2(const Napi::CallbackInfo& inf
         ::vkGetPhysicalDeviceProperties2(physicalDevice, pProperties);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceProperties2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceProperties2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pProperties: " << (uint64_t)(pProperties) << std::endl;
@@ -7023,6 +7222,7 @@ static Napi::Value rawGetPhysicalDeviceFormatProperties2(const Napi::CallbackInf
         ::vkGetPhysicalDeviceFormatProperties2(physicalDevice, format, pFormatProperties);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceFormatProperties2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceFormatProperties2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    format: " << (uint64_t)(format) << std::endl;
@@ -7059,6 +7259,7 @@ static Napi::Value rawGetPhysicalDeviceImageFormatProperties2(const Napi::Callba
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceImageFormatProperties2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceImageFormatProperties2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pImageFormatInfo: " << (uint64_t)(pImageFormatInfo) << std::endl;
@@ -7085,6 +7286,7 @@ static Napi::Value rawGetPhysicalDeviceQueueFamilyProperties2(const Napi::Callba
         ::vkGetPhysicalDeviceQueueFamilyProperties2(physicalDevice, pQueueFamilyPropertyCount, pQueueFamilyProperties);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceQueueFamilyProperties2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceQueueFamilyProperties2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pQueueFamilyPropertyCount: " << (uint64_t)(pQueueFamilyPropertyCount) << std::endl;
@@ -7109,6 +7311,7 @@ static Napi::Value rawGetPhysicalDeviceMemoryProperties2(const Napi::CallbackInf
         ::vkGetPhysicalDeviceMemoryProperties2(physicalDevice, pMemoryProperties);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceMemoryProperties2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceMemoryProperties2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pMemoryProperties: " << (uint64_t)(pMemoryProperties) << std::endl;
@@ -7136,6 +7339,7 @@ static Napi::Value rawGetPhysicalDeviceSparseImageFormatProperties2(const Napi::
         ::vkGetPhysicalDeviceSparseImageFormatProperties2(physicalDevice, pFormatInfo, pPropertyCount, pProperties);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceSparseImageFormatProperties2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceSparseImageFormatProperties2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pFormatInfo: " << (uint64_t)(pFormatInfo) << std::endl;
@@ -7174,6 +7378,7 @@ static Napi::Value rawCmdPushDescriptorSetKHR(const Napi::CallbackInfo& info_) {
         ::vkCmdPushDescriptorSetKHR(commandBuffer, pipelineBindPoint, layout, set, descriptorWriteCount, pDescriptorWrites);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdPushDescriptorSetKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdPushDescriptorSetKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pipelineBindPoint: " << (uint64_t)(pipelineBindPoint) << std::endl;
@@ -7206,6 +7411,7 @@ static Napi::Value rawTrimCommandPool(const Napi::CallbackInfo& info_) {
         ::vkTrimCommandPool(device, commandPool, flags);
     } catch(std::exception e) {
         std::cerr << "Exception with vkTrimCommandPool command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkTrimCommandPool)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    commandPool: " << (uint64_t)(commandPool) << std::endl;
@@ -7232,6 +7438,7 @@ static Napi::Value rawGetPhysicalDeviceExternalBufferProperties(const Napi::Call
         ::vkGetPhysicalDeviceExternalBufferProperties(physicalDevice, pExternalBufferInfo, pExternalBufferProperties);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceExternalBufferProperties command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceExternalBufferProperties)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pExternalBufferInfo: " << (uint64_t)(pExternalBufferInfo) << std::endl;
@@ -7269,6 +7476,7 @@ static Napi::Value rawGetMemoryWin32HandleKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetMemoryWin32HandleKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetMemoryWin32HandleKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pGetWin32HandleInfo: " << (uint64_t)(pGetWin32HandleInfo) << std::endl;
@@ -7311,6 +7519,7 @@ static Napi::Value rawGetMemoryWin32HandlePropertiesKHR(const Napi::CallbackInfo
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetMemoryWin32HandlePropertiesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetMemoryWin32HandlePropertiesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    handleType: " << (uint64_t)(handleType) << std::endl;
@@ -7350,6 +7559,7 @@ static Napi::Value rawGetMemoryFdKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetMemoryFdKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetMemoryFdKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pGetFdInfo: " << (uint64_t)(pGetFdInfo) << std::endl;
@@ -7392,6 +7602,7 @@ static Napi::Value rawGetMemoryFdPropertiesKHR(const Napi::CallbackInfo& info_) 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetMemoryFdPropertiesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetMemoryFdPropertiesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    handleType: " << (uint64_t)(handleType) << std::endl;
@@ -7431,6 +7642,7 @@ static Napi::Value rawGetMemoryZirconHandleFUCHSIA(const Napi::CallbackInfo& inf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetMemoryZirconHandleFUCHSIA command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetMemoryZirconHandleFUCHSIA)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pGetZirconHandleInfo: " << (uint64_t)(pGetZirconHandleInfo) << std::endl;
@@ -7473,6 +7685,7 @@ static Napi::Value rawGetMemoryZirconHandlePropertiesFUCHSIA(const Napi::Callbac
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetMemoryZirconHandlePropertiesFUCHSIA command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetMemoryZirconHandlePropertiesFUCHSIA)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    handleType: " << (uint64_t)(handleType) << std::endl;
@@ -7512,6 +7725,7 @@ static Napi::Value rawGetMemoryRemoteAddressNV(const Napi::CallbackInfo& info_) 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetMemoryRemoteAddressNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetMemoryRemoteAddressNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pMemoryGetRemoteAddressInfo: " << (uint64_t)(pMemoryGetRemoteAddressInfo) << std::endl;
@@ -7539,6 +7753,7 @@ static Napi::Value rawGetPhysicalDeviceExternalSemaphoreProperties(const Napi::C
         ::vkGetPhysicalDeviceExternalSemaphoreProperties(physicalDevice, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceExternalSemaphoreProperties command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceExternalSemaphoreProperties)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pExternalSemaphoreInfo: " << (uint64_t)(pExternalSemaphoreInfo) << std::endl;
@@ -7576,6 +7791,7 @@ static Napi::Value rawGetSemaphoreWin32HandleKHR(const Napi::CallbackInfo& info_
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetSemaphoreWin32HandleKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetSemaphoreWin32HandleKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pGetWin32HandleInfo: " << (uint64_t)(pGetWin32HandleInfo) << std::endl;
@@ -7612,6 +7828,7 @@ static Napi::Value rawImportSemaphoreWin32HandleKHR(const Napi::CallbackInfo& in
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkImportSemaphoreWin32HandleKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkImportSemaphoreWin32HandleKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pImportSemaphoreWin32HandleInfo: " << (uint64_t)(pImportSemaphoreWin32HandleInfo) << std::endl;
@@ -7649,6 +7866,7 @@ static Napi::Value rawGetSemaphoreFdKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetSemaphoreFdKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetSemaphoreFdKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pGetFdInfo: " << (uint64_t)(pGetFdInfo) << std::endl;
@@ -7685,6 +7903,7 @@ static Napi::Value rawImportSemaphoreFdKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkImportSemaphoreFdKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkImportSemaphoreFdKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pImportSemaphoreFdInfo: " << (uint64_t)(pImportSemaphoreFdInfo) << std::endl;
@@ -7722,6 +7941,7 @@ static Napi::Value rawGetSemaphoreZirconHandleFUCHSIA(const Napi::CallbackInfo& 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetSemaphoreZirconHandleFUCHSIA command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetSemaphoreZirconHandleFUCHSIA)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pGetZirconHandleInfo: " << (uint64_t)(pGetZirconHandleInfo) << std::endl;
@@ -7758,6 +7978,7 @@ static Napi::Value rawImportSemaphoreZirconHandleFUCHSIA(const Napi::CallbackInf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkImportSemaphoreZirconHandleFUCHSIA command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkImportSemaphoreZirconHandleFUCHSIA)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pImportSemaphoreZirconHandleInfo: " << (uint64_t)(pImportSemaphoreZirconHandleInfo) << std::endl;
@@ -7784,6 +8005,7 @@ static Napi::Value rawGetPhysicalDeviceExternalFenceProperties(const Napi::Callb
         ::vkGetPhysicalDeviceExternalFenceProperties(physicalDevice, pExternalFenceInfo, pExternalFenceProperties);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceExternalFenceProperties command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceExternalFenceProperties)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pExternalFenceInfo: " << (uint64_t)(pExternalFenceInfo) << std::endl;
@@ -7821,6 +8043,7 @@ static Napi::Value rawGetFenceWin32HandleKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetFenceWin32HandleKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetFenceWin32HandleKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pGetWin32HandleInfo: " << (uint64_t)(pGetWin32HandleInfo) << std::endl;
@@ -7857,6 +8080,7 @@ static Napi::Value rawImportFenceWin32HandleKHR(const Napi::CallbackInfo& info_)
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkImportFenceWin32HandleKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkImportFenceWin32HandleKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pImportFenceWin32HandleInfo: " << (uint64_t)(pImportFenceWin32HandleInfo) << std::endl;
@@ -7894,6 +8118,7 @@ static Napi::Value rawGetFenceFdKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetFenceFdKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetFenceFdKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pGetFdInfo: " << (uint64_t)(pGetFdInfo) << std::endl;
@@ -7930,6 +8155,7 @@ static Napi::Value rawImportFenceFdKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkImportFenceFdKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkImportFenceFdKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pImportFenceFdInfo: " << (uint64_t)(pImportFenceFdInfo) << std::endl;
@@ -7966,6 +8192,7 @@ static Napi::Value rawReleaseDisplayEXT(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkReleaseDisplayEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkReleaseDisplayEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    display: " << (uint64_t)(display) << std::endl;
@@ -8004,6 +8231,7 @@ static Napi::Value rawAcquireXlibDisplayEXT(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkAcquireXlibDisplayEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkAcquireXlibDisplayEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    dpy: " << (uint64_t)(dpy) << std::endl;
@@ -8045,6 +8273,7 @@ static Napi::Value rawGetRandROutputDisplayEXT(const Napi::CallbackInfo& info_) 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetRandROutputDisplayEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetRandROutputDisplayEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    dpy: " << (uint64_t)(dpy) << std::endl;
@@ -8083,6 +8312,7 @@ static Napi::Value rawAcquireWinrtDisplayNV(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkAcquireWinrtDisplayNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkAcquireWinrtDisplayNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    display: " << (uint64_t)(display) << std::endl;
@@ -8121,6 +8351,7 @@ static Napi::Value rawGetWinrtDisplayNV(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetWinrtDisplayNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetWinrtDisplayNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    deviceRelativeId: " << (uint64_t)(deviceRelativeId) << std::endl;
@@ -8160,6 +8391,7 @@ static Napi::Value rawDisplayPowerControlEXT(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDisplayPowerControlEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDisplayPowerControlEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    display: " << (uint64_t)(display) << std::endl;
@@ -8200,6 +8432,7 @@ static Napi::Value rawRegisterDeviceEventEXT(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkRegisterDeviceEventEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkRegisterDeviceEventEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pDeviceEventInfo: " << (uint64_t)(pDeviceEventInfo) << std::endl;
@@ -8244,6 +8477,7 @@ static Napi::Value rawRegisterDisplayEventEXT(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkRegisterDisplayEventEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkRegisterDisplayEventEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    display: " << (uint64_t)(display) << std::endl;
@@ -8288,6 +8522,7 @@ static Napi::Value rawGetSwapchainCounterEXT(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetSwapchainCounterEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetSwapchainCounterEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    swapchain: " << (uint64_t)(swapchain) << std::endl;
@@ -8328,6 +8563,7 @@ static Napi::Value rawGetPhysicalDeviceSurfaceCapabilities2EXT(const Napi::Callb
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceSurfaceCapabilities2EXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceSurfaceCapabilities2EXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    surface: " << (uint64_t)(surface) << std::endl;
@@ -8365,6 +8601,7 @@ static Napi::Value rawEnumeratePhysicalDeviceGroups(const Napi::CallbackInfo& in
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkEnumeratePhysicalDeviceGroups command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkEnumeratePhysicalDeviceGroups)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pPhysicalDeviceGroupCount: " << (uint64_t)(pPhysicalDeviceGroupCount) << std::endl;
@@ -8398,6 +8635,7 @@ static Napi::Value rawGetDeviceGroupPeerMemoryFeatures(const Napi::CallbackInfo&
         ::vkGetDeviceGroupPeerMemoryFeatures(device, heapIndex, localDeviceIndex, remoteDeviceIndex, pPeerMemoryFeatures);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeviceGroupPeerMemoryFeatures command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeviceGroupPeerMemoryFeatures)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    heapIndex: " << (uint64_t)(heapIndex) << std::endl;
@@ -8437,6 +8675,7 @@ static Napi::Value rawBindBufferMemory2(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkBindBufferMemory2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkBindBufferMemory2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    bindInfoCount: " << (uint64_t)(bindInfoCount) << std::endl;
@@ -8474,6 +8713,7 @@ static Napi::Value rawBindImageMemory2(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkBindImageMemory2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkBindImageMemory2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    bindInfoCount: " << (uint64_t)(bindInfoCount) << std::endl;
@@ -8499,6 +8739,7 @@ static Napi::Value rawCmdSetDeviceMask(const Napi::CallbackInfo& info_) {
         ::vkCmdSetDeviceMask(commandBuffer, deviceMask);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetDeviceMask command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetDeviceMask)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    deviceMask: " << (uint64_t)(deviceMask) << std::endl;
@@ -8533,6 +8774,7 @@ static Napi::Value rawGetDeviceGroupPresentCapabilitiesKHR(const Napi::CallbackI
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeviceGroupPresentCapabilitiesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeviceGroupPresentCapabilitiesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pDeviceGroupPresentCapabilities: " << (uint64_t)(pDeviceGroupPresentCapabilities) << std::endl;
@@ -8571,6 +8813,7 @@ static Napi::Value rawGetDeviceGroupSurfacePresentModesKHR(const Napi::CallbackI
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeviceGroupSurfacePresentModesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeviceGroupSurfacePresentModesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    surface: " << (uint64_t)(surface) << std::endl;
@@ -8609,6 +8852,7 @@ static Napi::Value rawAcquireNextImage2KHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkAcquireNextImage2KHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkAcquireNextImage2KHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pAcquireInfo: " << (uint64_t)(pAcquireInfo) << std::endl;
@@ -8650,6 +8894,7 @@ static Napi::Value rawCmdDispatchBase(const Napi::CallbackInfo& info_) {
         ::vkCmdDispatchBase(commandBuffer, baseGroupX, baseGroupY, baseGroupZ, groupCountX, groupCountY, groupCountZ);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDispatchBase command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDispatchBase)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    baseGroupX: " << (uint64_t)(baseGroupX) << std::endl;
@@ -8694,6 +8939,7 @@ static Napi::Value rawGetPhysicalDevicePresentRectanglesKHR(const Napi::Callback
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDevicePresentRectanglesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDevicePresentRectanglesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    surface: " << (uint64_t)(surface) << std::endl;
@@ -8734,6 +8980,7 @@ static Napi::Value rawCreateDescriptorUpdateTemplate(const Napi::CallbackInfo& i
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateDescriptorUpdateTemplate command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateDescriptorUpdateTemplate)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -8762,6 +9009,7 @@ static Napi::Value rawDestroyDescriptorUpdateTemplate(const Napi::CallbackInfo& 
         ::vkDestroyDescriptorUpdateTemplate(device, descriptorUpdateTemplate, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyDescriptorUpdateTemplate command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyDescriptorUpdateTemplate)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    descriptorUpdateTemplate: " << (uint64_t)(descriptorUpdateTemplate) << std::endl;
@@ -8792,6 +9040,7 @@ static Napi::Value rawUpdateDescriptorSetWithTemplate(const Napi::CallbackInfo& 
         ::vkUpdateDescriptorSetWithTemplate(device, descriptorSet, descriptorUpdateTemplate, pData);
     } catch(std::exception e) {
         std::cerr << "Exception with vkUpdateDescriptorSetWithTemplate command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkUpdateDescriptorSetWithTemplate)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    descriptorSet: " << (uint64_t)(descriptorSet) << std::endl;
@@ -8827,6 +9076,7 @@ static Napi::Value rawCmdPushDescriptorSetWithTemplateKHR(const Napi::CallbackIn
         ::vkCmdPushDescriptorSetWithTemplateKHR(commandBuffer, descriptorUpdateTemplate, layout, set, pData);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdPushDescriptorSetWithTemplateKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdPushDescriptorSetWithTemplateKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    descriptorUpdateTemplate: " << (uint64_t)(descriptorUpdateTemplate) << std::endl;
@@ -8860,6 +9110,7 @@ static Napi::Value rawSetHdrMetadataEXT(const Napi::CallbackInfo& info_) {
         ::vkSetHdrMetadataEXT(device, swapchainCount, pSwapchains, pMetadata);
     } catch(std::exception e) {
         std::cerr << "Exception with vkSetHdrMetadataEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkSetHdrMetadataEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    swapchainCount: " << (uint64_t)(swapchainCount) << std::endl;
@@ -8898,6 +9149,7 @@ static Napi::Value rawGetSwapchainStatusKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetSwapchainStatusKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetSwapchainStatusKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    swapchain: " << (uint64_t)(swapchain) << std::endl;
@@ -8936,6 +9188,7 @@ static Napi::Value rawGetRefreshCycleDurationGOOGLE(const Napi::CallbackInfo& in
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetRefreshCycleDurationGOOGLE command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetRefreshCycleDurationGOOGLE)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    swapchain: " << (uint64_t)(swapchain) << std::endl;
@@ -8977,6 +9230,7 @@ static Napi::Value rawGetPastPresentationTimingGOOGLE(const Napi::CallbackInfo& 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPastPresentationTimingGOOGLE command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPastPresentationTimingGOOGLE)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    swapchain: " << (uint64_t)(swapchain) << std::endl;
@@ -9018,6 +9272,7 @@ static Napi::Value rawCreateIOSSurfaceMVK(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateIOSSurfaceMVK command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateIOSSurfaceMVK)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -9059,6 +9314,7 @@ static Napi::Value rawCreateMacOSSurfaceMVK(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateMacOSSurfaceMVK command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateMacOSSurfaceMVK)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -9100,6 +9356,7 @@ static Napi::Value rawCreateMetalSurfaceEXT(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateMetalSurfaceEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateMetalSurfaceEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -9133,6 +9390,7 @@ static Napi::Value rawCmdSetViewportWScalingNV(const Napi::CallbackInfo& info_) 
         ::vkCmdSetViewportWScalingNV(commandBuffer, firstViewport, viewportCount, pViewportWScalings);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetViewportWScalingNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetViewportWScalingNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    firstViewport: " << (uint64_t)(firstViewport) << std::endl;
@@ -9166,6 +9424,7 @@ static Napi::Value rawCmdSetDiscardRectangleEXT(const Napi::CallbackInfo& info_)
         ::vkCmdSetDiscardRectangleEXT(commandBuffer, firstDiscardRectangle, discardRectangleCount, pDiscardRectangles);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetDiscardRectangleEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetDiscardRectangleEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    firstDiscardRectangle: " << (uint64_t)(firstDiscardRectangle) << std::endl;
@@ -9193,6 +9452,7 @@ static Napi::Value rawCmdSetSampleLocationsEXT(const Napi::CallbackInfo& info_) 
         ::vkCmdSetSampleLocationsEXT(commandBuffer, pSampleLocationsInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetSampleLocationsEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetSampleLocationsEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pSampleLocationsInfo: " << (uint64_t)(pSampleLocationsInfo) << std::endl;
@@ -9221,6 +9481,7 @@ static Napi::Value rawGetPhysicalDeviceMultisamplePropertiesEXT(const Napi::Call
         ::vkGetPhysicalDeviceMultisamplePropertiesEXT(physicalDevice, samples, pMultisampleProperties);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceMultisamplePropertiesEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceMultisamplePropertiesEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    samples: " << (uint64_t)(samples) << std::endl;
@@ -9259,6 +9520,7 @@ static Napi::Value rawGetPhysicalDeviceSurfaceCapabilities2KHR(const Napi::Callb
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceSurfaceCapabilities2KHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceSurfaceCapabilities2KHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pSurfaceInfo: " << (uint64_t)(pSurfaceInfo) << std::endl;
@@ -9299,6 +9561,7 @@ static Napi::Value rawGetPhysicalDeviceSurfaceFormats2KHR(const Napi::CallbackIn
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceSurfaceFormats2KHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceSurfaceFormats2KHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pSurfaceInfo: " << (uint64_t)(pSurfaceInfo) << std::endl;
@@ -9338,6 +9601,7 @@ static Napi::Value rawGetPhysicalDeviceDisplayProperties2KHR(const Napi::Callbac
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceDisplayProperties2KHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceDisplayProperties2KHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pPropertyCount: " << (uint64_t)(pPropertyCount) << std::endl;
@@ -9376,6 +9640,7 @@ static Napi::Value rawGetPhysicalDeviceDisplayPlaneProperties2KHR(const Napi::Ca
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceDisplayPlaneProperties2KHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceDisplayPlaneProperties2KHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pPropertyCount: " << (uint64_t)(pPropertyCount) << std::endl;
@@ -9417,6 +9682,7 @@ static Napi::Value rawGetDisplayModeProperties2KHR(const Napi::CallbackInfo& inf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDisplayModeProperties2KHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDisplayModeProperties2KHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    display: " << (uint64_t)(display) << std::endl;
@@ -9456,6 +9722,7 @@ static Napi::Value rawGetDisplayPlaneCapabilities2KHR(const Napi::CallbackInfo& 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDisplayPlaneCapabilities2KHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDisplayPlaneCapabilities2KHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pDisplayPlaneInfo: " << (uint64_t)(pDisplayPlaneInfo) << std::endl;
@@ -9483,6 +9750,7 @@ static Napi::Value rawGetBufferMemoryRequirements2(const Napi::CallbackInfo& inf
         ::vkGetBufferMemoryRequirements2(device, pInfo, pMemoryRequirements);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetBufferMemoryRequirements2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetBufferMemoryRequirements2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -9509,6 +9777,7 @@ static Napi::Value rawGetImageMemoryRequirements2(const Napi::CallbackInfo& info
         ::vkGetImageMemoryRequirements2(device, pInfo, pMemoryRequirements);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetImageMemoryRequirements2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetImageMemoryRequirements2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -9537,6 +9806,7 @@ static Napi::Value rawGetImageSparseMemoryRequirements2(const Napi::CallbackInfo
         ::vkGetImageSparseMemoryRequirements2(device, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetImageSparseMemoryRequirements2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetImageSparseMemoryRequirements2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -9564,6 +9834,7 @@ static Napi::Value rawGetDeviceBufferMemoryRequirements(const Napi::CallbackInfo
         ::vkGetDeviceBufferMemoryRequirements(device, pInfo, pMemoryRequirements);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeviceBufferMemoryRequirements command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeviceBufferMemoryRequirements)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -9590,6 +9861,7 @@ static Napi::Value rawGetDeviceImageMemoryRequirements(const Napi::CallbackInfo&
         ::vkGetDeviceImageMemoryRequirements(device, pInfo, pMemoryRequirements);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeviceImageMemoryRequirements command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeviceImageMemoryRequirements)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -9618,6 +9890,7 @@ static Napi::Value rawGetDeviceImageSparseMemoryRequirements(const Napi::Callbac
         ::vkGetDeviceImageSparseMemoryRequirements(device, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeviceImageSparseMemoryRequirements command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeviceImageSparseMemoryRequirements)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -9657,6 +9930,7 @@ static Napi::Value rawCreateSamplerYcbcrConversion(const Napi::CallbackInfo& inf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateSamplerYcbcrConversion command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateSamplerYcbcrConversion)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -9685,6 +9959,7 @@ static Napi::Value rawDestroySamplerYcbcrConversion(const Napi::CallbackInfo& in
         ::vkDestroySamplerYcbcrConversion(device, ycbcrConversion, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroySamplerYcbcrConversion command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroySamplerYcbcrConversion)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    ycbcrConversion: " << (uint64_t)(ycbcrConversion) << std::endl;
@@ -9711,6 +9986,7 @@ static Napi::Value rawGetDeviceQueue2(const Napi::CallbackInfo& info_) {
         ::vkGetDeviceQueue2(device, pQueueInfo, pQueue);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeviceQueue2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeviceQueue2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pQueueInfo: " << (uint64_t)(pQueueInfo) << std::endl;
@@ -9750,6 +10026,7 @@ static Napi::Value rawCreateValidationCacheEXT(const Napi::CallbackInfo& info_) 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateValidationCacheEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateValidationCacheEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -9780,6 +10057,7 @@ static Napi::Value rawDestroyValidationCacheEXT(const Napi::CallbackInfo& info_)
         ::vkDestroyValidationCacheEXT(device, validationCache, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyValidationCacheEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyValidationCacheEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    validationCache: " << (uint64_t)(validationCache) << std::endl;
@@ -9821,6 +10099,7 @@ static Napi::Value rawGetValidationCacheDataEXT(const Napi::CallbackInfo& info_)
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetValidationCacheDataEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetValidationCacheDataEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    validationCache: " << (uint64_t)(validationCache) << std::endl;
@@ -9864,6 +10143,7 @@ static Napi::Value rawMergeValidationCachesEXT(const Napi::CallbackInfo& info_) 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkMergeValidationCachesEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkMergeValidationCachesEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    dstCache: " << (uint64_t)(dstCache) << std::endl;
@@ -9892,6 +10172,7 @@ static Napi::Value rawGetDescriptorSetLayoutSupport(const Napi::CallbackInfo& in
         ::vkGetDescriptorSetLayoutSupport(device, pCreateInfo, pSupport);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDescriptorSetLayoutSupport command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDescriptorSetLayoutSupport)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -9933,6 +10214,7 @@ static Napi::Value rawGetSwapchainGrallocUsageANDROID(const Napi::CallbackInfo& 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetSwapchainGrallocUsageANDROID command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetSwapchainGrallocUsageANDROID)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    format: " << (uint64_t)(format) << std::endl;
@@ -9981,6 +10263,7 @@ static Napi::Value rawGetSwapchainGrallocUsage2ANDROID(const Napi::CallbackInfo&
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetSwapchainGrallocUsage2ANDROID command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetSwapchainGrallocUsage2ANDROID)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    format: " << (uint64_t)(format) << std::endl;
@@ -10030,6 +10313,7 @@ static Napi::Value rawAcquireImageANDROID(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkAcquireImageANDROID command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkAcquireImageANDROID)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    image: " << (uint64_t)(image) << std::endl;
@@ -10076,6 +10360,7 @@ static Napi::Value rawQueueSignalReleaseImageANDROID(const Napi::CallbackInfo& i
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkQueueSignalReleaseImageANDROID command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkQueueSignalReleaseImageANDROID)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
         std::cerr << "    waitSemaphoreCount: " << (uint64_t)(waitSemaphoreCount) << std::endl;
@@ -10125,6 +10410,7 @@ static Napi::Value rawGetShaderInfoAMD(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetShaderInfoAMD command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetShaderInfoAMD)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pipeline: " << (uint64_t)(pipeline) << std::endl;
@@ -10158,6 +10444,7 @@ static Napi::Value rawSetLocalDimmingAMD(const Napi::CallbackInfo& info_) {
         ::vkSetLocalDimmingAMD(device, swapChain, localDimmingEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkSetLocalDimmingAMD command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkSetLocalDimmingAMD)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    swapChain: " << (uint64_t)(swapChain) << std::endl;
@@ -10196,6 +10483,7 @@ static Napi::Value rawGetPhysicalDeviceCalibrateableTimeDomainsEXT(const Napi::C
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceCalibrateableTimeDomainsEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceCalibrateableTimeDomainsEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pTimeDomainCount: " << (uint64_t)(pTimeDomainCount) << std::endl;
@@ -10239,6 +10527,7 @@ static Napi::Value rawGetCalibratedTimestampsEXT(const Napi::CallbackInfo& info_
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetCalibratedTimestampsEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetCalibratedTimestampsEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    timestampCount: " << (uint64_t)(timestampCount) << std::endl;
@@ -10277,6 +10566,7 @@ static Napi::Value rawSetDebugUtilsObjectNameEXT(const Napi::CallbackInfo& info_
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkSetDebugUtilsObjectNameEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkSetDebugUtilsObjectNameEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pNameInfo: " << (uint64_t)(pNameInfo) << std::endl;
@@ -10312,6 +10602,7 @@ static Napi::Value rawSetDebugUtilsObjectTagEXT(const Napi::CallbackInfo& info_)
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkSetDebugUtilsObjectTagEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkSetDebugUtilsObjectTagEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pTagInfo: " << (uint64_t)(pTagInfo) << std::endl;
@@ -10337,6 +10628,7 @@ static Napi::Value rawQueueBeginDebugUtilsLabelEXT(const Napi::CallbackInfo& inf
         ::vkQueueBeginDebugUtilsLabelEXT(queue, pLabelInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkQueueBeginDebugUtilsLabelEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkQueueBeginDebugUtilsLabelEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
         std::cerr << "    pLabelInfo: " << (uint64_t)(pLabelInfo) << std::endl;
@@ -10360,6 +10652,7 @@ static Napi::Value rawQueueEndDebugUtilsLabelEXT(const Napi::CallbackInfo& info_
         ::vkQueueEndDebugUtilsLabelEXT(queue);
     } catch(std::exception e) {
         std::cerr << "Exception with vkQueueEndDebugUtilsLabelEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkQueueEndDebugUtilsLabelEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
         Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
@@ -10384,6 +10677,7 @@ static Napi::Value rawQueueInsertDebugUtilsLabelEXT(const Napi::CallbackInfo& in
         ::vkQueueInsertDebugUtilsLabelEXT(queue, pLabelInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkQueueInsertDebugUtilsLabelEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkQueueInsertDebugUtilsLabelEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
         std::cerr << "    pLabelInfo: " << (uint64_t)(pLabelInfo) << std::endl;
@@ -10409,6 +10703,7 @@ static Napi::Value rawCmdBeginDebugUtilsLabelEXT(const Napi::CallbackInfo& info_
         ::vkCmdBeginDebugUtilsLabelEXT(commandBuffer, pLabelInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBeginDebugUtilsLabelEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBeginDebugUtilsLabelEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pLabelInfo: " << (uint64_t)(pLabelInfo) << std::endl;
@@ -10432,6 +10727,7 @@ static Napi::Value rawCmdEndDebugUtilsLabelEXT(const Napi::CallbackInfo& info_) 
         ::vkCmdEndDebugUtilsLabelEXT(commandBuffer);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdEndDebugUtilsLabelEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdEndDebugUtilsLabelEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
@@ -10456,6 +10752,7 @@ static Napi::Value rawCmdInsertDebugUtilsLabelEXT(const Napi::CallbackInfo& info
         ::vkCmdInsertDebugUtilsLabelEXT(commandBuffer, pLabelInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdInsertDebugUtilsLabelEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdInsertDebugUtilsLabelEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pLabelInfo: " << (uint64_t)(pLabelInfo) << std::endl;
@@ -10495,6 +10792,7 @@ static Napi::Value rawCreateDebugUtilsMessengerEXT(const Napi::CallbackInfo& inf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateDebugUtilsMessengerEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateDebugUtilsMessengerEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -10525,6 +10823,7 @@ static Napi::Value rawDestroyDebugUtilsMessengerEXT(const Napi::CallbackInfo& in
         ::vkDestroyDebugUtilsMessengerEXT(instance, messenger, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyDebugUtilsMessengerEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyDebugUtilsMessengerEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    messenger: " << (uint64_t)(messenger) << std::endl;
@@ -10557,6 +10856,7 @@ static Napi::Value rawSubmitDebugUtilsMessageEXT(const Napi::CallbackInfo& info_
         ::vkSubmitDebugUtilsMessageEXT(instance, messageSeverity, messageTypes, pCallbackData);
     } catch(std::exception e) {
         std::cerr << "Exception with vkSubmitDebugUtilsMessageEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkSubmitDebugUtilsMessageEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    messageSeverity: " << (uint64_t)(messageSeverity) << std::endl;
@@ -10599,6 +10899,7 @@ static Napi::Value rawGetMemoryHostPointerPropertiesEXT(const Napi::CallbackInfo
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetMemoryHostPointerPropertiesEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetMemoryHostPointerPropertiesEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    handleType: " << (uint64_t)(handleType) << std::endl;
@@ -10636,6 +10937,7 @@ static Napi::Value rawCmdWriteBufferMarkerAMD(const Napi::CallbackInfo& info_) {
         ::vkCmdWriteBufferMarkerAMD(commandBuffer, pipelineStage, dstBuffer, dstOffset, marker);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdWriteBufferMarkerAMD command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdWriteBufferMarkerAMD)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pipelineStage: " << (uint64_t)(pipelineStage) << std::endl;
@@ -10677,6 +10979,7 @@ static Napi::Value rawCreateRenderPass2(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateRenderPass2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateRenderPass2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -10704,6 +11007,7 @@ static Napi::Value rawCmdBeginRenderPass2(const Napi::CallbackInfo& info_) {
         ::vkCmdBeginRenderPass2(commandBuffer, pRenderPassBegin, pSubpassBeginInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBeginRenderPass2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBeginRenderPass2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pRenderPassBegin: " << (uint64_t)(pRenderPassBegin) << std::endl;
@@ -10730,6 +11034,7 @@ static Napi::Value rawCmdNextSubpass2(const Napi::CallbackInfo& info_) {
         ::vkCmdNextSubpass2(commandBuffer, pSubpassBeginInfo, pSubpassEndInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdNextSubpass2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdNextSubpass2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pSubpassBeginInfo: " << (uint64_t)(pSubpassBeginInfo) << std::endl;
@@ -10754,6 +11059,7 @@ static Napi::Value rawCmdEndRenderPass2(const Napi::CallbackInfo& info_) {
         ::vkCmdEndRenderPass2(commandBuffer, pSubpassEndInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdEndRenderPass2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdEndRenderPass2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pSubpassEndInfo: " << (uint64_t)(pSubpassEndInfo) << std::endl;
@@ -10790,6 +11096,7 @@ static Napi::Value rawGetSemaphoreCounterValue(const Napi::CallbackInfo& info_) 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetSemaphoreCounterValue command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetSemaphoreCounterValue)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    semaphore: " << (uint64_t)(semaphore) << std::endl;
@@ -10827,6 +11134,7 @@ static Napi::Value rawWaitSemaphores(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkWaitSemaphores command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkWaitSemaphores)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pWaitInfo: " << (uint64_t)(pWaitInfo) << std::endl;
@@ -10861,6 +11169,7 @@ static Napi::Value rawSignalSemaphore(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkSignalSemaphore command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkSignalSemaphore)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pSignalInfo: " << (uint64_t)(pSignalInfo) << std::endl;
@@ -10897,6 +11206,7 @@ static Napi::Value rawGetAndroidHardwareBufferPropertiesANDROID(const Napi::Call
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetAndroidHardwareBufferPropertiesANDROID command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetAndroidHardwareBufferPropertiesANDROID)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
@@ -10935,6 +11245,7 @@ static Napi::Value rawGetMemoryAndroidHardwareBufferANDROID(const Napi::Callback
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetMemoryAndroidHardwareBufferANDROID command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetMemoryAndroidHardwareBufferANDROID)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -10976,6 +11287,7 @@ static Napi::Value rawCmdDrawIndirectCount(const Napi::CallbackInfo& info_) {
         ::vkCmdDrawIndirectCount(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDrawIndirectCount command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDrawIndirectCount)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
@@ -11020,6 +11332,7 @@ static Napi::Value rawCmdDrawIndexedIndirectCount(const Napi::CallbackInfo& info
         ::vkCmdDrawIndexedIndirectCount(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDrawIndexedIndirectCount command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDrawIndexedIndirectCount)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
@@ -11049,6 +11362,7 @@ static Napi::Value rawCmdSetCheckpointNV(const Napi::CallbackInfo& info_) {
         ::vkCmdSetCheckpointNV(commandBuffer, pCheckpointMarker);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetCheckpointNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetCheckpointNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pCheckpointMarker: " << (uint64_t)(pCheckpointMarker) << std::endl;
@@ -11076,6 +11390,7 @@ static Napi::Value rawGetQueueCheckpointDataNV(const Napi::CallbackInfo& info_) 
         ::vkGetQueueCheckpointDataNV(queue, pCheckpointDataCount, pCheckpointData);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetQueueCheckpointDataNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetQueueCheckpointDataNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
         std::cerr << "    pCheckpointDataCount: " << (uint64_t)(pCheckpointDataCount) << std::endl;
@@ -11112,6 +11427,7 @@ static Napi::Value rawCmdBindTransformFeedbackBuffersEXT(const Napi::CallbackInf
         ::vkCmdBindTransformFeedbackBuffersEXT(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets, pSizes);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBindTransformFeedbackBuffersEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBindTransformFeedbackBuffersEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    firstBinding: " << (uint64_t)(firstBinding) << std::endl;
@@ -11149,6 +11465,7 @@ static Napi::Value rawCmdBeginTransformFeedbackEXT(const Napi::CallbackInfo& inf
         ::vkCmdBeginTransformFeedbackEXT(commandBuffer, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBeginTransformFeedbackEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBeginTransformFeedbackEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    firstCounterBuffer: " << (uint64_t)(firstCounterBuffer) << std::endl;
@@ -11185,6 +11502,7 @@ static Napi::Value rawCmdEndTransformFeedbackEXT(const Napi::CallbackInfo& info_
         ::vkCmdEndTransformFeedbackEXT(commandBuffer, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdEndTransformFeedbackEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdEndTransformFeedbackEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    firstCounterBuffer: " << (uint64_t)(firstCounterBuffer) << std::endl;
@@ -11223,6 +11541,7 @@ static Napi::Value rawCmdBeginQueryIndexedEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdBeginQueryIndexedEXT(commandBuffer, queryPool, query, flags, index);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBeginQueryIndexedEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBeginQueryIndexedEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
@@ -11258,6 +11577,7 @@ static Napi::Value rawCmdEndQueryIndexedEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdEndQueryIndexedEXT(commandBuffer, queryPool, query, index);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdEndQueryIndexedEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdEndQueryIndexedEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
@@ -11301,6 +11621,7 @@ static Napi::Value rawCmdDrawIndirectByteCountEXT(const Napi::CallbackInfo& info
         ::vkCmdDrawIndirectByteCountEXT(commandBuffer, instanceCount, firstInstance, counterBuffer, counterBufferOffset, counterOffset, vertexStride);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDrawIndirectByteCountEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDrawIndirectByteCountEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    instanceCount: " << (uint64_t)(instanceCount) << std::endl;
@@ -11337,6 +11658,7 @@ static Napi::Value rawCmdSetExclusiveScissorNV(const Napi::CallbackInfo& info_) 
         ::vkCmdSetExclusiveScissorNV(commandBuffer, firstExclusiveScissor, exclusiveScissorCount, pExclusiveScissors);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetExclusiveScissorNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetExclusiveScissorNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    firstExclusiveScissor: " << (uint64_t)(firstExclusiveScissor) << std::endl;
@@ -11368,6 +11690,7 @@ static Napi::Value rawCmdBindShadingRateImageNV(const Napi::CallbackInfo& info_)
         ::vkCmdBindShadingRateImageNV(commandBuffer, imageView, imageLayout);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBindShadingRateImageNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBindShadingRateImageNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    imageView: " << (uint64_t)(imageView) << std::endl;
@@ -11400,6 +11723,7 @@ static Napi::Value rawCmdSetViewportShadingRatePaletteNV(const Napi::CallbackInf
         ::vkCmdSetViewportShadingRatePaletteNV(commandBuffer, firstViewport, viewportCount, pShadingRatePalettes);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetViewportShadingRatePaletteNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetViewportShadingRatePaletteNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    firstViewport: " << (uint64_t)(firstViewport) << std::endl;
@@ -11433,6 +11757,7 @@ static Napi::Value rawCmdSetCoarseSampleOrderNV(const Napi::CallbackInfo& info_)
         ::vkCmdSetCoarseSampleOrderNV(commandBuffer, sampleOrderType, customSampleOrderCount, pCustomSampleOrders);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetCoarseSampleOrderNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetCoarseSampleOrderNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    sampleOrderType: " << (uint64_t)(sampleOrderType) << std::endl;
@@ -11464,6 +11789,7 @@ static Napi::Value rawCmdDrawMeshTasksNV(const Napi::CallbackInfo& info_) {
         ::vkCmdDrawMeshTasksNV(commandBuffer, taskCount, firstTask);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDrawMeshTasksNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDrawMeshTasksNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    taskCount: " << (uint64_t)(taskCount) << std::endl;
@@ -11500,6 +11826,7 @@ static Napi::Value rawCmdDrawMeshTasksIndirectNV(const Napi::CallbackInfo& info_
         ::vkCmdDrawMeshTasksIndirectNV(commandBuffer, buffer, offset, drawCount, stride);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDrawMeshTasksIndirectNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDrawMeshTasksIndirectNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
@@ -11544,6 +11871,7 @@ static Napi::Value rawCmdDrawMeshTasksIndirectCountNV(const Napi::CallbackInfo& 
         ::vkCmdDrawMeshTasksIndirectCountNV(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDrawMeshTasksIndirectCountNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDrawMeshTasksIndirectCountNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
@@ -11581,6 +11909,7 @@ static Napi::Value rawCmdDrawMeshTasksEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdDrawMeshTasksEXT(commandBuffer, groupCountX, groupCountY, groupCountZ);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDrawMeshTasksEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDrawMeshTasksEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    groupCountX: " << (uint64_t)(groupCountX) << std::endl;
@@ -11618,6 +11947,7 @@ static Napi::Value rawCmdDrawMeshTasksIndirectEXT(const Napi::CallbackInfo& info
         ::vkCmdDrawMeshTasksIndirectEXT(commandBuffer, buffer, offset, drawCount, stride);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDrawMeshTasksIndirectEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDrawMeshTasksIndirectEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
@@ -11662,6 +11992,7 @@ static Napi::Value rawCmdDrawMeshTasksIndirectCountEXT(const Napi::CallbackInfo&
         ::vkCmdDrawMeshTasksIndirectCountEXT(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDrawMeshTasksIndirectCountEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDrawMeshTasksIndirectCountEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
@@ -11706,6 +12037,7 @@ static Napi::Value rawCompileDeferredNV(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCompileDeferredNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCompileDeferredNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pipeline: " << (uint64_t)(pipeline) << std::endl;
@@ -11746,6 +12078,7 @@ static Napi::Value rawCreateAccelerationStructureNV(const Napi::CallbackInfo& in
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateAccelerationStructureNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateAccelerationStructureNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -11777,6 +12110,7 @@ static Napi::Value rawCmdBindInvocationMaskHUAWEI(const Napi::CallbackInfo& info
         ::vkCmdBindInvocationMaskHUAWEI(commandBuffer, imageView, imageLayout);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBindInvocationMaskHUAWEI command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBindInvocationMaskHUAWEI)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    imageView: " << (uint64_t)(imageView) << std::endl;
@@ -11806,6 +12140,7 @@ static Napi::Value rawDestroyAccelerationStructureKHR(const Napi::CallbackInfo& 
         ::vkDestroyAccelerationStructureKHR(device, accelerationStructure, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyAccelerationStructureKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyAccelerationStructureKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    accelerationStructure: " << (uint64_t)(accelerationStructure) << std::endl;
@@ -11835,6 +12170,7 @@ static Napi::Value rawDestroyAccelerationStructureNV(const Napi::CallbackInfo& i
         ::vkDestroyAccelerationStructureNV(device, accelerationStructure, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyAccelerationStructureNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyAccelerationStructureNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    accelerationStructure: " << (uint64_t)(accelerationStructure) << std::endl;
@@ -11863,6 +12199,7 @@ static Napi::Value rawGetAccelerationStructureMemoryRequirementsNV(const Napi::C
         ::vkGetAccelerationStructureMemoryRequirementsNV(device, pInfo, pMemoryRequirements);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetAccelerationStructureMemoryRequirementsNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetAccelerationStructureMemoryRequirementsNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -11902,6 +12239,7 @@ static Napi::Value rawBindAccelerationStructureMemoryNV(const Napi::CallbackInfo
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkBindAccelerationStructureMemoryNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkBindAccelerationStructureMemoryNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    bindInfoCount: " << (uint64_t)(bindInfoCount) << std::endl;
@@ -11935,6 +12273,7 @@ static Napi::Value rawCmdCopyAccelerationStructureNV(const Napi::CallbackInfo& i
         ::vkCmdCopyAccelerationStructureNV(commandBuffer, dst, src, mode);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyAccelerationStructureNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyAccelerationStructureNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    dst: " << (uint64_t)(dst) << std::endl;
@@ -11962,6 +12301,7 @@ static Napi::Value rawCmdCopyAccelerationStructureKHR(const Napi::CallbackInfo& 
         ::vkCmdCopyAccelerationStructureKHR(commandBuffer, pInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyAccelerationStructureKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyAccelerationStructureKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -12000,6 +12340,7 @@ static Napi::Value rawCopyAccelerationStructureKHR(const Napi::CallbackInfo& inf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCopyAccelerationStructureKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCopyAccelerationStructureKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    deferredOperation: " << (uint64_t)(deferredOperation) << std::endl;
@@ -12026,6 +12367,7 @@ static Napi::Value rawCmdCopyAccelerationStructureToMemoryKHR(const Napi::Callba
         ::vkCmdCopyAccelerationStructureToMemoryKHR(commandBuffer, pInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyAccelerationStructureToMemoryKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyAccelerationStructureToMemoryKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -12064,6 +12406,7 @@ static Napi::Value rawCopyAccelerationStructureToMemoryKHR(const Napi::CallbackI
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCopyAccelerationStructureToMemoryKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCopyAccelerationStructureToMemoryKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    deferredOperation: " << (uint64_t)(deferredOperation) << std::endl;
@@ -12090,6 +12433,7 @@ static Napi::Value rawCmdCopyMemoryToAccelerationStructureKHR(const Napi::Callba
         ::vkCmdCopyMemoryToAccelerationStructureKHR(commandBuffer, pInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyMemoryToAccelerationStructureKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyMemoryToAccelerationStructureKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -12128,6 +12472,7 @@ static Napi::Value rawCopyMemoryToAccelerationStructureKHR(const Napi::CallbackI
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCopyMemoryToAccelerationStructureKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCopyMemoryToAccelerationStructureKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    deferredOperation: " << (uint64_t)(deferredOperation) << std::endl;
@@ -12166,6 +12511,7 @@ static Napi::Value rawCmdWriteAccelerationStructuresPropertiesKHR(const Napi::Ca
         ::vkCmdWriteAccelerationStructuresPropertiesKHR(commandBuffer, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdWriteAccelerationStructuresPropertiesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdWriteAccelerationStructuresPropertiesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    accelerationStructureCount: " << (uint64_t)(accelerationStructureCount) << std::endl;
@@ -12207,6 +12553,7 @@ static Napi::Value rawCmdWriteAccelerationStructuresPropertiesNV(const Napi::Cal
         ::vkCmdWriteAccelerationStructuresPropertiesNV(commandBuffer, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdWriteAccelerationStructuresPropertiesNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdWriteAccelerationStructuresPropertiesNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    accelerationStructureCount: " << (uint64_t)(accelerationStructureCount) << std::endl;
@@ -12257,6 +12604,7 @@ static Napi::Value rawCmdBuildAccelerationStructureNV(const Napi::CallbackInfo& 
         ::vkCmdBuildAccelerationStructureNV(commandBuffer, pInfo, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBuildAccelerationStructureNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBuildAccelerationStructureNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -12313,6 +12661,7 @@ static Napi::Value rawWriteAccelerationStructuresPropertiesKHR(const Napi::Callb
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkWriteAccelerationStructuresPropertiesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkWriteAccelerationStructuresPropertiesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    accelerationStructureCount: " << (uint64_t)(accelerationStructureCount) << std::endl;
@@ -12358,6 +12707,7 @@ static Napi::Value rawCmdTraceRaysKHR(const Napi::CallbackInfo& info_) {
         ::vkCmdTraceRaysKHR(commandBuffer, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, width, height, depth);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdTraceRaysKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdTraceRaysKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pRaygenShaderBindingTable: " << (uint64_t)(pRaygenShaderBindingTable) << std::endl;
@@ -12429,6 +12779,7 @@ static Napi::Value rawCmdTraceRaysNV(const Napi::CallbackInfo& info_) {
         ::vkCmdTraceRaysNV(commandBuffer, raygenShaderBindingTableBuffer, raygenShaderBindingOffset, missShaderBindingTableBuffer, missShaderBindingOffset, missShaderBindingStride, hitShaderBindingTableBuffer, hitShaderBindingOffset, hitShaderBindingStride, callableShaderBindingTableBuffer, callableShaderBindingOffset, callableShaderBindingStride, width, height, depth);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdTraceRaysNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdTraceRaysNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    raygenShaderBindingTableBuffer: " << (uint64_t)(raygenShaderBindingTableBuffer) << std::endl;
@@ -12489,6 +12840,7 @@ static Napi::Value rawGetRayTracingShaderGroupHandlesKHR(const Napi::CallbackInf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetRayTracingShaderGroupHandlesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetRayTracingShaderGroupHandlesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pipeline: " << (uint64_t)(pipeline) << std::endl;
@@ -12540,6 +12892,7 @@ static Napi::Value rawGetRayTracingCaptureReplayShaderGroupHandlesKHR(const Napi
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetRayTracingCaptureReplayShaderGroupHandlesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetRayTracingCaptureReplayShaderGroupHandlesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pipeline: " << (uint64_t)(pipeline) << std::endl;
@@ -12585,6 +12938,7 @@ static Napi::Value rawGetAccelerationStructureHandleNV(const Napi::CallbackInfo&
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetAccelerationStructureHandleNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetAccelerationStructureHandleNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    accelerationStructure: " << (uint64_t)(accelerationStructure) << std::endl;
@@ -12632,6 +12986,7 @@ static Napi::Value rawCreateRayTracingPipelinesNV(const Napi::CallbackInfo& info
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateRayTracingPipelinesNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateRayTracingPipelinesNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pipelineCache: " << (uint64_t)(pipelineCache) << std::endl;
@@ -12684,6 +13039,7 @@ static Napi::Value rawCreateRayTracingPipelinesKHR(const Napi::CallbackInfo& inf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateRayTracingPipelinesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateRayTracingPipelinesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    deferredOperation: " << (uint64_t)(deferredOperation) << std::endl;
@@ -12726,6 +13082,7 @@ static Napi::Value rawGetPhysicalDeviceCooperativeMatrixPropertiesNV(const Napi:
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceCooperativeMatrixPropertiesNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceCooperativeMatrixPropertiesNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pPropertyCount: " << (uint64_t)(pPropertyCount) << std::endl;
@@ -12761,6 +13118,7 @@ static Napi::Value rawCmdTraceRaysIndirectKHR(const Napi::CallbackInfo& info_) {
         ::vkCmdTraceRaysIndirectKHR(commandBuffer, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, indirectDeviceAddress);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdTraceRaysIndirectKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdTraceRaysIndirectKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pRaygenShaderBindingTable: " << (uint64_t)(pRaygenShaderBindingTable) << std::endl;
@@ -12791,6 +13149,7 @@ static Napi::Value rawCmdTraceRaysIndirect2KHR(const Napi::CallbackInfo& info_) 
         ::vkCmdTraceRaysIndirect2KHR(commandBuffer, indirectDeviceAddress);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdTraceRaysIndirect2KHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdTraceRaysIndirect2KHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    indirectDeviceAddress: " << (uint64_t)(indirectDeviceAddress) << std::endl;
@@ -12818,6 +13177,7 @@ static Napi::Value rawGetDeviceAccelerationStructureCompatibilityKHR(const Napi:
         ::vkGetDeviceAccelerationStructureCompatibilityKHR(device, pVersionInfo, pCompatibility);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeviceAccelerationStructureCompatibilityKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeviceAccelerationStructureCompatibilityKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pVersionInfo: " << (uint64_t)(pVersionInfo) << std::endl;
@@ -12853,6 +13213,7 @@ static Napi::Value rawGetRayTracingShaderGroupStackSizeKHR(const Napi::CallbackI
         return Napi::BigInt::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetRayTracingShaderGroupStackSizeKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetRayTracingShaderGroupStackSizeKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pipeline: " << (uint64_t)(pipeline) << std::endl;
@@ -12881,6 +13242,7 @@ static Napi::Value rawCmdSetRayTracingPipelineStackSizeKHR(const Napi::CallbackI
         ::vkCmdSetRayTracingPipelineStackSizeKHR(commandBuffer, pipelineStackSize);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetRayTracingPipelineStackSizeKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetRayTracingPipelineStackSizeKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pipelineStackSize: " << (uint64_t)(pipelineStackSize) << std::endl;
@@ -12916,6 +13278,7 @@ static Napi::Value rawGetImageViewHandleNVX(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetImageViewHandleNVX command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetImageViewHandleNVX)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -12954,6 +13317,7 @@ static Napi::Value rawGetImageViewAddressNVX(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetImageViewAddressNVX command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetImageViewAddressNVX)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    imageView: " << (uint64_t)(imageView) << std::endl;
@@ -12994,6 +13358,7 @@ static Napi::Value rawGetPhysicalDeviceSurfacePresentModes2EXT(const Napi::Callb
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceSurfacePresentModes2EXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceSurfacePresentModes2EXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pSurfaceInfo: " << (uint64_t)(pSurfaceInfo) << std::endl;
@@ -13033,6 +13398,7 @@ static Napi::Value rawGetDeviceGroupSurfacePresentModes2EXT(const Napi::Callback
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeviceGroupSurfacePresentModes2EXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeviceGroupSurfacePresentModes2EXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pSurfaceInfo: " << (uint64_t)(pSurfaceInfo) << std::endl;
@@ -13070,6 +13436,7 @@ static Napi::Value rawAcquireFullScreenExclusiveModeEXT(const Napi::CallbackInfo
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkAcquireFullScreenExclusiveModeEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkAcquireFullScreenExclusiveModeEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    swapchain: " << (uint64_t)(swapchain) << std::endl;
@@ -13106,6 +13473,7 @@ static Napi::Value rawReleaseFullScreenExclusiveModeEXT(const Napi::CallbackInfo
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkReleaseFullScreenExclusiveModeEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkReleaseFullScreenExclusiveModeEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    swapchain: " << (uint64_t)(swapchain) << std::endl;
@@ -13148,6 +13516,7 @@ static Napi::Value rawEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCounters
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    queueFamilyIndex: " << (uint64_t)(queueFamilyIndex) << std::endl;
@@ -13178,6 +13547,7 @@ static Napi::Value rawGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(cons
         ::vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(physicalDevice, pPerformanceQueryCreateInfo, pNumPasses);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pPerformanceQueryCreateInfo: " << (uint64_t)(pPerformanceQueryCreateInfo) << std::endl;
@@ -13214,6 +13584,7 @@ static Napi::Value rawAcquireProfilingLockKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkAcquireProfilingLockKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkAcquireProfilingLockKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -13237,6 +13608,7 @@ static Napi::Value rawReleaseProfilingLockKHR(const Napi::CallbackInfo& info_) {
         ::vkReleaseProfilingLockKHR(device);
     } catch(std::exception e) {
         std::cerr << "Exception with vkReleaseProfilingLockKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkReleaseProfilingLockKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
@@ -13274,6 +13646,7 @@ static Napi::Value rawGetImageDrmFormatModifierPropertiesEXT(const Napi::Callbac
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetImageDrmFormatModifierPropertiesEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetImageDrmFormatModifierPropertiesEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    image: " << (uint64_t)(image) << std::endl;
@@ -13301,6 +13674,7 @@ static Napi::Value rawGetBufferOpaqueCaptureAddress(const Napi::CallbackInfo& in
         return Napi::BigInt::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetBufferOpaqueCaptureAddress command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetBufferOpaqueCaptureAddress)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -13326,6 +13700,7 @@ static Napi::Value rawGetBufferDeviceAddress(const Napi::CallbackInfo& info_) {
         return Napi::BigInt::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetBufferDeviceAddress command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetBufferDeviceAddress)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -13364,6 +13739,7 @@ static Napi::Value rawCreateHeadlessSurfaceEXT(const Napi::CallbackInfo& info_) 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateHeadlessSurfaceEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateHeadlessSurfaceEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -13403,6 +13779,7 @@ static Napi::Value rawGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinati
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pCombinationCount: " << (uint64_t)(pCombinationCount) << std::endl;
@@ -13439,6 +13816,7 @@ static Napi::Value rawInitializePerformanceApiINTEL(const Napi::CallbackInfo& in
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkInitializePerformanceApiINTEL command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkInitializePerformanceApiINTEL)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInitializeInfo: " << (uint64_t)(pInitializeInfo) << std::endl;
@@ -13462,6 +13840,7 @@ static Napi::Value rawUninitializePerformanceApiINTEL(const Napi::CallbackInfo& 
         ::vkUninitializePerformanceApiINTEL(device);
     } catch(std::exception e) {
         std::cerr << "Exception with vkUninitializePerformanceApiINTEL command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkUninitializePerformanceApiINTEL)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
@@ -13496,6 +13875,7 @@ static Napi::Value rawCmdSetPerformanceMarkerINTEL(const Napi::CallbackInfo& inf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetPerformanceMarkerINTEL command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetPerformanceMarkerINTEL)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pMarkerInfo: " << (uint64_t)(pMarkerInfo) << std::endl;
@@ -13531,6 +13911,7 @@ static Napi::Value rawCmdSetPerformanceStreamMarkerINTEL(const Napi::CallbackInf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetPerformanceStreamMarkerINTEL command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetPerformanceStreamMarkerINTEL)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pMarkerInfo: " << (uint64_t)(pMarkerInfo) << std::endl;
@@ -13566,6 +13947,7 @@ static Napi::Value rawCmdSetPerformanceOverrideINTEL(const Napi::CallbackInfo& i
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetPerformanceOverrideINTEL command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetPerformanceOverrideINTEL)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pOverrideInfo: " << (uint64_t)(pOverrideInfo) << std::endl;
@@ -13603,6 +13985,7 @@ static Napi::Value rawAcquirePerformanceConfigurationINTEL(const Napi::CallbackI
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkAcquirePerformanceConfigurationINTEL command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkAcquirePerformanceConfigurationINTEL)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pAcquireInfo: " << (uint64_t)(pAcquireInfo) << std::endl;
@@ -13640,6 +14023,7 @@ static Napi::Value rawReleasePerformanceConfigurationINTEL(const Napi::CallbackI
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkReleasePerformanceConfigurationINTEL command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkReleasePerformanceConfigurationINTEL)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    configuration: " << (uint64_t)(configuration) << std::endl;
@@ -13676,6 +14060,7 @@ static Napi::Value rawQueueSetPerformanceConfigurationINTEL(const Napi::Callback
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkQueueSetPerformanceConfigurationINTEL command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkQueueSetPerformanceConfigurationINTEL)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
         std::cerr << "    configuration: " << (uint64_t)(configuration) << std::endl;
@@ -13714,6 +14099,7 @@ static Napi::Value rawGetPerformanceParameterINTEL(const Napi::CallbackInfo& inf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPerformanceParameterINTEL command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPerformanceParameterINTEL)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    parameter: " << (uint64_t)(parameter) << std::endl;
@@ -13741,6 +14127,7 @@ static Napi::Value rawGetDeviceMemoryOpaqueCaptureAddress(const Napi::CallbackIn
         return Napi::BigInt::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeviceMemoryOpaqueCaptureAddress command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeviceMemoryOpaqueCaptureAddress)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -13779,6 +14166,7 @@ static Napi::Value rawGetPipelineExecutablePropertiesKHR(const Napi::CallbackInf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPipelineExecutablePropertiesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPipelineExecutablePropertiesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pPipelineInfo: " << (uint64_t)(pPipelineInfo) << std::endl;
@@ -13820,6 +14208,7 @@ static Napi::Value rawGetPipelineExecutableStatisticsKHR(const Napi::CallbackInf
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPipelineExecutableStatisticsKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPipelineExecutableStatisticsKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pExecutableInfo: " << (uint64_t)(pExecutableInfo) << std::endl;
@@ -13861,6 +14250,7 @@ static Napi::Value rawGetPipelineExecutableInternalRepresentationsKHR(const Napi
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPipelineExecutableInternalRepresentationsKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPipelineExecutableInternalRepresentationsKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pExecutableInfo: " << (uint64_t)(pExecutableInfo) << std::endl;
@@ -13892,6 +14282,7 @@ static Napi::Value rawCmdSetLineStippleEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdSetLineStippleEXT(commandBuffer, lineStippleFactor, lineStipplePattern);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetLineStippleEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetLineStippleEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    lineStippleFactor: " << (uint64_t)(lineStippleFactor) << std::endl;
@@ -13929,6 +14320,7 @@ static Napi::Value rawGetPhysicalDeviceToolProperties(const Napi::CallbackInfo& 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceToolProperties command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceToolProperties)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pToolCount: " << (uint64_t)(pToolCount) << std::endl;
@@ -13968,6 +14360,7 @@ static Napi::Value rawCreateAccelerationStructureKHR(const Napi::CallbackInfo& i
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateAccelerationStructureKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateAccelerationStructureKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -14000,6 +14393,7 @@ static Napi::Value rawCmdBuildAccelerationStructuresKHR(const Napi::CallbackInfo
         ::vkCmdBuildAccelerationStructuresKHR(commandBuffer, infoCount, pInfos, ppBuildRangeInfos);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBuildAccelerationStructuresKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBuildAccelerationStructuresKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    infoCount: " << (uint64_t)(infoCount) << std::endl;
@@ -14036,6 +14430,7 @@ static Napi::Value rawCmdBuildAccelerationStructuresIndirectKHR(const Napi::Call
         ::vkCmdBuildAccelerationStructuresIndirectKHR(commandBuffer, infoCount, pInfos, pIndirectDeviceAddresses, pIndirectStrides, ppMaxPrimitiveCounts);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBuildAccelerationStructuresIndirectKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBuildAccelerationStructuresIndirectKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    infoCount: " << (uint64_t)(infoCount) << std::endl;
@@ -14083,6 +14478,7 @@ static Napi::Value rawBuildAccelerationStructuresKHR(const Napi::CallbackInfo& i
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkBuildAccelerationStructuresKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkBuildAccelerationStructuresKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    deferredOperation: " << (uint64_t)(deferredOperation) << std::endl;
@@ -14113,6 +14509,7 @@ static Napi::Value rawGetAccelerationStructureDeviceAddressKHR(const Napi::Callb
         return Napi::BigInt::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetAccelerationStructureDeviceAddressKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetAccelerationStructureDeviceAddressKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -14150,6 +14547,7 @@ static Napi::Value rawCreateDeferredOperationKHR(const Napi::CallbackInfo& info_
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateDeferredOperationKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateDeferredOperationKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
@@ -14179,6 +14577,7 @@ static Napi::Value rawDestroyDeferredOperationKHR(const Napi::CallbackInfo& info
         ::vkDestroyDeferredOperationKHR(device, operation, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyDeferredOperationKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyDeferredOperationKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    operation: " << (uint64_t)(operation) << std::endl;
@@ -14216,6 +14615,7 @@ static Napi::Value rawGetDeferredOperationMaxConcurrencyKHR(const Napi::Callback
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeferredOperationMaxConcurrencyKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeferredOperationMaxConcurrencyKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    operation: " << (uint64_t)(operation) << std::endl;
@@ -14252,6 +14652,7 @@ static Napi::Value rawGetDeferredOperationResultKHR(const Napi::CallbackInfo& in
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeferredOperationResultKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeferredOperationResultKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    operation: " << (uint64_t)(operation) << std::endl;
@@ -14288,6 +14689,7 @@ static Napi::Value rawDeferredOperationJoinKHR(const Napi::CallbackInfo& info_) 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDeferredOperationJoinKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDeferredOperationJoinKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    operation: " << (uint64_t)(operation) << std::endl;
@@ -14313,6 +14715,7 @@ static Napi::Value rawCmdSetCullMode(const Napi::CallbackInfo& info_) {
         ::vkCmdSetCullMode(commandBuffer, cullMode);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetCullMode command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetCullMode)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    cullMode: " << (uint64_t)(cullMode) << std::endl;
@@ -14337,6 +14740,7 @@ static Napi::Value rawCmdSetFrontFace(const Napi::CallbackInfo& info_) {
         ::vkCmdSetFrontFace(commandBuffer, frontFace);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetFrontFace command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetFrontFace)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    frontFace: " << (uint64_t)(frontFace) << std::endl;
@@ -14361,6 +14765,7 @@ static Napi::Value rawCmdSetPrimitiveTopology(const Napi::CallbackInfo& info_) {
         ::vkCmdSetPrimitiveTopology(commandBuffer, primitiveTopology);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetPrimitiveTopology command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetPrimitiveTopology)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    primitiveTopology: " << (uint64_t)(primitiveTopology) << std::endl;
@@ -14387,6 +14792,7 @@ static Napi::Value rawCmdSetViewportWithCount(const Napi::CallbackInfo& info_) {
         ::vkCmdSetViewportWithCount(commandBuffer, viewportCount, pViewports);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetViewportWithCount command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetViewportWithCount)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    viewportCount: " << (uint64_t)(viewportCount) << std::endl;
@@ -14414,6 +14820,7 @@ static Napi::Value rawCmdSetScissorWithCount(const Napi::CallbackInfo& info_) {
         ::vkCmdSetScissorWithCount(commandBuffer, scissorCount, pScissors);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetScissorWithCount command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetScissorWithCount)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    scissorCount: " << (uint64_t)(scissorCount) << std::endl;
@@ -14450,6 +14857,7 @@ static Napi::Value rawCmdBindVertexBuffers2(const Napi::CallbackInfo& info_) {
         ::vkCmdBindVertexBuffers2(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets, pSizes, pStrides);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBindVertexBuffers2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBindVertexBuffers2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    firstBinding: " << (uint64_t)(firstBinding) << std::endl;
@@ -14479,6 +14887,7 @@ static Napi::Value rawCmdSetDepthTestEnable(const Napi::CallbackInfo& info_) {
         ::vkCmdSetDepthTestEnable(commandBuffer, depthTestEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetDepthTestEnable command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetDepthTestEnable)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    depthTestEnable: " << (uint64_t)(depthTestEnable) << std::endl;
@@ -14503,6 +14912,7 @@ static Napi::Value rawCmdSetDepthWriteEnable(const Napi::CallbackInfo& info_) {
         ::vkCmdSetDepthWriteEnable(commandBuffer, depthWriteEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetDepthWriteEnable command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetDepthWriteEnable)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    depthWriteEnable: " << (uint64_t)(depthWriteEnable) << std::endl;
@@ -14527,6 +14937,7 @@ static Napi::Value rawCmdSetDepthCompareOp(const Napi::CallbackInfo& info_) {
         ::vkCmdSetDepthCompareOp(commandBuffer, depthCompareOp);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetDepthCompareOp command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetDepthCompareOp)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    depthCompareOp: " << (uint64_t)(depthCompareOp) << std::endl;
@@ -14551,6 +14962,7 @@ static Napi::Value rawCmdSetDepthBoundsTestEnable(const Napi::CallbackInfo& info
         ::vkCmdSetDepthBoundsTestEnable(commandBuffer, depthBoundsTestEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetDepthBoundsTestEnable command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetDepthBoundsTestEnable)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    depthBoundsTestEnable: " << (uint64_t)(depthBoundsTestEnable) << std::endl;
@@ -14575,6 +14987,7 @@ static Napi::Value rawCmdSetStencilTestEnable(const Napi::CallbackInfo& info_) {
         ::vkCmdSetStencilTestEnable(commandBuffer, stencilTestEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetStencilTestEnable command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetStencilTestEnable)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    stencilTestEnable: " << (uint64_t)(stencilTestEnable) << std::endl;
@@ -14611,6 +15024,7 @@ static Napi::Value rawCmdSetStencilOp(const Napi::CallbackInfo& info_) {
         ::vkCmdSetStencilOp(commandBuffer, faceMask, failOp, passOp, depthFailOp, compareOp);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetStencilOp command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetStencilOp)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    faceMask: " << (uint64_t)(faceMask) << std::endl;
@@ -14640,6 +15054,7 @@ static Napi::Value rawCmdSetPatchControlPointsEXT(const Napi::CallbackInfo& info
         ::vkCmdSetPatchControlPointsEXT(commandBuffer, patchControlPoints);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetPatchControlPointsEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetPatchControlPointsEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    patchControlPoints: " << (uint64_t)(patchControlPoints) << std::endl;
@@ -14665,6 +15080,7 @@ static Napi::Value rawCmdSetRasterizerDiscardEnable(const Napi::CallbackInfo& in
         ::vkCmdSetRasterizerDiscardEnable(commandBuffer, rasterizerDiscardEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetRasterizerDiscardEnable command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetRasterizerDiscardEnable)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    rasterizerDiscardEnable: " << (uint64_t)(rasterizerDiscardEnable) << std::endl;
@@ -14689,6 +15105,7 @@ static Napi::Value rawCmdSetDepthBiasEnable(const Napi::CallbackInfo& info_) {
         ::vkCmdSetDepthBiasEnable(commandBuffer, depthBiasEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetDepthBiasEnable command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetDepthBiasEnable)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    depthBiasEnable: " << (uint64_t)(depthBiasEnable) << std::endl;
@@ -14714,6 +15131,7 @@ static Napi::Value rawCmdSetLogicOpEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdSetLogicOpEXT(commandBuffer, logicOp);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetLogicOpEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetLogicOpEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    logicOp: " << (uint64_t)(logicOp) << std::endl;
@@ -14739,6 +15157,7 @@ static Napi::Value rawCmdSetPrimitiveRestartEnable(const Napi::CallbackInfo& inf
         ::vkCmdSetPrimitiveRestartEnable(commandBuffer, primitiveRestartEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetPrimitiveRestartEnable command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetPrimitiveRestartEnable)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    primitiveRestartEnable: " << (uint64_t)(primitiveRestartEnable) << std::endl;
@@ -14764,6 +15183,7 @@ static Napi::Value rawCmdSetTessellationDomainOriginEXT(const Napi::CallbackInfo
         ::vkCmdSetTessellationDomainOriginEXT(commandBuffer, domainOrigin);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetTessellationDomainOriginEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetTessellationDomainOriginEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    domainOrigin: " << (uint64_t)(domainOrigin) << std::endl;
@@ -14790,6 +15210,7 @@ static Napi::Value rawCmdSetDepthClampEnableEXT(const Napi::CallbackInfo& info_)
         ::vkCmdSetDepthClampEnableEXT(commandBuffer, depthClampEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetDepthClampEnableEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetDepthClampEnableEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    depthClampEnable: " << (uint64_t)(depthClampEnable) << std::endl;
@@ -14816,6 +15237,7 @@ static Napi::Value rawCmdSetPolygonModeEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdSetPolygonModeEXT(commandBuffer, polygonMode);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetPolygonModeEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetPolygonModeEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    polygonMode: " << (uint64_t)(polygonMode) << std::endl;
@@ -14842,6 +15264,7 @@ static Napi::Value rawCmdSetRasterizationSamplesEXT(const Napi::CallbackInfo& in
         ::vkCmdSetRasterizationSamplesEXT(commandBuffer, rasterizationSamples);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetRasterizationSamplesEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetRasterizationSamplesEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    rasterizationSamples: " << (uint64_t)(rasterizationSamples) << std::endl;
@@ -14870,6 +15293,7 @@ static Napi::Value rawCmdSetSampleMaskEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdSetSampleMaskEXT(commandBuffer, samples, pSampleMask);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetSampleMaskEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetSampleMaskEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    samples: " << (uint64_t)(samples) << std::endl;
@@ -14897,6 +15321,7 @@ static Napi::Value rawCmdSetAlphaToCoverageEnableEXT(const Napi::CallbackInfo& i
         ::vkCmdSetAlphaToCoverageEnableEXT(commandBuffer, alphaToCoverageEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetAlphaToCoverageEnableEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetAlphaToCoverageEnableEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    alphaToCoverageEnable: " << (uint64_t)(alphaToCoverageEnable) << std::endl;
@@ -14923,6 +15348,7 @@ static Napi::Value rawCmdSetAlphaToOneEnableEXT(const Napi::CallbackInfo& info_)
         ::vkCmdSetAlphaToOneEnableEXT(commandBuffer, alphaToOneEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetAlphaToOneEnableEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetAlphaToOneEnableEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    alphaToOneEnable: " << (uint64_t)(alphaToOneEnable) << std::endl;
@@ -14949,6 +15375,7 @@ static Napi::Value rawCmdSetLogicOpEnableEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdSetLogicOpEnableEXT(commandBuffer, logicOpEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetLogicOpEnableEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetLogicOpEnableEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    logicOpEnable: " << (uint64_t)(logicOpEnable) << std::endl;
@@ -14980,6 +15407,7 @@ static Napi::Value rawCmdSetColorBlendEnableEXT(const Napi::CallbackInfo& info_)
         ::vkCmdSetColorBlendEnableEXT(commandBuffer, firstAttachment, attachmentCount, pColorBlendEnables);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetColorBlendEnableEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetColorBlendEnableEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    firstAttachment: " << (uint64_t)(firstAttachment) << std::endl;
@@ -15013,6 +15441,7 @@ static Napi::Value rawCmdSetColorBlendEquationEXT(const Napi::CallbackInfo& info
         ::vkCmdSetColorBlendEquationEXT(commandBuffer, firstAttachment, attachmentCount, pColorBlendEquations);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetColorBlendEquationEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetColorBlendEquationEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    firstAttachment: " << (uint64_t)(firstAttachment) << std::endl;
@@ -15046,6 +15475,7 @@ static Napi::Value rawCmdSetColorWriteMaskEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdSetColorWriteMaskEXT(commandBuffer, firstAttachment, attachmentCount, pColorWriteMasks);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetColorWriteMaskEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetColorWriteMaskEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    firstAttachment: " << (uint64_t)(firstAttachment) << std::endl;
@@ -15074,6 +15504,7 @@ static Napi::Value rawCmdSetRasterizationStreamEXT(const Napi::CallbackInfo& inf
         ::vkCmdSetRasterizationStreamEXT(commandBuffer, rasterizationStream);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetRasterizationStreamEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetRasterizationStreamEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    rasterizationStream: " << (uint64_t)(rasterizationStream) << std::endl;
@@ -15100,6 +15531,7 @@ static Napi::Value rawCmdSetConservativeRasterizationModeEXT(const Napi::Callbac
         ::vkCmdSetConservativeRasterizationModeEXT(commandBuffer, conservativeRasterizationMode);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetConservativeRasterizationModeEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetConservativeRasterizationModeEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    conservativeRasterizationMode: " << (uint64_t)(conservativeRasterizationMode) << std::endl;
@@ -15126,6 +15558,7 @@ static Napi::Value rawCmdSetExtraPrimitiveOverestimationSizeEXT(const Napi::Call
         ::vkCmdSetExtraPrimitiveOverestimationSizeEXT(commandBuffer, extraPrimitiveOverestimationSize);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetExtraPrimitiveOverestimationSizeEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetExtraPrimitiveOverestimationSizeEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    extraPrimitiveOverestimationSize: " << (uint64_t)(extraPrimitiveOverestimationSize) << std::endl;
@@ -15152,6 +15585,7 @@ static Napi::Value rawCmdSetDepthClipEnableEXT(const Napi::CallbackInfo& info_) 
         ::vkCmdSetDepthClipEnableEXT(commandBuffer, depthClipEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetDepthClipEnableEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetDepthClipEnableEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    depthClipEnable: " << (uint64_t)(depthClipEnable) << std::endl;
@@ -15178,6 +15612,7 @@ static Napi::Value rawCmdSetSampleLocationsEnableEXT(const Napi::CallbackInfo& i
         ::vkCmdSetSampleLocationsEnableEXT(commandBuffer, sampleLocationsEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetSampleLocationsEnableEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetSampleLocationsEnableEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    sampleLocationsEnable: " << (uint64_t)(sampleLocationsEnable) << std::endl;
@@ -15209,6 +15644,7 @@ static Napi::Value rawCmdSetColorBlendAdvancedEXT(const Napi::CallbackInfo& info
         ::vkCmdSetColorBlendAdvancedEXT(commandBuffer, firstAttachment, attachmentCount, pColorBlendAdvanced);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetColorBlendAdvancedEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetColorBlendAdvancedEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    firstAttachment: " << (uint64_t)(firstAttachment) << std::endl;
@@ -15237,6 +15673,7 @@ static Napi::Value rawCmdSetProvokingVertexModeEXT(const Napi::CallbackInfo& inf
         ::vkCmdSetProvokingVertexModeEXT(commandBuffer, provokingVertexMode);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetProvokingVertexModeEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetProvokingVertexModeEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    provokingVertexMode: " << (uint64_t)(provokingVertexMode) << std::endl;
@@ -15263,6 +15700,7 @@ static Napi::Value rawCmdSetLineRasterizationModeEXT(const Napi::CallbackInfo& i
         ::vkCmdSetLineRasterizationModeEXT(commandBuffer, lineRasterizationMode);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetLineRasterizationModeEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetLineRasterizationModeEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    lineRasterizationMode: " << (uint64_t)(lineRasterizationMode) << std::endl;
@@ -15289,6 +15727,7 @@ static Napi::Value rawCmdSetLineStippleEnableEXT(const Napi::CallbackInfo& info_
         ::vkCmdSetLineStippleEnableEXT(commandBuffer, stippledLineEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetLineStippleEnableEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetLineStippleEnableEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    stippledLineEnable: " << (uint64_t)(stippledLineEnable) << std::endl;
@@ -15315,6 +15754,7 @@ static Napi::Value rawCmdSetDepthClipNegativeOneToOneEXT(const Napi::CallbackInf
         ::vkCmdSetDepthClipNegativeOneToOneEXT(commandBuffer, negativeOneToOne);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetDepthClipNegativeOneToOneEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetDepthClipNegativeOneToOneEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    negativeOneToOne: " << (uint64_t)(negativeOneToOne) << std::endl;
@@ -15341,6 +15781,7 @@ static Napi::Value rawCmdSetViewportWScalingEnableNV(const Napi::CallbackInfo& i
         ::vkCmdSetViewportWScalingEnableNV(commandBuffer, viewportWScalingEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetViewportWScalingEnableNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetViewportWScalingEnableNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    viewportWScalingEnable: " << (uint64_t)(viewportWScalingEnable) << std::endl;
@@ -15372,6 +15813,7 @@ static Napi::Value rawCmdSetViewportSwizzleNV(const Napi::CallbackInfo& info_) {
         ::vkCmdSetViewportSwizzleNV(commandBuffer, firstViewport, viewportCount, pViewportSwizzles);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetViewportSwizzleNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetViewportSwizzleNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    firstViewport: " << (uint64_t)(firstViewport) << std::endl;
@@ -15400,6 +15842,7 @@ static Napi::Value rawCmdSetCoverageToColorEnableNV(const Napi::CallbackInfo& in
         ::vkCmdSetCoverageToColorEnableNV(commandBuffer, coverageToColorEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetCoverageToColorEnableNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetCoverageToColorEnableNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    coverageToColorEnable: " << (uint64_t)(coverageToColorEnable) << std::endl;
@@ -15426,6 +15869,7 @@ static Napi::Value rawCmdSetCoverageToColorLocationNV(const Napi::CallbackInfo& 
         ::vkCmdSetCoverageToColorLocationNV(commandBuffer, coverageToColorLocation);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetCoverageToColorLocationNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetCoverageToColorLocationNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    coverageToColorLocation: " << (uint64_t)(coverageToColorLocation) << std::endl;
@@ -15452,6 +15896,7 @@ static Napi::Value rawCmdSetCoverageModulationModeNV(const Napi::CallbackInfo& i
         ::vkCmdSetCoverageModulationModeNV(commandBuffer, coverageModulationMode);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetCoverageModulationModeNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetCoverageModulationModeNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    coverageModulationMode: " << (uint64_t)(coverageModulationMode) << std::endl;
@@ -15478,6 +15923,7 @@ static Napi::Value rawCmdSetCoverageModulationTableEnableNV(const Napi::Callback
         ::vkCmdSetCoverageModulationTableEnableNV(commandBuffer, coverageModulationTableEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetCoverageModulationTableEnableNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetCoverageModulationTableEnableNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    coverageModulationTableEnable: " << (uint64_t)(coverageModulationTableEnable) << std::endl;
@@ -15506,6 +15952,7 @@ static Napi::Value rawCmdSetCoverageModulationTableNV(const Napi::CallbackInfo& 
         ::vkCmdSetCoverageModulationTableNV(commandBuffer, coverageModulationTableCount, pCoverageModulationTable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetCoverageModulationTableNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetCoverageModulationTableNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    coverageModulationTableCount: " << (uint64_t)(coverageModulationTableCount) << std::endl;
@@ -15533,6 +15980,7 @@ static Napi::Value rawCmdSetShadingRateImageEnableNV(const Napi::CallbackInfo& i
         ::vkCmdSetShadingRateImageEnableNV(commandBuffer, shadingRateImageEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetShadingRateImageEnableNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetShadingRateImageEnableNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    shadingRateImageEnable: " << (uint64_t)(shadingRateImageEnable) << std::endl;
@@ -15559,6 +16007,7 @@ static Napi::Value rawCmdSetCoverageReductionModeNV(const Napi::CallbackInfo& in
         ::vkCmdSetCoverageReductionModeNV(commandBuffer, coverageReductionMode);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetCoverageReductionModeNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetCoverageReductionModeNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    coverageReductionMode: " << (uint64_t)(coverageReductionMode) << std::endl;
@@ -15585,6 +16034,7 @@ static Napi::Value rawCmdSetRepresentativeFragmentTestEnableNV(const Napi::Callb
         ::vkCmdSetRepresentativeFragmentTestEnableNV(commandBuffer, representativeFragmentTestEnable);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetRepresentativeFragmentTestEnableNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetRepresentativeFragmentTestEnableNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    representativeFragmentTestEnable: " << (uint64_t)(representativeFragmentTestEnable) << std::endl;
@@ -15623,6 +16073,7 @@ static Napi::Value rawCreatePrivateDataSlot(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreatePrivateDataSlot command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreatePrivateDataSlot)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -15651,6 +16102,7 @@ static Napi::Value rawDestroyPrivateDataSlot(const Napi::CallbackInfo& info_) {
         ::vkDestroyPrivateDataSlot(device, privateDataSlot, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyPrivateDataSlot command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyPrivateDataSlot)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    privateDataSlot: " << (uint64_t)(privateDataSlot) << std::endl;
@@ -15695,6 +16147,7 @@ static Napi::Value rawSetPrivateData(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkSetPrivateData command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkSetPrivateData)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    objectType: " << (uint64_t)(objectType) << std::endl;
@@ -15730,6 +16183,7 @@ static Napi::Value rawGetPrivateData(const Napi::CallbackInfo& info_) {
         ::vkGetPrivateData(device, objectType, objectHandle, privateDataSlot, pData);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPrivateData command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPrivateData)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    objectType: " << (uint64_t)(objectType) << std::endl;
@@ -15756,6 +16210,7 @@ static Napi::Value rawCmdCopyBuffer2(const Napi::CallbackInfo& info_) {
         ::vkCmdCopyBuffer2(commandBuffer, pCopyBufferInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyBuffer2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyBuffer2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pCopyBufferInfo: " << (uint64_t)(pCopyBufferInfo) << std::endl;
@@ -15779,6 +16234,7 @@ static Napi::Value rawCmdCopyImage2(const Napi::CallbackInfo& info_) {
         ::vkCmdCopyImage2(commandBuffer, pCopyImageInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyImage2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyImage2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pCopyImageInfo: " << (uint64_t)(pCopyImageInfo) << std::endl;
@@ -15802,6 +16258,7 @@ static Napi::Value rawCmdBlitImage2(const Napi::CallbackInfo& info_) {
         ::vkCmdBlitImage2(commandBuffer, pBlitImageInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBlitImage2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBlitImage2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pBlitImageInfo: " << (uint64_t)(pBlitImageInfo) << std::endl;
@@ -15825,6 +16282,7 @@ static Napi::Value rawCmdCopyBufferToImage2(const Napi::CallbackInfo& info_) {
         ::vkCmdCopyBufferToImage2(commandBuffer, pCopyBufferToImageInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyBufferToImage2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyBufferToImage2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pCopyBufferToImageInfo: " << (uint64_t)(pCopyBufferToImageInfo) << std::endl;
@@ -15848,6 +16306,7 @@ static Napi::Value rawCmdCopyImageToBuffer2(const Napi::CallbackInfo& info_) {
         ::vkCmdCopyImageToBuffer2(commandBuffer, pCopyImageToBufferInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyImageToBuffer2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyImageToBuffer2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pCopyImageToBufferInfo: " << (uint64_t)(pCopyImageToBufferInfo) << std::endl;
@@ -15871,6 +16330,7 @@ static Napi::Value rawCmdResolveImage2(const Napi::CallbackInfo& info_) {
         ::vkCmdResolveImage2(commandBuffer, pResolveImageInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdResolveImage2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdResolveImage2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pResolveImageInfo: " << (uint64_t)(pResolveImageInfo) << std::endl;
@@ -15897,6 +16357,7 @@ static Napi::Value rawCmdSetFragmentShadingRateKHR(const Napi::CallbackInfo& inf
         ::vkCmdSetFragmentShadingRateKHR(commandBuffer, pFragmentSize, combinerOps);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetFragmentShadingRateKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetFragmentShadingRateKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pFragmentSize: " << (uint64_t)(pFragmentSize) << std::endl;
@@ -15935,6 +16396,7 @@ static Napi::Value rawGetPhysicalDeviceFragmentShadingRatesKHR(const Napi::Callb
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceFragmentShadingRatesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceFragmentShadingRatesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pFragmentShadingRateCount: " << (uint64_t)(pFragmentShadingRateCount) << std::endl;
@@ -15964,6 +16426,7 @@ static Napi::Value rawCmdSetFragmentShadingRateEnumNV(const Napi::CallbackInfo& 
         ::vkCmdSetFragmentShadingRateEnumNV(commandBuffer, shadingRate, combinerOps);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetFragmentShadingRateEnumNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetFragmentShadingRateEnumNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    shadingRate: " << (uint64_t)(shadingRate) << std::endl;
@@ -15997,6 +16460,7 @@ static Napi::Value rawGetAccelerationStructureBuildSizesKHR(const Napi::Callback
         ::vkGetAccelerationStructureBuildSizesKHR(device, buildType, pBuildInfo, pMaxPrimitiveCounts, pSizeInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetAccelerationStructureBuildSizesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetAccelerationStructureBuildSizesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    buildType: " << (uint64_t)(buildType) << std::endl;
@@ -16033,6 +16497,7 @@ static Napi::Value rawCmdSetVertexInputEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdSetVertexInputEXT(commandBuffer, vertexBindingDescriptionCount, pVertexBindingDescriptions, vertexAttributeDescriptionCount, pVertexAttributeDescriptions);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetVertexInputEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetVertexInputEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    vertexBindingDescriptionCount: " << (uint64_t)(vertexBindingDescriptionCount) << std::endl;
@@ -16064,6 +16529,7 @@ static Napi::Value rawCmdSetColorWriteEnableEXT(const Napi::CallbackInfo& info_)
         ::vkCmdSetColorWriteEnableEXT(commandBuffer, attachmentCount, pColorWriteEnables);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetColorWriteEnableEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetColorWriteEnableEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    attachmentCount: " << (uint64_t)(attachmentCount) << std::endl;
@@ -16092,6 +16558,7 @@ static Napi::Value rawCmdSetEvent2(const Napi::CallbackInfo& info_) {
         ::vkCmdSetEvent2(commandBuffer, event, pDependencyInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetEvent2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetEvent2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    event: " << (uint64_t)(event) << std::endl;
@@ -16120,6 +16587,7 @@ static Napi::Value rawCmdResetEvent2(const Napi::CallbackInfo& info_) {
         ::vkCmdResetEvent2(commandBuffer, event, stageMask);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdResetEvent2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdResetEvent2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    event: " << (uint64_t)(event) << std::endl;
@@ -16149,6 +16617,7 @@ static Napi::Value rawCmdWaitEvents2(const Napi::CallbackInfo& info_) {
         ::vkCmdWaitEvents2(commandBuffer, eventCount, pEvents, pDependencyInfos);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdWaitEvents2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdWaitEvents2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    eventCount: " << (uint64_t)(eventCount) << std::endl;
@@ -16174,6 +16643,7 @@ static Napi::Value rawCmdPipelineBarrier2(const Napi::CallbackInfo& info_) {
         ::vkCmdPipelineBarrier2(commandBuffer, pDependencyInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdPipelineBarrier2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdPipelineBarrier2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pDependencyInfo: " << (uint64_t)(pDependencyInfo) << std::endl;
@@ -16213,6 +16683,7 @@ static Napi::Value rawQueueSubmit2(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkQueueSubmit2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkQueueSubmit2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
         std::cerr << "    submitCount: " << (uint64_t)(submitCount) << std::endl;
@@ -16245,6 +16716,7 @@ static Napi::Value rawCmdWriteTimestamp2(const Napi::CallbackInfo& info_) {
         ::vkCmdWriteTimestamp2(commandBuffer, stage, queryPool, query);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdWriteTimestamp2 command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdWriteTimestamp2)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    stage: " << (uint64_t)(stage) << std::endl;
@@ -16281,6 +16753,7 @@ static Napi::Value rawCmdWriteBufferMarker2AMD(const Napi::CallbackInfo& info_) 
         ::vkCmdWriteBufferMarker2AMD(commandBuffer, stage, dstBuffer, dstOffset, marker);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdWriteBufferMarker2AMD command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdWriteBufferMarker2AMD)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    stage: " << (uint64_t)(stage) << std::endl;
@@ -16311,6 +16784,7 @@ static Napi::Value rawGetQueueCheckpointData2NV(const Napi::CallbackInfo& info_)
         ::vkGetQueueCheckpointData2NV(queue, pCheckpointDataCount, pCheckpointData);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetQueueCheckpointData2NV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetQueueCheckpointData2NV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
         std::cerr << "    pCheckpointDataCount: " << (uint64_t)(pCheckpointDataCount) << std::endl;
@@ -16349,6 +16823,7 @@ static Napi::Value rawGetPhysicalDeviceVideoCapabilitiesKHR(const Napi::Callback
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceVideoCapabilitiesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceVideoCapabilitiesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pVideoProfile: " << (uint64_t)(pVideoProfile) << std::endl;
@@ -16389,6 +16864,7 @@ static Napi::Value rawGetPhysicalDeviceVideoFormatPropertiesKHR(const Napi::Call
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceVideoFormatPropertiesKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceVideoFormatPropertiesKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pVideoFormatInfo: " << (uint64_t)(pVideoFormatInfo) << std::endl;
@@ -16430,6 +16906,7 @@ static Napi::Value rawCreateVideoSessionKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateVideoSessionKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateVideoSessionKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -16460,6 +16937,7 @@ static Napi::Value rawDestroyVideoSessionKHR(const Napi::CallbackInfo& info_) {
         ::vkDestroyVideoSessionKHR(device, videoSession, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyVideoSessionKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyVideoSessionKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    videoSession: " << (uint64_t)(videoSession) << std::endl;
@@ -16500,6 +16978,7 @@ static Napi::Value rawCreateVideoSessionParametersKHR(const Napi::CallbackInfo& 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateVideoSessionParametersKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateVideoSessionParametersKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -16540,6 +17019,7 @@ static Napi::Value rawUpdateVideoSessionParametersKHR(const Napi::CallbackInfo& 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkUpdateVideoSessionParametersKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkUpdateVideoSessionParametersKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    videoSessionParameters: " << (uint64_t)(videoSessionParameters) << std::endl;
@@ -16569,6 +17049,7 @@ static Napi::Value rawDestroyVideoSessionParametersKHR(const Napi::CallbackInfo&
         ::vkDestroyVideoSessionParametersKHR(device, videoSessionParameters, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyVideoSessionParametersKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyVideoSessionParametersKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    videoSessionParameters: " << (uint64_t)(videoSessionParameters) << std::endl;
@@ -16610,6 +17091,7 @@ static Napi::Value rawGetVideoSessionMemoryRequirementsKHR(const Napi::CallbackI
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetVideoSessionMemoryRequirementsKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetVideoSessionMemoryRequirementsKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    videoSession: " << (uint64_t)(videoSession) << std::endl;
@@ -16653,6 +17135,7 @@ static Napi::Value rawBindVideoSessionMemoryKHR(const Napi::CallbackInfo& info_)
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkBindVideoSessionMemoryKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkBindVideoSessionMemoryKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    videoSession: " << (uint64_t)(videoSession) << std::endl;
@@ -16680,6 +17163,7 @@ static Napi::Value rawCmdDecodeVideoKHR(const Napi::CallbackInfo& info_) {
         ::vkCmdDecodeVideoKHR(commandBuffer, pDecodeInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDecodeVideoKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDecodeVideoKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pDecodeInfo: " << (uint64_t)(pDecodeInfo) << std::endl;
@@ -16705,6 +17189,7 @@ static Napi::Value rawCmdBeginVideoCodingKHR(const Napi::CallbackInfo& info_) {
         ::vkCmdBeginVideoCodingKHR(commandBuffer, pBeginInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBeginVideoCodingKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBeginVideoCodingKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pBeginInfo: " << (uint64_t)(pBeginInfo) << std::endl;
@@ -16730,6 +17215,7 @@ static Napi::Value rawCmdControlVideoCodingKHR(const Napi::CallbackInfo& info_) 
         ::vkCmdControlVideoCodingKHR(commandBuffer, pCodingControlInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdControlVideoCodingKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdControlVideoCodingKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pCodingControlInfo: " << (uint64_t)(pCodingControlInfo) << std::endl;
@@ -16755,6 +17241,7 @@ static Napi::Value rawCmdEndVideoCodingKHR(const Napi::CallbackInfo& info_) {
         ::vkCmdEndVideoCodingKHR(commandBuffer, pEndCodingInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdEndVideoCodingKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdEndVideoCodingKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pEndCodingInfo: " << (uint64_t)(pEndCodingInfo) << std::endl;
@@ -16780,6 +17267,7 @@ static Napi::Value rawCmdEncodeVideoKHR(const Napi::CallbackInfo& info_) {
         ::vkCmdEncodeVideoKHR(commandBuffer, pEncodeInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdEncodeVideoKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdEncodeVideoKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pEncodeInfo: " << (uint64_t)(pEncodeInfo) << std::endl;
@@ -16808,6 +17296,7 @@ static Napi::Value rawCmdDecompressMemoryNV(const Napi::CallbackInfo& info_) {
         ::vkCmdDecompressMemoryNV(commandBuffer, decompressRegionCount, pDecompressMemoryRegions);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDecompressMemoryNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDecompressMemoryNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    decompressRegionCount: " << (uint64_t)(decompressRegionCount) << std::endl;
@@ -16841,6 +17330,7 @@ static Napi::Value rawCmdDecompressMemoryIndirectCountNV(const Napi::CallbackInf
         ::vkCmdDecompressMemoryIndirectCountNV(commandBuffer, indirectCommandsAddress, indirectCommandsCountAddress, stride);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdDecompressMemoryIndirectCountNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdDecompressMemoryIndirectCountNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    indirectCommandsAddress: " << (uint64_t)(indirectCommandsAddress) << std::endl;
@@ -16882,6 +17372,7 @@ static Napi::Value rawCreateCuModuleNVX(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateCuModuleNVX command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateCuModuleNVX)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -16923,6 +17414,7 @@ static Napi::Value rawCreateCuFunctionNVX(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateCuFunctionNVX command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateCuFunctionNVX)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -16953,6 +17445,7 @@ static Napi::Value rawDestroyCuModuleNVX(const Napi::CallbackInfo& info_) {
         ::vkDestroyCuModuleNVX(device, module, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyCuModuleNVX command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyCuModuleNVX)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    module: " << (uint64_t)(module) << std::endl;
@@ -16982,6 +17475,7 @@ static Napi::Value rawDestroyCuFunctionNVX(const Napi::CallbackInfo& info_) {
         ::vkDestroyCuFunctionNVX(device, function, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyCuFunctionNVX command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyCuFunctionNVX)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    function: " << (uint64_t)(function) << std::endl;
@@ -17008,6 +17502,7 @@ static Napi::Value rawCmdCuLaunchKernelNVX(const Napi::CallbackInfo& info_) {
         ::vkCmdCuLaunchKernelNVX(commandBuffer, pLaunchInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCuLaunchKernelNVX command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCuLaunchKernelNVX)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pLaunchInfo: " << (uint64_t)(pLaunchInfo) << std::endl;
@@ -17036,6 +17531,7 @@ static Napi::Value rawGetDescriptorSetLayoutSizeEXT(const Napi::CallbackInfo& in
         ::vkGetDescriptorSetLayoutSizeEXT(device, layout, pLayoutSizeInBytes);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDescriptorSetLayoutSizeEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDescriptorSetLayoutSizeEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    layout: " << (uint64_t)(layout) << std::endl;
@@ -17068,6 +17564,7 @@ static Napi::Value rawGetDescriptorSetLayoutBindingOffsetEXT(const Napi::Callbac
         ::vkGetDescriptorSetLayoutBindingOffsetEXT(device, layout, binding, pOffset);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDescriptorSetLayoutBindingOffsetEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDescriptorSetLayoutBindingOffsetEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    layout: " << (uint64_t)(layout) << std::endl;
@@ -17100,6 +17597,7 @@ static Napi::Value rawGetDescriptorEXT(const Napi::CallbackInfo& info_) {
         ::vkGetDescriptorEXT(device, pDescriptorInfo, dataSize, pDescriptor);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDescriptorEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDescriptorEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pDescriptorInfo: " << (uint64_t)(pDescriptorInfo) << std::endl;
@@ -17130,6 +17628,7 @@ static Napi::Value rawCmdBindDescriptorBuffersEXT(const Napi::CallbackInfo& info
         ::vkCmdBindDescriptorBuffersEXT(commandBuffer, bufferCount, pBindingInfos);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBindDescriptorBuffersEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBindDescriptorBuffersEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    bufferCount: " << (uint64_t)(bufferCount) << std::endl;
@@ -17170,6 +17669,7 @@ static Napi::Value rawCmdSetDescriptorBufferOffsetsEXT(const Napi::CallbackInfo&
         ::vkCmdSetDescriptorBufferOffsetsEXT(commandBuffer, pipelineBindPoint, layout, firstSet, setCount, pBufferIndices, pOffsets);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdSetDescriptorBufferOffsetsEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdSetDescriptorBufferOffsetsEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pipelineBindPoint: " << (uint64_t)(pipelineBindPoint) << std::endl;
@@ -17207,6 +17707,7 @@ static Napi::Value rawCmdBindDescriptorBufferEmbeddedSamplersEXT(const Napi::Cal
         ::vkCmdBindDescriptorBufferEmbeddedSamplersEXT(commandBuffer, pipelineBindPoint, layout, set);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBindDescriptorBufferEmbeddedSamplersEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBindDescriptorBufferEmbeddedSamplersEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pipelineBindPoint: " << (uint64_t)(pipelineBindPoint) << std::endl;
@@ -17246,6 +17747,7 @@ static Napi::Value rawGetBufferOpaqueCaptureDescriptorDataEXT(const Napi::Callba
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetBufferOpaqueCaptureDescriptorDataEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetBufferOpaqueCaptureDescriptorDataEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -17284,6 +17786,7 @@ static Napi::Value rawGetImageOpaqueCaptureDescriptorDataEXT(const Napi::Callbac
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetImageOpaqueCaptureDescriptorDataEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetImageOpaqueCaptureDescriptorDataEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -17322,6 +17825,7 @@ static Napi::Value rawGetImageViewOpaqueCaptureDescriptorDataEXT(const Napi::Cal
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetImageViewOpaqueCaptureDescriptorDataEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetImageViewOpaqueCaptureDescriptorDataEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -17360,6 +17864,7 @@ static Napi::Value rawGetSamplerOpaqueCaptureDescriptorDataEXT(const Napi::Callb
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetSamplerOpaqueCaptureDescriptorDataEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetSamplerOpaqueCaptureDescriptorDataEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -17398,6 +17903,7 @@ static Napi::Value rawGetAccelerationStructureOpaqueCaptureDescriptorDataEXT(con
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -17428,6 +17934,7 @@ static Napi::Value rawSetDeviceMemoryPriorityEXT(const Napi::CallbackInfo& info_
         ::vkSetDeviceMemoryPriorityEXT(device, memory, priority);
     } catch(std::exception e) {
         std::cerr << "Exception with vkSetDeviceMemoryPriorityEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkSetDeviceMemoryPriorityEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    memory: " << (uint64_t)(memory) << std::endl;
@@ -17468,6 +17975,7 @@ static Napi::Value rawAcquireDrmDisplayEXT(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkAcquireDrmDisplayEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkAcquireDrmDisplayEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    drmFd: " << (uint64_t)(drmFd) << std::endl;
@@ -17510,6 +18018,7 @@ static Napi::Value rawGetDrmDisplayEXT(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDrmDisplayEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDrmDisplayEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    drmFd: " << (uint64_t)(drmFd) << std::endl;
@@ -17554,6 +18063,7 @@ static Napi::Value rawWaitForPresentKHR(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkWaitForPresentKHR command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkWaitForPresentKHR)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    swapchain: " << (uint64_t)(swapchain) << std::endl;
@@ -17595,6 +18105,7 @@ static Napi::Value rawCreateBufferCollectionFUCHSIA(const Napi::CallbackInfo& in
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateBufferCollectionFUCHSIA command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateBufferCollectionFUCHSIA)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -17635,6 +18146,7 @@ static Napi::Value rawSetBufferCollectionBufferConstraintsFUCHSIA(const Napi::Ca
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkSetBufferCollectionBufferConstraintsFUCHSIA command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkSetBufferCollectionBufferConstraintsFUCHSIA)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    collection: " << (uint64_t)(collection) << std::endl;
@@ -17674,6 +18186,7 @@ static Napi::Value rawSetBufferCollectionImageConstraintsFUCHSIA(const Napi::Cal
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkSetBufferCollectionImageConstraintsFUCHSIA command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkSetBufferCollectionImageConstraintsFUCHSIA)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    collection: " << (uint64_t)(collection) << std::endl;
@@ -17703,6 +18216,7 @@ static Napi::Value rawDestroyBufferCollectionFUCHSIA(const Napi::CallbackInfo& i
         ::vkDestroyBufferCollectionFUCHSIA(device, collection, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyBufferCollectionFUCHSIA command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyBufferCollectionFUCHSIA)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    collection: " << (uint64_t)(collection) << std::endl;
@@ -17742,6 +18256,7 @@ static Napi::Value rawGetBufferCollectionPropertiesFUCHSIA(const Napi::CallbackI
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetBufferCollectionPropertiesFUCHSIA command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetBufferCollectionPropertiesFUCHSIA)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    collection: " << (uint64_t)(collection) << std::endl;
@@ -17767,6 +18282,7 @@ static Napi::Value rawCmdBeginRendering(const Napi::CallbackInfo& info_) {
         ::vkCmdBeginRendering(commandBuffer, pRenderingInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBeginRendering command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBeginRendering)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pRenderingInfo: " << (uint64_t)(pRenderingInfo) << std::endl;
@@ -17788,6 +18304,7 @@ static Napi::Value rawCmdEndRendering(const Napi::CallbackInfo& info_) {
         ::vkCmdEndRendering(commandBuffer);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdEndRendering command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdEndRendering)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
@@ -17813,6 +18330,7 @@ static Napi::Value rawGetDescriptorSetLayoutHostMappingInfoVALVE(const Napi::Cal
         ::vkGetDescriptorSetLayoutHostMappingInfoVALVE(device, pBindingReference, pHostMapping);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDescriptorSetLayoutHostMappingInfoVALVE command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDescriptorSetLayoutHostMappingInfoVALVE)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pBindingReference: " << (uint64_t)(pBindingReference) << std::endl;
@@ -17842,6 +18360,7 @@ static Napi::Value rawGetDescriptorSetHostMappingVALVE(const Napi::CallbackInfo&
         ::vkGetDescriptorSetHostMappingVALVE(device, descriptorSet, ppData);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDescriptorSetHostMappingVALVE command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDescriptorSetHostMappingVALVE)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    descriptorSet: " << (uint64_t)(descriptorSet) << std::endl;
@@ -17882,6 +18401,7 @@ static Napi::Value rawCreateMicromapEXT(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateMicromapEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateMicromapEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -17912,6 +18432,7 @@ static Napi::Value rawCmdBuildMicromapsEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdBuildMicromapsEXT(commandBuffer, infoCount, pInfos);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdBuildMicromapsEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdBuildMicromapsEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    infoCount: " << (uint64_t)(infoCount) << std::endl;
@@ -17954,6 +18475,7 @@ static Napi::Value rawBuildMicromapsEXT(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkBuildMicromapsEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkBuildMicromapsEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    deferredOperation: " << (uint64_t)(deferredOperation) << std::endl;
@@ -17984,6 +18506,7 @@ static Napi::Value rawDestroyMicromapEXT(const Napi::CallbackInfo& info_) {
         ::vkDestroyMicromapEXT(device, micromap, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyMicromapEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyMicromapEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    micromap: " << (uint64_t)(micromap) << std::endl;
@@ -18010,6 +18533,7 @@ static Napi::Value rawCmdCopyMicromapEXT(const Napi::CallbackInfo& info_) {
         ::vkCmdCopyMicromapEXT(commandBuffer, pInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyMicromapEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyMicromapEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -18048,6 +18572,7 @@ static Napi::Value rawCopyMicromapEXT(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCopyMicromapEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCopyMicromapEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    deferredOperation: " << (uint64_t)(deferredOperation) << std::endl;
@@ -18074,6 +18599,7 @@ static Napi::Value rawCmdCopyMicromapToMemoryEXT(const Napi::CallbackInfo& info_
         ::vkCmdCopyMicromapToMemoryEXT(commandBuffer, pInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyMicromapToMemoryEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyMicromapToMemoryEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -18112,6 +18638,7 @@ static Napi::Value rawCopyMicromapToMemoryEXT(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCopyMicromapToMemoryEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCopyMicromapToMemoryEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    deferredOperation: " << (uint64_t)(deferredOperation) << std::endl;
@@ -18138,6 +18665,7 @@ static Napi::Value rawCmdCopyMemoryToMicromapEXT(const Napi::CallbackInfo& info_
         ::vkCmdCopyMemoryToMicromapEXT(commandBuffer, pInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdCopyMemoryToMicromapEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdCopyMemoryToMicromapEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
@@ -18176,6 +18704,7 @@ static Napi::Value rawCopyMemoryToMicromapEXT(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCopyMemoryToMicromapEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCopyMemoryToMicromapEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    deferredOperation: " << (uint64_t)(deferredOperation) << std::endl;
@@ -18214,6 +18743,7 @@ static Napi::Value rawCmdWriteMicromapsPropertiesEXT(const Napi::CallbackInfo& i
         ::vkCmdWriteMicromapsPropertiesEXT(commandBuffer, micromapCount, pMicromaps, queryType, queryPool, firstQuery);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdWriteMicromapsPropertiesEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdWriteMicromapsPropertiesEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    micromapCount: " << (uint64_t)(micromapCount) << std::endl;
@@ -18267,6 +18797,7 @@ static Napi::Value rawWriteMicromapsPropertiesEXT(const Napi::CallbackInfo& info
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkWriteMicromapsPropertiesEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkWriteMicromapsPropertiesEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    micromapCount: " << (uint64_t)(micromapCount) << std::endl;
@@ -18299,6 +18830,7 @@ static Napi::Value rawGetDeviceMicromapCompatibilityEXT(const Napi::CallbackInfo
         ::vkGetDeviceMicromapCompatibilityEXT(device, pVersionInfo, pCompatibility);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeviceMicromapCompatibilityEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeviceMicromapCompatibilityEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pVersionInfo: " << (uint64_t)(pVersionInfo) << std::endl;
@@ -18330,6 +18862,7 @@ static Napi::Value rawGetMicromapBuildSizesEXT(const Napi::CallbackInfo& info_) 
         ::vkGetMicromapBuildSizesEXT(device, buildType, pBuildInfo, pSizeInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetMicromapBuildSizesEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetMicromapBuildSizesEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    buildType: " << (uint64_t)(buildType) << std::endl;
@@ -18360,6 +18893,7 @@ static Napi::Value rawGetShaderModuleIdentifierEXT(const Napi::CallbackInfo& inf
         ::vkGetShaderModuleIdentifierEXT(device, shaderModule, pIdentifier);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetShaderModuleIdentifierEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetShaderModuleIdentifierEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    shaderModule: " << (uint64_t)(shaderModule) << std::endl;
@@ -18388,6 +18922,7 @@ static Napi::Value rawGetShaderModuleCreateInfoIdentifierEXT(const Napi::Callbac
         ::vkGetShaderModuleCreateInfoIdentifierEXT(device, pCreateInfo, pIdentifier);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetShaderModuleCreateInfoIdentifierEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetShaderModuleCreateInfoIdentifierEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -18419,6 +18954,7 @@ static Napi::Value rawGetImageSubresourceLayout2EXT(const Napi::CallbackInfo& in
         ::vkGetImageSubresourceLayout2EXT(device, image, pSubresource, pLayout);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetImageSubresourceLayout2EXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetImageSubresourceLayout2EXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    image: " << (uint64_t)(image) << std::endl;
@@ -18458,6 +18994,7 @@ static Napi::Value rawGetPipelinePropertiesEXT(const Napi::CallbackInfo& info_) 
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPipelinePropertiesEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPipelinePropertiesEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pPipelineInfo: " << (uint64_t)(pPipelineInfo) << std::endl;
@@ -18484,6 +19021,7 @@ static Napi::Value rawExportMetalObjectsEXT(const Napi::CallbackInfo& info_) {
         ::vkExportMetalObjectsEXT(device, pMetalObjectsInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkExportMetalObjectsEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkExportMetalObjectsEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pMetalObjectsInfo: " << (uint64_t)(pMetalObjectsInfo) << std::endl;
@@ -18524,6 +19062,7 @@ static Napi::Value rawGetFramebufferTilePropertiesQCOM(const Napi::CallbackInfo&
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetFramebufferTilePropertiesQCOM command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetFramebufferTilePropertiesQCOM)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    framebuffer: " << (uint64_t)(framebuffer) << std::endl;
@@ -18563,6 +19102,7 @@ static Napi::Value rawGetDynamicRenderingTilePropertiesQCOM(const Napi::Callback
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDynamicRenderingTilePropertiesQCOM command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDynamicRenderingTilePropertiesQCOM)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pRenderingInfo: " << (uint64_t)(pRenderingInfo) << std::endl;
@@ -18603,6 +19143,7 @@ static Napi::Value rawGetPhysicalDeviceOpticalFlowImageFormatsNV(const Napi::Cal
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetPhysicalDeviceOpticalFlowImageFormatsNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetPhysicalDeviceOpticalFlowImageFormatsNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
         std::cerr << "    pOpticalFlowImageFormatInfo: " << (uint64_t)(pOpticalFlowImageFormatInfo) << std::endl;
@@ -18644,6 +19185,7 @@ static Napi::Value rawCreateOpticalFlowSessionNV(const Napi::CallbackInfo& info_
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCreateOpticalFlowSessionNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCreateOpticalFlowSessionNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
@@ -18674,6 +19216,7 @@ static Napi::Value rawDestroyOpticalFlowSessionNV(const Napi::CallbackInfo& info
         ::vkDestroyOpticalFlowSessionNV(device, session, pAllocator);
     } catch(std::exception e) {
         std::cerr << "Exception with vkDestroyOpticalFlowSessionNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkDestroyOpticalFlowSessionNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    session: " << (uint64_t)(session) << std::endl;
@@ -18720,6 +19263,7 @@ static Napi::Value rawBindOpticalFlowSessionImageNV(const Napi::CallbackInfo& in
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkBindOpticalFlowSessionImageNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkBindOpticalFlowSessionImageNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    session: " << (uint64_t)(session) << std::endl;
@@ -18751,6 +19295,7 @@ static Napi::Value rawCmdOpticalFlowExecuteNV(const Napi::CallbackInfo& info_) {
         ::vkCmdOpticalFlowExecuteNV(commandBuffer, session, pExecuteInfo);
     } catch(std::exception e) {
         std::cerr << "Exception with vkCmdOpticalFlowExecuteNV command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkCmdOpticalFlowExecuteNV)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
         std::cerr << "    session: " << (uint64_t)(session) << std::endl;
@@ -18789,6 +19334,7 @@ static Napi::Value rawGetDeviceFaultInfoEXT(const Napi::CallbackInfo& info_) {
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with vkGetDeviceFaultInfoEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::vkGetDeviceFaultInfoEXT)) << std::endl;
         std::cerr << "Argument list: " << std::endl;
                 std::cerr << "    device: " << (uint64_t)(device) << std::endl;
         std::cerr << "    pFaultCounts: " << (uint64_t)(pFaultCounts) << std::endl;

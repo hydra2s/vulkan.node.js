@@ -204,6 +204,7 @@ let getWriter = async()=>{
         return Napi::BigInt::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with ${proto.name} command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::${proto.name})) << std::endl;
         std::cerr << "Argument list: " << std::endl;
         ${params.map((p)=>`        std::cerr << "    ${p.name}: " << (uint64_t)(${p.name}) << std::endl;`).join(`
 `)}
@@ -228,6 +229,7 @@ let getWriter = async()=>{
         return Napi::Number::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with ${proto.name} command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::${proto.name})) << std::endl;
         std::cerr << "Argument list: " << std::endl;
         ${params.map((p)=>`        std::cerr << "    ${p.name}: " << (uint64_t)(${p.name}) << std::endl;`).join(`
 `)}
@@ -242,6 +244,7 @@ let getWriter = async()=>{
         ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
     } catch(std::exception e) {
         std::cerr << "Exception with ${proto.name} command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::${proto.name})) << std::endl;
         std::cerr << "Argument list: " << std::endl;
         ${params.map((p)=>`        std::cerr << "    ${p.name}: " << (uint64_t)(${p.name}) << std::endl;`).join(`
 `)}
@@ -258,6 +261,7 @@ let getWriter = async()=>{
         return Napi::BigInt::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with ${proto.name} command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(::${proto.name})) << std::endl;
         std::cerr << "Argument list: " << std::endl;
         ${params.map((p)=>`        std::cerr << "    ${p.name}: " << (uint64_t)(${p.name}) << std::endl;`).join(`
 `)}
