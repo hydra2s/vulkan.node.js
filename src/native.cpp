@@ -59,13 +59,13 @@ static Napi::Value rawCreateInstance(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[1]);
 
     decltype(auto) pInstance = (VkInstance*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkCreateInstance(pCreateInfo, pAllocator, pInstance);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateInstance";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         volkLoadInstance(*pInstance);
         
@@ -92,8 +92,16 @@ static Napi::Value rawDestroyInstance(const Napi::CallbackInfo& info_) {
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[1]);
-    
-    ::vkDestroyInstance(instance, pAllocator);
+    try {
+        ::vkDestroyInstance(instance, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyInstance command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawEnumeratePhysicalDevices(const Napi::CallbackInfo& info_) {
@@ -109,13 +117,13 @@ static Napi::Value rawEnumeratePhysicalDevices(const Napi::CallbackInfo& info_) 
     decltype(auto) pPhysicalDeviceCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pPhysicalDevices = (VkPhysicalDevice*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkEnumeratePhysicalDevices(instance, pPhysicalDeviceCount, pPhysicalDevices);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkEnumeratePhysicalDevices";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -142,8 +150,16 @@ static Napi::Value rawGetDeviceProcAddr(const Napi::CallbackInfo& info_) {
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pName = (char const*)GetAddress(env, info_[1]);
-    
-    ::vkGetDeviceProcAddr(device, pName);
+    try {
+        ::vkGetDeviceProcAddr(device, pName);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDeviceProcAddr command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pName: " << (uint64_t)(pName) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetInstanceProcAddr(const Napi::CallbackInfo& info_) {
@@ -157,8 +173,16 @@ static Napi::Value rawGetInstanceProcAddr(const Napi::CallbackInfo& info_) {
     decltype(auto) instance = (VkInstance)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pName = (char const*)GetAddress(env, info_[1]);
-    
-    ::vkGetInstanceProcAddr(instance, pName);
+    try {
+        ::vkGetInstanceProcAddr(instance, pName);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetInstanceProcAddr command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
+        std::cerr << "    pName: " << (uint64_t)(pName) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetPhysicalDeviceProperties(const Napi::CallbackInfo& info_) {
@@ -172,8 +196,16 @@ static Napi::Value rawGetPhysicalDeviceProperties(const Napi::CallbackInfo& info
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pProperties = (VkPhysicalDeviceProperties*)GetAddress(env, info_[1]);
-    
-    ::vkGetPhysicalDeviceProperties(physicalDevice, pProperties);
+    try {
+        ::vkGetPhysicalDeviceProperties(physicalDevice, pProperties);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceProperties command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    pProperties: " << (uint64_t)(pProperties) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetPhysicalDeviceQueueFamilyProperties(const Napi::CallbackInfo& info_) {
@@ -189,8 +221,17 @@ static Napi::Value rawGetPhysicalDeviceQueueFamilyProperties(const Napi::Callbac
     decltype(auto) pQueueFamilyPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pQueueFamilyProperties = (VkQueueFamilyProperties*)GetAddress(env, info_[2]);
-    
-    ::vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, pQueueFamilyPropertyCount, pQueueFamilyProperties);
+    try {
+        ::vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, pQueueFamilyPropertyCount, pQueueFamilyProperties);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceQueueFamilyProperties command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    pQueueFamilyPropertyCount: " << (uint64_t)(pQueueFamilyPropertyCount) << std::endl;
+        std::cerr << "    pQueueFamilyProperties: " << (uint64_t)(pQueueFamilyProperties) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetPhysicalDeviceMemoryProperties(const Napi::CallbackInfo& info_) {
@@ -204,8 +245,16 @@ static Napi::Value rawGetPhysicalDeviceMemoryProperties(const Napi::CallbackInfo
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pMemoryProperties = (VkPhysicalDeviceMemoryProperties*)GetAddress(env, info_[1]);
-    
-    ::vkGetPhysicalDeviceMemoryProperties(physicalDevice, pMemoryProperties);
+    try {
+        ::vkGetPhysicalDeviceMemoryProperties(physicalDevice, pMemoryProperties);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceMemoryProperties command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    pMemoryProperties: " << (uint64_t)(pMemoryProperties) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetPhysicalDeviceFeatures(const Napi::CallbackInfo& info_) {
@@ -219,8 +268,16 @@ static Napi::Value rawGetPhysicalDeviceFeatures(const Napi::CallbackInfo& info_)
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pFeatures = (VkPhysicalDeviceFeatures*)GetAddress(env, info_[1]);
-    
-    ::vkGetPhysicalDeviceFeatures(physicalDevice, pFeatures);
+    try {
+        ::vkGetPhysicalDeviceFeatures(physicalDevice, pFeatures);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceFeatures command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    pFeatures: " << (uint64_t)(pFeatures) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetPhysicalDeviceFormatProperties(const Napi::CallbackInfo& info_) {
@@ -237,8 +294,17 @@ static Napi::Value rawGetPhysicalDeviceFormatProperties(const Napi::CallbackInfo
     decltype(auto) format = (VkFormat)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pFormatProperties = (VkFormatProperties*)GetAddress(env, info_[2]);
-    
-    ::vkGetPhysicalDeviceFormatProperties(physicalDevice, format, pFormatProperties);
+    try {
+        ::vkGetPhysicalDeviceFormatProperties(physicalDevice, format, pFormatProperties);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceFormatProperties command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    format: " << (uint64_t)(format) << std::endl;
+        std::cerr << "    pFormatProperties: " << (uint64_t)(pFormatProperties) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetPhysicalDeviceImageFormatProperties(const Napi::CallbackInfo& info_) {
@@ -267,13 +333,13 @@ static Napi::Value rawGetPhysicalDeviceImageFormatProperties(const Napi::Callbac
     decltype(auto) flags = (VkImageCreateFlags)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pImageFormatProperties = (VkImageFormatProperties*)GetAddress(env, info_[6]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceImageFormatProperties(physicalDevice, format, type, tiling, usage, flags, pImageFormatProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceImageFormatProperties";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -308,13 +374,13 @@ static Napi::Value rawCreateDevice(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pDevice = (VkDevice*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateDevice(physicalDevice, pCreateInfo, pAllocator, pDevice);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDevice";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         volkLoadDevice(*pDevice);
@@ -342,8 +408,16 @@ static Napi::Value rawDestroyDevice(const Napi::CallbackInfo& info_) {
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[1]);
-    
-    ::vkDestroyDevice(device, pAllocator);
+    try {
+        ::vkDestroyDevice(device, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyDevice command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawEnumerateInstanceVersion(const Napi::CallbackInfo& info_) {
@@ -354,13 +428,13 @@ static Napi::Value rawEnumerateInstanceVersion(const Napi::CallbackInfo& info_) 
     }
     
     decltype(auto) pApiVersion = (uint32_t*)GetAddress(env, info_[0]);
-    
     try {
         decltype(auto) result = ::vkEnumerateInstanceVersion(pApiVersion);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkEnumerateInstanceVersion";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -384,13 +458,13 @@ static Napi::Value rawEnumerateInstanceLayerProperties(const Napi::CallbackInfo&
     decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[0]);
 
     decltype(auto) pProperties = (VkLayerProperties*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkEnumerateInstanceLayerProperties(pPropertyCount, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkEnumerateInstanceLayerProperties";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -417,13 +491,13 @@ static Napi::Value rawEnumerateInstanceExtensionProperties(const Napi::CallbackI
     decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pProperties = (VkExtensionProperties*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkEnumerateInstanceExtensionProperties(pLayerName, pPropertyCount, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkEnumerateInstanceExtensionProperties";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -452,13 +526,13 @@ static Napi::Value rawEnumerateDeviceLayerProperties(const Napi::CallbackInfo& i
     decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pProperties = (VkLayerProperties*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkEnumerateDeviceLayerProperties(physicalDevice, pPropertyCount, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkEnumerateDeviceLayerProperties";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -489,13 +563,13 @@ static Napi::Value rawEnumerateDeviceExtensionProperties(const Napi::CallbackInf
     decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pProperties = (VkExtensionProperties*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkEnumerateDeviceExtensionProperties(physicalDevice, pLayerName, pPropertyCount, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkEnumerateDeviceExtensionProperties";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -529,8 +603,18 @@ static Napi::Value rawGetDeviceQueue(const Napi::CallbackInfo& info_) {
     decltype(auto) queueIndex = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pQueue = (VkQueue*)GetAddress(env, info_[3]);
-    
-    ::vkGetDeviceQueue(device, queueFamilyIndex, queueIndex, pQueue);
+    try {
+        ::vkGetDeviceQueue(device, queueFamilyIndex, queueIndex, pQueue);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDeviceQueue command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    queueFamilyIndex: " << (uint64_t)(queueFamilyIndex) << std::endl;
+        std::cerr << "    queueIndex: " << (uint64_t)(queueIndex) << std::endl;
+        std::cerr << "    pQueue: " << (uint64_t)(pQueue) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawQueueSubmit(const Napi::CallbackInfo& info_) {
@@ -550,13 +634,13 @@ static Napi::Value rawQueueSubmit(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (fence)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) fence = (VkFence)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkQueueSubmit(queue, submitCount, pSubmits, fence);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkQueueSubmit";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -582,13 +666,13 @@ static Napi::Value rawQueueWaitIdle(const Napi::CallbackInfo& info_) {
     
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (queue)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queue = (VkQueue)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkQueueWaitIdle(queue);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkQueueWaitIdle";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -611,13 +695,13 @@ static Napi::Value rawDeviceWaitIdle(const Napi::CallbackInfo& info_) {
     
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkDeviceWaitIdle(device);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkDeviceWaitIdle";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -646,13 +730,13 @@ static Napi::Value rawAllocateMemory(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pMemory = (VkDeviceMemory*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkAllocateMemory(device, pAllocateInfo, pAllocator, pMemory);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkAllocateMemory";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -683,8 +767,17 @@ static Napi::Value rawFreeMemory(const Napi::CallbackInfo& info_) {
     decltype(auto) memory = (VkDeviceMemory)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkFreeMemory(device, memory, pAllocator);
+    try {
+        ::vkFreeMemory(device, memory, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkFreeMemory command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    memory: " << (uint64_t)(memory) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawMapMemory(const Napi::CallbackInfo& info_) {
@@ -710,13 +803,13 @@ static Napi::Value rawMapMemory(const Napi::CallbackInfo& info_) {
     decltype(auto) flags = (VkMemoryMapFlags)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
 
     decltype(auto) ppData = (void**)GetAddress(env, info_[5]);
-    
     try {
         decltype(auto) result = ::vkMapMemory(device, memory, offset, size, flags, ppData);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkMapMemory";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -747,8 +840,16 @@ static Napi::Value rawUnmapMemory(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (memory)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) memory = (VkDeviceMemory)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
-    ::vkUnmapMemory(device, memory);
+    try {
+        ::vkUnmapMemory(device, memory);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkUnmapMemory command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    memory: " << (uint64_t)(memory) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawFlushMappedMemoryRanges(const Napi::CallbackInfo& info_) {
@@ -765,13 +866,13 @@ static Napi::Value rawFlushMappedMemoryRanges(const Napi::CallbackInfo& info_) {
     decltype(auto) memoryRangeCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pMemoryRanges = (VkMappedMemoryRange const*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkFlushMappedMemoryRanges(device, memoryRangeCount, pMemoryRanges);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkFlushMappedMemoryRanges";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -801,13 +902,13 @@ static Napi::Value rawInvalidateMappedMemoryRanges(const Napi::CallbackInfo& inf
     decltype(auto) memoryRangeCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pMemoryRanges = (VkMappedMemoryRange const*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkInvalidateMappedMemoryRanges(device, memoryRangeCount, pMemoryRanges);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkInvalidateMappedMemoryRanges";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -837,8 +938,17 @@ static Napi::Value rawGetDeviceMemoryCommitment(const Napi::CallbackInfo& info_)
     decltype(auto) memory = (VkDeviceMemory)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pCommittedMemoryInBytes = (VkDeviceSize*)GetAddress(env, info_[2]);
-    
-    ::vkGetDeviceMemoryCommitment(device, memory, pCommittedMemoryInBytes);
+    try {
+        ::vkGetDeviceMemoryCommitment(device, memory, pCommittedMemoryInBytes);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDeviceMemoryCommitment command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    memory: " << (uint64_t)(memory) << std::endl;
+        std::cerr << "    pCommittedMemoryInBytes: " << (uint64_t)(pCommittedMemoryInBytes) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetBufferMemoryRequirements(const Napi::CallbackInfo& info_) {
@@ -855,8 +965,17 @@ static Napi::Value rawGetBufferMemoryRequirements(const Napi::CallbackInfo& info
     decltype(auto) buffer = (VkBuffer)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pMemoryRequirements = (VkMemoryRequirements*)GetAddress(env, info_[2]);
-    
-    ::vkGetBufferMemoryRequirements(device, buffer, pMemoryRequirements);
+    try {
+        ::vkGetBufferMemoryRequirements(device, buffer, pMemoryRequirements);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetBufferMemoryRequirements command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
+        std::cerr << "    pMemoryRequirements: " << (uint64_t)(pMemoryRequirements) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawBindBufferMemory(const Napi::CallbackInfo& info_) {
@@ -877,13 +996,13 @@ static Napi::Value rawBindBufferMemory(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (memoryOffset)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) memoryOffset = (VkDeviceSize)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkBindBufferMemory(device, buffer, memory, memoryOffset);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkBindBufferMemory";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -914,8 +1033,17 @@ static Napi::Value rawGetImageMemoryRequirements(const Napi::CallbackInfo& info_
     decltype(auto) image = (VkImage)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pMemoryRequirements = (VkMemoryRequirements*)GetAddress(env, info_[2]);
-    
-    ::vkGetImageMemoryRequirements(device, image, pMemoryRequirements);
+    try {
+        ::vkGetImageMemoryRequirements(device, image, pMemoryRequirements);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetImageMemoryRequirements command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    image: " << (uint64_t)(image) << std::endl;
+        std::cerr << "    pMemoryRequirements: " << (uint64_t)(pMemoryRequirements) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawBindImageMemory(const Napi::CallbackInfo& info_) {
@@ -936,13 +1064,13 @@ static Napi::Value rawBindImageMemory(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (memoryOffset)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) memoryOffset = (VkDeviceSize)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkBindImageMemory(device, image, memory, memoryOffset);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkBindImageMemory";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -975,8 +1103,18 @@ static Napi::Value rawGetImageSparseMemoryRequirements(const Napi::CallbackInfo&
     decltype(auto) pSparseMemoryRequirementCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pSparseMemoryRequirements = (VkSparseImageMemoryRequirements*)GetAddress(env, info_[3]);
-    
-    ::vkGetImageSparseMemoryRequirements(device, image, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
+    try {
+        ::vkGetImageSparseMemoryRequirements(device, image, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetImageSparseMemoryRequirements command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    image: " << (uint64_t)(image) << std::endl;
+        std::cerr << "    pSparseMemoryRequirementCount: " << (uint64_t)(pSparseMemoryRequirementCount) << std::endl;
+        std::cerr << "    pSparseMemoryRequirements: " << (uint64_t)(pSparseMemoryRequirements) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetPhysicalDeviceSparseImageFormatProperties(const Napi::CallbackInfo& info_) {
@@ -1007,8 +1145,22 @@ static Napi::Value rawGetPhysicalDeviceSparseImageFormatProperties(const Napi::C
     decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[6]);
 
     decltype(auto) pProperties = (VkSparseImageFormatProperties*)GetAddress(env, info_[7]);
-    
-    ::vkGetPhysicalDeviceSparseImageFormatProperties(physicalDevice, format, type, samples, usage, tiling, pPropertyCount, pProperties);
+    try {
+        ::vkGetPhysicalDeviceSparseImageFormatProperties(physicalDevice, format, type, samples, usage, tiling, pPropertyCount, pProperties);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceSparseImageFormatProperties command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    format: " << (uint64_t)(format) << std::endl;
+        std::cerr << "    type: " << (uint64_t)(type) << std::endl;
+        std::cerr << "    samples: " << (uint64_t)(samples) << std::endl;
+        std::cerr << "    usage: " << (uint64_t)(usage) << std::endl;
+        std::cerr << "    tiling: " << (uint64_t)(tiling) << std::endl;
+        std::cerr << "    pPropertyCount: " << (uint64_t)(pPropertyCount) << std::endl;
+        std::cerr << "    pProperties: " << (uint64_t)(pProperties) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawQueueBindSparse(const Napi::CallbackInfo& info_) {
@@ -1028,13 +1180,13 @@ static Napi::Value rawQueueBindSparse(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (fence)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) fence = (VkFence)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkQueueBindSparse(queue, bindInfoCount, pBindInfo, fence);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkQueueBindSparse";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1066,13 +1218,13 @@ static Napi::Value rawCreateFence(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pFence = (VkFence*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateFence(device, pCreateInfo, pAllocator, pFence);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateFence";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1103,8 +1255,17 @@ static Napi::Value rawDestroyFence(const Napi::CallbackInfo& info_) {
     decltype(auto) fence = (VkFence)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyFence(device, fence, pAllocator);
+    try {
+        ::vkDestroyFence(device, fence, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyFence command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    fence: " << (uint64_t)(fence) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawResetFences(const Napi::CallbackInfo& info_) {
@@ -1121,13 +1282,13 @@ static Napi::Value rawResetFences(const Napi::CallbackInfo& info_) {
     decltype(auto) fenceCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pFences = (VkFence const*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkResetFences(device, fenceCount, pFences);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkResetFences";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1155,13 +1316,13 @@ static Napi::Value rawGetFenceStatus(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (fence)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) fence = (VkFence)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkGetFenceStatus(device, fence);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetFenceStatus";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1196,13 +1357,13 @@ static Napi::Value rawWaitForFences(const Napi::CallbackInfo& info_) {
 
     if (!info_[4].IsBigInt() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 4 argument (timeout)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) timeout = (uint64_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkWaitForFences(device, fenceCount, pFences, waitAll, timeout);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkWaitForFences";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1235,13 +1396,13 @@ static Napi::Value rawCreateSemaphore(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSemaphore = (VkSemaphore*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateSemaphore(device, pCreateInfo, pAllocator, pSemaphore);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateSemaphore";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1272,8 +1433,17 @@ static Napi::Value rawDestroySemaphore(const Napi::CallbackInfo& info_) {
     decltype(auto) semaphore = (VkSemaphore)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroySemaphore(device, semaphore, pAllocator);
+    try {
+        ::vkDestroySemaphore(device, semaphore, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroySemaphore command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    semaphore: " << (uint64_t)(semaphore) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCreateEvent(const Napi::CallbackInfo& info_) {
@@ -1291,13 +1461,13 @@ static Napi::Value rawCreateEvent(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pEvent = (VkEvent*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateEvent(device, pCreateInfo, pAllocator, pEvent);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateEvent";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1328,8 +1498,17 @@ static Napi::Value rawDestroyEvent(const Napi::CallbackInfo& info_) {
     decltype(auto) event = (VkEvent)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyEvent(device, event, pAllocator);
+    try {
+        ::vkDestroyEvent(device, event, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyEvent command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    event: " << (uint64_t)(event) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetEventStatus(const Napi::CallbackInfo& info_) {
@@ -1344,13 +1523,13 @@ static Napi::Value rawGetEventStatus(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (event)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) event = (VkEvent)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkGetEventStatus(device, event);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetEventStatus";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1377,13 +1556,13 @@ static Napi::Value rawSetEvent(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (event)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) event = (VkEvent)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkSetEvent(device, event);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkSetEvent";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1410,13 +1589,13 @@ static Napi::Value rawResetEvent(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (event)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) event = (VkEvent)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkResetEvent(device, event);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkResetEvent";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1446,13 +1625,13 @@ static Napi::Value rawCreateQueryPool(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pQueryPool = (VkQueryPool*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateQueryPool(device, pCreateInfo, pAllocator, pQueryPool);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateQueryPool";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1483,8 +1662,17 @@ static Napi::Value rawDestroyQueryPool(const Napi::CallbackInfo& info_) {
     decltype(auto) queryPool = (VkQueryPool)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyQueryPool(device, queryPool, pAllocator);
+    try {
+        ::vkDestroyQueryPool(device, queryPool, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyQueryPool command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetQueryPoolResults(const Napi::CallbackInfo& info_) {
@@ -1516,13 +1704,13 @@ static Napi::Value rawGetQueryPoolResults(const Napi::CallbackInfo& info_) {
 
     if (!info_[7].IsNumber() && !info_[7].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 7 argument (flags)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) flags = (VkQueryResultFlags)(info_[7].IsBigInt() ? info_[7].As<Napi::BigInt>().Uint64Value(&lossless) : info_[7].As<Napi::Number>().Uint32Value());
-    
     try {
         decltype(auto) result = ::vkGetQueryPoolResults(device, queryPool, firstQuery, queryCount, dataSize, pData, stride, flags);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetQueryPoolResults";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1561,8 +1749,18 @@ static Napi::Value rawResetQueryPool(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (queryCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queryCount = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
-    
-    ::vkResetQueryPool(device, queryPool, firstQuery, queryCount);
+    try {
+        ::vkResetQueryPool(device, queryPool, firstQuery, queryCount);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkResetQueryPool command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
+        std::cerr << "    firstQuery: " << (uint64_t)(firstQuery) << std::endl;
+        std::cerr << "    queryCount: " << (uint64_t)(queryCount) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCreateBuffer(const Napi::CallbackInfo& info_) {
@@ -1580,13 +1778,13 @@ static Napi::Value rawCreateBuffer(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pBuffer = (VkBuffer*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateBuffer(device, pCreateInfo, pAllocator, pBuffer);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateBuffer";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1617,8 +1815,17 @@ static Napi::Value rawDestroyBuffer(const Napi::CallbackInfo& info_) {
     decltype(auto) buffer = (VkBuffer)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyBuffer(device, buffer, pAllocator);
+    try {
+        ::vkDestroyBuffer(device, buffer, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyBuffer command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCreateBufferView(const Napi::CallbackInfo& info_) {
@@ -1636,13 +1843,13 @@ static Napi::Value rawCreateBufferView(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pView = (VkBufferView*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateBufferView(device, pCreateInfo, pAllocator, pView);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateBufferView";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1673,8 +1880,17 @@ static Napi::Value rawDestroyBufferView(const Napi::CallbackInfo& info_) {
     decltype(auto) bufferView = (VkBufferView)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyBufferView(device, bufferView, pAllocator);
+    try {
+        ::vkDestroyBufferView(device, bufferView, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyBufferView command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    bufferView: " << (uint64_t)(bufferView) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCreateImage(const Napi::CallbackInfo& info_) {
@@ -1692,13 +1908,13 @@ static Napi::Value rawCreateImage(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pImage = (VkImage*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateImage(device, pCreateInfo, pAllocator, pImage);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateImage";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1729,8 +1945,17 @@ static Napi::Value rawDestroyImage(const Napi::CallbackInfo& info_) {
     decltype(auto) image = (VkImage)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyImage(device, image, pAllocator);
+    try {
+        ::vkDestroyImage(device, image, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyImage command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    image: " << (uint64_t)(image) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetImageSubresourceLayout(const Napi::CallbackInfo& info_) {
@@ -1749,8 +1974,18 @@ static Napi::Value rawGetImageSubresourceLayout(const Napi::CallbackInfo& info_)
     decltype(auto) pSubresource = (VkImageSubresource const*)GetAddress(env, info_[2]);
 
     decltype(auto) pLayout = (VkSubresourceLayout*)GetAddress(env, info_[3]);
-    
-    ::vkGetImageSubresourceLayout(device, image, pSubresource, pLayout);
+    try {
+        ::vkGetImageSubresourceLayout(device, image, pSubresource, pLayout);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetImageSubresourceLayout command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    image: " << (uint64_t)(image) << std::endl;
+        std::cerr << "    pSubresource: " << (uint64_t)(pSubresource) << std::endl;
+        std::cerr << "    pLayout: " << (uint64_t)(pLayout) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCreateImageView(const Napi::CallbackInfo& info_) {
@@ -1768,13 +2003,13 @@ static Napi::Value rawCreateImageView(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pView = (VkImageView*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateImageView(device, pCreateInfo, pAllocator, pView);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateImageView";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1805,8 +2040,17 @@ static Napi::Value rawDestroyImageView(const Napi::CallbackInfo& info_) {
     decltype(auto) imageView = (VkImageView)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyImageView(device, imageView, pAllocator);
+    try {
+        ::vkDestroyImageView(device, imageView, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyImageView command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    imageView: " << (uint64_t)(imageView) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCreateShaderModule(const Napi::CallbackInfo& info_) {
@@ -1824,13 +2068,13 @@ static Napi::Value rawCreateShaderModule(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pShaderModule = (VkShaderModule*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateShaderModule(device, pCreateInfo, pAllocator, pShaderModule);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateShaderModule";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1861,8 +2105,17 @@ static Napi::Value rawDestroyShaderModule(const Napi::CallbackInfo& info_) {
     decltype(auto) shaderModule = (VkShaderModule)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyShaderModule(device, shaderModule, pAllocator);
+    try {
+        ::vkDestroyShaderModule(device, shaderModule, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyShaderModule command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    shaderModule: " << (uint64_t)(shaderModule) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCreatePipelineCache(const Napi::CallbackInfo& info_) {
@@ -1880,13 +2133,13 @@ static Napi::Value rawCreatePipelineCache(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pPipelineCache = (VkPipelineCache*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreatePipelineCache(device, pCreateInfo, pAllocator, pPipelineCache);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreatePipelineCache";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1917,8 +2170,17 @@ static Napi::Value rawDestroyPipelineCache(const Napi::CallbackInfo& info_) {
     decltype(auto) pipelineCache = (VkPipelineCache)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyPipelineCache(device, pipelineCache, pAllocator);
+    try {
+        ::vkDestroyPipelineCache(device, pipelineCache, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyPipelineCache command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pipelineCache: " << (uint64_t)(pipelineCache) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetPipelineCacheData(const Napi::CallbackInfo& info_) {
@@ -1937,13 +2199,13 @@ static Napi::Value rawGetPipelineCacheData(const Napi::CallbackInfo& info_) {
     decltype(auto) pDataSize = (size_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pData = (void*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetPipelineCacheData(device, pipelineCache, pDataSize, pData);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPipelineCacheData";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -1977,13 +2239,13 @@ static Napi::Value rawMergePipelineCaches(const Napi::CallbackInfo& info_) {
     decltype(auto) srcCacheCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pSrcCaches = (VkPipelineCache const*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkMergePipelineCaches(device, dstCache, srcCacheCount, pSrcCaches);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkMergePipelineCaches";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2021,13 +2283,13 @@ static Napi::Value rawCreateGraphicsPipelines(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[4]);
 
     decltype(auto) pPipelines = (VkPipeline*)GetAddress(env, info_[5]);
-    
     try {
         decltype(auto) result = ::vkCreateGraphicsPipelines(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateGraphicsPipelines";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2067,13 +2329,13 @@ static Napi::Value rawCreateComputePipelines(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[4]);
 
     decltype(auto) pPipelines = (VkPipeline*)GetAddress(env, info_[5]);
-    
     try {
         decltype(auto) result = ::vkCreateComputePipelines(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateComputePipelines";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2107,13 +2369,13 @@ static Napi::Value rawGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(const Napi::
     decltype(auto) renderpass = (VkRenderPass)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pMaxWorkgroupSize = (VkExtent2D*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(device, renderpass, pMaxWorkgroupSize);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2144,8 +2406,17 @@ static Napi::Value rawDestroyPipeline(const Napi::CallbackInfo& info_) {
     decltype(auto) pipeline = (VkPipeline)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyPipeline(device, pipeline, pAllocator);
+    try {
+        ::vkDestroyPipeline(device, pipeline, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyPipeline command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pipeline: " << (uint64_t)(pipeline) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCreatePipelineLayout(const Napi::CallbackInfo& info_) {
@@ -2163,13 +2434,13 @@ static Napi::Value rawCreatePipelineLayout(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pPipelineLayout = (VkPipelineLayout*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreatePipelineLayout(device, pCreateInfo, pAllocator, pPipelineLayout);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreatePipelineLayout";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2200,8 +2471,17 @@ static Napi::Value rawDestroyPipelineLayout(const Napi::CallbackInfo& info_) {
     decltype(auto) pipelineLayout = (VkPipelineLayout)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyPipelineLayout(device, pipelineLayout, pAllocator);
+    try {
+        ::vkDestroyPipelineLayout(device, pipelineLayout, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyPipelineLayout command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pipelineLayout: " << (uint64_t)(pipelineLayout) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCreateSampler(const Napi::CallbackInfo& info_) {
@@ -2219,13 +2499,13 @@ static Napi::Value rawCreateSampler(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSampler = (VkSampler*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateSampler(device, pCreateInfo, pAllocator, pSampler);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateSampler";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2256,8 +2536,17 @@ static Napi::Value rawDestroySampler(const Napi::CallbackInfo& info_) {
     decltype(auto) sampler = (VkSampler)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroySampler(device, sampler, pAllocator);
+    try {
+        ::vkDestroySampler(device, sampler, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroySampler command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    sampler: " << (uint64_t)(sampler) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCreateDescriptorSetLayout(const Napi::CallbackInfo& info_) {
@@ -2275,13 +2564,13 @@ static Napi::Value rawCreateDescriptorSetLayout(const Napi::CallbackInfo& info_)
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSetLayout = (VkDescriptorSetLayout*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateDescriptorSetLayout(device, pCreateInfo, pAllocator, pSetLayout);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDescriptorSetLayout";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2312,8 +2601,17 @@ static Napi::Value rawDestroyDescriptorSetLayout(const Napi::CallbackInfo& info_
     decltype(auto) descriptorSetLayout = (VkDescriptorSetLayout)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyDescriptorSetLayout(device, descriptorSetLayout, pAllocator);
+    try {
+        ::vkDestroyDescriptorSetLayout(device, descriptorSetLayout, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyDescriptorSetLayout command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    descriptorSetLayout: " << (uint64_t)(descriptorSetLayout) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCreateDescriptorPool(const Napi::CallbackInfo& info_) {
@@ -2331,13 +2629,13 @@ static Napi::Value rawCreateDescriptorPool(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pDescriptorPool = (VkDescriptorPool*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateDescriptorPool(device, pCreateInfo, pAllocator, pDescriptorPool);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDescriptorPool";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2368,8 +2666,17 @@ static Napi::Value rawDestroyDescriptorPool(const Napi::CallbackInfo& info_) {
     decltype(auto) descriptorPool = (VkDescriptorPool)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyDescriptorPool(device, descriptorPool, pAllocator);
+    try {
+        ::vkDestroyDescriptorPool(device, descriptorPool, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyDescriptorPool command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    descriptorPool: " << (uint64_t)(descriptorPool) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawResetDescriptorPool(const Napi::CallbackInfo& info_) {
@@ -2387,13 +2694,13 @@ static Napi::Value rawResetDescriptorPool(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (flags)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) flags = (VkDescriptorPoolResetFlags)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
-    
     try {
         decltype(auto) result = ::vkResetDescriptorPool(device, descriptorPool, flags);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkResetDescriptorPool";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2422,13 +2729,13 @@ static Napi::Value rawAllocateDescriptorSets(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocateInfo = (VkDescriptorSetAllocateInfo const*)GetAddress(env, info_[1]);
 
     decltype(auto) pDescriptorSets = (VkDescriptorSet*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkAllocateDescriptorSets(device, pAllocateInfo, pDescriptorSets);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkAllocateDescriptorSets";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2461,13 +2768,13 @@ static Napi::Value rawFreeDescriptorSets(const Napi::CallbackInfo& info_) {
     decltype(auto) descriptorSetCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pDescriptorSets = (VkDescriptorSet const*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkFreeDescriptorSets(device, descriptorPool, descriptorSetCount, pDescriptorSets);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkFreeDescriptorSets";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2503,8 +2810,19 @@ static Napi::Value rawUpdateDescriptorSets(const Napi::CallbackInfo& info_) {
     decltype(auto) descriptorCopyCount = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pDescriptorCopies = (VkCopyDescriptorSet const*)GetAddress(env, info_[4]);
-    
-    ::vkUpdateDescriptorSets(device, descriptorWriteCount, pDescriptorWrites, descriptorCopyCount, pDescriptorCopies);
+    try {
+        ::vkUpdateDescriptorSets(device, descriptorWriteCount, pDescriptorWrites, descriptorCopyCount, pDescriptorCopies);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkUpdateDescriptorSets command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    descriptorWriteCount: " << (uint64_t)(descriptorWriteCount) << std::endl;
+        std::cerr << "    pDescriptorWrites: " << (uint64_t)(pDescriptorWrites) << std::endl;
+        std::cerr << "    descriptorCopyCount: " << (uint64_t)(descriptorCopyCount) << std::endl;
+        std::cerr << "    pDescriptorCopies: " << (uint64_t)(pDescriptorCopies) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCreateFramebuffer(const Napi::CallbackInfo& info_) {
@@ -2522,13 +2840,13 @@ static Napi::Value rawCreateFramebuffer(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pFramebuffer = (VkFramebuffer*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateFramebuffer(device, pCreateInfo, pAllocator, pFramebuffer);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateFramebuffer";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2559,8 +2877,17 @@ static Napi::Value rawDestroyFramebuffer(const Napi::CallbackInfo& info_) {
     decltype(auto) framebuffer = (VkFramebuffer)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyFramebuffer(device, framebuffer, pAllocator);
+    try {
+        ::vkDestroyFramebuffer(device, framebuffer, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyFramebuffer command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    framebuffer: " << (uint64_t)(framebuffer) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCreateRenderPass(const Napi::CallbackInfo& info_) {
@@ -2578,13 +2905,13 @@ static Napi::Value rawCreateRenderPass(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pRenderPass = (VkRenderPass*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateRenderPass(device, pCreateInfo, pAllocator, pRenderPass);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateRenderPass";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2615,8 +2942,17 @@ static Napi::Value rawDestroyRenderPass(const Napi::CallbackInfo& info_) {
     decltype(auto) renderPass = (VkRenderPass)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyRenderPass(device, renderPass, pAllocator);
+    try {
+        ::vkDestroyRenderPass(device, renderPass, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyRenderPass command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    renderPass: " << (uint64_t)(renderPass) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetRenderAreaGranularity(const Napi::CallbackInfo& info_) {
@@ -2633,8 +2969,17 @@ static Napi::Value rawGetRenderAreaGranularity(const Napi::CallbackInfo& info_) 
     decltype(auto) renderPass = (VkRenderPass)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pGranularity = (VkExtent2D*)GetAddress(env, info_[2]);
-    
-    ::vkGetRenderAreaGranularity(device, renderPass, pGranularity);
+    try {
+        ::vkGetRenderAreaGranularity(device, renderPass, pGranularity);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetRenderAreaGranularity command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    renderPass: " << (uint64_t)(renderPass) << std::endl;
+        std::cerr << "    pGranularity: " << (uint64_t)(pGranularity) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCreateCommandPool(const Napi::CallbackInfo& info_) {
@@ -2652,13 +2997,13 @@ static Napi::Value rawCreateCommandPool(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pCommandPool = (VkCommandPool*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateCommandPool(device, pCreateInfo, pAllocator, pCommandPool);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateCommandPool";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2689,8 +3034,17 @@ static Napi::Value rawDestroyCommandPool(const Napi::CallbackInfo& info_) {
     decltype(auto) commandPool = (VkCommandPool)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyCommandPool(device, commandPool, pAllocator);
+    try {
+        ::vkDestroyCommandPool(device, commandPool, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyCommandPool command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    commandPool: " << (uint64_t)(commandPool) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawResetCommandPool(const Napi::CallbackInfo& info_) {
@@ -2708,13 +3062,13 @@ static Napi::Value rawResetCommandPool(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (flags)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) flags = (VkCommandPoolResetFlags)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
-    
     try {
         decltype(auto) result = ::vkResetCommandPool(device, commandPool, flags);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkResetCommandPool";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2743,13 +3097,13 @@ static Napi::Value rawAllocateCommandBuffers(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocateInfo = (VkCommandBufferAllocateInfo const*)GetAddress(env, info_[1]);
 
     decltype(auto) pCommandBuffers = (VkCommandBuffer*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkAllocateCommandBuffers(device, pAllocateInfo, pCommandBuffers);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkAllocateCommandBuffers";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2782,8 +3136,18 @@ static Napi::Value rawFreeCommandBuffers(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBufferCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pCommandBuffers = (VkCommandBuffer const*)GetAddress(env, info_[3]);
-    
-    ::vkFreeCommandBuffers(device, commandPool, commandBufferCount, pCommandBuffers);
+    try {
+        ::vkFreeCommandBuffers(device, commandPool, commandBufferCount, pCommandBuffers);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkFreeCommandBuffers command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    commandPool: " << (uint64_t)(commandPool) << std::endl;
+        std::cerr << "    commandBufferCount: " << (uint64_t)(commandBufferCount) << std::endl;
+        std::cerr << "    pCommandBuffers: " << (uint64_t)(pCommandBuffers) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawBeginCommandBuffer(const Napi::CallbackInfo& info_) {
@@ -2797,13 +3161,13 @@ static Napi::Value rawBeginCommandBuffer(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pBeginInfo = (VkCommandBufferBeginInfo const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkBeginCommandBuffer(commandBuffer, pBeginInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkBeginCommandBuffer";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2827,13 +3191,13 @@ static Napi::Value rawEndCommandBuffer(const Napi::CallbackInfo& info_) {
     
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkEndCommandBuffer(commandBuffer);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkEndCommandBuffer";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2859,13 +3223,13 @@ static Napi::Value rawResetCommandBuffer(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (flags)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) flags = (VkCommandBufferResetFlags)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
     try {
         decltype(auto) result = ::vkResetCommandBuffer(commandBuffer, flags);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkResetCommandBuffer";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -2895,8 +3259,17 @@ static Napi::Value rawCmdBindPipeline(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (pipeline)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) pipeline = (VkPipeline)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdBindPipeline(commandBuffer, pipelineBindPoint, pipeline);
+    try {
+        ::vkCmdBindPipeline(commandBuffer, pipelineBindPoint, pipeline);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBindPipeline command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pipelineBindPoint: " << (uint64_t)(pipelineBindPoint) << std::endl;
+        std::cerr << "    pipeline: " << (uint64_t)(pipeline) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetViewport(const Napi::CallbackInfo& info_) {
@@ -2916,8 +3289,18 @@ static Napi::Value rawCmdSetViewport(const Napi::CallbackInfo& info_) {
     decltype(auto) viewportCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pViewports = (VkViewport const*)GetAddress(env, info_[3]);
-    
-    ::vkCmdSetViewport(commandBuffer, firstViewport, viewportCount, pViewports);
+    try {
+        ::vkCmdSetViewport(commandBuffer, firstViewport, viewportCount, pViewports);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetViewport command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    firstViewport: " << (uint64_t)(firstViewport) << std::endl;
+        std::cerr << "    viewportCount: " << (uint64_t)(viewportCount) << std::endl;
+        std::cerr << "    pViewports: " << (uint64_t)(pViewports) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetScissor(const Napi::CallbackInfo& info_) {
@@ -2937,8 +3320,18 @@ static Napi::Value rawCmdSetScissor(const Napi::CallbackInfo& info_) {
     decltype(auto) scissorCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pScissors = (VkRect2D const*)GetAddress(env, info_[3]);
-    
-    ::vkCmdSetScissor(commandBuffer, firstScissor, scissorCount, pScissors);
+    try {
+        ::vkCmdSetScissor(commandBuffer, firstScissor, scissorCount, pScissors);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetScissor command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    firstScissor: " << (uint64_t)(firstScissor) << std::endl;
+        std::cerr << "    scissorCount: " << (uint64_t)(scissorCount) << std::endl;
+        std::cerr << "    pScissors: " << (uint64_t)(pScissors) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetLineWidth(const Napi::CallbackInfo& info_) {
@@ -2953,8 +3346,16 @@ static Napi::Value rawCmdSetLineWidth(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsNumber()) { Napi::TypeError::New(env, "Wrong type, needs Number at 1 argument (lineWidth)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) lineWidth = (float)info_[1].As<Napi::Number>().FloatValue();
-    
-    ::vkCmdSetLineWidth(commandBuffer, lineWidth);
+    try {
+        ::vkCmdSetLineWidth(commandBuffer, lineWidth);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetLineWidth command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    lineWidth: " << (uint64_t)(lineWidth) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetDepthBias(const Napi::CallbackInfo& info_) {
@@ -2975,8 +3376,18 @@ static Napi::Value rawCmdSetDepthBias(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsNumber()) { Napi::TypeError::New(env, "Wrong type, needs Number at 3 argument (depthBiasSlopeFactor)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) depthBiasSlopeFactor = (float)info_[3].As<Napi::Number>().FloatValue();
-    
-    ::vkCmdSetDepthBias(commandBuffer, depthBiasConstantFactor, depthBiasClamp, depthBiasSlopeFactor);
+    try {
+        ::vkCmdSetDepthBias(commandBuffer, depthBiasConstantFactor, depthBiasClamp, depthBiasSlopeFactor);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetDepthBias command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    depthBiasConstantFactor: " << (uint64_t)(depthBiasConstantFactor) << std::endl;
+        std::cerr << "    depthBiasClamp: " << (uint64_t)(depthBiasClamp) << std::endl;
+        std::cerr << "    depthBiasSlopeFactor: " << (uint64_t)(depthBiasSlopeFactor) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetBlendConstants(const Napi::CallbackInfo& info_) {
@@ -2990,8 +3401,16 @@ static Napi::Value rawCmdSetBlendConstants(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) blendConstants = (float const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdSetBlendConstants(commandBuffer, blendConstants);
+    try {
+        ::vkCmdSetBlendConstants(commandBuffer, blendConstants);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetBlendConstants command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    blendConstants: " << (uint64_t)(blendConstants) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetDepthBounds(const Napi::CallbackInfo& info_) {
@@ -3009,8 +3428,17 @@ static Napi::Value rawCmdSetDepthBounds(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsNumber()) { Napi::TypeError::New(env, "Wrong type, needs Number at 2 argument (maxDepthBounds)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) maxDepthBounds = (float)info_[2].As<Napi::Number>().FloatValue();
-    
-    ::vkCmdSetDepthBounds(commandBuffer, minDepthBounds, maxDepthBounds);
+    try {
+        ::vkCmdSetDepthBounds(commandBuffer, minDepthBounds, maxDepthBounds);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetDepthBounds command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    minDepthBounds: " << (uint64_t)(minDepthBounds) << std::endl;
+        std::cerr << "    maxDepthBounds: " << (uint64_t)(maxDepthBounds) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetStencilCompareMask(const Napi::CallbackInfo& info_) {
@@ -3028,8 +3456,17 @@ static Napi::Value rawCmdSetStencilCompareMask(const Napi::CallbackInfo& info_) 
 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (compareMask)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) compareMask = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetStencilCompareMask(commandBuffer, faceMask, compareMask);
+    try {
+        ::vkCmdSetStencilCompareMask(commandBuffer, faceMask, compareMask);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetStencilCompareMask command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    faceMask: " << (uint64_t)(faceMask) << std::endl;
+        std::cerr << "    compareMask: " << (uint64_t)(compareMask) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetStencilWriteMask(const Napi::CallbackInfo& info_) {
@@ -3047,8 +3484,17 @@ static Napi::Value rawCmdSetStencilWriteMask(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (writeMask)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) writeMask = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetStencilWriteMask(commandBuffer, faceMask, writeMask);
+    try {
+        ::vkCmdSetStencilWriteMask(commandBuffer, faceMask, writeMask);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetStencilWriteMask command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    faceMask: " << (uint64_t)(faceMask) << std::endl;
+        std::cerr << "    writeMask: " << (uint64_t)(writeMask) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetStencilReference(const Napi::CallbackInfo& info_) {
@@ -3066,8 +3512,17 @@ static Napi::Value rawCmdSetStencilReference(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (reference)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) reference = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetStencilReference(commandBuffer, faceMask, reference);
+    try {
+        ::vkCmdSetStencilReference(commandBuffer, faceMask, reference);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetStencilReference command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    faceMask: " << (uint64_t)(faceMask) << std::endl;
+        std::cerr << "    reference: " << (uint64_t)(reference) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdBindDescriptorSets(const Napi::CallbackInfo& info_) {
@@ -3098,8 +3553,22 @@ static Napi::Value rawCmdBindDescriptorSets(const Napi::CallbackInfo& info_) {
     decltype(auto) dynamicOffsetCount = (uint32_t)(info_[6].IsBigInt() ? info_[6].As<Napi::BigInt>().Uint64Value(&lossless) : info_[6].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pDynamicOffsets = (uint32_t const*)GetAddress(env, info_[7]);
-    
-    ::vkCmdBindDescriptorSets(commandBuffer, pipelineBindPoint, layout, firstSet, descriptorSetCount, pDescriptorSets, dynamicOffsetCount, pDynamicOffsets);
+    try {
+        ::vkCmdBindDescriptorSets(commandBuffer, pipelineBindPoint, layout, firstSet, descriptorSetCount, pDescriptorSets, dynamicOffsetCount, pDynamicOffsets);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBindDescriptorSets command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pipelineBindPoint: " << (uint64_t)(pipelineBindPoint) << std::endl;
+        std::cerr << "    layout: " << (uint64_t)(layout) << std::endl;
+        std::cerr << "    firstSet: " << (uint64_t)(firstSet) << std::endl;
+        std::cerr << "    descriptorSetCount: " << (uint64_t)(descriptorSetCount) << std::endl;
+        std::cerr << "    pDescriptorSets: " << (uint64_t)(pDescriptorSets) << std::endl;
+        std::cerr << "    dynamicOffsetCount: " << (uint64_t)(dynamicOffsetCount) << std::endl;
+        std::cerr << "    pDynamicOffsets: " << (uint64_t)(pDynamicOffsets) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdBindIndexBuffer(const Napi::CallbackInfo& info_) {
@@ -3120,8 +3589,18 @@ static Napi::Value rawCmdBindIndexBuffer(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (indexType)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) indexType = (VkIndexType)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdBindIndexBuffer(commandBuffer, buffer, offset, indexType);
+    try {
+        ::vkCmdBindIndexBuffer(commandBuffer, buffer, offset, indexType);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBindIndexBuffer command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
+        std::cerr << "    offset: " << (uint64_t)(offset) << std::endl;
+        std::cerr << "    indexType: " << (uint64_t)(indexType) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdBindVertexBuffers(const Napi::CallbackInfo& info_) {
@@ -3143,8 +3622,19 @@ static Napi::Value rawCmdBindVertexBuffers(const Napi::CallbackInfo& info_) {
     decltype(auto) pBuffers = (VkBuffer const*)GetAddress(env, info_[3]);
 
     decltype(auto) pOffsets = (VkDeviceSize const*)GetAddress(env, info_[4]);
-    
-    ::vkCmdBindVertexBuffers(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets);
+    try {
+        ::vkCmdBindVertexBuffers(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBindVertexBuffers command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    firstBinding: " << (uint64_t)(firstBinding) << std::endl;
+        std::cerr << "    bindingCount: " << (uint64_t)(bindingCount) << std::endl;
+        std::cerr << "    pBuffers: " << (uint64_t)(pBuffers) << std::endl;
+        std::cerr << "    pOffsets: " << (uint64_t)(pOffsets) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdDraw(const Napi::CallbackInfo& info_) {
@@ -3168,8 +3658,19 @@ static Napi::Value rawCmdDraw(const Napi::CallbackInfo& info_) {
 
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (firstInstance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) firstInstance = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDraw(commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
+    try {
+        ::vkCmdDraw(commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDraw command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    vertexCount: " << (uint64_t)(vertexCount) << std::endl;
+        std::cerr << "    instanceCount: " << (uint64_t)(instanceCount) << std::endl;
+        std::cerr << "    firstVertex: " << (uint64_t)(firstVertex) << std::endl;
+        std::cerr << "    firstInstance: " << (uint64_t)(firstInstance) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdDrawIndexed(const Napi::CallbackInfo& info_) {
@@ -3196,8 +3697,20 @@ static Napi::Value rawCmdDrawIndexed(const Napi::CallbackInfo& info_) {
 
     if (!info_[5].IsNumber() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 5 argument (firstInstance)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) firstInstance = (uint32_t)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDrawIndexed(commandBuffer, indexCount, instanceCount, firstIndex, vertexOffset, firstInstance);
+    try {
+        ::vkCmdDrawIndexed(commandBuffer, indexCount, instanceCount, firstIndex, vertexOffset, firstInstance);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDrawIndexed command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    indexCount: " << (uint64_t)(indexCount) << std::endl;
+        std::cerr << "    instanceCount: " << (uint64_t)(instanceCount) << std::endl;
+        std::cerr << "    firstIndex: " << (uint64_t)(firstIndex) << std::endl;
+        std::cerr << "    vertexOffset: " << (uint64_t)(vertexOffset) << std::endl;
+        std::cerr << "    firstInstance: " << (uint64_t)(firstInstance) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_EXT_multi_draw
@@ -3224,8 +3737,20 @@ static Napi::Value rawCmdDrawMultiEXT(const Napi::CallbackInfo& info_) {
 
     if (!info_[5].IsNumber() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 5 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (uint32_t)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDrawMultiEXT(commandBuffer, drawCount, pVertexInfo, instanceCount, firstInstance, stride);
+    try {
+        ::vkCmdDrawMultiEXT(commandBuffer, drawCount, pVertexInfo, instanceCount, firstInstance, stride);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDrawMultiEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    drawCount: " << (uint64_t)(drawCount) << std::endl;
+        std::cerr << "    pVertexInfo: " << (uint64_t)(pVertexInfo) << std::endl;
+        std::cerr << "    instanceCount: " << (uint64_t)(instanceCount) << std::endl;
+        std::cerr << "    firstInstance: " << (uint64_t)(firstInstance) << std::endl;
+        std::cerr << "    stride: " << (uint64_t)(stride) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -3255,8 +3780,21 @@ static Napi::Value rawCmdDrawMultiIndexedEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) stride = (uint32_t)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pVertexOffset = (int32_t const*)GetAddress(env, info_[6]);
-    
-    ::vkCmdDrawMultiIndexedEXT(commandBuffer, drawCount, pIndexInfo, instanceCount, firstInstance, stride, pVertexOffset);
+    try {
+        ::vkCmdDrawMultiIndexedEXT(commandBuffer, drawCount, pIndexInfo, instanceCount, firstInstance, stride, pVertexOffset);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDrawMultiIndexedEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    drawCount: " << (uint64_t)(drawCount) << std::endl;
+        std::cerr << "    pIndexInfo: " << (uint64_t)(pIndexInfo) << std::endl;
+        std::cerr << "    instanceCount: " << (uint64_t)(instanceCount) << std::endl;
+        std::cerr << "    firstInstance: " << (uint64_t)(firstInstance) << std::endl;
+        std::cerr << "    stride: " << (uint64_t)(stride) << std::endl;
+        std::cerr << "    pVertexOffset: " << (uint64_t)(pVertexOffset) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -3281,8 +3819,19 @@ static Napi::Value rawCmdDrawIndirect(const Napi::CallbackInfo& info_) {
 
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDrawIndirect(commandBuffer, buffer, offset, drawCount, stride);
+    try {
+        ::vkCmdDrawIndirect(commandBuffer, buffer, offset, drawCount, stride);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDrawIndirect command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
+        std::cerr << "    offset: " << (uint64_t)(offset) << std::endl;
+        std::cerr << "    drawCount: " << (uint64_t)(drawCount) << std::endl;
+        std::cerr << "    stride: " << (uint64_t)(stride) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdDrawIndexedIndirect(const Napi::CallbackInfo& info_) {
@@ -3306,8 +3855,19 @@ static Napi::Value rawCmdDrawIndexedIndirect(const Napi::CallbackInfo& info_) {
 
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDrawIndexedIndirect(commandBuffer, buffer, offset, drawCount, stride);
+    try {
+        ::vkCmdDrawIndexedIndirect(commandBuffer, buffer, offset, drawCount, stride);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDrawIndexedIndirect command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
+        std::cerr << "    offset: " << (uint64_t)(offset) << std::endl;
+        std::cerr << "    drawCount: " << (uint64_t)(drawCount) << std::endl;
+        std::cerr << "    stride: " << (uint64_t)(stride) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdDispatch(const Napi::CallbackInfo& info_) {
@@ -3328,8 +3888,18 @@ static Napi::Value rawCmdDispatch(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (groupCountZ)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) groupCountZ = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDispatch(commandBuffer, groupCountX, groupCountY, groupCountZ);
+    try {
+        ::vkCmdDispatch(commandBuffer, groupCountX, groupCountY, groupCountZ);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDispatch command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    groupCountX: " << (uint64_t)(groupCountX) << std::endl;
+        std::cerr << "    groupCountY: " << (uint64_t)(groupCountY) << std::endl;
+        std::cerr << "    groupCountZ: " << (uint64_t)(groupCountZ) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdDispatchIndirect(const Napi::CallbackInfo& info_) {
@@ -3347,8 +3917,17 @@ static Napi::Value rawCmdDispatchIndirect(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (offset)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) offset = (VkDeviceSize)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdDispatchIndirect(commandBuffer, buffer, offset);
+    try {
+        ::vkCmdDispatchIndirect(commandBuffer, buffer, offset);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDispatchIndirect command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
+        std::cerr << "    offset: " << (uint64_t)(offset) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_HUAWEI_subpass_shading
@@ -3361,8 +3940,15 @@ static Napi::Value rawCmdSubpassShadingHUAWEI(const Napi::CallbackInfo& info_) {
     
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdSubpassShadingHUAWEI(commandBuffer);
+    try {
+        ::vkCmdSubpassShadingHUAWEI(commandBuffer);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSubpassShadingHUAWEI command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -3386,8 +3972,19 @@ static Napi::Value rawCmdCopyBuffer(const Napi::CallbackInfo& info_) {
     decltype(auto) regionCount = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pRegions = (VkBufferCopy const*)GetAddress(env, info_[4]);
-    
-    ::vkCmdCopyBuffer(commandBuffer, srcBuffer, dstBuffer, regionCount, pRegions);
+    try {
+        ::vkCmdCopyBuffer(commandBuffer, srcBuffer, dstBuffer, regionCount, pRegions);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyBuffer command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    srcBuffer: " << (uint64_t)(srcBuffer) << std::endl;
+        std::cerr << "    dstBuffer: " << (uint64_t)(dstBuffer) << std::endl;
+        std::cerr << "    regionCount: " << (uint64_t)(regionCount) << std::endl;
+        std::cerr << "    pRegions: " << (uint64_t)(pRegions) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdCopyImage(const Napi::CallbackInfo& info_) {
@@ -3416,8 +4013,21 @@ static Napi::Value rawCmdCopyImage(const Napi::CallbackInfo& info_) {
     decltype(auto) regionCount = (uint32_t)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pRegions = (VkImageCopy const*)GetAddress(env, info_[6]);
-    
-    ::vkCmdCopyImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
+    try {
+        ::vkCmdCopyImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyImage command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    srcImage: " << (uint64_t)(srcImage) << std::endl;
+        std::cerr << "    srcImageLayout: " << (uint64_t)(srcImageLayout) << std::endl;
+        std::cerr << "    dstImage: " << (uint64_t)(dstImage) << std::endl;
+        std::cerr << "    dstImageLayout: " << (uint64_t)(dstImageLayout) << std::endl;
+        std::cerr << "    regionCount: " << (uint64_t)(regionCount) << std::endl;
+        std::cerr << "    pRegions: " << (uint64_t)(pRegions) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdBlitImage(const Napi::CallbackInfo& info_) {
@@ -3449,8 +4059,22 @@ static Napi::Value rawCmdBlitImage(const Napi::CallbackInfo& info_) {
 
     if (!info_[7].IsBigInt() && !info_[7].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 7 argument (filter)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) filter = (VkFilter)(info_[7].IsBigInt() ? info_[7].As<Napi::BigInt>().Uint64Value(&lossless) : info_[7].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdBlitImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions, filter);
+    try {
+        ::vkCmdBlitImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions, filter);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBlitImage command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    srcImage: " << (uint64_t)(srcImage) << std::endl;
+        std::cerr << "    srcImageLayout: " << (uint64_t)(srcImageLayout) << std::endl;
+        std::cerr << "    dstImage: " << (uint64_t)(dstImage) << std::endl;
+        std::cerr << "    dstImageLayout: " << (uint64_t)(dstImageLayout) << std::endl;
+        std::cerr << "    regionCount: " << (uint64_t)(regionCount) << std::endl;
+        std::cerr << "    pRegions: " << (uint64_t)(pRegions) << std::endl;
+        std::cerr << "    filter: " << (uint64_t)(filter) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdCopyBufferToImage(const Napi::CallbackInfo& info_) {
@@ -3476,8 +4100,20 @@ static Napi::Value rawCmdCopyBufferToImage(const Napi::CallbackInfo& info_) {
     decltype(auto) regionCount = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pRegions = (VkBufferImageCopy const*)GetAddress(env, info_[5]);
-    
-    ::vkCmdCopyBufferToImage(commandBuffer, srcBuffer, dstImage, dstImageLayout, regionCount, pRegions);
+    try {
+        ::vkCmdCopyBufferToImage(commandBuffer, srcBuffer, dstImage, dstImageLayout, regionCount, pRegions);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyBufferToImage command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    srcBuffer: " << (uint64_t)(srcBuffer) << std::endl;
+        std::cerr << "    dstImage: " << (uint64_t)(dstImage) << std::endl;
+        std::cerr << "    dstImageLayout: " << (uint64_t)(dstImageLayout) << std::endl;
+        std::cerr << "    regionCount: " << (uint64_t)(regionCount) << std::endl;
+        std::cerr << "    pRegions: " << (uint64_t)(pRegions) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdCopyImageToBuffer(const Napi::CallbackInfo& info_) {
@@ -3503,8 +4139,20 @@ static Napi::Value rawCmdCopyImageToBuffer(const Napi::CallbackInfo& info_) {
     decltype(auto) regionCount = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pRegions = (VkBufferImageCopy const*)GetAddress(env, info_[5]);
-    
-    ::vkCmdCopyImageToBuffer(commandBuffer, srcImage, srcImageLayout, dstBuffer, regionCount, pRegions);
+    try {
+        ::vkCmdCopyImageToBuffer(commandBuffer, srcImage, srcImageLayout, dstBuffer, regionCount, pRegions);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyImageToBuffer command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    srcImage: " << (uint64_t)(srcImage) << std::endl;
+        std::cerr << "    srcImageLayout: " << (uint64_t)(srcImageLayout) << std::endl;
+        std::cerr << "    dstBuffer: " << (uint64_t)(dstBuffer) << std::endl;
+        std::cerr << "    regionCount: " << (uint64_t)(regionCount) << std::endl;
+        std::cerr << "    pRegions: " << (uint64_t)(pRegions) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_NV_copy_memory_indirect
@@ -3526,8 +4174,18 @@ static Napi::Value rawCmdCopyMemoryIndirectNV(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdCopyMemoryIndirectNV(commandBuffer, copyBufferAddress, copyCount, stride);
+    try {
+        ::vkCmdCopyMemoryIndirectNV(commandBuffer, copyBufferAddress, copyCount, stride);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyMemoryIndirectNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    copyBufferAddress: " << (uint64_t)(copyBufferAddress) << std::endl;
+        std::cerr << "    copyCount: " << (uint64_t)(copyCount) << std::endl;
+        std::cerr << "    stride: " << (uint64_t)(stride) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -3558,8 +4216,21 @@ static Napi::Value rawCmdCopyMemoryToImageIndirectNV(const Napi::CallbackInfo& i
     decltype(auto) dstImageLayout = (VkImageLayout)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Int64Value());
 
     decltype(auto) pImageSubresources = (VkImageSubresourceLayers const*)GetAddress(env, info_[6]);
-    
-    ::vkCmdCopyMemoryToImageIndirectNV(commandBuffer, copyBufferAddress, copyCount, stride, dstImage, dstImageLayout, pImageSubresources);
+    try {
+        ::vkCmdCopyMemoryToImageIndirectNV(commandBuffer, copyBufferAddress, copyCount, stride, dstImage, dstImageLayout, pImageSubresources);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyMemoryToImageIndirectNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    copyBufferAddress: " << (uint64_t)(copyBufferAddress) << std::endl;
+        std::cerr << "    copyCount: " << (uint64_t)(copyCount) << std::endl;
+        std::cerr << "    stride: " << (uint64_t)(stride) << std::endl;
+        std::cerr << "    dstImage: " << (uint64_t)(dstImage) << std::endl;
+        std::cerr << "    dstImageLayout: " << (uint64_t)(dstImageLayout) << std::endl;
+        std::cerr << "    pImageSubresources: " << (uint64_t)(pImageSubresources) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -3583,8 +4254,19 @@ static Napi::Value rawCmdUpdateBuffer(const Napi::CallbackInfo& info_) {
     decltype(auto) dataSize = (VkDeviceSize)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
 
     decltype(auto) pData = (void const*)GetAddress(env, info_[4]);
-    
-    ::vkCmdUpdateBuffer(commandBuffer, dstBuffer, dstOffset, dataSize, pData);
+    try {
+        ::vkCmdUpdateBuffer(commandBuffer, dstBuffer, dstOffset, dataSize, pData);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdUpdateBuffer command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    dstBuffer: " << (uint64_t)(dstBuffer) << std::endl;
+        std::cerr << "    dstOffset: " << (uint64_t)(dstOffset) << std::endl;
+        std::cerr << "    dataSize: " << (uint64_t)(dataSize) << std::endl;
+        std::cerr << "    pData: " << (uint64_t)(pData) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdFillBuffer(const Napi::CallbackInfo& info_) {
@@ -3608,8 +4290,19 @@ static Napi::Value rawCmdFillBuffer(const Napi::CallbackInfo& info_) {
 
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (data)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) data = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdFillBuffer(commandBuffer, dstBuffer, dstOffset, size, data);
+    try {
+        ::vkCmdFillBuffer(commandBuffer, dstBuffer, dstOffset, size, data);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdFillBuffer command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    dstBuffer: " << (uint64_t)(dstBuffer) << std::endl;
+        std::cerr << "    dstOffset: " << (uint64_t)(dstOffset) << std::endl;
+        std::cerr << "    size: " << (uint64_t)(size) << std::endl;
+        std::cerr << "    data: " << (uint64_t)(data) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdClearColorImage(const Napi::CallbackInfo& info_) {
@@ -3634,8 +4327,20 @@ static Napi::Value rawCmdClearColorImage(const Napi::CallbackInfo& info_) {
     decltype(auto) rangeCount = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pRanges = (VkImageSubresourceRange const*)GetAddress(env, info_[5]);
-    
-    ::vkCmdClearColorImage(commandBuffer, image, imageLayout, pColor, rangeCount, pRanges);
+    try {
+        ::vkCmdClearColorImage(commandBuffer, image, imageLayout, pColor, rangeCount, pRanges);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdClearColorImage command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    image: " << (uint64_t)(image) << std::endl;
+        std::cerr << "    imageLayout: " << (uint64_t)(imageLayout) << std::endl;
+        std::cerr << "    pColor: " << (uint64_t)(pColor) << std::endl;
+        std::cerr << "    rangeCount: " << (uint64_t)(rangeCount) << std::endl;
+        std::cerr << "    pRanges: " << (uint64_t)(pRanges) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdClearDepthStencilImage(const Napi::CallbackInfo& info_) {
@@ -3660,8 +4365,20 @@ static Napi::Value rawCmdClearDepthStencilImage(const Napi::CallbackInfo& info_)
     decltype(auto) rangeCount = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pRanges = (VkImageSubresourceRange const*)GetAddress(env, info_[5]);
-    
-    ::vkCmdClearDepthStencilImage(commandBuffer, image, imageLayout, pDepthStencil, rangeCount, pRanges);
+    try {
+        ::vkCmdClearDepthStencilImage(commandBuffer, image, imageLayout, pDepthStencil, rangeCount, pRanges);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdClearDepthStencilImage command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    image: " << (uint64_t)(image) << std::endl;
+        std::cerr << "    imageLayout: " << (uint64_t)(imageLayout) << std::endl;
+        std::cerr << "    pDepthStencil: " << (uint64_t)(pDepthStencil) << std::endl;
+        std::cerr << "    rangeCount: " << (uint64_t)(rangeCount) << std::endl;
+        std::cerr << "    pRanges: " << (uint64_t)(pRanges) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdClearAttachments(const Napi::CallbackInfo& info_) {
@@ -3683,8 +4400,19 @@ static Napi::Value rawCmdClearAttachments(const Napi::CallbackInfo& info_) {
     decltype(auto) rectCount = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pRects = (VkClearRect const*)GetAddress(env, info_[4]);
-    
-    ::vkCmdClearAttachments(commandBuffer, attachmentCount, pAttachments, rectCount, pRects);
+    try {
+        ::vkCmdClearAttachments(commandBuffer, attachmentCount, pAttachments, rectCount, pRects);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdClearAttachments command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    attachmentCount: " << (uint64_t)(attachmentCount) << std::endl;
+        std::cerr << "    pAttachments: " << (uint64_t)(pAttachments) << std::endl;
+        std::cerr << "    rectCount: " << (uint64_t)(rectCount) << std::endl;
+        std::cerr << "    pRects: " << (uint64_t)(pRects) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdResolveImage(const Napi::CallbackInfo& info_) {
@@ -3713,8 +4441,21 @@ static Napi::Value rawCmdResolveImage(const Napi::CallbackInfo& info_) {
     decltype(auto) regionCount = (uint32_t)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pRegions = (VkImageResolve const*)GetAddress(env, info_[6]);
-    
-    ::vkCmdResolveImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
+    try {
+        ::vkCmdResolveImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdResolveImage command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    srcImage: " << (uint64_t)(srcImage) << std::endl;
+        std::cerr << "    srcImageLayout: " << (uint64_t)(srcImageLayout) << std::endl;
+        std::cerr << "    dstImage: " << (uint64_t)(dstImage) << std::endl;
+        std::cerr << "    dstImageLayout: " << (uint64_t)(dstImageLayout) << std::endl;
+        std::cerr << "    regionCount: " << (uint64_t)(regionCount) << std::endl;
+        std::cerr << "    pRegions: " << (uint64_t)(pRegions) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetEvent(const Napi::CallbackInfo& info_) {
@@ -3732,8 +4473,17 @@ static Napi::Value rawCmdSetEvent(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (stageMask)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stageMask = (VkPipelineStageFlags)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetEvent(commandBuffer, event, stageMask);
+    try {
+        ::vkCmdSetEvent(commandBuffer, event, stageMask);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetEvent command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    event: " << (uint64_t)(event) << std::endl;
+        std::cerr << "    stageMask: " << (uint64_t)(stageMask) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdResetEvent(const Napi::CallbackInfo& info_) {
@@ -3751,8 +4501,17 @@ static Napi::Value rawCmdResetEvent(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (stageMask)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stageMask = (VkPipelineStageFlags)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdResetEvent(commandBuffer, event, stageMask);
+    try {
+        ::vkCmdResetEvent(commandBuffer, event, stageMask);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdResetEvent command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    event: " << (uint64_t)(event) << std::endl;
+        std::cerr << "    stageMask: " << (uint64_t)(stageMask) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdWaitEvents(const Napi::CallbackInfo& info_) {
@@ -3790,8 +4549,25 @@ static Napi::Value rawCmdWaitEvents(const Napi::CallbackInfo& info_) {
     decltype(auto) imageMemoryBarrierCount = (uint32_t)(info_[9].IsBigInt() ? info_[9].As<Napi::BigInt>().Uint64Value(&lossless) : info_[9].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pImageMemoryBarriers = (VkImageMemoryBarrier const*)GetAddress(env, info_[10]);
-    
-    ::vkCmdWaitEvents(commandBuffer, eventCount, pEvents, srcStageMask, dstStageMask, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
+    try {
+        ::vkCmdWaitEvents(commandBuffer, eventCount, pEvents, srcStageMask, dstStageMask, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdWaitEvents command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    eventCount: " << (uint64_t)(eventCount) << std::endl;
+        std::cerr << "    pEvents: " << (uint64_t)(pEvents) << std::endl;
+        std::cerr << "    srcStageMask: " << (uint64_t)(srcStageMask) << std::endl;
+        std::cerr << "    dstStageMask: " << (uint64_t)(dstStageMask) << std::endl;
+        std::cerr << "    memoryBarrierCount: " << (uint64_t)(memoryBarrierCount) << std::endl;
+        std::cerr << "    pMemoryBarriers: " << (uint64_t)(pMemoryBarriers) << std::endl;
+        std::cerr << "    bufferMemoryBarrierCount: " << (uint64_t)(bufferMemoryBarrierCount) << std::endl;
+        std::cerr << "    pBufferMemoryBarriers: " << (uint64_t)(pBufferMemoryBarriers) << std::endl;
+        std::cerr << "    imageMemoryBarrierCount: " << (uint64_t)(imageMemoryBarrierCount) << std::endl;
+        std::cerr << "    pImageMemoryBarriers: " << (uint64_t)(pImageMemoryBarriers) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdPipelineBarrier(const Napi::CallbackInfo& info_) {
@@ -3827,8 +4603,24 @@ static Napi::Value rawCmdPipelineBarrier(const Napi::CallbackInfo& info_) {
     decltype(auto) imageMemoryBarrierCount = (uint32_t)(info_[8].IsBigInt() ? info_[8].As<Napi::BigInt>().Uint64Value(&lossless) : info_[8].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pImageMemoryBarriers = (VkImageMemoryBarrier const*)GetAddress(env, info_[9]);
-    
-    ::vkCmdPipelineBarrier(commandBuffer, srcStageMask, dstStageMask, dependencyFlags, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
+    try {
+        ::vkCmdPipelineBarrier(commandBuffer, srcStageMask, dstStageMask, dependencyFlags, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdPipelineBarrier command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    srcStageMask: " << (uint64_t)(srcStageMask) << std::endl;
+        std::cerr << "    dstStageMask: " << (uint64_t)(dstStageMask) << std::endl;
+        std::cerr << "    dependencyFlags: " << (uint64_t)(dependencyFlags) << std::endl;
+        std::cerr << "    memoryBarrierCount: " << (uint64_t)(memoryBarrierCount) << std::endl;
+        std::cerr << "    pMemoryBarriers: " << (uint64_t)(pMemoryBarriers) << std::endl;
+        std::cerr << "    bufferMemoryBarrierCount: " << (uint64_t)(bufferMemoryBarrierCount) << std::endl;
+        std::cerr << "    pBufferMemoryBarriers: " << (uint64_t)(pBufferMemoryBarriers) << std::endl;
+        std::cerr << "    imageMemoryBarrierCount: " << (uint64_t)(imageMemoryBarrierCount) << std::endl;
+        std::cerr << "    pImageMemoryBarriers: " << (uint64_t)(pImageMemoryBarriers) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdBeginQuery(const Napi::CallbackInfo& info_) {
@@ -3849,8 +4641,18 @@ static Napi::Value rawCmdBeginQuery(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (flags)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) flags = (VkQueryControlFlags)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdBeginQuery(commandBuffer, queryPool, query, flags);
+    try {
+        ::vkCmdBeginQuery(commandBuffer, queryPool, query, flags);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBeginQuery command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
+        std::cerr << "    query: " << (uint64_t)(query) << std::endl;
+        std::cerr << "    flags: " << (uint64_t)(flags) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdEndQuery(const Napi::CallbackInfo& info_) {
@@ -3868,8 +4670,17 @@ static Napi::Value rawCmdEndQuery(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (query)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) query = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdEndQuery(commandBuffer, queryPool, query);
+    try {
+        ::vkCmdEndQuery(commandBuffer, queryPool, query);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdEndQuery command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
+        std::cerr << "    query: " << (uint64_t)(query) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_EXT_conditional_rendering
@@ -3884,8 +4695,16 @@ static Napi::Value rawCmdBeginConditionalRenderingEXT(const Napi::CallbackInfo& 
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pConditionalRenderingBegin = (VkConditionalRenderingBeginInfoEXT const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdBeginConditionalRenderingEXT(commandBuffer, pConditionalRenderingBegin);
+    try {
+        ::vkCmdBeginConditionalRenderingEXT(commandBuffer, pConditionalRenderingBegin);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBeginConditionalRenderingEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pConditionalRenderingBegin: " << (uint64_t)(pConditionalRenderingBegin) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -3899,8 +4718,15 @@ static Napi::Value rawCmdEndConditionalRenderingEXT(const Napi::CallbackInfo& in
     
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdEndConditionalRenderingEXT(commandBuffer);
+    try {
+        ::vkCmdEndConditionalRenderingEXT(commandBuffer);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdEndConditionalRenderingEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -3922,8 +4748,18 @@ static Napi::Value rawCmdResetQueryPool(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (queryCount)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queryCount = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdResetQueryPool(commandBuffer, queryPool, firstQuery, queryCount);
+    try {
+        ::vkCmdResetQueryPool(commandBuffer, queryPool, firstQuery, queryCount);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdResetQueryPool command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
+        std::cerr << "    firstQuery: " << (uint64_t)(firstQuery) << std::endl;
+        std::cerr << "    queryCount: " << (uint64_t)(queryCount) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdWriteTimestamp(const Napi::CallbackInfo& info_) {
@@ -3944,8 +4780,18 @@ static Napi::Value rawCmdWriteTimestamp(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (query)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) query = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdWriteTimestamp(commandBuffer, pipelineStage, queryPool, query);
+    try {
+        ::vkCmdWriteTimestamp(commandBuffer, pipelineStage, queryPool, query);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdWriteTimestamp command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pipelineStage: " << (uint64_t)(pipelineStage) << std::endl;
+        std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
+        std::cerr << "    query: " << (uint64_t)(query) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdCopyQueryPoolResults(const Napi::CallbackInfo& info_) {
@@ -3978,8 +4824,22 @@ static Napi::Value rawCmdCopyQueryPoolResults(const Napi::CallbackInfo& info_) {
 
     if (!info_[7].IsNumber() && !info_[7].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 7 argument (flags)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) flags = (VkQueryResultFlags)(info_[7].IsBigInt() ? info_[7].As<Napi::BigInt>().Uint64Value(&lossless) : info_[7].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdCopyQueryPoolResults(commandBuffer, queryPool, firstQuery, queryCount, dstBuffer, dstOffset, stride, flags);
+    try {
+        ::vkCmdCopyQueryPoolResults(commandBuffer, queryPool, firstQuery, queryCount, dstBuffer, dstOffset, stride, flags);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyQueryPoolResults command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
+        std::cerr << "    firstQuery: " << (uint64_t)(firstQuery) << std::endl;
+        std::cerr << "    queryCount: " << (uint64_t)(queryCount) << std::endl;
+        std::cerr << "    dstBuffer: " << (uint64_t)(dstBuffer) << std::endl;
+        std::cerr << "    dstOffset: " << (uint64_t)(dstOffset) << std::endl;
+        std::cerr << "    stride: " << (uint64_t)(stride) << std::endl;
+        std::cerr << "    flags: " << (uint64_t)(flags) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdPushConstants(const Napi::CallbackInfo& info_) {
@@ -4005,8 +4865,20 @@ static Napi::Value rawCmdPushConstants(const Napi::CallbackInfo& info_) {
     decltype(auto) size = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pValues = (void const*)GetAddress(env, info_[5]);
-    
-    ::vkCmdPushConstants(commandBuffer, layout, stageFlags, offset, size, pValues);
+    try {
+        ::vkCmdPushConstants(commandBuffer, layout, stageFlags, offset, size, pValues);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdPushConstants command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    layout: " << (uint64_t)(layout) << std::endl;
+        std::cerr << "    stageFlags: " << (uint64_t)(stageFlags) << std::endl;
+        std::cerr << "    offset: " << (uint64_t)(offset) << std::endl;
+        std::cerr << "    size: " << (uint64_t)(size) << std::endl;
+        std::cerr << "    pValues: " << (uint64_t)(pValues) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdBeginRenderPass(const Napi::CallbackInfo& info_) {
@@ -4023,8 +4895,17 @@ static Napi::Value rawCmdBeginRenderPass(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (contents)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) contents = (VkSubpassContents)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdBeginRenderPass(commandBuffer, pRenderPassBegin, contents);
+    try {
+        ::vkCmdBeginRenderPass(commandBuffer, pRenderPassBegin, contents);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBeginRenderPass command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pRenderPassBegin: " << (uint64_t)(pRenderPassBegin) << std::endl;
+        std::cerr << "    contents: " << (uint64_t)(contents) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdNextSubpass(const Napi::CallbackInfo& info_) {
@@ -4039,8 +4920,16 @@ static Napi::Value rawCmdNextSubpass(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (contents)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) contents = (VkSubpassContents)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdNextSubpass(commandBuffer, contents);
+    try {
+        ::vkCmdNextSubpass(commandBuffer, contents);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdNextSubpass command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    contents: " << (uint64_t)(contents) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdEndRenderPass(const Napi::CallbackInfo& info_) {
@@ -4052,8 +4941,15 @@ static Napi::Value rawCmdEndRenderPass(const Napi::CallbackInfo& info_) {
     
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdEndRenderPass(commandBuffer);
+    try {
+        ::vkCmdEndRenderPass(commandBuffer);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdEndRenderPass command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdExecuteCommands(const Napi::CallbackInfo& info_) {
@@ -4070,8 +4966,17 @@ static Napi::Value rawCmdExecuteCommands(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBufferCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pCommandBuffers = (VkCommandBuffer const*)GetAddress(env, info_[2]);
-    
-    ::vkCmdExecuteCommands(commandBuffer, commandBufferCount, pCommandBuffers);
+    try {
+        ::vkCmdExecuteCommands(commandBuffer, commandBufferCount, pCommandBuffers);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdExecuteCommands command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    commandBufferCount: " << (uint64_t)(commandBufferCount) << std::endl;
+        std::cerr << "    pCommandBuffers: " << (uint64_t)(pCommandBuffers) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_KHR_android_surface
@@ -4090,13 +4995,13 @@ static Napi::Value rawCreateAndroidSurfaceKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateAndroidSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateAndroidSurfaceKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4128,13 +5033,13 @@ static Napi::Value rawGetPhysicalDeviceDisplayPropertiesKHR(const Napi::Callback
     decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pProperties = (VkDisplayPropertiesKHR*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceDisplayPropertiesKHR(physicalDevice, pPropertyCount, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceDisplayPropertiesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4165,13 +5070,13 @@ static Napi::Value rawGetPhysicalDeviceDisplayPlanePropertiesKHR(const Napi::Cal
     decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pProperties = (VkDisplayPlanePropertiesKHR*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice, pPropertyCount, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceDisplayPlanePropertiesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4205,13 +5110,13 @@ static Napi::Value rawGetDisplayPlaneSupportedDisplaysKHR(const Napi::CallbackIn
     decltype(auto) pDisplayCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pDisplays = (VkDisplayKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetDisplayPlaneSupportedDisplaysKHR(physicalDevice, planeIndex, pDisplayCount, pDisplays);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetDisplayPlaneSupportedDisplaysKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4246,13 +5151,13 @@ static Napi::Value rawGetDisplayModePropertiesKHR(const Napi::CallbackInfo& info
     decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pProperties = (VkDisplayModePropertiesKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetDisplayModePropertiesKHR(physicalDevice, display, pPropertyCount, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetDisplayModePropertiesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4289,13 +5194,13 @@ static Napi::Value rawCreateDisplayModeKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[3]);
 
     decltype(auto) pMode = (VkDisplayModeKHR*)GetAddress(env, info_[4]);
-    
     try {
         decltype(auto) result = ::vkCreateDisplayModeKHR(physicalDevice, display, pCreateInfo, pAllocator, pMode);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDisplayModeKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4332,13 +5237,13 @@ static Napi::Value rawGetDisplayPlaneCapabilitiesKHR(const Napi::CallbackInfo& i
     decltype(auto) planeIndex = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pCapabilities = (VkDisplayPlaneCapabilitiesKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetDisplayPlaneCapabilitiesKHR(physicalDevice, mode, planeIndex, pCapabilities);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetDisplayPlaneCapabilitiesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4372,13 +5277,13 @@ static Napi::Value rawCreateDisplayPlaneSurfaceKHR(const Napi::CallbackInfo& inf
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateDisplayPlaneSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDisplayPlaneSurfaceKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4415,13 +5320,13 @@ static Napi::Value rawCreateSharedSwapchainsKHR(const Napi::CallbackInfo& info_)
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[3]);
 
     decltype(auto) pSwapchains = (VkSwapchainKHR*)GetAddress(env, info_[4]);
-    
     try {
         decltype(auto) result = ::vkCreateSharedSwapchainsKHR(device, swapchainCount, pCreateInfos, pAllocator, pSwapchains);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateSharedSwapchainsKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4455,8 +5360,17 @@ static Napi::Value rawDestroySurfaceKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) surface = (VkSurfaceKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroySurfaceKHR(instance, surface, pAllocator);
+    try {
+        ::vkDestroySurfaceKHR(instance, surface, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroySurfaceKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
+        std::cerr << "    surface: " << (uint64_t)(surface) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -4478,13 +5392,13 @@ static Napi::Value rawGetPhysicalDeviceSurfaceSupportKHR(const Napi::CallbackInf
     decltype(auto) surface = (VkSurfaceKHR)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
     decltype(auto) pSupported = (VkBool32*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, queueFamilyIndex, surface, pSupported);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSurfaceSupportKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4517,13 +5431,13 @@ static Napi::Value rawGetPhysicalDeviceSurfaceCapabilitiesKHR(const Napi::Callba
     decltype(auto) surface = (VkSurfaceKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pSurfaceCapabilities = (VkSurfaceCapabilitiesKHR*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, pSurfaceCapabilities);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSurfaceCapabilitiesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4557,13 +5471,13 @@ static Napi::Value rawGetPhysicalDeviceSurfaceFormatsKHR(const Napi::CallbackInf
     decltype(auto) pSurfaceFormatCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurfaceFormats = (VkSurfaceFormatKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, pSurfaceFormatCount, pSurfaceFormats);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSurfaceFormatsKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4598,13 +5512,13 @@ static Napi::Value rawGetPhysicalDeviceSurfacePresentModesKHR(const Napi::Callba
     decltype(auto) pPresentModeCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pPresentModes = (VkPresentModeKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, pPresentModeCount, pPresentModes);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSurfacePresentModesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4638,13 +5552,13 @@ static Napi::Value rawCreateSwapchainKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSwapchain = (VkSwapchainKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateSwapchainKHR(device, pCreateInfo, pAllocator, pSwapchain);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateSwapchainKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4677,8 +5591,17 @@ static Napi::Value rawDestroySwapchainKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) swapchain = (VkSwapchainKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroySwapchainKHR(device, swapchain, pAllocator);
+    try {
+        ::vkDestroySwapchainKHR(device, swapchain, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroySwapchainKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    swapchain: " << (uint64_t)(swapchain) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -4699,13 +5622,13 @@ static Napi::Value rawGetSwapchainImagesKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) pSwapchainImageCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pSwapchainImages = (VkImage*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetSwapchainImagesKHR(device, swapchain, pSwapchainImageCount, pSwapchainImages);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetSwapchainImagesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4747,13 +5670,13 @@ static Napi::Value rawAcquireNextImageKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) fence = (VkFence)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Int64Value());
 
     decltype(auto) pImageIndex = (uint32_t*)GetAddress(env, info_[5]);
-    
     try {
         decltype(auto) result = ::vkAcquireNextImageKHR(device, swapchain, timeout, semaphore, fence, pImageIndex);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkAcquireNextImageKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4785,13 +5708,13 @@ static Napi::Value rawQueuePresentKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) queue = (VkQueue)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pPresentInfo = (VkPresentInfoKHR const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkQueuePresentKHR(queue, pPresentInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkQueuePresentKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4823,13 +5746,13 @@ static Napi::Value rawCreateViSurfaceNN(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateViSurfaceNN(instance, pCreateInfo, pAllocator, pSurface);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateViSurfaceNN";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4863,13 +5786,13 @@ static Napi::Value rawCreateWaylandSurfaceKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateWaylandSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateWaylandSurfaceKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4902,13 +5825,13 @@ static Napi::Value rawGetPhysicalDeviceWaylandPresentationSupportKHR(const Napi:
     decltype(auto) queueFamilyIndex = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) display = (wl_display*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceWaylandPresentationSupportKHR(physicalDevice, queueFamilyIndex, display);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceWaylandPresentationSupportKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4941,13 +5864,13 @@ static Napi::Value rawCreateWin32SurfaceKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateWin32SurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateWin32SurfaceKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -4978,13 +5901,13 @@ static Napi::Value rawGetPhysicalDeviceWin32PresentationSupportKHR(const Napi::C
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (queueFamilyIndex)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queueFamilyIndex = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceWin32PresentationSupportKHR(physicalDevice, queueFamilyIndex);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceWin32PresentationSupportKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5016,13 +5939,13 @@ static Napi::Value rawCreateXlibSurfaceKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateXlibSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateXlibSurfaceKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5058,13 +5981,13 @@ static Napi::Value rawGetPhysicalDeviceXlibPresentationSupportKHR(const Napi::Ca
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (visualID)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) visualID = (VisualID)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceXlibPresentationSupportKHR(physicalDevice, queueFamilyIndex, dpy, visualID);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceXlibPresentationSupportKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5098,13 +6021,13 @@ static Napi::Value rawCreateXcbSurfaceKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateXcbSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateXcbSurfaceKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5140,13 +6063,13 @@ static Napi::Value rawGetPhysicalDeviceXcbPresentationSupportKHR(const Napi::Cal
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (visual_id)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) visual_id = (xcb_visualid_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceXcbPresentationSupportKHR(physicalDevice, queueFamilyIndex, connection, visual_id);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceXcbPresentationSupportKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5180,13 +6103,13 @@ static Napi::Value rawCreateDirectFBSurfaceEXT(const Napi::CallbackInfo& info_) 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateDirectFBSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDirectFBSurfaceEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5219,13 +6142,13 @@ static Napi::Value rawGetPhysicalDeviceDirectFBPresentationSupportEXT(const Napi
     decltype(auto) queueFamilyIndex = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) dfb = (IDirectFB*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceDirectFBPresentationSupportEXT(physicalDevice, queueFamilyIndex, dfb);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceDirectFBPresentationSupportEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5258,13 +6181,13 @@ static Napi::Value rawCreateImagePipeSurfaceFUCHSIA(const Napi::CallbackInfo& in
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateImagePipeSurfaceFUCHSIA(instance, pCreateInfo, pAllocator, pSurface);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateImagePipeSurfaceFUCHSIA";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5298,13 +6221,13 @@ static Napi::Value rawCreateStreamDescriptorSurfaceGGP(const Napi::CallbackInfo&
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateStreamDescriptorSurfaceGGP(instance, pCreateInfo, pAllocator, pSurface);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateStreamDescriptorSurfaceGGP";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5338,13 +6261,13 @@ static Napi::Value rawCreateScreenSurfaceQNX(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateScreenSurfaceQNX(instance, pCreateInfo, pAllocator, pSurface);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateScreenSurfaceQNX";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5377,13 +6300,13 @@ static Napi::Value rawGetPhysicalDeviceScreenPresentationSupportQNX(const Napi::
     decltype(auto) queueFamilyIndex = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) window = (_screen_window*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceScreenPresentationSupportQNX(physicalDevice, queueFamilyIndex, window);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceScreenPresentationSupportQNX";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5416,13 +6339,13 @@ static Napi::Value rawCreateDebugReportCallbackEXT(const Napi::CallbackInfo& inf
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pCallback = (VkDebugReportCallbackEXT*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateDebugReportCallbackEXT(instance, pCreateInfo, pAllocator, pCallback);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDebugReportCallbackEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5455,8 +6378,17 @@ static Napi::Value rawDestroyDebugReportCallbackEXT(const Napi::CallbackInfo& in
     decltype(auto) callback = (VkDebugReportCallbackEXT)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyDebugReportCallbackEXT(instance, callback, pAllocator);
+    try {
+        ::vkDestroyDebugReportCallbackEXT(instance, callback, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyDebugReportCallbackEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
+        std::cerr << "    callback: " << (uint64_t)(callback) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -5489,8 +6421,22 @@ static Napi::Value rawDebugReportMessageEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) pLayerPrefix = (char const*)GetAddress(env, info_[6]);
 
     decltype(auto) pMessage = (char const*)GetAddress(env, info_[7]);
-    
-    ::vkDebugReportMessageEXT(instance, flags, objectType, object, location, messageCode, pLayerPrefix, pMessage);
+    try {
+        ::vkDebugReportMessageEXT(instance, flags, objectType, object, location, messageCode, pLayerPrefix, pMessage);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDebugReportMessageEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
+        std::cerr << "    flags: " << (uint64_t)(flags) << std::endl;
+        std::cerr << "    objectType: " << (uint64_t)(objectType) << std::endl;
+        std::cerr << "    object: " << (uint64_t)(object) << std::endl;
+        std::cerr << "    location: " << (uint64_t)(location) << std::endl;
+        std::cerr << "    messageCode: " << (uint64_t)(messageCode) << std::endl;
+        std::cerr << "    pLayerPrefix: " << (uint64_t)(pLayerPrefix) << std::endl;
+        std::cerr << "    pMessage: " << (uint64_t)(pMessage) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -5506,13 +6452,13 @@ static Napi::Value rawDebugMarkerSetObjectNameEXT(const Napi::CallbackInfo& info
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pNameInfo = (VkDebugMarkerObjectNameInfoEXT const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkDebugMarkerSetObjectNameEXT(device, pNameInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkDebugMarkerSetObjectNameEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5540,13 +6486,13 @@ static Napi::Value rawDebugMarkerSetObjectTagEXT(const Napi::CallbackInfo& info_
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pTagInfo = (VkDebugMarkerObjectTagInfoEXT const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkDebugMarkerSetObjectTagEXT(device, pTagInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkDebugMarkerSetObjectTagEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5574,8 +6520,16 @@ static Napi::Value rawCmdDebugMarkerBeginEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pMarkerInfo = (VkDebugMarkerMarkerInfoEXT const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdDebugMarkerBeginEXT(commandBuffer, pMarkerInfo);
+    try {
+        ::vkCmdDebugMarkerBeginEXT(commandBuffer, pMarkerInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDebugMarkerBeginEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pMarkerInfo: " << (uint64_t)(pMarkerInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -5589,8 +6543,15 @@ static Napi::Value rawCmdDebugMarkerEndEXT(const Napi::CallbackInfo& info_) {
     
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdDebugMarkerEndEXT(commandBuffer);
+    try {
+        ::vkCmdDebugMarkerEndEXT(commandBuffer);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDebugMarkerEndEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -5606,8 +6567,16 @@ static Napi::Value rawCmdDebugMarkerInsertEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pMarkerInfo = (VkDebugMarkerMarkerInfoEXT const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdDebugMarkerInsertEXT(commandBuffer, pMarkerInfo);
+    try {
+        ::vkCmdDebugMarkerInsertEXT(commandBuffer, pMarkerInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDebugMarkerInsertEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pMarkerInfo: " << (uint64_t)(pMarkerInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -5641,13 +6610,13 @@ static Napi::Value rawGetPhysicalDeviceExternalImageFormatPropertiesNV(const Nap
     decltype(auto) externalHandleType = (VkExternalMemoryHandleTypeFlagsNV)(info_[6].IsBigInt() ? info_[6].As<Napi::BigInt>().Uint64Value(&lossless) : info_[6].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pExternalImageFormatProperties = (VkExternalImageFormatPropertiesNV*)GetAddress(env, info_[7]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceExternalImageFormatPropertiesNV(physicalDevice, format, type, tiling, usage, flags, externalHandleType, pExternalImageFormatProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceExternalImageFormatPropertiesNV";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5687,13 +6656,13 @@ static Napi::Value rawGetMemoryWin32HandleNV(const Napi::CallbackInfo& info_) {
     decltype(auto) handleType = (VkExternalMemoryHandleTypeFlagsNV)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pHandle = (HANDLE*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetMemoryWin32HandleNV(device, memory, handleType, pHandle);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryWin32HandleNV";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5726,8 +6695,17 @@ static Napi::Value rawCmdExecuteGeneratedCommandsNV(const Napi::CallbackInfo& in
     decltype(auto) isPreprocessed = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pGeneratedCommandsInfo = (VkGeneratedCommandsInfoNV const*)GetAddress(env, info_[2]);
-    
-    ::vkCmdExecuteGeneratedCommandsNV(commandBuffer, isPreprocessed, pGeneratedCommandsInfo);
+    try {
+        ::vkCmdExecuteGeneratedCommandsNV(commandBuffer, isPreprocessed, pGeneratedCommandsInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdExecuteGeneratedCommandsNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    isPreprocessed: " << (uint64_t)(isPreprocessed) << std::endl;
+        std::cerr << "    pGeneratedCommandsInfo: " << (uint64_t)(pGeneratedCommandsInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -5743,8 +6721,16 @@ static Napi::Value rawCmdPreprocessGeneratedCommandsNV(const Napi::CallbackInfo&
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pGeneratedCommandsInfo = (VkGeneratedCommandsInfoNV const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdPreprocessGeneratedCommandsNV(commandBuffer, pGeneratedCommandsInfo);
+    try {
+        ::vkCmdPreprocessGeneratedCommandsNV(commandBuffer, pGeneratedCommandsInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdPreprocessGeneratedCommandsNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pGeneratedCommandsInfo: " << (uint64_t)(pGeneratedCommandsInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -5767,8 +6753,18 @@ static Napi::Value rawCmdBindPipelineShaderGroupNV(const Napi::CallbackInfo& inf
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (groupIndex)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) groupIndex = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdBindPipelineShaderGroupNV(commandBuffer, pipelineBindPoint, pipeline, groupIndex);
+    try {
+        ::vkCmdBindPipelineShaderGroupNV(commandBuffer, pipelineBindPoint, pipeline, groupIndex);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBindPipelineShaderGroupNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pipelineBindPoint: " << (uint64_t)(pipelineBindPoint) << std::endl;
+        std::cerr << "    pipeline: " << (uint64_t)(pipeline) << std::endl;
+        std::cerr << "    groupIndex: " << (uint64_t)(groupIndex) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -5786,8 +6782,17 @@ static Napi::Value rawGetGeneratedCommandsMemoryRequirementsNV(const Napi::Callb
     decltype(auto) pInfo = (VkGeneratedCommandsMemoryRequirementsInfoNV const*)GetAddress(env, info_[1]);
 
     decltype(auto) pMemoryRequirements = (VkMemoryRequirements2*)GetAddress(env, info_[2]);
-    
-    ::vkGetGeneratedCommandsMemoryRequirementsNV(device, pInfo, pMemoryRequirements);
+    try {
+        ::vkGetGeneratedCommandsMemoryRequirementsNV(device, pInfo, pMemoryRequirements);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetGeneratedCommandsMemoryRequirementsNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        std::cerr << "    pMemoryRequirements: " << (uint64_t)(pMemoryRequirements) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -5807,13 +6812,13 @@ static Napi::Value rawCreateIndirectCommandsLayoutNV(const Napi::CallbackInfo& i
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pIndirectCommandsLayout = (VkIndirectCommandsLayoutNV*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateIndirectCommandsLayoutNV(device, pCreateInfo, pAllocator, pIndirectCommandsLayout);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateIndirectCommandsLayoutNV";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5846,8 +6851,17 @@ static Napi::Value rawDestroyIndirectCommandsLayoutNV(const Napi::CallbackInfo& 
     decltype(auto) indirectCommandsLayout = (VkIndirectCommandsLayoutNV)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyIndirectCommandsLayoutNV(device, indirectCommandsLayout, pAllocator);
+    try {
+        ::vkDestroyIndirectCommandsLayoutNV(device, indirectCommandsLayout, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyIndirectCommandsLayoutNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    indirectCommandsLayout: " << (uint64_t)(indirectCommandsLayout) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -5862,8 +6876,16 @@ static Napi::Value rawGetPhysicalDeviceFeatures2(const Napi::CallbackInfo& info_
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pFeatures = (VkPhysicalDeviceFeatures2*)GetAddress(env, info_[1]);
-    
-    ::vkGetPhysicalDeviceFeatures2(physicalDevice, pFeatures);
+    try {
+        ::vkGetPhysicalDeviceFeatures2(physicalDevice, pFeatures);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceFeatures2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    pFeatures: " << (uint64_t)(pFeatures) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetPhysicalDeviceProperties2(const Napi::CallbackInfo& info_) {
@@ -5877,8 +6899,16 @@ static Napi::Value rawGetPhysicalDeviceProperties2(const Napi::CallbackInfo& inf
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pProperties = (VkPhysicalDeviceProperties2*)GetAddress(env, info_[1]);
-    
-    ::vkGetPhysicalDeviceProperties2(physicalDevice, pProperties);
+    try {
+        ::vkGetPhysicalDeviceProperties2(physicalDevice, pProperties);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceProperties2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    pProperties: " << (uint64_t)(pProperties) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetPhysicalDeviceFormatProperties2(const Napi::CallbackInfo& info_) {
@@ -5895,8 +6925,17 @@ static Napi::Value rawGetPhysicalDeviceFormatProperties2(const Napi::CallbackInf
     decltype(auto) format = (VkFormat)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pFormatProperties = (VkFormatProperties2*)GetAddress(env, info_[2]);
-    
-    ::vkGetPhysicalDeviceFormatProperties2(physicalDevice, format, pFormatProperties);
+    try {
+        ::vkGetPhysicalDeviceFormatProperties2(physicalDevice, format, pFormatProperties);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceFormatProperties2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    format: " << (uint64_t)(format) << std::endl;
+        std::cerr << "    pFormatProperties: " << (uint64_t)(pFormatProperties) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetPhysicalDeviceImageFormatProperties2(const Napi::CallbackInfo& info_) {
@@ -5912,13 +6951,13 @@ static Napi::Value rawGetPhysicalDeviceImageFormatProperties2(const Napi::Callba
     decltype(auto) pImageFormatInfo = (VkPhysicalDeviceImageFormatInfo2 const*)GetAddress(env, info_[1]);
 
     decltype(auto) pImageFormatProperties = (VkImageFormatProperties2*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceImageFormatProperties2(physicalDevice, pImageFormatInfo, pImageFormatProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceImageFormatProperties2";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -5947,8 +6986,17 @@ static Napi::Value rawGetPhysicalDeviceQueueFamilyProperties2(const Napi::Callba
     decltype(auto) pQueueFamilyPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pQueueFamilyProperties = (VkQueueFamilyProperties2*)GetAddress(env, info_[2]);
-    
-    ::vkGetPhysicalDeviceQueueFamilyProperties2(physicalDevice, pQueueFamilyPropertyCount, pQueueFamilyProperties);
+    try {
+        ::vkGetPhysicalDeviceQueueFamilyProperties2(physicalDevice, pQueueFamilyPropertyCount, pQueueFamilyProperties);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceQueueFamilyProperties2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    pQueueFamilyPropertyCount: " << (uint64_t)(pQueueFamilyPropertyCount) << std::endl;
+        std::cerr << "    pQueueFamilyProperties: " << (uint64_t)(pQueueFamilyProperties) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetPhysicalDeviceMemoryProperties2(const Napi::CallbackInfo& info_) {
@@ -5962,8 +7010,16 @@ static Napi::Value rawGetPhysicalDeviceMemoryProperties2(const Napi::CallbackInf
     decltype(auto) physicalDevice = (VkPhysicalDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pMemoryProperties = (VkPhysicalDeviceMemoryProperties2*)GetAddress(env, info_[1]);
-    
-    ::vkGetPhysicalDeviceMemoryProperties2(physicalDevice, pMemoryProperties);
+    try {
+        ::vkGetPhysicalDeviceMemoryProperties2(physicalDevice, pMemoryProperties);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceMemoryProperties2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    pMemoryProperties: " << (uint64_t)(pMemoryProperties) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetPhysicalDeviceSparseImageFormatProperties2(const Napi::CallbackInfo& info_) {
@@ -5981,8 +7037,18 @@ static Napi::Value rawGetPhysicalDeviceSparseImageFormatProperties2(const Napi::
     decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pProperties = (VkSparseImageFormatProperties2*)GetAddress(env, info_[3]);
-    
-    ::vkGetPhysicalDeviceSparseImageFormatProperties2(physicalDevice, pFormatInfo, pPropertyCount, pProperties);
+    try {
+        ::vkGetPhysicalDeviceSparseImageFormatProperties2(physicalDevice, pFormatInfo, pPropertyCount, pProperties);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceSparseImageFormatProperties2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    pFormatInfo: " << (uint64_t)(pFormatInfo) << std::endl;
+        std::cerr << "    pPropertyCount: " << (uint64_t)(pPropertyCount) << std::endl;
+        std::cerr << "    pProperties: " << (uint64_t)(pProperties) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_KHR_push_descriptor
@@ -6009,8 +7075,20 @@ static Napi::Value rawCmdPushDescriptorSetKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) descriptorWriteCount = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pDescriptorWrites = (VkWriteDescriptorSet const*)GetAddress(env, info_[5]);
-    
-    ::vkCmdPushDescriptorSetKHR(commandBuffer, pipelineBindPoint, layout, set, descriptorWriteCount, pDescriptorWrites);
+    try {
+        ::vkCmdPushDescriptorSetKHR(commandBuffer, pipelineBindPoint, layout, set, descriptorWriteCount, pDescriptorWrites);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdPushDescriptorSetKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pipelineBindPoint: " << (uint64_t)(pipelineBindPoint) << std::endl;
+        std::cerr << "    layout: " << (uint64_t)(layout) << std::endl;
+        std::cerr << "    set: " << (uint64_t)(set) << std::endl;
+        std::cerr << "    descriptorWriteCount: " << (uint64_t)(descriptorWriteCount) << std::endl;
+        std::cerr << "    pDescriptorWrites: " << (uint64_t)(pDescriptorWrites) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -6029,8 +7107,17 @@ static Napi::Value rawTrimCommandPool(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (flags)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) flags = (VkCommandPoolTrimFlags)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
-    
-    ::vkTrimCommandPool(device, commandPool, flags);
+    try {
+        ::vkTrimCommandPool(device, commandPool, flags);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkTrimCommandPool command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    commandPool: " << (uint64_t)(commandPool) << std::endl;
+        std::cerr << "    flags: " << (uint64_t)(flags) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetPhysicalDeviceExternalBufferProperties(const Napi::CallbackInfo& info_) {
@@ -6046,8 +7133,17 @@ static Napi::Value rawGetPhysicalDeviceExternalBufferProperties(const Napi::Call
     decltype(auto) pExternalBufferInfo = (VkPhysicalDeviceExternalBufferInfo const*)GetAddress(env, info_[1]);
 
     decltype(auto) pExternalBufferProperties = (VkExternalBufferProperties*)GetAddress(env, info_[2]);
-    
-    ::vkGetPhysicalDeviceExternalBufferProperties(physicalDevice, pExternalBufferInfo, pExternalBufferProperties);
+    try {
+        ::vkGetPhysicalDeviceExternalBufferProperties(physicalDevice, pExternalBufferInfo, pExternalBufferProperties);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceExternalBufferProperties command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    pExternalBufferInfo: " << (uint64_t)(pExternalBufferInfo) << std::endl;
+        std::cerr << "    pExternalBufferProperties: " << (uint64_t)(pExternalBufferProperties) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_KHR_external_memory_win32
@@ -6064,13 +7160,13 @@ static Napi::Value rawGetMemoryWin32HandleKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) pGetWin32HandleInfo = (VkMemoryGetWin32HandleInfoKHR const*)GetAddress(env, info_[1]);
 
     decltype(auto) pHandle = (HANDLE*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetMemoryWin32HandleKHR(device, pGetWin32HandleInfo, pHandle);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryWin32HandleKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6105,13 +7201,13 @@ static Napi::Value rawGetMemoryWin32HandlePropertiesKHR(const Napi::CallbackInfo
     decltype(auto) handle = (HANDLE)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
     decltype(auto) pMemoryWin32HandleProperties = (VkMemoryWin32HandlePropertiesKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetMemoryWin32HandlePropertiesKHR(device, handleType, handle, pMemoryWin32HandleProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryWin32HandlePropertiesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6143,13 +7239,13 @@ static Napi::Value rawGetMemoryFdKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) pGetFdInfo = (VkMemoryGetFdInfoKHR const*)GetAddress(env, info_[1]);
 
     decltype(auto) pFd = (int*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetMemoryFdKHR(device, pGetFdInfo, pFd);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryFdKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6184,13 +7280,13 @@ static Napi::Value rawGetMemoryFdPropertiesKHR(const Napi::CallbackInfo& info_) 
     decltype(auto) fd = (int)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
     decltype(auto) pMemoryFdProperties = (VkMemoryFdPropertiesKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetMemoryFdPropertiesKHR(device, handleType, fd, pMemoryFdProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryFdPropertiesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6222,13 +7318,13 @@ static Napi::Value rawGetMemoryZirconHandleFUCHSIA(const Napi::CallbackInfo& inf
     decltype(auto) pGetZirconHandleInfo = (VkMemoryGetZirconHandleInfoFUCHSIA const*)GetAddress(env, info_[1]);
 
     decltype(auto) pZirconHandle = (zx_handle_t*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetMemoryZirconHandleFUCHSIA(device, pGetZirconHandleInfo, pZirconHandle);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryZirconHandleFUCHSIA";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6263,13 +7359,13 @@ static Napi::Value rawGetMemoryZirconHandlePropertiesFUCHSIA(const Napi::Callbac
     decltype(auto) zirconHandle = (zx_handle_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
     decltype(auto) pMemoryZirconHandleProperties = (VkMemoryZirconHandlePropertiesFUCHSIA*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetMemoryZirconHandlePropertiesFUCHSIA(device, handleType, zirconHandle, pMemoryZirconHandleProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryZirconHandlePropertiesFUCHSIA";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6301,13 +7397,13 @@ static Napi::Value rawGetMemoryRemoteAddressNV(const Napi::CallbackInfo& info_) 
     decltype(auto) pMemoryGetRemoteAddressInfo = (VkMemoryGetRemoteAddressInfoNV const*)GetAddress(env, info_[1]);
 
     decltype(auto) pAddress = (VkRemoteAddressNV*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetMemoryRemoteAddressNV(device, pMemoryGetRemoteAddressInfo, pAddress);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryRemoteAddressNV";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6337,8 +7433,17 @@ static Napi::Value rawGetPhysicalDeviceExternalSemaphoreProperties(const Napi::C
     decltype(auto) pExternalSemaphoreInfo = (VkPhysicalDeviceExternalSemaphoreInfo const*)GetAddress(env, info_[1]);
 
     decltype(auto) pExternalSemaphoreProperties = (VkExternalSemaphoreProperties*)GetAddress(env, info_[2]);
-    
-    ::vkGetPhysicalDeviceExternalSemaphoreProperties(physicalDevice, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
+    try {
+        ::vkGetPhysicalDeviceExternalSemaphoreProperties(physicalDevice, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceExternalSemaphoreProperties command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    pExternalSemaphoreInfo: " << (uint64_t)(pExternalSemaphoreInfo) << std::endl;
+        std::cerr << "    pExternalSemaphoreProperties: " << (uint64_t)(pExternalSemaphoreProperties) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_KHR_external_semaphore_win32
@@ -6355,13 +7460,13 @@ static Napi::Value rawGetSemaphoreWin32HandleKHR(const Napi::CallbackInfo& info_
     decltype(auto) pGetWin32HandleInfo = (VkSemaphoreGetWin32HandleInfoKHR const*)GetAddress(env, info_[1]);
 
     decltype(auto) pHandle = (HANDLE*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetSemaphoreWin32HandleKHR(device, pGetWin32HandleInfo, pHandle);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetSemaphoreWin32HandleKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6390,13 +7495,13 @@ static Napi::Value rawImportSemaphoreWin32HandleKHR(const Napi::CallbackInfo& in
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pImportSemaphoreWin32HandleInfo = (VkImportSemaphoreWin32HandleInfoKHR const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkImportSemaphoreWin32HandleKHR(device, pImportSemaphoreWin32HandleInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkImportSemaphoreWin32HandleKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6426,13 +7531,13 @@ static Napi::Value rawGetSemaphoreFdKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) pGetFdInfo = (VkSemaphoreGetFdInfoKHR const*)GetAddress(env, info_[1]);
 
     decltype(auto) pFd = (int*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetSemaphoreFdKHR(device, pGetFdInfo, pFd);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetSemaphoreFdKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6461,13 +7566,13 @@ static Napi::Value rawImportSemaphoreFdKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pImportSemaphoreFdInfo = (VkImportSemaphoreFdInfoKHR const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkImportSemaphoreFdKHR(device, pImportSemaphoreFdInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkImportSemaphoreFdKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6497,13 +7602,13 @@ static Napi::Value rawGetSemaphoreZirconHandleFUCHSIA(const Napi::CallbackInfo& 
     decltype(auto) pGetZirconHandleInfo = (VkSemaphoreGetZirconHandleInfoFUCHSIA const*)GetAddress(env, info_[1]);
 
     decltype(auto) pZirconHandle = (zx_handle_t*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetSemaphoreZirconHandleFUCHSIA(device, pGetZirconHandleInfo, pZirconHandle);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetSemaphoreZirconHandleFUCHSIA";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6532,13 +7637,13 @@ static Napi::Value rawImportSemaphoreZirconHandleFUCHSIA(const Napi::CallbackInf
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pImportSemaphoreZirconHandleInfo = (VkImportSemaphoreZirconHandleInfoFUCHSIA const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkImportSemaphoreZirconHandleFUCHSIA(device, pImportSemaphoreZirconHandleInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkImportSemaphoreZirconHandleFUCHSIA";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6567,8 +7672,17 @@ static Napi::Value rawGetPhysicalDeviceExternalFenceProperties(const Napi::Callb
     decltype(auto) pExternalFenceInfo = (VkPhysicalDeviceExternalFenceInfo const*)GetAddress(env, info_[1]);
 
     decltype(auto) pExternalFenceProperties = (VkExternalFenceProperties*)GetAddress(env, info_[2]);
-    
-    ::vkGetPhysicalDeviceExternalFenceProperties(physicalDevice, pExternalFenceInfo, pExternalFenceProperties);
+    try {
+        ::vkGetPhysicalDeviceExternalFenceProperties(physicalDevice, pExternalFenceInfo, pExternalFenceProperties);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceExternalFenceProperties command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    pExternalFenceInfo: " << (uint64_t)(pExternalFenceInfo) << std::endl;
+        std::cerr << "    pExternalFenceProperties: " << (uint64_t)(pExternalFenceProperties) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_KHR_external_fence_win32
@@ -6585,13 +7699,13 @@ static Napi::Value rawGetFenceWin32HandleKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) pGetWin32HandleInfo = (VkFenceGetWin32HandleInfoKHR const*)GetAddress(env, info_[1]);
 
     decltype(auto) pHandle = (HANDLE*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetFenceWin32HandleKHR(device, pGetWin32HandleInfo, pHandle);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetFenceWin32HandleKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6620,13 +7734,13 @@ static Napi::Value rawImportFenceWin32HandleKHR(const Napi::CallbackInfo& info_)
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pImportFenceWin32HandleInfo = (VkImportFenceWin32HandleInfoKHR const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkImportFenceWin32HandleKHR(device, pImportFenceWin32HandleInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkImportFenceWin32HandleKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6656,13 +7770,13 @@ static Napi::Value rawGetFenceFdKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) pGetFdInfo = (VkFenceGetFdInfoKHR const*)GetAddress(env, info_[1]);
 
     decltype(auto) pFd = (int*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetFenceFdKHR(device, pGetFdInfo, pFd);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetFenceFdKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6691,13 +7805,13 @@ static Napi::Value rawImportFenceFdKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pImportFenceFdInfo = (VkImportFenceFdInfoKHR const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkImportFenceFdKHR(device, pImportFenceFdInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkImportFenceFdKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6726,13 +7840,13 @@ static Napi::Value rawReleaseDisplayEXT(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (display)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) display = (VkDisplayKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkReleaseDisplayEXT(physicalDevice, display);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkReleaseDisplayEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6763,13 +7877,13 @@ static Napi::Value rawAcquireXlibDisplayEXT(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (display)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) display = (VkDisplayKHR)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkAcquireXlibDisplayEXT(physicalDevice, dpy, display);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkAcquireXlibDisplayEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6803,13 +7917,13 @@ static Napi::Value rawGetRandROutputDisplayEXT(const Napi::CallbackInfo& info_) 
     decltype(auto) rrOutput = (RROutput)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
     decltype(auto) pDisplay = (VkDisplayKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetRandROutputDisplayEXT(physicalDevice, dpy, rrOutput, pDisplay);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetRandROutputDisplayEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6840,13 +7954,13 @@ static Napi::Value rawAcquireWinrtDisplayNV(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (display)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) display = (VkDisplayKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkAcquireWinrtDisplayNV(physicalDevice, display);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkAcquireWinrtDisplayNV";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6877,13 +7991,13 @@ static Napi::Value rawGetWinrtDisplayNV(const Napi::CallbackInfo& info_) {
     decltype(auto) deviceRelativeId = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pDisplay = (VkDisplayKHR*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetWinrtDisplayNV(physicalDevice, deviceRelativeId, pDisplay);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetWinrtDisplayNV";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6915,13 +8029,13 @@ static Napi::Value rawDisplayPowerControlEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) display = (VkDisplayKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pDisplayPowerInfo = (VkDisplayPowerInfoEXT const*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkDisplayPowerControlEXT(device, display, pDisplayPowerInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkDisplayPowerControlEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6954,13 +8068,13 @@ static Napi::Value rawRegisterDeviceEventEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pFence = (VkFence*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkRegisterDeviceEventEXT(device, pDeviceEventInfo, pAllocator, pFence);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkRegisterDeviceEventEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -6997,13 +8111,13 @@ static Napi::Value rawRegisterDisplayEventEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[3]);
 
     decltype(auto) pFence = (VkFence*)GetAddress(env, info_[4]);
-    
     try {
         decltype(auto) result = ::vkRegisterDisplayEventEXT(device, display, pDisplayEventInfo, pAllocator, pFence);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkRegisterDisplayEventEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7040,13 +8154,13 @@ static Napi::Value rawGetSwapchainCounterEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) counter = (VkSurfaceCounterFlagBitsEXT)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pCounterValue = (uint64_t*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetSwapchainCounterEXT(device, swapchain, counter, pCounterValue);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetSwapchainCounterEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7079,13 +8193,13 @@ static Napi::Value rawGetPhysicalDeviceSurfaceCapabilities2EXT(const Napi::Callb
     decltype(auto) surface = (VkSurfaceKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pSurfaceCapabilities = (VkSurfaceCapabilities2EXT*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceSurfaceCapabilities2EXT(physicalDevice, surface, pSurfaceCapabilities);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSurfaceCapabilities2EXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7115,13 +8229,13 @@ static Napi::Value rawEnumeratePhysicalDeviceGroups(const Napi::CallbackInfo& in
     decltype(auto) pPhysicalDeviceGroupCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pPhysicalDeviceGroupProperties = (VkPhysicalDeviceGroupProperties*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkEnumeratePhysicalDeviceGroups(instance, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkEnumeratePhysicalDeviceGroups";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7157,8 +8271,19 @@ static Napi::Value rawGetDeviceGroupPeerMemoryFeatures(const Napi::CallbackInfo&
     decltype(auto) remoteDeviceIndex = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pPeerMemoryFeatures = (VkPeerMemoryFeatureFlags*)GetAddress(env, info_[4]);
-    
-    ::vkGetDeviceGroupPeerMemoryFeatures(device, heapIndex, localDeviceIndex, remoteDeviceIndex, pPeerMemoryFeatures);
+    try {
+        ::vkGetDeviceGroupPeerMemoryFeatures(device, heapIndex, localDeviceIndex, remoteDeviceIndex, pPeerMemoryFeatures);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDeviceGroupPeerMemoryFeatures command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    heapIndex: " << (uint64_t)(heapIndex) << std::endl;
+        std::cerr << "    localDeviceIndex: " << (uint64_t)(localDeviceIndex) << std::endl;
+        std::cerr << "    remoteDeviceIndex: " << (uint64_t)(remoteDeviceIndex) << std::endl;
+        std::cerr << "    pPeerMemoryFeatures: " << (uint64_t)(pPeerMemoryFeatures) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawBindBufferMemory2(const Napi::CallbackInfo& info_) {
@@ -7175,13 +8300,13 @@ static Napi::Value rawBindBufferMemory2(const Napi::CallbackInfo& info_) {
     decltype(auto) bindInfoCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pBindInfos = (VkBindBufferMemoryInfo const*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkBindBufferMemory2(device, bindInfoCount, pBindInfos);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkBindBufferMemory2";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7211,13 +8336,13 @@ static Napi::Value rawBindImageMemory2(const Napi::CallbackInfo& info_) {
     decltype(auto) bindInfoCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pBindInfos = (VkBindImageMemoryInfo const*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkBindImageMemory2(device, bindInfoCount, pBindInfos);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkBindImageMemory2";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7245,8 +8370,16 @@ static Napi::Value rawCmdSetDeviceMask(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (deviceMask)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) deviceMask = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetDeviceMask(commandBuffer, deviceMask);
+    try {
+        ::vkCmdSetDeviceMask(commandBuffer, deviceMask);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetDeviceMask command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    deviceMask: " << (uint64_t)(deviceMask) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_KHR_device_group
@@ -7261,13 +8394,13 @@ static Napi::Value rawGetDeviceGroupPresentCapabilitiesKHR(const Napi::CallbackI
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pDeviceGroupPresentCapabilities = (VkDeviceGroupPresentCapabilitiesKHR*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkGetDeviceGroupPresentCapabilitiesKHR(device, pDeviceGroupPresentCapabilities);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetDeviceGroupPresentCapabilitiesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7298,13 +8431,13 @@ static Napi::Value rawGetDeviceGroupSurfacePresentModesKHR(const Napi::CallbackI
     decltype(auto) surface = (VkSurfaceKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pModes = (VkDeviceGroupPresentModeFlagsKHR*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetDeviceGroupSurfacePresentModesKHR(device, surface, pModes);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetDeviceGroupSurfacePresentModesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7335,13 +8468,13 @@ static Napi::Value rawAcquireNextImage2KHR(const Napi::CallbackInfo& info_) {
     decltype(auto) pAcquireInfo = (VkAcquireNextImageInfoKHR const*)GetAddress(env, info_[1]);
 
     decltype(auto) pImageIndex = (uint32_t*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkAcquireNextImage2KHR(device, pAcquireInfo, pImageIndex);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkAcquireNextImage2KHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7385,8 +8518,21 @@ static Napi::Value rawCmdDispatchBase(const Napi::CallbackInfo& info_) {
 
     if (!info_[6].IsNumber() && !info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 6 argument (groupCountZ)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) groupCountZ = (uint32_t)(info_[6].IsBigInt() ? info_[6].As<Napi::BigInt>().Uint64Value(&lossless) : info_[6].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDispatchBase(commandBuffer, baseGroupX, baseGroupY, baseGroupZ, groupCountX, groupCountY, groupCountZ);
+    try {
+        ::vkCmdDispatchBase(commandBuffer, baseGroupX, baseGroupY, baseGroupZ, groupCountX, groupCountY, groupCountZ);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDispatchBase command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    baseGroupX: " << (uint64_t)(baseGroupX) << std::endl;
+        std::cerr << "    baseGroupY: " << (uint64_t)(baseGroupY) << std::endl;
+        std::cerr << "    baseGroupZ: " << (uint64_t)(baseGroupZ) << std::endl;
+        std::cerr << "    groupCountX: " << (uint64_t)(groupCountX) << std::endl;
+        std::cerr << "    groupCountY: " << (uint64_t)(groupCountY) << std::endl;
+        std::cerr << "    groupCountZ: " << (uint64_t)(groupCountZ) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_KHR_device_group
@@ -7406,13 +8552,13 @@ static Napi::Value rawGetPhysicalDevicePresentRectanglesKHR(const Napi::Callback
     decltype(auto) pRectCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pRects = (VkRect2D*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDevicePresentRectanglesKHR(physicalDevice, surface, pRectCount, pRects);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDevicePresentRectanglesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7445,13 +8591,13 @@ static Napi::Value rawCreateDescriptorUpdateTemplate(const Napi::CallbackInfo& i
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pDescriptorUpdateTemplate = (VkDescriptorUpdateTemplate*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateDescriptorUpdateTemplate(device, pCreateInfo, pAllocator, pDescriptorUpdateTemplate);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDescriptorUpdateTemplate";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7482,8 +8628,17 @@ static Napi::Value rawDestroyDescriptorUpdateTemplate(const Napi::CallbackInfo& 
     decltype(auto) descriptorUpdateTemplate = (VkDescriptorUpdateTemplate)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyDescriptorUpdateTemplate(device, descriptorUpdateTemplate, pAllocator);
+    try {
+        ::vkDestroyDescriptorUpdateTemplate(device, descriptorUpdateTemplate, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyDescriptorUpdateTemplate command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    descriptorUpdateTemplate: " << (uint64_t)(descriptorUpdateTemplate) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawUpdateDescriptorSetWithTemplate(const Napi::CallbackInfo& info_) {
@@ -7503,8 +8658,18 @@ static Napi::Value rawUpdateDescriptorSetWithTemplate(const Napi::CallbackInfo& 
     decltype(auto) descriptorUpdateTemplate = (VkDescriptorUpdateTemplate)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
     decltype(auto) pData = (void const*)GetAddress(env, info_[3]);
-    
-    ::vkUpdateDescriptorSetWithTemplate(device, descriptorSet, descriptorUpdateTemplate, pData);
+    try {
+        ::vkUpdateDescriptorSetWithTemplate(device, descriptorSet, descriptorUpdateTemplate, pData);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkUpdateDescriptorSetWithTemplate command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    descriptorSet: " << (uint64_t)(descriptorSet) << std::endl;
+        std::cerr << "    descriptorUpdateTemplate: " << (uint64_t)(descriptorUpdateTemplate) << std::endl;
+        std::cerr << "    pData: " << (uint64_t)(pData) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_KHR_descriptor_update_template
@@ -7528,8 +8693,19 @@ static Napi::Value rawCmdPushDescriptorSetWithTemplateKHR(const Napi::CallbackIn
     decltype(auto) set = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pData = (void const*)GetAddress(env, info_[4]);
-    
-    ::vkCmdPushDescriptorSetWithTemplateKHR(commandBuffer, descriptorUpdateTemplate, layout, set, pData);
+    try {
+        ::vkCmdPushDescriptorSetWithTemplateKHR(commandBuffer, descriptorUpdateTemplate, layout, set, pData);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdPushDescriptorSetWithTemplateKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    descriptorUpdateTemplate: " << (uint64_t)(descriptorUpdateTemplate) << std::endl;
+        std::cerr << "    layout: " << (uint64_t)(layout) << std::endl;
+        std::cerr << "    set: " << (uint64_t)(set) << std::endl;
+        std::cerr << "    pData: " << (uint64_t)(pData) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -7550,8 +8726,18 @@ static Napi::Value rawSetHdrMetadataEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) pSwapchains = (VkSwapchainKHR const*)GetAddress(env, info_[2]);
 
     decltype(auto) pMetadata = (VkHdrMetadataEXT const*)GetAddress(env, info_[3]);
-    
-    ::vkSetHdrMetadataEXT(device, swapchainCount, pSwapchains, pMetadata);
+    try {
+        ::vkSetHdrMetadataEXT(device, swapchainCount, pSwapchains, pMetadata);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkSetHdrMetadataEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    swapchainCount: " << (uint64_t)(swapchainCount) << std::endl;
+        std::cerr << "    pSwapchains: " << (uint64_t)(pSwapchains) << std::endl;
+        std::cerr << "    pMetadata: " << (uint64_t)(pMetadata) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -7568,13 +8754,13 @@ static Napi::Value rawGetSwapchainStatusKHR(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (swapchain)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) swapchain = (VkSwapchainKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkGetSwapchainStatusKHR(device, swapchain);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetSwapchainStatusKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7605,13 +8791,13 @@ static Napi::Value rawGetRefreshCycleDurationGOOGLE(const Napi::CallbackInfo& in
     decltype(auto) swapchain = (VkSwapchainKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pDisplayTimingProperties = (VkRefreshCycleDurationGOOGLE*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetRefreshCycleDurationGOOGLE(device, swapchain, pDisplayTimingProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetRefreshCycleDurationGOOGLE";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7645,13 +8831,13 @@ static Napi::Value rawGetPastPresentationTimingGOOGLE(const Napi::CallbackInfo& 
     decltype(auto) pPresentationTimingCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pPresentationTimings = (VkPastPresentationTimingGOOGLE*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetPastPresentationTimingGOOGLE(device, swapchain, pPresentationTimingCount, pPresentationTimings);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPastPresentationTimingGOOGLE";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7685,13 +8871,13 @@ static Napi::Value rawCreateIOSSurfaceMVK(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateIOSSurfaceMVK(instance, pCreateInfo, pAllocator, pSurface);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateIOSSurfaceMVK";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7725,13 +8911,13 @@ static Napi::Value rawCreateMacOSSurfaceMVK(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateMacOSSurfaceMVK(instance, pCreateInfo, pAllocator, pSurface);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateMacOSSurfaceMVK";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7765,13 +8951,13 @@ static Napi::Value rawCreateMetalSurfaceEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateMetalSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateMetalSurfaceEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7807,8 +8993,18 @@ static Napi::Value rawCmdSetViewportWScalingNV(const Napi::CallbackInfo& info_) 
     decltype(auto) viewportCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pViewportWScalings = (VkViewportWScalingNV const*)GetAddress(env, info_[3]);
-    
-    ::vkCmdSetViewportWScalingNV(commandBuffer, firstViewport, viewportCount, pViewportWScalings);
+    try {
+        ::vkCmdSetViewportWScalingNV(commandBuffer, firstViewport, viewportCount, pViewportWScalings);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetViewportWScalingNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    firstViewport: " << (uint64_t)(firstViewport) << std::endl;
+        std::cerr << "    viewportCount: " << (uint64_t)(viewportCount) << std::endl;
+        std::cerr << "    pViewportWScalings: " << (uint64_t)(pViewportWScalings) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -7830,8 +9026,18 @@ static Napi::Value rawCmdSetDiscardRectangleEXT(const Napi::CallbackInfo& info_)
     decltype(auto) discardRectangleCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pDiscardRectangles = (VkRect2D const*)GetAddress(env, info_[3]);
-    
-    ::vkCmdSetDiscardRectangleEXT(commandBuffer, firstDiscardRectangle, discardRectangleCount, pDiscardRectangles);
+    try {
+        ::vkCmdSetDiscardRectangleEXT(commandBuffer, firstDiscardRectangle, discardRectangleCount, pDiscardRectangles);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetDiscardRectangleEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    firstDiscardRectangle: " << (uint64_t)(firstDiscardRectangle) << std::endl;
+        std::cerr << "    discardRectangleCount: " << (uint64_t)(discardRectangleCount) << std::endl;
+        std::cerr << "    pDiscardRectangles: " << (uint64_t)(pDiscardRectangles) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -7847,8 +9053,16 @@ static Napi::Value rawCmdSetSampleLocationsEXT(const Napi::CallbackInfo& info_) 
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pSampleLocationsInfo = (VkSampleLocationsInfoEXT const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdSetSampleLocationsEXT(commandBuffer, pSampleLocationsInfo);
+    try {
+        ::vkCmdSetSampleLocationsEXT(commandBuffer, pSampleLocationsInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetSampleLocationsEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pSampleLocationsInfo: " << (uint64_t)(pSampleLocationsInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -7867,8 +9081,17 @@ static Napi::Value rawGetPhysicalDeviceMultisamplePropertiesEXT(const Napi::Call
     decltype(auto) samples = (VkSampleCountFlagBits)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pMultisampleProperties = (VkMultisamplePropertiesEXT*)GetAddress(env, info_[2]);
-    
-    ::vkGetPhysicalDeviceMultisamplePropertiesEXT(physicalDevice, samples, pMultisampleProperties);
+    try {
+        ::vkGetPhysicalDeviceMultisamplePropertiesEXT(physicalDevice, samples, pMultisampleProperties);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceMultisamplePropertiesEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    samples: " << (uint64_t)(samples) << std::endl;
+        std::cerr << "    pMultisampleProperties: " << (uint64_t)(pMultisampleProperties) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -7886,13 +9109,13 @@ static Napi::Value rawGetPhysicalDeviceSurfaceCapabilities2KHR(const Napi::Callb
     decltype(auto) pSurfaceInfo = (VkPhysicalDeviceSurfaceInfo2KHR const*)GetAddress(env, info_[1]);
 
     decltype(auto) pSurfaceCapabilities = (VkSurfaceCapabilities2KHR*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceSurfaceCapabilities2KHR(physicalDevice, pSurfaceInfo, pSurfaceCapabilities);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSurfaceCapabilities2KHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7925,13 +9148,13 @@ static Napi::Value rawGetPhysicalDeviceSurfaceFormats2KHR(const Napi::CallbackIn
     decltype(auto) pSurfaceFormatCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurfaceFormats = (VkSurfaceFormat2KHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceSurfaceFormats2KHR(physicalDevice, pSurfaceInfo, pSurfaceFormatCount, pSurfaceFormats);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSurfaceFormats2KHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -7963,13 +9186,13 @@ static Napi::Value rawGetPhysicalDeviceDisplayProperties2KHR(const Napi::Callbac
     decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pProperties = (VkDisplayProperties2KHR*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceDisplayProperties2KHR(physicalDevice, pPropertyCount, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceDisplayProperties2KHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8000,13 +9223,13 @@ static Napi::Value rawGetPhysicalDeviceDisplayPlaneProperties2KHR(const Napi::Ca
     decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pProperties = (VkDisplayPlaneProperties2KHR*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceDisplayPlaneProperties2KHR(physicalDevice, pPropertyCount, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceDisplayPlaneProperties2KHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8040,13 +9263,13 @@ static Napi::Value rawGetDisplayModeProperties2KHR(const Napi::CallbackInfo& inf
     decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pProperties = (VkDisplayModeProperties2KHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetDisplayModeProperties2KHR(physicalDevice, display, pPropertyCount, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetDisplayModeProperties2KHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8078,13 +9301,13 @@ static Napi::Value rawGetDisplayPlaneCapabilities2KHR(const Napi::CallbackInfo& 
     decltype(auto) pDisplayPlaneInfo = (VkDisplayPlaneInfo2KHR const*)GetAddress(env, info_[1]);
 
     decltype(auto) pCapabilities = (VkDisplayPlaneCapabilities2KHR*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetDisplayPlaneCapabilities2KHR(physicalDevice, pDisplayPlaneInfo, pCapabilities);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetDisplayPlaneCapabilities2KHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8114,8 +9337,17 @@ static Napi::Value rawGetBufferMemoryRequirements2(const Napi::CallbackInfo& inf
     decltype(auto) pInfo = (VkBufferMemoryRequirementsInfo2 const*)GetAddress(env, info_[1]);
 
     decltype(auto) pMemoryRequirements = (VkMemoryRequirements2*)GetAddress(env, info_[2]);
-    
-    ::vkGetBufferMemoryRequirements2(device, pInfo, pMemoryRequirements);
+    try {
+        ::vkGetBufferMemoryRequirements2(device, pInfo, pMemoryRequirements);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetBufferMemoryRequirements2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        std::cerr << "    pMemoryRequirements: " << (uint64_t)(pMemoryRequirements) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetImageMemoryRequirements2(const Napi::CallbackInfo& info_) {
@@ -8131,8 +9363,17 @@ static Napi::Value rawGetImageMemoryRequirements2(const Napi::CallbackInfo& info
     decltype(auto) pInfo = (VkImageMemoryRequirementsInfo2 const*)GetAddress(env, info_[1]);
 
     decltype(auto) pMemoryRequirements = (VkMemoryRequirements2*)GetAddress(env, info_[2]);
-    
-    ::vkGetImageMemoryRequirements2(device, pInfo, pMemoryRequirements);
+    try {
+        ::vkGetImageMemoryRequirements2(device, pInfo, pMemoryRequirements);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetImageMemoryRequirements2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        std::cerr << "    pMemoryRequirements: " << (uint64_t)(pMemoryRequirements) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetImageSparseMemoryRequirements2(const Napi::CallbackInfo& info_) {
@@ -8150,8 +9391,18 @@ static Napi::Value rawGetImageSparseMemoryRequirements2(const Napi::CallbackInfo
     decltype(auto) pSparseMemoryRequirementCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pSparseMemoryRequirements = (VkSparseImageMemoryRequirements2*)GetAddress(env, info_[3]);
-    
-    ::vkGetImageSparseMemoryRequirements2(device, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
+    try {
+        ::vkGetImageSparseMemoryRequirements2(device, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetImageSparseMemoryRequirements2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        std::cerr << "    pSparseMemoryRequirementCount: " << (uint64_t)(pSparseMemoryRequirementCount) << std::endl;
+        std::cerr << "    pSparseMemoryRequirements: " << (uint64_t)(pSparseMemoryRequirements) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetDeviceBufferMemoryRequirements(const Napi::CallbackInfo& info_) {
@@ -8167,8 +9418,17 @@ static Napi::Value rawGetDeviceBufferMemoryRequirements(const Napi::CallbackInfo
     decltype(auto) pInfo = (VkDeviceBufferMemoryRequirements const*)GetAddress(env, info_[1]);
 
     decltype(auto) pMemoryRequirements = (VkMemoryRequirements2*)GetAddress(env, info_[2]);
-    
-    ::vkGetDeviceBufferMemoryRequirements(device, pInfo, pMemoryRequirements);
+    try {
+        ::vkGetDeviceBufferMemoryRequirements(device, pInfo, pMemoryRequirements);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDeviceBufferMemoryRequirements command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        std::cerr << "    pMemoryRequirements: " << (uint64_t)(pMemoryRequirements) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetDeviceImageMemoryRequirements(const Napi::CallbackInfo& info_) {
@@ -8184,8 +9444,17 @@ static Napi::Value rawGetDeviceImageMemoryRequirements(const Napi::CallbackInfo&
     decltype(auto) pInfo = (VkDeviceImageMemoryRequirements const*)GetAddress(env, info_[1]);
 
     decltype(auto) pMemoryRequirements = (VkMemoryRequirements2*)GetAddress(env, info_[2]);
-    
-    ::vkGetDeviceImageMemoryRequirements(device, pInfo, pMemoryRequirements);
+    try {
+        ::vkGetDeviceImageMemoryRequirements(device, pInfo, pMemoryRequirements);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDeviceImageMemoryRequirements command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        std::cerr << "    pMemoryRequirements: " << (uint64_t)(pMemoryRequirements) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetDeviceImageSparseMemoryRequirements(const Napi::CallbackInfo& info_) {
@@ -8203,8 +9472,18 @@ static Napi::Value rawGetDeviceImageSparseMemoryRequirements(const Napi::Callbac
     decltype(auto) pSparseMemoryRequirementCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pSparseMemoryRequirements = (VkSparseImageMemoryRequirements2*)GetAddress(env, info_[3]);
-    
-    ::vkGetDeviceImageSparseMemoryRequirements(device, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
+    try {
+        ::vkGetDeviceImageSparseMemoryRequirements(device, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDeviceImageSparseMemoryRequirements command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        std::cerr << "    pSparseMemoryRequirementCount: " << (uint64_t)(pSparseMemoryRequirementCount) << std::endl;
+        std::cerr << "    pSparseMemoryRequirements: " << (uint64_t)(pSparseMemoryRequirements) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCreateSamplerYcbcrConversion(const Napi::CallbackInfo& info_) {
@@ -8222,13 +9501,13 @@ static Napi::Value rawCreateSamplerYcbcrConversion(const Napi::CallbackInfo& inf
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pYcbcrConversion = (VkSamplerYcbcrConversion*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateSamplerYcbcrConversion(device, pCreateInfo, pAllocator, pYcbcrConversion);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateSamplerYcbcrConversion";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8259,8 +9538,17 @@ static Napi::Value rawDestroySamplerYcbcrConversion(const Napi::CallbackInfo& in
     decltype(auto) ycbcrConversion = (VkSamplerYcbcrConversion)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroySamplerYcbcrConversion(device, ycbcrConversion, pAllocator);
+    try {
+        ::vkDestroySamplerYcbcrConversion(device, ycbcrConversion, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroySamplerYcbcrConversion command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    ycbcrConversion: " << (uint64_t)(ycbcrConversion) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetDeviceQueue2(const Napi::CallbackInfo& info_) {
@@ -8276,8 +9564,17 @@ static Napi::Value rawGetDeviceQueue2(const Napi::CallbackInfo& info_) {
     decltype(auto) pQueueInfo = (VkDeviceQueueInfo2 const*)GetAddress(env, info_[1]);
 
     decltype(auto) pQueue = (VkQueue*)GetAddress(env, info_[2]);
-    
-    ::vkGetDeviceQueue2(device, pQueueInfo, pQueue);
+    try {
+        ::vkGetDeviceQueue2(device, pQueueInfo, pQueue);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDeviceQueue2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pQueueInfo: " << (uint64_t)(pQueueInfo) << std::endl;
+        std::cerr << "    pQueue: " << (uint64_t)(pQueue) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_EXT_validation_cache
@@ -8296,13 +9593,13 @@ static Napi::Value rawCreateValidationCacheEXT(const Napi::CallbackInfo& info_) 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pValidationCache = (VkValidationCacheEXT*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateValidationCacheEXT(device, pCreateInfo, pAllocator, pValidationCache);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateValidationCacheEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8335,8 +9632,17 @@ static Napi::Value rawDestroyValidationCacheEXT(const Napi::CallbackInfo& info_)
     decltype(auto) validationCache = (VkValidationCacheEXT)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyValidationCacheEXT(device, validationCache, pAllocator);
+    try {
+        ::vkDestroyValidationCacheEXT(device, validationCache, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyValidationCacheEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    validationCache: " << (uint64_t)(validationCache) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -8357,13 +9663,13 @@ static Napi::Value rawGetValidationCacheDataEXT(const Napi::CallbackInfo& info_)
     decltype(auto) pDataSize = (size_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pData = (void*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetValidationCacheDataEXT(device, validationCache, pDataSize, pData);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetValidationCacheDataEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8399,13 +9705,13 @@ static Napi::Value rawMergeValidationCachesEXT(const Napi::CallbackInfo& info_) 
     decltype(auto) srcCacheCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pSrcCaches = (VkValidationCacheEXT const*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkMergeValidationCachesEXT(device, dstCache, srcCacheCount, pSrcCaches);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkMergeValidationCachesEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8436,8 +9742,17 @@ static Napi::Value rawGetDescriptorSetLayoutSupport(const Napi::CallbackInfo& in
     decltype(auto) pCreateInfo = (VkDescriptorSetLayoutCreateInfo const*)GetAddress(env, info_[1]);
 
     decltype(auto) pSupport = (VkDescriptorSetLayoutSupport*)GetAddress(env, info_[2]);
-    
-    ::vkGetDescriptorSetLayoutSupport(device, pCreateInfo, pSupport);
+    try {
+        ::vkGetDescriptorSetLayoutSupport(device, pCreateInfo, pSupport);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDescriptorSetLayoutSupport command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
+        std::cerr << "    pSupport: " << (uint64_t)(pSupport) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_ANDROID_native_buffer
@@ -8458,13 +9773,13 @@ static Napi::Value rawGetSwapchainGrallocUsageANDROID(const Napi::CallbackInfo& 
     decltype(auto) imageUsage = (VkImageUsageFlags)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) grallocUsage = (int*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetSwapchainGrallocUsageANDROID(device, format, imageUsage, grallocUsage);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetSwapchainGrallocUsageANDROID";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8505,13 +9820,13 @@ static Napi::Value rawGetSwapchainGrallocUsage2ANDROID(const Napi::CallbackInfo&
     decltype(auto) grallocConsumerUsage = (uint64_t*)GetAddress(env, info_[4]);
 
     decltype(auto) grallocProducerUsage = (uint64_t*)GetAddress(env, info_[5]);
-    
     try {
         decltype(auto) result = ::vkGetSwapchainGrallocUsage2ANDROID(device, format, imageUsage, swapchainImageUsage, grallocConsumerUsage, grallocProducerUsage);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetSwapchainGrallocUsage2ANDROID";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8553,13 +9868,13 @@ static Napi::Value rawAcquireImageANDROID(const Napi::CallbackInfo& info_) {
 
     if (!info_[4].IsBigInt() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 4 argument (fence)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) fence = (VkFence)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkAcquireImageANDROID(device, image, nativeFenceFd, semaphore, fence);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkAcquireImageANDROID";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8598,13 +9913,13 @@ static Napi::Value rawQueueSignalReleaseImageANDROID(const Napi::CallbackInfo& i
     decltype(auto) image = (VkImage)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
 
     decltype(auto) pNativeFenceFd = (int*)GetAddress(env, info_[4]);
-    
     try {
         decltype(auto) result = ::vkQueueSignalReleaseImageANDROID(queue, waitSemaphoreCount, pWaitSemaphores, image, pNativeFenceFd);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkQueueSignalReleaseImageANDROID";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8646,13 +9961,13 @@ static Napi::Value rawGetShaderInfoAMD(const Napi::CallbackInfo& info_) {
     decltype(auto) pInfoSize = (size_t*)GetAddress(env, info_[4]);
 
     decltype(auto) pInfo = (void*)GetAddress(env, info_[5]);
-    
     try {
         decltype(auto) result = ::vkGetShaderInfoAMD(device, pipeline, shaderStage, infoType, pInfoSize, pInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetShaderInfoAMD";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8688,8 +10003,17 @@ static Napi::Value rawSetLocalDimmingAMD(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (localDimmingEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) localDimmingEnable = (VkBool32)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
-    
-    ::vkSetLocalDimmingAMD(device, swapChain, localDimmingEnable);
+    try {
+        ::vkSetLocalDimmingAMD(device, swapChain, localDimmingEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkSetLocalDimmingAMD command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    swapChain: " << (uint64_t)(swapChain) << std::endl;
+        std::cerr << "    localDimmingEnable: " << (uint64_t)(localDimmingEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -8707,13 +10031,13 @@ static Napi::Value rawGetPhysicalDeviceCalibrateableTimeDomainsEXT(const Napi::C
     decltype(auto) pTimeDomainCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pTimeDomains = (VkTimeDomainEXT*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(physicalDevice, pTimeDomainCount, pTimeDomains);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceCalibrateableTimeDomainsEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8749,13 +10073,13 @@ static Napi::Value rawGetCalibratedTimestampsEXT(const Napi::CallbackInfo& info_
     decltype(auto) pTimestamps = (uint64_t*)GetAddress(env, info_[3]);
 
     decltype(auto) pMaxDeviation = (uint64_t*)GetAddress(env, info_[4]);
-    
     try {
         decltype(auto) result = ::vkGetCalibratedTimestampsEXT(device, timestampCount, pTimestampInfos, pTimestamps, pMaxDeviation);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetCalibratedTimestampsEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8786,13 +10110,13 @@ static Napi::Value rawSetDebugUtilsObjectNameEXT(const Napi::CallbackInfo& info_
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pNameInfo = (VkDebugUtilsObjectNameInfoEXT const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkSetDebugUtilsObjectNameEXT(device, pNameInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkSetDebugUtilsObjectNameEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8820,13 +10144,13 @@ static Napi::Value rawSetDebugUtilsObjectTagEXT(const Napi::CallbackInfo& info_)
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pTagInfo = (VkDebugUtilsObjectTagInfoEXT const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkSetDebugUtilsObjectTagEXT(device, pTagInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkSetDebugUtilsObjectTagEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8854,8 +10178,16 @@ static Napi::Value rawQueueBeginDebugUtilsLabelEXT(const Napi::CallbackInfo& inf
     decltype(auto) queue = (VkQueue)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pLabelInfo = (VkDebugUtilsLabelEXT const*)GetAddress(env, info_[1]);
-    
-    ::vkQueueBeginDebugUtilsLabelEXT(queue, pLabelInfo);
+    try {
+        ::vkQueueBeginDebugUtilsLabelEXT(queue, pLabelInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkQueueBeginDebugUtilsLabelEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
+        std::cerr << "    pLabelInfo: " << (uint64_t)(pLabelInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -8869,8 +10201,15 @@ static Napi::Value rawQueueEndDebugUtilsLabelEXT(const Napi::CallbackInfo& info_
     
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (queue)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) queue = (VkQueue)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
-    
-    ::vkQueueEndDebugUtilsLabelEXT(queue);
+    try {
+        ::vkQueueEndDebugUtilsLabelEXT(queue);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkQueueEndDebugUtilsLabelEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -8886,8 +10225,16 @@ static Napi::Value rawQueueInsertDebugUtilsLabelEXT(const Napi::CallbackInfo& in
     decltype(auto) queue = (VkQueue)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pLabelInfo = (VkDebugUtilsLabelEXT const*)GetAddress(env, info_[1]);
-    
-    ::vkQueueInsertDebugUtilsLabelEXT(queue, pLabelInfo);
+    try {
+        ::vkQueueInsertDebugUtilsLabelEXT(queue, pLabelInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkQueueInsertDebugUtilsLabelEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
+        std::cerr << "    pLabelInfo: " << (uint64_t)(pLabelInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -8903,8 +10250,16 @@ static Napi::Value rawCmdBeginDebugUtilsLabelEXT(const Napi::CallbackInfo& info_
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pLabelInfo = (VkDebugUtilsLabelEXT const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdBeginDebugUtilsLabelEXT(commandBuffer, pLabelInfo);
+    try {
+        ::vkCmdBeginDebugUtilsLabelEXT(commandBuffer, pLabelInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBeginDebugUtilsLabelEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pLabelInfo: " << (uint64_t)(pLabelInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -8918,8 +10273,15 @@ static Napi::Value rawCmdEndDebugUtilsLabelEXT(const Napi::CallbackInfo& info_) 
     
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdEndDebugUtilsLabelEXT(commandBuffer);
+    try {
+        ::vkCmdEndDebugUtilsLabelEXT(commandBuffer);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdEndDebugUtilsLabelEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -8935,8 +10297,16 @@ static Napi::Value rawCmdInsertDebugUtilsLabelEXT(const Napi::CallbackInfo& info
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pLabelInfo = (VkDebugUtilsLabelEXT const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdInsertDebugUtilsLabelEXT(commandBuffer, pLabelInfo);
+    try {
+        ::vkCmdInsertDebugUtilsLabelEXT(commandBuffer, pLabelInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdInsertDebugUtilsLabelEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pLabelInfo: " << (uint64_t)(pLabelInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -8956,13 +10326,13 @@ static Napi::Value rawCreateDebugUtilsMessengerEXT(const Napi::CallbackInfo& inf
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pMessenger = (VkDebugUtilsMessengerEXT*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateDebugUtilsMessengerEXT(instance, pCreateInfo, pAllocator, pMessenger);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDebugUtilsMessengerEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -8995,8 +10365,17 @@ static Napi::Value rawDestroyDebugUtilsMessengerEXT(const Napi::CallbackInfo& in
     decltype(auto) messenger = (VkDebugUtilsMessengerEXT)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyDebugUtilsMessengerEXT(instance, messenger, pAllocator);
+    try {
+        ::vkDestroyDebugUtilsMessengerEXT(instance, messenger, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyDebugUtilsMessengerEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
+        std::cerr << "    messenger: " << (uint64_t)(messenger) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9018,8 +10397,18 @@ static Napi::Value rawSubmitDebugUtilsMessageEXT(const Napi::CallbackInfo& info_
     decltype(auto) messageTypes = (VkDebugUtilsMessageTypeFlagsEXT)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pCallbackData = (VkDebugUtilsMessengerCallbackDataEXT const*)GetAddress(env, info_[3]);
-    
-    ::vkSubmitDebugUtilsMessageEXT(instance, messageSeverity, messageTypes, pCallbackData);
+    try {
+        ::vkSubmitDebugUtilsMessageEXT(instance, messageSeverity, messageTypes, pCallbackData);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkSubmitDebugUtilsMessageEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    instance: " << (uint64_t)(instance) << std::endl;
+        std::cerr << "    messageSeverity: " << (uint64_t)(messageSeverity) << std::endl;
+        std::cerr << "    messageTypes: " << (uint64_t)(messageTypes) << std::endl;
+        std::cerr << "    pCallbackData: " << (uint64_t)(pCallbackData) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9040,13 +10429,13 @@ static Napi::Value rawGetMemoryHostPointerPropertiesEXT(const Napi::CallbackInfo
     decltype(auto) pHostPointer = (void const*)GetAddress(env, info_[2]);
 
     decltype(auto) pMemoryHostPointerProperties = (VkMemoryHostPointerPropertiesEXT*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetMemoryHostPointerPropertiesEXT(device, handleType, pHostPointer, pMemoryHostPointerProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryHostPointerPropertiesEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -9086,8 +10475,19 @@ static Napi::Value rawCmdWriteBufferMarkerAMD(const Napi::CallbackInfo& info_) {
 
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (marker)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) marker = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdWriteBufferMarkerAMD(commandBuffer, pipelineStage, dstBuffer, dstOffset, marker);
+    try {
+        ::vkCmdWriteBufferMarkerAMD(commandBuffer, pipelineStage, dstBuffer, dstOffset, marker);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdWriteBufferMarkerAMD command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pipelineStage: " << (uint64_t)(pipelineStage) << std::endl;
+        std::cerr << "    dstBuffer: " << (uint64_t)(dstBuffer) << std::endl;
+        std::cerr << "    dstOffset: " << (uint64_t)(dstOffset) << std::endl;
+        std::cerr << "    marker: " << (uint64_t)(marker) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9106,13 +10506,13 @@ static Napi::Value rawCreateRenderPass2(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pRenderPass = (VkRenderPass*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateRenderPass2(device, pCreateInfo, pAllocator, pRenderPass);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateRenderPass2";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -9142,8 +10542,17 @@ static Napi::Value rawCmdBeginRenderPass2(const Napi::CallbackInfo& info_) {
     decltype(auto) pRenderPassBegin = (VkRenderPassBeginInfo const*)GetAddress(env, info_[1]);
 
     decltype(auto) pSubpassBeginInfo = (VkSubpassBeginInfo const*)GetAddress(env, info_[2]);
-    
-    ::vkCmdBeginRenderPass2(commandBuffer, pRenderPassBegin, pSubpassBeginInfo);
+    try {
+        ::vkCmdBeginRenderPass2(commandBuffer, pRenderPassBegin, pSubpassBeginInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBeginRenderPass2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pRenderPassBegin: " << (uint64_t)(pRenderPassBegin) << std::endl;
+        std::cerr << "    pSubpassBeginInfo: " << (uint64_t)(pSubpassBeginInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdNextSubpass2(const Napi::CallbackInfo& info_) {
@@ -9159,8 +10568,17 @@ static Napi::Value rawCmdNextSubpass2(const Napi::CallbackInfo& info_) {
     decltype(auto) pSubpassBeginInfo = (VkSubpassBeginInfo const*)GetAddress(env, info_[1]);
 
     decltype(auto) pSubpassEndInfo = (VkSubpassEndInfo const*)GetAddress(env, info_[2]);
-    
-    ::vkCmdNextSubpass2(commandBuffer, pSubpassBeginInfo, pSubpassEndInfo);
+    try {
+        ::vkCmdNextSubpass2(commandBuffer, pSubpassBeginInfo, pSubpassEndInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdNextSubpass2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pSubpassBeginInfo: " << (uint64_t)(pSubpassBeginInfo) << std::endl;
+        std::cerr << "    pSubpassEndInfo: " << (uint64_t)(pSubpassEndInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdEndRenderPass2(const Napi::CallbackInfo& info_) {
@@ -9174,8 +10592,16 @@ static Napi::Value rawCmdEndRenderPass2(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pSubpassEndInfo = (VkSubpassEndInfo const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdEndRenderPass2(commandBuffer, pSubpassEndInfo);
+    try {
+        ::vkCmdEndRenderPass2(commandBuffer, pSubpassEndInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdEndRenderPass2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pSubpassEndInfo: " << (uint64_t)(pSubpassEndInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawGetSemaphoreCounterValue(const Napi::CallbackInfo& info_) {
@@ -9192,13 +10618,13 @@ static Napi::Value rawGetSemaphoreCounterValue(const Napi::CallbackInfo& info_) 
     decltype(auto) semaphore = (VkSemaphore)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pValue = (uint64_t*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetSemaphoreCounterValue(device, semaphore, pValue);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetSemaphoreCounterValue";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -9228,13 +10654,13 @@ static Napi::Value rawWaitSemaphores(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (timeout)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) timeout = (uint64_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkWaitSemaphores(device, pWaitInfo, timeout);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkWaitSemaphores";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -9261,13 +10687,13 @@ static Napi::Value rawSignalSemaphore(const Napi::CallbackInfo& info_) {
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pSignalInfo = (VkSemaphoreSignalInfo const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkSignalSemaphore(device, pSignalInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkSignalSemaphore";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -9296,13 +10722,13 @@ static Napi::Value rawGetAndroidHardwareBufferPropertiesANDROID(const Napi::Call
     decltype(auto) buffer = (AHardwareBuffer const*)GetAddress(env, info_[1]);
 
     decltype(auto) pProperties = (VkAndroidHardwareBufferPropertiesANDROID*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetAndroidHardwareBufferPropertiesANDROID(device, buffer, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetAndroidHardwareBufferPropertiesANDROID";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -9333,13 +10759,13 @@ static Napi::Value rawGetMemoryAndroidHardwareBufferANDROID(const Napi::Callback
     decltype(auto) pInfo = (VkMemoryGetAndroidHardwareBufferInfoANDROID const*)GetAddress(env, info_[1]);
 
     decltype(auto) pBuffer = (AHardwareBuffer**)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetMemoryAndroidHardwareBufferANDROID(device, pInfo, pBuffer);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetMemoryAndroidHardwareBufferANDROID";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -9383,8 +10809,21 @@ static Napi::Value rawCmdDrawIndirectCount(const Napi::CallbackInfo& info_) {
 
     if (!info_[6].IsNumber() && !info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 6 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (uint32_t)(info_[6].IsBigInt() ? info_[6].As<Napi::BigInt>().Uint64Value(&lossless) : info_[6].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDrawIndirectCount(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+    try {
+        ::vkCmdDrawIndirectCount(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDrawIndirectCount command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
+        std::cerr << "    offset: " << (uint64_t)(offset) << std::endl;
+        std::cerr << "    countBuffer: " << (uint64_t)(countBuffer) << std::endl;
+        std::cerr << "    countBufferOffset: " << (uint64_t)(countBufferOffset) << std::endl;
+        std::cerr << "    maxDrawCount: " << (uint64_t)(maxDrawCount) << std::endl;
+        std::cerr << "    stride: " << (uint64_t)(stride) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdDrawIndexedIndirectCount(const Napi::CallbackInfo& info_) {
@@ -9414,8 +10853,21 @@ static Napi::Value rawCmdDrawIndexedIndirectCount(const Napi::CallbackInfo& info
 
     if (!info_[6].IsNumber() && !info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 6 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (uint32_t)(info_[6].IsBigInt() ? info_[6].As<Napi::BigInt>().Uint64Value(&lossless) : info_[6].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDrawIndexedIndirectCount(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+    try {
+        ::vkCmdDrawIndexedIndirectCount(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDrawIndexedIndirectCount command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
+        std::cerr << "    offset: " << (uint64_t)(offset) << std::endl;
+        std::cerr << "    countBuffer: " << (uint64_t)(countBuffer) << std::endl;
+        std::cerr << "    countBufferOffset: " << (uint64_t)(countBufferOffset) << std::endl;
+        std::cerr << "    maxDrawCount: " << (uint64_t)(maxDrawCount) << std::endl;
+        std::cerr << "    stride: " << (uint64_t)(stride) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_NV_device_diagnostic_checkpoints
@@ -9430,8 +10882,16 @@ static Napi::Value rawCmdSetCheckpointNV(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pCheckpointMarker = (void const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdSetCheckpointNV(commandBuffer, pCheckpointMarker);
+    try {
+        ::vkCmdSetCheckpointNV(commandBuffer, pCheckpointMarker);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetCheckpointNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pCheckpointMarker: " << (uint64_t)(pCheckpointMarker) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9449,8 +10909,17 @@ static Napi::Value rawGetQueueCheckpointDataNV(const Napi::CallbackInfo& info_) 
     decltype(auto) pCheckpointDataCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pCheckpointData = (VkCheckpointDataNV*)GetAddress(env, info_[2]);
-    
-    ::vkGetQueueCheckpointDataNV(queue, pCheckpointDataCount, pCheckpointData);
+    try {
+        ::vkGetQueueCheckpointDataNV(queue, pCheckpointDataCount, pCheckpointData);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetQueueCheckpointDataNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
+        std::cerr << "    pCheckpointDataCount: " << (uint64_t)(pCheckpointDataCount) << std::endl;
+        std::cerr << "    pCheckpointData: " << (uint64_t)(pCheckpointData) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9476,8 +10945,20 @@ static Napi::Value rawCmdBindTransformFeedbackBuffersEXT(const Napi::CallbackInf
     decltype(auto) pOffsets = (VkDeviceSize const*)GetAddress(env, info_[4]);
 
     decltype(auto) pSizes = (VkDeviceSize const*)GetAddress(env, info_[5]);
-    
-    ::vkCmdBindTransformFeedbackBuffersEXT(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets, pSizes);
+    try {
+        ::vkCmdBindTransformFeedbackBuffersEXT(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets, pSizes);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBindTransformFeedbackBuffersEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    firstBinding: " << (uint64_t)(firstBinding) << std::endl;
+        std::cerr << "    bindingCount: " << (uint64_t)(bindingCount) << std::endl;
+        std::cerr << "    pBuffers: " << (uint64_t)(pBuffers) << std::endl;
+        std::cerr << "    pOffsets: " << (uint64_t)(pOffsets) << std::endl;
+        std::cerr << "    pSizes: " << (uint64_t)(pSizes) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9501,8 +10982,19 @@ static Napi::Value rawCmdBeginTransformFeedbackEXT(const Napi::CallbackInfo& inf
     decltype(auto) pCounterBuffers = (VkBuffer const*)GetAddress(env, info_[3]);
 
     decltype(auto) pCounterBufferOffsets = (VkDeviceSize const*)GetAddress(env, info_[4]);
-    
-    ::vkCmdBeginTransformFeedbackEXT(commandBuffer, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
+    try {
+        ::vkCmdBeginTransformFeedbackEXT(commandBuffer, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBeginTransformFeedbackEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    firstCounterBuffer: " << (uint64_t)(firstCounterBuffer) << std::endl;
+        std::cerr << "    counterBufferCount: " << (uint64_t)(counterBufferCount) << std::endl;
+        std::cerr << "    pCounterBuffers: " << (uint64_t)(pCounterBuffers) << std::endl;
+        std::cerr << "    pCounterBufferOffsets: " << (uint64_t)(pCounterBufferOffsets) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9526,8 +11018,19 @@ static Napi::Value rawCmdEndTransformFeedbackEXT(const Napi::CallbackInfo& info_
     decltype(auto) pCounterBuffers = (VkBuffer const*)GetAddress(env, info_[3]);
 
     decltype(auto) pCounterBufferOffsets = (VkDeviceSize const*)GetAddress(env, info_[4]);
-    
-    ::vkCmdEndTransformFeedbackEXT(commandBuffer, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
+    try {
+        ::vkCmdEndTransformFeedbackEXT(commandBuffer, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdEndTransformFeedbackEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    firstCounterBuffer: " << (uint64_t)(firstCounterBuffer) << std::endl;
+        std::cerr << "    counterBufferCount: " << (uint64_t)(counterBufferCount) << std::endl;
+        std::cerr << "    pCounterBuffers: " << (uint64_t)(pCounterBuffers) << std::endl;
+        std::cerr << "    pCounterBufferOffsets: " << (uint64_t)(pCounterBufferOffsets) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9553,8 +11056,19 @@ static Napi::Value rawCmdBeginQueryIndexedEXT(const Napi::CallbackInfo& info_) {
 
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (index)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) index = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdBeginQueryIndexedEXT(commandBuffer, queryPool, query, flags, index);
+    try {
+        ::vkCmdBeginQueryIndexedEXT(commandBuffer, queryPool, query, flags, index);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBeginQueryIndexedEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
+        std::cerr << "    query: " << (uint64_t)(query) << std::endl;
+        std::cerr << "    flags: " << (uint64_t)(flags) << std::endl;
+        std::cerr << "    index: " << (uint64_t)(index) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9577,8 +11091,18 @@ static Napi::Value rawCmdEndQueryIndexedEXT(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (index)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) index = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdEndQueryIndexedEXT(commandBuffer, queryPool, query, index);
+    try {
+        ::vkCmdEndQueryIndexedEXT(commandBuffer, queryPool, query, index);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdEndQueryIndexedEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
+        std::cerr << "    query: " << (uint64_t)(query) << std::endl;
+        std::cerr << "    index: " << (uint64_t)(index) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9610,8 +11134,21 @@ static Napi::Value rawCmdDrawIndirectByteCountEXT(const Napi::CallbackInfo& info
 
     if (!info_[6].IsNumber() && !info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 6 argument (vertexStride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) vertexStride = (uint32_t)(info_[6].IsBigInt() ? info_[6].As<Napi::BigInt>().Uint64Value(&lossless) : info_[6].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDrawIndirectByteCountEXT(commandBuffer, instanceCount, firstInstance, counterBuffer, counterBufferOffset, counterOffset, vertexStride);
+    try {
+        ::vkCmdDrawIndirectByteCountEXT(commandBuffer, instanceCount, firstInstance, counterBuffer, counterBufferOffset, counterOffset, vertexStride);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDrawIndirectByteCountEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    instanceCount: " << (uint64_t)(instanceCount) << std::endl;
+        std::cerr << "    firstInstance: " << (uint64_t)(firstInstance) << std::endl;
+        std::cerr << "    counterBuffer: " << (uint64_t)(counterBuffer) << std::endl;
+        std::cerr << "    counterBufferOffset: " << (uint64_t)(counterBufferOffset) << std::endl;
+        std::cerr << "    counterOffset: " << (uint64_t)(counterOffset) << std::endl;
+        std::cerr << "    vertexStride: " << (uint64_t)(vertexStride) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9633,8 +11170,18 @@ static Napi::Value rawCmdSetExclusiveScissorNV(const Napi::CallbackInfo& info_) 
     decltype(auto) exclusiveScissorCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pExclusiveScissors = (VkRect2D const*)GetAddress(env, info_[3]);
-    
-    ::vkCmdSetExclusiveScissorNV(commandBuffer, firstExclusiveScissor, exclusiveScissorCount, pExclusiveScissors);
+    try {
+        ::vkCmdSetExclusiveScissorNV(commandBuffer, firstExclusiveScissor, exclusiveScissorCount, pExclusiveScissors);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetExclusiveScissorNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    firstExclusiveScissor: " << (uint64_t)(firstExclusiveScissor) << std::endl;
+        std::cerr << "    exclusiveScissorCount: " << (uint64_t)(exclusiveScissorCount) << std::endl;
+        std::cerr << "    pExclusiveScissors: " << (uint64_t)(pExclusiveScissors) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9654,8 +11201,17 @@ static Napi::Value rawCmdBindShadingRateImageNV(const Napi::CallbackInfo& info_)
 
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (imageLayout)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) imageLayout = (VkImageLayout)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdBindShadingRateImageNV(commandBuffer, imageView, imageLayout);
+    try {
+        ::vkCmdBindShadingRateImageNV(commandBuffer, imageView, imageLayout);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBindShadingRateImageNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    imageView: " << (uint64_t)(imageView) << std::endl;
+        std::cerr << "    imageLayout: " << (uint64_t)(imageLayout) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9677,8 +11233,18 @@ static Napi::Value rawCmdSetViewportShadingRatePaletteNV(const Napi::CallbackInf
     decltype(auto) viewportCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pShadingRatePalettes = (VkShadingRatePaletteNV const*)GetAddress(env, info_[3]);
-    
-    ::vkCmdSetViewportShadingRatePaletteNV(commandBuffer, firstViewport, viewportCount, pShadingRatePalettes);
+    try {
+        ::vkCmdSetViewportShadingRatePaletteNV(commandBuffer, firstViewport, viewportCount, pShadingRatePalettes);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetViewportShadingRatePaletteNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    firstViewport: " << (uint64_t)(firstViewport) << std::endl;
+        std::cerr << "    viewportCount: " << (uint64_t)(viewportCount) << std::endl;
+        std::cerr << "    pShadingRatePalettes: " << (uint64_t)(pShadingRatePalettes) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9700,8 +11266,18 @@ static Napi::Value rawCmdSetCoarseSampleOrderNV(const Napi::CallbackInfo& info_)
     decltype(auto) customSampleOrderCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pCustomSampleOrders = (VkCoarseSampleOrderCustomNV const*)GetAddress(env, info_[3]);
-    
-    ::vkCmdSetCoarseSampleOrderNV(commandBuffer, sampleOrderType, customSampleOrderCount, pCustomSampleOrders);
+    try {
+        ::vkCmdSetCoarseSampleOrderNV(commandBuffer, sampleOrderType, customSampleOrderCount, pCustomSampleOrders);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetCoarseSampleOrderNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    sampleOrderType: " << (uint64_t)(sampleOrderType) << std::endl;
+        std::cerr << "    customSampleOrderCount: " << (uint64_t)(customSampleOrderCount) << std::endl;
+        std::cerr << "    pCustomSampleOrders: " << (uint64_t)(pCustomSampleOrders) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9721,8 +11297,17 @@ static Napi::Value rawCmdDrawMeshTasksNV(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (firstTask)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) firstTask = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDrawMeshTasksNV(commandBuffer, taskCount, firstTask);
+    try {
+        ::vkCmdDrawMeshTasksNV(commandBuffer, taskCount, firstTask);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDrawMeshTasksNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    taskCount: " << (uint64_t)(taskCount) << std::endl;
+        std::cerr << "    firstTask: " << (uint64_t)(firstTask) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9748,8 +11333,19 @@ static Napi::Value rawCmdDrawMeshTasksIndirectNV(const Napi::CallbackInfo& info_
 
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDrawMeshTasksIndirectNV(commandBuffer, buffer, offset, drawCount, stride);
+    try {
+        ::vkCmdDrawMeshTasksIndirectNV(commandBuffer, buffer, offset, drawCount, stride);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDrawMeshTasksIndirectNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
+        std::cerr << "    offset: " << (uint64_t)(offset) << std::endl;
+        std::cerr << "    drawCount: " << (uint64_t)(drawCount) << std::endl;
+        std::cerr << "    stride: " << (uint64_t)(stride) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9781,8 +11377,21 @@ static Napi::Value rawCmdDrawMeshTasksIndirectCountNV(const Napi::CallbackInfo& 
 
     if (!info_[6].IsNumber() && !info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 6 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (uint32_t)(info_[6].IsBigInt() ? info_[6].As<Napi::BigInt>().Uint64Value(&lossless) : info_[6].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDrawMeshTasksIndirectCountNV(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+    try {
+        ::vkCmdDrawMeshTasksIndirectCountNV(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDrawMeshTasksIndirectCountNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
+        std::cerr << "    offset: " << (uint64_t)(offset) << std::endl;
+        std::cerr << "    countBuffer: " << (uint64_t)(countBuffer) << std::endl;
+        std::cerr << "    countBufferOffset: " << (uint64_t)(countBufferOffset) << std::endl;
+        std::cerr << "    maxDrawCount: " << (uint64_t)(maxDrawCount) << std::endl;
+        std::cerr << "    stride: " << (uint64_t)(stride) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9805,8 +11414,18 @@ static Napi::Value rawCmdDrawMeshTasksEXT(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (groupCountZ)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) groupCountZ = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDrawMeshTasksEXT(commandBuffer, groupCountX, groupCountY, groupCountZ);
+    try {
+        ::vkCmdDrawMeshTasksEXT(commandBuffer, groupCountX, groupCountY, groupCountZ);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDrawMeshTasksEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    groupCountX: " << (uint64_t)(groupCountX) << std::endl;
+        std::cerr << "    groupCountY: " << (uint64_t)(groupCountY) << std::endl;
+        std::cerr << "    groupCountZ: " << (uint64_t)(groupCountZ) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9832,8 +11451,19 @@ static Napi::Value rawCmdDrawMeshTasksIndirectEXT(const Napi::CallbackInfo& info
 
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDrawMeshTasksIndirectEXT(commandBuffer, buffer, offset, drawCount, stride);
+    try {
+        ::vkCmdDrawMeshTasksIndirectEXT(commandBuffer, buffer, offset, drawCount, stride);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDrawMeshTasksIndirectEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
+        std::cerr << "    offset: " << (uint64_t)(offset) << std::endl;
+        std::cerr << "    drawCount: " << (uint64_t)(drawCount) << std::endl;
+        std::cerr << "    stride: " << (uint64_t)(stride) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9865,8 +11495,21 @@ static Napi::Value rawCmdDrawMeshTasksIndirectCountEXT(const Napi::CallbackInfo&
 
     if (!info_[6].IsNumber() && !info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 6 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (uint32_t)(info_[6].IsBigInt() ? info_[6].As<Napi::BigInt>().Uint64Value(&lossless) : info_[6].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDrawMeshTasksIndirectCountEXT(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+    try {
+        ::vkCmdDrawMeshTasksIndirectCountEXT(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDrawMeshTasksIndirectCountEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    buffer: " << (uint64_t)(buffer) << std::endl;
+        std::cerr << "    offset: " << (uint64_t)(offset) << std::endl;
+        std::cerr << "    countBuffer: " << (uint64_t)(countBuffer) << std::endl;
+        std::cerr << "    countBufferOffset: " << (uint64_t)(countBufferOffset) << std::endl;
+        std::cerr << "    maxDrawCount: " << (uint64_t)(maxDrawCount) << std::endl;
+        std::cerr << "    stride: " << (uint64_t)(stride) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9886,13 +11529,13 @@ static Napi::Value rawCompileDeferredNV(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (shader)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) shader = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
-    
     try {
         decltype(auto) result = ::vkCompileDeferredNV(device, pipeline, shader);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCompileDeferredNV";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -9925,13 +11568,13 @@ static Napi::Value rawCreateAccelerationStructureNV(const Napi::CallbackInfo& in
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pAccelerationStructure = (VkAccelerationStructureNV*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateAccelerationStructureNV(device, pCreateInfo, pAllocator, pAccelerationStructure);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateAccelerationStructureNV";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -9965,8 +11608,17 @@ static Napi::Value rawCmdBindInvocationMaskHUAWEI(const Napi::CallbackInfo& info
 
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (imageLayout)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) imageLayout = (VkImageLayout)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdBindInvocationMaskHUAWEI(commandBuffer, imageView, imageLayout);
+    try {
+        ::vkCmdBindInvocationMaskHUAWEI(commandBuffer, imageView, imageLayout);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBindInvocationMaskHUAWEI command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    imageView: " << (uint64_t)(imageView) << std::endl;
+        std::cerr << "    imageLayout: " << (uint64_t)(imageLayout) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -9985,8 +11637,17 @@ static Napi::Value rawDestroyAccelerationStructureKHR(const Napi::CallbackInfo& 
     decltype(auto) accelerationStructure = (VkAccelerationStructureKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyAccelerationStructureKHR(device, accelerationStructure, pAllocator);
+    try {
+        ::vkDestroyAccelerationStructureKHR(device, accelerationStructure, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyAccelerationStructureKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    accelerationStructure: " << (uint64_t)(accelerationStructure) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -10005,8 +11666,17 @@ static Napi::Value rawDestroyAccelerationStructureNV(const Napi::CallbackInfo& i
     decltype(auto) accelerationStructure = (VkAccelerationStructureNV)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyAccelerationStructureNV(device, accelerationStructure, pAllocator);
+    try {
+        ::vkDestroyAccelerationStructureNV(device, accelerationStructure, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyAccelerationStructureNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    accelerationStructure: " << (uint64_t)(accelerationStructure) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -10024,8 +11694,17 @@ static Napi::Value rawGetAccelerationStructureMemoryRequirementsNV(const Napi::C
     decltype(auto) pInfo = (VkAccelerationStructureMemoryRequirementsInfoNV const*)GetAddress(env, info_[1]);
 
     decltype(auto) pMemoryRequirements = (VkMemoryRequirements2KHR*)GetAddress(env, info_[2]);
-    
-    ::vkGetAccelerationStructureMemoryRequirementsNV(device, pInfo, pMemoryRequirements);
+    try {
+        ::vkGetAccelerationStructureMemoryRequirementsNV(device, pInfo, pMemoryRequirements);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetAccelerationStructureMemoryRequirementsNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        std::cerr << "    pMemoryRequirements: " << (uint64_t)(pMemoryRequirements) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -10044,13 +11723,13 @@ static Napi::Value rawBindAccelerationStructureMemoryNV(const Napi::CallbackInfo
     decltype(auto) bindInfoCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pBindInfos = (VkBindAccelerationStructureMemoryInfoNV const*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkBindAccelerationStructureMemoryNV(device, bindInfoCount, pBindInfos);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkBindAccelerationStructureMemoryNV";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -10086,8 +11765,18 @@ static Napi::Value rawCmdCopyAccelerationStructureNV(const Napi::CallbackInfo& i
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (mode)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) mode = (VkCopyAccelerationStructureModeKHR)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdCopyAccelerationStructureNV(commandBuffer, dst, src, mode);
+    try {
+        ::vkCmdCopyAccelerationStructureNV(commandBuffer, dst, src, mode);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyAccelerationStructureNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    dst: " << (uint64_t)(dst) << std::endl;
+        std::cerr << "    src: " << (uint64_t)(src) << std::endl;
+        std::cerr << "    mode: " << (uint64_t)(mode) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -10103,8 +11792,16 @@ static Napi::Value rawCmdCopyAccelerationStructureKHR(const Napi::CallbackInfo& 
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkCopyAccelerationStructureInfoKHR const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdCopyAccelerationStructureKHR(commandBuffer, pInfo);
+    try {
+        ::vkCmdCopyAccelerationStructureKHR(commandBuffer, pInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyAccelerationStructureKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -10123,13 +11820,13 @@ static Napi::Value rawCopyAccelerationStructureKHR(const Napi::CallbackInfo& inf
     decltype(auto) deferredOperation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkCopyAccelerationStructureInfoKHR const*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkCopyAccelerationStructureKHR(device, deferredOperation, pInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCopyAccelerationStructureKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -10158,8 +11855,16 @@ static Napi::Value rawCmdCopyAccelerationStructureToMemoryKHR(const Napi::Callba
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkCopyAccelerationStructureToMemoryInfoKHR const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdCopyAccelerationStructureToMemoryKHR(commandBuffer, pInfo);
+    try {
+        ::vkCmdCopyAccelerationStructureToMemoryKHR(commandBuffer, pInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyAccelerationStructureToMemoryKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -10178,13 +11883,13 @@ static Napi::Value rawCopyAccelerationStructureToMemoryKHR(const Napi::CallbackI
     decltype(auto) deferredOperation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkCopyAccelerationStructureToMemoryInfoKHR const*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkCopyAccelerationStructureToMemoryKHR(device, deferredOperation, pInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCopyAccelerationStructureToMemoryKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -10213,8 +11918,16 @@ static Napi::Value rawCmdCopyMemoryToAccelerationStructureKHR(const Napi::Callba
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkCopyMemoryToAccelerationStructureInfoKHR const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdCopyMemoryToAccelerationStructureKHR(commandBuffer, pInfo);
+    try {
+        ::vkCmdCopyMemoryToAccelerationStructureKHR(commandBuffer, pInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyMemoryToAccelerationStructureKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -10233,13 +11946,13 @@ static Napi::Value rawCopyMemoryToAccelerationStructureKHR(const Napi::CallbackI
     decltype(auto) deferredOperation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkCopyMemoryToAccelerationStructureInfoKHR const*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkCopyMemoryToAccelerationStructureKHR(device, deferredOperation, pInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCopyMemoryToAccelerationStructureKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -10280,8 +11993,20 @@ static Napi::Value rawCmdWriteAccelerationStructuresPropertiesKHR(const Napi::Ca
 
     if (!info_[5].IsNumber() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 5 argument (firstQuery)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) firstQuery = (uint32_t)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdWriteAccelerationStructuresPropertiesKHR(commandBuffer, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
+    try {
+        ::vkCmdWriteAccelerationStructuresPropertiesKHR(commandBuffer, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdWriteAccelerationStructuresPropertiesKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    accelerationStructureCount: " << (uint64_t)(accelerationStructureCount) << std::endl;
+        std::cerr << "    pAccelerationStructures: " << (uint64_t)(pAccelerationStructures) << std::endl;
+        std::cerr << "    queryType: " << (uint64_t)(queryType) << std::endl;
+        std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
+        std::cerr << "    firstQuery: " << (uint64_t)(firstQuery) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -10309,8 +12034,20 @@ static Napi::Value rawCmdWriteAccelerationStructuresPropertiesNV(const Napi::Cal
 
     if (!info_[5].IsNumber() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 5 argument (firstQuery)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) firstQuery = (uint32_t)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdWriteAccelerationStructuresPropertiesNV(commandBuffer, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
+    try {
+        ::vkCmdWriteAccelerationStructuresPropertiesNV(commandBuffer, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdWriteAccelerationStructuresPropertiesNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    accelerationStructureCount: " << (uint64_t)(accelerationStructureCount) << std::endl;
+        std::cerr << "    pAccelerationStructures: " << (uint64_t)(pAccelerationStructures) << std::endl;
+        std::cerr << "    queryType: " << (uint64_t)(queryType) << std::endl;
+        std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
+        std::cerr << "    firstQuery: " << (uint64_t)(firstQuery) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -10347,8 +12084,23 @@ static Napi::Value rawCmdBuildAccelerationStructureNV(const Napi::CallbackInfo& 
 
     if (!info_[8].IsBigInt() && !info_[8].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 8 argument (scratchOffset)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) scratchOffset = (VkDeviceSize)(info_[8].IsBigInt() ? info_[8].As<Napi::BigInt>().Uint64Value(&lossless) : info_[8].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdBuildAccelerationStructureNV(commandBuffer, pInfo, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
+    try {
+        ::vkCmdBuildAccelerationStructureNV(commandBuffer, pInfo, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBuildAccelerationStructureNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        std::cerr << "    instanceData: " << (uint64_t)(instanceData) << std::endl;
+        std::cerr << "    instanceOffset: " << (uint64_t)(instanceOffset) << std::endl;
+        std::cerr << "    update: " << (uint64_t)(update) << std::endl;
+        std::cerr << "    dst: " << (uint64_t)(dst) << std::endl;
+        std::cerr << "    src: " << (uint64_t)(src) << std::endl;
+        std::cerr << "    scratch: " << (uint64_t)(scratch) << std::endl;
+        std::cerr << "    scratchOffset: " << (uint64_t)(scratchOffset) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -10378,13 +12130,13 @@ static Napi::Value rawWriteAccelerationStructuresPropertiesKHR(const Napi::Callb
 
     if (!info_[6].IsBigInt() && !info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 6 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (size_t)(info_[6].IsBigInt() ? info_[6].As<Napi::BigInt>().Uint64Value(&lossless) : info_[6].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkWriteAccelerationStructuresPropertiesKHR(device, accelerationStructureCount, pAccelerationStructures, queryType, dataSize, pData, stride);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkWriteAccelerationStructuresPropertiesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -10432,8 +12184,22 @@ static Napi::Value rawCmdTraceRaysKHR(const Napi::CallbackInfo& info_) {
 
     if (!info_[7].IsNumber() && !info_[7].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 7 argument (depth)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) depth = (uint32_t)(info_[7].IsBigInt() ? info_[7].As<Napi::BigInt>().Uint64Value(&lossless) : info_[7].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdTraceRaysKHR(commandBuffer, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, width, height, depth);
+    try {
+        ::vkCmdTraceRaysKHR(commandBuffer, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, width, height, depth);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdTraceRaysKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pRaygenShaderBindingTable: " << (uint64_t)(pRaygenShaderBindingTable) << std::endl;
+        std::cerr << "    pMissShaderBindingTable: " << (uint64_t)(pMissShaderBindingTable) << std::endl;
+        std::cerr << "    pHitShaderBindingTable: " << (uint64_t)(pHitShaderBindingTable) << std::endl;
+        std::cerr << "    pCallableShaderBindingTable: " << (uint64_t)(pCallableShaderBindingTable) << std::endl;
+        std::cerr << "    width: " << (uint64_t)(width) << std::endl;
+        std::cerr << "    height: " << (uint64_t)(height) << std::endl;
+        std::cerr << "    depth: " << (uint64_t)(depth) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -10489,8 +12255,29 @@ static Napi::Value rawCmdTraceRaysNV(const Napi::CallbackInfo& info_) {
 
     if (!info_[14].IsNumber() && !info_[14].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 14 argument (depth)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) depth = (uint32_t)(info_[14].IsBigInt() ? info_[14].As<Napi::BigInt>().Uint64Value(&lossless) : info_[14].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdTraceRaysNV(commandBuffer, raygenShaderBindingTableBuffer, raygenShaderBindingOffset, missShaderBindingTableBuffer, missShaderBindingOffset, missShaderBindingStride, hitShaderBindingTableBuffer, hitShaderBindingOffset, hitShaderBindingStride, callableShaderBindingTableBuffer, callableShaderBindingOffset, callableShaderBindingStride, width, height, depth);
+    try {
+        ::vkCmdTraceRaysNV(commandBuffer, raygenShaderBindingTableBuffer, raygenShaderBindingOffset, missShaderBindingTableBuffer, missShaderBindingOffset, missShaderBindingStride, hitShaderBindingTableBuffer, hitShaderBindingOffset, hitShaderBindingStride, callableShaderBindingTableBuffer, callableShaderBindingOffset, callableShaderBindingStride, width, height, depth);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdTraceRaysNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    raygenShaderBindingTableBuffer: " << (uint64_t)(raygenShaderBindingTableBuffer) << std::endl;
+        std::cerr << "    raygenShaderBindingOffset: " << (uint64_t)(raygenShaderBindingOffset) << std::endl;
+        std::cerr << "    missShaderBindingTableBuffer: " << (uint64_t)(missShaderBindingTableBuffer) << std::endl;
+        std::cerr << "    missShaderBindingOffset: " << (uint64_t)(missShaderBindingOffset) << std::endl;
+        std::cerr << "    missShaderBindingStride: " << (uint64_t)(missShaderBindingStride) << std::endl;
+        std::cerr << "    hitShaderBindingTableBuffer: " << (uint64_t)(hitShaderBindingTableBuffer) << std::endl;
+        std::cerr << "    hitShaderBindingOffset: " << (uint64_t)(hitShaderBindingOffset) << std::endl;
+        std::cerr << "    hitShaderBindingStride: " << (uint64_t)(hitShaderBindingStride) << std::endl;
+        std::cerr << "    callableShaderBindingTableBuffer: " << (uint64_t)(callableShaderBindingTableBuffer) << std::endl;
+        std::cerr << "    callableShaderBindingOffset: " << (uint64_t)(callableShaderBindingOffset) << std::endl;
+        std::cerr << "    callableShaderBindingStride: " << (uint64_t)(callableShaderBindingStride) << std::endl;
+        std::cerr << "    width: " << (uint64_t)(width) << std::endl;
+        std::cerr << "    height: " << (uint64_t)(height) << std::endl;
+        std::cerr << "    depth: " << (uint64_t)(depth) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -10518,13 +12305,13 @@ static Napi::Value rawGetRayTracingShaderGroupHandlesKHR(const Napi::CallbackInf
     decltype(auto) dataSize = (size_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Int64Value());
 
     decltype(auto) pData = (void*)GetAddress(env, info_[5]);
-    
     try {
         decltype(auto) result = ::vkGetRayTracingShaderGroupHandlesKHR(device, pipeline, firstGroup, groupCount, dataSize, pData);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetRayTracingShaderGroupHandlesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -10568,13 +12355,13 @@ static Napi::Value rawGetRayTracingCaptureReplayShaderGroupHandlesKHR(const Napi
     decltype(auto) dataSize = (size_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Int64Value());
 
     decltype(auto) pData = (void*)GetAddress(env, info_[5]);
-    
     try {
         decltype(auto) result = ::vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(device, pipeline, firstGroup, groupCount, dataSize, pData);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetRayTracingCaptureReplayShaderGroupHandlesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -10612,13 +12399,13 @@ static Napi::Value rawGetAccelerationStructureHandleNV(const Napi::CallbackInfo&
     decltype(auto) dataSize = (size_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
     decltype(auto) pData = (void*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetAccelerationStructureHandleNV(device, accelerationStructure, dataSize, pData);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetAccelerationStructureHandleNV";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -10658,13 +12445,13 @@ static Napi::Value rawCreateRayTracingPipelinesNV(const Napi::CallbackInfo& info
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[4]);
 
     decltype(auto) pPipelines = (VkPipeline*)GetAddress(env, info_[5]);
-    
     try {
         decltype(auto) result = ::vkCreateRayTracingPipelinesNV(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateRayTracingPipelinesNV";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -10709,13 +12496,13 @@ static Napi::Value rawCreateRayTracingPipelinesKHR(const Napi::CallbackInfo& inf
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[5]);
 
     decltype(auto) pPipelines = (VkPipeline*)GetAddress(env, info_[6]);
-    
     try {
         decltype(auto) result = ::vkCreateRayTracingPipelinesKHR(device, deferredOperation, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateRayTracingPipelinesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -10750,13 +12537,13 @@ static Napi::Value rawGetPhysicalDeviceCooperativeMatrixPropertiesNV(const Napi:
     decltype(auto) pPropertyCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pProperties = (VkCooperativeMatrixPropertiesNV*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(physicalDevice, pPropertyCount, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceCooperativeMatrixPropertiesNV";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -10794,8 +12581,20 @@ static Napi::Value rawCmdTraceRaysIndirectKHR(const Napi::CallbackInfo& info_) {
 
     if (!info_[5].IsBigInt() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 5 argument (indirectDeviceAddress)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) indirectDeviceAddress = (VkDeviceAddress)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdTraceRaysIndirectKHR(commandBuffer, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, indirectDeviceAddress);
+    try {
+        ::vkCmdTraceRaysIndirectKHR(commandBuffer, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, indirectDeviceAddress);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdTraceRaysIndirectKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pRaygenShaderBindingTable: " << (uint64_t)(pRaygenShaderBindingTable) << std::endl;
+        std::cerr << "    pMissShaderBindingTable: " << (uint64_t)(pMissShaderBindingTable) << std::endl;
+        std::cerr << "    pHitShaderBindingTable: " << (uint64_t)(pHitShaderBindingTable) << std::endl;
+        std::cerr << "    pCallableShaderBindingTable: " << (uint64_t)(pCallableShaderBindingTable) << std::endl;
+        std::cerr << "    indirectDeviceAddress: " << (uint64_t)(indirectDeviceAddress) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -10812,8 +12611,16 @@ static Napi::Value rawCmdTraceRaysIndirect2KHR(const Napi::CallbackInfo& info_) 
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (indirectDeviceAddress)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) indirectDeviceAddress = (VkDeviceAddress)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdTraceRaysIndirect2KHR(commandBuffer, indirectDeviceAddress);
+    try {
+        ::vkCmdTraceRaysIndirect2KHR(commandBuffer, indirectDeviceAddress);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdTraceRaysIndirect2KHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    indirectDeviceAddress: " << (uint64_t)(indirectDeviceAddress) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -10831,8 +12638,17 @@ static Napi::Value rawGetDeviceAccelerationStructureCompatibilityKHR(const Napi:
     decltype(auto) pVersionInfo = (VkAccelerationStructureVersionInfoKHR const*)GetAddress(env, info_[1]);
 
     decltype(auto) pCompatibility = (VkAccelerationStructureCompatibilityKHR*)GetAddress(env, info_[2]);
-    
-    ::vkGetDeviceAccelerationStructureCompatibilityKHR(device, pVersionInfo, pCompatibility);
+    try {
+        ::vkGetDeviceAccelerationStructureCompatibilityKHR(device, pVersionInfo, pCompatibility);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDeviceAccelerationStructureCompatibilityKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pVersionInfo: " << (uint64_t)(pVersionInfo) << std::endl;
+        std::cerr << "    pCompatibility: " << (uint64_t)(pCompatibility) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -10855,9 +12671,20 @@ static Napi::Value rawGetRayTracingShaderGroupStackSizeKHR(const Napi::CallbackI
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (groupShader)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) groupShader = (VkShaderGroupShaderKHR)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
-    
-    decltype(auto) result = ::vkGetRayTracingShaderGroupStackSizeKHR(device, pipeline, group, groupShader);
-    return Napi::BigInt::New(env, (uint64_t)result);
+    try {
+        decltype(auto) result = ::vkGetRayTracingShaderGroupStackSizeKHR(device, pipeline, group, groupShader);
+        return Napi::BigInt::New(env, result);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetRayTracingShaderGroupStackSizeKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pipeline: " << (uint64_t)(pipeline) << std::endl;
+        std::cerr << "    group: " << (uint64_t)(group) << std::endl;
+        std::cerr << "    groupShader: " << (uint64_t)(groupShader) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
+    return env.Null();
 }
 #endif
 #ifdef VK_KHR_ray_tracing_pipeline
@@ -10873,8 +12700,16 @@ static Napi::Value rawCmdSetRayTracingPipelineStackSizeKHR(const Napi::CallbackI
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (pipelineStackSize)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) pipelineStackSize = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetRayTracingPipelineStackSizeKHR(commandBuffer, pipelineStackSize);
+    try {
+        ::vkCmdSetRayTracingPipelineStackSizeKHR(commandBuffer, pipelineStackSize);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetRayTracingPipelineStackSizeKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pipelineStackSize: " << (uint64_t)(pipelineStackSize) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -10890,13 +12725,13 @@ static Napi::Value rawGetImageViewHandleNVX(const Napi::CallbackInfo& info_) {
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkImageViewHandleInfoNVX const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkGetImageViewHandleNVX(device, pInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetImageViewHandleNVX";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -10927,13 +12762,13 @@ static Napi::Value rawGetImageViewAddressNVX(const Napi::CallbackInfo& info_) {
     decltype(auto) imageView = (VkImageView)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pProperties = (VkImageViewAddressPropertiesNVX*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetImageViewAddressNVX(device, imageView, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetImageViewAddressNVX";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -10966,13 +12801,13 @@ static Napi::Value rawGetPhysicalDeviceSurfacePresentModes2EXT(const Napi::Callb
     decltype(auto) pPresentModeCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pPresentModes = (VkPresentModeKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceSurfacePresentModes2EXT(physicalDevice, pSurfaceInfo, pPresentModeCount, pPresentModes);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSurfacePresentModes2EXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11004,13 +12839,13 @@ static Napi::Value rawGetDeviceGroupSurfacePresentModes2EXT(const Napi::Callback
     decltype(auto) pSurfaceInfo = (VkPhysicalDeviceSurfaceInfo2KHR const*)GetAddress(env, info_[1]);
 
     decltype(auto) pModes = (VkDeviceGroupPresentModeFlagsKHR*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetDeviceGroupSurfacePresentModes2EXT(device, pSurfaceInfo, pModes);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetDeviceGroupSurfacePresentModes2EXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11040,13 +12875,13 @@ static Napi::Value rawAcquireFullScreenExclusiveModeEXT(const Napi::CallbackInfo
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (swapchain)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) swapchain = (VkSwapchainKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkAcquireFullScreenExclusiveModeEXT(device, swapchain);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkAcquireFullScreenExclusiveModeEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11075,13 +12910,13 @@ static Napi::Value rawReleaseFullScreenExclusiveModeEXT(const Napi::CallbackInfo
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (swapchain)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) swapchain = (VkSwapchainKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkReleaseFullScreenExclusiveModeEXT(device, swapchain);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkReleaseFullScreenExclusiveModeEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11116,13 +12951,13 @@ static Napi::Value rawEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCounters
     decltype(auto) pCounters = (VkPerformanceCounterKHR*)GetAddress(env, info_[3]);
 
     decltype(auto) pCounterDescriptions = (VkPerformanceCounterDescriptionKHR*)GetAddress(env, info_[4]);
-    
     try {
         decltype(auto) result = ::vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(physicalDevice, queueFamilyIndex, pCounterCount, pCounters, pCounterDescriptions);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11155,8 +12990,17 @@ static Napi::Value rawGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(cons
     decltype(auto) pPerformanceQueryCreateInfo = (VkQueryPoolPerformanceCreateInfoKHR const*)GetAddress(env, info_[1]);
 
     decltype(auto) pNumPasses = (uint32_t*)GetAddress(env, info_[2]);
-    
-    ::vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(physicalDevice, pPerformanceQueryCreateInfo, pNumPasses);
+    try {
+        ::vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(physicalDevice, pPerformanceQueryCreateInfo, pNumPasses);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    physicalDevice: " << (uint64_t)(physicalDevice) << std::endl;
+        std::cerr << "    pPerformanceQueryCreateInfo: " << (uint64_t)(pPerformanceQueryCreateInfo) << std::endl;
+        std::cerr << "    pNumPasses: " << (uint64_t)(pNumPasses) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -11172,13 +13016,13 @@ static Napi::Value rawAcquireProfilingLockKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkAcquireProfilingLockInfoKHR const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkAcquireProfilingLockKHR(device, pInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkAcquireProfilingLockKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11204,8 +13048,15 @@ static Napi::Value rawReleaseProfilingLockKHR(const Napi::CallbackInfo& info_) {
     
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
-    
-    ::vkReleaseProfilingLockKHR(device);
+    try {
+        ::vkReleaseProfilingLockKHR(device);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkReleaseProfilingLockKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -11224,13 +13075,13 @@ static Napi::Value rawGetImageDrmFormatModifierPropertiesEXT(const Napi::Callbac
     decltype(auto) image = (VkImage)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pProperties = (VkImageDrmFormatModifierPropertiesEXT*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetImageDrmFormatModifierPropertiesEXT(device, image, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetImageDrmFormatModifierPropertiesEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11258,9 +13109,18 @@ static Napi::Value rawGetBufferOpaqueCaptureAddress(const Napi::CallbackInfo& in
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkBufferDeviceAddressInfo const*)GetAddress(env, info_[1]);
-    
-    decltype(auto) result = ::vkGetBufferOpaqueCaptureAddress(device, pInfo);
-    return Napi::BigInt::New(env, (uint64_t)result);
+    try {
+        decltype(auto) result = ::vkGetBufferOpaqueCaptureAddress(device, pInfo);
+        return Napi::BigInt::New(env, result);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetBufferOpaqueCaptureAddress command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
+    return env.Null();
 }
 static Napi::Value rawGetBufferDeviceAddress(const Napi::CallbackInfo& info_) {
     Napi::Env env = info_.Env();
@@ -11273,9 +13133,18 @@ static Napi::Value rawGetBufferDeviceAddress(const Napi::CallbackInfo& info_) {
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkBufferDeviceAddressInfo const*)GetAddress(env, info_[1]);
-    
-    decltype(auto) result = ::vkGetBufferDeviceAddress(device, pInfo);
-    return Napi::BigInt::New(env, (uint64_t)result);
+    try {
+        decltype(auto) result = ::vkGetBufferDeviceAddress(device, pInfo);
+        return Napi::BigInt::New(env, result);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetBufferDeviceAddress command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
+    return env.Null();
 }
 #ifdef VK_EXT_headless_surface
 static Napi::Value rawCreateHeadlessSurfaceEXT(const Napi::CallbackInfo& info_) {
@@ -11293,13 +13162,13 @@ static Napi::Value rawCreateHeadlessSurfaceEXT(const Napi::CallbackInfo& info_) 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSurface = (VkSurfaceKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateHeadlessSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateHeadlessSurfaceEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11331,13 +13200,13 @@ static Napi::Value rawGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinati
     decltype(auto) pCombinationCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pCombinations = (VkFramebufferMixedSamplesCombinationNV*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(physicalDevice, pCombinationCount, pCombinations);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11366,13 +13235,13 @@ static Napi::Value rawInitializePerformanceApiINTEL(const Napi::CallbackInfo& in
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInitializeInfo = (VkInitializePerformanceApiInfoINTEL const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkInitializePerformanceApiINTEL(device, pInitializeInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkInitializePerformanceApiINTEL";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11398,8 +13267,15 @@ static Napi::Value rawUninitializePerformanceApiINTEL(const Napi::CallbackInfo& 
     
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
-    
-    ::vkUninitializePerformanceApiINTEL(device);
+    try {
+        ::vkUninitializePerformanceApiINTEL(device);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkUninitializePerformanceApiINTEL command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -11415,13 +13291,13 @@ static Napi::Value rawCmdSetPerformanceMarkerINTEL(const Napi::CallbackInfo& inf
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pMarkerInfo = (VkPerformanceMarkerInfoINTEL const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkCmdSetPerformanceMarkerINTEL(commandBuffer, pMarkerInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCmdSetPerformanceMarkerINTEL";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11449,13 +13325,13 @@ static Napi::Value rawCmdSetPerformanceStreamMarkerINTEL(const Napi::CallbackInf
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pMarkerInfo = (VkPerformanceStreamMarkerInfoINTEL const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkCmdSetPerformanceStreamMarkerINTEL(commandBuffer, pMarkerInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCmdSetPerformanceStreamMarkerINTEL";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11483,13 +13359,13 @@ static Napi::Value rawCmdSetPerformanceOverrideINTEL(const Napi::CallbackInfo& i
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pOverrideInfo = (VkPerformanceOverrideInfoINTEL const*)GetAddress(env, info_[1]);
-    
     try {
         decltype(auto) result = ::vkCmdSetPerformanceOverrideINTEL(commandBuffer, pOverrideInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCmdSetPerformanceOverrideINTEL";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11519,13 +13395,13 @@ static Napi::Value rawAcquirePerformanceConfigurationINTEL(const Napi::CallbackI
     decltype(auto) pAcquireInfo = (VkPerformanceConfigurationAcquireInfoINTEL const*)GetAddress(env, info_[1]);
 
     decltype(auto) pConfiguration = (VkPerformanceConfigurationINTEL*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkAcquirePerformanceConfigurationINTEL(device, pAcquireInfo, pConfiguration);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkAcquirePerformanceConfigurationINTEL";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11555,13 +13431,13 @@ static Napi::Value rawReleasePerformanceConfigurationINTEL(const Napi::CallbackI
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (configuration)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) configuration = (VkPerformanceConfigurationINTEL)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkReleasePerformanceConfigurationINTEL(device, configuration);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkReleasePerformanceConfigurationINTEL";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11590,13 +13466,13 @@ static Napi::Value rawQueueSetPerformanceConfigurationINTEL(const Napi::Callback
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (configuration)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) configuration = (VkPerformanceConfigurationINTEL)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkQueueSetPerformanceConfigurationINTEL(queue, configuration);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkQueueSetPerformanceConfigurationINTEL";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11627,13 +13503,13 @@ static Napi::Value rawGetPerformanceParameterINTEL(const Napi::CallbackInfo& inf
     decltype(auto) parameter = (VkPerformanceParameterTypeINTEL)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pValue = (VkPerformanceValueINTEL*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPerformanceParameterINTEL(device, parameter, pValue);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPerformanceParameterINTEL";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11661,9 +13537,18 @@ static Napi::Value rawGetDeviceMemoryOpaqueCaptureAddress(const Napi::CallbackIn
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkDeviceMemoryOpaqueCaptureAddressInfo const*)GetAddress(env, info_[1]);
-    
-    decltype(auto) result = ::vkGetDeviceMemoryOpaqueCaptureAddress(device, pInfo);
-    return Napi::BigInt::New(env, (uint64_t)result);
+    try {
+        decltype(auto) result = ::vkGetDeviceMemoryOpaqueCaptureAddress(device, pInfo);
+        return Napi::BigInt::New(env, result);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDeviceMemoryOpaqueCaptureAddress command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
+    return env.Null();
 }
 #ifdef VK_KHR_pipeline_executable_properties
 static Napi::Value rawGetPipelineExecutablePropertiesKHR(const Napi::CallbackInfo& info_) {
@@ -11681,13 +13566,13 @@ static Napi::Value rawGetPipelineExecutablePropertiesKHR(const Napi::CallbackInf
     decltype(auto) pExecutableCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pProperties = (VkPipelineExecutablePropertiesKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetPipelineExecutablePropertiesKHR(device, pPipelineInfo, pExecutableCount, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPipelineExecutablePropertiesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11721,13 +13606,13 @@ static Napi::Value rawGetPipelineExecutableStatisticsKHR(const Napi::CallbackInf
     decltype(auto) pStatisticCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pStatistics = (VkPipelineExecutableStatisticKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetPipelineExecutableStatisticsKHR(device, pExecutableInfo, pStatisticCount, pStatistics);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPipelineExecutableStatisticsKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11761,13 +13646,13 @@ static Napi::Value rawGetPipelineExecutableInternalRepresentationsKHR(const Napi
     decltype(auto) pInternalRepresentationCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pInternalRepresentations = (VkPipelineExecutableInternalRepresentationKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetPipelineExecutableInternalRepresentationsKHR(device, pExecutableInfo, pInternalRepresentationCount, pInternalRepresentations);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPipelineExecutableInternalRepresentationsKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11801,8 +13686,17 @@ static Napi::Value rawCmdSetLineStippleEXT(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (lineStipplePattern)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) lineStipplePattern = (uint16_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetLineStippleEXT(commandBuffer, lineStippleFactor, lineStipplePattern);
+    try {
+        ::vkCmdSetLineStippleEXT(commandBuffer, lineStippleFactor, lineStipplePattern);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetLineStippleEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    lineStippleFactor: " << (uint64_t)(lineStippleFactor) << std::endl;
+        std::cerr << "    lineStipplePattern: " << (uint64_t)(lineStipplePattern) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -11819,13 +13713,13 @@ static Napi::Value rawGetPhysicalDeviceToolProperties(const Napi::CallbackInfo& 
     decltype(auto) pToolCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pToolProperties = (VkPhysicalDeviceToolProperties*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceToolProperties(physicalDevice, pToolCount, pToolProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceToolProperties";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11857,13 +13751,13 @@ static Napi::Value rawCreateAccelerationStructureKHR(const Napi::CallbackInfo& i
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pAccelerationStructure = (VkAccelerationStructureKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateAccelerationStructureKHR(device, pCreateInfo, pAllocator, pAccelerationStructure);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateAccelerationStructureKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11898,8 +13792,18 @@ static Napi::Value rawCmdBuildAccelerationStructuresKHR(const Napi::CallbackInfo
     decltype(auto) pInfos = (VkAccelerationStructureBuildGeometryInfoKHR const*)GetAddress(env, info_[2]);
 
     decltype(auto) ppBuildRangeInfos = (VkAccelerationStructureBuildRangeInfoKHR* const*)GetAddress(env, info_[3]);
-    
-    ::vkCmdBuildAccelerationStructuresKHR(commandBuffer, infoCount, pInfos, ppBuildRangeInfos);
+    try {
+        ::vkCmdBuildAccelerationStructuresKHR(commandBuffer, infoCount, pInfos, ppBuildRangeInfos);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBuildAccelerationStructuresKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    infoCount: " << (uint64_t)(infoCount) << std::endl;
+        std::cerr << "    pInfos: " << (uint64_t)(pInfos) << std::endl;
+        std::cerr << "    ppBuildRangeInfos: " << (uint64_t)(ppBuildRangeInfos) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -11924,8 +13828,20 @@ static Napi::Value rawCmdBuildAccelerationStructuresIndirectKHR(const Napi::Call
     decltype(auto) pIndirectStrides = (uint32_t const*)GetAddress(env, info_[4]);
 
     decltype(auto) ppMaxPrimitiveCounts = (uint32_t* const*)GetAddress(env, info_[5]);
-    
-    ::vkCmdBuildAccelerationStructuresIndirectKHR(commandBuffer, infoCount, pInfos, pIndirectDeviceAddresses, pIndirectStrides, ppMaxPrimitiveCounts);
+    try {
+        ::vkCmdBuildAccelerationStructuresIndirectKHR(commandBuffer, infoCount, pInfos, pIndirectDeviceAddresses, pIndirectStrides, ppMaxPrimitiveCounts);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBuildAccelerationStructuresIndirectKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    infoCount: " << (uint64_t)(infoCount) << std::endl;
+        std::cerr << "    pInfos: " << (uint64_t)(pInfos) << std::endl;
+        std::cerr << "    pIndirectDeviceAddresses: " << (uint64_t)(pIndirectDeviceAddresses) << std::endl;
+        std::cerr << "    pIndirectStrides: " << (uint64_t)(pIndirectStrides) << std::endl;
+        std::cerr << "    ppMaxPrimitiveCounts: " << (uint64_t)(ppMaxPrimitiveCounts) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -11949,13 +13865,13 @@ static Napi::Value rawBuildAccelerationStructuresKHR(const Napi::CallbackInfo& i
     decltype(auto) pInfos = (VkAccelerationStructureBuildGeometryInfoKHR const*)GetAddress(env, info_[3]);
 
     decltype(auto) ppBuildRangeInfos = (VkAccelerationStructureBuildRangeInfoKHR* const*)GetAddress(env, info_[4]);
-    
     try {
         decltype(auto) result = ::vkBuildAccelerationStructuresKHR(device, deferredOperation, infoCount, pInfos, ppBuildRangeInfos);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkBuildAccelerationStructuresKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -11986,9 +13902,18 @@ static Napi::Value rawGetAccelerationStructureDeviceAddressKHR(const Napi::Callb
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkAccelerationStructureDeviceAddressInfoKHR const*)GetAddress(env, info_[1]);
-    
-    decltype(auto) result = ::vkGetAccelerationStructureDeviceAddressKHR(device, pInfo);
-    return Napi::BigInt::New(env, (uint64_t)result);
+    try {
+        decltype(auto) result = ::vkGetAccelerationStructureDeviceAddressKHR(device, pInfo);
+        return Napi::BigInt::New(env, result);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetAccelerationStructureDeviceAddressKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
+    return env.Null();
 }
 #endif
 #ifdef VK_KHR_deferred_host_operations
@@ -12005,13 +13930,13 @@ static Napi::Value rawCreateDeferredOperationKHR(const Napi::CallbackInfo& info_
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[1]);
 
     decltype(auto) pDeferredOperation = (VkDeferredOperationKHR*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkCreateDeferredOperationKHR(device, pAllocator, pDeferredOperation);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateDeferredOperationKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -12043,8 +13968,17 @@ static Napi::Value rawDestroyDeferredOperationKHR(const Napi::CallbackInfo& info
     decltype(auto) operation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyDeferredOperationKHR(device, operation, pAllocator);
+    try {
+        ::vkDestroyDeferredOperationKHR(device, operation, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyDeferredOperationKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    operation: " << (uint64_t)(operation) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12061,13 +13995,13 @@ static Napi::Value rawGetDeferredOperationMaxConcurrencyKHR(const Napi::Callback
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (operation)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) operation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkGetDeferredOperationMaxConcurrencyKHR(device, operation);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetDeferredOperationMaxConcurrencyKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -12096,13 +14030,13 @@ static Napi::Value rawGetDeferredOperationResultKHR(const Napi::CallbackInfo& in
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (operation)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) operation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkGetDeferredOperationResultKHR(device, operation);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetDeferredOperationResultKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -12131,13 +14065,13 @@ static Napi::Value rawDeferredOperationJoinKHR(const Napi::CallbackInfo& info_) 
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (operation)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) operation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkDeferredOperationJoinKHR(device, operation);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkDeferredOperationJoinKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -12165,8 +14099,16 @@ static Napi::Value rawCmdSetCullMode(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (cullMode)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) cullMode = (VkCullModeFlags)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetCullMode(commandBuffer, cullMode);
+    try {
+        ::vkCmdSetCullMode(commandBuffer, cullMode);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetCullMode command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    cullMode: " << (uint64_t)(cullMode) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetFrontFace(const Napi::CallbackInfo& info_) {
@@ -12181,8 +14123,16 @@ static Napi::Value rawCmdSetFrontFace(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (frontFace)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) frontFace = (VkFrontFace)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdSetFrontFace(commandBuffer, frontFace);
+    try {
+        ::vkCmdSetFrontFace(commandBuffer, frontFace);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetFrontFace command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    frontFace: " << (uint64_t)(frontFace) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetPrimitiveTopology(const Napi::CallbackInfo& info_) {
@@ -12197,8 +14147,16 @@ static Napi::Value rawCmdSetPrimitiveTopology(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (primitiveTopology)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) primitiveTopology = (VkPrimitiveTopology)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdSetPrimitiveTopology(commandBuffer, primitiveTopology);
+    try {
+        ::vkCmdSetPrimitiveTopology(commandBuffer, primitiveTopology);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetPrimitiveTopology command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    primitiveTopology: " << (uint64_t)(primitiveTopology) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetViewportWithCount(const Napi::CallbackInfo& info_) {
@@ -12215,8 +14173,17 @@ static Napi::Value rawCmdSetViewportWithCount(const Napi::CallbackInfo& info_) {
     decltype(auto) viewportCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pViewports = (VkViewport const*)GetAddress(env, info_[2]);
-    
-    ::vkCmdSetViewportWithCount(commandBuffer, viewportCount, pViewports);
+    try {
+        ::vkCmdSetViewportWithCount(commandBuffer, viewportCount, pViewports);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetViewportWithCount command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    viewportCount: " << (uint64_t)(viewportCount) << std::endl;
+        std::cerr << "    pViewports: " << (uint64_t)(pViewports) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetScissorWithCount(const Napi::CallbackInfo& info_) {
@@ -12233,8 +14200,17 @@ static Napi::Value rawCmdSetScissorWithCount(const Napi::CallbackInfo& info_) {
     decltype(auto) scissorCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pScissors = (VkRect2D const*)GetAddress(env, info_[2]);
-    
-    ::vkCmdSetScissorWithCount(commandBuffer, scissorCount, pScissors);
+    try {
+        ::vkCmdSetScissorWithCount(commandBuffer, scissorCount, pScissors);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetScissorWithCount command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    scissorCount: " << (uint64_t)(scissorCount) << std::endl;
+        std::cerr << "    pScissors: " << (uint64_t)(pScissors) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdBindVertexBuffers2(const Napi::CallbackInfo& info_) {
@@ -12260,8 +14236,21 @@ static Napi::Value rawCmdBindVertexBuffers2(const Napi::CallbackInfo& info_) {
     decltype(auto) pSizes = (VkDeviceSize const*)GetAddress(env, info_[5]);
 
     decltype(auto) pStrides = (VkDeviceSize const*)GetAddress(env, info_[6]);
-    
-    ::vkCmdBindVertexBuffers2(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets, pSizes, pStrides);
+    try {
+        ::vkCmdBindVertexBuffers2(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets, pSizes, pStrides);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBindVertexBuffers2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    firstBinding: " << (uint64_t)(firstBinding) << std::endl;
+        std::cerr << "    bindingCount: " << (uint64_t)(bindingCount) << std::endl;
+        std::cerr << "    pBuffers: " << (uint64_t)(pBuffers) << std::endl;
+        std::cerr << "    pOffsets: " << (uint64_t)(pOffsets) << std::endl;
+        std::cerr << "    pSizes: " << (uint64_t)(pSizes) << std::endl;
+        std::cerr << "    pStrides: " << (uint64_t)(pStrides) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetDepthTestEnable(const Napi::CallbackInfo& info_) {
@@ -12276,8 +14265,16 @@ static Napi::Value rawCmdSetDepthTestEnable(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (depthTestEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) depthTestEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetDepthTestEnable(commandBuffer, depthTestEnable);
+    try {
+        ::vkCmdSetDepthTestEnable(commandBuffer, depthTestEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetDepthTestEnable command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    depthTestEnable: " << (uint64_t)(depthTestEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetDepthWriteEnable(const Napi::CallbackInfo& info_) {
@@ -12292,8 +14289,16 @@ static Napi::Value rawCmdSetDepthWriteEnable(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (depthWriteEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) depthWriteEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetDepthWriteEnable(commandBuffer, depthWriteEnable);
+    try {
+        ::vkCmdSetDepthWriteEnable(commandBuffer, depthWriteEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetDepthWriteEnable command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    depthWriteEnable: " << (uint64_t)(depthWriteEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetDepthCompareOp(const Napi::CallbackInfo& info_) {
@@ -12308,8 +14313,16 @@ static Napi::Value rawCmdSetDepthCompareOp(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (depthCompareOp)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) depthCompareOp = (VkCompareOp)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdSetDepthCompareOp(commandBuffer, depthCompareOp);
+    try {
+        ::vkCmdSetDepthCompareOp(commandBuffer, depthCompareOp);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetDepthCompareOp command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    depthCompareOp: " << (uint64_t)(depthCompareOp) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetDepthBoundsTestEnable(const Napi::CallbackInfo& info_) {
@@ -12324,8 +14337,16 @@ static Napi::Value rawCmdSetDepthBoundsTestEnable(const Napi::CallbackInfo& info
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (depthBoundsTestEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) depthBoundsTestEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetDepthBoundsTestEnable(commandBuffer, depthBoundsTestEnable);
+    try {
+        ::vkCmdSetDepthBoundsTestEnable(commandBuffer, depthBoundsTestEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetDepthBoundsTestEnable command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    depthBoundsTestEnable: " << (uint64_t)(depthBoundsTestEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetStencilTestEnable(const Napi::CallbackInfo& info_) {
@@ -12340,8 +14361,16 @@ static Napi::Value rawCmdSetStencilTestEnable(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (stencilTestEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stencilTestEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetStencilTestEnable(commandBuffer, stencilTestEnable);
+    try {
+        ::vkCmdSetStencilTestEnable(commandBuffer, stencilTestEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetStencilTestEnable command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    stencilTestEnable: " << (uint64_t)(stencilTestEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetStencilOp(const Napi::CallbackInfo& info_) {
@@ -12368,8 +14397,20 @@ static Napi::Value rawCmdSetStencilOp(const Napi::CallbackInfo& info_) {
 
     if (!info_[5].IsBigInt() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 5 argument (compareOp)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) compareOp = (VkCompareOp)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdSetStencilOp(commandBuffer, faceMask, failOp, passOp, depthFailOp, compareOp);
+    try {
+        ::vkCmdSetStencilOp(commandBuffer, faceMask, failOp, passOp, depthFailOp, compareOp);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetStencilOp command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    faceMask: " << (uint64_t)(faceMask) << std::endl;
+        std::cerr << "    failOp: " << (uint64_t)(failOp) << std::endl;
+        std::cerr << "    passOp: " << (uint64_t)(passOp) << std::endl;
+        std::cerr << "    depthFailOp: " << (uint64_t)(depthFailOp) << std::endl;
+        std::cerr << "    compareOp: " << (uint64_t)(compareOp) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_EXT_extended_dynamic_state2
@@ -12385,8 +14426,16 @@ static Napi::Value rawCmdSetPatchControlPointsEXT(const Napi::CallbackInfo& info
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (patchControlPoints)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) patchControlPoints = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetPatchControlPointsEXT(commandBuffer, patchControlPoints);
+    try {
+        ::vkCmdSetPatchControlPointsEXT(commandBuffer, patchControlPoints);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetPatchControlPointsEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    patchControlPoints: " << (uint64_t)(patchControlPoints) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12402,8 +14451,16 @@ static Napi::Value rawCmdSetRasterizerDiscardEnable(const Napi::CallbackInfo& in
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (rasterizerDiscardEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) rasterizerDiscardEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetRasterizerDiscardEnable(commandBuffer, rasterizerDiscardEnable);
+    try {
+        ::vkCmdSetRasterizerDiscardEnable(commandBuffer, rasterizerDiscardEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetRasterizerDiscardEnable command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    rasterizerDiscardEnable: " << (uint64_t)(rasterizerDiscardEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdSetDepthBiasEnable(const Napi::CallbackInfo& info_) {
@@ -12418,8 +14475,16 @@ static Napi::Value rawCmdSetDepthBiasEnable(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (depthBiasEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) depthBiasEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetDepthBiasEnable(commandBuffer, depthBiasEnable);
+    try {
+        ::vkCmdSetDepthBiasEnable(commandBuffer, depthBiasEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetDepthBiasEnable command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    depthBiasEnable: " << (uint64_t)(depthBiasEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_EXT_extended_dynamic_state2
@@ -12435,8 +14500,16 @@ static Napi::Value rawCmdSetLogicOpEXT(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (logicOp)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) logicOp = (VkLogicOp)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdSetLogicOpEXT(commandBuffer, logicOp);
+    try {
+        ::vkCmdSetLogicOpEXT(commandBuffer, logicOp);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetLogicOpEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    logicOp: " << (uint64_t)(logicOp) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12452,8 +14525,16 @@ static Napi::Value rawCmdSetPrimitiveRestartEnable(const Napi::CallbackInfo& inf
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (primitiveRestartEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) primitiveRestartEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetPrimitiveRestartEnable(commandBuffer, primitiveRestartEnable);
+    try {
+        ::vkCmdSetPrimitiveRestartEnable(commandBuffer, primitiveRestartEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetPrimitiveRestartEnable command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    primitiveRestartEnable: " << (uint64_t)(primitiveRestartEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_EXT_extended_dynamic_state3
@@ -12469,8 +14550,16 @@ static Napi::Value rawCmdSetTessellationDomainOriginEXT(const Napi::CallbackInfo
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (domainOrigin)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) domainOrigin = (VkTessellationDomainOrigin)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdSetTessellationDomainOriginEXT(commandBuffer, domainOrigin);
+    try {
+        ::vkCmdSetTessellationDomainOriginEXT(commandBuffer, domainOrigin);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetTessellationDomainOriginEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    domainOrigin: " << (uint64_t)(domainOrigin) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12487,8 +14576,16 @@ static Napi::Value rawCmdSetDepthClampEnableEXT(const Napi::CallbackInfo& info_)
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (depthClampEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) depthClampEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetDepthClampEnableEXT(commandBuffer, depthClampEnable);
+    try {
+        ::vkCmdSetDepthClampEnableEXT(commandBuffer, depthClampEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetDepthClampEnableEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    depthClampEnable: " << (uint64_t)(depthClampEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12505,8 +14602,16 @@ static Napi::Value rawCmdSetPolygonModeEXT(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (polygonMode)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) polygonMode = (VkPolygonMode)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdSetPolygonModeEXT(commandBuffer, polygonMode);
+    try {
+        ::vkCmdSetPolygonModeEXT(commandBuffer, polygonMode);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetPolygonModeEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    polygonMode: " << (uint64_t)(polygonMode) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12523,8 +14628,16 @@ static Napi::Value rawCmdSetRasterizationSamplesEXT(const Napi::CallbackInfo& in
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (rasterizationSamples)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) rasterizationSamples = (VkSampleCountFlagBits)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetRasterizationSamplesEXT(commandBuffer, rasterizationSamples);
+    try {
+        ::vkCmdSetRasterizationSamplesEXT(commandBuffer, rasterizationSamples);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetRasterizationSamplesEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    rasterizationSamples: " << (uint64_t)(rasterizationSamples) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12543,8 +14656,17 @@ static Napi::Value rawCmdSetSampleMaskEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) samples = (VkSampleCountFlagBits)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pSampleMask = (VkSampleMask const*)GetAddress(env, info_[2]);
-    
-    ::vkCmdSetSampleMaskEXT(commandBuffer, samples, pSampleMask);
+    try {
+        ::vkCmdSetSampleMaskEXT(commandBuffer, samples, pSampleMask);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetSampleMaskEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    samples: " << (uint64_t)(samples) << std::endl;
+        std::cerr << "    pSampleMask: " << (uint64_t)(pSampleMask) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12561,8 +14683,16 @@ static Napi::Value rawCmdSetAlphaToCoverageEnableEXT(const Napi::CallbackInfo& i
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (alphaToCoverageEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) alphaToCoverageEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetAlphaToCoverageEnableEXT(commandBuffer, alphaToCoverageEnable);
+    try {
+        ::vkCmdSetAlphaToCoverageEnableEXT(commandBuffer, alphaToCoverageEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetAlphaToCoverageEnableEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    alphaToCoverageEnable: " << (uint64_t)(alphaToCoverageEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12579,8 +14709,16 @@ static Napi::Value rawCmdSetAlphaToOneEnableEXT(const Napi::CallbackInfo& info_)
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (alphaToOneEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) alphaToOneEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetAlphaToOneEnableEXT(commandBuffer, alphaToOneEnable);
+    try {
+        ::vkCmdSetAlphaToOneEnableEXT(commandBuffer, alphaToOneEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetAlphaToOneEnableEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    alphaToOneEnable: " << (uint64_t)(alphaToOneEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12597,8 +14735,16 @@ static Napi::Value rawCmdSetLogicOpEnableEXT(const Napi::CallbackInfo& info_) {
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (logicOpEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) logicOpEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetLogicOpEnableEXT(commandBuffer, logicOpEnable);
+    try {
+        ::vkCmdSetLogicOpEnableEXT(commandBuffer, logicOpEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetLogicOpEnableEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    logicOpEnable: " << (uint64_t)(logicOpEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12620,8 +14766,18 @@ static Napi::Value rawCmdSetColorBlendEnableEXT(const Napi::CallbackInfo& info_)
     decltype(auto) attachmentCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pColorBlendEnables = (VkBool32 const*)GetAddress(env, info_[3]);
-    
-    ::vkCmdSetColorBlendEnableEXT(commandBuffer, firstAttachment, attachmentCount, pColorBlendEnables);
+    try {
+        ::vkCmdSetColorBlendEnableEXT(commandBuffer, firstAttachment, attachmentCount, pColorBlendEnables);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetColorBlendEnableEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    firstAttachment: " << (uint64_t)(firstAttachment) << std::endl;
+        std::cerr << "    attachmentCount: " << (uint64_t)(attachmentCount) << std::endl;
+        std::cerr << "    pColorBlendEnables: " << (uint64_t)(pColorBlendEnables) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12643,8 +14799,18 @@ static Napi::Value rawCmdSetColorBlendEquationEXT(const Napi::CallbackInfo& info
     decltype(auto) attachmentCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pColorBlendEquations = (VkColorBlendEquationEXT const*)GetAddress(env, info_[3]);
-    
-    ::vkCmdSetColorBlendEquationEXT(commandBuffer, firstAttachment, attachmentCount, pColorBlendEquations);
+    try {
+        ::vkCmdSetColorBlendEquationEXT(commandBuffer, firstAttachment, attachmentCount, pColorBlendEquations);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetColorBlendEquationEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    firstAttachment: " << (uint64_t)(firstAttachment) << std::endl;
+        std::cerr << "    attachmentCount: " << (uint64_t)(attachmentCount) << std::endl;
+        std::cerr << "    pColorBlendEquations: " << (uint64_t)(pColorBlendEquations) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12666,8 +14832,18 @@ static Napi::Value rawCmdSetColorWriteMaskEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) attachmentCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pColorWriteMasks = (VkColorComponentFlags const*)GetAddress(env, info_[3]);
-    
-    ::vkCmdSetColorWriteMaskEXT(commandBuffer, firstAttachment, attachmentCount, pColorWriteMasks);
+    try {
+        ::vkCmdSetColorWriteMaskEXT(commandBuffer, firstAttachment, attachmentCount, pColorWriteMasks);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetColorWriteMaskEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    firstAttachment: " << (uint64_t)(firstAttachment) << std::endl;
+        std::cerr << "    attachmentCount: " << (uint64_t)(attachmentCount) << std::endl;
+        std::cerr << "    pColorWriteMasks: " << (uint64_t)(pColorWriteMasks) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12684,8 +14860,16 @@ static Napi::Value rawCmdSetRasterizationStreamEXT(const Napi::CallbackInfo& inf
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (rasterizationStream)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) rasterizationStream = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetRasterizationStreamEXT(commandBuffer, rasterizationStream);
+    try {
+        ::vkCmdSetRasterizationStreamEXT(commandBuffer, rasterizationStream);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetRasterizationStreamEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    rasterizationStream: " << (uint64_t)(rasterizationStream) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12702,8 +14886,16 @@ static Napi::Value rawCmdSetConservativeRasterizationModeEXT(const Napi::Callbac
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (conservativeRasterizationMode)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) conservativeRasterizationMode = (VkConservativeRasterizationModeEXT)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdSetConservativeRasterizationModeEXT(commandBuffer, conservativeRasterizationMode);
+    try {
+        ::vkCmdSetConservativeRasterizationModeEXT(commandBuffer, conservativeRasterizationMode);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetConservativeRasterizationModeEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    conservativeRasterizationMode: " << (uint64_t)(conservativeRasterizationMode) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12720,8 +14912,16 @@ static Napi::Value rawCmdSetExtraPrimitiveOverestimationSizeEXT(const Napi::Call
 
     if (!info_[1].IsNumber()) { Napi::TypeError::New(env, "Wrong type, needs Number at 1 argument (extraPrimitiveOverestimationSize)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) extraPrimitiveOverestimationSize = (float)info_[1].As<Napi::Number>().FloatValue();
-    
-    ::vkCmdSetExtraPrimitiveOverestimationSizeEXT(commandBuffer, extraPrimitiveOverestimationSize);
+    try {
+        ::vkCmdSetExtraPrimitiveOverestimationSizeEXT(commandBuffer, extraPrimitiveOverestimationSize);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetExtraPrimitiveOverestimationSizeEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    extraPrimitiveOverestimationSize: " << (uint64_t)(extraPrimitiveOverestimationSize) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12738,8 +14938,16 @@ static Napi::Value rawCmdSetDepthClipEnableEXT(const Napi::CallbackInfo& info_) 
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (depthClipEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) depthClipEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetDepthClipEnableEXT(commandBuffer, depthClipEnable);
+    try {
+        ::vkCmdSetDepthClipEnableEXT(commandBuffer, depthClipEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetDepthClipEnableEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    depthClipEnable: " << (uint64_t)(depthClipEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12756,8 +14964,16 @@ static Napi::Value rawCmdSetSampleLocationsEnableEXT(const Napi::CallbackInfo& i
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (sampleLocationsEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) sampleLocationsEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetSampleLocationsEnableEXT(commandBuffer, sampleLocationsEnable);
+    try {
+        ::vkCmdSetSampleLocationsEnableEXT(commandBuffer, sampleLocationsEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetSampleLocationsEnableEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    sampleLocationsEnable: " << (uint64_t)(sampleLocationsEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12779,8 +14995,18 @@ static Napi::Value rawCmdSetColorBlendAdvancedEXT(const Napi::CallbackInfo& info
     decltype(auto) attachmentCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pColorBlendAdvanced = (VkColorBlendAdvancedEXT const*)GetAddress(env, info_[3]);
-    
-    ::vkCmdSetColorBlendAdvancedEXT(commandBuffer, firstAttachment, attachmentCount, pColorBlendAdvanced);
+    try {
+        ::vkCmdSetColorBlendAdvancedEXT(commandBuffer, firstAttachment, attachmentCount, pColorBlendAdvanced);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetColorBlendAdvancedEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    firstAttachment: " << (uint64_t)(firstAttachment) << std::endl;
+        std::cerr << "    attachmentCount: " << (uint64_t)(attachmentCount) << std::endl;
+        std::cerr << "    pColorBlendAdvanced: " << (uint64_t)(pColorBlendAdvanced) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12797,8 +15023,16 @@ static Napi::Value rawCmdSetProvokingVertexModeEXT(const Napi::CallbackInfo& inf
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (provokingVertexMode)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) provokingVertexMode = (VkProvokingVertexModeEXT)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdSetProvokingVertexModeEXT(commandBuffer, provokingVertexMode);
+    try {
+        ::vkCmdSetProvokingVertexModeEXT(commandBuffer, provokingVertexMode);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetProvokingVertexModeEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    provokingVertexMode: " << (uint64_t)(provokingVertexMode) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12815,8 +15049,16 @@ static Napi::Value rawCmdSetLineRasterizationModeEXT(const Napi::CallbackInfo& i
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (lineRasterizationMode)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) lineRasterizationMode = (VkLineRasterizationModeEXT)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdSetLineRasterizationModeEXT(commandBuffer, lineRasterizationMode);
+    try {
+        ::vkCmdSetLineRasterizationModeEXT(commandBuffer, lineRasterizationMode);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetLineRasterizationModeEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    lineRasterizationMode: " << (uint64_t)(lineRasterizationMode) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12833,8 +15075,16 @@ static Napi::Value rawCmdSetLineStippleEnableEXT(const Napi::CallbackInfo& info_
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (stippledLineEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stippledLineEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetLineStippleEnableEXT(commandBuffer, stippledLineEnable);
+    try {
+        ::vkCmdSetLineStippleEnableEXT(commandBuffer, stippledLineEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetLineStippleEnableEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    stippledLineEnable: " << (uint64_t)(stippledLineEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12851,8 +15101,16 @@ static Napi::Value rawCmdSetDepthClipNegativeOneToOneEXT(const Napi::CallbackInf
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (negativeOneToOne)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) negativeOneToOne = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetDepthClipNegativeOneToOneEXT(commandBuffer, negativeOneToOne);
+    try {
+        ::vkCmdSetDepthClipNegativeOneToOneEXT(commandBuffer, negativeOneToOne);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetDepthClipNegativeOneToOneEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    negativeOneToOne: " << (uint64_t)(negativeOneToOne) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12869,8 +15127,16 @@ static Napi::Value rawCmdSetViewportWScalingEnableNV(const Napi::CallbackInfo& i
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (viewportWScalingEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) viewportWScalingEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetViewportWScalingEnableNV(commandBuffer, viewportWScalingEnable);
+    try {
+        ::vkCmdSetViewportWScalingEnableNV(commandBuffer, viewportWScalingEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetViewportWScalingEnableNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    viewportWScalingEnable: " << (uint64_t)(viewportWScalingEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12892,8 +15158,18 @@ static Napi::Value rawCmdSetViewportSwizzleNV(const Napi::CallbackInfo& info_) {
     decltype(auto) viewportCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pViewportSwizzles = (VkViewportSwizzleNV const*)GetAddress(env, info_[3]);
-    
-    ::vkCmdSetViewportSwizzleNV(commandBuffer, firstViewport, viewportCount, pViewportSwizzles);
+    try {
+        ::vkCmdSetViewportSwizzleNV(commandBuffer, firstViewport, viewportCount, pViewportSwizzles);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetViewportSwizzleNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    firstViewport: " << (uint64_t)(firstViewport) << std::endl;
+        std::cerr << "    viewportCount: " << (uint64_t)(viewportCount) << std::endl;
+        std::cerr << "    pViewportSwizzles: " << (uint64_t)(pViewportSwizzles) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12910,8 +15186,16 @@ static Napi::Value rawCmdSetCoverageToColorEnableNV(const Napi::CallbackInfo& in
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (coverageToColorEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) coverageToColorEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetCoverageToColorEnableNV(commandBuffer, coverageToColorEnable);
+    try {
+        ::vkCmdSetCoverageToColorEnableNV(commandBuffer, coverageToColorEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetCoverageToColorEnableNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    coverageToColorEnable: " << (uint64_t)(coverageToColorEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12928,8 +15212,16 @@ static Napi::Value rawCmdSetCoverageToColorLocationNV(const Napi::CallbackInfo& 
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (coverageToColorLocation)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) coverageToColorLocation = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetCoverageToColorLocationNV(commandBuffer, coverageToColorLocation);
+    try {
+        ::vkCmdSetCoverageToColorLocationNV(commandBuffer, coverageToColorLocation);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetCoverageToColorLocationNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    coverageToColorLocation: " << (uint64_t)(coverageToColorLocation) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12946,8 +15238,16 @@ static Napi::Value rawCmdSetCoverageModulationModeNV(const Napi::CallbackInfo& i
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (coverageModulationMode)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) coverageModulationMode = (VkCoverageModulationModeNV)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdSetCoverageModulationModeNV(commandBuffer, coverageModulationMode);
+    try {
+        ::vkCmdSetCoverageModulationModeNV(commandBuffer, coverageModulationMode);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetCoverageModulationModeNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    coverageModulationMode: " << (uint64_t)(coverageModulationMode) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12964,8 +15264,16 @@ static Napi::Value rawCmdSetCoverageModulationTableEnableNV(const Napi::Callback
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (coverageModulationTableEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) coverageModulationTableEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetCoverageModulationTableEnableNV(commandBuffer, coverageModulationTableEnable);
+    try {
+        ::vkCmdSetCoverageModulationTableEnableNV(commandBuffer, coverageModulationTableEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetCoverageModulationTableEnableNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    coverageModulationTableEnable: " << (uint64_t)(coverageModulationTableEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -12984,8 +15292,17 @@ static Napi::Value rawCmdSetCoverageModulationTableNV(const Napi::CallbackInfo& 
     decltype(auto) coverageModulationTableCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pCoverageModulationTable = (float const*)GetAddress(env, info_[2]);
-    
-    ::vkCmdSetCoverageModulationTableNV(commandBuffer, coverageModulationTableCount, pCoverageModulationTable);
+    try {
+        ::vkCmdSetCoverageModulationTableNV(commandBuffer, coverageModulationTableCount, pCoverageModulationTable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetCoverageModulationTableNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    coverageModulationTableCount: " << (uint64_t)(coverageModulationTableCount) << std::endl;
+        std::cerr << "    pCoverageModulationTable: " << (uint64_t)(pCoverageModulationTable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13002,8 +15319,16 @@ static Napi::Value rawCmdSetShadingRateImageEnableNV(const Napi::CallbackInfo& i
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (shadingRateImageEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) shadingRateImageEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetShadingRateImageEnableNV(commandBuffer, shadingRateImageEnable);
+    try {
+        ::vkCmdSetShadingRateImageEnableNV(commandBuffer, shadingRateImageEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetShadingRateImageEnableNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    shadingRateImageEnable: " << (uint64_t)(shadingRateImageEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13020,8 +15345,16 @@ static Napi::Value rawCmdSetCoverageReductionModeNV(const Napi::CallbackInfo& in
 
     if (!info_[1].IsBigInt() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 1 argument (coverageReductionMode)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) coverageReductionMode = (VkCoverageReductionModeNV)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdSetCoverageReductionModeNV(commandBuffer, coverageReductionMode);
+    try {
+        ::vkCmdSetCoverageReductionModeNV(commandBuffer, coverageReductionMode);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetCoverageReductionModeNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    coverageReductionMode: " << (uint64_t)(coverageReductionMode) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13038,8 +15371,16 @@ static Napi::Value rawCmdSetRepresentativeFragmentTestEnableNV(const Napi::Callb
 
     if (!info_[1].IsNumber() && !info_[1].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 1 argument (representativeFragmentTestEnable)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) representativeFragmentTestEnable = (VkBool32)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdSetRepresentativeFragmentTestEnableNV(commandBuffer, representativeFragmentTestEnable);
+    try {
+        ::vkCmdSetRepresentativeFragmentTestEnableNV(commandBuffer, representativeFragmentTestEnable);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetRepresentativeFragmentTestEnableNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    representativeFragmentTestEnable: " << (uint64_t)(representativeFragmentTestEnable) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13058,13 +15399,13 @@ static Napi::Value rawCreatePrivateDataSlot(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pPrivateDataSlot = (VkPrivateDataSlot*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreatePrivateDataSlot(device, pCreateInfo, pAllocator, pPrivateDataSlot);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreatePrivateDataSlot";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -13095,8 +15436,17 @@ static Napi::Value rawDestroyPrivateDataSlot(const Napi::CallbackInfo& info_) {
     decltype(auto) privateDataSlot = (VkPrivateDataSlot)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyPrivateDataSlot(device, privateDataSlot, pAllocator);
+    try {
+        ::vkDestroyPrivateDataSlot(device, privateDataSlot, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyPrivateDataSlot command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    privateDataSlot: " << (uint64_t)(privateDataSlot) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawSetPrivateData(const Napi::CallbackInfo& info_) {
@@ -13120,13 +15470,13 @@ static Napi::Value rawSetPrivateData(const Napi::CallbackInfo& info_) {
 
     if (!info_[4].IsBigInt() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 4 argument (data)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) data = (uint64_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkSetPrivateData(device, objectType, objectHandle, privateDataSlot, data);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkSetPrivateData";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -13164,8 +15514,19 @@ static Napi::Value rawGetPrivateData(const Napi::CallbackInfo& info_) {
     decltype(auto) privateDataSlot = (VkPrivateDataSlot)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
 
     decltype(auto) pData = (uint64_t*)GetAddress(env, info_[4]);
-    
-    ::vkGetPrivateData(device, objectType, objectHandle, privateDataSlot, pData);
+    try {
+        ::vkGetPrivateData(device, objectType, objectHandle, privateDataSlot, pData);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetPrivateData command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    objectType: " << (uint64_t)(objectType) << std::endl;
+        std::cerr << "    objectHandle: " << (uint64_t)(objectHandle) << std::endl;
+        std::cerr << "    privateDataSlot: " << (uint64_t)(privateDataSlot) << std::endl;
+        std::cerr << "    pData: " << (uint64_t)(pData) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdCopyBuffer2(const Napi::CallbackInfo& info_) {
@@ -13179,8 +15540,16 @@ static Napi::Value rawCmdCopyBuffer2(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pCopyBufferInfo = (VkCopyBufferInfo2 const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdCopyBuffer2(commandBuffer, pCopyBufferInfo);
+    try {
+        ::vkCmdCopyBuffer2(commandBuffer, pCopyBufferInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyBuffer2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pCopyBufferInfo: " << (uint64_t)(pCopyBufferInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdCopyImage2(const Napi::CallbackInfo& info_) {
@@ -13194,8 +15563,16 @@ static Napi::Value rawCmdCopyImage2(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pCopyImageInfo = (VkCopyImageInfo2 const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdCopyImage2(commandBuffer, pCopyImageInfo);
+    try {
+        ::vkCmdCopyImage2(commandBuffer, pCopyImageInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyImage2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pCopyImageInfo: " << (uint64_t)(pCopyImageInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdBlitImage2(const Napi::CallbackInfo& info_) {
@@ -13209,8 +15586,16 @@ static Napi::Value rawCmdBlitImage2(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pBlitImageInfo = (VkBlitImageInfo2 const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdBlitImage2(commandBuffer, pBlitImageInfo);
+    try {
+        ::vkCmdBlitImage2(commandBuffer, pBlitImageInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBlitImage2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pBlitImageInfo: " << (uint64_t)(pBlitImageInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdCopyBufferToImage2(const Napi::CallbackInfo& info_) {
@@ -13224,8 +15609,16 @@ static Napi::Value rawCmdCopyBufferToImage2(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pCopyBufferToImageInfo = (VkCopyBufferToImageInfo2 const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdCopyBufferToImage2(commandBuffer, pCopyBufferToImageInfo);
+    try {
+        ::vkCmdCopyBufferToImage2(commandBuffer, pCopyBufferToImageInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyBufferToImage2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pCopyBufferToImageInfo: " << (uint64_t)(pCopyBufferToImageInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdCopyImageToBuffer2(const Napi::CallbackInfo& info_) {
@@ -13239,8 +15632,16 @@ static Napi::Value rawCmdCopyImageToBuffer2(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pCopyImageToBufferInfo = (VkCopyImageToBufferInfo2 const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdCopyImageToBuffer2(commandBuffer, pCopyImageToBufferInfo);
+    try {
+        ::vkCmdCopyImageToBuffer2(commandBuffer, pCopyImageToBufferInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyImageToBuffer2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pCopyImageToBufferInfo: " << (uint64_t)(pCopyImageToBufferInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdResolveImage2(const Napi::CallbackInfo& info_) {
@@ -13254,8 +15655,16 @@ static Napi::Value rawCmdResolveImage2(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pResolveImageInfo = (VkResolveImageInfo2 const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdResolveImage2(commandBuffer, pResolveImageInfo);
+    try {
+        ::vkCmdResolveImage2(commandBuffer, pResolveImageInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdResolveImage2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pResolveImageInfo: " << (uint64_t)(pResolveImageInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_KHR_fragment_shading_rate
@@ -13272,8 +15681,17 @@ static Napi::Value rawCmdSetFragmentShadingRateKHR(const Napi::CallbackInfo& inf
     decltype(auto) pFragmentSize = (VkExtent2D const*)GetAddress(env, info_[1]);
 
     decltype(auto) combinerOps = (VkFragmentShadingRateCombinerOpKHR const*)GetAddress(env, info_[2]);
-    
-    ::vkCmdSetFragmentShadingRateKHR(commandBuffer, pFragmentSize, combinerOps);
+    try {
+        ::vkCmdSetFragmentShadingRateKHR(commandBuffer, pFragmentSize, combinerOps);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetFragmentShadingRateKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pFragmentSize: " << (uint64_t)(pFragmentSize) << std::endl;
+        std::cerr << "    combinerOps: " << (uint64_t)(combinerOps) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13291,13 +15709,13 @@ static Napi::Value rawGetPhysicalDeviceFragmentShadingRatesKHR(const Napi::Callb
     decltype(auto) pFragmentShadingRateCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pFragmentShadingRates = (VkPhysicalDeviceFragmentShadingRateKHR*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceFragmentShadingRatesKHR(physicalDevice, pFragmentShadingRateCount, pFragmentShadingRates);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceFragmentShadingRatesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -13329,8 +15747,17 @@ static Napi::Value rawCmdSetFragmentShadingRateEnumNV(const Napi::CallbackInfo& 
     decltype(auto) shadingRate = (VkFragmentShadingRateNV)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) combinerOps = (VkFragmentShadingRateCombinerOpKHR const*)GetAddress(env, info_[2]);
-    
-    ::vkCmdSetFragmentShadingRateEnumNV(commandBuffer, shadingRate, combinerOps);
+    try {
+        ::vkCmdSetFragmentShadingRateEnumNV(commandBuffer, shadingRate, combinerOps);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetFragmentShadingRateEnumNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    shadingRate: " << (uint64_t)(shadingRate) << std::endl;
+        std::cerr << "    combinerOps: " << (uint64_t)(combinerOps) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13353,8 +15780,19 @@ static Napi::Value rawGetAccelerationStructureBuildSizesKHR(const Napi::Callback
     decltype(auto) pMaxPrimitiveCounts = (uint32_t const*)GetAddress(env, info_[3]);
 
     decltype(auto) pSizeInfo = (VkAccelerationStructureBuildSizesInfoKHR*)GetAddress(env, info_[4]);
-    
-    ::vkGetAccelerationStructureBuildSizesKHR(device, buildType, pBuildInfo, pMaxPrimitiveCounts, pSizeInfo);
+    try {
+        ::vkGetAccelerationStructureBuildSizesKHR(device, buildType, pBuildInfo, pMaxPrimitiveCounts, pSizeInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetAccelerationStructureBuildSizesKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    buildType: " << (uint64_t)(buildType) << std::endl;
+        std::cerr << "    pBuildInfo: " << (uint64_t)(pBuildInfo) << std::endl;
+        std::cerr << "    pMaxPrimitiveCounts: " << (uint64_t)(pMaxPrimitiveCounts) << std::endl;
+        std::cerr << "    pSizeInfo: " << (uint64_t)(pSizeInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13378,8 +15816,19 @@ static Napi::Value rawCmdSetVertexInputEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) vertexAttributeDescriptionCount = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pVertexAttributeDescriptions = (VkVertexInputAttributeDescription2EXT const*)GetAddress(env, info_[4]);
-    
-    ::vkCmdSetVertexInputEXT(commandBuffer, vertexBindingDescriptionCount, pVertexBindingDescriptions, vertexAttributeDescriptionCount, pVertexAttributeDescriptions);
+    try {
+        ::vkCmdSetVertexInputEXT(commandBuffer, vertexBindingDescriptionCount, pVertexBindingDescriptions, vertexAttributeDescriptionCount, pVertexAttributeDescriptions);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetVertexInputEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    vertexBindingDescriptionCount: " << (uint64_t)(vertexBindingDescriptionCount) << std::endl;
+        std::cerr << "    pVertexBindingDescriptions: " << (uint64_t)(pVertexBindingDescriptions) << std::endl;
+        std::cerr << "    vertexAttributeDescriptionCount: " << (uint64_t)(vertexAttributeDescriptionCount) << std::endl;
+        std::cerr << "    pVertexAttributeDescriptions: " << (uint64_t)(pVertexAttributeDescriptions) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13398,8 +15847,17 @@ static Napi::Value rawCmdSetColorWriteEnableEXT(const Napi::CallbackInfo& info_)
     decltype(auto) attachmentCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pColorWriteEnables = (VkBool32 const*)GetAddress(env, info_[2]);
-    
-    ::vkCmdSetColorWriteEnableEXT(commandBuffer, attachmentCount, pColorWriteEnables);
+    try {
+        ::vkCmdSetColorWriteEnableEXT(commandBuffer, attachmentCount, pColorWriteEnables);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetColorWriteEnableEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    attachmentCount: " << (uint64_t)(attachmentCount) << std::endl;
+        std::cerr << "    pColorWriteEnables: " << (uint64_t)(pColorWriteEnables) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13417,8 +15875,17 @@ static Napi::Value rawCmdSetEvent2(const Napi::CallbackInfo& info_) {
     decltype(auto) event = (VkEvent)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pDependencyInfo = (VkDependencyInfo const*)GetAddress(env, info_[2]);
-    
-    ::vkCmdSetEvent2(commandBuffer, event, pDependencyInfo);
+    try {
+        ::vkCmdSetEvent2(commandBuffer, event, pDependencyInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetEvent2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    event: " << (uint64_t)(event) << std::endl;
+        std::cerr << "    pDependencyInfo: " << (uint64_t)(pDependencyInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdResetEvent2(const Napi::CallbackInfo& info_) {
@@ -13436,8 +15903,17 @@ static Napi::Value rawCmdResetEvent2(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsNumber() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 2 argument (stageMask)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stageMask = (VkPipelineStageFlags2)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdResetEvent2(commandBuffer, event, stageMask);
+    try {
+        ::vkCmdResetEvent2(commandBuffer, event, stageMask);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdResetEvent2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    event: " << (uint64_t)(event) << std::endl;
+        std::cerr << "    stageMask: " << (uint64_t)(stageMask) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdWaitEvents2(const Napi::CallbackInfo& info_) {
@@ -13456,8 +15932,18 @@ static Napi::Value rawCmdWaitEvents2(const Napi::CallbackInfo& info_) {
     decltype(auto) pEvents = (VkEvent const*)GetAddress(env, info_[2]);
 
     decltype(auto) pDependencyInfos = (VkDependencyInfo const*)GetAddress(env, info_[3]);
-    
-    ::vkCmdWaitEvents2(commandBuffer, eventCount, pEvents, pDependencyInfos);
+    try {
+        ::vkCmdWaitEvents2(commandBuffer, eventCount, pEvents, pDependencyInfos);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdWaitEvents2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    eventCount: " << (uint64_t)(eventCount) << std::endl;
+        std::cerr << "    pEvents: " << (uint64_t)(pEvents) << std::endl;
+        std::cerr << "    pDependencyInfos: " << (uint64_t)(pDependencyInfos) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdPipelineBarrier2(const Napi::CallbackInfo& info_) {
@@ -13471,8 +15957,16 @@ static Napi::Value rawCmdPipelineBarrier2(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pDependencyInfo = (VkDependencyInfo const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdPipelineBarrier2(commandBuffer, pDependencyInfo);
+    try {
+        ::vkCmdPipelineBarrier2(commandBuffer, pDependencyInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdPipelineBarrier2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pDependencyInfo: " << (uint64_t)(pDependencyInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawQueueSubmit2(const Napi::CallbackInfo& info_) {
@@ -13492,13 +15986,13 @@ static Napi::Value rawQueueSubmit2(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (fence)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) fence = (VkFence)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkQueueSubmit2(queue, submitCount, pSubmits, fence);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkQueueSubmit2";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -13533,8 +16027,18 @@ static Napi::Value rawCmdWriteTimestamp2(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (query)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) query = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdWriteTimestamp2(commandBuffer, stage, queryPool, query);
+    try {
+        ::vkCmdWriteTimestamp2(commandBuffer, stage, queryPool, query);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdWriteTimestamp2 command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    stage: " << (uint64_t)(stage) << std::endl;
+        std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
+        std::cerr << "    query: " << (uint64_t)(query) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_KHR_synchronization2
@@ -13559,8 +16063,19 @@ static Napi::Value rawCmdWriteBufferMarker2AMD(const Napi::CallbackInfo& info_) 
 
     if (!info_[4].IsNumber() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 4 argument (marker)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) marker = (uint32_t)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdWriteBufferMarker2AMD(commandBuffer, stage, dstBuffer, dstOffset, marker);
+    try {
+        ::vkCmdWriteBufferMarker2AMD(commandBuffer, stage, dstBuffer, dstOffset, marker);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdWriteBufferMarker2AMD command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    stage: " << (uint64_t)(stage) << std::endl;
+        std::cerr << "    dstBuffer: " << (uint64_t)(dstBuffer) << std::endl;
+        std::cerr << "    dstOffset: " << (uint64_t)(dstOffset) << std::endl;
+        std::cerr << "    marker: " << (uint64_t)(marker) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13578,8 +16093,17 @@ static Napi::Value rawGetQueueCheckpointData2NV(const Napi::CallbackInfo& info_)
     decltype(auto) pCheckpointDataCount = (uint32_t*)GetAddress(env, info_[1]);
 
     decltype(auto) pCheckpointData = (VkCheckpointData2NV*)GetAddress(env, info_[2]);
-    
-    ::vkGetQueueCheckpointData2NV(queue, pCheckpointDataCount, pCheckpointData);
+    try {
+        ::vkGetQueueCheckpointData2NV(queue, pCheckpointDataCount, pCheckpointData);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetQueueCheckpointData2NV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    queue: " << (uint64_t)(queue) << std::endl;
+        std::cerr << "    pCheckpointDataCount: " << (uint64_t)(pCheckpointDataCount) << std::endl;
+        std::cerr << "    pCheckpointData: " << (uint64_t)(pCheckpointData) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13597,13 +16121,13 @@ static Napi::Value rawGetPhysicalDeviceVideoCapabilitiesKHR(const Napi::Callback
     decltype(auto) pVideoProfile = (VkVideoProfileInfoKHR const*)GetAddress(env, info_[1]);
 
     decltype(auto) pCapabilities = (VkVideoCapabilitiesKHR*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceVideoCapabilitiesKHR(physicalDevice, pVideoProfile, pCapabilities);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceVideoCapabilitiesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -13636,13 +16160,13 @@ static Napi::Value rawGetPhysicalDeviceVideoFormatPropertiesKHR(const Napi::Call
     decltype(auto) pVideoFormatPropertyCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pVideoFormatProperties = (VkVideoFormatPropertiesKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceVideoFormatPropertiesKHR(physicalDevice, pVideoFormatInfo, pVideoFormatPropertyCount, pVideoFormatProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceVideoFormatPropertiesKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -13676,13 +16200,13 @@ static Napi::Value rawCreateVideoSessionKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pVideoSession = (VkVideoSessionKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateVideoSessionKHR(device, pCreateInfo, pAllocator, pVideoSession);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateVideoSessionKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -13715,8 +16239,17 @@ static Napi::Value rawDestroyVideoSessionKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) videoSession = (VkVideoSessionKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyVideoSessionKHR(device, videoSession, pAllocator);
+    try {
+        ::vkDestroyVideoSessionKHR(device, videoSession, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyVideoSessionKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    videoSession: " << (uint64_t)(videoSession) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13736,13 +16269,13 @@ static Napi::Value rawCreateVideoSessionParametersKHR(const Napi::CallbackInfo& 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pVideoSessionParameters = (VkVideoSessionParametersKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateVideoSessionParametersKHR(device, pCreateInfo, pAllocator, pVideoSessionParameters);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateVideoSessionParametersKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -13775,13 +16308,13 @@ static Napi::Value rawUpdateVideoSessionParametersKHR(const Napi::CallbackInfo& 
     decltype(auto) videoSessionParameters = (VkVideoSessionParametersKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pUpdateInfo = (VkVideoSessionParametersUpdateInfoKHR const*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkUpdateVideoSessionParametersKHR(device, videoSessionParameters, pUpdateInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkUpdateVideoSessionParametersKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -13813,8 +16346,17 @@ static Napi::Value rawDestroyVideoSessionParametersKHR(const Napi::CallbackInfo&
     decltype(auto) videoSessionParameters = (VkVideoSessionParametersKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyVideoSessionParametersKHR(device, videoSessionParameters, pAllocator);
+    try {
+        ::vkDestroyVideoSessionParametersKHR(device, videoSessionParameters, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyVideoSessionParametersKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    videoSessionParameters: " << (uint64_t)(videoSessionParameters) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13835,13 +16377,13 @@ static Napi::Value rawGetVideoSessionMemoryRequirementsKHR(const Napi::CallbackI
     decltype(auto) pMemoryRequirementsCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pMemoryRequirements = (VkVideoSessionMemoryRequirementsKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetVideoSessionMemoryRequirementsKHR(device, videoSession, pMemoryRequirementsCount, pMemoryRequirements);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetVideoSessionMemoryRequirementsKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -13877,13 +16419,13 @@ static Napi::Value rawBindVideoSessionMemoryKHR(const Napi::CallbackInfo& info_)
     decltype(auto) bindSessionMemoryInfoCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pBindSessionMemoryInfos = (VkBindVideoSessionMemoryInfoKHR const*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkBindVideoSessionMemoryKHR(device, videoSession, bindSessionMemoryInfoCount, pBindSessionMemoryInfos);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkBindVideoSessionMemoryKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -13913,8 +16455,16 @@ static Napi::Value rawCmdDecodeVideoKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pDecodeInfo = (VkVideoDecodeInfoKHR const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdDecodeVideoKHR(commandBuffer, pDecodeInfo);
+    try {
+        ::vkCmdDecodeVideoKHR(commandBuffer, pDecodeInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDecodeVideoKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pDecodeInfo: " << (uint64_t)(pDecodeInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13930,8 +16480,16 @@ static Napi::Value rawCmdBeginVideoCodingKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pBeginInfo = (VkVideoBeginCodingInfoKHR const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdBeginVideoCodingKHR(commandBuffer, pBeginInfo);
+    try {
+        ::vkCmdBeginVideoCodingKHR(commandBuffer, pBeginInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBeginVideoCodingKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pBeginInfo: " << (uint64_t)(pBeginInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13947,8 +16505,16 @@ static Napi::Value rawCmdControlVideoCodingKHR(const Napi::CallbackInfo& info_) 
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pCodingControlInfo = (VkVideoCodingControlInfoKHR const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdControlVideoCodingKHR(commandBuffer, pCodingControlInfo);
+    try {
+        ::vkCmdControlVideoCodingKHR(commandBuffer, pCodingControlInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdControlVideoCodingKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pCodingControlInfo: " << (uint64_t)(pCodingControlInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13964,8 +16530,16 @@ static Napi::Value rawCmdEndVideoCodingKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pEndCodingInfo = (VkVideoEndCodingInfoKHR const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdEndVideoCodingKHR(commandBuffer, pEndCodingInfo);
+    try {
+        ::vkCmdEndVideoCodingKHR(commandBuffer, pEndCodingInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdEndVideoCodingKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pEndCodingInfo: " << (uint64_t)(pEndCodingInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -13981,8 +16555,16 @@ static Napi::Value rawCmdEncodeVideoKHR(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pEncodeInfo = (VkVideoEncodeInfoKHR const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdEncodeVideoKHR(commandBuffer, pEncodeInfo);
+    try {
+        ::vkCmdEncodeVideoKHR(commandBuffer, pEncodeInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdEncodeVideoKHR command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pEncodeInfo: " << (uint64_t)(pEncodeInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14001,8 +16583,17 @@ static Napi::Value rawCmdDecompressMemoryNV(const Napi::CallbackInfo& info_) {
     decltype(auto) decompressRegionCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pDecompressMemoryRegions = (VkDecompressMemoryRegionNV const*)GetAddress(env, info_[2]);
-    
-    ::vkCmdDecompressMemoryNV(commandBuffer, decompressRegionCount, pDecompressMemoryRegions);
+    try {
+        ::vkCmdDecompressMemoryNV(commandBuffer, decompressRegionCount, pDecompressMemoryRegions);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDecompressMemoryNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    decompressRegionCount: " << (uint64_t)(decompressRegionCount) << std::endl;
+        std::cerr << "    pDecompressMemoryRegions: " << (uint64_t)(pDecompressMemoryRegions) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14025,8 +16616,18 @@ static Napi::Value rawCmdDecompressMemoryIndirectCountNV(const Napi::CallbackInf
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdDecompressMemoryIndirectCountNV(commandBuffer, indirectCommandsAddress, indirectCommandsCountAddress, stride);
+    try {
+        ::vkCmdDecompressMemoryIndirectCountNV(commandBuffer, indirectCommandsAddress, indirectCommandsCountAddress, stride);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdDecompressMemoryIndirectCountNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    indirectCommandsAddress: " << (uint64_t)(indirectCommandsAddress) << std::endl;
+        std::cerr << "    indirectCommandsCountAddress: " << (uint64_t)(indirectCommandsCountAddress) << std::endl;
+        std::cerr << "    stride: " << (uint64_t)(stride) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14046,13 +16647,13 @@ static Napi::Value rawCreateCuModuleNVX(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pModule = (VkCuModuleNVX*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateCuModuleNVX(device, pCreateInfo, pAllocator, pModule);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateCuModuleNVX";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -14086,13 +16687,13 @@ static Napi::Value rawCreateCuFunctionNVX(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pFunction = (VkCuFunctionNVX*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateCuFunctionNVX(device, pCreateInfo, pAllocator, pFunction);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateCuFunctionNVX";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -14125,8 +16726,17 @@ static Napi::Value rawDestroyCuModuleNVX(const Napi::CallbackInfo& info_) {
     decltype(auto) module = (VkCuModuleNVX)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyCuModuleNVX(device, module, pAllocator);
+    try {
+        ::vkDestroyCuModuleNVX(device, module, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyCuModuleNVX command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    module: " << (uint64_t)(module) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14145,8 +16755,17 @@ static Napi::Value rawDestroyCuFunctionNVX(const Napi::CallbackInfo& info_) {
     decltype(auto) function = (VkCuFunctionNVX)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyCuFunctionNVX(device, function, pAllocator);
+    try {
+        ::vkDestroyCuFunctionNVX(device, function, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyCuFunctionNVX command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    function: " << (uint64_t)(function) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14162,8 +16781,16 @@ static Napi::Value rawCmdCuLaunchKernelNVX(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pLaunchInfo = (VkCuLaunchInfoNVX const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdCuLaunchKernelNVX(commandBuffer, pLaunchInfo);
+    try {
+        ::vkCmdCuLaunchKernelNVX(commandBuffer, pLaunchInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCuLaunchKernelNVX command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pLaunchInfo: " << (uint64_t)(pLaunchInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14182,8 +16809,17 @@ static Napi::Value rawGetDescriptorSetLayoutSizeEXT(const Napi::CallbackInfo& in
     decltype(auto) layout = (VkDescriptorSetLayout)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pLayoutSizeInBytes = (VkDeviceSize*)GetAddress(env, info_[2]);
-    
-    ::vkGetDescriptorSetLayoutSizeEXT(device, layout, pLayoutSizeInBytes);
+    try {
+        ::vkGetDescriptorSetLayoutSizeEXT(device, layout, pLayoutSizeInBytes);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDescriptorSetLayoutSizeEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    layout: " << (uint64_t)(layout) << std::endl;
+        std::cerr << "    pLayoutSizeInBytes: " << (uint64_t)(pLayoutSizeInBytes) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14205,8 +16841,18 @@ static Napi::Value rawGetDescriptorSetLayoutBindingOffsetEXT(const Napi::Callbac
     decltype(auto) binding = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pOffset = (VkDeviceSize*)GetAddress(env, info_[3]);
-    
-    ::vkGetDescriptorSetLayoutBindingOffsetEXT(device, layout, binding, pOffset);
+    try {
+        ::vkGetDescriptorSetLayoutBindingOffsetEXT(device, layout, binding, pOffset);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDescriptorSetLayoutBindingOffsetEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    layout: " << (uint64_t)(layout) << std::endl;
+        std::cerr << "    binding: " << (uint64_t)(binding) << std::endl;
+        std::cerr << "    pOffset: " << (uint64_t)(pOffset) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14227,8 +16873,18 @@ static Napi::Value rawGetDescriptorEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) dataSize = (size_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
 
     decltype(auto) pDescriptor = (void*)GetAddress(env, info_[3]);
-    
-    ::vkGetDescriptorEXT(device, pDescriptorInfo, dataSize, pDescriptor);
+    try {
+        ::vkGetDescriptorEXT(device, pDescriptorInfo, dataSize, pDescriptor);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDescriptorEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pDescriptorInfo: " << (uint64_t)(pDescriptorInfo) << std::endl;
+        std::cerr << "    dataSize: " << (uint64_t)(dataSize) << std::endl;
+        std::cerr << "    pDescriptor: " << (uint64_t)(pDescriptor) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14247,8 +16903,17 @@ static Napi::Value rawCmdBindDescriptorBuffersEXT(const Napi::CallbackInfo& info
     decltype(auto) bufferCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pBindingInfos = (VkDescriptorBufferBindingInfoEXT const*)GetAddress(env, info_[2]);
-    
-    ::vkCmdBindDescriptorBuffersEXT(commandBuffer, bufferCount, pBindingInfos);
+    try {
+        ::vkCmdBindDescriptorBuffersEXT(commandBuffer, bufferCount, pBindingInfos);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBindDescriptorBuffersEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    bufferCount: " << (uint64_t)(bufferCount) << std::endl;
+        std::cerr << "    pBindingInfos: " << (uint64_t)(pBindingInfos) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14278,8 +16943,21 @@ static Napi::Value rawCmdSetDescriptorBufferOffsetsEXT(const Napi::CallbackInfo&
     decltype(auto) pBufferIndices = (uint32_t const*)GetAddress(env, info_[5]);
 
     decltype(auto) pOffsets = (VkDeviceSize const*)GetAddress(env, info_[6]);
-    
-    ::vkCmdSetDescriptorBufferOffsetsEXT(commandBuffer, pipelineBindPoint, layout, firstSet, setCount, pBufferIndices, pOffsets);
+    try {
+        ::vkCmdSetDescriptorBufferOffsetsEXT(commandBuffer, pipelineBindPoint, layout, firstSet, setCount, pBufferIndices, pOffsets);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdSetDescriptorBufferOffsetsEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pipelineBindPoint: " << (uint64_t)(pipelineBindPoint) << std::endl;
+        std::cerr << "    layout: " << (uint64_t)(layout) << std::endl;
+        std::cerr << "    firstSet: " << (uint64_t)(firstSet) << std::endl;
+        std::cerr << "    setCount: " << (uint64_t)(setCount) << std::endl;
+        std::cerr << "    pBufferIndices: " << (uint64_t)(pBufferIndices) << std::endl;
+        std::cerr << "    pOffsets: " << (uint64_t)(pOffsets) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14302,8 +16980,18 @@ static Napi::Value rawCmdBindDescriptorBufferEmbeddedSamplersEXT(const Napi::Cal
 
     if (!info_[3].IsNumber() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 3 argument (set)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) set = (uint32_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdBindDescriptorBufferEmbeddedSamplersEXT(commandBuffer, pipelineBindPoint, layout, set);
+    try {
+        ::vkCmdBindDescriptorBufferEmbeddedSamplersEXT(commandBuffer, pipelineBindPoint, layout, set);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBindDescriptorBufferEmbeddedSamplersEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pipelineBindPoint: " << (uint64_t)(pipelineBindPoint) << std::endl;
+        std::cerr << "    layout: " << (uint64_t)(layout) << std::endl;
+        std::cerr << "    set: " << (uint64_t)(set) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14321,13 +17009,13 @@ static Napi::Value rawGetBufferOpaqueCaptureDescriptorDataEXT(const Napi::Callba
     decltype(auto) pInfo = (VkBufferCaptureDescriptorDataInfoEXT const*)GetAddress(env, info_[1]);
 
     decltype(auto) pData = (void*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetBufferOpaqueCaptureDescriptorDataEXT(device, pInfo, pData);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetBufferOpaqueCaptureDescriptorDataEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -14358,13 +17046,13 @@ static Napi::Value rawGetImageOpaqueCaptureDescriptorDataEXT(const Napi::Callbac
     decltype(auto) pInfo = (VkImageCaptureDescriptorDataInfoEXT const*)GetAddress(env, info_[1]);
 
     decltype(auto) pData = (void*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetImageOpaqueCaptureDescriptorDataEXT(device, pInfo, pData);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetImageOpaqueCaptureDescriptorDataEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -14395,13 +17083,13 @@ static Napi::Value rawGetImageViewOpaqueCaptureDescriptorDataEXT(const Napi::Cal
     decltype(auto) pInfo = (VkImageViewCaptureDescriptorDataInfoEXT const*)GetAddress(env, info_[1]);
 
     decltype(auto) pData = (void*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetImageViewOpaqueCaptureDescriptorDataEXT(device, pInfo, pData);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetImageViewOpaqueCaptureDescriptorDataEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -14432,13 +17120,13 @@ static Napi::Value rawGetSamplerOpaqueCaptureDescriptorDataEXT(const Napi::Callb
     decltype(auto) pInfo = (VkSamplerCaptureDescriptorDataInfoEXT const*)GetAddress(env, info_[1]);
 
     decltype(auto) pData = (void*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetSamplerOpaqueCaptureDescriptorDataEXT(device, pInfo, pData);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetSamplerOpaqueCaptureDescriptorDataEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -14469,13 +17157,13 @@ static Napi::Value rawGetAccelerationStructureOpaqueCaptureDescriptorDataEXT(con
     decltype(auto) pInfo = (VkAccelerationStructureCaptureDescriptorDataInfoEXT const*)GetAddress(env, info_[1]);
 
     decltype(auto) pData = (void*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT(device, pInfo, pData);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -14508,8 +17196,17 @@ static Napi::Value rawSetDeviceMemoryPriorityEXT(const Napi::CallbackInfo& info_
 
     if (!info_[2].IsNumber()) { Napi::TypeError::New(env, "Wrong type, needs Number at 2 argument (priority)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) priority = (float)info_[2].As<Napi::Number>().FloatValue();
-    
-    ::vkSetDeviceMemoryPriorityEXT(device, memory, priority);
+    try {
+        ::vkSetDeviceMemoryPriorityEXT(device, memory, priority);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkSetDeviceMemoryPriorityEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    memory: " << (uint64_t)(memory) << std::endl;
+        std::cerr << "    priority: " << (uint64_t)(priority) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14529,13 +17226,13 @@ static Napi::Value rawAcquireDrmDisplayEXT(const Napi::CallbackInfo& info_) {
 
     if (!info_[2].IsBigInt() && !info_[2].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 2 argument (display)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) display = (VkDisplayKHR)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkAcquireDrmDisplayEXT(physicalDevice, drmFd, display);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkAcquireDrmDisplayEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -14570,13 +17267,13 @@ static Napi::Value rawGetDrmDisplayEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) connectorId = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) display = (VkDisplayKHR*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetDrmDisplayEXT(physicalDevice, drmFd, connectorId, display);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetDrmDisplayEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -14613,13 +17310,13 @@ static Napi::Value rawWaitForPresentKHR(const Napi::CallbackInfo& info_) {
 
     if (!info_[3].IsBigInt() && !info_[3].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 3 argument (timeout)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) timeout = (uint64_t)(info_[3].IsBigInt() ? info_[3].As<Napi::BigInt>().Uint64Value(&lossless) : info_[3].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkWaitForPresentKHR(device, swapchain, presentId, timeout);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkWaitForPresentKHR";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -14653,13 +17350,13 @@ static Napi::Value rawCreateBufferCollectionFUCHSIA(const Napi::CallbackInfo& in
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pCollection = (VkBufferCollectionFUCHSIA*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateBufferCollectionFUCHSIA(device, pCreateInfo, pAllocator, pCollection);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateBufferCollectionFUCHSIA";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -14692,13 +17389,13 @@ static Napi::Value rawSetBufferCollectionBufferConstraintsFUCHSIA(const Napi::Ca
     decltype(auto) collection = (VkBufferCollectionFUCHSIA)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pBufferConstraintsInfo = (VkBufferConstraintsInfoFUCHSIA const*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkSetBufferCollectionBufferConstraintsFUCHSIA(device, collection, pBufferConstraintsInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkSetBufferCollectionBufferConstraintsFUCHSIA";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -14730,13 +17427,13 @@ static Napi::Value rawSetBufferCollectionImageConstraintsFUCHSIA(const Napi::Cal
     decltype(auto) collection = (VkBufferCollectionFUCHSIA)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pImageConstraintsInfo = (VkImageConstraintsInfoFUCHSIA const*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkSetBufferCollectionImageConstraintsFUCHSIA(device, collection, pImageConstraintsInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkSetBufferCollectionImageConstraintsFUCHSIA";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -14768,8 +17465,17 @@ static Napi::Value rawDestroyBufferCollectionFUCHSIA(const Napi::CallbackInfo& i
     decltype(auto) collection = (VkBufferCollectionFUCHSIA)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyBufferCollectionFUCHSIA(device, collection, pAllocator);
+    try {
+        ::vkDestroyBufferCollectionFUCHSIA(device, collection, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyBufferCollectionFUCHSIA command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    collection: " << (uint64_t)(collection) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14788,13 +17494,13 @@ static Napi::Value rawGetBufferCollectionPropertiesFUCHSIA(const Napi::CallbackI
     decltype(auto) collection = (VkBufferCollectionFUCHSIA)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pProperties = (VkBufferCollectionPropertiesFUCHSIA*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetBufferCollectionPropertiesFUCHSIA(device, collection, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetBufferCollectionPropertiesFUCHSIA";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -14822,8 +17528,16 @@ static Napi::Value rawCmdBeginRendering(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pRenderingInfo = (VkRenderingInfo const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdBeginRendering(commandBuffer, pRenderingInfo);
+    try {
+        ::vkCmdBeginRendering(commandBuffer, pRenderingInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBeginRendering command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pRenderingInfo: " << (uint64_t)(pRenderingInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 static Napi::Value rawCmdEndRendering(const Napi::CallbackInfo& info_) {
@@ -14835,8 +17549,15 @@ static Napi::Value rawCmdEndRendering(const Napi::CallbackInfo& info_) {
     
     if (!info_[0].IsBigInt() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (commandBuffer)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
-    
-    ::vkCmdEndRendering(commandBuffer);
+    try {
+        ::vkCmdEndRendering(commandBuffer);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdEndRendering command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #ifdef VK_VALVE_descriptor_set_host_mapping
@@ -14853,8 +17574,17 @@ static Napi::Value rawGetDescriptorSetLayoutHostMappingInfoVALVE(const Napi::Cal
     decltype(auto) pBindingReference = (VkDescriptorSetBindingReferenceVALVE const*)GetAddress(env, info_[1]);
 
     decltype(auto) pHostMapping = (VkDescriptorSetLayoutHostMappingInfoVALVE*)GetAddress(env, info_[2]);
-    
-    ::vkGetDescriptorSetLayoutHostMappingInfoVALVE(device, pBindingReference, pHostMapping);
+    try {
+        ::vkGetDescriptorSetLayoutHostMappingInfoVALVE(device, pBindingReference, pHostMapping);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDescriptorSetLayoutHostMappingInfoVALVE command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pBindingReference: " << (uint64_t)(pBindingReference) << std::endl;
+        std::cerr << "    pHostMapping: " << (uint64_t)(pHostMapping) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14873,8 +17603,17 @@ static Napi::Value rawGetDescriptorSetHostMappingVALVE(const Napi::CallbackInfo&
     decltype(auto) descriptorSet = (VkDescriptorSet)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) ppData = (void**)GetAddress(env, info_[2]);
-    
-    ::vkGetDescriptorSetHostMappingVALVE(device, descriptorSet, ppData);
+    try {
+        ::vkGetDescriptorSetHostMappingVALVE(device, descriptorSet, ppData);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDescriptorSetHostMappingVALVE command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    descriptorSet: " << (uint64_t)(descriptorSet) << std::endl;
+        std::cerr << "    ppData: " << (uint64_t)(ppData) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14894,13 +17633,13 @@ static Napi::Value rawCreateMicromapEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pMicromap = (VkMicromapEXT*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateMicromapEXT(device, pCreateInfo, pAllocator, pMicromap);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateMicromapEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -14933,8 +17672,17 @@ static Napi::Value rawCmdBuildMicromapsEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) infoCount = (uint32_t)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pInfos = (VkMicromapBuildInfoEXT const*)GetAddress(env, info_[2]);
-    
-    ::vkCmdBuildMicromapsEXT(commandBuffer, infoCount, pInfos);
+    try {
+        ::vkCmdBuildMicromapsEXT(commandBuffer, infoCount, pInfos);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdBuildMicromapsEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    infoCount: " << (uint64_t)(infoCount) << std::endl;
+        std::cerr << "    pInfos: " << (uint64_t)(pInfos) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -14956,13 +17704,13 @@ static Napi::Value rawBuildMicromapsEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) infoCount = (uint32_t)(info_[2].IsBigInt() ? info_[2].As<Napi::BigInt>().Uint64Value(&lossless) : info_[2].As<Napi::Number>().Uint32Value());
 
     decltype(auto) pInfos = (VkMicromapBuildInfoEXT const*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkBuildMicromapsEXT(device, deferredOperation, infoCount, pInfos);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkBuildMicromapsEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -14995,8 +17743,17 @@ static Napi::Value rawDestroyMicromapEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) micromap = (VkMicromapEXT)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyMicromapEXT(device, micromap, pAllocator);
+    try {
+        ::vkDestroyMicromapEXT(device, micromap, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyMicromapEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    micromap: " << (uint64_t)(micromap) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -15012,8 +17769,16 @@ static Napi::Value rawCmdCopyMicromapEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkCopyMicromapInfoEXT const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdCopyMicromapEXT(commandBuffer, pInfo);
+    try {
+        ::vkCmdCopyMicromapEXT(commandBuffer, pInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyMicromapEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -15032,13 +17797,13 @@ static Napi::Value rawCopyMicromapEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) deferredOperation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkCopyMicromapInfoEXT const*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkCopyMicromapEXT(device, deferredOperation, pInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCopyMicromapEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -15067,8 +17832,16 @@ static Napi::Value rawCmdCopyMicromapToMemoryEXT(const Napi::CallbackInfo& info_
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkCopyMicromapToMemoryInfoEXT const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdCopyMicromapToMemoryEXT(commandBuffer, pInfo);
+    try {
+        ::vkCmdCopyMicromapToMemoryEXT(commandBuffer, pInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyMicromapToMemoryEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -15087,13 +17860,13 @@ static Napi::Value rawCopyMicromapToMemoryEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) deferredOperation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkCopyMicromapToMemoryInfoEXT const*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkCopyMicromapToMemoryEXT(device, deferredOperation, pInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCopyMicromapToMemoryEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -15122,8 +17895,16 @@ static Napi::Value rawCmdCopyMemoryToMicromapEXT(const Napi::CallbackInfo& info_
     decltype(auto) commandBuffer = (VkCommandBuffer)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkCopyMemoryToMicromapInfoEXT const*)GetAddress(env, info_[1]);
-    
-    ::vkCmdCopyMemoryToMicromapEXT(commandBuffer, pInfo);
+    try {
+        ::vkCmdCopyMemoryToMicromapEXT(commandBuffer, pInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdCopyMemoryToMicromapEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    pInfo: " << (uint64_t)(pInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -15142,13 +17923,13 @@ static Napi::Value rawCopyMemoryToMicromapEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) deferredOperation = (VkDeferredOperationKHR)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pInfo = (VkCopyMemoryToMicromapInfoEXT const*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkCopyMemoryToMicromapEXT(device, deferredOperation, pInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCopyMemoryToMicromapEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -15189,8 +17970,20 @@ static Napi::Value rawCmdWriteMicromapsPropertiesEXT(const Napi::CallbackInfo& i
 
     if (!info_[5].IsNumber() && !info_[5].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt at 5 argument (firstQuery)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) firstQuery = (uint32_t)(info_[5].IsBigInt() ? info_[5].As<Napi::BigInt>().Uint64Value(&lossless) : info_[5].As<Napi::Number>().Uint32Value());
-    
-    ::vkCmdWriteMicromapsPropertiesEXT(commandBuffer, micromapCount, pMicromaps, queryType, queryPool, firstQuery);
+    try {
+        ::vkCmdWriteMicromapsPropertiesEXT(commandBuffer, micromapCount, pMicromaps, queryType, queryPool, firstQuery);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdWriteMicromapsPropertiesEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    micromapCount: " << (uint64_t)(micromapCount) << std::endl;
+        std::cerr << "    pMicromaps: " << (uint64_t)(pMicromaps) << std::endl;
+        std::cerr << "    queryType: " << (uint64_t)(queryType) << std::endl;
+        std::cerr << "    queryPool: " << (uint64_t)(queryPool) << std::endl;
+        std::cerr << "    firstQuery: " << (uint64_t)(firstQuery) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -15220,13 +18013,13 @@ static Napi::Value rawWriteMicromapsPropertiesEXT(const Napi::CallbackInfo& info
 
     if (!info_[6].IsBigInt() && !info_[6].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 6 argument (stride)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) stride = (size_t)(info_[6].IsBigInt() ? info_[6].As<Napi::BigInt>().Uint64Value(&lossless) : info_[6].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkWriteMicromapsPropertiesEXT(device, micromapCount, pMicromaps, queryType, dataSize, pData, stride);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkWriteMicromapsPropertiesEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -15261,8 +18054,17 @@ static Napi::Value rawGetDeviceMicromapCompatibilityEXT(const Napi::CallbackInfo
     decltype(auto) pVersionInfo = (VkMicromapVersionInfoEXT const*)GetAddress(env, info_[1]);
 
     decltype(auto) pCompatibility = (VkAccelerationStructureCompatibilityKHR*)GetAddress(env, info_[2]);
-    
-    ::vkGetDeviceMicromapCompatibilityEXT(device, pVersionInfo, pCompatibility);
+    try {
+        ::vkGetDeviceMicromapCompatibilityEXT(device, pVersionInfo, pCompatibility);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetDeviceMicromapCompatibilityEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pVersionInfo: " << (uint64_t)(pVersionInfo) << std::endl;
+        std::cerr << "    pCompatibility: " << (uint64_t)(pCompatibility) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -15283,8 +18085,18 @@ static Napi::Value rawGetMicromapBuildSizesEXT(const Napi::CallbackInfo& info_) 
     decltype(auto) pBuildInfo = (VkMicromapBuildInfoEXT const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSizeInfo = (VkMicromapBuildSizesInfoEXT*)GetAddress(env, info_[3]);
-    
-    ::vkGetMicromapBuildSizesEXT(device, buildType, pBuildInfo, pSizeInfo);
+    try {
+        ::vkGetMicromapBuildSizesEXT(device, buildType, pBuildInfo, pSizeInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetMicromapBuildSizesEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    buildType: " << (uint64_t)(buildType) << std::endl;
+        std::cerr << "    pBuildInfo: " << (uint64_t)(pBuildInfo) << std::endl;
+        std::cerr << "    pSizeInfo: " << (uint64_t)(pSizeInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -15303,8 +18115,17 @@ static Napi::Value rawGetShaderModuleIdentifierEXT(const Napi::CallbackInfo& inf
     decltype(auto) shaderModule = (VkShaderModule)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pIdentifier = (VkShaderModuleIdentifierEXT*)GetAddress(env, info_[2]);
-    
-    ::vkGetShaderModuleIdentifierEXT(device, shaderModule, pIdentifier);
+    try {
+        ::vkGetShaderModuleIdentifierEXT(device, shaderModule, pIdentifier);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetShaderModuleIdentifierEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    shaderModule: " << (uint64_t)(shaderModule) << std::endl;
+        std::cerr << "    pIdentifier: " << (uint64_t)(pIdentifier) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -15322,8 +18143,17 @@ static Napi::Value rawGetShaderModuleCreateInfoIdentifierEXT(const Napi::Callbac
     decltype(auto) pCreateInfo = (VkShaderModuleCreateInfo const*)GetAddress(env, info_[1]);
 
     decltype(auto) pIdentifier = (VkShaderModuleIdentifierEXT*)GetAddress(env, info_[2]);
-    
-    ::vkGetShaderModuleCreateInfoIdentifierEXT(device, pCreateInfo, pIdentifier);
+    try {
+        ::vkGetShaderModuleCreateInfoIdentifierEXT(device, pCreateInfo, pIdentifier);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetShaderModuleCreateInfoIdentifierEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pCreateInfo: " << (uint64_t)(pCreateInfo) << std::endl;
+        std::cerr << "    pIdentifier: " << (uint64_t)(pIdentifier) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -15344,8 +18174,18 @@ static Napi::Value rawGetImageSubresourceLayout2EXT(const Napi::CallbackInfo& in
     decltype(auto) pSubresource = (VkImageSubresource2EXT const*)GetAddress(env, info_[2]);
 
     decltype(auto) pLayout = (VkSubresourceLayout2EXT*)GetAddress(env, info_[3]);
-    
-    ::vkGetImageSubresourceLayout2EXT(device, image, pSubresource, pLayout);
+    try {
+        ::vkGetImageSubresourceLayout2EXT(device, image, pSubresource, pLayout);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkGetImageSubresourceLayout2EXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    image: " << (uint64_t)(image) << std::endl;
+        std::cerr << "    pSubresource: " << (uint64_t)(pSubresource) << std::endl;
+        std::cerr << "    pLayout: " << (uint64_t)(pLayout) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -15363,13 +18203,13 @@ static Napi::Value rawGetPipelinePropertiesEXT(const Napi::CallbackInfo& info_) 
     decltype(auto) pPipelineInfo = (VkPipelineInfoEXT const*)GetAddress(env, info_[1]);
 
     decltype(auto) pPipelineProperties = (VkBaseOutStructure*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetPipelinePropertiesEXT(device, pPipelineInfo, pPipelineProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPipelinePropertiesEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -15398,8 +18238,16 @@ static Napi::Value rawExportMetalObjectsEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
 
     decltype(auto) pMetalObjectsInfo = (VkExportMetalObjectsInfoEXT*)GetAddress(env, info_[1]);
-    
-    ::vkExportMetalObjectsEXT(device, pMetalObjectsInfo);
+    try {
+        ::vkExportMetalObjectsEXT(device, pMetalObjectsInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkExportMetalObjectsEXT command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pMetalObjectsInfo: " << (uint64_t)(pMetalObjectsInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -15420,13 +18268,13 @@ static Napi::Value rawGetFramebufferTilePropertiesQCOM(const Napi::CallbackInfo&
     decltype(auto) pPropertiesCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pProperties = (VkTilePropertiesQCOM*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetFramebufferTilePropertiesQCOM(device, framebuffer, pPropertiesCount, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetFramebufferTilePropertiesQCOM";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -15458,13 +18306,13 @@ static Napi::Value rawGetDynamicRenderingTilePropertiesQCOM(const Napi::Callback
     decltype(auto) pRenderingInfo = (VkRenderingInfo const*)GetAddress(env, info_[1]);
 
     decltype(auto) pProperties = (VkTilePropertiesQCOM*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetDynamicRenderingTilePropertiesQCOM(device, pRenderingInfo, pProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetDynamicRenderingTilePropertiesQCOM";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -15497,13 +18345,13 @@ static Napi::Value rawGetPhysicalDeviceOpticalFlowImageFormatsNV(const Napi::Cal
     decltype(auto) pFormatCount = (uint32_t*)GetAddress(env, info_[2]);
 
     decltype(auto) pImageFormatProperties = (VkOpticalFlowImageFormatPropertiesNV*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkGetPhysicalDeviceOpticalFlowImageFormatsNV(physicalDevice, pOpticalFlowImageFormatInfo, pFormatCount, pImageFormatProperties);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetPhysicalDeviceOpticalFlowImageFormatsNV";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -15537,13 +18385,13 @@ static Napi::Value rawCreateOpticalFlowSessionNV(const Napi::CallbackInfo& info_
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
 
     decltype(auto) pSession = (VkOpticalFlowSessionNV*)GetAddress(env, info_[3]);
-    
     try {
         decltype(auto) result = ::vkCreateOpticalFlowSessionNV(device, pCreateInfo, pAllocator, pSession);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkCreateOpticalFlowSessionNV";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -15576,8 +18424,17 @@ static Napi::Value rawDestroyOpticalFlowSessionNV(const Napi::CallbackInfo& info
     decltype(auto) session = (VkOpticalFlowSessionNV)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pAllocator = (VkAllocationCallbacks const*)GetAddress(env, info_[2]);
-    
-    ::vkDestroyOpticalFlowSessionNV(device, session, pAllocator);
+    try {
+        ::vkDestroyOpticalFlowSessionNV(device, session, pAllocator);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkDestroyOpticalFlowSessionNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    session: " << (uint64_t)(session) << std::endl;
+        std::cerr << "    pAllocator: " << (uint64_t)(pAllocator) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -15603,13 +18460,13 @@ static Napi::Value rawBindOpticalFlowSessionImageNV(const Napi::CallbackInfo& in
 
     if (!info_[4].IsBigInt() && !info_[4].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 4 argument (layout)").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) layout = (VkImageLayout)(info_[4].IsBigInt() ? info_[4].As<Napi::BigInt>().Uint64Value(&lossless) : info_[4].As<Napi::Number>().Int64Value());
-    
     try {
         decltype(auto) result = ::vkBindOpticalFlowSessionImageNV(device, session, bindingPoint, view, layout);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkBindOpticalFlowSessionImageNV";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         
@@ -15643,8 +18500,17 @@ static Napi::Value rawCmdOpticalFlowExecuteNV(const Napi::CallbackInfo& info_) {
     decltype(auto) session = (VkOpticalFlowSessionNV)(info_[1].IsBigInt() ? info_[1].As<Napi::BigInt>().Uint64Value(&lossless) : info_[1].As<Napi::Number>().Int64Value());
 
     decltype(auto) pExecuteInfo = (VkOpticalFlowExecuteInfoNV const*)GetAddress(env, info_[2]);
-    
-    ::vkCmdOpticalFlowExecuteNV(commandBuffer, session, pExecuteInfo);
+    try {
+        ::vkCmdOpticalFlowExecuteNV(commandBuffer, session, pExecuteInfo);
+    } catch(std::exception e) {
+        std::cerr << "Exception with vkCmdOpticalFlowExecuteNV command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    commandBuffer: " << (uint64_t)(commandBuffer) << std::endl;
+        std::cerr << "    session: " << (uint64_t)(session) << std::endl;
+        std::cerr << "    pExecuteInfo: " << (uint64_t)(pExecuteInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 }
 #endif
@@ -15662,13 +18528,13 @@ static Napi::Value rawGetDeviceFaultInfoEXT(const Napi::CallbackInfo& info_) {
     decltype(auto) pFaultCounts = (VkDeviceFaultCountsEXT*)GetAddress(env, info_[1]);
 
     decltype(auto) pFaultInfo = (VkDeviceFaultInfoEXT*)GetAddress(env, info_[2]);
-    
     try {
         decltype(auto) result = ::vkGetDeviceFaultInfoEXT(device, pFaultCounts, pFaultInfo);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in vkGetDeviceFaultInfoEXT";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         
         

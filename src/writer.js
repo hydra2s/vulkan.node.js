@@ -193,19 +193,28 @@ let getWriter = async()=>{
     //
     let passDispatch = (proto, params)=>{
         if (IsUint64(proto.type) || IsInt64(proto.type) || proto.isPointer) {
-            return `
-    decltype(auto) result = ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
-    return ${Uint64Return(`result`)}
+            return `try {
+        decltype(auto) result = ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
+        return Napi::BigInt::New(env, result);
+    } catch(std::exception e) {
+        std::cerr << "Exception with ${proto.name} command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+        ${params.map((p)=>`        std::cerr << "    ${p.name}: " << (uint64_t)(${p.name}) << std::endl;`).join(`
+`)}
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
+    return env.Null();
 `;
         } else 
         if (IsUint32(proto.type) || IsUint16(proto.type) || IsUint8(proto.type) || IsInt32(proto.type) || IsInt16(proto.type) || IsInt8(proto.type) || IsFloat32(proto.type) || IsFloat64(proto.type)) {
-            return `
-    try {
+            return `try {
         decltype(auto) result = ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in ${proto.name}";
-            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw std::exception(errorMsg.c_str());
         }
         ${proto.name == "vkCreateInstance" ? "volkLoadInstance(*pInstance);" : ""}
         ${proto.name == "vkCreateDevice" ? "volkLoadDevice(*pDevice);" : ""}
@@ -222,15 +231,32 @@ let getWriter = async()=>{
 `;
         } else 
         if (proto.type.indexOf("void") >= 0 || proto.type.indexOf("PFN_vkVoidFunction") >= 0) {
-        return `
-    ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
+        return `try {
+        ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
+    } catch(std::exception e) {
+        std::cerr << "Exception with ${proto.name} command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+        ${params.map((p)=>`        std::cerr << "    ${p.name}: " << (uint64_t)(${p.name}) << std::endl;`).join(`
+`)}
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
     return env.Null();
 `;
         } else
         {
-        return `
-    decltype(auto) result = ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
-    return ${Uint64Return(`result`)}
+        return `try {
+        decltype(auto) result = ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
+        return Napi::BigInt::New(env, result);
+    } catch(std::exception e) {
+        std::cerr << "Exception with ${proto.name} command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+        ${params.map((p)=>`        std::cerr << "    ${p.name}: " << (uint64_t)(${p.name}) << std::endl;`).join(`
+`)}
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
+    return env.Null();
 `;
         }
     };
