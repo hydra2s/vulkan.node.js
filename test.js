@@ -419,6 +419,7 @@ const vert_shader_spv = new Uint8Array([
     // you construct struct from address
     //console.log(V.VkPhysicalDeviceFeatures.fromAddress(deviceFeatures.address()));
 
+    /*
     // WndProc
     const WndProc = ffi.Callback(
         W.UINT32,
@@ -486,6 +487,6 @@ const vert_shader_spv = new Uint8Array([
     process.on('exit', () => {
         console.info('typeof WndProc is ' + typeof WndProc)
         console.info(`${count} loops`)
-    })
+    })*/
 
 })();
