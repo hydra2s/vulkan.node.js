@@ -65,11 +65,11 @@ import { default as V } from "./index.js";
 	//
 	const amountOfLayers = new Uint32Array(1);
 	V.vkEnumerateInstanceLayerProperties(amountOfLayers, null);
-	const availableLayers = new Uint8Array(V.VkLayerProperties.sizeof * amountOfLayers[0]);
+	const availableLayers = new V.VkLayerProperties(amountOfLayers[0]);
 	V.vkEnumerateInstanceLayerProperties(amountOfLayers, availableLayers);
 
     //
-    const pInfo = new V.VkInstanceCreateInfo({
+    let pInfo = new V.VkInstanceCreateInfo({
         pNext: null,
         flags: 0,
         pApplicationInfo: appInfo,
@@ -82,6 +82,7 @@ import { default as V } from "./index.js";
 	// 
     const instance = new BigUint64Array(1);
     V.vkCreateInstance(pInfo, null, instance);
+
 })();
 ```
 
@@ -95,33 +96,31 @@ But continue, currently, not so fair. Needs sizeof de-facto. But now looks bette
 
 	//
     if (deviceCount[0] <= 0) console.error("Error: No render devices available!");
-    let devices = new BigUint64Array(deviceCount[0]);
+    const devices = new BigUint64Array(deviceCount[0]);
     result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, devices);
     //console.log(devices);
 
     //
     const dExtensionCount = new Uint32Array(1);
     V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, null);
-    const dExtensions = new Uint8Array(dExtensionCount[0]*V.VkExtensionProperties.sizeof);
+    const dExtensions = new V.VkExtensionProperties(dExtensionCount[0]);
     V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, dExtensions);
 
 	//
-	let property = new V.VkExtensionProperties(dExtensions, 0, dExtensionCount[0]);
     for (let I=0;I<dExtensionCount[0];I++) {
-        console.log(String.fromAddress(property[I].extensionName));
+        console.log(String.fromAddress(dExtensions[I].extensionName));
     }
 
     //
     const queueFamilyCount = new Uint32Array(1);
     V.vkGetPhysicalDeviceQueueFamilyProperties(devices[0], queueFamilyCount, null);
-    const queueFamilyProperties = new Uint8Array(V.VkQueueFamilyProperties.sizeof * queueFamilyCount[0]);
+    const queueFamilyProperties = new V.VkQueueFamilyProperties(queueFamilyCount[0])
     V.vkGetPhysicalDeviceQueueFamilyProperties(devices[0], queueFamilyCount, queueFamilyProperties);
 
     //
     let queueIndex = -1;
-	property = new V.VkQueueFamilyProperties(queueFamilyProperties, 0, queueFamilyCount[0]);
     for (let I=0;I<queueFamilyCount[0];I++) {
-        if (property[I].queueFlags & parseInt(V.VK_QUEUE_GRAPHICS_BIT)) {
+        if (queueFamilyProperties[I].queueFlags & parseInt(V.VK_QUEUE_GRAPHICS_BIT)) {
             queueIndex = I; break;
         }
     }
