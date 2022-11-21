@@ -10,6 +10,9 @@ const IsNumber = (index) => {
 
 // 
 const asBigInt = (value)=>{
+    if (!value) {
+        return 0n;
+    } else
     if (IsNumber(value)) {
         return BigInt(value);
     } else

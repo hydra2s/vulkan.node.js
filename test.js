@@ -158,7 +158,7 @@ const vert_shader_spv = new Uint8Array([
 			codeSize: shaderSrc.byteLength
 		});
 		const shaderModule = new BigUint64Array(1);
-		V.vkCreateShaderModule(device, shaderModuleInfo, 0n, shaderModule);
+		V.vkCreateShaderModule(device, shaderModuleInfo, null, shaderModule);
 		return shaderModule[0];
 	}
 
@@ -185,12 +185,12 @@ const vert_shader_spv = new Uint8Array([
 			usage: V.VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
 			sharingMode: V.VK_SHARING_MODE_EXCLUSIVE,
 			queueFamilyIndexCount: 0,
-			pQueueFamilyIndices: 0n
+			pQueueFamilyIndices: null
 		});
 
 		//
 		const buffer = new BigUint64Array(1);
-		V.vkCreateBuffer(device, bufferInfo, 0n, buffer);
+		V.vkCreateBuffer(device, bufferInfo, null, buffer);
 
 		//
 		let memoryRequirements = new V.VkMemoryRequirements();
@@ -210,12 +210,12 @@ const vert_shader_spv = new Uint8Array([
 
 		//
 		let bufferMemory = new BigUint64Array(1);
-		V.vkAllocateMemory(device, memAllocInfo, 0n, bufferMemory);
-		V.vkBindBufferMemory(device, buffer[0], bufferMemory[0], 0n);
+		V.vkAllocateMemory(device, memAllocInfo, null, bufferMemory);
+		V.vkBindBufferMemory(device, buffer[0], bufferMemory[0], null);
 
 		//
 		let dataPtr = new BigUint64Array(1);
-		V.vkMapMemory(device, bufferMemory[0], 0n, bufferInfo.size, 0, dataPtr);
+		V.vkMapMemory(device, bufferMemory[0], null, bufferInfo.size, 0, dataPtr);
 
 		// gigant spider
 		Uint8Array.fromAddress(dataPtr[0], bufferInfo.size).set(vertices);
@@ -229,7 +229,7 @@ const vert_shader_spv = new Uint8Array([
 
     //
     let appInfo = new V.VkApplicationInfo({
-        pNext: 0n,
+        pNext: null,
         pApplicationName: "NVAPI TEST",
         applicationVersion: V.VK_MAKE_API_VERSION(0, 1, 3, 234),
         pEngineName: "NVAPI",
@@ -243,13 +243,13 @@ const vert_shader_spv = new Uint8Array([
 
 	//
 	let amountOfLayers = new Uint32Array(1);
-	V.vkEnumerateInstanceLayerProperties(amountOfLayers, 0n);
+	V.vkEnumerateInstanceLayerProperties(amountOfLayers, null);
 	let availableLayers = new Uint8Array(V.VkLayerProperties.sizeof * amountOfLayers[0]);
 	V.vkEnumerateInstanceLayerProperties(amountOfLayers, availableLayers);
 
     //
     let pInfo = new V.VkInstanceCreateInfo({
-        pNext: 0n,
+        pNext: null,
         flags: 0,
         pApplicationInfo: appInfo,
         enabledLayerCount: layers.length,
@@ -260,7 +260,7 @@ const vert_shader_spv = new Uint8Array([
 
 	// 
     let instance = new BigUint64Array(1);
-    V.vkCreateInstance(pInfo, 0n, instance);
+    V.vkCreateInstance(pInfo, null, instance);
 
 	// // // // // // // // // // // // // // // //
 	// TODO: support for Surface and Win32 handlers
@@ -268,7 +268,7 @@ const vert_shader_spv = new Uint8Array([
 
 	//
     let deviceCount = new Uint32Array(1);
-    let result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, 0n);
+    let result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, null);
     //console.log(deviceCount);
 
 	//
@@ -279,7 +279,7 @@ const vert_shader_spv = new Uint8Array([
 
     //
     let dExtensionCount = new Uint32Array(1);
-    V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, 0n);
+    V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, null);
     let dExtensions = new Uint8Array(dExtensionCount[0]*V.VkExtensionProperties.sizeof);
     V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, dExtensions);
 
@@ -291,7 +291,7 @@ const vert_shader_spv = new Uint8Array([
 
     //
     const queueFamilyCount = new Uint32Array(1);
-    V.vkGetPhysicalDeviceQueueFamilyProperties(devices[0], queueFamilyCount, 0n);
+    V.vkGetPhysicalDeviceQueueFamilyProperties(devices[0], queueFamilyCount, null);
     const queueFamilyProperties = new Uint8Array(V.VkQueueFamilyProperties.sizeof * queueFamilyCount[0]);
     V.vkGetPhysicalDeviceQueueFamilyProperties(devices[0], queueFamilyCount, queueFamilyProperties);
 

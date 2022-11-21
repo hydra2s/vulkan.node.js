@@ -21,6 +21,7 @@ static uint64_t GetAddress(Napi::Env env, const Napi::Value& value_) {
     bool lossless = true;
     uint64_t address = 0ull;
     
+    if (value_.IsNull()) { /* Skip, it's null... */ } else
     if (value_.IsNumber()) {
         address = value_.As<Napi::Number>().Uint32Value();
     } else
