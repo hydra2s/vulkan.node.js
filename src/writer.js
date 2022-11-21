@@ -500,6 +500,7 @@ export default {
 //
 #include "./sizes.h"
 #include "./native.hpp"
+#include "./glfw.hpp"
 
 //
 static Napi::Value rawGetStructureSizeBySType(const Napi::CallbackInfo& info_) {
@@ -532,7 +533,11 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
     });
 #endif
 
+    //
+    glfwInit();
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     volkInitialize();
+    glfwInitVulkanLoader(vkGetInstanceProcAddr);
 
 ${map.parsedStructs.map((cmd,i)=>writeStructureOffsetsGot(cmd,map)).join(`
 `)}
@@ -545,6 +550,13 @@ ${map.parsed.map((cmd,i)=>{
 }).join(`
 `)}
 
+    //
+    exports["glfwCreateWindowSurface"] = Napi::Function::New(env, __glfwCreateWindowSurface);
+    exports["glfwVulkanSupported"] = Napi::Function::New(env, __glfwVulkanSupported);
+    exports["glfwGetRequiredInstanceExtensions"] = Napi::Function::New(env, __glfwGetRequiredInstanceExtensions);
+    exports["glfwGetPhysicalDevicePresentationSupport"] = Napi::Function::New(env, __glfwGetPhysicalDevicePresentationSupport);
+
+    //
     exports["vkGetStructureSizeBySType"] = Napi::Function::New(env, rawGetStructureSizeBySType);
     exports["uint8" ] = Napi::Function::New(env, DebugUint8);
     exports["uint16"] = Napi::Function::New(env, DebugUint16);

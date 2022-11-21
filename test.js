@@ -135,6 +135,9 @@ const vert_shader_spv = new Uint8Array([
 
 (async()=>{
 
+    
+
+    /*
     // const knl32 = K.load()
     const user32 = U.load()  // load all apis defined in lib/{dll}/api from user32.dll
     const comctl32 = C.load()  // load all apis defined in lib/{dll}/api from user32.dll
@@ -213,10 +216,20 @@ const vert_shader_spv = new Uint8Array([
         user32.UpdateWindow(hWnd)
         changeTitle(hWnd, title)
         return [hWnd, wClass.hInstance];
-    }
+    }*/
 
     //
     const V = (await import("./index.js")).default;
+    const G = (await import("@minecraftts/glfw")).default;
+
+    //
+    console.log(V.glfwVulkanSupported());
+
+    //
+    const ICount = new Uint32Array(1);
+    const IExtension = V.glfwGetRequiredInstanceExtensions(ICount);
+    const IExt64 = new BigUint64Array(ArrayBuffer.fromAddress(IExtension, ICount[0]*8));
+    const IExtensionOpen = new Array(ICount[0]).fill("").map((_, i)=>{ return String.fromAddress(IExt64[i]); });
 
     //
     let vertices = new Float32Array([
@@ -316,10 +329,6 @@ const vert_shader_spv = new Uint8Array([
       };
 
 
-
-    //
-    const rect2D = new V.VkRect2D();
-
     //
     const appInfo = new V.VkApplicationInfo({
         pNext: null,
@@ -331,7 +340,7 @@ const vert_shader_spv = new Uint8Array([
     });
 
     //
-    const extensions = ["VK_KHR_surface", "VK_KHR_win32_surface"];
+    const extensions = [].concat(IExtensionOpen);
     const layers = ["VK_LAYER_KHRONOS_validation"];
 
     //
@@ -351,13 +360,31 @@ const vert_shader_spv = new Uint8Array([
         ppEnabledExtensionNames: extensions
     });
 
+    // initialize a local GLFW package
+    G.glfwInit();
+    G.glfwWindowHint(G.GLFW_CLIENT_API, G.GLFW_NO_API);
+
     // 
     const instance = new BigUint64Array(1);
     V.vkCreateInstance(pInfo, null, instance);
 
+    //
+    const GLFWwindow = G.glfwCreateWindow(1280, 720, "Hello Triangle", null, null);
+
+    // make shared GLFW surface between two versions of GLFW
+    const surface = new BigUint64Array(1);
+    V.glfwCreateWindowSurface(instance[0], GLFWwindow, null, surface);
+
+    
+
+    //
+    //const 
+
     // // // // // // // // // // // // // // // //
     // TODO: support for Surface and Win32 handlers
     // // // // // // // // // // // // // // // //
+
+
 
     //
     const deviceCount = new Uint32Array(1);
@@ -369,6 +396,9 @@ const vert_shader_spv = new Uint8Array([
     const devices = new BigUint64Array(deviceCount[0]);
     result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, devices);
     //console.log(devices);
+
+    //
+    console.log(V.glfwGetPhysicalDevicePresentationSupport(instance[0], devices[0], 0));
 
     //
     const dExtensionCount = new Uint32Array(1);

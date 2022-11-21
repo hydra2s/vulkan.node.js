@@ -28,6 +28,7 @@
   "dependencies": {
     "@electron/remote": "^2.0.8",
     "@mapbox/node-pre-gyp": "^1.0.10",
+    "@minecraftts/glfw": "^2.0.1",
     "@rgrove/parse-xml": "^4.0.1",
     "bindings": "^1.5.0",
     "electron-esm": "^1.0.1",
