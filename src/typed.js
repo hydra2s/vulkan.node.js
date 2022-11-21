@@ -78,7 +78,10 @@ class NumberAccessor {
         if (index == "BYTES_PER_ELEMENT") { return 1; }
         if (["byteLength"].indexOf(index) >= 0) {
             return this[index];
-        }
+        } else
+        if (index == "length") {
+            return 1;
+        } else
         if (!isConstructor(Target)) {
             return this._get(Target, index);
         }
@@ -93,6 +96,7 @@ class NumberAccessor {
     }
 
     construct(Target, args) {
+        if (args.length >= 3) { args[2] = (args[2]||1) * this.byteLength; } else if (args.length >= 2) { args.push(this.byteLength); } else if (args.length >= 1) { args.push(0); args.push(this.byteLength); };
         return new Proxy(new Target(...args), this);
     }
 }
@@ -241,23 +245,20 @@ new ArrayAccessor("f64", 8, getFloat, setFloat, Float64Array, ref);
 new ArrayAccessor("u64", 8, getBigInt, setBigInt, BigUint64Array, re64);
 new ArrayAccessor("i64", 8, getBigInt, setBigInt, BigInt64Array, re64);
 
-// TODO: add typecasted assign support
-// TODO: make length without bytes
+// 
 class CStructView {
-    constructor(buffer, byteOffset = 0, byteLength = 0, struct = null) {
+    constructor(buffer, byteOffset = 0, length = 0, struct = null) {
         this.buffer = buffer;
-        this.byteOffset = byteOffset  + struct.byteOffset;
-        this.byteLength = (byteLength || struct.byteLength);
+        this.byteOffset = byteOffset + struct.byteOffset;
+        this.byteLength =     length * struct.byteLength;
         this.type = struct.type;
         this.parent = null;
-        
-        //
-        this.length = this.byteLength / struct.byteLength;
+        this.length = length;
 
         //
         (this.struct = struct).types.forEach((tp)=>{
             const t = tp.type;
-            const array = new t(this.buffer, this.byteOffset + tp.byteOffset, tp.byteLength / (t.BYTES_PER_ELEMENT || t.sizeof || 1));
+            const array = new t(this.buffer, this.byteOffset + tp.byteOffset, 1);
             
             //array.parent = this; // prefer to have parent node
             Object.defineProperties(this, {
@@ -315,7 +316,7 @@ class CStructView {
         }
 
         if (!type) { type = Types[tname+(length>1?"[arr]":"")]; };
-        return new type(this.buffer, this.byteOffset + offset + (this.offsetof(mname)||0), (length||1)*Math.max(type.byteLength||1,type.BYTES_PER_ELEMENT||1)/(type.BYTES_PER_ELEMENT||1))[""];
+        return new type(this.buffer, this.byteOffset + offset + (this.offsetof(mname)||0), (length||1))[""];
     }
 
     // member utils
@@ -339,7 +340,7 @@ class CStructView {
     }
 }
 
-// TODO: add typecasted assign support
+// 
 class CStruct {
     constructor(name, struct, byteLength) {
         this.types = [];
@@ -459,7 +460,7 @@ class CStruct {
             } else
             if (IsNumber(index)) {
                 index = parseInt(index);
-                new this._class(Target.buffer, Target.byteOffset + this.byteLength * index, Target.byteLength - this.byteLength * index)[""] = value;
+                new this._class(Target.buffer, Target.byteOffset + this.byteLength * index, (Target.length||1) - index)[""] = value;
                 return true;
             } else
             if (Target.struct.types.find((t)=>(t.name==index))) {
@@ -480,18 +481,18 @@ class CStruct {
 
     // 
     construct(Target, args) {
-        let [buffer, byteOffset, byteLength] = args; byteOffset ||= 0, byteLength ||= 1; // NEW syntax!
+        let [buffer, byteOffset, length] = args; byteOffset ||= 0, length ||= 1; // NEW syntax!
         if (isAbv(buffer ? (buffer.buffer || buffer) : null)) {
-            return new Proxy(new CStructView(buffer.buffer || buffer, (buffer.byteOffset||0) + byteOffset, (this.byteLength * byteLength) || 1, this), this);
+            return new Proxy(new CStructView(buffer.buffer || buffer, (buffer.byteOffset||0) + byteOffset, length || 1, this), this);
         } else 
         if (typeof buffer == "number") {
-            return new Proxy(new CStructView(new ArrayBuffer((this.byteLength * buffer) || 1), 0, (this.byteLength * buffer) || 1, this), this);
+            return new Proxy(new CStructView(new ArrayBuffer((this.byteLength * buffer) || 1), 0, buffer || 1, this), this);
         } else 
         if (typeof buffer == "object") {
-            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength || 1), 0, (this.byteLength || 1), this).set(buffer), this);
+            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength || 1), 0, 1, this).set(buffer), this);
         } else
         {
-            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength || 1), 0, (this.byteLength || 1), this), this);
+            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength || 1), 0, 1, this), this);
         }
     }
 
