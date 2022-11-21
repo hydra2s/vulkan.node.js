@@ -397,6 +397,7 @@ class CStruct {
         } else {
             if (index == "sizeof") { return this.byteLength; };
             if (index == "byteLength") { return this.byteLength; };
+            if (index == "BYTES_PER_ELEMENT") { return this.byteLength; };
         }
         return null;
     }
