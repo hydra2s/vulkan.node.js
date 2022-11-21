@@ -1747,7 +1747,7 @@ const VkGeneratedCommandsMemoryRequirementsInfoNV = new Proxy(C.CStructView, new
 const VkPhysicalDeviceFeatures2 = new Proxy(C.CStructView, new C.CStruct("VkPhysicalDeviceFeatures2", {
     sType: "u32("+(V.VkPhysicalDeviceFeatures2_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2||0),
     pNext: "u64("+(V.VkPhysicalDeviceFeatures2_pNext_offsetof||0)+")",
-    features: "u32("+(V.VkPhysicalDeviceFeatures2_features_offsetof||0)+")",
+    features: "VkPhysicalDeviceFeatures("+(V.VkPhysicalDeviceFeatures2_features_offsetof||0)+")",
 }, (V.VkPhysicalDeviceFeatures2_sizeof||0)));
 
 const VkPhysicalDeviceFeatures2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkPhysicalDeviceFeatures2"));
@@ -1756,7 +1756,7 @@ const VkPhysicalDeviceFeatures2KHR = new Proxy(C.CStructView, new C.ConstructPro
 const VkPhysicalDeviceProperties2 = new Proxy(C.CStructView, new C.CStruct("VkPhysicalDeviceProperties2", {
     sType: "u32("+(V.VkPhysicalDeviceProperties2_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROPERTIES_2||0),
     pNext: "u64("+(V.VkPhysicalDeviceProperties2_pNext_offsetof||0)+")",
-    properties: "u32("+(V.VkPhysicalDeviceProperties2_properties_offsetof||0)+")",
+    properties: "VkPhysicalDeviceProperties("+(V.VkPhysicalDeviceProperties2_properties_offsetof||0)+")",
 }, (V.VkPhysicalDeviceProperties2_sizeof||0)));
 
 const VkPhysicalDeviceProperties2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkPhysicalDeviceProperties2"));
@@ -2858,7 +2858,7 @@ const VkDeviceImageMemoryRequirementsKHR = new Proxy(C.CStructView, new C.Constr
 const VkMemoryRequirements2 = new Proxy(C.CStructView, new C.CStruct("VkMemoryRequirements2", {
     sType: "u32("+(V.VkMemoryRequirements2_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_MEMORY_REQUIREMENTS_2||0),
     pNext: "u64("+(V.VkMemoryRequirements2_pNext_offsetof||0)+")",
-    memoryRequirements: "u32("+(V.VkMemoryRequirements2_memoryRequirements_offsetof||0)+")",
+    memoryRequirements: "VkMemoryRequirements("+(V.VkMemoryRequirements2_memoryRequirements_offsetof||0)+")",
 }, (V.VkMemoryRequirements2_sizeof||0)));
 
 const VkMemoryRequirements2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkMemoryRequirements2"));
@@ -6667,7 +6667,7 @@ const VkVideoSessionMemoryRequirementsKHR = new Proxy(C.CStructView, new C.CStru
     sType: "u32("+(V.VkVideoSessionMemoryRequirementsKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR||0),
     pNext: "u64("+(V.VkVideoSessionMemoryRequirementsKHR_pNext_offsetof||0)+")",
     memoryBindIndex: "u32("+(V.VkVideoSessionMemoryRequirementsKHR_memoryBindIndex_offsetof||0)+")",
-    memoryRequirements: "u32("+(V.VkVideoSessionMemoryRequirementsKHR_memoryRequirements_offsetof||0)+")",
+    memoryRequirements: "VkMemoryRequirements("+(V.VkVideoSessionMemoryRequirementsKHR_memoryRequirements_offsetof||0)+")",
 }, (V.VkVideoSessionMemoryRequirementsKHR_sizeof||0)));
 
 

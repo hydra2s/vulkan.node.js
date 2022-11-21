@@ -117,8 +117,112 @@ const vert_shader_spv = new Uint8Array([
 ]);
 
 (async()=>{
+
+
+
     //
     const V = (await import("./index.js")).default;
+
+
+	
+	//
+	let vertices = new Float32Array([
+		0.0, -0.5,
+		0.5,  0.5,
+	   -0.5,  0.5 
+	]);
+
+	//
+	let vertexBuffer = new BigUint64Array(1);
+	let vertexBufferMemory = new BigUint64Array(1);
+
+	//
+	let posVertexBindingDescr = new V.VkVertexInputBindingDescription({
+		binding: 0, 
+		stride: 2 * vertices.BYTES_PER_ELEMENT,
+		inputRate: V.VK_VERTEX_INPUT_RATE_VERTEX
+	});
+
+	//
+	let posVertexAttrDescr = new V.VkVertexInputAttributeDescription({
+		location: 0,
+		binding: 0,
+		format: V.VK_FORMAT_R32G32_SFLOAT,
+		offset: 0
+	});
+
+	//
+	const createShaderModule = (shaderSrc) => {
+		let shaderModuleInfo = new V.VkShaderModuleCreateInfo({
+			pCode: shaderSrc,
+			codeSize: shaderSrc.byteLength
+		});
+		const shaderModule = new BigUint64Array(1);
+		V.vkCreateShaderModule(device, shaderModuleInfo, 0n, shaderModule);
+		return shaderModule[0];
+	}
+
+	//
+	const getMemoryTypeIndex = (physicalDevice, typeFilter, propertyFlag) => {
+		let memoryProperties = new V.VkPhysicalDeviceMemoryProperties();
+		V.vkGetPhysicalDeviceMemoryProperties(physicalDevice, memoryProperties);
+		for (let ii = 0; ii < memoryProperties.memoryTypeCount; ++ii) {
+		  if (
+			(typeFilter & (1 << ii)) &&
+			(memoryProperties.memoryTypes[ii].propertyFlags & propertyFlag) === propertyFlag
+		  ) {
+			return ii;
+		  }
+		};
+		return -1;
+	};
+
+	//
+	const createVertexBuffer = (device, byteLength) => {
+		//
+		let bufferInfo = new V.VkBufferCreateInfo({
+			size: byteLength,
+			usage: V.VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
+			sharingMode: V.VK_SHARING_MODE_EXCLUSIVE,
+			queueFamilyIndexCount: 0,
+			pQueueFamilyIndices: 0n
+		});
+
+		//
+		const buffer = new BigUint64Array(1);
+		V.vkCreateBuffer(device, bufferInfo, 0n, buffer);
+
+		//
+		let memoryRequirements = new V.VkMemoryRequirements();
+		V.vkGetBufferMemoryRequirements(device, buffer[0], memoryRequirements);
+
+		//
+		let propertyFlag = (
+		  	VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
+		  	VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
+		);
+
+		//
+		let memAllocInfo = new V.VkMemoryAllocateInfo({
+			allocationSize: memoryRequirements.size,
+			memoryTypeIndex: getMemoryTypeIndex(memoryRequirements.memoryTypeBits, propertyFlag)
+		});
+
+		//
+		let bufferMemory = new BigUint64Array(1);
+		V.vkAllocateMemory(device, memAllocInfo, 0n, bufferMemory);
+		V.vkBindBufferMemory(device, buffer[0], bufferMemory[0], 0n);
+
+		//
+		let dataPtr = new BigUint64Array(1);
+		V.vkMapMemory(device, bufferMemory[0], 0n, bufferInfo.size, 0, dataPtr);
+
+		// gigant spider
+		Uint8Array.fromAddress(dataPtr[0], bufferInfo.size).set(vertices);
+		V.vkUnmapMemory(device, bufferMemory);
+	  };
+
+
 
     //
     let rect2D = new V.VkRect2D();
@@ -137,6 +241,12 @@ const vert_shader_spv = new Uint8Array([
     let extensions = [];
     let layers = ["VK_LAYER_KHRONOS_validation"];
 
+	//
+	let amountOfLayers = new Uint32Array(1);
+	V.vkEnumerateInstanceLayerProperties(amountOfLayers, 0n);
+	let availableLayers = new Uint8Array(V.VkLayerProperties.sizeof * amountOfLayers[0]);
+	V.vkEnumerateInstanceLayerProperties(amountOfLayers, availableLayers);
+
     //
     let pInfo = new V.VkInstanceCreateInfo({
         pNext: 0n,
@@ -148,17 +258,20 @@ const vert_shader_spv = new Uint8Array([
         ppEnabledExtensionNames: extensions
     });
 
+	// 
     let instance = new BigUint64Array(1);
     V.vkCreateInstance(pInfo, 0n, instance);
 
-    //console.log(instance);
-    
-    //await new Promise((r)=>{ setTimeout(r, 10000); });
-    
+	// // // // // // // // // // // // // // // //
+	// TODO: support for Surface and Win32 handlers
+	// // // // // // // // // // // // // // // //
+
+	//
     let deviceCount = new Uint32Array(1);
     let result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, 0n);
     //console.log(deviceCount);
-    
+
+	//
     if (deviceCount[0] <= 0) console.error("Error: No render devices available!");
     let devices = new BigUint64Array(deviceCount[0]);
     result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, devices);
@@ -167,7 +280,6 @@ const vert_shader_spv = new Uint8Array([
     //
     let dExtensionCount = new Uint32Array(1);
     V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, 0n);
-    
     let dExtensions = new Uint8Array(dExtensionCount[0]*V.VkExtensionProperties.sizeof);
     V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, dExtensions);
 
@@ -180,8 +292,6 @@ const vert_shader_spv = new Uint8Array([
     //
     const queueFamilyCount = new Uint32Array(1);
     V.vkGetPhysicalDeviceQueueFamilyProperties(devices[0], queueFamilyCount, 0n);
-
-    //
     const queueFamilyProperties = new Uint8Array(V.VkQueueFamilyProperties.sizeof * queueFamilyCount[0]);
     V.vkGetPhysicalDeviceQueueFamilyProperties(devices[0], queueFamilyCount, queueFamilyProperties);
     
@@ -194,6 +304,15 @@ const vert_shader_spv = new Uint8Array([
         }
     }
 
-    console.log(queueIndex);
+	//
+    let deviceFeatures = new V.VkPhysicalDeviceFeatures2();
+	let deviceProperties = new V.VkPhysicalDeviceProperties2();
+
+	//
+	V.vkGetPhysicalDeviceProperties2(devices[0], deviceProperties);
+	V.vkGetPhysicalDeviceFeatures2(devices[0], deviceFeatures);
+
+	//
+	console.log(deviceFeatures.features);
 
 })();

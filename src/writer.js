@@ -10,8 +10,12 @@ let getWriter = async()=>{
     let U16Types = ["uint16_t"];
     let U64Types = ["uint64_t", "uintptr_t", "size_t", "VkDeviceSize", "VkDeviceAddress", "VkDeviceOffset", "VkDeviceOrHostAddressKHR", "VkFlags64"].concat(Handles);
     let U32Types = ["uint32_t", "VkFlags", "VkBool32", "VkStructureType"];
-    let Pointables = ["VkOffset2D","VkExtent2D","VkRect2D","VkTransformMatrixKHR","VkTransformMatrixNV"];
+    let Pointables = ["VkOffset2D","VkExtent2D","VkRect2D","VkTransformMatrixKHR","VkTransformMatrixNV","VkPhysicalDeviceFeatures","VkPhysicalDeviceProperties","VkMemoryRequirements"];
     let U24Types = ["uint24_t"];
+
+    // // // // // // // // // // // // // // // // // // // 
+    // TODO: Underlying Enums Types Support (such as Uint32)
+    // // // // // // // // // // // // // // // // // // // 
 
     //
     let IsDouble = (T,B=0)=>{
