@@ -70,6 +70,9 @@ class NumberAccessor {
     }
 
     get(Target, index) {
+        if (index == "BYTES_PER_ELEMENT") {
+            return 1;
+        }
         if (["byteLength"].indexOf(index) >= 0) {
             return this[index];
         }
@@ -104,6 +107,9 @@ class ArrayAccessor {
     }
 
     get(Target, index) {
+        if (index == "BYTES_PER_ELEMENT") {
+            return Target[index];
+        }
         if (!isConstructor(Target)) {
             if (index == "") {
                 return new Proxy(Target, this);
@@ -187,16 +193,19 @@ new NumberAccessor("u24", 3,
 //
 const re64 = (args)=>{
     if (typeof args[0] == "array" || Array.isArray(args[0])) { return [args[0].map(asBigInt)] };
+    if (IsNumber(args[0])) { return [parseInt(args[0])]; };
     return args;
 }
 
 //
 const rei = (args)=>{
+    if (IsNumber(args[0])) { return [parseInt(args[0])]; };
     return args;
 }
 
 //
 const ref = (args)=>{
+    if (IsNumber(args[0])) { return [parseInt(args[0])]; };
     return args;
 }
 
@@ -224,7 +233,7 @@ class CStructView {
         //
         (this.struct = struct).types.forEach((tp)=>{
             const t = tp.type;
-            const array = new t(this.buffer, this.byteOffset + tp.byteOffset, tp.byteLength);
+            const array = new t(this.buffer, this.byteOffset + tp.byteOffset, tp.byteLength / (t.BYTES_PER_ELEMENT || t.sizeof || 1));
             
             //array.parent = this; // prefer to have parent node
             Object.defineProperties(this, {
@@ -403,6 +412,7 @@ class CStruct {
             }
         } else {
             if (index == "sizeof") { return this.byteLength; };
+            if (index == "byteLength") { return this.byteLength; };
         }
         return null;
     }
