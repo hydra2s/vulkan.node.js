@@ -316,6 +316,7 @@ const vert_shader_spv = new Uint8Array([
 	//console.log(deviceFeatures.features);
 
 	// you can also hack and typecast members (californium bullets)
-	console.log(deviceFeatures.as("VkPhysicalDeviceFeatures", "features"));
+	//console.log(deviceFeatures.as("VkPhysicalDeviceFeatures", "features"));
+	console.log(deviceFeatures.as(V.VkPhysicalDeviceFeatures, "features"));
 
 })();

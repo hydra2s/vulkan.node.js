@@ -37,7 +37,7 @@ const asBigInt = (value)=>{
 //
 const Types = {};
 
-// 
+// TODO: add getters and methods support, from alias
 class ConstructProxy {
     constructor(target) {
         this.target = target;
@@ -54,6 +54,7 @@ class ConstructProxy {
     }
 }
 
+//
 function isConstructor(obj) {
     return !!obj.prototype && !!obj.prototype.constructor.name;
 }
@@ -70,9 +71,8 @@ class NumberAccessor {
     }
 
     get(Target, index) {
-        if (index == "BYTES_PER_ELEMENT") {
-            return 1;
-        }
+        if (index == "type") { return this.type; };
+        if (index == "BYTES_PER_ELEMENT") { return 1; }
         if (["byteLength"].indexOf(index) >= 0) {
             return this[index];
         }
@@ -107,9 +107,8 @@ class ArrayAccessor {
     }
 
     get(Target, index) {
-        if (index == "BYTES_PER_ELEMENT") {
-            return Target[index];
-        }
+        if (index == "type") { return this.type; };
+        if (index == "BYTES_PER_ELEMENT") { return Target[index]; }
         if (!isConstructor(Target)) {
             if (index == "") {
                 return new Proxy(Target, this);
@@ -258,6 +257,11 @@ class CStructView {
         let length = 1;
         let offset = 0;
         let dfv = null;
+        let type = null;
+
+        if ((typeof tname == "object" || typeof tname == "function") && tname.type) {
+            type = tname;
+        } else
 
         if (typeof tname == "string") {
             if (tname.indexOf(";") >= 0) {
@@ -285,7 +289,9 @@ class CStructView {
             tname = tname[0];
         }
 
-        return new Types[tname+(length>1?"[arr]":"")](this.buffer, this.byteOffset + offset + this.offsetof(mname)||0, length*this.lengthof(mname));
+        if (!type) { type = Types[tname+(length>1?"[arr]":"")]; };
+
+        return new type(this.buffer, this.byteOffset + offset + this.offsetof(mname)||0, length*this.lengthof(mname));
     }
 
     // member utils
@@ -332,7 +338,7 @@ class CStruct {
             let type = null;
             let dfv = null;
 
-            if (typeof struct[name] == "object" && struct[name].type) {
+            if ((typeof struct[name] == "object" || typeof struct[name] == "function") && struct[name].type) {
                 type = struct[name];
             } else
             if (typeof struct[name] == "string") {
@@ -404,6 +410,7 @@ class CStruct {
                 return Target[index].bind(Target);
             }
         } else {
+            if (index == "type") { return this.type; };
             if (index == "sizeof") { return this.byteLength; };
             if (index == "byteLength") { return this.byteLength; };
             if (index == "BYTES_PER_ELEMENT") { return this.byteLength; };
