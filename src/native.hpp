@@ -75,28 +75,34 @@ static Napi::Value GetAddressJS(const Napi::CallbackInfo& info_) {
     return Napi::BigInt::New(env, GetAddress(env, info_[0]));
 }
 
-static Napi::ArrayBuffer WrapArrayBuffer(const Napi::CallbackInfo& info_) {
+static Napi::Value WrapArrayBuffer(const Napi::CallbackInfo& info_) {
     Napi::Env env = info_.Env();
-    uint64_t address = 0ull;
     bool lossless = true;
-    if (info_[0].IsBigInt()) {
-        address = info_[0].As<Napi::BigInt>().Uint64Value(&lossless);;
+
+    if (info_.Length() < 2) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
+        return env.Null();
     }
+
+    uint64_t address = GetAddress(env, info_[0]);
     size_t byteLength = 0ull;
-    if (info_[0].IsBigInt()) { byteLength = info_[0].As<Napi::BigInt>().Uint64Value(&lossless); }
+    if (info_[1].IsBigInt()) { byteLength = info_[1].As<Napi::BigInt>().Uint64Value(&lossless); } else
     if (info_[1].IsNumber()) { byteLength = info_[1].As<Napi::Number>().Uint32Value(); }
     return Napi::ArrayBuffer::New(env, (void*)address, byteLength);
 }
 
-static Napi::Buffer<uint8_t> WrapBuffer(const Napi::CallbackInfo& info_) {
+static Napi::Value WrapBuffer(const Napi::CallbackInfo& info_) {
     Napi::Env env = info_.Env();
-    uint64_t address = 0ull;
     bool lossless = true;
-    if (info_[0].IsBigInt()) {
-        address = info_[0].As<Napi::BigInt>().Uint64Value(&lossless);;
+
+    if (info_.Length() < 2) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
+        return env.Null();
     }
+
+    uint64_t address = GetAddress(env, info_[0]);
     size_t byteLength = 0ull;
-    if (info_[0].IsBigInt()) { byteLength = info_[0].As<Napi::BigInt>().Uint64Value(&lossless); }
+    if (info_[1].IsBigInt()) { byteLength = info_[1].As<Napi::BigInt>().Uint64Value(&lossless); } else
     if (info_[1].IsNumber()) { byteLength = info_[1].As<Napi::Number>().Uint32Value(); }
     return Napi::Buffer<uint8_t>::New(env, (uint8_t*)address, byteLength);
 }
@@ -111,7 +117,6 @@ static Napi::Value WrapString(const Napi::CallbackInfo& info_) {
     }
 
     uint64_t address = GetAddress(env, info_[0]);
-
     size_t length = 0ull;
     if (info_.Length() == 2) {
         if (info_[1].IsBigInt()) { length = info_[1].As<Napi::BigInt>().Uint64Value(&lossless); }
