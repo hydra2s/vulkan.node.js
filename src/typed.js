@@ -431,6 +431,11 @@ class CStruct {
                 Target.set(value);
                 return true;
             } else
+            if (IsNumber(index)) {
+                index = parseInt(index);
+                new Types[this.type](Target.buffer, Target.byteOffset + this.byteLength * index, Target.byteLength - this.byteLength * index)[""] = value;
+                return true;
+            } else
             if (Target.struct.types.find((t)=>(t.name==index))) {
                 Target[index] = value;
                 return true;
