@@ -441,15 +441,21 @@ export default {
 #define WINDOWS_IGNORE_PACKING_MISMATCH
 
 //
-//#pragma pack(push,1)
-#pragma pack(push,16)
-#include <volk/volk.h>
-#pragma pack(pop)
+#ifdef _WIN32
+#include <windows.h>
+#include <eh.h>
+#endif
 
 //
+#include <volk/volk.h>
+
+//
+#include <exception>
 #include <string>
 #include <sstream>
 #include <napi.h>
+
+//
 #include "./sizes.h"
 #include "./native.hpp"
 
@@ -466,7 +472,25 @@ static Napi::Value rawGetStructureSizeBySType(const Napi::CallbackInfo& info_) {
 ${map.parsed.map((cmd,i)=>makeCommand(cmd,i,map)).join(`
 `)}
 
+static std::vector<std::function<void(unsigned int u, EXCEPTION_POINTERS* pExp)>> EXC_HANDLERS = {};
+
 static Napi::Object Init(Napi::Env env, Napi::Object exports) {
+#ifdef _WIN32
+    EXC_HANDLERS.push_back([env](unsigned int u, EXCEPTION_POINTERS* pExp) {
+        std::string error = "SE Exception: ";
+        switch (u) {
+        default:
+            char result[11]; sprintf_s(result, 11, "0x%08X", u);
+            Napi::Error::New(env, "Unexpected Exception: " + std::string(result)).ThrowAsJavaScriptException();
+        };
+        throw std::exception(error.c_str());
+    });
+
+    _set_se_translator([](unsigned int u, EXCEPTION_POINTERS* pExp) {
+        for (auto fx : EXC_HANDLERS) { fx(u, pExp); }
+    });
+#endif
+
     volkInitialize();
 
 ${map.parsedStructs.map((cmd,i)=>writeStructureOffsetsGot(cmd,map)).join(`

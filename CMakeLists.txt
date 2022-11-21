@@ -29,6 +29,7 @@ set(napi_build_version 8)
 add_definitions(-DNAPI_VERSION=${napi_build_version})
 add_definitions(-DNAPI_EXPERIMENTAL)
 add_definitions(-DCMAKE_JS_VERSION=${napi_build_version})
+add_definitions(-DVK_USE_PLATFORM_WIN32_KHR)
 cmake_policy(SET CMP0091 NEW)
 cmake_policy(SET CMP0042 NEW)
 
@@ -57,7 +58,7 @@ add_library(${PROJECT_NAME} SHARED ${_source_list})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
 target_link_libraries(${PROJECT_NAME} ${Vulkan_LIBRARIES} ${CMAKE_JS_LIB})
 target_link_directories(${PROJECT_NAME} PUBLIC )
-target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=${napi_build_version} NAPI_EXPERIMENTAL)
+target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=${napi_build_version} NAPI_EXPERIMENTAL VK_USE_PLATFORM_WIN32_KHR)
 target_include_directories(${PROJECT_NAME} PUBLIC 
   ${PROJECT_SOURCE_DIR}/include
   ${PROJECT_SOURCE_DIR}/*/include 
@@ -82,8 +83,8 @@ ADD_MSVC_PRECOMPILED_HEADER(
 
 # 
 if (MSVC)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}" /Werror=padded -Werror=padded)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}" /Werror=padded -Werror=padded /EHa)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}" /EHa)
     set(CMAKE_EXE_LINKER_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 endif()
 
