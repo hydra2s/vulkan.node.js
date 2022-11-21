@@ -119,7 +119,7 @@ static Napi::Value WrapString(const Napi::CallbackInfo& info_) {
     uint64_t address = GetAddress(env, info_[0]);
     size_t length = 0ull;
     if (info_.Length() == 2) {
-        if (info_[1].IsBigInt()) { length = info_[1].As<Napi::BigInt>().Uint64Value(&lossless); }
+        if (info_[1].IsBigInt()) { length = info_[1].As<Napi::BigInt>().Uint64Value(&lossless); } else
         if (info_[1].IsNumber()) { length = info_[1].As<Napi::Number>().Uint32Value(); }
     }
 
@@ -144,7 +144,7 @@ static Napi::Value WrapStringUTF16(const Napi::CallbackInfo& info_) {
 
     size_t length = 0ull;
     if (info_.Length() == 2) {
-        if (info_[1].IsBigInt()) { length = info_[1].As<Napi::BigInt>().Uint64Value(&lossless); }
+        if (info_[1].IsBigInt()) { length = info_[1].As<Napi::BigInt>().Uint64Value(&lossless); } else
         if (info_[1].IsNumber()) { length = info_[1].As<Napi::Number>().Uint32Value(); }
     }
 
