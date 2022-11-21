@@ -200,13 +200,25 @@ let getWriter = async()=>{
         } else 
         if (IsUint32(proto.type) || IsUint16(proto.type) || IsUint8(proto.type) || IsInt32(proto.type) || IsInt16(proto.type) || IsInt8(proto.type) || IsFloat32(proto.type) || IsFloat64(proto.type)) {
             return `
-    decltype(auto) result = ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
-    if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
-        Napi::Error::New(env, "Vulkan API Exception: " + std::to_string(result) + " in ${proto.name}").ThrowAsJavaScriptException();
+    try {
+        decltype(auto) result = ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
+        if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result) + " in ${proto.name}";
+            Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            std::cerr << errorMsg << std::endl;
+        }
+        ${proto.name == "vkCreateInstance" ? "volkLoadInstance(*pInstance);" : ""}
+        ${proto.name == "vkCreateDevice" ? "volkLoadDevice(*pDevice);" : ""}
+        return Napi::Number::New(env, result);
+    } catch(std::exception e) {
+        std::cerr << "Exception with ${proto.name} command." << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+        ${params.map((p)=>`        std::cerr << "    ${p.name}: " << (uint64_t)(${p.name}) << std::endl;`).join(`
+`)}
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
     }
-    ${proto.name == "vkCreateInstance" ? "volkLoadInstance(*pInstance);" : ""}
-    ${proto.name == "vkCreateDevice" ? "volkLoadDevice(*pDevice);" : ""}
-    return Napi::Number::New(env, result);
+    return env.Null();
 `;
         } else 
         if (proto.type.indexOf("void") >= 0 || proto.type.indexOf("PFN_vkVoidFunction") >= 0) {
@@ -450,6 +462,7 @@ export default {
 #include <volk/volk.h>
 
 //
+#include <iostream>
 #include <exception>
 #include <string>
 #include <sstream>
@@ -478,11 +491,10 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
 #ifdef _WIN32
     EXC_HANDLERS.push_back([env](unsigned int u, EXCEPTION_POINTERS* pExp) {
         std::string error = "SE Exception: ";
-        switch (u) {
-        default:
-            char result[11]; sprintf_s(result, 11, "0x%08X", u);
-            Napi::Error::New(env, "Unexpected Exception: " + std::string(result)).ThrowAsJavaScriptException();
-        };
+        char result[11]; sprintf_s(result, 11, "0x%08X", u);
+        error += "Unexpected Error (" + std::string(result) + ")";
+        Napi::Error::New(env, error).ThrowAsJavaScriptException();
+        std::cerr << error << std::endl;
         throw std::exception(error.c_str());
     });
 
