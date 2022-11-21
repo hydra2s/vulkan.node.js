@@ -283,10 +283,10 @@ const vert_shader_spv = new Uint8Array([
     let dExtensions = new Uint8Array(dExtensionCount[0]*V.VkExtensionProperties.sizeof);
     V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, dExtensions);
 
+	//
+	let property = new V.VkExtensionProperties(dExtensions, 0, dExtensionCount[0]);
     for (let I=0;I<dExtensionCount[0];I++) {
-        let property = new V.VkExtensionProperties(dExtensions, I*V.VkExtensionProperties.sizeof);
-        let string = String.fromAddress(property.extensionName);
-        console.log(string);
+        console.log(String.fromAddress(property[I].extensionName));
     }
 
     //
@@ -294,12 +294,12 @@ const vert_shader_spv = new Uint8Array([
     V.vkGetPhysicalDeviceQueueFamilyProperties(devices[0], queueFamilyCount, 0n);
     const queueFamilyProperties = new Uint8Array(V.VkQueueFamilyProperties.sizeof * queueFamilyCount[0]);
     V.vkGetPhysicalDeviceQueueFamilyProperties(devices[0], queueFamilyCount, queueFamilyProperties);
-    
+
     //
     let queueIndex = -1;
+	property = new V.VkQueueFamilyProperties(queueFamilyProperties, 0, queueFamilyCount[0]);
     for (let I=0;I<queueFamilyCount[0];I++) {
-        let property = new V.VkQueueFamilyProperties(queueFamilyProperties, I*V.VkQueueFamilyProperties.sizeof);
-        if (property.queueFlags & parseInt(V.VK_QUEUE_GRAPHICS_BIT)) {
+        if (property[I].queueFlags & parseInt(V.VK_QUEUE_GRAPHICS_BIT)) {
             queueIndex = I; break;
         }
     }

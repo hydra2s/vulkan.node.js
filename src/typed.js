@@ -225,10 +225,13 @@ class CStructView {
     constructor(buffer, byteOffset = 0, byteLength = 0, struct = null) {
         this.buffer = buffer;
         this.byteOffset = byteOffset  + struct.byteOffset;
-        this.byteLength = byteLength || struct.byteLength;
+        this.byteLength = (byteLength || struct.byteLength);
         this.type = struct.type;
         this.parent = null;
         
+        //
+        this.length = this.byteLength / struct.byteLength;
+
         //
         (this.struct = struct).types.forEach((tp)=>{
             const t = tp.type;
@@ -399,6 +402,10 @@ class CStruct {
         if (!isConstructor(Target)) {
             if (index == "") {
                 return new Proxy(Target, this);
+            } else
+            if (IsNumber(index)) {
+                index = parseInt(index);
+                return new Types[this.type](Target.buffer, Target.byteOffset + this.byteLength * index, Target.byteLength - this.byteLength * index);
             } else
             if (Target.struct.types.find((t)=>(t.name==index))) {
                 return Target[index];
