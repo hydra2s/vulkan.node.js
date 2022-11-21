@@ -197,8 +197,9 @@ let getWriter = async()=>{
     //
     let passDispatch = (proto, params)=>{
         if (IsUint64(proto.type) || IsInt64(proto.type) || proto.isPointer) {
-            return `try {
+            return `uint64_t returnable = 0ull; try {
         decltype(auto) result = ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
+        returnable = (uint64_t)(result);
         return Napi::BigInt::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with ${proto.name} command." << std::endl;
@@ -208,12 +209,13 @@ let getWriter = async()=>{
         Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
         throw e;
     }
-    return env.Null();
+    return Napi::BigInt::New(env, returnable);
 `;
         } else 
         if (IsUint32(proto.type) || IsUint16(proto.type) || IsUint8(proto.type) || IsInt32(proto.type) || IsInt16(proto.type) || IsInt8(proto.type) || IsFloat32(proto.type) || IsFloat64(proto.type)) {
-            return `try {
+            return `int32_t returnable = 0; try {
         decltype(auto) result = ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
+        returnable = (int32_t)(result);
         if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
             std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
@@ -231,7 +233,7 @@ let getWriter = async()=>{
         Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
         throw e;
     }
-    return env.Null();
+    return Napi::Number::New(env, returnable);
 `;
         } else 
         if (proto.type.indexOf("void") >= 0 || proto.type.indexOf("PFN_vkVoidFunction") >= 0) {
@@ -249,8 +251,9 @@ let getWriter = async()=>{
 `;
         } else
         {
-        return `try {
+        return `uint64_t returnable = 0ull; try {
         decltype(auto) result = ::${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
+        returnable = (int32_t)(result);
         return Napi::BigInt::New(env, result);
     } catch(std::exception e) {
         std::cerr << "Exception with ${proto.name} command." << std::endl;
@@ -260,7 +263,7 @@ let getWriter = async()=>{
         Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
         throw e;
     }
-    return env.Null();
+    return Napi::BigInt::New(env, returnable);
 `;
         }
     };
