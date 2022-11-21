@@ -294,7 +294,7 @@ class CStructView {
 
         if (!type) { type = Types[tname+(length>1?"[arr]":"")]; };
 
-        return new type(this.buffer, this.byteOffset + offset + this.offsetof(mname)||0, length*this.lengthof(mname));
+        return new type(this.buffer, this.byteOffset + offset + this.offsetof(mname)||0, length*this.lengthof(mname))[""];
     }
 
     // member utils
@@ -405,7 +405,7 @@ class CStruct {
             } else
             if (IsNumber(index)) {
                 index = parseInt(index);
-                return new Types[this.type](Target.buffer, Target.byteOffset + this.byteLength * index, Target.byteLength - this.byteLength * index);
+                return new Types[this.type](Target.buffer, Target.byteOffset + this.byteLength * index, Target.byteLength - this.byteLength * index)[""];
             } else
             if (Target.struct.types.find((t)=>(t.name==index))) {
                 return Target[index];
