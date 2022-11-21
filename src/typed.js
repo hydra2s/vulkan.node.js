@@ -257,7 +257,8 @@ class CStructView {
 
         //
         (this.struct = struct).types.forEach((tp)=>{
-            const array = new tp.type(this.buffer, this.byteOffset + tp.byteOffset, 1);
+            // use F32 fallback for Vulkan API types
+            const array = new (tp.type || Types["u32"])(this.buffer, this.byteOffset + tp.byteOffset, 1);
             
             //array.parent = this; // prefer to have parent node
             Object.defineProperties(this, {

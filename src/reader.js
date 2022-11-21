@@ -122,8 +122,6 @@ let getReader = async()=>{
             let parsed = {};
             if (d && d.type == "element" && d.name == "enum") { 
                 parsed = Object.assign(parsed, d.attributes);
-                parsed.type = d.attributes["type"];
-                parsed.name = d.attributes["name"];
                 if (d.attributes["value"]) {
                     parsed.value = d.attributes["value"]
                         .replace("0ULL","0n")
@@ -133,16 +131,25 @@ let getReader = async()=>{
                         .replace("0F","0");
                 }
             };
-
             return parsed;
+            
         }).filter((obj)=>(Object.keys(obj).length > 0)).flat().filter((value, index, self) => index == self.findIndex((t) => (t.name == value.name || t.name == value.name && t.alias == value.alias))) : [];
+    };
+
+    //
+    let markType = (enums)=>{
+        enums.children = enums.children?.map((e)=>{
+            e.attributes["extends"] = enums.attributes["name"];
+            return e;
+        }) || [];
+        return enums;
     };
 
     // 
     let getComponents = (doc)=>{
         let registry = filterNoSpaced(JSON5.parse(JSON5.stringify(doc.children.find((e,i)=>{ return e.type == "element" && e.name == "registry"; }))));
         let types = registry.children.filter((e,i)=>{ return e.type == "element" && e.name == "types"; }).flatMap(filterNoSpaced);
-        let enums = registry.children.filter((e,i)=>{ return e.type == "element" && e.name == "enums"; }).flatMap(filterNoSpaced);
+        let enums = registry.children.filter((e,i)=>{ return e.type == "element" && e.name == "enums"; }).flatMap(filterNoSpaced).map(markType);
         let structs = types[0].children.filter((e,i)=>{ return e.type == "element" && e.name == "type" && e.attributes["category"] == "struct"; }).map(filterNoSpaced).filter(noSpaces);
         let extensions = filterNoSpaced(registry.children.find((e,i)=>{ return e.type == "element" && e.name == "extensions"; }));
         let features = registry.children.filter((e,i)=>{ return e.type == "element" && e.name == "feature"; }).map(filterNoSpaced);

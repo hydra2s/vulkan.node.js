@@ -87,8 +87,8 @@ const VkPhysicalDeviceProperties = new Proxy(C.CStructView, new C.CStruct("VkPhy
     deviceType: "u32("+(V.VkPhysicalDeviceProperties_deviceType_offsetof||0)+")",
     deviceName: "u8["+(E.VK_MAX_PHYSICAL_DEVICE_NAME_SIZE||1)+"]("+(V.VkPhysicalDeviceProperties_deviceName_offsetof||0)+")",
     pipelineCacheUUID: "u8["+(E.VK_UUID_SIZE||1)+"]("+(V.VkPhysicalDeviceProperties_pipelineCacheUUID_offsetof||0)+")",
-    limits: "u32("+(V.VkPhysicalDeviceProperties_limits_offsetof||0)+")",
-    sparseProperties: "u32("+(V.VkPhysicalDeviceProperties_sparseProperties_offsetof||0)+")",
+    limits: "VkPhysicalDeviceLimits("+(V.VkPhysicalDeviceProperties_limits_offsetof||0)+")",
+    sparseProperties: "VkPhysicalDeviceSparseProperties("+(V.VkPhysicalDeviceProperties_sparseProperties_offsetof||0)+")",
 }, (V.VkPhysicalDeviceProperties_sizeof||0)));
 
 
@@ -119,11 +119,11 @@ const VkApplicationInfo = new Proxy(C.CStructView, new C.CStruct("VkApplicationI
 
 const VkAllocationCallbacks = new Proxy(C.CStructView, new C.CStruct("VkAllocationCallbacks", {
     pUserData: "u64("+(V.VkAllocationCallbacks_pUserData_offsetof||0)+")",
-    pfnAllocation: "u32("+(V.VkAllocationCallbacks_pfnAllocation_offsetof||0)+")",
-    pfnReallocation: "u32("+(V.VkAllocationCallbacks_pfnReallocation_offsetof||0)+")",
-    pfnFree: "u32("+(V.VkAllocationCallbacks_pfnFree_offsetof||0)+")",
-    pfnInternalAllocation: "u32("+(V.VkAllocationCallbacks_pfnInternalAllocation_offsetof||0)+")",
-    pfnInternalFree: "u32("+(V.VkAllocationCallbacks_pfnInternalFree_offsetof||0)+")",
+    pfnAllocation: "PFN_vkAllocationFunction("+(V.VkAllocationCallbacks_pfnAllocation_offsetof||0)+")",
+    pfnReallocation: "PFN_vkReallocationFunction("+(V.VkAllocationCallbacks_pfnReallocation_offsetof||0)+")",
+    pfnFree: "PFN_vkFreeFunction("+(V.VkAllocationCallbacks_pfnFree_offsetof||0)+")",
+    pfnInternalAllocation: "PFN_vkInternalAllocationNotification("+(V.VkAllocationCallbacks_pfnInternalAllocation_offsetof||0)+")",
+    pfnInternalFree: "PFN_vkInternalFreeNotification("+(V.VkAllocationCallbacks_pfnInternalFree_offsetof||0)+")",
 }, (V.VkAllocationCallbacks_sizeof||0)));
 
 
@@ -167,15 +167,15 @@ const VkQueueFamilyProperties = new Proxy(C.CStructView, new C.CStruct("VkQueueF
     queueFlags: "u32("+(V.VkQueueFamilyProperties_queueFlags_offsetof||0)+")",
     queueCount: "u32("+(V.VkQueueFamilyProperties_queueCount_offsetof||0)+")",
     timestampValidBits: "u32("+(V.VkQueueFamilyProperties_timestampValidBits_offsetof||0)+")",
-    minImageTransferGranularity: "u32("+(V.VkQueueFamilyProperties_minImageTransferGranularity_offsetof||0)+")",
+    minImageTransferGranularity: "VkExtent3D("+(V.VkQueueFamilyProperties_minImageTransferGranularity_offsetof||0)+")",
 }, (V.VkQueueFamilyProperties_sizeof||0)));
 
 
 const VkPhysicalDeviceMemoryProperties = new Proxy(C.CStructView, new C.CStruct("VkPhysicalDeviceMemoryProperties", {
     memoryTypeCount: "u32("+(V.VkPhysicalDeviceMemoryProperties_memoryTypeCount_offsetof||0)+")",
-    memoryTypes: "u32["+(E.VK_MAX_MEMORY_TYPES||1)+"]("+(V.VkPhysicalDeviceMemoryProperties_memoryTypes_offsetof||0)+")",
+    memoryTypes: "VkMemoryType["+(E.VK_MAX_MEMORY_TYPES||1)+"]("+(V.VkPhysicalDeviceMemoryProperties_memoryTypes_offsetof||0)+")",
     memoryHeapCount: "u32("+(V.VkPhysicalDeviceMemoryProperties_memoryHeapCount_offsetof||0)+")",
-    memoryHeaps: "u32["+(E.VK_MAX_MEMORY_HEAPS||1)+"]("+(V.VkPhysicalDeviceMemoryProperties_memoryHeaps_offsetof||0)+")",
+    memoryHeaps: "VkMemoryHeap["+(E.VK_MAX_MEMORY_HEAPS||1)+"]("+(V.VkPhysicalDeviceMemoryProperties_memoryHeaps_offsetof||0)+")",
 }, (V.VkPhysicalDeviceMemoryProperties_sizeof||0)));
 
 
@@ -196,13 +196,13 @@ const VkMemoryRequirements = new Proxy(C.CStructView, new C.CStruct("VkMemoryReq
 
 const VkSparseImageFormatProperties = new Proxy(C.CStructView, new C.CStruct("VkSparseImageFormatProperties", {
     aspectMask: "u32("+(V.VkSparseImageFormatProperties_aspectMask_offsetof||0)+")",
-    imageGranularity: "u32("+(V.VkSparseImageFormatProperties_imageGranularity_offsetof||0)+")",
+    imageGranularity: "VkExtent3D("+(V.VkSparseImageFormatProperties_imageGranularity_offsetof||0)+")",
     flags: "u32("+(V.VkSparseImageFormatProperties_flags_offsetof||0)+")",
 }, (V.VkSparseImageFormatProperties_sizeof||0)));
 
 
 const VkSparseImageMemoryRequirements = new Proxy(C.CStructView, new C.CStruct("VkSparseImageMemoryRequirements", {
-    formatProperties: "u32("+(V.VkSparseImageMemoryRequirements_formatProperties_offsetof||0)+")",
+    formatProperties: "VkSparseImageFormatProperties("+(V.VkSparseImageMemoryRequirements_formatProperties_offsetof||0)+")",
     imageMipTailFirstLod: "u32("+(V.VkSparseImageMemoryRequirements_imageMipTailFirstLod_offsetof||0)+")",
     imageMipTailSize: "u64("+(V.VkSparseImageMemoryRequirements_imageMipTailSize_offsetof||0)+")",
     imageMipTailOffset: "u64("+(V.VkSparseImageMemoryRequirements_imageMipTailOffset_offsetof||0)+")",
@@ -239,7 +239,7 @@ const VkFormatProperties = new Proxy(C.CStructView, new C.CStruct("VkFormatPrope
 
 
 const VkImageFormatProperties = new Proxy(C.CStructView, new C.CStruct("VkImageFormatProperties", {
-    maxExtent: "u32("+(V.VkImageFormatProperties_maxExtent_offsetof||0)+")",
+    maxExtent: "VkExtent3D("+(V.VkImageFormatProperties_maxExtent_offsetof||0)+")",
     maxMipLevels: "u32("+(V.VkImageFormatProperties_maxMipLevels_offsetof||0)+")",
     maxArrayLayers: "u32("+(V.VkImageFormatProperties_maxArrayLayers_offsetof||0)+")",
     sampleCounts: "u32("+(V.VkImageFormatProperties_sampleCounts_offsetof||0)+")",
@@ -256,7 +256,7 @@ const VkDescriptorBufferInfo = new Proxy(C.CStructView, new C.CStruct("VkDescrip
 
 const VkDescriptorImageInfo = new Proxy(C.CStructView, new C.CStruct("VkDescriptorImageInfo", {
     sampler: "u64("+(V.VkDescriptorImageInfo_sampler_offsetof||0)+")",
-    imageView: "u32("+(V.VkDescriptorImageInfo_imageView_offsetof||0)+")",
+    imageView: "u64("+(V.VkDescriptorImageInfo_imageView_offsetof||0)+")",
     imageLayout: "u32("+(V.VkDescriptorImageInfo_imageLayout_offsetof||0)+")",
 }, (V.VkDescriptorImageInfo_sizeof||0)));
 
@@ -264,7 +264,7 @@ const VkDescriptorImageInfo = new Proxy(C.CStructView, new C.CStruct("VkDescript
 const VkWriteDescriptorSet = new Proxy(C.CStructView, new C.CStruct("VkWriteDescriptorSet", {
     sType: "u32("+(V.VkWriteDescriptorSet_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET||0),
     pNext: "u64("+(V.VkWriteDescriptorSet_pNext_offsetof||0)+")",
-    dstSet: "u32("+(V.VkWriteDescriptorSet_dstSet_offsetof||0)+")",
+    dstSet: "VkDescriptorSet("+(V.VkWriteDescriptorSet_dstSet_offsetof||0)+")",
     dstBinding: "u32("+(V.VkWriteDescriptorSet_dstBinding_offsetof||0)+")",
     dstArrayElement: "u32("+(V.VkWriteDescriptorSet_dstArrayElement_offsetof||0)+")",
     descriptorCount: "u32("+(V.VkWriteDescriptorSet_descriptorCount_offsetof||0)+")",
@@ -278,10 +278,10 @@ const VkWriteDescriptorSet = new Proxy(C.CStructView, new C.CStruct("VkWriteDesc
 const VkCopyDescriptorSet = new Proxy(C.CStructView, new C.CStruct("VkCopyDescriptorSet", {
     sType: "u32("+(V.VkCopyDescriptorSet_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_COPY_DESCRIPTOR_SET||0),
     pNext: "u64("+(V.VkCopyDescriptorSet_pNext_offsetof||0)+")",
-    srcSet: "u32("+(V.VkCopyDescriptorSet_srcSet_offsetof||0)+")",
+    srcSet: "VkDescriptorSet("+(V.VkCopyDescriptorSet_srcSet_offsetof||0)+")",
     srcBinding: "u32("+(V.VkCopyDescriptorSet_srcBinding_offsetof||0)+")",
     srcArrayElement: "u32("+(V.VkCopyDescriptorSet_srcArrayElement_offsetof||0)+")",
-    dstSet: "u32("+(V.VkCopyDescriptorSet_dstSet_offsetof||0)+")",
+    dstSet: "VkDescriptorSet("+(V.VkCopyDescriptorSet_dstSet_offsetof||0)+")",
     dstBinding: "u32("+(V.VkCopyDescriptorSet_dstBinding_offsetof||0)+")",
     dstArrayElement: "u32("+(V.VkCopyDescriptorSet_dstArrayElement_offsetof||0)+")",
     descriptorCount: "u32("+(V.VkCopyDescriptorSet_descriptorCount_offsetof||0)+")",
@@ -366,7 +366,7 @@ const VkImageMemoryBarrier = new Proxy(C.CStructView, new C.CStruct("VkImageMemo
     srcQueueFamilyIndex: "u32("+(V.VkImageMemoryBarrier_srcQueueFamilyIndex_offsetof||0)+")",
     dstQueueFamilyIndex: "u32("+(V.VkImageMemoryBarrier_dstQueueFamilyIndex_offsetof||0)+")",
     image: "u64("+(V.VkImageMemoryBarrier_image_offsetof||0)+")",
-    subresourceRange: "u32("+(V.VkImageMemoryBarrier_subresourceRange_offsetof||0)+")",
+    subresourceRange: "VkImageSubresourceRange("+(V.VkImageMemoryBarrier_subresourceRange_offsetof||0)+")",
 }, (V.VkImageMemoryBarrier_sizeof||0)));
 
 
@@ -376,7 +376,7 @@ const VkImageCreateInfo = new Proxy(C.CStructView, new C.CStruct("VkImageCreateI
     flags: "u32("+(V.VkImageCreateInfo_flags_offsetof||0)+")",
     imageType: "u32("+(V.VkImageCreateInfo_imageType_offsetof||0)+")",
     format: "u32("+(V.VkImageCreateInfo_format_offsetof||0)+")",
-    extent: "u32("+(V.VkImageCreateInfo_extent_offsetof||0)+")",
+    extent: "VkExtent3D("+(V.VkImageCreateInfo_extent_offsetof||0)+")",
     mipLevels: "u32("+(V.VkImageCreateInfo_mipLevels_offsetof||0)+")",
     arrayLayers: "u32("+(V.VkImageCreateInfo_arrayLayers_offsetof||0)+")",
     samples: "u32("+(V.VkImageCreateInfo_samples_offsetof||0)+")",
@@ -405,8 +405,8 @@ const VkImageViewCreateInfo = new Proxy(C.CStructView, new C.CStruct("VkImageVie
     image: "u64("+(V.VkImageViewCreateInfo_image_offsetof||0)+")",
     viewType: "u32("+(V.VkImageViewCreateInfo_viewType_offsetof||0)+")",
     format: "u32("+(V.VkImageViewCreateInfo_format_offsetof||0)+")",
-    components: "u32("+(V.VkImageViewCreateInfo_components_offsetof||0)+")",
-    subresourceRange: "u32("+(V.VkImageViewCreateInfo_subresourceRange_offsetof||0)+")",
+    components: "VkComponentMapping("+(V.VkImageViewCreateInfo_components_offsetof||0)+")",
+    subresourceRange: "VkImageSubresourceRange("+(V.VkImageViewCreateInfo_subresourceRange_offsetof||0)+")",
 }, (V.VkImageViewCreateInfo_sizeof||0)));
 
 
@@ -427,9 +427,9 @@ const VkSparseMemoryBind = new Proxy(C.CStructView, new C.CStruct("VkSparseMemor
 
 
 const VkSparseImageMemoryBind = new Proxy(C.CStructView, new C.CStruct("VkSparseImageMemoryBind", {
-    subresource: "u32("+(V.VkSparseImageMemoryBind_subresource_offsetof||0)+")",
-    offset: "u32("+(V.VkSparseImageMemoryBind_offset_offsetof||0)+")",
-    extent: "u32("+(V.VkSparseImageMemoryBind_extent_offsetof||0)+")",
+    subresource: "VkImageSubresource("+(V.VkSparseImageMemoryBind_subresource_offsetof||0)+")",
+    offset: "VkOffset3D("+(V.VkSparseImageMemoryBind_offset_offsetof||0)+")",
+    extent: "VkExtent3D("+(V.VkSparseImageMemoryBind_extent_offsetof||0)+")",
     memory: "u64("+(V.VkSparseImageMemoryBind_memory_offsetof||0)+")",
     memoryOffset: "u64("+(V.VkSparseImageMemoryBind_memoryOffset_offsetof||0)+")",
     flags: "u32("+(V.VkSparseImageMemoryBind_flags_offsetof||0)+")",
@@ -474,19 +474,19 @@ const VkBindSparseInfo = new Proxy(C.CStructView, new C.CStruct("VkBindSparseInf
 
 
 const VkImageCopy = new Proxy(C.CStructView, new C.CStruct("VkImageCopy", {
-    srcSubresource: "u32("+(V.VkImageCopy_srcSubresource_offsetof||0)+")",
-    srcOffset: "u32("+(V.VkImageCopy_srcOffset_offsetof||0)+")",
-    dstSubresource: "u32("+(V.VkImageCopy_dstSubresource_offsetof||0)+")",
-    dstOffset: "u32("+(V.VkImageCopy_dstOffset_offsetof||0)+")",
-    extent: "u32("+(V.VkImageCopy_extent_offsetof||0)+")",
+    srcSubresource: "VkImageSubresourceLayers("+(V.VkImageCopy_srcSubresource_offsetof||0)+")",
+    srcOffset: "VkOffset3D("+(V.VkImageCopy_srcOffset_offsetof||0)+")",
+    dstSubresource: "VkImageSubresourceLayers("+(V.VkImageCopy_dstSubresource_offsetof||0)+")",
+    dstOffset: "VkOffset3D("+(V.VkImageCopy_dstOffset_offsetof||0)+")",
+    extent: "VkExtent3D("+(V.VkImageCopy_extent_offsetof||0)+")",
 }, (V.VkImageCopy_sizeof||0)));
 
 
 const VkImageBlit = new Proxy(C.CStructView, new C.CStruct("VkImageBlit", {
-    srcSubresource: "u32("+(V.VkImageBlit_srcSubresource_offsetof||0)+")",
-    srcOffsets: "u32[2]("+(V.VkImageBlit_srcOffsets_offsetof||0)+")",
-    dstSubresource: "u32("+(V.VkImageBlit_dstSubresource_offsetof||0)+")",
-    dstOffsets: "u32[2]("+(V.VkImageBlit_dstOffsets_offsetof||0)+")",
+    srcSubresource: "VkImageSubresourceLayers("+(V.VkImageBlit_srcSubresource_offsetof||0)+")",
+    srcOffsets: "VkOffset3D[2]("+(V.VkImageBlit_srcOffsets_offsetof||0)+")",
+    dstSubresource: "VkImageSubresourceLayers("+(V.VkImageBlit_dstSubresource_offsetof||0)+")",
+    dstOffsets: "VkOffset3D[2]("+(V.VkImageBlit_dstOffsets_offsetof||0)+")",
 }, (V.VkImageBlit_sizeof||0)));
 
 
@@ -494,9 +494,9 @@ const VkBufferImageCopy = new Proxy(C.CStructView, new C.CStruct("VkBufferImageC
     bufferOffset: "u64("+(V.VkBufferImageCopy_bufferOffset_offsetof||0)+")",
     bufferRowLength: "u32("+(V.VkBufferImageCopy_bufferRowLength_offsetof||0)+")",
     bufferImageHeight: "u32("+(V.VkBufferImageCopy_bufferImageHeight_offsetof||0)+")",
-    imageSubresource: "u32("+(V.VkBufferImageCopy_imageSubresource_offsetof||0)+")",
-    imageOffset: "u32("+(V.VkBufferImageCopy_imageOffset_offsetof||0)+")",
-    imageExtent: "u32("+(V.VkBufferImageCopy_imageExtent_offsetof||0)+")",
+    imageSubresource: "VkImageSubresourceLayers("+(V.VkBufferImageCopy_imageSubresource_offsetof||0)+")",
+    imageOffset: "VkOffset3D("+(V.VkBufferImageCopy_imageOffset_offsetof||0)+")",
+    imageExtent: "VkExtent3D("+(V.VkBufferImageCopy_imageExtent_offsetof||0)+")",
 }, (V.VkBufferImageCopy_sizeof||0)));
 
 
@@ -511,18 +511,18 @@ const VkCopyMemoryToImageIndirectCommandNV = new Proxy(C.CStructView, new C.CStr
     srcAddress: "u64("+(V.VkCopyMemoryToImageIndirectCommandNV_srcAddress_offsetof||0)+")",
     bufferRowLength: "u32("+(V.VkCopyMemoryToImageIndirectCommandNV_bufferRowLength_offsetof||0)+")",
     bufferImageHeight: "u32("+(V.VkCopyMemoryToImageIndirectCommandNV_bufferImageHeight_offsetof||0)+")",
-    imageSubresource: "u32("+(V.VkCopyMemoryToImageIndirectCommandNV_imageSubresource_offsetof||0)+")",
-    imageOffset: "u32("+(V.VkCopyMemoryToImageIndirectCommandNV_imageOffset_offsetof||0)+")",
-    imageExtent: "u32("+(V.VkCopyMemoryToImageIndirectCommandNV_imageExtent_offsetof||0)+")",
+    imageSubresource: "VkImageSubresourceLayers("+(V.VkCopyMemoryToImageIndirectCommandNV_imageSubresource_offsetof||0)+")",
+    imageOffset: "VkOffset3D("+(V.VkCopyMemoryToImageIndirectCommandNV_imageOffset_offsetof||0)+")",
+    imageExtent: "VkExtent3D("+(V.VkCopyMemoryToImageIndirectCommandNV_imageExtent_offsetof||0)+")",
 }, (V.VkCopyMemoryToImageIndirectCommandNV_sizeof||0)));
 
 
 const VkImageResolve = new Proxy(C.CStructView, new C.CStruct("VkImageResolve", {
-    srcSubresource: "u32("+(V.VkImageResolve_srcSubresource_offsetof||0)+")",
-    srcOffset: "u32("+(V.VkImageResolve_srcOffset_offsetof||0)+")",
-    dstSubresource: "u32("+(V.VkImageResolve_dstSubresource_offsetof||0)+")",
-    dstOffset: "u32("+(V.VkImageResolve_dstOffset_offsetof||0)+")",
-    extent: "u32("+(V.VkImageResolve_extent_offsetof||0)+")",
+    srcSubresource: "VkImageSubresourceLayers("+(V.VkImageResolve_srcSubresource_offsetof||0)+")",
+    srcOffset: "VkOffset3D("+(V.VkImageResolve_srcOffset_offsetof||0)+")",
+    dstSubresource: "VkImageSubresourceLayers("+(V.VkImageResolve_dstSubresource_offsetof||0)+")",
+    dstOffset: "VkOffset3D("+(V.VkImageResolve_dstOffset_offsetof||0)+")",
+    extent: "VkExtent3D("+(V.VkImageResolve_extent_offsetof||0)+")",
 }, (V.VkImageResolve_sizeof||0)));
 
 
@@ -572,7 +572,7 @@ const VkDescriptorPoolCreateInfo = new Proxy(C.CStructView, new C.CStruct("VkDes
 const VkDescriptorSetAllocateInfo = new Proxy(C.CStructView, new C.CStruct("VkDescriptorSetAllocateInfo", {
     sType: "u32("+(V.VkDescriptorSetAllocateInfo_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO||0),
     pNext: "u64("+(V.VkDescriptorSetAllocateInfo_pNext_offsetof||0)+")",
-    descriptorPool: "u32("+(V.VkDescriptorSetAllocateInfo_descriptorPool_offsetof||0)+")",
+    descriptorPool: "VkDescriptorPool("+(V.VkDescriptorSetAllocateInfo_descriptorPool_offsetof||0)+")",
     descriptorSetCount: "u32("+(V.VkDescriptorSetAllocateInfo_descriptorSetCount_offsetof||0)+")",
     pSetLayouts: "u64("+(V.VkDescriptorSetAllocateInfo_pSetLayouts_offsetof||0)+")",
 }, (V.VkDescriptorSetAllocateInfo_sizeof||0)));
@@ -598,7 +598,7 @@ const VkPipelineShaderStageCreateInfo = new Proxy(C.CStructView, new C.CStruct("
     pNext: "u64("+(V.VkPipelineShaderStageCreateInfo_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkPipelineShaderStageCreateInfo_flags_offsetof||0)+")",
     stage: "u32("+(V.VkPipelineShaderStageCreateInfo_stage_offsetof||0)+")",
-    module: "u32("+(V.VkPipelineShaderStageCreateInfo_module_offsetof||0)+")",
+    module: "VkShaderModule("+(V.VkPipelineShaderStageCreateInfo_module_offsetof||0)+")",
     pName: "u64("+(V.VkPipelineShaderStageCreateInfo_pName_offsetof||0)+")",
     pSpecializationInfo: "u64("+(V.VkPipelineShaderStageCreateInfo_pSpecializationInfo_offsetof||0)+")",
 }, (V.VkPipelineShaderStageCreateInfo_sizeof||0)));
@@ -608,7 +608,7 @@ const VkComputePipelineCreateInfo = new Proxy(C.CStructView, new C.CStruct("VkCo
     sType: "u32("+(V.VkComputePipelineCreateInfo_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO||0),
     pNext: "u64("+(V.VkComputePipelineCreateInfo_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkComputePipelineCreateInfo_flags_offsetof||0)+")",
-    stage: "u32("+(V.VkComputePipelineCreateInfo_stage_offsetof||0)+")",
+    stage: "VkPipelineShaderStageCreateInfo("+(V.VkComputePipelineCreateInfo_stage_offsetof||0)+")",
     layout: "u64("+(V.VkComputePipelineCreateInfo_layout_offsetof||0)+")",
     basePipelineHandle: "u64("+(V.VkComputePipelineCreateInfo_basePipelineHandle_offsetof||0)+")",
     basePipelineIndex: "i32("+(V.VkComputePipelineCreateInfo_basePipelineIndex_offsetof||0)+")",
@@ -752,8 +752,8 @@ const VkPipelineDepthStencilStateCreateInfo = new Proxy(C.CStructView, new C.CSt
     depthCompareOp: "u32("+(V.VkPipelineDepthStencilStateCreateInfo_depthCompareOp_offsetof||0)+")",
     depthBoundsTestEnable: "u32("+(V.VkPipelineDepthStencilStateCreateInfo_depthBoundsTestEnable_offsetof||0)+")",
     stencilTestEnable: "u32("+(V.VkPipelineDepthStencilStateCreateInfo_stencilTestEnable_offsetof||0)+")",
-    front: "u32("+(V.VkPipelineDepthStencilStateCreateInfo_front_offsetof||0)+")",
-    back: "u32("+(V.VkPipelineDepthStencilStateCreateInfo_back_offsetof||0)+")",
+    front: "VkStencilOpState("+(V.VkPipelineDepthStencilStateCreateInfo_front_offsetof||0)+")",
+    back: "VkStencilOpState("+(V.VkPipelineDepthStencilStateCreateInfo_back_offsetof||0)+")",
     minDepthBounds: "f32("+(V.VkPipelineDepthStencilStateCreateInfo_minDepthBounds_offsetof||0)+")",
     maxDepthBounds: "f32("+(V.VkPipelineDepthStencilStateCreateInfo_maxDepthBounds_offsetof||0)+")",
 }, (V.VkPipelineDepthStencilStateCreateInfo_sizeof||0)));
@@ -775,7 +775,7 @@ const VkGraphicsPipelineCreateInfo = new Proxy(C.CStructView, new C.CStruct("VkG
     pColorBlendState: "u64("+(V.VkGraphicsPipelineCreateInfo_pColorBlendState_offsetof||0)+")",
     pDynamicState: "u64("+(V.VkGraphicsPipelineCreateInfo_pDynamicState_offsetof||0)+")",
     layout: "u64("+(V.VkGraphicsPipelineCreateInfo_layout_offsetof||0)+")",
-    renderPass: "u32("+(V.VkGraphicsPipelineCreateInfo_renderPass_offsetof||0)+")",
+    renderPass: "VkRenderPass("+(V.VkGraphicsPipelineCreateInfo_renderPass_offsetof||0)+")",
     subpass: "u32("+(V.VkGraphicsPipelineCreateInfo_subpass_offsetof||0)+")",
     basePipelineHandle: "u64("+(V.VkGraphicsPipelineCreateInfo_basePipelineHandle_offsetof||0)+")",
     basePipelineIndex: "i32("+(V.VkGraphicsPipelineCreateInfo_basePipelineIndex_offsetof||0)+")",
@@ -851,7 +851,7 @@ const VkCommandPoolCreateInfo = new Proxy(C.CStructView, new C.CStruct("VkComman
 const VkCommandBufferAllocateInfo = new Proxy(C.CStructView, new C.CStruct("VkCommandBufferAllocateInfo", {
     sType: "u32("+(V.VkCommandBufferAllocateInfo_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO||0),
     pNext: "u64("+(V.VkCommandBufferAllocateInfo_pNext_offsetof||0)+")",
-    commandPool: "u32("+(V.VkCommandBufferAllocateInfo_commandPool_offsetof||0)+")",
+    commandPool: "VkCommandPool("+(V.VkCommandBufferAllocateInfo_commandPool_offsetof||0)+")",
     level: "u32("+(V.VkCommandBufferAllocateInfo_level_offsetof||0)+")",
     commandBufferCount: "u32("+(V.VkCommandBufferAllocateInfo_commandBufferCount_offsetof||0)+")",
 }, (V.VkCommandBufferAllocateInfo_sizeof||0)));
@@ -860,7 +860,7 @@ const VkCommandBufferAllocateInfo = new Proxy(C.CStructView, new C.CStruct("VkCo
 const VkCommandBufferInheritanceInfo = new Proxy(C.CStructView, new C.CStruct("VkCommandBufferInheritanceInfo", {
     sType: "u32("+(V.VkCommandBufferInheritanceInfo_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO||0),
     pNext: "u64("+(V.VkCommandBufferInheritanceInfo_pNext_offsetof||0)+")",
-    renderPass: "u32("+(V.VkCommandBufferInheritanceInfo_renderPass_offsetof||0)+")",
+    renderPass: "VkRenderPass("+(V.VkCommandBufferInheritanceInfo_renderPass_offsetof||0)+")",
     subpass: "u32("+(V.VkCommandBufferInheritanceInfo_subpass_offsetof||0)+")",
     framebuffer: "u64("+(V.VkCommandBufferInheritanceInfo_framebuffer_offsetof||0)+")",
     occlusionQueryEnable: "u32("+(V.VkCommandBufferInheritanceInfo_occlusionQueryEnable_offsetof||0)+")",
@@ -880,7 +880,7 @@ const VkCommandBufferBeginInfo = new Proxy(C.CStructView, new C.CStruct("VkComma
 const VkRenderPassBeginInfo = new Proxy(C.CStructView, new C.CStruct("VkRenderPassBeginInfo", {
     sType: "u32("+(V.VkRenderPassBeginInfo_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO||0),
     pNext: "u64("+(V.VkRenderPassBeginInfo_pNext_offsetof||0)+")",
-    renderPass: "u32("+(V.VkRenderPassBeginInfo_renderPass_offsetof||0)+")",
+    renderPass: "VkRenderPass("+(V.VkRenderPassBeginInfo_renderPass_offsetof||0)+")",
     framebuffer: "u64("+(V.VkRenderPassBeginInfo_framebuffer_offsetof||0)+")",
     renderArea: "VkRect2D("+(V.VkRenderPassBeginInfo_renderArea_offsetof||0)+")",
     clearValueCount: "u32("+(V.VkRenderPassBeginInfo_clearValueCount_offsetof||0)+")",
@@ -897,7 +897,7 @@ const VkClearDepthStencilValue = new Proxy(C.CStructView, new C.CStruct("VkClear
 const VkClearAttachment = new Proxy(C.CStructView, new C.CStruct("VkClearAttachment", {
     aspectMask: "u32("+(V.VkClearAttachment_aspectMask_offsetof||0)+")",
     colorAttachment: "u32("+(V.VkClearAttachment_colorAttachment_offsetof||0)+")",
-    clearValue: "u32("+(V.VkClearAttachment_clearValue_offsetof||0)+")",
+    clearValue: "VkClearValue("+(V.VkClearAttachment_clearValue_offsetof||0)+")",
 }, (V.VkClearAttachment_sizeof||0)));
 
 
@@ -1171,7 +1171,7 @@ const VkFramebufferCreateInfo = new Proxy(C.CStructView, new C.CStruct("VkFrameb
     sType: "u32("+(V.VkFramebufferCreateInfo_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO||0),
     pNext: "u64("+(V.VkFramebufferCreateInfo_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkFramebufferCreateInfo_flags_offsetof||0)+")",
-    renderPass: "u32("+(V.VkFramebufferCreateInfo_renderPass_offsetof||0)+")",
+    renderPass: "VkRenderPass("+(V.VkFramebufferCreateInfo_renderPass_offsetof||0)+")",
     attachmentCount: "u32("+(V.VkFramebufferCreateInfo_attachmentCount_offsetof||0)+")",
     pAttachments: "u64("+(V.VkFramebufferCreateInfo_pAttachments_offsetof||0)+")",
     width: "u32("+(V.VkFramebufferCreateInfo_width_offsetof||0)+")",
@@ -1231,7 +1231,7 @@ const VkSubmitInfo = new Proxy(C.CStructView, new C.CStruct("VkSubmitInfo", {
 
 
 const VkDisplayPropertiesKHR = new Proxy(C.CStructView, new C.CStruct("VkDisplayPropertiesKHR", {
-    display: "u32("+(V.VkDisplayPropertiesKHR_display_offsetof||0)+")",
+    display: "VkDisplayKHR("+(V.VkDisplayPropertiesKHR_display_offsetof||0)+")",
     displayName: "u64("+(V.VkDisplayPropertiesKHR_displayName_offsetof||0)+")",
     physicalDimensions: "VkExtent2D("+(V.VkDisplayPropertiesKHR_physicalDimensions_offsetof||0)+")",
     physicalResolution: "VkExtent2D("+(V.VkDisplayPropertiesKHR_physicalResolution_offsetof||0)+")",
@@ -1242,7 +1242,7 @@ const VkDisplayPropertiesKHR = new Proxy(C.CStructView, new C.CStruct("VkDisplay
 
 
 const VkDisplayPlanePropertiesKHR = new Proxy(C.CStructView, new C.CStruct("VkDisplayPlanePropertiesKHR", {
-    currentDisplay: "u32("+(V.VkDisplayPlanePropertiesKHR_currentDisplay_offsetof||0)+")",
+    currentDisplay: "VkDisplayKHR("+(V.VkDisplayPlanePropertiesKHR_currentDisplay_offsetof||0)+")",
     currentStackIndex: "u32("+(V.VkDisplayPlanePropertiesKHR_currentStackIndex_offsetof||0)+")",
 }, (V.VkDisplayPlanePropertiesKHR_sizeof||0)));
 
@@ -1254,8 +1254,8 @@ const VkDisplayModeParametersKHR = new Proxy(C.CStructView, new C.CStruct("VkDis
 
 
 const VkDisplayModePropertiesKHR = new Proxy(C.CStructView, new C.CStruct("VkDisplayModePropertiesKHR", {
-    displayMode: "u32("+(V.VkDisplayModePropertiesKHR_displayMode_offsetof||0)+")",
-    parameters: "u32("+(V.VkDisplayModePropertiesKHR_parameters_offsetof||0)+")",
+    displayMode: "VkDisplayModeKHR("+(V.VkDisplayModePropertiesKHR_displayMode_offsetof||0)+")",
+    parameters: "VkDisplayModeParametersKHR("+(V.VkDisplayModePropertiesKHR_parameters_offsetof||0)+")",
 }, (V.VkDisplayModePropertiesKHR_sizeof||0)));
 
 
@@ -1263,7 +1263,7 @@ const VkDisplayModeCreateInfoKHR = new Proxy(C.CStructView, new C.CStruct("VkDis
     sType: "u32("+(V.VkDisplayModeCreateInfoKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DISPLAY_MODE_CREATE_INFO_KHR||0),
     pNext: "u64("+(V.VkDisplayModeCreateInfoKHR_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkDisplayModeCreateInfoKHR_flags_offsetof||0)+")",
-    parameters: "u32("+(V.VkDisplayModeCreateInfoKHR_parameters_offsetof||0)+")",
+    parameters: "VkDisplayModeParametersKHR("+(V.VkDisplayModeCreateInfoKHR_parameters_offsetof||0)+")",
 }, (V.VkDisplayModeCreateInfoKHR_sizeof||0)));
 
 
@@ -1284,7 +1284,7 @@ const VkDisplaySurfaceCreateInfoKHR = new Proxy(C.CStructView, new C.CStruct("Vk
     sType: "u32("+(V.VkDisplaySurfaceCreateInfoKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR||0),
     pNext: "u64("+(V.VkDisplaySurfaceCreateInfoKHR_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkDisplaySurfaceCreateInfoKHR_flags_offsetof||0)+")",
-    displayMode: "u32("+(V.VkDisplaySurfaceCreateInfoKHR_displayMode_offsetof||0)+")",
+    displayMode: "VkDisplayModeKHR("+(V.VkDisplaySurfaceCreateInfoKHR_displayMode_offsetof||0)+")",
     planeIndex: "u32("+(V.VkDisplaySurfaceCreateInfoKHR_planeIndex_offsetof||0)+")",
     planeStackIndex: "u32("+(V.VkDisplaySurfaceCreateInfoKHR_planeStackIndex_offsetof||0)+")",
     transform: "u32("+(V.VkDisplaySurfaceCreateInfoKHR_transform_offsetof||0)+")",
@@ -1346,8 +1346,8 @@ const VkWin32SurfaceCreateInfoKHR = new Proxy(C.CStructView, new C.CStruct("VkWi
     sType: "u32("+(V.VkWin32SurfaceCreateInfoKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR||0),
     pNext: "u64("+(V.VkWin32SurfaceCreateInfoKHR_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkWin32SurfaceCreateInfoKHR_flags_offsetof||0)+")",
-    hinstance: "u32("+(V.VkWin32SurfaceCreateInfoKHR_hinstance_offsetof||0)+")",
-    hwnd: "u32("+(V.VkWin32SurfaceCreateInfoKHR_hwnd_offsetof||0)+")",
+    hinstance: "HINSTANCE("+(V.VkWin32SurfaceCreateInfoKHR_hinstance_offsetof||0)+")",
+    hwnd: "HWND("+(V.VkWin32SurfaceCreateInfoKHR_hwnd_offsetof||0)+")",
 }, (V.VkWin32SurfaceCreateInfoKHR_sizeof||0)));
 
 
@@ -1356,7 +1356,7 @@ const VkXlibSurfaceCreateInfoKHR = new Proxy(C.CStructView, new C.CStruct("VkXli
     pNext: "u64("+(V.VkXlibSurfaceCreateInfoKHR_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkXlibSurfaceCreateInfoKHR_flags_offsetof||0)+")",
     dpy: "u64("+(V.VkXlibSurfaceCreateInfoKHR_dpy_offsetof||0)+")",
-    window: "u32("+(V.VkXlibSurfaceCreateInfoKHR_window_offsetof||0)+")",
+    window: "Window("+(V.VkXlibSurfaceCreateInfoKHR_window_offsetof||0)+")",
 }, (V.VkXlibSurfaceCreateInfoKHR_sizeof||0)));
 
 
@@ -1365,7 +1365,7 @@ const VkXcbSurfaceCreateInfoKHR = new Proxy(C.CStructView, new C.CStruct("VkXcbS
     pNext: "u64("+(V.VkXcbSurfaceCreateInfoKHR_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkXcbSurfaceCreateInfoKHR_flags_offsetof||0)+")",
     connection: "u64("+(V.VkXcbSurfaceCreateInfoKHR_connection_offsetof||0)+")",
-    window: "u32("+(V.VkXcbSurfaceCreateInfoKHR_window_offsetof||0)+")",
+    window: "xcb_window_t("+(V.VkXcbSurfaceCreateInfoKHR_window_offsetof||0)+")",
 }, (V.VkXcbSurfaceCreateInfoKHR_sizeof||0)));
 
 
@@ -1382,7 +1382,7 @@ const VkImagePipeSurfaceCreateInfoFUCHSIA = new Proxy(C.CStructView, new C.CStru
     sType: "u32("+(V.VkImagePipeSurfaceCreateInfoFUCHSIA_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA||0),
     pNext: "u64("+(V.VkImagePipeSurfaceCreateInfoFUCHSIA_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkImagePipeSurfaceCreateInfoFUCHSIA_flags_offsetof||0)+")",
-    imagePipeHandle: "u32("+(V.VkImagePipeSurfaceCreateInfoFUCHSIA_imagePipeHandle_offsetof||0)+")",
+    imagePipeHandle: "zx_handle_t("+(V.VkImagePipeSurfaceCreateInfoFUCHSIA_imagePipeHandle_offsetof||0)+")",
 }, (V.VkImagePipeSurfaceCreateInfoFUCHSIA_sizeof||0)));
 
 
@@ -1390,7 +1390,7 @@ const VkStreamDescriptorSurfaceCreateInfoGGP = new Proxy(C.CStructView, new C.CS
     sType: "u32("+(V.VkStreamDescriptorSurfaceCreateInfoGGP_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_STREAM_DESCRIPTOR_SURFACE_CREATE_INFO_GGP||0),
     pNext: "u64("+(V.VkStreamDescriptorSurfaceCreateInfoGGP_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkStreamDescriptorSurfaceCreateInfoGGP_flags_offsetof||0)+")",
-    streamDescriptor: "u32("+(V.VkStreamDescriptorSurfaceCreateInfoGGP_streamDescriptor_offsetof||0)+")",
+    streamDescriptor: "GgpStreamDescriptor("+(V.VkStreamDescriptorSurfaceCreateInfoGGP_streamDescriptor_offsetof||0)+")",
 }, (V.VkStreamDescriptorSurfaceCreateInfoGGP_sizeof||0)));
 
 
@@ -1447,7 +1447,7 @@ const VkDebugReportCallbackCreateInfoEXT = new Proxy(C.CStructView, new C.CStruc
     sType: "u32("+(V.VkDebugReportCallbackCreateInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT||0),
     pNext: "u64("+(V.VkDebugReportCallbackCreateInfoEXT_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkDebugReportCallbackCreateInfoEXT_flags_offsetof||0)+")",
-    pfnCallback: "u32("+(V.VkDebugReportCallbackCreateInfoEXT_pfnCallback_offsetof||0)+")",
+    pfnCallback: "PFN_vkDebugReportCallbackEXT("+(V.VkDebugReportCallbackCreateInfoEXT_pfnCallback_offsetof||0)+")",
     pUserData: "u64("+(V.VkDebugReportCallbackCreateInfoEXT_pUserData_offsetof||0)+")",
 }, (V.VkDebugReportCallbackCreateInfoEXT_sizeof||0)));
 
@@ -1528,7 +1528,7 @@ const VkDedicatedAllocationMemoryAllocateInfoNV = new Proxy(C.CStructView, new C
 
 
 const VkExternalImageFormatPropertiesNV = new Proxy(C.CStructView, new C.CStruct("VkExternalImageFormatPropertiesNV", {
-    imageFormatProperties: "u32("+(V.VkExternalImageFormatPropertiesNV_imageFormatProperties_offsetof||0)+")",
+    imageFormatProperties: "VkImageFormatProperties("+(V.VkExternalImageFormatPropertiesNV_imageFormatProperties_offsetof||0)+")",
     externalMemoryFeatures: "u32("+(V.VkExternalImageFormatPropertiesNV_externalMemoryFeatures_offsetof||0)+")",
     exportFromImportedHandleTypes: "u32("+(V.VkExternalImageFormatPropertiesNV_exportFromImportedHandleTypes_offsetof||0)+")",
     compatibleHandleTypes: "u32("+(V.VkExternalImageFormatPropertiesNV_compatibleHandleTypes_offsetof||0)+")",
@@ -1720,7 +1720,7 @@ const VkGeneratedCommandsInfoNV = new Proxy(C.CStructView, new C.CStruct("VkGene
     pNext: "u64("+(V.VkGeneratedCommandsInfoNV_pNext_offsetof||0)+")",
     pipelineBindPoint: "u32("+(V.VkGeneratedCommandsInfoNV_pipelineBindPoint_offsetof||0)+")",
     pipeline: "u64("+(V.VkGeneratedCommandsInfoNV_pipeline_offsetof||0)+")",
-    indirectCommandsLayout: "u32("+(V.VkGeneratedCommandsInfoNV_indirectCommandsLayout_offsetof||0)+")",
+    indirectCommandsLayout: "VkIndirectCommandsLayoutNV("+(V.VkGeneratedCommandsInfoNV_indirectCommandsLayout_offsetof||0)+")",
     streamCount: "u32("+(V.VkGeneratedCommandsInfoNV_streamCount_offsetof||0)+")",
     pStreams: "u64("+(V.VkGeneratedCommandsInfoNV_pStreams_offsetof||0)+")",
     sequencesCount: "u32("+(V.VkGeneratedCommandsInfoNV_sequencesCount_offsetof||0)+")",
@@ -1739,7 +1739,7 @@ const VkGeneratedCommandsMemoryRequirementsInfoNV = new Proxy(C.CStructView, new
     pNext: "u64("+(V.VkGeneratedCommandsMemoryRequirementsInfoNV_pNext_offsetof||0)+")",
     pipelineBindPoint: "u32("+(V.VkGeneratedCommandsMemoryRequirementsInfoNV_pipelineBindPoint_offsetof||0)+")",
     pipeline: "u64("+(V.VkGeneratedCommandsMemoryRequirementsInfoNV_pipeline_offsetof||0)+")",
-    indirectCommandsLayout: "u32("+(V.VkGeneratedCommandsMemoryRequirementsInfoNV_indirectCommandsLayout_offsetof||0)+")",
+    indirectCommandsLayout: "VkIndirectCommandsLayoutNV("+(V.VkGeneratedCommandsMemoryRequirementsInfoNV_indirectCommandsLayout_offsetof||0)+")",
     maxSequencesCount: "u32("+(V.VkGeneratedCommandsMemoryRequirementsInfoNV_maxSequencesCount_offsetof||0)+")",
 }, (V.VkGeneratedCommandsMemoryRequirementsInfoNV_sizeof||0)));
 
@@ -1765,7 +1765,7 @@ const VkPhysicalDeviceProperties2KHR = new Proxy(C.CStructView, new C.ConstructP
 const VkFormatProperties2 = new Proxy(C.CStructView, new C.CStruct("VkFormatProperties2", {
     sType: "u32("+(V.VkFormatProperties2_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_2||0),
     pNext: "u64("+(V.VkFormatProperties2_pNext_offsetof||0)+")",
-    formatProperties: "u32("+(V.VkFormatProperties2_formatProperties_offsetof||0)+")",
+    formatProperties: "VkFormatProperties("+(V.VkFormatProperties2_formatProperties_offsetof||0)+")",
 }, (V.VkFormatProperties2_sizeof||0)));
 
 const VkFormatProperties2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkFormatProperties2"));
@@ -1774,7 +1774,7 @@ const VkFormatProperties2KHR = new Proxy(C.CStructView, new C.ConstructProxy("Vk
 const VkImageFormatProperties2 = new Proxy(C.CStructView, new C.CStruct("VkImageFormatProperties2", {
     sType: "u32("+(V.VkImageFormatProperties2_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMAGE_FORMAT_PROPERTIES_2||0),
     pNext: "u64("+(V.VkImageFormatProperties2_pNext_offsetof||0)+")",
-    imageFormatProperties: "u32("+(V.VkImageFormatProperties2_imageFormatProperties_offsetof||0)+")",
+    imageFormatProperties: "VkImageFormatProperties("+(V.VkImageFormatProperties2_imageFormatProperties_offsetof||0)+")",
 }, (V.VkImageFormatProperties2_sizeof||0)));
 
 const VkImageFormatProperties2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkImageFormatProperties2"));
@@ -1796,7 +1796,7 @@ const VkPhysicalDeviceImageFormatInfo2KHR = new Proxy(C.CStructView, new C.Const
 const VkQueueFamilyProperties2 = new Proxy(C.CStructView, new C.CStruct("VkQueueFamilyProperties2", {
     sType: "u32("+(V.VkQueueFamilyProperties2_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_QUEUE_FAMILY_PROPERTIES_2||0),
     pNext: "u64("+(V.VkQueueFamilyProperties2_pNext_offsetof||0)+")",
-    queueFamilyProperties: "u32("+(V.VkQueueFamilyProperties2_queueFamilyProperties_offsetof||0)+")",
+    queueFamilyProperties: "VkQueueFamilyProperties("+(V.VkQueueFamilyProperties2_queueFamilyProperties_offsetof||0)+")",
 }, (V.VkQueueFamilyProperties2_sizeof||0)));
 
 const VkQueueFamilyProperties2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkQueueFamilyProperties2"));
@@ -1805,7 +1805,7 @@ const VkQueueFamilyProperties2KHR = new Proxy(C.CStructView, new C.ConstructProx
 const VkPhysicalDeviceMemoryProperties2 = new Proxy(C.CStructView, new C.CStruct("VkPhysicalDeviceMemoryProperties2", {
     sType: "u32("+(V.VkPhysicalDeviceMemoryProperties2_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_PROPERTIES_2||0),
     pNext: "u64("+(V.VkPhysicalDeviceMemoryProperties2_pNext_offsetof||0)+")",
-    memoryProperties: "u32("+(V.VkPhysicalDeviceMemoryProperties2_memoryProperties_offsetof||0)+")",
+    memoryProperties: "VkPhysicalDeviceMemoryProperties("+(V.VkPhysicalDeviceMemoryProperties2_memoryProperties_offsetof||0)+")",
 }, (V.VkPhysicalDeviceMemoryProperties2_sizeof||0)));
 
 const VkPhysicalDeviceMemoryProperties2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkPhysicalDeviceMemoryProperties2"));
@@ -1814,7 +1814,7 @@ const VkPhysicalDeviceMemoryProperties2KHR = new Proxy(C.CStructView, new C.Cons
 const VkSparseImageFormatProperties2 = new Proxy(C.CStructView, new C.CStruct("VkSparseImageFormatProperties2", {
     sType: "u32("+(V.VkSparseImageFormatProperties2_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_SPARSE_IMAGE_FORMAT_PROPERTIES_2||0),
     pNext: "u64("+(V.VkSparseImageFormatProperties2_pNext_offsetof||0)+")",
-    properties: "u32("+(V.VkSparseImageFormatProperties2_properties_offsetof||0)+")",
+    properties: "VkSparseImageFormatProperties("+(V.VkSparseImageFormatProperties2_properties_offsetof||0)+")",
 }, (V.VkSparseImageFormatProperties2_sizeof||0)));
 
 const VkSparseImageFormatProperties2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkSparseImageFormatProperties2"));
@@ -1856,7 +1856,7 @@ const VkPhysicalDeviceDriverProperties = new Proxy(C.CStructView, new C.CStruct(
     driverID: "u32("+(V.VkPhysicalDeviceDriverProperties_driverID_offsetof||0)+")",
     driverName: "u8["+(E.VK_MAX_DRIVER_NAME_SIZE||1)+"]("+(V.VkPhysicalDeviceDriverProperties_driverName_offsetof||0)+")",
     driverInfo: "u8["+(E.VK_MAX_DRIVER_INFO_SIZE||1)+"]("+(V.VkPhysicalDeviceDriverProperties_driverInfo_offsetof||0)+")",
-    conformanceVersion: "u32("+(V.VkPhysicalDeviceDriverProperties_conformanceVersion_offsetof||0)+")",
+    conformanceVersion: "VkConformanceVersion("+(V.VkPhysicalDeviceDriverProperties_conformanceVersion_offsetof||0)+")",
 }, (V.VkPhysicalDeviceDriverProperties_sizeof||0)));
 
 const VkPhysicalDeviceDriverPropertiesKHR = new Proxy(C.CStructView, new C.ConstructProxy("VkPhysicalDeviceDriverProperties"));
@@ -1918,7 +1918,7 @@ const VkPhysicalDeviceExternalImageFormatInfoKHR = new Proxy(C.CStructView, new 
 const VkExternalImageFormatProperties = new Proxy(C.CStructView, new C.CStruct("VkExternalImageFormatProperties", {
     sType: "u32("+(V.VkExternalImageFormatProperties_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_EXTERNAL_IMAGE_FORMAT_PROPERTIES||0),
     pNext: "u64("+(V.VkExternalImageFormatProperties_pNext_offsetof||0)+")",
-    externalMemoryProperties: "u32("+(V.VkExternalImageFormatProperties_externalMemoryProperties_offsetof||0)+")",
+    externalMemoryProperties: "VkExternalMemoryProperties("+(V.VkExternalImageFormatProperties_externalMemoryProperties_offsetof||0)+")",
 }, (V.VkExternalImageFormatProperties_sizeof||0)));
 
 const VkExternalImageFormatPropertiesKHR = new Proxy(C.CStructView, new C.ConstructProxy("VkExternalImageFormatProperties"));
@@ -1938,7 +1938,7 @@ const VkPhysicalDeviceExternalBufferInfoKHR = new Proxy(C.CStructView, new C.Con
 const VkExternalBufferProperties = new Proxy(C.CStructView, new C.CStruct("VkExternalBufferProperties", {
     sType: "u32("+(V.VkExternalBufferProperties_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_EXTERNAL_BUFFER_PROPERTIES||0),
     pNext: "u64("+(V.VkExternalBufferProperties_pNext_offsetof||0)+")",
-    externalMemoryProperties: "u32("+(V.VkExternalBufferProperties_externalMemoryProperties_offsetof||0)+")",
+    externalMemoryProperties: "VkExternalMemoryProperties("+(V.VkExternalBufferProperties_externalMemoryProperties_offsetof||0)+")",
 }, (V.VkExternalBufferProperties_sizeof||0)));
 
 const VkExternalBufferPropertiesKHR = new Proxy(C.CStructView, new C.ConstructProxy("VkExternalBufferProperties"));
@@ -1989,7 +1989,7 @@ const VkImportMemoryWin32HandleInfoKHR = new Proxy(C.CStructView, new C.CStruct(
     pNext: "u64("+(V.VkImportMemoryWin32HandleInfoKHR_pNext_offsetof||0)+")",
     handleType: "u32("+(V.VkImportMemoryWin32HandleInfoKHR_handleType_offsetof||0)+")",
     handle: "u64("+(V.VkImportMemoryWin32HandleInfoKHR_handle_offsetof||0)+")",
-    name: "u32("+(V.VkImportMemoryWin32HandleInfoKHR_name_offsetof||0)+")",
+    name: "u64("+(V.VkImportMemoryWin32HandleInfoKHR_name_offsetof||0)+")",
 }, (V.VkImportMemoryWin32HandleInfoKHR_sizeof||0)));
 
 
@@ -1998,7 +1998,7 @@ const VkExportMemoryWin32HandleInfoKHR = new Proxy(C.CStructView, new C.CStruct(
     pNext: "u64("+(V.VkExportMemoryWin32HandleInfoKHR_pNext_offsetof||0)+")",
     pAttributes: "u64("+(V.VkExportMemoryWin32HandleInfoKHR_pAttributes_offsetof||0)+")",
     dwAccess: "u32("+(V.VkExportMemoryWin32HandleInfoKHR_dwAccess_offsetof||0)+")",
-    name: "u32("+(V.VkExportMemoryWin32HandleInfoKHR_name_offsetof||0)+")",
+    name: "u64("+(V.VkExportMemoryWin32HandleInfoKHR_name_offsetof||0)+")",
 }, (V.VkExportMemoryWin32HandleInfoKHR_sizeof||0)));
 
 
@@ -2006,7 +2006,7 @@ const VkImportMemoryZirconHandleInfoFUCHSIA = new Proxy(C.CStructView, new C.CSt
     sType: "u32("+(V.VkImportMemoryZirconHandleInfoFUCHSIA_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA||0),
     pNext: "u64("+(V.VkImportMemoryZirconHandleInfoFUCHSIA_pNext_offsetof||0)+")",
     handleType: "u32("+(V.VkImportMemoryZirconHandleInfoFUCHSIA_handleType_offsetof||0)+")",
-    handle: "u32("+(V.VkImportMemoryZirconHandleInfoFUCHSIA_handle_offsetof||0)+")",
+    handle: "zx_handle_t("+(V.VkImportMemoryZirconHandleInfoFUCHSIA_handle_offsetof||0)+")",
 }, (V.VkImportMemoryZirconHandleInfoFUCHSIA_sizeof||0)));
 
 
@@ -2044,7 +2044,7 @@ const VkImportMemoryFdInfoKHR = new Proxy(C.CStructView, new C.CStruct("VkImport
     sType: "u32("+(V.VkImportMemoryFdInfoKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMPORT_MEMORY_FD_INFO_KHR||0),
     pNext: "u64("+(V.VkImportMemoryFdInfoKHR_pNext_offsetof||0)+")",
     handleType: "u32("+(V.VkImportMemoryFdInfoKHR_handleType_offsetof||0)+")",
-    fd: "u32("+(V.VkImportMemoryFdInfoKHR_fd_offsetof||0)+")",
+    fd: "int("+(V.VkImportMemoryFdInfoKHR_fd_offsetof||0)+")",
 }, (V.VkImportMemoryFdInfoKHR_sizeof||0)));
 
 
@@ -2112,7 +2112,7 @@ const VkImportSemaphoreWin32HandleInfoKHR = new Proxy(C.CStructView, new C.CStru
     flags: "u32("+(V.VkImportSemaphoreWin32HandleInfoKHR_flags_offsetof||0)+")",
     handleType: "u32("+(V.VkImportSemaphoreWin32HandleInfoKHR_handleType_offsetof||0)+")",
     handle: "u64("+(V.VkImportSemaphoreWin32HandleInfoKHR_handle_offsetof||0)+")",
-    name: "u32("+(V.VkImportSemaphoreWin32HandleInfoKHR_name_offsetof||0)+")",
+    name: "u64("+(V.VkImportSemaphoreWin32HandleInfoKHR_name_offsetof||0)+")",
 }, (V.VkImportSemaphoreWin32HandleInfoKHR_sizeof||0)));
 
 
@@ -2121,7 +2121,7 @@ const VkExportSemaphoreWin32HandleInfoKHR = new Proxy(C.CStructView, new C.CStru
     pNext: "u64("+(V.VkExportSemaphoreWin32HandleInfoKHR_pNext_offsetof||0)+")",
     pAttributes: "u64("+(V.VkExportSemaphoreWin32HandleInfoKHR_pAttributes_offsetof||0)+")",
     dwAccess: "u32("+(V.VkExportSemaphoreWin32HandleInfoKHR_dwAccess_offsetof||0)+")",
-    name: "u32("+(V.VkExportSemaphoreWin32HandleInfoKHR_name_offsetof||0)+")",
+    name: "u64("+(V.VkExportSemaphoreWin32HandleInfoKHR_name_offsetof||0)+")",
 }, (V.VkExportSemaphoreWin32HandleInfoKHR_sizeof||0)));
 
 
@@ -2149,7 +2149,7 @@ const VkImportSemaphoreFdInfoKHR = new Proxy(C.CStructView, new C.CStruct("VkImp
     semaphore: "u64("+(V.VkImportSemaphoreFdInfoKHR_semaphore_offsetof||0)+")",
     flags: "u32("+(V.VkImportSemaphoreFdInfoKHR_flags_offsetof||0)+")",
     handleType: "u32("+(V.VkImportSemaphoreFdInfoKHR_handleType_offsetof||0)+")",
-    fd: "u32("+(V.VkImportSemaphoreFdInfoKHR_fd_offsetof||0)+")",
+    fd: "int("+(V.VkImportSemaphoreFdInfoKHR_fd_offsetof||0)+")",
 }, (V.VkImportSemaphoreFdInfoKHR_sizeof||0)));
 
 
@@ -2167,7 +2167,7 @@ const VkImportSemaphoreZirconHandleInfoFUCHSIA = new Proxy(C.CStructView, new C.
     semaphore: "u64("+(V.VkImportSemaphoreZirconHandleInfoFUCHSIA_semaphore_offsetof||0)+")",
     flags: "u32("+(V.VkImportSemaphoreZirconHandleInfoFUCHSIA_flags_offsetof||0)+")",
     handleType: "u32("+(V.VkImportSemaphoreZirconHandleInfoFUCHSIA_handleType_offsetof||0)+")",
-    zirconHandle: "u32("+(V.VkImportSemaphoreZirconHandleInfoFUCHSIA_zirconHandle_offsetof||0)+")",
+    zirconHandle: "zx_handle_t("+(V.VkImportSemaphoreZirconHandleInfoFUCHSIA_zirconHandle_offsetof||0)+")",
 }, (V.VkImportSemaphoreZirconHandleInfoFUCHSIA_sizeof||0)));
 
 
@@ -2215,7 +2215,7 @@ const VkImportFenceWin32HandleInfoKHR = new Proxy(C.CStructView, new C.CStruct("
     flags: "u32("+(V.VkImportFenceWin32HandleInfoKHR_flags_offsetof||0)+")",
     handleType: "u32("+(V.VkImportFenceWin32HandleInfoKHR_handleType_offsetof||0)+")",
     handle: "u64("+(V.VkImportFenceWin32HandleInfoKHR_handle_offsetof||0)+")",
-    name: "u32("+(V.VkImportFenceWin32HandleInfoKHR_name_offsetof||0)+")",
+    name: "u64("+(V.VkImportFenceWin32HandleInfoKHR_name_offsetof||0)+")",
 }, (V.VkImportFenceWin32HandleInfoKHR_sizeof||0)));
 
 
@@ -2224,7 +2224,7 @@ const VkExportFenceWin32HandleInfoKHR = new Proxy(C.CStructView, new C.CStruct("
     pNext: "u64("+(V.VkExportFenceWin32HandleInfoKHR_pNext_offsetof||0)+")",
     pAttributes: "u64("+(V.VkExportFenceWin32HandleInfoKHR_pAttributes_offsetof||0)+")",
     dwAccess: "u32("+(V.VkExportFenceWin32HandleInfoKHR_dwAccess_offsetof||0)+")",
-    name: "u32("+(V.VkExportFenceWin32HandleInfoKHR_name_offsetof||0)+")",
+    name: "u64("+(V.VkExportFenceWin32HandleInfoKHR_name_offsetof||0)+")",
 }, (V.VkExportFenceWin32HandleInfoKHR_sizeof||0)));
 
 
@@ -2242,7 +2242,7 @@ const VkImportFenceFdInfoKHR = new Proxy(C.CStructView, new C.CStruct("VkImportF
     fence: "u64("+(V.VkImportFenceFdInfoKHR_fence_offsetof||0)+")",
     flags: "u32("+(V.VkImportFenceFdInfoKHR_flags_offsetof||0)+")",
     handleType: "u32("+(V.VkImportFenceFdInfoKHR_handleType_offsetof||0)+")",
-    fd: "u32("+(V.VkImportFenceFdInfoKHR_fd_offsetof||0)+")",
+    fd: "int("+(V.VkImportFenceFdInfoKHR_fd_offsetof||0)+")",
 }, (V.VkImportFenceFdInfoKHR_sizeof||0)));
 
 
@@ -2522,7 +2522,7 @@ const VkDescriptorUpdateTemplateCreateInfo = new Proxy(C.CStructView, new C.CStr
     descriptorUpdateEntryCount: "u32("+(V.VkDescriptorUpdateTemplateCreateInfo_descriptorUpdateEntryCount_offsetof||0)+")",
     pDescriptorUpdateEntries: "u64("+(V.VkDescriptorUpdateTemplateCreateInfo_pDescriptorUpdateEntries_offsetof||0)+")",
     templateType: "u32("+(V.VkDescriptorUpdateTemplateCreateInfo_templateType_offsetof||0)+")",
-    descriptorSetLayout: "u32("+(V.VkDescriptorUpdateTemplateCreateInfo_descriptorSetLayout_offsetof||0)+")",
+    descriptorSetLayout: "VkDescriptorSetLayout("+(V.VkDescriptorUpdateTemplateCreateInfo_descriptorSetLayout_offsetof||0)+")",
     pipelineBindPoint: "u32("+(V.VkDescriptorUpdateTemplateCreateInfo_pipelineBindPoint_offsetof||0)+")",
     pipelineLayout: "u64("+(V.VkDescriptorUpdateTemplateCreateInfo_pipelineLayout_offsetof||0)+")",
     set: "u32("+(V.VkDescriptorUpdateTemplateCreateInfo_set_offsetof||0)+")",
@@ -2562,10 +2562,10 @@ const VkPhysicalDevicePresentWaitFeaturesKHR = new Proxy(C.CStructView, new C.CS
 const VkHdrMetadataEXT = new Proxy(C.CStructView, new C.CStruct("VkHdrMetadataEXT", {
     sType: "u32("+(V.VkHdrMetadataEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_HDR_METADATA_EXT||0),
     pNext: "u64("+(V.VkHdrMetadataEXT_pNext_offsetof||0)+")",
-    displayPrimaryRed: "u32("+(V.VkHdrMetadataEXT_displayPrimaryRed_offsetof||0)+")",
-    displayPrimaryGreen: "u32("+(V.VkHdrMetadataEXT_displayPrimaryGreen_offsetof||0)+")",
-    displayPrimaryBlue: "u32("+(V.VkHdrMetadataEXT_displayPrimaryBlue_offsetof||0)+")",
-    whitePoint: "u32("+(V.VkHdrMetadataEXT_whitePoint_offsetof||0)+")",
+    displayPrimaryRed: "VkXYColorEXT("+(V.VkHdrMetadataEXT_displayPrimaryRed_offsetof||0)+")",
+    displayPrimaryGreen: "VkXYColorEXT("+(V.VkHdrMetadataEXT_displayPrimaryGreen_offsetof||0)+")",
+    displayPrimaryBlue: "VkXYColorEXT("+(V.VkHdrMetadataEXT_displayPrimaryBlue_offsetof||0)+")",
+    whitePoint: "VkXYColorEXT("+(V.VkHdrMetadataEXT_whitePoint_offsetof||0)+")",
     maxLuminance: "f32("+(V.VkHdrMetadataEXT_maxLuminance_offsetof||0)+")",
     minLuminance: "f32("+(V.VkHdrMetadataEXT_minLuminance_offsetof||0)+")",
     maxContentLightLevel: "f32("+(V.VkHdrMetadataEXT_maxContentLightLevel_offsetof||0)+")",
@@ -2724,42 +2724,42 @@ const VkPhysicalDeviceSurfaceInfo2KHR = new Proxy(C.CStructView, new C.CStruct("
 const VkSurfaceCapabilities2KHR = new Proxy(C.CStructView, new C.CStruct("VkSurfaceCapabilities2KHR", {
     sType: "u32("+(V.VkSurfaceCapabilities2KHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR||0),
     pNext: "u64("+(V.VkSurfaceCapabilities2KHR_pNext_offsetof||0)+")",
-    surfaceCapabilities: "u32("+(V.VkSurfaceCapabilities2KHR_surfaceCapabilities_offsetof||0)+")",
+    surfaceCapabilities: "VkSurfaceCapabilitiesKHR("+(V.VkSurfaceCapabilities2KHR_surfaceCapabilities_offsetof||0)+")",
 }, (V.VkSurfaceCapabilities2KHR_sizeof||0)));
 
 
 const VkSurfaceFormat2KHR = new Proxy(C.CStructView, new C.CStruct("VkSurfaceFormat2KHR", {
     sType: "u32("+(V.VkSurfaceFormat2KHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR||0),
     pNext: "u64("+(V.VkSurfaceFormat2KHR_pNext_offsetof||0)+")",
-    surfaceFormat: "u32("+(V.VkSurfaceFormat2KHR_surfaceFormat_offsetof||0)+")",
+    surfaceFormat: "VkSurfaceFormatKHR("+(V.VkSurfaceFormat2KHR_surfaceFormat_offsetof||0)+")",
 }, (V.VkSurfaceFormat2KHR_sizeof||0)));
 
 
 const VkDisplayProperties2KHR = new Proxy(C.CStructView, new C.CStruct("VkDisplayProperties2KHR", {
     sType: "u32("+(V.VkDisplayProperties2KHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DISPLAY_PROPERTIES_2_KHR||0),
     pNext: "u64("+(V.VkDisplayProperties2KHR_pNext_offsetof||0)+")",
-    displayProperties: "u32("+(V.VkDisplayProperties2KHR_displayProperties_offsetof||0)+")",
+    displayProperties: "VkDisplayPropertiesKHR("+(V.VkDisplayProperties2KHR_displayProperties_offsetof||0)+")",
 }, (V.VkDisplayProperties2KHR_sizeof||0)));
 
 
 const VkDisplayPlaneProperties2KHR = new Proxy(C.CStructView, new C.CStruct("VkDisplayPlaneProperties2KHR", {
     sType: "u32("+(V.VkDisplayPlaneProperties2KHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DISPLAY_PLANE_PROPERTIES_2_KHR||0),
     pNext: "u64("+(V.VkDisplayPlaneProperties2KHR_pNext_offsetof||0)+")",
-    displayPlaneProperties: "u32("+(V.VkDisplayPlaneProperties2KHR_displayPlaneProperties_offsetof||0)+")",
+    displayPlaneProperties: "VkDisplayPlanePropertiesKHR("+(V.VkDisplayPlaneProperties2KHR_displayPlaneProperties_offsetof||0)+")",
 }, (V.VkDisplayPlaneProperties2KHR_sizeof||0)));
 
 
 const VkDisplayModeProperties2KHR = new Proxy(C.CStructView, new C.CStruct("VkDisplayModeProperties2KHR", {
     sType: "u32("+(V.VkDisplayModeProperties2KHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DISPLAY_MODE_PROPERTIES_2_KHR||0),
     pNext: "u64("+(V.VkDisplayModeProperties2KHR_pNext_offsetof||0)+")",
-    displayModeProperties: "u32("+(V.VkDisplayModeProperties2KHR_displayModeProperties_offsetof||0)+")",
+    displayModeProperties: "VkDisplayModePropertiesKHR("+(V.VkDisplayModeProperties2KHR_displayModeProperties_offsetof||0)+")",
 }, (V.VkDisplayModeProperties2KHR_sizeof||0)));
 
 
 const VkDisplayPlaneInfo2KHR = new Proxy(C.CStructView, new C.CStruct("VkDisplayPlaneInfo2KHR", {
     sType: "u32("+(V.VkDisplayPlaneInfo2KHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DISPLAY_PLANE_INFO_2_KHR||0),
     pNext: "u64("+(V.VkDisplayPlaneInfo2KHR_pNext_offsetof||0)+")",
-    mode: "u32("+(V.VkDisplayPlaneInfo2KHR_mode_offsetof||0)+")",
+    mode: "VkDisplayModeKHR("+(V.VkDisplayPlaneInfo2KHR_mode_offsetof||0)+")",
     planeIndex: "u32("+(V.VkDisplayPlaneInfo2KHR_planeIndex_offsetof||0)+")",
 }, (V.VkDisplayPlaneInfo2KHR_sizeof||0)));
 
@@ -2767,7 +2767,7 @@ const VkDisplayPlaneInfo2KHR = new Proxy(C.CStructView, new C.CStruct("VkDisplay
 const VkDisplayPlaneCapabilities2KHR = new Proxy(C.CStructView, new C.CStruct("VkDisplayPlaneCapabilities2KHR", {
     sType: "u32("+(V.VkDisplayPlaneCapabilities2KHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR||0),
     pNext: "u64("+(V.VkDisplayPlaneCapabilities2KHR_pNext_offsetof||0)+")",
-    capabilities: "u32("+(V.VkDisplayPlaneCapabilities2KHR_capabilities_offsetof||0)+")",
+    capabilities: "VkDisplayPlaneCapabilitiesKHR("+(V.VkDisplayPlaneCapabilities2KHR_capabilities_offsetof||0)+")",
 }, (V.VkDisplayPlaneCapabilities2KHR_sizeof||0)));
 
 
@@ -2867,7 +2867,7 @@ const VkMemoryRequirements2KHR = new Proxy(C.CStructView, new C.ConstructProxy("
 const VkSparseImageMemoryRequirements2 = new Proxy(C.CStructView, new C.CStruct("VkSparseImageMemoryRequirements2", {
     sType: "u32("+(V.VkSparseImageMemoryRequirements2_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_SPARSE_IMAGE_MEMORY_REQUIREMENTS_2||0),
     pNext: "u64("+(V.VkSparseImageMemoryRequirements2_pNext_offsetof||0)+")",
-    memoryRequirements: "u32("+(V.VkSparseImageMemoryRequirements2_memoryRequirements_offsetof||0)+")",
+    memoryRequirements: "VkSparseImageMemoryRequirements("+(V.VkSparseImageMemoryRequirements2_memoryRequirements_offsetof||0)+")",
 }, (V.VkSparseImageMemoryRequirements2_sizeof||0)));
 
 const VkSparseImageMemoryRequirements2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkSparseImageMemoryRequirements2"));
@@ -2923,7 +2923,7 @@ const VkPipelineTessellationDomainOriginStateCreateInfoKHR = new Proxy(C.CStruct
 const VkSamplerYcbcrConversionInfo = new Proxy(C.CStructView, new C.CStruct("VkSamplerYcbcrConversionInfo", {
     sType: "u32("+(V.VkSamplerYcbcrConversionInfo_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_INFO||0),
     pNext: "u64("+(V.VkSamplerYcbcrConversionInfo_pNext_offsetof||0)+")",
-    conversion: "u32("+(V.VkSamplerYcbcrConversionInfo_conversion_offsetof||0)+")",
+    conversion: "VkSamplerYcbcrConversion("+(V.VkSamplerYcbcrConversionInfo_conversion_offsetof||0)+")",
 }, (V.VkSamplerYcbcrConversionInfo_sizeof||0)));
 
 const VkSamplerYcbcrConversionInfoKHR = new Proxy(C.CStructView, new C.ConstructProxy("VkSamplerYcbcrConversionInfo"));
@@ -2935,7 +2935,7 @@ const VkSamplerYcbcrConversionCreateInfo = new Proxy(C.CStructView, new C.CStruc
     format: "u32("+(V.VkSamplerYcbcrConversionCreateInfo_format_offsetof||0)+")",
     ycbcrModel: "u32("+(V.VkSamplerYcbcrConversionCreateInfo_ycbcrModel_offsetof||0)+")",
     ycbcrRange: "u32("+(V.VkSamplerYcbcrConversionCreateInfo_ycbcrRange_offsetof||0)+")",
-    components: "u32("+(V.VkSamplerYcbcrConversionCreateInfo_components_offsetof||0)+")",
+    components: "VkComponentMapping("+(V.VkSamplerYcbcrConversionCreateInfo_components_offsetof||0)+")",
     xChromaOffset: "u32("+(V.VkSamplerYcbcrConversionCreateInfo_xChromaOffset_offsetof||0)+")",
     yChromaOffset: "u32("+(V.VkSamplerYcbcrConversionCreateInfo_yChromaOffset_offsetof||0)+")",
     chromaFilter: "u32("+(V.VkSamplerYcbcrConversionCreateInfo_chromaFilter_offsetof||0)+")",
@@ -3064,13 +3064,13 @@ const VkSampleLocationsInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkSampl
 
 const VkAttachmentSampleLocationsEXT = new Proxy(C.CStructView, new C.CStruct("VkAttachmentSampleLocationsEXT", {
     attachmentIndex: "u32("+(V.VkAttachmentSampleLocationsEXT_attachmentIndex_offsetof||0)+")",
-    sampleLocationsInfo: "u32("+(V.VkAttachmentSampleLocationsEXT_sampleLocationsInfo_offsetof||0)+")",
+    sampleLocationsInfo: "VkSampleLocationsInfoEXT("+(V.VkAttachmentSampleLocationsEXT_sampleLocationsInfo_offsetof||0)+")",
 }, (V.VkAttachmentSampleLocationsEXT_sizeof||0)));
 
 
 const VkSubpassSampleLocationsEXT = new Proxy(C.CStructView, new C.CStruct("VkSubpassSampleLocationsEXT", {
     subpassIndex: "u32("+(V.VkSubpassSampleLocationsEXT_subpassIndex_offsetof||0)+")",
-    sampleLocationsInfo: "u32("+(V.VkSubpassSampleLocationsEXT_sampleLocationsInfo_offsetof||0)+")",
+    sampleLocationsInfo: "VkSampleLocationsInfoEXT("+(V.VkSubpassSampleLocationsEXT_sampleLocationsInfo_offsetof||0)+")",
 }, (V.VkSubpassSampleLocationsEXT_sizeof||0)));
 
 
@@ -3088,7 +3088,7 @@ const VkPipelineSampleLocationsStateCreateInfoEXT = new Proxy(C.CStructView, new
     sType: "u32("+(V.VkPipelineSampleLocationsStateCreateInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT||0),
     pNext: "u64("+(V.VkPipelineSampleLocationsStateCreateInfoEXT_pNext_offsetof||0)+")",
     sampleLocationsEnable: "u32("+(V.VkPipelineSampleLocationsStateCreateInfoEXT_sampleLocationsEnable_offsetof||0)+")",
-    sampleLocationsInfo: "u32("+(V.VkPipelineSampleLocationsStateCreateInfoEXT_sampleLocationsInfo_offsetof||0)+")",
+    sampleLocationsInfo: "VkSampleLocationsInfoEXT("+(V.VkPipelineSampleLocationsStateCreateInfoEXT_sampleLocationsInfo_offsetof||0)+")",
 }, (V.VkPipelineSampleLocationsStateCreateInfoEXT_sizeof||0)));
 
 
@@ -3229,7 +3229,7 @@ const VkValidationCacheCreateInfoEXT = new Proxy(C.CStructView, new C.CStruct("V
 const VkShaderModuleValidationCacheCreateInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkShaderModuleValidationCacheCreateInfoEXT", {
     sType: "u32("+(V.VkShaderModuleValidationCacheCreateInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT||0),
     pNext: "u64("+(V.VkShaderModuleValidationCacheCreateInfoEXT_pNext_offsetof||0)+")",
-    validationCache: "u32("+(V.VkShaderModuleValidationCacheCreateInfoEXT_validationCache_offsetof||0)+")",
+    validationCache: "VkValidationCacheEXT("+(V.VkShaderModuleValidationCacheCreateInfoEXT_validationCache_offsetof||0)+")",
 }, (V.VkShaderModuleValidationCacheCreateInfoEXT_sizeof||0)));
 
 
@@ -3335,10 +3335,10 @@ const VkNativeBufferANDROID = new Proxy(C.CStructView, new C.CStruct("VkNativeBu
     sType: "u32("+(V.VkNativeBufferANDROID_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_NATIVE_BUFFER_ANDROID||0),
     pNext: "u64("+(V.VkNativeBufferANDROID_pNext_offsetof||0)+")",
     handle: "u64("+(V.VkNativeBufferANDROID_handle_offsetof||0)+")",
-    stride: "u32("+(V.VkNativeBufferANDROID_stride_offsetof||0)+")",
-    format: "u32("+(V.VkNativeBufferANDROID_format_offsetof||0)+")",
-    usage: "u32("+(V.VkNativeBufferANDROID_usage_offsetof||0)+")",
-    usage2: "u32("+(V.VkNativeBufferANDROID_usage2_offsetof||0)+")",
+    stride: "int("+(V.VkNativeBufferANDROID_stride_offsetof||0)+")",
+    format: "int("+(V.VkNativeBufferANDROID_format_offsetof||0)+")",
+    usage: "int("+(V.VkNativeBufferANDROID_usage_offsetof||0)+")",
+    usage2: "VkNativeBufferUsage2ANDROID("+(V.VkNativeBufferANDROID_usage2_offsetof||0)+")",
 }, (V.VkNativeBufferANDROID_sizeof||0)));
 
 
@@ -3367,7 +3367,7 @@ const VkShaderResourceUsageAMD = new Proxy(C.CStructView, new C.CStruct("VkShade
 
 const VkShaderStatisticsInfoAMD = new Proxy(C.CStructView, new C.CStruct("VkShaderStatisticsInfoAMD", {
     shaderStageMask: "u32("+(V.VkShaderStatisticsInfoAMD_shaderStageMask_offsetof||0)+")",
-    resourceUsage: "u32("+(V.VkShaderStatisticsInfoAMD_resourceUsage_offsetof||0)+")",
+    resourceUsage: "VkShaderResourceUsageAMD("+(V.VkShaderStatisticsInfoAMD_resourceUsage_offsetof||0)+")",
     numPhysicalVgprs: "u32("+(V.VkShaderStatisticsInfoAMD_numPhysicalVgprs_offsetof||0)+")",
     numPhysicalSgprs: "u32("+(V.VkShaderStatisticsInfoAMD_numPhysicalSgprs_offsetof||0)+")",
     numAvailableVgprs: "u32("+(V.VkShaderStatisticsInfoAMD_numAvailableVgprs_offsetof||0)+")",
@@ -3438,7 +3438,7 @@ const VkDebugUtilsMessengerCreateInfoEXT = new Proxy(C.CStructView, new C.CStruc
     flags: "u32("+(V.VkDebugUtilsMessengerCreateInfoEXT_flags_offsetof||0)+")",
     messageSeverity: "u32("+(V.VkDebugUtilsMessengerCreateInfoEXT_messageSeverity_offsetof||0)+")",
     messageType: "u32("+(V.VkDebugUtilsMessengerCreateInfoEXT_messageType_offsetof||0)+")",
-    pfnUserCallback: "u32("+(V.VkDebugUtilsMessengerCreateInfoEXT_pfnUserCallback_offsetof||0)+")",
+    pfnUserCallback: "PFN_vkDebugUtilsMessengerCallbackEXT("+(V.VkDebugUtilsMessengerCreateInfoEXT_pfnUserCallback_offsetof||0)+")",
     pUserData: "u64("+(V.VkDebugUtilsMessengerCreateInfoEXT_pUserData_offsetof||0)+")",
 }, (V.VkDebugUtilsMessengerCreateInfoEXT_sizeof||0)));
 
@@ -3470,7 +3470,7 @@ const VkDeviceDeviceMemoryReportCreateInfoEXT = new Proxy(C.CStructView, new C.C
     sType: "u32("+(V.VkDeviceDeviceMemoryReportCreateInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT||0),
     pNext: "u64("+(V.VkDeviceDeviceMemoryReportCreateInfoEXT_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkDeviceDeviceMemoryReportCreateInfoEXT_flags_offsetof||0)+")",
-    pfnUserCallback: "u32("+(V.VkDeviceDeviceMemoryReportCreateInfoEXT_pfnUserCallback_offsetof||0)+")",
+    pfnUserCallback: "PFN_vkDeviceMemoryReportCallbackEXT("+(V.VkDeviceDeviceMemoryReportCreateInfoEXT_pfnUserCallback_offsetof||0)+")",
     pUserData: "u64("+(V.VkDeviceDeviceMemoryReportCreateInfoEXT_pUserData_offsetof||0)+")",
 }, (V.VkDeviceDeviceMemoryReportCreateInfoEXT_sizeof||0)));
 
@@ -3882,7 +3882,7 @@ const VkAndroidHardwareBufferFormatPropertiesANDROID = new Proxy(C.CStructView, 
     format: "u32("+(V.VkAndroidHardwareBufferFormatPropertiesANDROID_format_offsetof||0)+")",
     externalFormat: "u64("+(V.VkAndroidHardwareBufferFormatPropertiesANDROID_externalFormat_offsetof||0)+")",
     formatFeatures: "u32("+(V.VkAndroidHardwareBufferFormatPropertiesANDROID_formatFeatures_offsetof||0)+")",
-    samplerYcbcrConversionComponents: "u32("+(V.VkAndroidHardwareBufferFormatPropertiesANDROID_samplerYcbcrConversionComponents_offsetof||0)+")",
+    samplerYcbcrConversionComponents: "VkComponentMapping("+(V.VkAndroidHardwareBufferFormatPropertiesANDROID_samplerYcbcrConversionComponents_offsetof||0)+")",
     suggestedYcbcrModel: "u32("+(V.VkAndroidHardwareBufferFormatPropertiesANDROID_suggestedYcbcrModel_offsetof||0)+")",
     suggestedYcbcrRange: "u32("+(V.VkAndroidHardwareBufferFormatPropertiesANDROID_suggestedYcbcrRange_offsetof||0)+")",
     suggestedXChromaOffset: "u32("+(V.VkAndroidHardwareBufferFormatPropertiesANDROID_suggestedXChromaOffset_offsetof||0)+")",
@@ -4393,8 +4393,8 @@ const VkGeometryAABBNV = new Proxy(C.CStructView, new C.CStruct("VkGeometryAABBN
 
 
 const VkGeometryDataNV = new Proxy(C.CStructView, new C.CStruct("VkGeometryDataNV", {
-    triangles: "u32("+(V.VkGeometryDataNV_triangles_offsetof||0)+")",
-    aabbs: "u32("+(V.VkGeometryDataNV_aabbs_offsetof||0)+")",
+    triangles: "VkGeometryTrianglesNV("+(V.VkGeometryDataNV_triangles_offsetof||0)+")",
+    aabbs: "VkGeometryAABBNV("+(V.VkGeometryDataNV_aabbs_offsetof||0)+")",
 }, (V.VkGeometryDataNV_sizeof||0)));
 
 
@@ -4402,7 +4402,7 @@ const VkGeometryNV = new Proxy(C.CStructView, new C.CStruct("VkGeometryNV", {
     sType: "u32("+(V.VkGeometryNV_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_GEOMETRY_NV||0),
     pNext: "u64("+(V.VkGeometryNV_pNext_offsetof||0)+")",
     geometryType: "u32("+(V.VkGeometryNV_geometryType_offsetof||0)+")",
-    geometry: "u32("+(V.VkGeometryNV_geometry_offsetof||0)+")",
+    geometry: "VkGeometryDataNV("+(V.VkGeometryNV_geometry_offsetof||0)+")",
     flags: "u32("+(V.VkGeometryNV_flags_offsetof||0)+")",
 }, (V.VkGeometryNV_sizeof||0)));
 
@@ -4410,7 +4410,7 @@ const VkGeometryNV = new Proxy(C.CStructView, new C.CStruct("VkGeometryNV", {
 const VkAccelerationStructureInfoNV = new Proxy(C.CStructView, new C.CStruct("VkAccelerationStructureInfoNV", {
     sType: "u32("+(V.VkAccelerationStructureInfoNV_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_INFO_NV||0),
     pNext: "u64("+(V.VkAccelerationStructureInfoNV_pNext_offsetof||0)+")",
-    type: "u32("+(V.VkAccelerationStructureInfoNV_type_offsetof||0)+")",
+    type: "VkAccelerationStructureTypeNV("+(V.VkAccelerationStructureInfoNV_type_offsetof||0)+")",
     flags: "u32("+(V.VkAccelerationStructureInfoNV_flags_offsetof||0)+")",
     instanceCount: "u32("+(V.VkAccelerationStructureInfoNV_instanceCount_offsetof||0)+")",
     geometryCount: "u32("+(V.VkAccelerationStructureInfoNV_geometryCount_offsetof||0)+")",
@@ -4422,14 +4422,14 @@ const VkAccelerationStructureCreateInfoNV = new Proxy(C.CStructView, new C.CStru
     sType: "u32("+(V.VkAccelerationStructureCreateInfoNV_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CREATE_INFO_NV||0),
     pNext: "u64("+(V.VkAccelerationStructureCreateInfoNV_pNext_offsetof||0)+")",
     compactedSize: "u64("+(V.VkAccelerationStructureCreateInfoNV_compactedSize_offsetof||0)+")",
-    info: "u32("+(V.VkAccelerationStructureCreateInfoNV_info_offsetof||0)+")",
+    info: "VkAccelerationStructureInfoNV("+(V.VkAccelerationStructureCreateInfoNV_info_offsetof||0)+")",
 }, (V.VkAccelerationStructureCreateInfoNV_sizeof||0)));
 
 
 const VkBindAccelerationStructureMemoryInfoNV = new Proxy(C.CStructView, new C.CStruct("VkBindAccelerationStructureMemoryInfoNV", {
     sType: "u32("+(V.VkBindAccelerationStructureMemoryInfoNV_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV||0),
     pNext: "u64("+(V.VkBindAccelerationStructureMemoryInfoNV_pNext_offsetof||0)+")",
-    accelerationStructure: "u32("+(V.VkBindAccelerationStructureMemoryInfoNV_accelerationStructure_offsetof||0)+")",
+    accelerationStructure: "VkAccelerationStructureNV("+(V.VkBindAccelerationStructureMemoryInfoNV_accelerationStructure_offsetof||0)+")",
     memory: "u64("+(V.VkBindAccelerationStructureMemoryInfoNV_memory_offsetof||0)+")",
     memoryOffset: "u64("+(V.VkBindAccelerationStructureMemoryInfoNV_memoryOffset_offsetof||0)+")",
     deviceIndexCount: "u32("+(V.VkBindAccelerationStructureMemoryInfoNV_deviceIndexCount_offsetof||0)+")",
@@ -4457,7 +4457,7 @@ const VkAccelerationStructureMemoryRequirementsInfoNV = new Proxy(C.CStructView,
     sType: "u32("+(V.VkAccelerationStructureMemoryRequirementsInfoNV_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV||0),
     pNext: "u64("+(V.VkAccelerationStructureMemoryRequirementsInfoNV_pNext_offsetof||0)+")",
     type: "u32("+(V.VkAccelerationStructureMemoryRequirementsInfoNV_type_offsetof||0)+")",
-    accelerationStructure: "u32("+(V.VkAccelerationStructureMemoryRequirementsInfoNV_accelerationStructure_offsetof||0)+")",
+    accelerationStructure: "VkAccelerationStructureNV("+(V.VkAccelerationStructureMemoryRequirementsInfoNV_accelerationStructure_offsetof||0)+")",
 }, (V.VkAccelerationStructureMemoryRequirementsInfoNV_sizeof||0)));
 
 
@@ -4689,7 +4689,7 @@ const VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM = new Proxy(C.CStru
 const VkRenderPassFragmentDensityMapCreateInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkRenderPassFragmentDensityMapCreateInfoEXT", {
     sType: "u32("+(V.VkRenderPassFragmentDensityMapCreateInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT||0),
     pNext: "u64("+(V.VkRenderPassFragmentDensityMapCreateInfoEXT_pNext_offsetof||0)+")",
-    fragmentDensityMapAttachment: "u32("+(V.VkRenderPassFragmentDensityMapCreateInfoEXT_fragmentDensityMapAttachment_offsetof||0)+")",
+    fragmentDensityMapAttachment: "VkAttachmentReference("+(V.VkRenderPassFragmentDensityMapCreateInfoEXT_fragmentDensityMapAttachment_offsetof||0)+")",
 }, (V.VkRenderPassFragmentDensityMapCreateInfoEXT_sizeof||0)));
 
 
@@ -4926,7 +4926,7 @@ const VkPhysicalDeviceYcbcrImageArraysFeaturesEXT = new Proxy(C.CStructView, new
 const VkImageViewHandleInfoNVX = new Proxy(C.CStructView, new C.CStruct("VkImageViewHandleInfoNVX", {
     sType: "u32("+(V.VkImageViewHandleInfoNVX_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMAGE_VIEW_HANDLE_INFO_NVX||0),
     pNext: "u64("+(V.VkImageViewHandleInfoNVX_pNext_offsetof||0)+")",
-    imageView: "u32("+(V.VkImageViewHandleInfoNVX_imageView_offsetof||0)+")",
+    imageView: "u64("+(V.VkImageViewHandleInfoNVX_imageView_offsetof||0)+")",
     descriptorType: "u32("+(V.VkImageViewHandleInfoNVX_descriptorType_offsetof||0)+")",
     sampler: "u64("+(V.VkImageViewHandleInfoNVX_sampler_offsetof||0)+")",
 }, (V.VkImageViewHandleInfoNVX_sizeof||0)));
@@ -4943,7 +4943,7 @@ const VkImageViewAddressPropertiesNVX = new Proxy(C.CStructView, new C.CStruct("
 const VkPresentFrameTokenGGP = new Proxy(C.CStructView, new C.CStruct("VkPresentFrameTokenGGP", {
     sType: "u32("+(V.VkPresentFrameTokenGGP_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_PRESENT_FRAME_TOKEN_GGP||0),
     pNext: "u64("+(V.VkPresentFrameTokenGGP_pNext_offsetof||0)+")",
-    frameToken: "u32("+(V.VkPresentFrameTokenGGP_frameToken_offsetof||0)+")",
+    frameToken: "GgpFrameToken("+(V.VkPresentFrameTokenGGP_frameToken_offsetof||0)+")",
 }, (V.VkPresentFrameTokenGGP_sizeof||0)));
 
 
@@ -4976,7 +4976,7 @@ const VkSurfaceFullScreenExclusiveInfoEXT = new Proxy(C.CStructView, new C.CStru
 const VkSurfaceFullScreenExclusiveWin32InfoEXT = new Proxy(C.CStructView, new C.CStruct("VkSurfaceFullScreenExclusiveWin32InfoEXT", {
     sType: "u32("+(V.VkSurfaceFullScreenExclusiveWin32InfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT||0),
     pNext: "u64("+(V.VkSurfaceFullScreenExclusiveWin32InfoEXT_pNext_offsetof||0)+")",
-    hmonitor: "u32("+(V.VkSurfaceFullScreenExclusiveWin32InfoEXT_hmonitor_offsetof||0)+")",
+    hmonitor: "HMONITOR("+(V.VkSurfaceFullScreenExclusiveWin32InfoEXT_hmonitor_offsetof||0)+")",
 }, (V.VkSurfaceFullScreenExclusiveWin32InfoEXT_sizeof||0)));
 
 
@@ -5108,7 +5108,7 @@ const VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL = new Proxy(C.CStruct
 
 const VkPerformanceValueINTEL = new Proxy(C.CStructView, new C.CStruct("VkPerformanceValueINTEL", {
     type: "u32("+(V.VkPerformanceValueINTEL_type_offsetof||0)+")",
-    data: "u32("+(V.VkPerformanceValueINTEL_data_offsetof||0)+")",
+    data: "VkPerformanceValueDataINTEL("+(V.VkPerformanceValueINTEL_data_offsetof||0)+")",
 }, (V.VkPerformanceValueINTEL_sizeof||0)));
 
 
@@ -5273,7 +5273,7 @@ const VkPipelineExecutableStatisticKHR = new Proxy(C.CStructView, new C.CStruct(
     name: "u8["+(E.VK_MAX_DESCRIPTION_SIZE||1)+"]("+(V.VkPipelineExecutableStatisticKHR_name_offsetof||0)+")",
     description: "u8["+(E.VK_MAX_DESCRIPTION_SIZE||1)+"]("+(V.VkPipelineExecutableStatisticKHR_description_offsetof||0)+")",
     format: "u32("+(V.VkPipelineExecutableStatisticKHR_format_offsetof||0)+")",
-    value: "u32("+(V.VkPipelineExecutableStatisticKHR_value_offsetof||0)+")",
+    value: "VkPipelineExecutableStatisticValueKHR("+(V.VkPipelineExecutableStatisticKHR_value_offsetof||0)+")",
 }, (V.VkPipelineExecutableStatisticKHR_sizeof||0)));
 
 
@@ -5350,7 +5350,7 @@ const VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT = new Proxy(C.CStru
 const VkSubpassShadingPipelineCreateInfoHUAWEI = new Proxy(C.CStructView, new C.CStruct("VkSubpassShadingPipelineCreateInfoHUAWEI", {
     sType: "u32("+(V.VkSubpassShadingPipelineCreateInfoHUAWEI_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI||0),
     pNext: "u64("+(V.VkSubpassShadingPipelineCreateInfoHUAWEI_pNext_offsetof||0)+")",
-    renderPass: "u32("+(V.VkSubpassShadingPipelineCreateInfoHUAWEI_renderPass_offsetof||0)+")",
+    renderPass: "VkRenderPass("+(V.VkSubpassShadingPipelineCreateInfoHUAWEI_renderPass_offsetof||0)+")",
     subpass: "u32("+(V.VkSubpassShadingPipelineCreateInfoHUAWEI_subpass_offsetof||0)+")",
 }, (V.VkSubpassShadingPipelineCreateInfoHUAWEI_sizeof||0)));
 
@@ -5516,7 +5516,7 @@ const VkPhysicalDeviceVulkan12Properties = new Proxy(C.CStructView, new C.CStruc
     driverID: "u32("+(V.VkPhysicalDeviceVulkan12Properties_driverID_offsetof||0)+")",
     driverName: "u8["+(E.VK_MAX_DRIVER_NAME_SIZE||1)+"]("+(V.VkPhysicalDeviceVulkan12Properties_driverName_offsetof||0)+")",
     driverInfo: "u8["+(E.VK_MAX_DRIVER_INFO_SIZE||1)+"]("+(V.VkPhysicalDeviceVulkan12Properties_driverInfo_offsetof||0)+")",
-    conformanceVersion: "u32("+(V.VkPhysicalDeviceVulkan12Properties_conformanceVersion_offsetof||0)+")",
+    conformanceVersion: "VkConformanceVersion("+(V.VkPhysicalDeviceVulkan12Properties_conformanceVersion_offsetof||0)+")",
     denormBehaviorIndependence: "u32("+(V.VkPhysicalDeviceVulkan12Properties_denormBehaviorIndependence_offsetof||0)+")",
     roundingModeIndependence: "u32("+(V.VkPhysicalDeviceVulkan12Properties_roundingModeIndependence_offsetof||0)+")",
     shaderSignedZeroInfNanPreserveFloat16: "u32("+(V.VkPhysicalDeviceVulkan12Properties_shaderSignedZeroInfNanPreserveFloat16_offsetof||0)+")",
@@ -5670,7 +5670,7 @@ const VkPhysicalDeviceToolPropertiesEXT = new Proxy(C.CStructView, new C.Constru
 const VkSamplerCustomBorderColorCreateInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkSamplerCustomBorderColorCreateInfoEXT", {
     sType: "u32("+(V.VkSamplerCustomBorderColorCreateInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT||0),
     pNext: "u64("+(V.VkSamplerCustomBorderColorCreateInfoEXT_pNext_offsetof||0)+")",
-    customBorderColor: "u32("+(V.VkSamplerCustomBorderColorCreateInfoEXT_customBorderColor_offsetof||0)+")",
+    customBorderColor: "VkClearColorValue("+(V.VkSamplerCustomBorderColorCreateInfoEXT_customBorderColor_offsetof||0)+")",
     format: "u32("+(V.VkSamplerCustomBorderColorCreateInfoEXT_format_offsetof||0)+")",
 }, (V.VkSamplerCustomBorderColorCreateInfoEXT_sizeof||0)));
 
@@ -5693,7 +5693,7 @@ const VkPhysicalDeviceCustomBorderColorFeaturesEXT = new Proxy(C.CStructView, ne
 const VkSamplerBorderColorComponentMappingCreateInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkSamplerBorderColorComponentMappingCreateInfoEXT", {
     sType: "u32("+(V.VkSamplerBorderColorComponentMappingCreateInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT||0),
     pNext: "u64("+(V.VkSamplerBorderColorComponentMappingCreateInfoEXT_pNext_offsetof||0)+")",
-    components: "u32("+(V.VkSamplerBorderColorComponentMappingCreateInfoEXT_components_offsetof||0)+")",
+    components: "VkComponentMapping("+(V.VkSamplerBorderColorComponentMappingCreateInfoEXT_components_offsetof||0)+")",
     srgb: "u32("+(V.VkSamplerBorderColorComponentMappingCreateInfoEXT_srgb_offsetof||0)+")",
 }, (V.VkSamplerBorderColorComponentMappingCreateInfoEXT_sizeof||0)));
 
@@ -5710,19 +5710,19 @@ const VkAccelerationStructureGeometryTrianglesDataKHR = new Proxy(C.CStructView,
     sType: "u32("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR||0),
     pNext: "u64("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_pNext_offsetof||0)+")",
     vertexFormat: "u32("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_vertexFormat_offsetof||0)+")",
-    vertexData: "u32("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_vertexData_offsetof||0)+")",
+    vertexData: "VkDeviceOrHostAddressConstKHR("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_vertexData_offsetof||0)+")",
     vertexStride: "u64("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_vertexStride_offsetof||0)+")",
     maxVertex: "u32("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_maxVertex_offsetof||0)+")",
     indexType: "u32("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_indexType_offsetof||0)+")",
-    indexData: "u32("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_indexData_offsetof||0)+")",
-    transformData: "u32("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_transformData_offsetof||0)+")",
+    indexData: "VkDeviceOrHostAddressConstKHR("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_indexData_offsetof||0)+")",
+    transformData: "VkDeviceOrHostAddressConstKHR("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_transformData_offsetof||0)+")",
 }, (V.VkAccelerationStructureGeometryTrianglesDataKHR_sizeof||0)));
 
 
 const VkAccelerationStructureGeometryAabbsDataKHR = new Proxy(C.CStructView, new C.CStruct("VkAccelerationStructureGeometryAabbsDataKHR", {
     sType: "u32("+(V.VkAccelerationStructureGeometryAabbsDataKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR||0),
     pNext: "u64("+(V.VkAccelerationStructureGeometryAabbsDataKHR_pNext_offsetof||0)+")",
-    data: "u32("+(V.VkAccelerationStructureGeometryAabbsDataKHR_data_offsetof||0)+")",
+    data: "VkDeviceOrHostAddressConstKHR("+(V.VkAccelerationStructureGeometryAabbsDataKHR_data_offsetof||0)+")",
     stride: "u64("+(V.VkAccelerationStructureGeometryAabbsDataKHR_stride_offsetof||0)+")",
 }, (V.VkAccelerationStructureGeometryAabbsDataKHR_sizeof||0)));
 
@@ -5731,7 +5731,7 @@ const VkAccelerationStructureGeometryInstancesDataKHR = new Proxy(C.CStructView,
     sType: "u32("+(V.VkAccelerationStructureGeometryInstancesDataKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR||0),
     pNext: "u64("+(V.VkAccelerationStructureGeometryInstancesDataKHR_pNext_offsetof||0)+")",
     arrayOfPointers: "u32("+(V.VkAccelerationStructureGeometryInstancesDataKHR_arrayOfPointers_offsetof||0)+")",
-    data: "u32("+(V.VkAccelerationStructureGeometryInstancesDataKHR_data_offsetof||0)+")",
+    data: "VkDeviceOrHostAddressConstKHR("+(V.VkAccelerationStructureGeometryInstancesDataKHR_data_offsetof||0)+")",
 }, (V.VkAccelerationStructureGeometryInstancesDataKHR_sizeof||0)));
 
 
@@ -5739,7 +5739,7 @@ const VkAccelerationStructureGeometryKHR = new Proxy(C.CStructView, new C.CStruc
     sType: "u32("+(V.VkAccelerationStructureGeometryKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR||0),
     pNext: "u64("+(V.VkAccelerationStructureGeometryKHR_pNext_offsetof||0)+")",
     geometryType: "u32("+(V.VkAccelerationStructureGeometryKHR_geometryType_offsetof||0)+")",
-    geometry: "u32("+(V.VkAccelerationStructureGeometryKHR_geometry_offsetof||0)+")",
+    geometry: "VkAccelerationStructureGeometryDataKHR("+(V.VkAccelerationStructureGeometryKHR_geometry_offsetof||0)+")",
     flags: "u32("+(V.VkAccelerationStructureGeometryKHR_flags_offsetof||0)+")",
 }, (V.VkAccelerationStructureGeometryKHR_sizeof||0)));
 
@@ -5848,7 +5848,7 @@ const VkCopyAccelerationStructureToMemoryInfoKHR = new Proxy(C.CStructView, new 
 const VkCopyMemoryToAccelerationStructureInfoKHR = new Proxy(C.CStructView, new C.CStruct("VkCopyMemoryToAccelerationStructureInfoKHR", {
     sType: "u32("+(V.VkCopyMemoryToAccelerationStructureInfoKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_COPY_MEMORY_TO_ACCELERATION_STRUCTURE_INFO_KHR||0),
     pNext: "u64("+(V.VkCopyMemoryToAccelerationStructureInfoKHR_pNext_offsetof||0)+")",
-    src: "u32("+(V.VkCopyMemoryToAccelerationStructureInfoKHR_src_offsetof||0)+")",
+    src: "VkDeviceOrHostAddressConstKHR("+(V.VkCopyMemoryToAccelerationStructureInfoKHR_src_offsetof||0)+")",
     dst: "u64("+(V.VkCopyMemoryToAccelerationStructureInfoKHR_dst_offsetof||0)+")",
     mode: "u32("+(V.VkCopyMemoryToAccelerationStructureInfoKHR_mode_offsetof||0)+")",
 }, (V.VkCopyMemoryToAccelerationStructureInfoKHR_sizeof||0)));
@@ -6094,11 +6094,11 @@ const VkBufferCopy2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkBuffer
 const VkImageCopy2 = new Proxy(C.CStructView, new C.CStruct("VkImageCopy2", {
     sType: "u32("+(V.VkImageCopy2_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMAGE_COPY_2||0),
     pNext: "u64("+(V.VkImageCopy2_pNext_offsetof||0)+")",
-    srcSubresource: "u32("+(V.VkImageCopy2_srcSubresource_offsetof||0)+")",
-    srcOffset: "u32("+(V.VkImageCopy2_srcOffset_offsetof||0)+")",
-    dstSubresource: "u32("+(V.VkImageCopy2_dstSubresource_offsetof||0)+")",
-    dstOffset: "u32("+(V.VkImageCopy2_dstOffset_offsetof||0)+")",
-    extent: "u32("+(V.VkImageCopy2_extent_offsetof||0)+")",
+    srcSubresource: "VkImageSubresourceLayers("+(V.VkImageCopy2_srcSubresource_offsetof||0)+")",
+    srcOffset: "VkOffset3D("+(V.VkImageCopy2_srcOffset_offsetof||0)+")",
+    dstSubresource: "VkImageSubresourceLayers("+(V.VkImageCopy2_dstSubresource_offsetof||0)+")",
+    dstOffset: "VkOffset3D("+(V.VkImageCopy2_dstOffset_offsetof||0)+")",
+    extent: "VkExtent3D("+(V.VkImageCopy2_extent_offsetof||0)+")",
 }, (V.VkImageCopy2_sizeof||0)));
 
 const VkImageCopy2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkImageCopy2"));
@@ -6107,10 +6107,10 @@ const VkImageCopy2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkImageCo
 const VkImageBlit2 = new Proxy(C.CStructView, new C.CStruct("VkImageBlit2", {
     sType: "u32("+(V.VkImageBlit2_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMAGE_BLIT_2||0),
     pNext: "u64("+(V.VkImageBlit2_pNext_offsetof||0)+")",
-    srcSubresource: "u32("+(V.VkImageBlit2_srcSubresource_offsetof||0)+")",
-    srcOffsets: "u32[2]("+(V.VkImageBlit2_srcOffsets_offsetof||0)+")",
-    dstSubresource: "u32("+(V.VkImageBlit2_dstSubresource_offsetof||0)+")",
-    dstOffsets: "u32[2]("+(V.VkImageBlit2_dstOffsets_offsetof||0)+")",
+    srcSubresource: "VkImageSubresourceLayers("+(V.VkImageBlit2_srcSubresource_offsetof||0)+")",
+    srcOffsets: "VkOffset3D[2]("+(V.VkImageBlit2_srcOffsets_offsetof||0)+")",
+    dstSubresource: "VkImageSubresourceLayers("+(V.VkImageBlit2_dstSubresource_offsetof||0)+")",
+    dstOffsets: "VkOffset3D[2]("+(V.VkImageBlit2_dstOffsets_offsetof||0)+")",
 }, (V.VkImageBlit2_sizeof||0)));
 
 const VkImageBlit2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkImageBlit2"));
@@ -6122,9 +6122,9 @@ const VkBufferImageCopy2 = new Proxy(C.CStructView, new C.CStruct("VkBufferImage
     bufferOffset: "u64("+(V.VkBufferImageCopy2_bufferOffset_offsetof||0)+")",
     bufferRowLength: "u32("+(V.VkBufferImageCopy2_bufferRowLength_offsetof||0)+")",
     bufferImageHeight: "u32("+(V.VkBufferImageCopy2_bufferImageHeight_offsetof||0)+")",
-    imageSubresource: "u32("+(V.VkBufferImageCopy2_imageSubresource_offsetof||0)+")",
-    imageOffset: "u32("+(V.VkBufferImageCopy2_imageOffset_offsetof||0)+")",
-    imageExtent: "u32("+(V.VkBufferImageCopy2_imageExtent_offsetof||0)+")",
+    imageSubresource: "VkImageSubresourceLayers("+(V.VkBufferImageCopy2_imageSubresource_offsetof||0)+")",
+    imageOffset: "VkOffset3D("+(V.VkBufferImageCopy2_imageOffset_offsetof||0)+")",
+    imageExtent: "VkExtent3D("+(V.VkBufferImageCopy2_imageExtent_offsetof||0)+")",
 }, (V.VkBufferImageCopy2_sizeof||0)));
 
 const VkBufferImageCopy2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkBufferImageCopy2"));
@@ -6133,11 +6133,11 @@ const VkBufferImageCopy2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkB
 const VkImageResolve2 = new Proxy(C.CStructView, new C.CStruct("VkImageResolve2", {
     sType: "u32("+(V.VkImageResolve2_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMAGE_RESOLVE_2||0),
     pNext: "u64("+(V.VkImageResolve2_pNext_offsetof||0)+")",
-    srcSubresource: "u32("+(V.VkImageResolve2_srcSubresource_offsetof||0)+")",
-    srcOffset: "u32("+(V.VkImageResolve2_srcOffset_offsetof||0)+")",
-    dstSubresource: "u32("+(V.VkImageResolve2_dstSubresource_offsetof||0)+")",
-    dstOffset: "u32("+(V.VkImageResolve2_dstOffset_offsetof||0)+")",
-    extent: "u32("+(V.VkImageResolve2_extent_offsetof||0)+")",
+    srcSubresource: "VkImageSubresourceLayers("+(V.VkImageResolve2_srcSubresource_offsetof||0)+")",
+    srcOffset: "VkOffset3D("+(V.VkImageResolve2_srcOffset_offsetof||0)+")",
+    dstSubresource: "VkImageSubresourceLayers("+(V.VkImageResolve2_dstSubresource_offsetof||0)+")",
+    dstOffset: "VkOffset3D("+(V.VkImageResolve2_dstOffset_offsetof||0)+")",
+    extent: "VkExtent3D("+(V.VkImageResolve2_extent_offsetof||0)+")",
 }, (V.VkImageResolve2_sizeof||0)));
 
 const VkImageResolve2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkImageResolve2"));
@@ -6453,7 +6453,7 @@ const VkImageMemoryBarrier2 = new Proxy(C.CStructView, new C.CStruct("VkImageMem
     srcQueueFamilyIndex: "u32("+(V.VkImageMemoryBarrier2_srcQueueFamilyIndex_offsetof||0)+")",
     dstQueueFamilyIndex: "u32("+(V.VkImageMemoryBarrier2_dstQueueFamilyIndex_offsetof||0)+")",
     image: "u64("+(V.VkImageMemoryBarrier2_image_offsetof||0)+")",
-    subresourceRange: "u32("+(V.VkImageMemoryBarrier2_subresourceRange_offsetof||0)+")",
+    subresourceRange: "VkImageSubresourceRange("+(V.VkImageMemoryBarrier2_subresourceRange_offsetof||0)+")",
 }, (V.VkImageMemoryBarrier2_sizeof||0)));
 
 const VkImageMemoryBarrier2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkImageMemoryBarrier2"));
@@ -6630,7 +6630,7 @@ const VkVideoFormatPropertiesKHR = new Proxy(C.CStructView, new C.CStruct("VkVid
     sType: "u32("+(V.VkVideoFormatPropertiesKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_VIDEO_FORMAT_PROPERTIES_KHR||0),
     pNext: "u64("+(V.VkVideoFormatPropertiesKHR_pNext_offsetof||0)+")",
     format: "u32("+(V.VkVideoFormatPropertiesKHR_format_offsetof||0)+")",
-    componentMapping: "u32("+(V.VkVideoFormatPropertiesKHR_componentMapping_offsetof||0)+")",
+    componentMapping: "VkComponentMapping("+(V.VkVideoFormatPropertiesKHR_componentMapping_offsetof||0)+")",
     imageCreateFlags: "u32("+(V.VkVideoFormatPropertiesKHR_imageCreateFlags_offsetof||0)+")",
     imageType: "u32("+(V.VkVideoFormatPropertiesKHR_imageType_offsetof||0)+")",
     imageTiling: "u32("+(V.VkVideoFormatPropertiesKHR_imageTiling_offsetof||0)+")",
@@ -6659,7 +6659,7 @@ const VkVideoCapabilitiesKHR = new Proxy(C.CStructView, new C.CStruct("VkVideoCa
     maxCodedExtent: "VkExtent2D("+(V.VkVideoCapabilitiesKHR_maxCodedExtent_offsetof||0)+")",
     maxDpbSlots: "u32("+(V.VkVideoCapabilitiesKHR_maxDpbSlots_offsetof||0)+")",
     maxActiveReferencePictures: "u32("+(V.VkVideoCapabilitiesKHR_maxActiveReferencePictures_offsetof||0)+")",
-    stdHeaderVersion: "u32("+(V.VkVideoCapabilitiesKHR_stdHeaderVersion_offsetof||0)+")",
+    stdHeaderVersion: "VkExtensionProperties("+(V.VkVideoCapabilitiesKHR_stdHeaderVersion_offsetof||0)+")",
 }, (V.VkVideoCapabilitiesKHR_sizeof||0)));
 
 
@@ -6687,7 +6687,7 @@ const VkVideoPictureResourceInfoKHR = new Proxy(C.CStructView, new C.CStruct("Vk
     codedOffset: "VkOffset2D("+(V.VkVideoPictureResourceInfoKHR_codedOffset_offsetof||0)+")",
     codedExtent: "VkExtent2D("+(V.VkVideoPictureResourceInfoKHR_codedExtent_offsetof||0)+")",
     baseArrayLayer: "u32("+(V.VkVideoPictureResourceInfoKHR_baseArrayLayer_offsetof||0)+")",
-    imageViewBinding: "u32("+(V.VkVideoPictureResourceInfoKHR_imageViewBinding_offsetof||0)+")",
+    imageViewBinding: "u64("+(V.VkVideoPictureResourceInfoKHR_imageViewBinding_offsetof||0)+")",
 }, (V.VkVideoPictureResourceInfoKHR_sizeof||0)));
 
 
@@ -6720,7 +6720,7 @@ const VkVideoDecodeInfoKHR = new Proxy(C.CStructView, new C.CStruct("VkVideoDeco
     srcBuffer: "u64("+(V.VkVideoDecodeInfoKHR_srcBuffer_offsetof||0)+")",
     srcBufferOffset: "u64("+(V.VkVideoDecodeInfoKHR_srcBufferOffset_offsetof||0)+")",
     srcBufferRange: "u64("+(V.VkVideoDecodeInfoKHR_srcBufferRange_offsetof||0)+")",
-    dstPictureResource: "u32("+(V.VkVideoDecodeInfoKHR_dstPictureResource_offsetof||0)+")",
+    dstPictureResource: "VkVideoPictureResourceInfoKHR("+(V.VkVideoDecodeInfoKHR_dstPictureResource_offsetof||0)+")",
     pSetupReferenceSlot: "u64("+(V.VkVideoDecodeInfoKHR_pSetupReferenceSlot_offsetof||0)+")",
     referenceSlotCount: "u32("+(V.VkVideoDecodeInfoKHR_referenceSlotCount_offsetof||0)+")",
     pReferenceSlots: "u64("+(V.VkVideoDecodeInfoKHR_pReferenceSlots_offsetof||0)+")",
@@ -6730,7 +6730,7 @@ const VkVideoDecodeInfoKHR = new Proxy(C.CStructView, new C.CStruct("VkVideoDeco
 const VkVideoDecodeH264ProfileInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkVideoDecodeH264ProfileInfoEXT", {
     sType: "u32("+(V.VkVideoDecodeH264ProfileInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_EXT||0),
     pNext: "u64("+(V.VkVideoDecodeH264ProfileInfoEXT_pNext_offsetof||0)+")",
-    stdProfileIdc: "u32("+(V.VkVideoDecodeH264ProfileInfoEXT_stdProfileIdc_offsetof||0)+")",
+    stdProfileIdc: "StdVideoH264ProfileIdc("+(V.VkVideoDecodeH264ProfileInfoEXT_stdProfileIdc_offsetof||0)+")",
     pictureLayout: "u32("+(V.VkVideoDecodeH264ProfileInfoEXT_pictureLayout_offsetof||0)+")",
 }, (V.VkVideoDecodeH264ProfileInfoEXT_sizeof||0)));
 
@@ -6738,7 +6738,7 @@ const VkVideoDecodeH264ProfileInfoEXT = new Proxy(C.CStructView, new C.CStruct("
 const VkVideoDecodeH264CapabilitiesEXT = new Proxy(C.CStructView, new C.CStruct("VkVideoDecodeH264CapabilitiesEXT", {
     sType: "u32("+(V.VkVideoDecodeH264CapabilitiesEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_EXT||0),
     pNext: "u64("+(V.VkVideoDecodeH264CapabilitiesEXT_pNext_offsetof||0)+")",
-    maxLevelIdc: "u32("+(V.VkVideoDecodeH264CapabilitiesEXT_maxLevelIdc_offsetof||0)+")",
+    maxLevelIdc: "StdVideoH264LevelIdc("+(V.VkVideoDecodeH264CapabilitiesEXT_maxLevelIdc_offsetof||0)+")",
     fieldOffsetGranularity: "VkOffset2D("+(V.VkVideoDecodeH264CapabilitiesEXT_fieldOffsetGranularity_offsetof||0)+")",
 }, (V.VkVideoDecodeH264CapabilitiesEXT_sizeof||0)));
 
@@ -6781,14 +6781,14 @@ const VkVideoDecodeH264DpbSlotInfoEXT = new Proxy(C.CStructView, new C.CStruct("
 const VkVideoDecodeH265ProfileInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkVideoDecodeH265ProfileInfoEXT", {
     sType: "u32("+(V.VkVideoDecodeH265ProfileInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PROFILE_INFO_EXT||0),
     pNext: "u64("+(V.VkVideoDecodeH265ProfileInfoEXT_pNext_offsetof||0)+")",
-    stdProfileIdc: "u32("+(V.VkVideoDecodeH265ProfileInfoEXT_stdProfileIdc_offsetof||0)+")",
+    stdProfileIdc: "StdVideoH265ProfileIdc("+(V.VkVideoDecodeH265ProfileInfoEXT_stdProfileIdc_offsetof||0)+")",
 }, (V.VkVideoDecodeH265ProfileInfoEXT_sizeof||0)));
 
 
 const VkVideoDecodeH265CapabilitiesEXT = new Proxy(C.CStructView, new C.CStruct("VkVideoDecodeH265CapabilitiesEXT", {
     sType: "u32("+(V.VkVideoDecodeH265CapabilitiesEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_CAPABILITIES_EXT||0),
     pNext: "u64("+(V.VkVideoDecodeH265CapabilitiesEXT_pNext_offsetof||0)+")",
-    maxLevelIdc: "u32("+(V.VkVideoDecodeH265CapabilitiesEXT_maxLevelIdc_offsetof||0)+")",
+    maxLevelIdc: "StdVideoH265LevelIdc("+(V.VkVideoDecodeH265CapabilitiesEXT_maxLevelIdc_offsetof||0)+")",
 }, (V.VkVideoDecodeH265CapabilitiesEXT_sizeof||0)));
 
 
@@ -6849,8 +6849,8 @@ const VkVideoSessionParametersCreateInfoKHR = new Proxy(C.CStructView, new C.CSt
     sType: "u32("+(V.VkVideoSessionParametersCreateInfoKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR||0),
     pNext: "u64("+(V.VkVideoSessionParametersCreateInfoKHR_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkVideoSessionParametersCreateInfoKHR_flags_offsetof||0)+")",
-    videoSessionParametersTemplate: "u32("+(V.VkVideoSessionParametersCreateInfoKHR_videoSessionParametersTemplate_offsetof||0)+")",
-    videoSession: "u32("+(V.VkVideoSessionParametersCreateInfoKHR_videoSession_offsetof||0)+")",
+    videoSessionParametersTemplate: "VkVideoSessionParametersKHR("+(V.VkVideoSessionParametersCreateInfoKHR_videoSessionParametersTemplate_offsetof||0)+")",
+    videoSession: "VkVideoSessionKHR("+(V.VkVideoSessionParametersCreateInfoKHR_videoSession_offsetof||0)+")",
 }, (V.VkVideoSessionParametersCreateInfoKHR_sizeof||0)));
 
 
@@ -6865,8 +6865,8 @@ const VkVideoBeginCodingInfoKHR = new Proxy(C.CStructView, new C.CStruct("VkVide
     sType: "u32("+(V.VkVideoBeginCodingInfoKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_VIDEO_BEGIN_CODING_INFO_KHR||0),
     pNext: "u64("+(V.VkVideoBeginCodingInfoKHR_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkVideoBeginCodingInfoKHR_flags_offsetof||0)+")",
-    videoSession: "u32("+(V.VkVideoBeginCodingInfoKHR_videoSession_offsetof||0)+")",
-    videoSessionParameters: "u32("+(V.VkVideoBeginCodingInfoKHR_videoSessionParameters_offsetof||0)+")",
+    videoSession: "VkVideoSessionKHR("+(V.VkVideoBeginCodingInfoKHR_videoSession_offsetof||0)+")",
+    videoSessionParameters: "VkVideoSessionParametersKHR("+(V.VkVideoBeginCodingInfoKHR_videoSessionParameters_offsetof||0)+")",
     referenceSlotCount: "u32("+(V.VkVideoBeginCodingInfoKHR_referenceSlotCount_offsetof||0)+")",
     pReferenceSlots: "u64("+(V.VkVideoBeginCodingInfoKHR_pReferenceSlots_offsetof||0)+")",
 }, (V.VkVideoBeginCodingInfoKHR_sizeof||0)));
@@ -6903,7 +6903,7 @@ const VkVideoEncodeInfoKHR = new Proxy(C.CStructView, new C.CStruct("VkVideoEnco
     dstBitstreamBuffer: "u64("+(V.VkVideoEncodeInfoKHR_dstBitstreamBuffer_offsetof||0)+")",
     dstBitstreamBufferOffset: "u64("+(V.VkVideoEncodeInfoKHR_dstBitstreamBufferOffset_offsetof||0)+")",
     dstBitstreamBufferMaxRange: "u64("+(V.VkVideoEncodeInfoKHR_dstBitstreamBufferMaxRange_offsetof||0)+")",
-    srcPictureResource: "u32("+(V.VkVideoEncodeInfoKHR_srcPictureResource_offsetof||0)+")",
+    srcPictureResource: "VkVideoPictureResourceInfoKHR("+(V.VkVideoEncodeInfoKHR_srcPictureResource_offsetof||0)+")",
     pSetupReferenceSlot: "u64("+(V.VkVideoEncodeInfoKHR_pSetupReferenceSlot_offsetof||0)+")",
     referenceSlotCount: "u32("+(V.VkVideoEncodeInfoKHR_referenceSlotCount_offsetof||0)+")",
     pReferenceSlots: "u64("+(V.VkVideoEncodeInfoKHR_pReferenceSlots_offsetof||0)+")",
@@ -7022,7 +7022,7 @@ const VkVideoEncodeH264EmitPictureParametersInfoEXT = new Proxy(C.CStructView, n
 const VkVideoEncodeH264ProfileInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkVideoEncodeH264ProfileInfoEXT", {
     sType: "u32("+(V.VkVideoEncodeH264ProfileInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_VIDEO_ENCODE_H264_PROFILE_INFO_EXT||0),
     pNext: "u64("+(V.VkVideoEncodeH264ProfileInfoEXT_pNext_offsetof||0)+")",
-    stdProfileIdc: "u32("+(V.VkVideoEncodeH264ProfileInfoEXT_stdProfileIdc_offsetof||0)+")",
+    stdProfileIdc: "StdVideoH264ProfileIdc("+(V.VkVideoEncodeH264ProfileInfoEXT_stdProfileIdc_offsetof||0)+")",
 }, (V.VkVideoEncodeH264ProfileInfoEXT_sizeof||0)));
 
 
@@ -7065,13 +7065,13 @@ const VkVideoEncodeH264RateControlLayerInfoEXT = new Proxy(C.CStructView, new C.
     pNext: "u64("+(V.VkVideoEncodeH264RateControlLayerInfoEXT_pNext_offsetof||0)+")",
     temporalLayerId: "u8("+(V.VkVideoEncodeH264RateControlLayerInfoEXT_temporalLayerId_offsetof||0)+")",
     useInitialRcQp: "u32("+(V.VkVideoEncodeH264RateControlLayerInfoEXT_useInitialRcQp_offsetof||0)+")",
-    initialRcQp: "u32("+(V.VkVideoEncodeH264RateControlLayerInfoEXT_initialRcQp_offsetof||0)+")",
+    initialRcQp: "VkVideoEncodeH264QpEXT("+(V.VkVideoEncodeH264RateControlLayerInfoEXT_initialRcQp_offsetof||0)+")",
     useMinQp: "u32("+(V.VkVideoEncodeH264RateControlLayerInfoEXT_useMinQp_offsetof||0)+")",
-    minQp: "u32("+(V.VkVideoEncodeH264RateControlLayerInfoEXT_minQp_offsetof||0)+")",
+    minQp: "VkVideoEncodeH264QpEXT("+(V.VkVideoEncodeH264RateControlLayerInfoEXT_minQp_offsetof||0)+")",
     useMaxQp: "u32("+(V.VkVideoEncodeH264RateControlLayerInfoEXT_useMaxQp_offsetof||0)+")",
-    maxQp: "u32("+(V.VkVideoEncodeH264RateControlLayerInfoEXT_maxQp_offsetof||0)+")",
+    maxQp: "VkVideoEncodeH264QpEXT("+(V.VkVideoEncodeH264RateControlLayerInfoEXT_maxQp_offsetof||0)+")",
     useMaxFrameSize: "u32("+(V.VkVideoEncodeH264RateControlLayerInfoEXT_useMaxFrameSize_offsetof||0)+")",
-    maxFrameSize: "u32("+(V.VkVideoEncodeH264RateControlLayerInfoEXT_maxFrameSize_offsetof||0)+")",
+    maxFrameSize: "VkVideoEncodeH264FrameSizeEXT("+(V.VkVideoEncodeH264RateControlLayerInfoEXT_maxFrameSize_offsetof||0)+")",
 }, (V.VkVideoEncodeH264RateControlLayerInfoEXT_sizeof||0)));
 
 
@@ -7184,20 +7184,20 @@ const VkVideoEncodeH265RateControlLayerInfoEXT = new Proxy(C.CStructView, new C.
     pNext: "u64("+(V.VkVideoEncodeH265RateControlLayerInfoEXT_pNext_offsetof||0)+")",
     temporalId: "u8("+(V.VkVideoEncodeH265RateControlLayerInfoEXT_temporalId_offsetof||0)+")",
     useInitialRcQp: "u32("+(V.VkVideoEncodeH265RateControlLayerInfoEXT_useInitialRcQp_offsetof||0)+")",
-    initialRcQp: "u32("+(V.VkVideoEncodeH265RateControlLayerInfoEXT_initialRcQp_offsetof||0)+")",
+    initialRcQp: "VkVideoEncodeH265QpEXT("+(V.VkVideoEncodeH265RateControlLayerInfoEXT_initialRcQp_offsetof||0)+")",
     useMinQp: "u32("+(V.VkVideoEncodeH265RateControlLayerInfoEXT_useMinQp_offsetof||0)+")",
-    minQp: "u32("+(V.VkVideoEncodeH265RateControlLayerInfoEXT_minQp_offsetof||0)+")",
+    minQp: "VkVideoEncodeH265QpEXT("+(V.VkVideoEncodeH265RateControlLayerInfoEXT_minQp_offsetof||0)+")",
     useMaxQp: "u32("+(V.VkVideoEncodeH265RateControlLayerInfoEXT_useMaxQp_offsetof||0)+")",
-    maxQp: "u32("+(V.VkVideoEncodeH265RateControlLayerInfoEXT_maxQp_offsetof||0)+")",
+    maxQp: "VkVideoEncodeH265QpEXT("+(V.VkVideoEncodeH265RateControlLayerInfoEXT_maxQp_offsetof||0)+")",
     useMaxFrameSize: "u32("+(V.VkVideoEncodeH265RateControlLayerInfoEXT_useMaxFrameSize_offsetof||0)+")",
-    maxFrameSize: "u32("+(V.VkVideoEncodeH265RateControlLayerInfoEXT_maxFrameSize_offsetof||0)+")",
+    maxFrameSize: "VkVideoEncodeH265FrameSizeEXT("+(V.VkVideoEncodeH265RateControlLayerInfoEXT_maxFrameSize_offsetof||0)+")",
 }, (V.VkVideoEncodeH265RateControlLayerInfoEXT_sizeof||0)));
 
 
 const VkVideoEncodeH265ProfileInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkVideoEncodeH265ProfileInfoEXT", {
     sType: "u32("+(V.VkVideoEncodeH265ProfileInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_PROFILE_INFO_EXT||0),
     pNext: "u64("+(V.VkVideoEncodeH265ProfileInfoEXT_pNext_offsetof||0)+")",
-    stdProfileIdc: "u32("+(V.VkVideoEncodeH265ProfileInfoEXT_stdProfileIdc_offsetof||0)+")",
+    stdProfileIdc: "StdVideoH265ProfileIdc("+(V.VkVideoEncodeH265ProfileInfoEXT_stdProfileIdc_offsetof||0)+")",
 }, (V.VkVideoEncodeH265ProfileInfoEXT_sizeof||0)));
 
 
@@ -7277,7 +7277,7 @@ const VkCuModuleCreateInfoNVX = new Proxy(C.CStructView, new C.CStruct("VkCuModu
 const VkCuFunctionCreateInfoNVX = new Proxy(C.CStructView, new C.CStruct("VkCuFunctionCreateInfoNVX", {
     sType: "u32("+(V.VkCuFunctionCreateInfoNVX_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_CU_FUNCTION_CREATE_INFO_NVX||0),
     pNext: "u64("+(V.VkCuFunctionCreateInfoNVX_pNext_offsetof||0)+")",
-    module: "u32("+(V.VkCuFunctionCreateInfoNVX_module_offsetof||0)+")",
+    module: "VkCuModuleNVX("+(V.VkCuFunctionCreateInfoNVX_module_offsetof||0)+")",
     pName: "u64("+(V.VkCuFunctionCreateInfoNVX_pName_offsetof||0)+")",
 }, (V.VkCuFunctionCreateInfoNVX_sizeof||0)));
 
@@ -7285,7 +7285,7 @@ const VkCuFunctionCreateInfoNVX = new Proxy(C.CStructView, new C.CStruct("VkCuFu
 const VkCuLaunchInfoNVX = new Proxy(C.CStructView, new C.CStruct("VkCuLaunchInfoNVX", {
     sType: "u32("+(V.VkCuLaunchInfoNVX_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_CU_LAUNCH_INFO_NVX||0),
     pNext: "u64("+(V.VkCuLaunchInfoNVX_pNext_offsetof||0)+")",
-    function: "u32("+(V.VkCuLaunchInfoNVX_function_offsetof||0)+")",
+    function: "VkCuFunctionNVX("+(V.VkCuLaunchInfoNVX_function_offsetof||0)+")",
     gridDimX: "u32("+(V.VkCuLaunchInfoNVX_gridDimX_offsetof||0)+")",
     gridDimY: "u32("+(V.VkCuLaunchInfoNVX_gridDimY_offsetof||0)+")",
     gridDimZ: "u32("+(V.VkCuLaunchInfoNVX_gridDimZ_offsetof||0)+")",
@@ -7384,7 +7384,7 @@ const VkDescriptorGetInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkDescrip
     sType: "u32("+(V.VkDescriptorGetInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DESCRIPTOR_GET_INFO_EXT||0),
     pNext: "u64("+(V.VkDescriptorGetInfoEXT_pNext_offsetof||0)+")",
     type: "u32("+(V.VkDescriptorGetInfoEXT_type_offsetof||0)+")",
-    data: "u32("+(V.VkDescriptorGetInfoEXT_data_offsetof||0)+")",
+    data: "VkDescriptorDataEXT("+(V.VkDescriptorGetInfoEXT_data_offsetof||0)+")",
 }, (V.VkDescriptorGetInfoEXT_sizeof||0)));
 
 
@@ -7405,7 +7405,7 @@ const VkImageCaptureDescriptorDataInfoEXT = new Proxy(C.CStructView, new C.CStru
 const VkImageViewCaptureDescriptorDataInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkImageViewCaptureDescriptorDataInfoEXT", {
     sType: "u32("+(V.VkImageViewCaptureDescriptorDataInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT||0),
     pNext: "u64("+(V.VkImageViewCaptureDescriptorDataInfoEXT_pNext_offsetof||0)+")",
-    imageView: "u32("+(V.VkImageViewCaptureDescriptorDataInfoEXT_imageView_offsetof||0)+")",
+    imageView: "u64("+(V.VkImageViewCaptureDescriptorDataInfoEXT_imageView_offsetof||0)+")",
 }, (V.VkImageViewCaptureDescriptorDataInfoEXT_sizeof||0)));
 
 
@@ -7420,7 +7420,7 @@ const VkAccelerationStructureCaptureDescriptorDataInfoEXT = new Proxy(C.CStructV
     sType: "u32("+(V.VkAccelerationStructureCaptureDescriptorDataInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT||0),
     pNext: "u64("+(V.VkAccelerationStructureCaptureDescriptorDataInfoEXT_pNext_offsetof||0)+")",
     accelerationStructure: "u64("+(V.VkAccelerationStructureCaptureDescriptorDataInfoEXT_accelerationStructure_offsetof||0)+")",
-    accelerationStructureNV: "u32("+(V.VkAccelerationStructureCaptureDescriptorDataInfoEXT_accelerationStructureNV_offsetof||0)+")",
+    accelerationStructureNV: "VkAccelerationStructureNV("+(V.VkAccelerationStructureCaptureDescriptorDataInfoEXT_accelerationStructureNV_offsetof||0)+")",
 }, (V.VkAccelerationStructureCaptureDescriptorDataInfoEXT_sizeof||0)));
 
 
@@ -7515,7 +7515,7 @@ const VkPhysicalDeviceRayTracingMotionBlurFeaturesNV = new Proxy(C.CStructView, 
 const VkAccelerationStructureGeometryMotionTrianglesDataNV = new Proxy(C.CStructView, new C.CStruct("VkAccelerationStructureGeometryMotionTrianglesDataNV", {
     sType: "u32("+(V.VkAccelerationStructureGeometryMotionTrianglesDataNV_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV||0),
     pNext: "u64("+(V.VkAccelerationStructureGeometryMotionTrianglesDataNV_pNext_offsetof||0)+")",
-    vertexData: "u32("+(V.VkAccelerationStructureGeometryMotionTrianglesDataNV_vertexData_offsetof||0)+")",
+    vertexData: "VkDeviceOrHostAddressConstKHR("+(V.VkAccelerationStructureGeometryMotionTrianglesDataNV_vertexData_offsetof||0)+")",
 }, (V.VkAccelerationStructureGeometryMotionTrianglesDataNV_sizeof||0)));
 
 
@@ -7548,8 +7548,8 @@ const VkSRTDataNV = new Proxy(C.CStructView, new C.CStruct("VkSRTDataNV", {
 
 
 const VkAccelerationStructureSRTMotionInstanceNV = new Proxy(C.CStructView, new C.CStruct("VkAccelerationStructureSRTMotionInstanceNV", {
-    transformT0: "u32("+(V.VkAccelerationStructureSRTMotionInstanceNV_transformT0_offsetof||0)+")",
-    transformT1: "u32("+(V.VkAccelerationStructureSRTMotionInstanceNV_transformT1_offsetof||0)+")",
+    transformT0: "VkSRTDataNV("+(V.VkAccelerationStructureSRTMotionInstanceNV_transformT0_offsetof||0)+")",
+    transformT1: "VkSRTDataNV("+(V.VkAccelerationStructureSRTMotionInstanceNV_transformT1_offsetof||0)+")",
     instanceCustomIndex: "u24("+(V.VkAccelerationStructureSRTMotionInstanceNV_instanceCustomIndex_offsetof||0)+")",
     mask: "u8("+(V.VkAccelerationStructureSRTMotionInstanceNV_mask_offsetof||0)+")",
     instanceShaderBindingTableRecordOffset: "u24("+(V.VkAccelerationStructureSRTMotionInstanceNV_instanceShaderBindingTableRecordOffset_offsetof||0)+")",
@@ -7572,7 +7572,7 @@ const VkAccelerationStructureMatrixMotionInstanceNV = new Proxy(C.CStructView, n
 const VkAccelerationStructureMotionInstanceNV = new Proxy(C.CStructView, new C.CStruct("VkAccelerationStructureMotionInstanceNV", {
     type: "u32("+(V.VkAccelerationStructureMotionInstanceNV_type_offsetof||0)+")",
     flags: "u32("+(V.VkAccelerationStructureMotionInstanceNV_flags_offsetof||0)+")",
-    data: "u32("+(V.VkAccelerationStructureMotionInstanceNV_data_offsetof||0)+")",
+    data: "VkAccelerationStructureMotionInstanceDataNV("+(V.VkAccelerationStructureMotionInstanceNV_data_offsetof||0)+")",
 }, (V.VkAccelerationStructureMotionInstanceNV_sizeof||0)));
 
 
@@ -7587,7 +7587,7 @@ const VkMemoryGetRemoteAddressInfoNV = new Proxy(C.CStructView, new C.CStruct("V
 const VkImportMemoryBufferCollectionFUCHSIA = new Proxy(C.CStructView, new C.CStruct("VkImportMemoryBufferCollectionFUCHSIA", {
     sType: "u32("+(V.VkImportMemoryBufferCollectionFUCHSIA_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA||0),
     pNext: "u64("+(V.VkImportMemoryBufferCollectionFUCHSIA_pNext_offsetof||0)+")",
-    collection: "u32("+(V.VkImportMemoryBufferCollectionFUCHSIA_collection_offsetof||0)+")",
+    collection: "VkBufferCollectionFUCHSIA("+(V.VkImportMemoryBufferCollectionFUCHSIA_collection_offsetof||0)+")",
     index: "u32("+(V.VkImportMemoryBufferCollectionFUCHSIA_index_offsetof||0)+")",
 }, (V.VkImportMemoryBufferCollectionFUCHSIA_sizeof||0)));
 
@@ -7595,7 +7595,7 @@ const VkImportMemoryBufferCollectionFUCHSIA = new Proxy(C.CStructView, new C.CSt
 const VkBufferCollectionImageCreateInfoFUCHSIA = new Proxy(C.CStructView, new C.CStruct("VkBufferCollectionImageCreateInfoFUCHSIA", {
     sType: "u32("+(V.VkBufferCollectionImageCreateInfoFUCHSIA_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA||0),
     pNext: "u64("+(V.VkBufferCollectionImageCreateInfoFUCHSIA_pNext_offsetof||0)+")",
-    collection: "u32("+(V.VkBufferCollectionImageCreateInfoFUCHSIA_collection_offsetof||0)+")",
+    collection: "VkBufferCollectionFUCHSIA("+(V.VkBufferCollectionImageCreateInfoFUCHSIA_collection_offsetof||0)+")",
     index: "u32("+(V.VkBufferCollectionImageCreateInfoFUCHSIA_index_offsetof||0)+")",
 }, (V.VkBufferCollectionImageCreateInfoFUCHSIA_sizeof||0)));
 
@@ -7603,7 +7603,7 @@ const VkBufferCollectionImageCreateInfoFUCHSIA = new Proxy(C.CStructView, new C.
 const VkBufferCollectionBufferCreateInfoFUCHSIA = new Proxy(C.CStructView, new C.CStruct("VkBufferCollectionBufferCreateInfoFUCHSIA", {
     sType: "u32("+(V.VkBufferCollectionBufferCreateInfoFUCHSIA_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA||0),
     pNext: "u64("+(V.VkBufferCollectionBufferCreateInfoFUCHSIA_pNext_offsetof||0)+")",
-    collection: "u32("+(V.VkBufferCollectionBufferCreateInfoFUCHSIA_collection_offsetof||0)+")",
+    collection: "VkBufferCollectionFUCHSIA("+(V.VkBufferCollectionBufferCreateInfoFUCHSIA_collection_offsetof||0)+")",
     index: "u32("+(V.VkBufferCollectionBufferCreateInfoFUCHSIA_index_offsetof||0)+")",
 }, (V.VkBufferCollectionBufferCreateInfoFUCHSIA_sizeof||0)));
 
@@ -7611,7 +7611,7 @@ const VkBufferCollectionBufferCreateInfoFUCHSIA = new Proxy(C.CStructView, new C
 const VkBufferCollectionCreateInfoFUCHSIA = new Proxy(C.CStructView, new C.CStruct("VkBufferCollectionCreateInfoFUCHSIA", {
     sType: "u32("+(V.VkBufferCollectionCreateInfoFUCHSIA_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_BUFFER_COLLECTION_CREATE_INFO_FUCHSIA||0),
     pNext: "u64("+(V.VkBufferCollectionCreateInfoFUCHSIA_pNext_offsetof||0)+")",
-    collectionToken: "u32("+(V.VkBufferCollectionCreateInfoFUCHSIA_collectionToken_offsetof||0)+")",
+    collectionToken: "zx_handle_t("+(V.VkBufferCollectionCreateInfoFUCHSIA_collectionToken_offsetof||0)+")",
 }, (V.VkBufferCollectionCreateInfoFUCHSIA_sizeof||0)));
 
 
@@ -7623,8 +7623,8 @@ const VkBufferCollectionPropertiesFUCHSIA = new Proxy(C.CStructView, new C.CStru
     createInfoIndex: "u32("+(V.VkBufferCollectionPropertiesFUCHSIA_createInfoIndex_offsetof||0)+")",
     sysmemPixelFormat: "u64("+(V.VkBufferCollectionPropertiesFUCHSIA_sysmemPixelFormat_offsetof||0)+")",
     formatFeatures: "u32("+(V.VkBufferCollectionPropertiesFUCHSIA_formatFeatures_offsetof||0)+")",
-    sysmemColorSpaceIndex: "u32("+(V.VkBufferCollectionPropertiesFUCHSIA_sysmemColorSpaceIndex_offsetof||0)+")",
-    samplerYcbcrConversionComponents: "u32("+(V.VkBufferCollectionPropertiesFUCHSIA_samplerYcbcrConversionComponents_offsetof||0)+")",
+    sysmemColorSpaceIndex: "VkSysmemColorSpaceFUCHSIA("+(V.VkBufferCollectionPropertiesFUCHSIA_sysmemColorSpaceIndex_offsetof||0)+")",
+    samplerYcbcrConversionComponents: "VkComponentMapping("+(V.VkBufferCollectionPropertiesFUCHSIA_samplerYcbcrConversionComponents_offsetof||0)+")",
     suggestedYcbcrModel: "u32("+(V.VkBufferCollectionPropertiesFUCHSIA_suggestedYcbcrModel_offsetof||0)+")",
     suggestedYcbcrRange: "u32("+(V.VkBufferCollectionPropertiesFUCHSIA_suggestedYcbcrRange_offsetof||0)+")",
     suggestedXChromaOffset: "u32("+(V.VkBufferCollectionPropertiesFUCHSIA_suggestedXChromaOffset_offsetof||0)+")",
@@ -7635,9 +7635,9 @@ const VkBufferCollectionPropertiesFUCHSIA = new Proxy(C.CStructView, new C.CStru
 const VkBufferConstraintsInfoFUCHSIA = new Proxy(C.CStructView, new C.CStruct("VkBufferConstraintsInfoFUCHSIA", {
     sType: "u32("+(V.VkBufferConstraintsInfoFUCHSIA_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_BUFFER_CONSTRAINTS_INFO_FUCHSIA||0),
     pNext: "u64("+(V.VkBufferConstraintsInfoFUCHSIA_pNext_offsetof||0)+")",
-    createInfo: "u32("+(V.VkBufferConstraintsInfoFUCHSIA_createInfo_offsetof||0)+")",
+    createInfo: "VkBufferCreateInfo("+(V.VkBufferConstraintsInfoFUCHSIA_createInfo_offsetof||0)+")",
     requiredFormatFeatures: "u32("+(V.VkBufferConstraintsInfoFUCHSIA_requiredFormatFeatures_offsetof||0)+")",
-    bufferCollectionConstraints: "u32("+(V.VkBufferConstraintsInfoFUCHSIA_bufferCollectionConstraints_offsetof||0)+")",
+    bufferCollectionConstraints: "VkBufferCollectionConstraintsInfoFUCHSIA("+(V.VkBufferConstraintsInfoFUCHSIA_bufferCollectionConstraints_offsetof||0)+")",
 }, (V.VkBufferConstraintsInfoFUCHSIA_sizeof||0)));
 
 
@@ -7651,7 +7651,7 @@ const VkSysmemColorSpaceFUCHSIA = new Proxy(C.CStructView, new C.CStruct("VkSysm
 const VkImageFormatConstraintsInfoFUCHSIA = new Proxy(C.CStructView, new C.CStruct("VkImageFormatConstraintsInfoFUCHSIA", {
     sType: "u32("+(V.VkImageFormatConstraintsInfoFUCHSIA_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA||0),
     pNext: "u64("+(V.VkImageFormatConstraintsInfoFUCHSIA_pNext_offsetof||0)+")",
-    imageCreateInfo: "u32("+(V.VkImageFormatConstraintsInfoFUCHSIA_imageCreateInfo_offsetof||0)+")",
+    imageCreateInfo: "VkImageCreateInfo("+(V.VkImageFormatConstraintsInfoFUCHSIA_imageCreateInfo_offsetof||0)+")",
     requiredFormatFeatures: "u32("+(V.VkImageFormatConstraintsInfoFUCHSIA_requiredFormatFeatures_offsetof||0)+")",
     flags: "u32("+(V.VkImageFormatConstraintsInfoFUCHSIA_flags_offsetof||0)+")",
     sysmemPixelFormat: "u64("+(V.VkImageFormatConstraintsInfoFUCHSIA_sysmemPixelFormat_offsetof||0)+")",
@@ -7665,7 +7665,7 @@ const VkImageConstraintsInfoFUCHSIA = new Proxy(C.CStructView, new C.CStruct("Vk
     pNext: "u64("+(V.VkImageConstraintsInfoFUCHSIA_pNext_offsetof||0)+")",
     formatConstraintsCount: "u32("+(V.VkImageConstraintsInfoFUCHSIA_formatConstraintsCount_offsetof||0)+")",
     pFormatConstraints: "u64("+(V.VkImageConstraintsInfoFUCHSIA_pFormatConstraints_offsetof||0)+")",
-    bufferCollectionConstraints: "u32("+(V.VkImageConstraintsInfoFUCHSIA_bufferCollectionConstraints_offsetof||0)+")",
+    bufferCollectionConstraints: "VkBufferCollectionConstraintsInfoFUCHSIA("+(V.VkImageConstraintsInfoFUCHSIA_bufferCollectionConstraints_offsetof||0)+")",
     flags: "u32("+(V.VkImageConstraintsInfoFUCHSIA_flags_offsetof||0)+")",
 }, (V.VkImageConstraintsInfoFUCHSIA_sizeof||0)));
 
@@ -7720,7 +7720,7 @@ const VkAndroidHardwareBufferFormatProperties2ANDROID = new Proxy(C.CStructView,
     format: "u32("+(V.VkAndroidHardwareBufferFormatProperties2ANDROID_format_offsetof||0)+")",
     externalFormat: "u64("+(V.VkAndroidHardwareBufferFormatProperties2ANDROID_externalFormat_offsetof||0)+")",
     formatFeatures: "u64("+(V.VkAndroidHardwareBufferFormatProperties2ANDROID_formatFeatures_offsetof||0)+")",
-    samplerYcbcrConversionComponents: "u32("+(V.VkAndroidHardwareBufferFormatProperties2ANDROID_samplerYcbcrConversionComponents_offsetof||0)+")",
+    samplerYcbcrConversionComponents: "VkComponentMapping("+(V.VkAndroidHardwareBufferFormatProperties2ANDROID_samplerYcbcrConversionComponents_offsetof||0)+")",
     suggestedYcbcrModel: "u32("+(V.VkAndroidHardwareBufferFormatProperties2ANDROID_suggestedYcbcrModel_offsetof||0)+")",
     suggestedYcbcrRange: "u32("+(V.VkAndroidHardwareBufferFormatProperties2ANDROID_suggestedYcbcrRange_offsetof||0)+")",
     suggestedXChromaOffset: "u32("+(V.VkAndroidHardwareBufferFormatProperties2ANDROID_suggestedXChromaOffset_offsetof||0)+")",
@@ -7760,14 +7760,14 @@ const VkRenderingInfoKHR = new Proxy(C.CStructView, new C.ConstructProxy("VkRend
 const VkRenderingAttachmentInfo = new Proxy(C.CStructView, new C.CStruct("VkRenderingAttachmentInfo", {
     sType: "u32("+(V.VkRenderingAttachmentInfo_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO||0),
     pNext: "u64("+(V.VkRenderingAttachmentInfo_pNext_offsetof||0)+")",
-    imageView: "u32("+(V.VkRenderingAttachmentInfo_imageView_offsetof||0)+")",
+    imageView: "u64("+(V.VkRenderingAttachmentInfo_imageView_offsetof||0)+")",
     imageLayout: "u32("+(V.VkRenderingAttachmentInfo_imageLayout_offsetof||0)+")",
     resolveMode: "u32("+(V.VkRenderingAttachmentInfo_resolveMode_offsetof||0)+")",
-    resolveImageView: "u32("+(V.VkRenderingAttachmentInfo_resolveImageView_offsetof||0)+")",
+    resolveImageView: "u64("+(V.VkRenderingAttachmentInfo_resolveImageView_offsetof||0)+")",
     resolveImageLayout: "u32("+(V.VkRenderingAttachmentInfo_resolveImageLayout_offsetof||0)+")",
     loadOp: "u32("+(V.VkRenderingAttachmentInfo_loadOp_offsetof||0)+")",
     storeOp: "u32("+(V.VkRenderingAttachmentInfo_storeOp_offsetof||0)+")",
-    clearValue: "u32("+(V.VkRenderingAttachmentInfo_clearValue_offsetof||0)+")",
+    clearValue: "VkClearValue("+(V.VkRenderingAttachmentInfo_clearValue_offsetof||0)+")",
 }, (V.VkRenderingAttachmentInfo_sizeof||0)));
 
 const VkRenderingAttachmentInfoKHR = new Proxy(C.CStructView, new C.ConstructProxy("VkRenderingAttachmentInfo"));
@@ -7776,7 +7776,7 @@ const VkRenderingAttachmentInfoKHR = new Proxy(C.CStructView, new C.ConstructPro
 const VkRenderingFragmentShadingRateAttachmentInfoKHR = new Proxy(C.CStructView, new C.CStruct("VkRenderingFragmentShadingRateAttachmentInfoKHR", {
     sType: "u32("+(V.VkRenderingFragmentShadingRateAttachmentInfoKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR||0),
     pNext: "u64("+(V.VkRenderingFragmentShadingRateAttachmentInfoKHR_pNext_offsetof||0)+")",
-    imageView: "u32("+(V.VkRenderingFragmentShadingRateAttachmentInfoKHR_imageView_offsetof||0)+")",
+    imageView: "u64("+(V.VkRenderingFragmentShadingRateAttachmentInfoKHR_imageView_offsetof||0)+")",
     imageLayout: "u32("+(V.VkRenderingFragmentShadingRateAttachmentInfoKHR_imageLayout_offsetof||0)+")",
     shadingRateAttachmentTexelSize: "VkExtent2D("+(V.VkRenderingFragmentShadingRateAttachmentInfoKHR_shadingRateAttachmentTexelSize_offsetof||0)+")",
 }, (V.VkRenderingFragmentShadingRateAttachmentInfoKHR_sizeof||0)));
@@ -7785,7 +7785,7 @@ const VkRenderingFragmentShadingRateAttachmentInfoKHR = new Proxy(C.CStructView,
 const VkRenderingFragmentDensityMapAttachmentInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkRenderingFragmentDensityMapAttachmentInfoEXT", {
     sType: "u32("+(V.VkRenderingFragmentDensityMapAttachmentInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT||0),
     pNext: "u64("+(V.VkRenderingFragmentDensityMapAttachmentInfoEXT_pNext_offsetof||0)+")",
-    imageView: "u32("+(V.VkRenderingFragmentDensityMapAttachmentInfoEXT_imageView_offsetof||0)+")",
+    imageView: "u64("+(V.VkRenderingFragmentDensityMapAttachmentInfoEXT_imageView_offsetof||0)+")",
     imageLayout: "u32("+(V.VkRenderingFragmentDensityMapAttachmentInfoEXT_imageLayout_offsetof||0)+")",
 }, (V.VkRenderingFragmentDensityMapAttachmentInfoEXT_sizeof||0)));
 
@@ -7897,7 +7897,7 @@ const VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE = new Proxy(C.CStruc
 const VkDescriptorSetBindingReferenceVALVE = new Proxy(C.CStructView, new C.CStruct("VkDescriptorSetBindingReferenceVALVE", {
     sType: "u32("+(V.VkDescriptorSetBindingReferenceVALVE_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DESCRIPTOR_SET_BINDING_REFERENCE_VALVE||0),
     pNext: "u64("+(V.VkDescriptorSetBindingReferenceVALVE_pNext_offsetof||0)+")",
-    descriptorSetLayout: "u32("+(V.VkDescriptorSetBindingReferenceVALVE_descriptorSetLayout_offsetof||0)+")",
+    descriptorSetLayout: "VkDescriptorSetLayout("+(V.VkDescriptorSetBindingReferenceVALVE_descriptorSetLayout_offsetof||0)+")",
     binding: "u32("+(V.VkDescriptorSetBindingReferenceVALVE_binding_offsetof||0)+")",
 }, (V.VkDescriptorSetBindingReferenceVALVE_sizeof||0)));
 
@@ -7974,14 +7974,14 @@ const VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT = new Proxy(C.
 const VkImageSubresource2EXT = new Proxy(C.CStructView, new C.CStruct("VkImageSubresource2EXT", {
     sType: "u32("+(V.VkImageSubresource2EXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2_EXT||0),
     pNext: "u64("+(V.VkImageSubresource2EXT_pNext_offsetof||0)+")",
-    imageSubresource: "u32("+(V.VkImageSubresource2EXT_imageSubresource_offsetof||0)+")",
+    imageSubresource: "VkImageSubresource("+(V.VkImageSubresource2EXT_imageSubresource_offsetof||0)+")",
 }, (V.VkImageSubresource2EXT_sizeof||0)));
 
 
 const VkSubresourceLayout2EXT = new Proxy(C.CStructView, new C.CStruct("VkSubresourceLayout2EXT", {
     sType: "u32("+(V.VkSubresourceLayout2EXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_SUBRESOURCE_LAYOUT_2_EXT||0),
     pNext: "u64("+(V.VkSubresourceLayout2EXT_pNext_offsetof||0)+")",
-    subresourceLayout: "u32("+(V.VkSubresourceLayout2EXT_subresourceLayout_offsetof||0)+")",
+    subresourceLayout: "VkSubresourceLayout("+(V.VkSubresourceLayout2EXT_subresourceLayout_offsetof||0)+")",
 }, (V.VkSubresourceLayout2EXT_sizeof||0)));
 
 
@@ -8031,13 +8031,13 @@ const VkMicromapBuildInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkMicroma
     type: "u32("+(V.VkMicromapBuildInfoEXT_type_offsetof||0)+")",
     flags: "u32("+(V.VkMicromapBuildInfoEXT_flags_offsetof||0)+")",
     mode: "u32("+(V.VkMicromapBuildInfoEXT_mode_offsetof||0)+")",
-    dstMicromap: "u32("+(V.VkMicromapBuildInfoEXT_dstMicromap_offsetof||0)+")",
+    dstMicromap: "VkMicromapEXT("+(V.VkMicromapBuildInfoEXT_dstMicromap_offsetof||0)+")",
     usageCountsCount: "u32("+(V.VkMicromapBuildInfoEXT_usageCountsCount_offsetof||0)+")",
     pUsageCounts: "u64("+(V.VkMicromapBuildInfoEXT_pUsageCounts_offsetof||0)+")",
     ppUsageCounts: "u64("+(V.VkMicromapBuildInfoEXT_ppUsageCounts_offsetof||0)+")",
-    data: "u32("+(V.VkMicromapBuildInfoEXT_data_offsetof||0)+")",
+    data: "VkDeviceOrHostAddressConstKHR("+(V.VkMicromapBuildInfoEXT_data_offsetof||0)+")",
     scratchData: "u64("+(V.VkMicromapBuildInfoEXT_scratchData_offsetof||0)+")",
-    triangleArray: "u32("+(V.VkMicromapBuildInfoEXT_triangleArray_offsetof||0)+")",
+    triangleArray: "VkDeviceOrHostAddressConstKHR("+(V.VkMicromapBuildInfoEXT_triangleArray_offsetof||0)+")",
     triangleArrayStride: "u64("+(V.VkMicromapBuildInfoEXT_triangleArrayStride_offsetof||0)+")",
 }, (V.VkMicromapBuildInfoEXT_sizeof||0)));
 
@@ -8064,8 +8064,8 @@ const VkMicromapVersionInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkMicro
 const VkCopyMicromapInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkCopyMicromapInfoEXT", {
     sType: "u32("+(V.VkCopyMicromapInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_COPY_MICROMAP_INFO_EXT||0),
     pNext: "u64("+(V.VkCopyMicromapInfoEXT_pNext_offsetof||0)+")",
-    src: "u32("+(V.VkCopyMicromapInfoEXT_src_offsetof||0)+")",
-    dst: "u32("+(V.VkCopyMicromapInfoEXT_dst_offsetof||0)+")",
+    src: "VkMicromapEXT("+(V.VkCopyMicromapInfoEXT_src_offsetof||0)+")",
+    dst: "VkMicromapEXT("+(V.VkCopyMicromapInfoEXT_dst_offsetof||0)+")",
     mode: "u32("+(V.VkCopyMicromapInfoEXT_mode_offsetof||0)+")",
 }, (V.VkCopyMicromapInfoEXT_sizeof||0)));
 
@@ -8073,7 +8073,7 @@ const VkCopyMicromapInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkCopyMicr
 const VkCopyMicromapToMemoryInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkCopyMicromapToMemoryInfoEXT", {
     sType: "u32("+(V.VkCopyMicromapToMemoryInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_COPY_MICROMAP_TO_MEMORY_INFO_EXT||0),
     pNext: "u64("+(V.VkCopyMicromapToMemoryInfoEXT_pNext_offsetof||0)+")",
-    src: "u32("+(V.VkCopyMicromapToMemoryInfoEXT_src_offsetof||0)+")",
+    src: "VkMicromapEXT("+(V.VkCopyMicromapToMemoryInfoEXT_src_offsetof||0)+")",
     dst: "u64("+(V.VkCopyMicromapToMemoryInfoEXT_dst_offsetof||0)+")",
     mode: "u32("+(V.VkCopyMicromapToMemoryInfoEXT_mode_offsetof||0)+")",
 }, (V.VkCopyMicromapToMemoryInfoEXT_sizeof||0)));
@@ -8082,8 +8082,8 @@ const VkCopyMicromapToMemoryInfoEXT = new Proxy(C.CStructView, new C.CStruct("Vk
 const VkCopyMemoryToMicromapInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkCopyMemoryToMicromapInfoEXT", {
     sType: "u32("+(V.VkCopyMemoryToMicromapInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_COPY_MEMORY_TO_MICROMAP_INFO_EXT||0),
     pNext: "u64("+(V.VkCopyMemoryToMicromapInfoEXT_pNext_offsetof||0)+")",
-    src: "u32("+(V.VkCopyMemoryToMicromapInfoEXT_src_offsetof||0)+")",
-    dst: "u32("+(V.VkCopyMemoryToMicromapInfoEXT_dst_offsetof||0)+")",
+    src: "VkDeviceOrHostAddressConstKHR("+(V.VkCopyMemoryToMicromapInfoEXT_src_offsetof||0)+")",
+    dst: "VkMicromapEXT("+(V.VkCopyMemoryToMicromapInfoEXT_dst_offsetof||0)+")",
     mode: "u32("+(V.VkCopyMemoryToMicromapInfoEXT_mode_offsetof||0)+")",
 }, (V.VkCopyMemoryToMicromapInfoEXT_sizeof||0)));
 
@@ -8132,13 +8132,13 @@ const VkAccelerationStructureTrianglesOpacityMicromapEXT = new Proxy(C.CStructVi
     sType: "u32("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT||0),
     pNext: "u64("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_pNext_offsetof||0)+")",
     indexType: "u32("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_indexType_offsetof||0)+")",
-    indexBuffer: "u32("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_indexBuffer_offsetof||0)+")",
+    indexBuffer: "VkDeviceOrHostAddressConstKHR("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_indexBuffer_offsetof||0)+")",
     indexStride: "u64("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_indexStride_offsetof||0)+")",
     baseTriangle: "u32("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_baseTriangle_offsetof||0)+")",
     usageCountsCount: "u32("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_usageCountsCount_offsetof||0)+")",
     pUsageCounts: "u64("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_pUsageCounts_offsetof||0)+")",
     ppUsageCounts: "u64("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_ppUsageCounts_offsetof||0)+")",
-    micromap: "u32("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_micromap_offsetof||0)+")",
+    micromap: "VkMicromapEXT("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_micromap_offsetof||0)+")",
 }, (V.VkAccelerationStructureTrianglesOpacityMicromapEXT_sizeof||0)));
 
 
@@ -8179,7 +8179,7 @@ const VkExportMetalObjectsInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkEx
 const VkExportMetalDeviceInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkExportMetalDeviceInfoEXT", {
     sType: "u32("+(V.VkExportMetalDeviceInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_EXPORT_METAL_DEVICE_INFO_EXT||0),
     pNext: "u64("+(V.VkExportMetalDeviceInfoEXT_pNext_offsetof||0)+")",
-    mtlDevice: "u32("+(V.VkExportMetalDeviceInfoEXT_mtlDevice_offsetof||0)+")",
+    mtlDevice: "MTLDevice_id("+(V.VkExportMetalDeviceInfoEXT_mtlDevice_offsetof||0)+")",
 }, (V.VkExportMetalDeviceInfoEXT_sizeof||0)));
 
 
@@ -8187,7 +8187,7 @@ const VkExportMetalCommandQueueInfoEXT = new Proxy(C.CStructView, new C.CStruct(
     sType: "u32("+(V.VkExportMetalCommandQueueInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_EXPORT_METAL_COMMAND_QUEUE_INFO_EXT||0),
     pNext: "u64("+(V.VkExportMetalCommandQueueInfoEXT_pNext_offsetof||0)+")",
     queue: "u64("+(V.VkExportMetalCommandQueueInfoEXT_queue_offsetof||0)+")",
-    mtlCommandQueue: "u32("+(V.VkExportMetalCommandQueueInfoEXT_mtlCommandQueue_offsetof||0)+")",
+    mtlCommandQueue: "MTLCommandQueue_id("+(V.VkExportMetalCommandQueueInfoEXT_mtlCommandQueue_offsetof||0)+")",
 }, (V.VkExportMetalCommandQueueInfoEXT_sizeof||0)));
 
 
@@ -8195,14 +8195,14 @@ const VkExportMetalBufferInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkExp
     sType: "u32("+(V.VkExportMetalBufferInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_EXPORT_METAL_BUFFER_INFO_EXT||0),
     pNext: "u64("+(V.VkExportMetalBufferInfoEXT_pNext_offsetof||0)+")",
     memory: "u64("+(V.VkExportMetalBufferInfoEXT_memory_offsetof||0)+")",
-    mtlBuffer: "u32("+(V.VkExportMetalBufferInfoEXT_mtlBuffer_offsetof||0)+")",
+    mtlBuffer: "MTLBuffer_id("+(V.VkExportMetalBufferInfoEXT_mtlBuffer_offsetof||0)+")",
 }, (V.VkExportMetalBufferInfoEXT_sizeof||0)));
 
 
 const VkImportMetalBufferInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkImportMetalBufferInfoEXT", {
     sType: "u32("+(V.VkImportMetalBufferInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMPORT_METAL_BUFFER_INFO_EXT||0),
     pNext: "u64("+(V.VkImportMetalBufferInfoEXT_pNext_offsetof||0)+")",
-    mtlBuffer: "u32("+(V.VkImportMetalBufferInfoEXT_mtlBuffer_offsetof||0)+")",
+    mtlBuffer: "MTLBuffer_id("+(V.VkImportMetalBufferInfoEXT_mtlBuffer_offsetof||0)+")",
 }, (V.VkImportMetalBufferInfoEXT_sizeof||0)));
 
 
@@ -8210,10 +8210,10 @@ const VkExportMetalTextureInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkEx
     sType: "u32("+(V.VkExportMetalTextureInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_EXPORT_METAL_TEXTURE_INFO_EXT||0),
     pNext: "u64("+(V.VkExportMetalTextureInfoEXT_pNext_offsetof||0)+")",
     image: "u64("+(V.VkExportMetalTextureInfoEXT_image_offsetof||0)+")",
-    imageView: "u32("+(V.VkExportMetalTextureInfoEXT_imageView_offsetof||0)+")",
-    bufferView: "u32("+(V.VkExportMetalTextureInfoEXT_bufferView_offsetof||0)+")",
+    imageView: "u64("+(V.VkExportMetalTextureInfoEXT_imageView_offsetof||0)+")",
+    bufferView: "VkBufferView("+(V.VkExportMetalTextureInfoEXT_bufferView_offsetof||0)+")",
     plane: "u32("+(V.VkExportMetalTextureInfoEXT_plane_offsetof||0)+")",
-    mtlTexture: "u32("+(V.VkExportMetalTextureInfoEXT_mtlTexture_offsetof||0)+")",
+    mtlTexture: "MTLTexture_id("+(V.VkExportMetalTextureInfoEXT_mtlTexture_offsetof||0)+")",
 }, (V.VkExportMetalTextureInfoEXT_sizeof||0)));
 
 
@@ -8221,7 +8221,7 @@ const VkImportMetalTextureInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkIm
     sType: "u32("+(V.VkImportMetalTextureInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMPORT_METAL_TEXTURE_INFO_EXT||0),
     pNext: "u64("+(V.VkImportMetalTextureInfoEXT_pNext_offsetof||0)+")",
     plane: "u32("+(V.VkImportMetalTextureInfoEXT_plane_offsetof||0)+")",
-    mtlTexture: "u32("+(V.VkImportMetalTextureInfoEXT_mtlTexture_offsetof||0)+")",
+    mtlTexture: "MTLTexture_id("+(V.VkImportMetalTextureInfoEXT_mtlTexture_offsetof||0)+")",
 }, (V.VkImportMetalTextureInfoEXT_sizeof||0)));
 
 
@@ -8229,14 +8229,14 @@ const VkExportMetalIOSurfaceInfoEXT = new Proxy(C.CStructView, new C.CStruct("Vk
     sType: "u32("+(V.VkExportMetalIOSurfaceInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_EXPORT_METAL_IO_SURFACE_INFO_EXT||0),
     pNext: "u64("+(V.VkExportMetalIOSurfaceInfoEXT_pNext_offsetof||0)+")",
     image: "u64("+(V.VkExportMetalIOSurfaceInfoEXT_image_offsetof||0)+")",
-    ioSurface: "u32("+(V.VkExportMetalIOSurfaceInfoEXT_ioSurface_offsetof||0)+")",
+    ioSurface: "IOSurfaceRef("+(V.VkExportMetalIOSurfaceInfoEXT_ioSurface_offsetof||0)+")",
 }, (V.VkExportMetalIOSurfaceInfoEXT_sizeof||0)));
 
 
 const VkImportMetalIOSurfaceInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkImportMetalIOSurfaceInfoEXT", {
     sType: "u32("+(V.VkImportMetalIOSurfaceInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMPORT_METAL_IO_SURFACE_INFO_EXT||0),
     pNext: "u64("+(V.VkImportMetalIOSurfaceInfoEXT_pNext_offsetof||0)+")",
-    ioSurface: "u32("+(V.VkImportMetalIOSurfaceInfoEXT_ioSurface_offsetof||0)+")",
+    ioSurface: "IOSurfaceRef("+(V.VkImportMetalIOSurfaceInfoEXT_ioSurface_offsetof||0)+")",
 }, (V.VkImportMetalIOSurfaceInfoEXT_sizeof||0)));
 
 
@@ -8244,15 +8244,15 @@ const VkExportMetalSharedEventInfoEXT = new Proxy(C.CStructView, new C.CStruct("
     sType: "u32("+(V.VkExportMetalSharedEventInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_EXPORT_METAL_SHARED_EVENT_INFO_EXT||0),
     pNext: "u64("+(V.VkExportMetalSharedEventInfoEXT_pNext_offsetof||0)+")",
     semaphore: "u64("+(V.VkExportMetalSharedEventInfoEXT_semaphore_offsetof||0)+")",
-    event: "u32("+(V.VkExportMetalSharedEventInfoEXT_event_offsetof||0)+")",
-    mtlSharedEvent: "u32("+(V.VkExportMetalSharedEventInfoEXT_mtlSharedEvent_offsetof||0)+")",
+    event: "VkEvent("+(V.VkExportMetalSharedEventInfoEXT_event_offsetof||0)+")",
+    mtlSharedEvent: "MTLSharedEvent_id("+(V.VkExportMetalSharedEventInfoEXT_mtlSharedEvent_offsetof||0)+")",
 }, (V.VkExportMetalSharedEventInfoEXT_sizeof||0)));
 
 
 const VkImportMetalSharedEventInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkImportMetalSharedEventInfoEXT", {
     sType: "u32("+(V.VkImportMetalSharedEventInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMPORT_METAL_SHARED_EVENT_INFO_EXT||0),
     pNext: "u64("+(V.VkImportMetalSharedEventInfoEXT_pNext_offsetof||0)+")",
-    mtlSharedEvent: "u32("+(V.VkImportMetalSharedEventInfoEXT_mtlSharedEvent_offsetof||0)+")",
+    mtlSharedEvent: "MTLSharedEvent_id("+(V.VkImportMetalSharedEventInfoEXT_mtlSharedEvent_offsetof||0)+")",
 }, (V.VkImportMetalSharedEventInfoEXT_sizeof||0)));
 
 
@@ -8328,7 +8328,7 @@ const VkPhysicalDeviceTilePropertiesFeaturesQCOM = new Proxy(C.CStructView, new 
 const VkTilePropertiesQCOM = new Proxy(C.CStructView, new C.CStruct("VkTilePropertiesQCOM", {
     sType: "u32("+(V.VkTilePropertiesQCOM_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_TILE_PROPERTIES_QCOM||0),
     pNext: "u64("+(V.VkTilePropertiesQCOM_pNext_offsetof||0)+")",
-    tileSize: "u32("+(V.VkTilePropertiesQCOM_tileSize_offsetof||0)+")",
+    tileSize: "VkExtent3D("+(V.VkTilePropertiesQCOM_tileSize_offsetof||0)+")",
     apronSize: "VkExtent2D("+(V.VkTilePropertiesQCOM_apronSize_offsetof||0)+")",
     origin: "VkOffset2D("+(V.VkTilePropertiesQCOM_origin_offsetof||0)+")",
 }, (V.VkTilePropertiesQCOM_sizeof||0)));

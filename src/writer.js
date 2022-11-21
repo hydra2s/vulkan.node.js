@@ -3,13 +3,13 @@ let getWriter = async()=>{
     const fs = await import('fs');
 
     //
-    let Handles = ["VkImage", "VkBuffer", "VkAccelerationStructureKHR", "VkQueue", "VkDeviceMemory", "HANDLE", "VkPhysicalDevice", "VkCommandBuffer", "VkSurfaceKHR", "VkFramebuffer", "VkSwapchainKHR", "VkSurfaceKHR", "VkPipeline", "VkPipelineLayout", "VkSemaphore", "VkSampler", "VkFence"];
+    let Handles = ["VkImageView", "VkImage", "VkBuffer", "VkAccelerationStructureKHR", "VkQueue", "VkDeviceMemory", "HANDLE", "VkPhysicalDevice", "VkCommandBuffer", "VkSurfaceKHR", "VkFramebuffer", "VkSwapchainKHR", "VkSurfaceKHR", "VkPipeline", "VkPipelineLayout", "VkSemaphore", "VkSampler", "VkFence"];
     let F64Types = ["double", "float64_t"];
     let F32Types = ["float", "float32_t"];
     let U8Types = ["uint8_t", "char8_t", "char"];
     let U16Types = ["uint16_t"];
-    let U64Types = ["uint64_t", "uintptr_t", "size_t", "VkDeviceSize", "VkDeviceAddress", "VkDeviceOffset", "VkDeviceOrHostAddressKHR", "VkFlags64"].concat(Handles);
-    let U32Types = ["uint32_t", "VkFlags", "VkBool32", "VkStructureType"];
+    let U64Types = ["LPCWSTR", "uint64_t", "uintptr_t", "size_t", "VkDeviceSize", "VkDeviceAddress", "VkDeviceOffset", "VkDeviceOrHostAddressKHR", "VkFlags64"].concat(Handles);
+    let U32Types = ["DWORD", "uint32_t", "VkFlags", "VkBool32", "VkStructureType"];
     let Pointables = ["VkOffset2D","VkExtent2D","VkRect2D","VkTransformMatrixKHR","VkTransformMatrixNV","VkPhysicalDeviceFeatures","VkPhysicalDeviceProperties","VkMemoryRequirements"];
     let U24Types = ["uint24_t"];
 
@@ -83,18 +83,19 @@ let getWriter = async()=>{
 
 
     //
-    let IsPointableValue = (param)=>{
+    let IsPointableValue = (param, map)=>{
         let P = param.isPointer, T = param.type, F = param.isFixedArray, B = param.bitfield;
+        if (map.parsedEnums.find((e)=>(e.extends == param.type || e.type == param.type))) { return false; };
         if (P || IsUint8(T,B) || IsUint16(T,B) || IsUint32(T,B) || IsUint64(T,B) || IsFloat32(T,B) || IsFloat64(T,B) || IsInt8(T,B) || IsInt16(T,B) || IsInt32(T,B) || IsInt64(T,B)) { return false; } else
         if (Pointables.indexOf(T) >= 0) { return true; } else
-        return false;
+        return true;
     }
 
     //
-    let IsNumberValue = (param)=>{
+    let IsNumberValue = (param, map)=>{
         let P = param.isPointer, T = param.type, F = param.isFixedArray, B = param.bitfield;
         if (P) { return false; } else
-        if (IsPointableValue(param)) { return false; } else
+        if (IsPointableValue(param, map)) { return false; } else
         if (IsUint8(T,B) || IsUint16(T,B) || IsUint32(T,B) || IsFloat32(T,B) || IsFloat64(T,B) || IsInt8(T,B) || IsInt16(T,B) || IsInt32(T,B)) { return true; } else
         return false;
     }
@@ -314,15 +315,6 @@ return (by ? `#ifdef ${by.name}
     };
 
     //
-    let ReturnOf = (T,P,B,N)=>{
-        let pointable = IsPointableValue(T,P);
-        let number = IsNumberValue(T,P);
-return number && !pointable || B ? 
-`return Napi::Number::New(env, ${N});` : 
-`return Napi::BigInt::New(env, (uint64_t)${IsPointableValue(T,P)?`&`:``}${N});`;
-    };
-
-    //
     let writeStructureOffsetsGot = (struct, map)=>{
         let by = map.usedBy[struct.name];
         let structed = {name: struct.name, params: []};
@@ -349,7 +341,7 @@ return params.join(`
 
     let writeParam = (name, param, map)=>{
         let paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u32")},`
-if (IsPointableValue(param))              { paramStr = `    ${param.name}: ${AsFixedArray(name, param, param.type)},` } else 
+if (IsPointableValue(param, map))              { paramStr = `    ${param.name}: ${AsFixedArray(name, param, param.type)},` } else 
 if (IsHandle(param))                      { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u64")},` } else 
 if (IsBigIntValue(param))                 { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u64")},` } else 
 if (IsUint8 (param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u8" )},` } else 
