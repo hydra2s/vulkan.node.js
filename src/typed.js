@@ -257,8 +257,7 @@ class CStructView {
 
         //
         (this.struct = struct).types.forEach((tp)=>{
-            const t = tp.type;
-            const array = new t(this.buffer, this.byteOffset + tp.byteOffset, 1);
+            const array = new tp.type(this.buffer, this.byteOffset + tp.byteOffset, 1);
             
             //array.parent = this; // prefer to have parent node
             Object.defineProperties(this, {
