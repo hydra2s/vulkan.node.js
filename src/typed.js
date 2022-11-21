@@ -220,7 +220,7 @@ new ArrayAccessor("f64", 8, getFloat, setFloat, Float64Array, ref);
 new ArrayAccessor("u64", 8, getBigInt, setBigInt, BigUint64Array, re64);
 new ArrayAccessor("i64", 8, getBigInt, setBigInt, BigInt64Array, re64);
 
-//
+// TODO: add typecasted assign support
 class CStructView {
     constructor(buffer, byteOffset = 0, byteLength = 0, struct = null) {
         this.buffer = buffer;
@@ -318,7 +318,7 @@ class CStructView {
     }
 }
 
-// 
+// TODO: add typecasted assign support
 class CStruct {
     constructor(name, struct, byteLength) {
         this.types = [];
