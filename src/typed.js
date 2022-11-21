@@ -267,8 +267,8 @@ class CStructView {
                 }
             });
 
-            //
-            if (tp.dfv != undefined && tp.dfv !== null) { 
+            // if has default value, but not set already
+            if (tp.dfv != undefined && tp.dfv !== null && !this[tp.name]) { 
                 this[tp.name] = tp.dfv;
             };
         });
