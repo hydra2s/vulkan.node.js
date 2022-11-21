@@ -89,12 +89,12 @@ import { default as V } from "./index.js";
 But continue, currently, not so fair. Needs sizeof de-facto. But now looks better.
 
 ```js
-	//
+    //
     const deviceCount = new Uint32Array(1);
     let result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, null);
     //console.log(deviceCount);
 
-	//
+    //
     if (deviceCount[0] <= 0) console.error("Error: No render devices available!");
     const devices = new BigUint64Array(deviceCount[0]);
     result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, devices);
@@ -106,7 +106,7 @@ But continue, currently, not so fair. Needs sizeof de-facto. But now looks bette
     const dExtensions = new V.VkExtensionProperties(dExtensionCount[0]);
     V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, dExtensions);
 
-	//
+    //
     for (let I=0;I<dExtensionCount[0];I++) {
         console.log(String.fromAddress(dExtensions[I].extensionName));
     }
@@ -125,29 +125,29 @@ But continue, currently, not so fair. Needs sizeof de-facto. But now looks bette
         }
     }
 
-	//
+    //
     const deviceFeatures = new V.VkPhysicalDeviceFeatures2();
-	const deviceProperties = new V.VkPhysicalDeviceProperties2();
+    const deviceProperties = new V.VkPhysicalDeviceProperties2();
 
-	//
-	V.vkGetPhysicalDeviceProperties2(devices[0], deviceProperties);
-	V.vkGetPhysicalDeviceFeatures2(devices[0], deviceFeatures);
+    //
+    V.vkGetPhysicalDeviceProperties2(devices[0], deviceProperties);
+    V.vkGetPhysicalDeviceFeatures2(devices[0], deviceFeatures);
 
-	//
-	//console.log(deviceFeatures.features);
+    //
+    //console.log(deviceFeatures.features);
 
-	// you can also hack and typecast members (californium bullets)
-	//console.log(deviceFeatures.as("VkPhysicalDeviceFeatures", "features"));
-	console.log(deviceFeatures.as(V.VkPhysicalDeviceFeatures, "features"));
+    // you can also hack and typecast members (californium bullets)
+    //console.log(deviceFeatures.as("VkPhysicalDeviceFeatures", "features"));
+    console.log(deviceFeatures.as(V.VkPhysicalDeviceFeatures, "features"));
 
-	// also, you can set or get uint32 values
-	//console.log(deviceFeatures.as("u32[arr]")[0]);
+    // also, you can set or get uint32 values
+    //console.log(deviceFeatures.as("u32[arr]")[0]);
 
-	// or only to get uint32
-	//console.log(deviceFeatures.as("u32"));
+    // or only to get uint32
+    //console.log(deviceFeatures.as("u32"));
 
-	// you construct struct from address
-	//console.log(V.VkPhysicalDeviceFeatures.fromAddress(deviceFeatures.address()));
+    // you construct struct from address
+    //console.log(V.VkPhysicalDeviceFeatures.fromAddress(deviceFeatures.address()));
 ```
 
 ## Projects
