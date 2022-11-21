@@ -325,4 +325,7 @@ const vert_shader_spv = new Uint8Array([
 	// or only to get uint32
 	//console.log(deviceFeatures.as("u32"));
 
+	// you construct struct from address
+	//console.log(V.VkPhysicalDeviceFeatures.fromAddress(deviceFeatures.address()));
+
 })();

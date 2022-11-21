@@ -109,7 +109,7 @@ class ArrayAccessor {
     get(Target, index) {
         if (index == "type") { return this.type; };
         if (index == "BYTES_PER_ELEMENT") { return Target[index]; }
-        
+        if (index == "fromAddress") { return Target[index].bind(Target); }
         if (!isConstructor(Target)) {
             if (index == "") {
                 return new Proxy(Target, this);
@@ -239,6 +239,7 @@ new ArrayAccessor("u64", 8, getBigInt, setBigInt, BigUint64Array, re64);
 new ArrayAccessor("i64", 8, getBigInt, setBigInt, BigInt64Array, re64);
 
 // TODO: add typecasted assign support
+// TODO: make length without bytes
 class CStructView {
     constructor(buffer, byteOffset = 0, byteLength = 0, struct = null) {
         this.buffer = buffer;
@@ -415,6 +416,10 @@ class CStruct {
         }
     }
 
+    fromAddress(address, length=1) {
+        return new Types[this.type](ArrayBuffer.fromAddress(asBigInt(address), length * this.byteLength), 0, length * this.byteLength);
+    }
+
     get(Target, index) {
         if (!isConstructor(Target)) {
             if (index == "") {
@@ -434,6 +439,7 @@ class CStruct {
                 return Target[index].bind(Target);
             }
         } else {
+            if (index == "fromAddress") { return this.fromAddress.bind(this); };
             if (index == "type") { return this.type; };
             if (index == "sizeof") { return this.byteLength; };
             if (index == "byteLength") { return this.byteLength; };
