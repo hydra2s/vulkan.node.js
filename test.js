@@ -280,11 +280,11 @@ const vert_shader_spv = new Uint8Array([
     V.vkCreateInstance(pInfo, null, instance);
 
     //
-    const GLFWwindow = V.glfwCreateWindow(1280, 720, "Hello Triangle", null, null);
+    const window = V.glfwCreateWindow(1280, 720, "Hello Triangle", null, null);
 
     // make shared GLFW surface between two versions of GLFW
     const surface = new BigUint64Array(1);
-    V.glfwCreateWindowSurface(instance[0], GLFWwindow, null, surface);
+    V.glfwCreateWindowSurface(instance[0], window, null, surface);
 
     
 
@@ -359,5 +359,19 @@ const vert_shader_spv = new Uint8Array([
 
     // you construct struct from address
     //console.log(V.VkPhysicalDeviceFeatures.fromAddress(deviceFeatures.address()));
+
+    let tickAwait = ()=> new Promise((r)=>setImmediate(r));
+
+    let terminated = false;
+    while (!V.glfwWindowShouldClose(window) && !terminated) { // 
+        // it's reasong why you should execute it everytime!
+        V.glfwPollEvents();
+        await tickAwait(); // don't lock any other operations
+
+        
+    };
+
+    // 
+    V.glfwTerminate(); 
 
 })();
