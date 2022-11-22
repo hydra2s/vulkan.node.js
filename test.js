@@ -1,21 +1,3 @@
-
-import { default as ffi } from 'ffi-napi'
-import { default as ref } from 'ref-napi'
-import { default as StructDi } from 'ref-struct-di'
-
-
-import {
-    C,
-    // Config,
-    DModel as M,
-    DStruct as DS,
-    DTypes as W,
-    // K,
-    U,
-} from 'win32-api' // as local
-
-import { Kernel32, User32 } from 'win32-api/promise'
-
 (async()=>{
 
     //
@@ -169,23 +151,13 @@ import { Kernel32, User32 } from 'win32-api/promise'
     V.vkCreateInstance(pInfo, null, instance);
 
     //
+    console.log("GLFW Window creation...");
     V.glfwWindowHint(V.GLFW_RESIZABLE, V.GLFW_FALSE);
     const window = V.glfwCreateWindow(1280, 720, "Hello Triangle", null, null);
 
     // make shared GLFW surface between two versions of GLFW
     const surface = new BigUint64Array(1);
     V.glfwCreateWindowSurface(instance[0], window, null, surface);
-
-    
-
-    //
-    //const 
-
-    // // // // // // // // // // // // // // // //
-    // TODO: support for Surface and Win32 handlers
-    // // // // // // // // // // // // // // // //
-
-
 
     //
     const deviceCount = new Uint32Array(1);
@@ -251,7 +223,7 @@ import { Kernel32, User32 } from 'win32-api/promise'
     // you construct struct from address
     //console.log(V.VkPhysicalDeviceFeatures.fromAddress(deviceFeatures.address()));
 
-
+    //
     let presentModeCount = new Uint32Array(1);
     V.vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface[0], presentModeCount, null);
     let presentModes = new Int32Array(presentModeCount[0]);
@@ -329,6 +301,7 @@ import { Kernel32, User32 } from 'win32-api/promise'
 
     // moooo, korovka...
     // use can use `set` operation for re-assign some structure parts
+    // TODO: resolve address indexing problems
     const imageViews = new BigUint64Array(amountOfImagesInSwapchain[0]);
     for (let I=0;I<amountOfImagesInSwapchain[0];I++) {
         V.vkCreateImageView(device[0], imageViewInfo.set({image: swapchainImages[I]}), null, imageViews.address() + BigInt(I*8)); // bit-tricky by device address
@@ -531,7 +504,7 @@ import { Kernel32, User32 } from 'win32-api/promise'
         layers: 1
     });
 
-    //
+    // TODO: resolve address indexing problems
     const framebuffers = new BigUint64Array(imageViews.length);
     for (let I=0;I<imageViews.length;I++) {
         V.vkCreateFramebuffer(device[0], framebufferInfo.set({pAttachments: imageViews.address() + BigInt(I*8)}), null, framebuffers.address() + BigInt(I*8));
@@ -610,7 +583,7 @@ import { Kernel32, User32 } from 'win32-api/promise'
     const imageIndex = new Uint32Array(1);
 
     //
-    console.log("BEGIN RENDERING!");
+    console.log("Begin rendering...");
 
     //
     while (!V.glfwWindowShouldClose(window) && !terminated) { // 
