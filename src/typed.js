@@ -452,6 +452,7 @@ class CStruct {
                 return Target[index].bind(Target);
             }
         } else {
+            this.gerenateTypeTable();
             if (index == "fromAddress") { return this.fromAddress.bind(this); };
             if (index == "type") { return this.type; };
             if (index == "sizeof") { return this.byteLength; };
