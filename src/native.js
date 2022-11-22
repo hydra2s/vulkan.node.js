@@ -34,6 +34,8 @@ DataView.prototype.address = function () { return (native.nativeAddress(this.buf
 Buffer.fromAddress = native.buffer;
 ArrayBuffer.fromAddress = native.arrayBuffer;
 SharedArrayBuffer.fromAddress = native.arrayBuffer;
+ArrayBuffer.prototype.set = function(typed) { new Uint8Array(this, 0, typed.byteLength).set( new Uint8Array(typed.buffer || typed, typed.byteOffset||0, typed.byteLength) ); };
+SharedArrayBuffer.prototype.set = function(typed) { new Uint8Array(this, 0, typed.byteLength).set( new Uint8Array(typed.buffer || typed, typed.byteOffset||0, typed.byteLength) ); };
 
 //
 if (typeof exports != "undefined") { exports.nativeAddress = native.nativeAddress; }
