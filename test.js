@@ -62,7 +62,7 @@
     //
     const createShaderModuleInfo = (module, stage, pName = "main")=>{
         return new V.VkPipelineShaderStageCreateInfo({
-            stage, module, pName, pSpecializationInfo: null
+            flags: 0, stage, module, pName, pSpecializationInfo: null
         });
     }
 

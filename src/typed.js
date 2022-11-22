@@ -326,17 +326,50 @@ class CStructView {
         return new type(this.buffer, this.byteOffset + offset + (this.offsetof(mname)||0), (length||1))[""];
     }
 
+    // fix extra vars problems, make as object and read-only de-facto
+    serialize() {
+        let obj = {};
+        for (let t of this.struct.types) { 
+            obj[t.name] = this[t.name];
+        };
+        return obj;
+    }
+
     // member utils
     lengthof(name) { return this.struct.lengthof(name); };
     offsetof(name) { return this.struct.offsetof(name); };
     bufferOffsetOf(name) { return this.byteOffset + this.offsetof(name); };
     addressOffsetOf(name) { return this.address() + this.offsetof(name); };
 
+    //
     set(buffer, offset = 0) {
         if (typeof buffer == "object") {
-            let structed = this;
+            //let structed = this;
             //for (let k in buffer) { if (this.types.find((t)=>(t.name == k))) { structed[k] = buffer[k]; }; }; // reduce the some time
-            for (let t of this.struct.types) { let k = t.name; if (k in buffer) { structed[k] = buffer[k]; }; }; // supports correct order
+            //for (let t of this.struct.types) { let k = t.name; if (k in buffer) { structed[k] = buffer[k]; }; }; // supports correct order
+            //return structed;
+
+            // serialization are required for avoid keys conflicts
+            buffer = buffer.serialize ? buffer.serialize() : buffer;
+
+            //
+            let types = [];
+            let keys = Object.keys(buffer).map((k,i)=>{
+                let names = k.split(":")||[];
+                types.push(names[1]);
+                return names[0]||k;
+            });
+
+            let structed = this;
+            //for (let k in buffer) { if (this.struct.types.find((t)=>(t.name == k))) { structed[k] = buffer[k]; }; }; // reduce the some time
+
+            for (let t of this.struct.types) { 
+                let k = t.name, f = keys.indexOf(k), type = types[f];
+                if (f >= 0) 
+                    if (type) 
+                        { structed.as(type, k)[""] = buffer[k]; } else 
+                        { structed[k] = buffer[k]; }
+            }; // supports correct order
             return structed;
         }
         return this;
@@ -441,14 +474,14 @@ class CStruct {
             if (IsNumber(index)) {
                 index = parseInt(index);
                 return new this._class(Target.buffer, Target.byteOffset + this.byteLength * index, Target.byteLength - this.byteLength * index)[""];
-            } else
+            } else // TODO: support type casting support
             if (Target.struct.types.find((t)=>(t.name==index))) {
                 return Target[index];
             } else
             if (["length", "byteOffset", "byteLength"].indexOf(index) >= 0) {
                 return Target[index];
             } else 
-            if (["set", "address", "as", "offsetof", "bufferOffsetOf", "addressOffsetOf"].indexOf(index) >= 0) {
+            if (["set", "address", "as", "offsetof", "bufferOffsetOf", "addressOffsetOf", "serialize"].indexOf(index) >= 0) {
                 return Target[index].bind(Target);
             }
         } else {
@@ -472,7 +505,7 @@ class CStruct {
                 index = parseInt(index);
                 new this._class(Target.buffer, Target.byteOffset + this.byteLength * index, (Target.length||1) - index)[""] = value;
                 return true;
-            } else 
+            } else // TODO: support type casting support
             if (Target.struct.types.find((t)=>(t.name==index))) {
                 Target[index] = value;
                 return true;
