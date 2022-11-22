@@ -349,13 +349,13 @@ class CStructView {
             //return structed;
 
             // serialization are required for avoid keys conflicts
-            buffer = buffer.serialize ? buffer.serialize() : buffer;
+            buffer = typeof buffer.serialize == "function" ? buffer.serialize() : buffer;
 
             //
-            let types = [];
+            let types = [], raws = [];
             let keys = Object.keys(buffer).map((k,i)=>{
                 let names = k.split(":")||[];
-                types.push(names[1]);
+                types.push(names[1]), raws.push(k);
                 return names[0]||k;
             });
 
@@ -366,8 +366,8 @@ class CStructView {
                 let k = t.name, f = keys.indexOf(k), type = types[f];
                 if (f >= 0) 
                     if (type) 
-                        { structed.as(type, k)[""] = buffer[k]; } else 
-                        { structed[k] = buffer[k]; }
+                        { structed.as(type, k)[""] = (buffer[k] || buffer[raws[f]]); } else 
+                        { structed[k] = (buffer[k] || buffer[raws[f]]); }
             }; // supports correct order
             return structed;
         }

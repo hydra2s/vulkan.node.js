@@ -259,8 +259,8 @@
     console.log("Surface Support By Physical Device: " + surfaceSupport);
 
     // TODO: native pointers support for GLFW
-    let windowWidth = new Uint32Array(1), windowHeight = new Uint32Array(1);
-    V.glfwGetWindowSize(window, windowWidth, windowHeight);
+    let windowSize = new Uint32Array(2);
+    V.glfwGetWindowSize(window, windowSize);
 
     //
     let swapchainInfo = new V.VkSwapchainCreateInfoKHR({
@@ -269,7 +269,7 @@
         minImageCount: 3,
         imageFormat: V.VK_FORMAT_B8G8R8A8_UNORM,
         imageColorSpace: V.VK_COLOR_SPACE_SRGB_NONLINEAR_KHR,
-        imageExtent: { width: windowWidth[0], height: windowHeight[0] },
+        ["imageExtent:u32[2]"]: windowSize,
         imageArrayLayers: 1,
         imageUsage: V.VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
         imageSharingMode: V.VK_SHARING_MODE_EXCLUSIVE,
@@ -328,13 +328,13 @@
 
     //
     const viewport = new V.VkViewport({
-        x: 0, y: 0, width: windowWidth[0], height: windowHeight[0], minDepth: 0.0, maxDepth: 1.0
+        x: 0, y: 0, width: windowSize[0], height: windowSize[1], minDepth: 0.0, maxDepth: 1.0
     });
 
     //
     const scissor = new V.VkRect2D({
-        offset: { x:0, y: 0 },
-        extent: { width: windowWidth[0], height: windowHeight[0] }
+        ["offset:u32[2]"]: [0,0],
+        ["extent:u32[2]"]: windowSize
     });
 
     //
@@ -496,7 +496,7 @@
         pNext: null,
         renderPass: renderPass[0],
         attachmentCount: 1,
-        width: windowWidth[0], height: windowHeight[0],
+        width: windowSize[0], height: windowSize[1],
         layers: 1
     });
 
@@ -548,7 +548,7 @@
             sType: V.VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO,
             renderPass: renderPass[0],
             framebuffer: framebuffers[I],
-            renderArea: { offset: {x: 0, y: 0}, extent: { width: windowWidth[0], height: windowHeight[0] } },
+            renderArea: { ["offset:u32[2]"]: [0,0], ["extent:u32[2]"]: windowSize },
             clearValueCount: 1,
             pClearValues: clearValue,
         });
