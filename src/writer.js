@@ -500,7 +500,11 @@ export default {
 //
 #include "./sizes.h"
 #include "./native.hpp"
+
+//
+#ifdef ENABLE_GLFW_SUPPORT
 #include "./glfw.hpp"
+#endif
 
 //
 static Napi::Value rawGetStructureSizeBySType(const Napi::CallbackInfo& info_) {
@@ -534,10 +538,16 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
 #endif
 
     //
+#ifdef ENABLE_GLFW_SUPPORT
     glfwInit();
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+#endif
+
     volkInitialize();
+
+#ifdef ENABLE_GLFW_SUPPORT
     glfwInitVulkanLoader(vkGetInstanceProcAddr);
+#endif
 
 ${map.parsedStructs.map((cmd,i)=>writeStructureOffsetsGot(cmd,map)).join(`
 `)}
@@ -550,13 +560,134 @@ ${map.parsed.map((cmd,i)=>{
 }).join(`
 `)}
 
-    //
+    // TODO: Unified Syntax
+
+#ifdef ENABLE_GLFW_SUPPORT
+    // Context functions
+    exports.Set("glfwMakeContextCurrent", Napi::Function::New(env, __glfwMakeContextCurrent));
+    exports.Set("glfwGetCurrentContext", Napi::Function::New(env, __glfwGetCurrentContext));
+    exports.Set("glfwSwapInterval", Napi::Function::New(env, __glfwSwapInterval));
+    exports.Set("glfwExtensionSupported", Napi::Function::New(env, __glfwExtensionSupported));
+
+    // Initialization, version and error functions
+    exports.Set("glfwInit", Napi::Function::New(env, __glfwInit));
+    exports.Set("glfwTerminate", Napi::Function::New(env, __glfwTerminate));
+    exports.Set("glfwInitHint", Napi::Function::New(env, __glfwInitHint));
+    exports.Set("glfwGetVersion", Napi::Function::New(env, __glfwGetVersion));
+    exports.Set("glfwGetVersionString", Napi::Function::New(env, __glfwGetVersionString));
+    exports.Set("glfwGetError", Napi::Function::New(env, __glfwGetError));
+    exports.Set("glfwSetErrorCallback", Napi::Function::New(env, __glfwSetErrorCallback));
+
+    // Input functions
+    exports.Set("glfwGetInputMode", Napi::Function::New(env, __glfwGetInputMode));
+    exports.Set("glfwSetInputMode", Napi::Function::New(env, __glfwSetInputMode));
+    exports.Set("glfwRawMouseMotionSupported", Napi::Function::New(env, __glfwRawMouseMotionSupported));
+    exports.Set("glfwGetKeyName", Napi::Function::New(env, __glfwGetKeyName));
+    exports.Set("glfwGetKeyScancode", Napi::Function::New(env, __glfwGetKeyScancode));
+    exports.Set("glfwGetKey", Napi::Function::New(env, __glfwGetKey));
+    exports.Set("glfwGetMouseButton", Napi::Function::New(env, __glfwGetMouseButton));
+    exports.Set("glfwGetCursorPos", Napi::Function::New(env, __glfwGetCursorPos));
+    exports.Set("glfwSetCursorPos", Napi::Function::New(env, __glfwSetCursorPos));
+    exports.Set("glfwCreateCursor", Napi::Function::New(env, __glfwCreateCursor));
+    exports.Set("glfwCreateStandardCursor", Napi::Function::New(env, __glfwCreateStandardCursor));
+    exports.Set("glfwDestroyCursor", Napi::Function::New(env, __glfwDestroyCursor));
+    exports.Set("glfwSetCursor", Napi::Function::New(env, __glfwSetCursor));
+    exports.Set("glfwSetKeyCallback", Napi::Function::New(env, __glfwSetKeyCallback));
+    exports.Set("glfwSetCharCallback", Napi::Function::New(env, __glfwSetCharCallback));
+    exports.Set("glfwSetCharModsCallback", Napi::Function::New(env, __glfwSetCharModsCallback));
+    exports.Set("glfwSetMouseButtonCallback", Napi::Function::New(env, __glfwSetMouseButtonCallback));
+    exports.Set("glfwSetCursorPosCallback", Napi::Function::New(env, __glfwSetCursorPosCallback));
+    exports.Set("glfwSetCursorEnterCallback", Napi::Function::New(env, __glfwSetCursorEnterCallback));
+    exports.Set("glfwSetScrollCallback", Napi::Function::New(env, __glfwSetScrollCallback));
+    exports.Set("glfwSetDropCallback", Napi::Function::New(env, __glfwSetDropCallback));
+    exports.Set("glfwJoystickPresent", Napi::Function::New(env, __glfwJoystickPresent));
+    exports.Set("glfwGetJoystickAxes", Napi::Function::New(env, __glfwGetJoystickAxes));
+    exports.Set("glfwGetJoystickButtons", Napi::Function::New(env, __glfwGetJoystickButtons));
+    exports.Set("glfwGetJoystickHats", Napi::Function::New(env, __glfwGetJoystickHats));
+    exports.Set("glfwGetJoystickName", Napi::Function::New(env, __glfwGetJoystickName));
+    exports.Set("glfwGetJoystickGUID", Napi::Function::New(env, __glfwGetJoystickGUID));
+    exports.Set("glfwJoystickIsGamepad", Napi::Function::New(env, __glfwJoystickIsGamepad));
+    exports.Set("glfwSetJoystickCallback", Napi::Function::New(env, __glfwSetJoystickCallback));
+    exports.Set("glfwUpdateGamepadMappings", Napi::Function::New(env, __glfwUpdateGamepadMappings));
+    exports.Set("glfwGetGamepadName", Napi::Function::New(env, __glfwGetGamepadName));
+    exports.Set("glfwGetGamepadState", Napi::Function::New(env, __glfwGetGamepadState));
+    exports.Set("glfwSetClipboardString", Napi::Function::New(env, __glfwSetClipboardString));
+    exports.Set("glfwGetClipboardString", Napi::Function::New(env, __glfwGetClipboardString));
+    exports.Set("glfwGetTime", Napi::Function::New(env, __glfwGetTime));
+    exports.Set("glfwSetTime", Napi::Function::New(env, __glfwSetTime));
+    exports.Set("glfwGetTimerValue", Napi::Function::New(env, __glfwGetTimerValue));
+    exports.Set("glfwGetTimerFrequency", Napi::Function::New(env, __glfwGetTimerFrequency));
+
+    // Monitor functions
+    exports.Set("glfwGetMonitors", Napi::Function::New(env, __glfwGetMonitors));
+    exports.Set("glfwGetPrimaryMonitor", Napi::Function::New(env, __glfwGetPrimaryMonitor));
+    exports.Set("glfwGetMonitorPos", Napi::Function::New(env, __glfwGetMonitorPos));
+    exports.Set("glfwGetMonitorWorkarea", Napi::Function::New(env, __glfwGetMonitorWorkarea));
+    exports.Set("glfwGetMonitorPhysicalSize", Napi::Function::New(env, __glfwGetMonitorPhysicalSize));
+    exports.Set("glfwGetMonitorContentScale", Napi::Function::New(env, __glfwGetMonitorContentScale));
+    exports.Set("glfwGetMonitorName", Napi::Function::New(env, __glfwGetMonitorName));
+    exports.Set("glfwSetMonitorCallback", Napi::Function::New(env, __glfwSetMonitorCallback));
+    exports.Set("glfwGetVideoModes", Napi::Function::New(env, __glfwGetVideoModes));
+    exports.Set("glfwGetVideoMode", Napi::Function::New(env, __glfwGetVideoMode));
+    exports.Set("glfwSetGamma", Napi::Function::New(env, __glfwSetGamma));
+    exports.Set("glfwGetGammaRamp", Napi::Function::New(env, __glfwGetGammaRamp));
+    exports.Set("glfwSetGammaRamp", Napi::Function::New(env, __glfwSetGammaRamp));
+
+    // Window functions
+    exports.Set("glfwDefaultWindowHints", Napi::Function::New(env, __glfwDefaultWindowHints));
+    exports.Set("glfwWindowHint", Napi::Function::New(env, __glfwWindowHint));
+    exports.Set("glfwWindowHintString", Napi::Function::New(env, __glfwWindowHintString));
+    exports.Set("glfwCreateWindow", Napi::Function::New(env, __glfwCreateWindow));
+    exports.Set("glfwDestroyWindow", Napi::Function::New(env, __glfwDestroyWindow));
+    exports.Set("glfwWindowShouldClose", Napi::Function::New(env, __glfwWindowShouldClose));
+    exports.Set("glfwSetWindowShouldClose", Napi::Function::New(env, __glfwSetWindowShouldClose));
+    exports.Set("glfwSetWindowTitle", Napi::Function::New(env, __glfwSetWindowTitle));
+    exports.Set("glfwSetWindowIcon", Napi::Function::New(env, __glfwSetWindowIcon));
+    exports.Set("glfwGetWindowPos", Napi::Function::New(env, __glfwGetWindowPos));
+    exports.Set("glfwSetWindowPos", Napi::Function::New(env, __glfwSetWindowPos));
+    exports.Set("glfwGetWindowSize", Napi::Function::New(env, __glfwGetWindowSize));
+    exports.Set("glfwSetWindowSizeLimits", Napi::Function::New(env, __glfwSetWindowSizeLimits));
+    exports.Set("glfwSetWindowAspectRatio", Napi::Function::New(env, __glfwSetWindowAspectRatio));
+    exports.Set("glfwSetWindowSize", Napi::Function::New(env, __glfwSetWindowSize));
+    exports.Set("glfwGetFramebufferSize", Napi::Function::New(env, __glfwGetFramebufferSize));
+    exports.Set("glfwGetWindowFrameSize", Napi::Function::New(env, __glfwGetWindowFrameSize));
+    exports.Set("glfwGetWindowContentScale", Napi::Function::New(env, __glfwGetWindowContentScale));
+    exports.Set("glfwGetWindowOpacity", Napi::Function::New(env, __glfwGetWindowOpacity));
+    exports.Set("glfwSetWindowOpacity", Napi::Function::New(env, __glfwSetWindowOpacity));
+    exports.Set("glfwIconifyWindow", Napi::Function::New(env, __glfwIconifyWindow));
+    exports.Set("glfwRestoreWindow", Napi::Function::New(env, __glfwRestoreWindow));
+    exports.Set("glfwMaximizeWindow", Napi::Function::New(env, __glfwMaximizeWindow));
+    exports.Set("glfwShowWindow", Napi::Function::New(env, __glfwShowWindow));
+    exports.Set("glfwHideWindow", Napi::Function::New(env, __glfwHideWindow));
+    exports.Set("glfwFocusWindow", Napi::Function::New(env, __glfwFocusWindow));
+    exports.Set("glfwRequestWindowAttention", Napi::Function::New(env, __glfwRequestWindowAttention));
+    exports.Set("glfwGetWindowMonitor", Napi::Function::New(env, __glfwGetWindowMonitor));
+    exports.Set("glfwSetWindowMonitor", Napi::Function::New(env, __glfwSetWindowMonitor));
+    exports.Set("glfwGetWindowAttrib", Napi::Function::New(env, __glfwGetWindowAttrib));
+    exports.Set("glfwSetWindowAttrib", Napi::Function::New(env, __glfwSetWindowAttrib));
+    exports.Set("glfwSetWindowPosCallback", Napi::Function::New(env, __glfwSetWindowPosCallback));
+    exports.Set("glfwSetWindowSizeCallback", Napi::Function::New(env, __glfwSetWindowSizeCallback));
+    exports.Set("glfwSetWindowCloseCallback", Napi::Function::New(env, __glfwSetWindowCloseCallback));
+    exports.Set("glfwSetWindowRefreshCallback", Napi::Function::New(env, __glfwSetWindowRefreshCallback));
+    exports.Set("glfwSetWindowFocusCallback", Napi::Function::New(env, __glfwSetWindowFocusCallback));
+    exports.Set("glfwSetWindowIconifyCallback", Napi::Function::New(env, __glfwSetWindowIconifyCallback));
+    exports.Set("glfwSetWindowMaximizeCallback", Napi::Function::New(env, __glfwSetWindowMaximizeCallback));
+    exports.Set("glfwSetFramebufferSizeCallback", Napi::Function::New(env, __glfwSetFramebufferSizeCallback));
+    exports.Set("glfwSetWindowContentScaleCallback", Napi::Function::New(env, __glfwSetWindowContentScaleCallback));
+    exports.Set("glfwPollEvents", Napi::Function::New(env, __glfwPollEvents));
+    exports.Set("glfwWaitEvents", Napi::Function::New(env, __glfwWaitEvents));
+    exports.Set("glfwWaitEventsTimeout", Napi::Function::New(env, __glfwWaitEventsTimeout));
+    exports.Set("glfwPostEmptyEvent", Napi::Function::New(env, __glfwPostEmptyEvent));
+    exports.Set("glfwSwapBuffers", Napi::Function::New(env, __glfwSwapBuffers));
+
+    // TODO: Unified Syntax
     exports["glfwCreateWindowSurface"] = Napi::Function::New(env, __glfwCreateWindowSurface);
     exports["glfwVulkanSupported"] = Napi::Function::New(env, __glfwVulkanSupported);
     exports["glfwGetRequiredInstanceExtensions"] = Napi::Function::New(env, __glfwGetRequiredInstanceExtensions);
     exports["glfwGetPhysicalDevicePresentationSupport"] = Napi::Function::New(env, __glfwGetPhysicalDevicePresentationSupport);
+#endif
 
-    //
+    // TODO: Unified Syntax
     exports["vkGetStructureSizeBySType"] = Napi::Function::New(env, rawGetStructureSizeBySType);
     exports["uint8" ] = Napi::Function::New(env, DebugUint8);
     exports["uint16"] = Napi::Function::New(env, DebugUint16);
