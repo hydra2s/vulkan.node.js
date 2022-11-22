@@ -307,14 +307,10 @@
         V.vkCreateImageView(device[0], imageViewInfo.set({image: swapchainImages[I]}), null, imageViews.address() + BigInt(I*8)); // bit-tricky by device address
     }
 
-    //
-    const shaderStageInfoVert = createShaderModuleInfo(createShaderModule(device[0], await fs.promises.readFile("shaders/triangle.vert.spv")), V.VK_SHADER_STAGE_VERTEX_BIT);
-    const shaderStageInfoFrag = createShaderModuleInfo(createShaderModule(device[0], await fs.promises.readFile("shaders/triangle.frag.spv")), V.VK_SHADER_STAGE_FRAGMENT_BIT);
-
     // TODO: better construction!!
     const shaderStages = new V.VkPipelineShaderStageCreateInfo(2);
-    shaderStages[0].set(shaderStageInfoVert);
-    shaderStages[1].set(shaderStageInfoFrag);
+    shaderStages[0] = createShaderModuleInfo(createShaderModule(device[0], await fs.promises.readFile("shaders/triangle.vert.spv")), V.VK_SHADER_STAGE_VERTEX_BIT);
+    shaderStages[1] = createShaderModuleInfo(createShaderModule(device[0], await fs.promises.readFile("shaders/triangle.frag.spv")), V.VK_SHADER_STAGE_FRAGMENT_BIT);
 
     //
     const vertexInputInfo = new V.VkPipelineVertexInputStateCreateInfo({
