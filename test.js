@@ -172,7 +172,7 @@ const vert_shader_spv = new Uint8Array([
     });
 
     //
-    const createShaderModule = (shaderSrc) => {
+    const createShaderModule = (device, shaderSrc) => {
         let shaderModuleInfo = new V.VkShaderModuleCreateInfo({
             pCode: shaderSrc,
             codeSize: shaderSrc.byteLength
@@ -427,6 +427,26 @@ const vert_shader_spv = new Uint8Array([
     V.vkGetSwapchainImagesKHR(device[0], swapchain[0], amountOfImagesInSwapchain, null);
     const swapchainImages = new BigUint64Array(amountOfImagesInSwapchain[0]);
     V.vkGetSwapchainImagesKHR(device[0], swapchain[0], amountOfImagesInSwapchain, swapchainImages);
+
+    //
+    let imageViewInfo = new V.VkImageViewCreateInfo({
+        sType : V.VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO,
+        viewType : V.VK_IMAGE_VIEW_TYPE_2D,
+        format : V.VK_FORMAT_B8G8R8A8_UNORM,
+        subresourceRange: { aspectMask: V.VK_IMAGE_ASPECT_COLOR_BIT, baseMipLevel: 0, levelCount: 1, baseArrayLayer: 0, layerCount: 1 },
+    });
+
+    // moooo, korovka...
+    // use can use `set` operation for re-assign some structure parts
+    const imageViews = new BigUint64Array(amountOfImagesInSwapchain[0]);
+    for (let I=0;I<amountOfImagesInSwapchain[0];I++) {
+        V.vkCreateImageView(device[0], imageViewInfo.set({image: swapchainImages[I]}), null, imageViews.address() + BigInt(I*8)); // bit-tricky by device address
+    }
+
+    //
+    let vertShaderModule = createShaderModule(device[0], vert_shader_spv);
+    let fragShaderModule = createShaderModule(device[0], frag_shader_spv);
+
 
     //
     let tickAwait = ()=> new Promise((r)=>setImmediate(r));
