@@ -23,7 +23,7 @@ static uint64_t GetAddress(Napi::Env env, Napi::Value const& value_) {
     
     if (value_.IsNull()) { /* Skip, it's null... */ } else
     if (value_.IsNumber()) {
-        address = value_.As<Napi::Number>().Uint32Value();
+        address = value_.As<Napi::Number>().Int64Value();
     } else
     if (value_.IsBigInt()) {
         address = value_.As<Napi::BigInt>().Uint64Value(&lossless);
