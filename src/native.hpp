@@ -17,7 +17,7 @@ static Napi::Value Dealloc(const Napi::CallbackInfo& info_) {
     return Napi::BigInt::New(env, (uint64_t)0ull);
 }
 
-static uint64_t GetAddress(Napi::Env env, const Napi::Value& value_) {
+static uint64_t GetAddress(Napi::Env env, Napi::Value const& value_) {
     bool lossless = true;
     uint64_t address = 0ull;
     
