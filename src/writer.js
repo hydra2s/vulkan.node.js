@@ -556,7 +556,7 @@ ${map.parsedStructs.map((cmd,i)=>writeStructureOffsetsGot(cmd,map)).join(`
 ${map.parsed.map((cmd,i)=>{
     let by = map.usedBy[cmd.proto.name];
     return (by ? `#ifdef ${by.name}
-` : ``) + `    exports["${cmd.proto.name}"] = Napi::Function::New(env, ${cmd.proto.name.replace(/^vk/, "raw")});` + (by ? `
+` : ``) + `   exports.Set("${cmd.proto.name}", Napi::Function::New(env, ${cmd.proto.name.replace(/^vk/, "raw")}));` + (by ? `
 #endif` : ``);
 }).join(`
 `)}
@@ -682,25 +682,25 @@ ${map.parsed.map((cmd,i)=>{
     exports.Set("glfwSwapBuffers", Napi::Function::New(env, __glfwSwapBuffers));
 
     // TODO: Unified Syntax
-    exports["glfwCreateWindowSurface"] = Napi::Function::New(env, __glfwCreateWindowSurface);
-    exports["glfwVulkanSupported"] = Napi::Function::New(env, __glfwVulkanSupported);
-    exports["glfwGetRequiredInstanceExtensions"] = Napi::Function::New(env, __glfwGetRequiredInstanceExtensions);
-    exports["glfwGetPhysicalDevicePresentationSupport"] = Napi::Function::New(env, __glfwGetPhysicalDevicePresentationSupport);
+    exports.Set("glfwCreateWindowSurface", Napi::Function::New(env, __glfwCreateWindowSurface));
+    exports.Set("glfwVulkanSupported", Napi::Function::New(env, __glfwVulkanSupported));
+    exports.Set("glfwGetRequiredInstanceExtensions", Napi::Function::New(env, __glfwGetRequiredInstanceExtensions));
+    exports.Set("glfwGetPhysicalDevicePresentationSupport", Napi::Function::New(env, __glfwGetPhysicalDevicePresentationSupport));
 #endif
 
     // TODO: Unified Syntax
-    exports["vkGetStructureSizeBySType"] = Napi::Function::New(env, rawGetStructureSizeBySType);
-    exports["uint8" ] = Napi::Function::New(env, DebugUint8);
-    exports["uint16"] = Napi::Function::New(env, DebugUint16);
-    exports["uint32"] = Napi::Function::New(env, DebugUint32);
-    exports["uint64"] = Napi::Function::New(env, DebugUint64);
-    exports["float32"] = Napi::Function::New(env, DebugFloat32);
-    exports["float64"] = Napi::Function::New(env, DebugFloat64);
-    exports["nativeAddress"] = Napi::Function::New(env, GetAddressJS);
-    exports["arrayBuffer"] = Napi::Function::New(env, WrapArrayBuffer);
-    exports["buffer"] = Napi::Function::New(env, WrapBuffer);
-    exports["string"] = Napi::Function::New(env, WrapString);
-    exports["stringUtf16"] = Napi::Function::New(env, WrapStringUTF16);
+    exports.Set("vkGetStructureSizeBySType", Napi::Function::New(env, rawGetStructureSizeBySType));
+    exports.Set("uint8" , Napi::Function::New(env, DebugUint8));
+    exports.Set("uint16", Napi::Function::New(env, DebugUint16));
+    exports.Set("uint32", Napi::Function::New(env, DebugUint32));
+    exports.Set("uint64", Napi::Function::New(env, DebugUint64));
+    exports.Set("float32", Napi::Function::New(env, DebugFloat32));
+    exports.Set("float64", Napi::Function::New(env, DebugFloat64));
+    exports.Set("nativeAddress", Napi::Function::New(env, GetAddressJS));
+    exports.Set("arrayBuffer", Napi::Function::New(env, WrapArrayBuffer));
+    exports.Set("buffer", Napi::Function::New(env, WrapBuffer));
+    exports.Set("string", Napi::Function::New(env, WrapString));
+    exports.Set("stringUtf16", Napi::Function::New(env, WrapStringUTF16));
     return exports;
 }
 

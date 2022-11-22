@@ -340,7 +340,6 @@ class CStructView {
     offsetof(name) { return this.struct.offsetof(name); };
     bufferOffsetOf(name) { return this.byteOffset + this.offsetof(name); };
     addressOffsetOf(name) { return this.address() + this.offsetof(name); };
-
     //
     set(buffer, offset = 0) {
         if (typeof buffer == "object") {

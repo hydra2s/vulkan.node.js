@@ -32399,1213 +32399,1213 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
     exports["VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV_sizeof"] = Napi::Number::New(env, sizeof(VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV));
 #endif
 
-    exports["vkCreateInstance"] = Napi::Function::New(env, rawCreateInstance);
-    exports["vkDestroyInstance"] = Napi::Function::New(env, rawDestroyInstance);
-    exports["vkEnumeratePhysicalDevices"] = Napi::Function::New(env, rawEnumeratePhysicalDevices);
-    exports["vkGetDeviceProcAddr"] = Napi::Function::New(env, rawGetDeviceProcAddr);
-    exports["vkGetInstanceProcAddr"] = Napi::Function::New(env, rawGetInstanceProcAddr);
-    exports["vkGetPhysicalDeviceProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceProperties);
-    exports["vkGetPhysicalDeviceQueueFamilyProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceQueueFamilyProperties);
-    exports["vkGetPhysicalDeviceMemoryProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceMemoryProperties);
-    exports["vkGetPhysicalDeviceFeatures"] = Napi::Function::New(env, rawGetPhysicalDeviceFeatures);
-    exports["vkGetPhysicalDeviceFormatProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceFormatProperties);
-    exports["vkGetPhysicalDeviceImageFormatProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceImageFormatProperties);
-    exports["vkCreateDevice"] = Napi::Function::New(env, rawCreateDevice);
-    exports["vkDestroyDevice"] = Napi::Function::New(env, rawDestroyDevice);
-    exports["vkEnumerateInstanceVersion"] = Napi::Function::New(env, rawEnumerateInstanceVersion);
-    exports["vkEnumerateInstanceLayerProperties"] = Napi::Function::New(env, rawEnumerateInstanceLayerProperties);
-    exports["vkEnumerateInstanceExtensionProperties"] = Napi::Function::New(env, rawEnumerateInstanceExtensionProperties);
-    exports["vkEnumerateDeviceLayerProperties"] = Napi::Function::New(env, rawEnumerateDeviceLayerProperties);
-    exports["vkEnumerateDeviceExtensionProperties"] = Napi::Function::New(env, rawEnumerateDeviceExtensionProperties);
-    exports["vkGetDeviceQueue"] = Napi::Function::New(env, rawGetDeviceQueue);
-    exports["vkQueueSubmit"] = Napi::Function::New(env, rawQueueSubmit);
-    exports["vkQueueWaitIdle"] = Napi::Function::New(env, rawQueueWaitIdle);
-    exports["vkDeviceWaitIdle"] = Napi::Function::New(env, rawDeviceWaitIdle);
-    exports["vkAllocateMemory"] = Napi::Function::New(env, rawAllocateMemory);
-    exports["vkFreeMemory"] = Napi::Function::New(env, rawFreeMemory);
-    exports["vkMapMemory"] = Napi::Function::New(env, rawMapMemory);
-    exports["vkUnmapMemory"] = Napi::Function::New(env, rawUnmapMemory);
-    exports["vkFlushMappedMemoryRanges"] = Napi::Function::New(env, rawFlushMappedMemoryRanges);
-    exports["vkInvalidateMappedMemoryRanges"] = Napi::Function::New(env, rawInvalidateMappedMemoryRanges);
-    exports["vkGetDeviceMemoryCommitment"] = Napi::Function::New(env, rawGetDeviceMemoryCommitment);
-    exports["vkGetBufferMemoryRequirements"] = Napi::Function::New(env, rawGetBufferMemoryRequirements);
-    exports["vkBindBufferMemory"] = Napi::Function::New(env, rawBindBufferMemory);
-    exports["vkGetImageMemoryRequirements"] = Napi::Function::New(env, rawGetImageMemoryRequirements);
-    exports["vkBindImageMemory"] = Napi::Function::New(env, rawBindImageMemory);
-    exports["vkGetImageSparseMemoryRequirements"] = Napi::Function::New(env, rawGetImageSparseMemoryRequirements);
-    exports["vkGetPhysicalDeviceSparseImageFormatProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceSparseImageFormatProperties);
-    exports["vkQueueBindSparse"] = Napi::Function::New(env, rawQueueBindSparse);
-    exports["vkCreateFence"] = Napi::Function::New(env, rawCreateFence);
-    exports["vkDestroyFence"] = Napi::Function::New(env, rawDestroyFence);
-    exports["vkResetFences"] = Napi::Function::New(env, rawResetFences);
-    exports["vkGetFenceStatus"] = Napi::Function::New(env, rawGetFenceStatus);
-    exports["vkWaitForFences"] = Napi::Function::New(env, rawWaitForFences);
-    exports["vkCreateSemaphore"] = Napi::Function::New(env, rawCreateSemaphore);
-    exports["vkDestroySemaphore"] = Napi::Function::New(env, rawDestroySemaphore);
-    exports["vkCreateEvent"] = Napi::Function::New(env, rawCreateEvent);
-    exports["vkDestroyEvent"] = Napi::Function::New(env, rawDestroyEvent);
-    exports["vkGetEventStatus"] = Napi::Function::New(env, rawGetEventStatus);
-    exports["vkSetEvent"] = Napi::Function::New(env, rawSetEvent);
-    exports["vkResetEvent"] = Napi::Function::New(env, rawResetEvent);
-    exports["vkCreateQueryPool"] = Napi::Function::New(env, rawCreateQueryPool);
-    exports["vkDestroyQueryPool"] = Napi::Function::New(env, rawDestroyQueryPool);
-    exports["vkGetQueryPoolResults"] = Napi::Function::New(env, rawGetQueryPoolResults);
-    exports["vkResetQueryPool"] = Napi::Function::New(env, rawResetQueryPool);
-    exports["vkCreateBuffer"] = Napi::Function::New(env, rawCreateBuffer);
-    exports["vkDestroyBuffer"] = Napi::Function::New(env, rawDestroyBuffer);
-    exports["vkCreateBufferView"] = Napi::Function::New(env, rawCreateBufferView);
-    exports["vkDestroyBufferView"] = Napi::Function::New(env, rawDestroyBufferView);
-    exports["vkCreateImage"] = Napi::Function::New(env, rawCreateImage);
-    exports["vkDestroyImage"] = Napi::Function::New(env, rawDestroyImage);
-    exports["vkGetImageSubresourceLayout"] = Napi::Function::New(env, rawGetImageSubresourceLayout);
-    exports["vkCreateImageView"] = Napi::Function::New(env, rawCreateImageView);
-    exports["vkDestroyImageView"] = Napi::Function::New(env, rawDestroyImageView);
-    exports["vkCreateShaderModule"] = Napi::Function::New(env, rawCreateShaderModule);
-    exports["vkDestroyShaderModule"] = Napi::Function::New(env, rawDestroyShaderModule);
-    exports["vkCreatePipelineCache"] = Napi::Function::New(env, rawCreatePipelineCache);
-    exports["vkDestroyPipelineCache"] = Napi::Function::New(env, rawDestroyPipelineCache);
-    exports["vkGetPipelineCacheData"] = Napi::Function::New(env, rawGetPipelineCacheData);
-    exports["vkMergePipelineCaches"] = Napi::Function::New(env, rawMergePipelineCaches);
-    exports["vkCreateGraphicsPipelines"] = Napi::Function::New(env, rawCreateGraphicsPipelines);
-    exports["vkCreateComputePipelines"] = Napi::Function::New(env, rawCreateComputePipelines);
+   exports.Set("vkCreateInstance", Napi::Function::New(env, rawCreateInstance));
+   exports.Set("vkDestroyInstance", Napi::Function::New(env, rawDestroyInstance));
+   exports.Set("vkEnumeratePhysicalDevices", Napi::Function::New(env, rawEnumeratePhysicalDevices));
+   exports.Set("vkGetDeviceProcAddr", Napi::Function::New(env, rawGetDeviceProcAddr));
+   exports.Set("vkGetInstanceProcAddr", Napi::Function::New(env, rawGetInstanceProcAddr));
+   exports.Set("vkGetPhysicalDeviceProperties", Napi::Function::New(env, rawGetPhysicalDeviceProperties));
+   exports.Set("vkGetPhysicalDeviceQueueFamilyProperties", Napi::Function::New(env, rawGetPhysicalDeviceQueueFamilyProperties));
+   exports.Set("vkGetPhysicalDeviceMemoryProperties", Napi::Function::New(env, rawGetPhysicalDeviceMemoryProperties));
+   exports.Set("vkGetPhysicalDeviceFeatures", Napi::Function::New(env, rawGetPhysicalDeviceFeatures));
+   exports.Set("vkGetPhysicalDeviceFormatProperties", Napi::Function::New(env, rawGetPhysicalDeviceFormatProperties));
+   exports.Set("vkGetPhysicalDeviceImageFormatProperties", Napi::Function::New(env, rawGetPhysicalDeviceImageFormatProperties));
+   exports.Set("vkCreateDevice", Napi::Function::New(env, rawCreateDevice));
+   exports.Set("vkDestroyDevice", Napi::Function::New(env, rawDestroyDevice));
+   exports.Set("vkEnumerateInstanceVersion", Napi::Function::New(env, rawEnumerateInstanceVersion));
+   exports.Set("vkEnumerateInstanceLayerProperties", Napi::Function::New(env, rawEnumerateInstanceLayerProperties));
+   exports.Set("vkEnumerateInstanceExtensionProperties", Napi::Function::New(env, rawEnumerateInstanceExtensionProperties));
+   exports.Set("vkEnumerateDeviceLayerProperties", Napi::Function::New(env, rawEnumerateDeviceLayerProperties));
+   exports.Set("vkEnumerateDeviceExtensionProperties", Napi::Function::New(env, rawEnumerateDeviceExtensionProperties));
+   exports.Set("vkGetDeviceQueue", Napi::Function::New(env, rawGetDeviceQueue));
+   exports.Set("vkQueueSubmit", Napi::Function::New(env, rawQueueSubmit));
+   exports.Set("vkQueueWaitIdle", Napi::Function::New(env, rawQueueWaitIdle));
+   exports.Set("vkDeviceWaitIdle", Napi::Function::New(env, rawDeviceWaitIdle));
+   exports.Set("vkAllocateMemory", Napi::Function::New(env, rawAllocateMemory));
+   exports.Set("vkFreeMemory", Napi::Function::New(env, rawFreeMemory));
+   exports.Set("vkMapMemory", Napi::Function::New(env, rawMapMemory));
+   exports.Set("vkUnmapMemory", Napi::Function::New(env, rawUnmapMemory));
+   exports.Set("vkFlushMappedMemoryRanges", Napi::Function::New(env, rawFlushMappedMemoryRanges));
+   exports.Set("vkInvalidateMappedMemoryRanges", Napi::Function::New(env, rawInvalidateMappedMemoryRanges));
+   exports.Set("vkGetDeviceMemoryCommitment", Napi::Function::New(env, rawGetDeviceMemoryCommitment));
+   exports.Set("vkGetBufferMemoryRequirements", Napi::Function::New(env, rawGetBufferMemoryRequirements));
+   exports.Set("vkBindBufferMemory", Napi::Function::New(env, rawBindBufferMemory));
+   exports.Set("vkGetImageMemoryRequirements", Napi::Function::New(env, rawGetImageMemoryRequirements));
+   exports.Set("vkBindImageMemory", Napi::Function::New(env, rawBindImageMemory));
+   exports.Set("vkGetImageSparseMemoryRequirements", Napi::Function::New(env, rawGetImageSparseMemoryRequirements));
+   exports.Set("vkGetPhysicalDeviceSparseImageFormatProperties", Napi::Function::New(env, rawGetPhysicalDeviceSparseImageFormatProperties));
+   exports.Set("vkQueueBindSparse", Napi::Function::New(env, rawQueueBindSparse));
+   exports.Set("vkCreateFence", Napi::Function::New(env, rawCreateFence));
+   exports.Set("vkDestroyFence", Napi::Function::New(env, rawDestroyFence));
+   exports.Set("vkResetFences", Napi::Function::New(env, rawResetFences));
+   exports.Set("vkGetFenceStatus", Napi::Function::New(env, rawGetFenceStatus));
+   exports.Set("vkWaitForFences", Napi::Function::New(env, rawWaitForFences));
+   exports.Set("vkCreateSemaphore", Napi::Function::New(env, rawCreateSemaphore));
+   exports.Set("vkDestroySemaphore", Napi::Function::New(env, rawDestroySemaphore));
+   exports.Set("vkCreateEvent", Napi::Function::New(env, rawCreateEvent));
+   exports.Set("vkDestroyEvent", Napi::Function::New(env, rawDestroyEvent));
+   exports.Set("vkGetEventStatus", Napi::Function::New(env, rawGetEventStatus));
+   exports.Set("vkSetEvent", Napi::Function::New(env, rawSetEvent));
+   exports.Set("vkResetEvent", Napi::Function::New(env, rawResetEvent));
+   exports.Set("vkCreateQueryPool", Napi::Function::New(env, rawCreateQueryPool));
+   exports.Set("vkDestroyQueryPool", Napi::Function::New(env, rawDestroyQueryPool));
+   exports.Set("vkGetQueryPoolResults", Napi::Function::New(env, rawGetQueryPoolResults));
+   exports.Set("vkResetQueryPool", Napi::Function::New(env, rawResetQueryPool));
+   exports.Set("vkCreateBuffer", Napi::Function::New(env, rawCreateBuffer));
+   exports.Set("vkDestroyBuffer", Napi::Function::New(env, rawDestroyBuffer));
+   exports.Set("vkCreateBufferView", Napi::Function::New(env, rawCreateBufferView));
+   exports.Set("vkDestroyBufferView", Napi::Function::New(env, rawDestroyBufferView));
+   exports.Set("vkCreateImage", Napi::Function::New(env, rawCreateImage));
+   exports.Set("vkDestroyImage", Napi::Function::New(env, rawDestroyImage));
+   exports.Set("vkGetImageSubresourceLayout", Napi::Function::New(env, rawGetImageSubresourceLayout));
+   exports.Set("vkCreateImageView", Napi::Function::New(env, rawCreateImageView));
+   exports.Set("vkDestroyImageView", Napi::Function::New(env, rawDestroyImageView));
+   exports.Set("vkCreateShaderModule", Napi::Function::New(env, rawCreateShaderModule));
+   exports.Set("vkDestroyShaderModule", Napi::Function::New(env, rawDestroyShaderModule));
+   exports.Set("vkCreatePipelineCache", Napi::Function::New(env, rawCreatePipelineCache));
+   exports.Set("vkDestroyPipelineCache", Napi::Function::New(env, rawDestroyPipelineCache));
+   exports.Set("vkGetPipelineCacheData", Napi::Function::New(env, rawGetPipelineCacheData));
+   exports.Set("vkMergePipelineCaches", Napi::Function::New(env, rawMergePipelineCaches));
+   exports.Set("vkCreateGraphicsPipelines", Napi::Function::New(env, rawCreateGraphicsPipelines));
+   exports.Set("vkCreateComputePipelines", Napi::Function::New(env, rawCreateComputePipelines));
 #ifdef VK_HUAWEI_subpass_shading
-    exports["vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI"] = Napi::Function::New(env, rawGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI);
+   exports.Set("vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI", Napi::Function::New(env, rawGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI));
 #endif
-    exports["vkDestroyPipeline"] = Napi::Function::New(env, rawDestroyPipeline);
-    exports["vkCreatePipelineLayout"] = Napi::Function::New(env, rawCreatePipelineLayout);
-    exports["vkDestroyPipelineLayout"] = Napi::Function::New(env, rawDestroyPipelineLayout);
-    exports["vkCreateSampler"] = Napi::Function::New(env, rawCreateSampler);
-    exports["vkDestroySampler"] = Napi::Function::New(env, rawDestroySampler);
-    exports["vkCreateDescriptorSetLayout"] = Napi::Function::New(env, rawCreateDescriptorSetLayout);
-    exports["vkDestroyDescriptorSetLayout"] = Napi::Function::New(env, rawDestroyDescriptorSetLayout);
-    exports["vkCreateDescriptorPool"] = Napi::Function::New(env, rawCreateDescriptorPool);
-    exports["vkDestroyDescriptorPool"] = Napi::Function::New(env, rawDestroyDescriptorPool);
-    exports["vkResetDescriptorPool"] = Napi::Function::New(env, rawResetDescriptorPool);
-    exports["vkAllocateDescriptorSets"] = Napi::Function::New(env, rawAllocateDescriptorSets);
-    exports["vkFreeDescriptorSets"] = Napi::Function::New(env, rawFreeDescriptorSets);
-    exports["vkUpdateDescriptorSets"] = Napi::Function::New(env, rawUpdateDescriptorSets);
-    exports["vkCreateFramebuffer"] = Napi::Function::New(env, rawCreateFramebuffer);
-    exports["vkDestroyFramebuffer"] = Napi::Function::New(env, rawDestroyFramebuffer);
-    exports["vkCreateRenderPass"] = Napi::Function::New(env, rawCreateRenderPass);
-    exports["vkDestroyRenderPass"] = Napi::Function::New(env, rawDestroyRenderPass);
-    exports["vkGetRenderAreaGranularity"] = Napi::Function::New(env, rawGetRenderAreaGranularity);
-    exports["vkCreateCommandPool"] = Napi::Function::New(env, rawCreateCommandPool);
-    exports["vkDestroyCommandPool"] = Napi::Function::New(env, rawDestroyCommandPool);
-    exports["vkResetCommandPool"] = Napi::Function::New(env, rawResetCommandPool);
-    exports["vkAllocateCommandBuffers"] = Napi::Function::New(env, rawAllocateCommandBuffers);
-    exports["vkFreeCommandBuffers"] = Napi::Function::New(env, rawFreeCommandBuffers);
-    exports["vkBeginCommandBuffer"] = Napi::Function::New(env, rawBeginCommandBuffer);
-    exports["vkEndCommandBuffer"] = Napi::Function::New(env, rawEndCommandBuffer);
-    exports["vkResetCommandBuffer"] = Napi::Function::New(env, rawResetCommandBuffer);
-    exports["vkCmdBindPipeline"] = Napi::Function::New(env, rawCmdBindPipeline);
-    exports["vkCmdSetViewport"] = Napi::Function::New(env, rawCmdSetViewport);
-    exports["vkCmdSetScissor"] = Napi::Function::New(env, rawCmdSetScissor);
-    exports["vkCmdSetLineWidth"] = Napi::Function::New(env, rawCmdSetLineWidth);
-    exports["vkCmdSetDepthBias"] = Napi::Function::New(env, rawCmdSetDepthBias);
-    exports["vkCmdSetBlendConstants"] = Napi::Function::New(env, rawCmdSetBlendConstants);
-    exports["vkCmdSetDepthBounds"] = Napi::Function::New(env, rawCmdSetDepthBounds);
-    exports["vkCmdSetStencilCompareMask"] = Napi::Function::New(env, rawCmdSetStencilCompareMask);
-    exports["vkCmdSetStencilWriteMask"] = Napi::Function::New(env, rawCmdSetStencilWriteMask);
-    exports["vkCmdSetStencilReference"] = Napi::Function::New(env, rawCmdSetStencilReference);
-    exports["vkCmdBindDescriptorSets"] = Napi::Function::New(env, rawCmdBindDescriptorSets);
-    exports["vkCmdBindIndexBuffer"] = Napi::Function::New(env, rawCmdBindIndexBuffer);
-    exports["vkCmdBindVertexBuffers"] = Napi::Function::New(env, rawCmdBindVertexBuffers);
-    exports["vkCmdDraw"] = Napi::Function::New(env, rawCmdDraw);
-    exports["vkCmdDrawIndexed"] = Napi::Function::New(env, rawCmdDrawIndexed);
+   exports.Set("vkDestroyPipeline", Napi::Function::New(env, rawDestroyPipeline));
+   exports.Set("vkCreatePipelineLayout", Napi::Function::New(env, rawCreatePipelineLayout));
+   exports.Set("vkDestroyPipelineLayout", Napi::Function::New(env, rawDestroyPipelineLayout));
+   exports.Set("vkCreateSampler", Napi::Function::New(env, rawCreateSampler));
+   exports.Set("vkDestroySampler", Napi::Function::New(env, rawDestroySampler));
+   exports.Set("vkCreateDescriptorSetLayout", Napi::Function::New(env, rawCreateDescriptorSetLayout));
+   exports.Set("vkDestroyDescriptorSetLayout", Napi::Function::New(env, rawDestroyDescriptorSetLayout));
+   exports.Set("vkCreateDescriptorPool", Napi::Function::New(env, rawCreateDescriptorPool));
+   exports.Set("vkDestroyDescriptorPool", Napi::Function::New(env, rawDestroyDescriptorPool));
+   exports.Set("vkResetDescriptorPool", Napi::Function::New(env, rawResetDescriptorPool));
+   exports.Set("vkAllocateDescriptorSets", Napi::Function::New(env, rawAllocateDescriptorSets));
+   exports.Set("vkFreeDescriptorSets", Napi::Function::New(env, rawFreeDescriptorSets));
+   exports.Set("vkUpdateDescriptorSets", Napi::Function::New(env, rawUpdateDescriptorSets));
+   exports.Set("vkCreateFramebuffer", Napi::Function::New(env, rawCreateFramebuffer));
+   exports.Set("vkDestroyFramebuffer", Napi::Function::New(env, rawDestroyFramebuffer));
+   exports.Set("vkCreateRenderPass", Napi::Function::New(env, rawCreateRenderPass));
+   exports.Set("vkDestroyRenderPass", Napi::Function::New(env, rawDestroyRenderPass));
+   exports.Set("vkGetRenderAreaGranularity", Napi::Function::New(env, rawGetRenderAreaGranularity));
+   exports.Set("vkCreateCommandPool", Napi::Function::New(env, rawCreateCommandPool));
+   exports.Set("vkDestroyCommandPool", Napi::Function::New(env, rawDestroyCommandPool));
+   exports.Set("vkResetCommandPool", Napi::Function::New(env, rawResetCommandPool));
+   exports.Set("vkAllocateCommandBuffers", Napi::Function::New(env, rawAllocateCommandBuffers));
+   exports.Set("vkFreeCommandBuffers", Napi::Function::New(env, rawFreeCommandBuffers));
+   exports.Set("vkBeginCommandBuffer", Napi::Function::New(env, rawBeginCommandBuffer));
+   exports.Set("vkEndCommandBuffer", Napi::Function::New(env, rawEndCommandBuffer));
+   exports.Set("vkResetCommandBuffer", Napi::Function::New(env, rawResetCommandBuffer));
+   exports.Set("vkCmdBindPipeline", Napi::Function::New(env, rawCmdBindPipeline));
+   exports.Set("vkCmdSetViewport", Napi::Function::New(env, rawCmdSetViewport));
+   exports.Set("vkCmdSetScissor", Napi::Function::New(env, rawCmdSetScissor));
+   exports.Set("vkCmdSetLineWidth", Napi::Function::New(env, rawCmdSetLineWidth));
+   exports.Set("vkCmdSetDepthBias", Napi::Function::New(env, rawCmdSetDepthBias));
+   exports.Set("vkCmdSetBlendConstants", Napi::Function::New(env, rawCmdSetBlendConstants));
+   exports.Set("vkCmdSetDepthBounds", Napi::Function::New(env, rawCmdSetDepthBounds));
+   exports.Set("vkCmdSetStencilCompareMask", Napi::Function::New(env, rawCmdSetStencilCompareMask));
+   exports.Set("vkCmdSetStencilWriteMask", Napi::Function::New(env, rawCmdSetStencilWriteMask));
+   exports.Set("vkCmdSetStencilReference", Napi::Function::New(env, rawCmdSetStencilReference));
+   exports.Set("vkCmdBindDescriptorSets", Napi::Function::New(env, rawCmdBindDescriptorSets));
+   exports.Set("vkCmdBindIndexBuffer", Napi::Function::New(env, rawCmdBindIndexBuffer));
+   exports.Set("vkCmdBindVertexBuffers", Napi::Function::New(env, rawCmdBindVertexBuffers));
+   exports.Set("vkCmdDraw", Napi::Function::New(env, rawCmdDraw));
+   exports.Set("vkCmdDrawIndexed", Napi::Function::New(env, rawCmdDrawIndexed));
 #ifdef VK_EXT_multi_draw
-    exports["vkCmdDrawMultiEXT"] = Napi::Function::New(env, rawCmdDrawMultiEXT);
+   exports.Set("vkCmdDrawMultiEXT", Napi::Function::New(env, rawCmdDrawMultiEXT));
 #endif
 #ifdef VK_EXT_multi_draw
-    exports["vkCmdDrawMultiIndexedEXT"] = Napi::Function::New(env, rawCmdDrawMultiIndexedEXT);
+   exports.Set("vkCmdDrawMultiIndexedEXT", Napi::Function::New(env, rawCmdDrawMultiIndexedEXT));
 #endif
-    exports["vkCmdDrawIndirect"] = Napi::Function::New(env, rawCmdDrawIndirect);
-    exports["vkCmdDrawIndexedIndirect"] = Napi::Function::New(env, rawCmdDrawIndexedIndirect);
-    exports["vkCmdDispatch"] = Napi::Function::New(env, rawCmdDispatch);
-    exports["vkCmdDispatchIndirect"] = Napi::Function::New(env, rawCmdDispatchIndirect);
+   exports.Set("vkCmdDrawIndirect", Napi::Function::New(env, rawCmdDrawIndirect));
+   exports.Set("vkCmdDrawIndexedIndirect", Napi::Function::New(env, rawCmdDrawIndexedIndirect));
+   exports.Set("vkCmdDispatch", Napi::Function::New(env, rawCmdDispatch));
+   exports.Set("vkCmdDispatchIndirect", Napi::Function::New(env, rawCmdDispatchIndirect));
 #ifdef VK_HUAWEI_subpass_shading
-    exports["vkCmdSubpassShadingHUAWEI"] = Napi::Function::New(env, rawCmdSubpassShadingHUAWEI);
+   exports.Set("vkCmdSubpassShadingHUAWEI", Napi::Function::New(env, rawCmdSubpassShadingHUAWEI));
 #endif
-    exports["vkCmdCopyBuffer"] = Napi::Function::New(env, rawCmdCopyBuffer);
-    exports["vkCmdCopyImage"] = Napi::Function::New(env, rawCmdCopyImage);
-    exports["vkCmdBlitImage"] = Napi::Function::New(env, rawCmdBlitImage);
-    exports["vkCmdCopyBufferToImage"] = Napi::Function::New(env, rawCmdCopyBufferToImage);
-    exports["vkCmdCopyImageToBuffer"] = Napi::Function::New(env, rawCmdCopyImageToBuffer);
+   exports.Set("vkCmdCopyBuffer", Napi::Function::New(env, rawCmdCopyBuffer));
+   exports.Set("vkCmdCopyImage", Napi::Function::New(env, rawCmdCopyImage));
+   exports.Set("vkCmdBlitImage", Napi::Function::New(env, rawCmdBlitImage));
+   exports.Set("vkCmdCopyBufferToImage", Napi::Function::New(env, rawCmdCopyBufferToImage));
+   exports.Set("vkCmdCopyImageToBuffer", Napi::Function::New(env, rawCmdCopyImageToBuffer));
 #ifdef VK_NV_copy_memory_indirect
-    exports["vkCmdCopyMemoryIndirectNV"] = Napi::Function::New(env, rawCmdCopyMemoryIndirectNV);
+   exports.Set("vkCmdCopyMemoryIndirectNV", Napi::Function::New(env, rawCmdCopyMemoryIndirectNV));
 #endif
 #ifdef VK_NV_copy_memory_indirect
-    exports["vkCmdCopyMemoryToImageIndirectNV"] = Napi::Function::New(env, rawCmdCopyMemoryToImageIndirectNV);
+   exports.Set("vkCmdCopyMemoryToImageIndirectNV", Napi::Function::New(env, rawCmdCopyMemoryToImageIndirectNV));
 #endif
-    exports["vkCmdUpdateBuffer"] = Napi::Function::New(env, rawCmdUpdateBuffer);
-    exports["vkCmdFillBuffer"] = Napi::Function::New(env, rawCmdFillBuffer);
-    exports["vkCmdClearColorImage"] = Napi::Function::New(env, rawCmdClearColorImage);
-    exports["vkCmdClearDepthStencilImage"] = Napi::Function::New(env, rawCmdClearDepthStencilImage);
-    exports["vkCmdClearAttachments"] = Napi::Function::New(env, rawCmdClearAttachments);
-    exports["vkCmdResolveImage"] = Napi::Function::New(env, rawCmdResolveImage);
-    exports["vkCmdSetEvent"] = Napi::Function::New(env, rawCmdSetEvent);
-    exports["vkCmdResetEvent"] = Napi::Function::New(env, rawCmdResetEvent);
-    exports["vkCmdWaitEvents"] = Napi::Function::New(env, rawCmdWaitEvents);
-    exports["vkCmdPipelineBarrier"] = Napi::Function::New(env, rawCmdPipelineBarrier);
-    exports["vkCmdBeginQuery"] = Napi::Function::New(env, rawCmdBeginQuery);
-    exports["vkCmdEndQuery"] = Napi::Function::New(env, rawCmdEndQuery);
+   exports.Set("vkCmdUpdateBuffer", Napi::Function::New(env, rawCmdUpdateBuffer));
+   exports.Set("vkCmdFillBuffer", Napi::Function::New(env, rawCmdFillBuffer));
+   exports.Set("vkCmdClearColorImage", Napi::Function::New(env, rawCmdClearColorImage));
+   exports.Set("vkCmdClearDepthStencilImage", Napi::Function::New(env, rawCmdClearDepthStencilImage));
+   exports.Set("vkCmdClearAttachments", Napi::Function::New(env, rawCmdClearAttachments));
+   exports.Set("vkCmdResolveImage", Napi::Function::New(env, rawCmdResolveImage));
+   exports.Set("vkCmdSetEvent", Napi::Function::New(env, rawCmdSetEvent));
+   exports.Set("vkCmdResetEvent", Napi::Function::New(env, rawCmdResetEvent));
+   exports.Set("vkCmdWaitEvents", Napi::Function::New(env, rawCmdWaitEvents));
+   exports.Set("vkCmdPipelineBarrier", Napi::Function::New(env, rawCmdPipelineBarrier));
+   exports.Set("vkCmdBeginQuery", Napi::Function::New(env, rawCmdBeginQuery));
+   exports.Set("vkCmdEndQuery", Napi::Function::New(env, rawCmdEndQuery));
 #ifdef VK_EXT_conditional_rendering
-    exports["vkCmdBeginConditionalRenderingEXT"] = Napi::Function::New(env, rawCmdBeginConditionalRenderingEXT);
+   exports.Set("vkCmdBeginConditionalRenderingEXT", Napi::Function::New(env, rawCmdBeginConditionalRenderingEXT));
 #endif
 #ifdef VK_EXT_conditional_rendering
-    exports["vkCmdEndConditionalRenderingEXT"] = Napi::Function::New(env, rawCmdEndConditionalRenderingEXT);
+   exports.Set("vkCmdEndConditionalRenderingEXT", Napi::Function::New(env, rawCmdEndConditionalRenderingEXT));
 #endif
-    exports["vkCmdResetQueryPool"] = Napi::Function::New(env, rawCmdResetQueryPool);
-    exports["vkCmdWriteTimestamp"] = Napi::Function::New(env, rawCmdWriteTimestamp);
-    exports["vkCmdCopyQueryPoolResults"] = Napi::Function::New(env, rawCmdCopyQueryPoolResults);
-    exports["vkCmdPushConstants"] = Napi::Function::New(env, rawCmdPushConstants);
-    exports["vkCmdBeginRenderPass"] = Napi::Function::New(env, rawCmdBeginRenderPass);
-    exports["vkCmdNextSubpass"] = Napi::Function::New(env, rawCmdNextSubpass);
-    exports["vkCmdEndRenderPass"] = Napi::Function::New(env, rawCmdEndRenderPass);
-    exports["vkCmdExecuteCommands"] = Napi::Function::New(env, rawCmdExecuteCommands);
+   exports.Set("vkCmdResetQueryPool", Napi::Function::New(env, rawCmdResetQueryPool));
+   exports.Set("vkCmdWriteTimestamp", Napi::Function::New(env, rawCmdWriteTimestamp));
+   exports.Set("vkCmdCopyQueryPoolResults", Napi::Function::New(env, rawCmdCopyQueryPoolResults));
+   exports.Set("vkCmdPushConstants", Napi::Function::New(env, rawCmdPushConstants));
+   exports.Set("vkCmdBeginRenderPass", Napi::Function::New(env, rawCmdBeginRenderPass));
+   exports.Set("vkCmdNextSubpass", Napi::Function::New(env, rawCmdNextSubpass));
+   exports.Set("vkCmdEndRenderPass", Napi::Function::New(env, rawCmdEndRenderPass));
+   exports.Set("vkCmdExecuteCommands", Napi::Function::New(env, rawCmdExecuteCommands));
 #ifdef VK_KHR_android_surface
-    exports["vkCreateAndroidSurfaceKHR"] = Napi::Function::New(env, rawCreateAndroidSurfaceKHR);
+   exports.Set("vkCreateAndroidSurfaceKHR", Napi::Function::New(env, rawCreateAndroidSurfaceKHR));
 #endif
 #ifdef VK_KHR_display
-    exports["vkGetPhysicalDeviceDisplayPropertiesKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceDisplayPropertiesKHR);
+   exports.Set("vkGetPhysicalDeviceDisplayPropertiesKHR", Napi::Function::New(env, rawGetPhysicalDeviceDisplayPropertiesKHR));
 #endif
 #ifdef VK_KHR_display
-    exports["vkGetPhysicalDeviceDisplayPlanePropertiesKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceDisplayPlanePropertiesKHR);
+   exports.Set("vkGetPhysicalDeviceDisplayPlanePropertiesKHR", Napi::Function::New(env, rawGetPhysicalDeviceDisplayPlanePropertiesKHR));
 #endif
 #ifdef VK_KHR_display
-    exports["vkGetDisplayPlaneSupportedDisplaysKHR"] = Napi::Function::New(env, rawGetDisplayPlaneSupportedDisplaysKHR);
+   exports.Set("vkGetDisplayPlaneSupportedDisplaysKHR", Napi::Function::New(env, rawGetDisplayPlaneSupportedDisplaysKHR));
 #endif
 #ifdef VK_KHR_display
-    exports["vkGetDisplayModePropertiesKHR"] = Napi::Function::New(env, rawGetDisplayModePropertiesKHR);
+   exports.Set("vkGetDisplayModePropertiesKHR", Napi::Function::New(env, rawGetDisplayModePropertiesKHR));
 #endif
 #ifdef VK_KHR_display
-    exports["vkCreateDisplayModeKHR"] = Napi::Function::New(env, rawCreateDisplayModeKHR);
+   exports.Set("vkCreateDisplayModeKHR", Napi::Function::New(env, rawCreateDisplayModeKHR));
 #endif
 #ifdef VK_KHR_display
-    exports["vkGetDisplayPlaneCapabilitiesKHR"] = Napi::Function::New(env, rawGetDisplayPlaneCapabilitiesKHR);
+   exports.Set("vkGetDisplayPlaneCapabilitiesKHR", Napi::Function::New(env, rawGetDisplayPlaneCapabilitiesKHR));
 #endif
 #ifdef VK_KHR_display
-    exports["vkCreateDisplayPlaneSurfaceKHR"] = Napi::Function::New(env, rawCreateDisplayPlaneSurfaceKHR);
+   exports.Set("vkCreateDisplayPlaneSurfaceKHR", Napi::Function::New(env, rawCreateDisplayPlaneSurfaceKHR));
 #endif
 #ifdef VK_KHR_display_swapchain
-    exports["vkCreateSharedSwapchainsKHR"] = Napi::Function::New(env, rawCreateSharedSwapchainsKHR);
+   exports.Set("vkCreateSharedSwapchainsKHR", Napi::Function::New(env, rawCreateSharedSwapchainsKHR));
 #endif
 #ifdef VK_KHR_surface
-    exports["vkDestroySurfaceKHR"] = Napi::Function::New(env, rawDestroySurfaceKHR);
+   exports.Set("vkDestroySurfaceKHR", Napi::Function::New(env, rawDestroySurfaceKHR));
 #endif
 #ifdef VK_KHR_surface
-    exports["vkGetPhysicalDeviceSurfaceSupportKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceSurfaceSupportKHR);
+   exports.Set("vkGetPhysicalDeviceSurfaceSupportKHR", Napi::Function::New(env, rawGetPhysicalDeviceSurfaceSupportKHR));
 #endif
 #ifdef VK_KHR_surface
-    exports["vkGetPhysicalDeviceSurfaceCapabilitiesKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceSurfaceCapabilitiesKHR);
+   exports.Set("vkGetPhysicalDeviceSurfaceCapabilitiesKHR", Napi::Function::New(env, rawGetPhysicalDeviceSurfaceCapabilitiesKHR));
 #endif
 #ifdef VK_KHR_surface
-    exports["vkGetPhysicalDeviceSurfaceFormatsKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceSurfaceFormatsKHR);
+   exports.Set("vkGetPhysicalDeviceSurfaceFormatsKHR", Napi::Function::New(env, rawGetPhysicalDeviceSurfaceFormatsKHR));
 #endif
 #ifdef VK_KHR_surface
-    exports["vkGetPhysicalDeviceSurfacePresentModesKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceSurfacePresentModesKHR);
+   exports.Set("vkGetPhysicalDeviceSurfacePresentModesKHR", Napi::Function::New(env, rawGetPhysicalDeviceSurfacePresentModesKHR));
 #endif
 #ifdef VK_KHR_swapchain
-    exports["vkCreateSwapchainKHR"] = Napi::Function::New(env, rawCreateSwapchainKHR);
+   exports.Set("vkCreateSwapchainKHR", Napi::Function::New(env, rawCreateSwapchainKHR));
 #endif
 #ifdef VK_KHR_swapchain
-    exports["vkDestroySwapchainKHR"] = Napi::Function::New(env, rawDestroySwapchainKHR);
+   exports.Set("vkDestroySwapchainKHR", Napi::Function::New(env, rawDestroySwapchainKHR));
 #endif
 #ifdef VK_KHR_swapchain
-    exports["vkGetSwapchainImagesKHR"] = Napi::Function::New(env, rawGetSwapchainImagesKHR);
+   exports.Set("vkGetSwapchainImagesKHR", Napi::Function::New(env, rawGetSwapchainImagesKHR));
 #endif
 #ifdef VK_KHR_swapchain
-    exports["vkAcquireNextImageKHR"] = Napi::Function::New(env, rawAcquireNextImageKHR);
+   exports.Set("vkAcquireNextImageKHR", Napi::Function::New(env, rawAcquireNextImageKHR));
 #endif
 #ifdef VK_KHR_swapchain
-    exports["vkQueuePresentKHR"] = Napi::Function::New(env, rawQueuePresentKHR);
+   exports.Set("vkQueuePresentKHR", Napi::Function::New(env, rawQueuePresentKHR));
 #endif
 #ifdef VK_NN_vi_surface
-    exports["vkCreateViSurfaceNN"] = Napi::Function::New(env, rawCreateViSurfaceNN);
+   exports.Set("vkCreateViSurfaceNN", Napi::Function::New(env, rawCreateViSurfaceNN));
 #endif
 #ifdef VK_KHR_wayland_surface
-    exports["vkCreateWaylandSurfaceKHR"] = Napi::Function::New(env, rawCreateWaylandSurfaceKHR);
+   exports.Set("vkCreateWaylandSurfaceKHR", Napi::Function::New(env, rawCreateWaylandSurfaceKHR));
 #endif
 #ifdef VK_KHR_wayland_surface
-    exports["vkGetPhysicalDeviceWaylandPresentationSupportKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceWaylandPresentationSupportKHR);
+   exports.Set("vkGetPhysicalDeviceWaylandPresentationSupportKHR", Napi::Function::New(env, rawGetPhysicalDeviceWaylandPresentationSupportKHR));
 #endif
 #ifdef VK_KHR_win32_surface
-    exports["vkCreateWin32SurfaceKHR"] = Napi::Function::New(env, rawCreateWin32SurfaceKHR);
+   exports.Set("vkCreateWin32SurfaceKHR", Napi::Function::New(env, rawCreateWin32SurfaceKHR));
 #endif
 #ifdef VK_KHR_win32_surface
-    exports["vkGetPhysicalDeviceWin32PresentationSupportKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceWin32PresentationSupportKHR);
+   exports.Set("vkGetPhysicalDeviceWin32PresentationSupportKHR", Napi::Function::New(env, rawGetPhysicalDeviceWin32PresentationSupportKHR));
 #endif
 #ifdef VK_KHR_xlib_surface
-    exports["vkCreateXlibSurfaceKHR"] = Napi::Function::New(env, rawCreateXlibSurfaceKHR);
+   exports.Set("vkCreateXlibSurfaceKHR", Napi::Function::New(env, rawCreateXlibSurfaceKHR));
 #endif
 #ifdef VK_KHR_xlib_surface
-    exports["vkGetPhysicalDeviceXlibPresentationSupportKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceXlibPresentationSupportKHR);
+   exports.Set("vkGetPhysicalDeviceXlibPresentationSupportKHR", Napi::Function::New(env, rawGetPhysicalDeviceXlibPresentationSupportKHR));
 #endif
 #ifdef VK_KHR_xcb_surface
-    exports["vkCreateXcbSurfaceKHR"] = Napi::Function::New(env, rawCreateXcbSurfaceKHR);
+   exports.Set("vkCreateXcbSurfaceKHR", Napi::Function::New(env, rawCreateXcbSurfaceKHR));
 #endif
 #ifdef VK_KHR_xcb_surface
-    exports["vkGetPhysicalDeviceXcbPresentationSupportKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceXcbPresentationSupportKHR);
+   exports.Set("vkGetPhysicalDeviceXcbPresentationSupportKHR", Napi::Function::New(env, rawGetPhysicalDeviceXcbPresentationSupportKHR));
 #endif
 #ifdef VK_EXT_directfb_surface
-    exports["vkCreateDirectFBSurfaceEXT"] = Napi::Function::New(env, rawCreateDirectFBSurfaceEXT);
+   exports.Set("vkCreateDirectFBSurfaceEXT", Napi::Function::New(env, rawCreateDirectFBSurfaceEXT));
 #endif
 #ifdef VK_EXT_directfb_surface
-    exports["vkGetPhysicalDeviceDirectFBPresentationSupportEXT"] = Napi::Function::New(env, rawGetPhysicalDeviceDirectFBPresentationSupportEXT);
+   exports.Set("vkGetPhysicalDeviceDirectFBPresentationSupportEXT", Napi::Function::New(env, rawGetPhysicalDeviceDirectFBPresentationSupportEXT));
 #endif
 #ifdef VK_FUCHSIA_imagepipe_surface
-    exports["vkCreateImagePipeSurfaceFUCHSIA"] = Napi::Function::New(env, rawCreateImagePipeSurfaceFUCHSIA);
+   exports.Set("vkCreateImagePipeSurfaceFUCHSIA", Napi::Function::New(env, rawCreateImagePipeSurfaceFUCHSIA));
 #endif
 #ifdef VK_GGP_stream_descriptor_surface
-    exports["vkCreateStreamDescriptorSurfaceGGP"] = Napi::Function::New(env, rawCreateStreamDescriptorSurfaceGGP);
+   exports.Set("vkCreateStreamDescriptorSurfaceGGP", Napi::Function::New(env, rawCreateStreamDescriptorSurfaceGGP));
 #endif
 #ifdef VK_QNX_screen_surface
-    exports["vkCreateScreenSurfaceQNX"] = Napi::Function::New(env, rawCreateScreenSurfaceQNX);
+   exports.Set("vkCreateScreenSurfaceQNX", Napi::Function::New(env, rawCreateScreenSurfaceQNX));
 #endif
 #ifdef VK_QNX_screen_surface
-    exports["vkGetPhysicalDeviceScreenPresentationSupportQNX"] = Napi::Function::New(env, rawGetPhysicalDeviceScreenPresentationSupportQNX);
+   exports.Set("vkGetPhysicalDeviceScreenPresentationSupportQNX", Napi::Function::New(env, rawGetPhysicalDeviceScreenPresentationSupportQNX));
 #endif
 #ifdef VK_EXT_debug_report
-    exports["vkCreateDebugReportCallbackEXT"] = Napi::Function::New(env, rawCreateDebugReportCallbackEXT);
+   exports.Set("vkCreateDebugReportCallbackEXT", Napi::Function::New(env, rawCreateDebugReportCallbackEXT));
 #endif
 #ifdef VK_EXT_debug_report
-    exports["vkDestroyDebugReportCallbackEXT"] = Napi::Function::New(env, rawDestroyDebugReportCallbackEXT);
+   exports.Set("vkDestroyDebugReportCallbackEXT", Napi::Function::New(env, rawDestroyDebugReportCallbackEXT));
 #endif
 #ifdef VK_EXT_debug_report
-    exports["vkDebugReportMessageEXT"] = Napi::Function::New(env, rawDebugReportMessageEXT);
+   exports.Set("vkDebugReportMessageEXT", Napi::Function::New(env, rawDebugReportMessageEXT));
 #endif
 #ifdef VK_EXT_debug_marker
-    exports["vkDebugMarkerSetObjectNameEXT"] = Napi::Function::New(env, rawDebugMarkerSetObjectNameEXT);
+   exports.Set("vkDebugMarkerSetObjectNameEXT", Napi::Function::New(env, rawDebugMarkerSetObjectNameEXT));
 #endif
 #ifdef VK_EXT_debug_marker
-    exports["vkDebugMarkerSetObjectTagEXT"] = Napi::Function::New(env, rawDebugMarkerSetObjectTagEXT);
+   exports.Set("vkDebugMarkerSetObjectTagEXT", Napi::Function::New(env, rawDebugMarkerSetObjectTagEXT));
 #endif
 #ifdef VK_EXT_debug_marker
-    exports["vkCmdDebugMarkerBeginEXT"] = Napi::Function::New(env, rawCmdDebugMarkerBeginEXT);
+   exports.Set("vkCmdDebugMarkerBeginEXT", Napi::Function::New(env, rawCmdDebugMarkerBeginEXT));
 #endif
 #ifdef VK_EXT_debug_marker
-    exports["vkCmdDebugMarkerEndEXT"] = Napi::Function::New(env, rawCmdDebugMarkerEndEXT);
+   exports.Set("vkCmdDebugMarkerEndEXT", Napi::Function::New(env, rawCmdDebugMarkerEndEXT));
 #endif
 #ifdef VK_EXT_debug_marker
-    exports["vkCmdDebugMarkerInsertEXT"] = Napi::Function::New(env, rawCmdDebugMarkerInsertEXT);
+   exports.Set("vkCmdDebugMarkerInsertEXT", Napi::Function::New(env, rawCmdDebugMarkerInsertEXT));
 #endif
 #ifdef VK_NV_external_memory_capabilities
-    exports["vkGetPhysicalDeviceExternalImageFormatPropertiesNV"] = Napi::Function::New(env, rawGetPhysicalDeviceExternalImageFormatPropertiesNV);
+   exports.Set("vkGetPhysicalDeviceExternalImageFormatPropertiesNV", Napi::Function::New(env, rawGetPhysicalDeviceExternalImageFormatPropertiesNV));
 #endif
 #ifdef VK_NV_external_memory_win32
-    exports["vkGetMemoryWin32HandleNV"] = Napi::Function::New(env, rawGetMemoryWin32HandleNV);
+   exports.Set("vkGetMemoryWin32HandleNV", Napi::Function::New(env, rawGetMemoryWin32HandleNV));
 #endif
 #ifdef VK_NV_device_generated_commands
-    exports["vkCmdExecuteGeneratedCommandsNV"] = Napi::Function::New(env, rawCmdExecuteGeneratedCommandsNV);
+   exports.Set("vkCmdExecuteGeneratedCommandsNV", Napi::Function::New(env, rawCmdExecuteGeneratedCommandsNV));
 #endif
 #ifdef VK_NV_device_generated_commands
-    exports["vkCmdPreprocessGeneratedCommandsNV"] = Napi::Function::New(env, rawCmdPreprocessGeneratedCommandsNV);
+   exports.Set("vkCmdPreprocessGeneratedCommandsNV", Napi::Function::New(env, rawCmdPreprocessGeneratedCommandsNV));
 #endif
 #ifdef VK_NV_device_generated_commands
-    exports["vkCmdBindPipelineShaderGroupNV"] = Napi::Function::New(env, rawCmdBindPipelineShaderGroupNV);
+   exports.Set("vkCmdBindPipelineShaderGroupNV", Napi::Function::New(env, rawCmdBindPipelineShaderGroupNV));
 #endif
 #ifdef VK_NV_device_generated_commands
-    exports["vkGetGeneratedCommandsMemoryRequirementsNV"] = Napi::Function::New(env, rawGetGeneratedCommandsMemoryRequirementsNV);
+   exports.Set("vkGetGeneratedCommandsMemoryRequirementsNV", Napi::Function::New(env, rawGetGeneratedCommandsMemoryRequirementsNV));
 #endif
 #ifdef VK_NV_device_generated_commands
-    exports["vkCreateIndirectCommandsLayoutNV"] = Napi::Function::New(env, rawCreateIndirectCommandsLayoutNV);
+   exports.Set("vkCreateIndirectCommandsLayoutNV", Napi::Function::New(env, rawCreateIndirectCommandsLayoutNV));
 #endif
 #ifdef VK_NV_device_generated_commands
-    exports["vkDestroyIndirectCommandsLayoutNV"] = Napi::Function::New(env, rawDestroyIndirectCommandsLayoutNV);
+   exports.Set("vkDestroyIndirectCommandsLayoutNV", Napi::Function::New(env, rawDestroyIndirectCommandsLayoutNV));
 #endif
-    exports["vkGetPhysicalDeviceFeatures2"] = Napi::Function::New(env, rawGetPhysicalDeviceFeatures2);
-    exports["vkGetPhysicalDeviceProperties2"] = Napi::Function::New(env, rawGetPhysicalDeviceProperties2);
-    exports["vkGetPhysicalDeviceFormatProperties2"] = Napi::Function::New(env, rawGetPhysicalDeviceFormatProperties2);
-    exports["vkGetPhysicalDeviceImageFormatProperties2"] = Napi::Function::New(env, rawGetPhysicalDeviceImageFormatProperties2);
-    exports["vkGetPhysicalDeviceQueueFamilyProperties2"] = Napi::Function::New(env, rawGetPhysicalDeviceQueueFamilyProperties2);
-    exports["vkGetPhysicalDeviceMemoryProperties2"] = Napi::Function::New(env, rawGetPhysicalDeviceMemoryProperties2);
-    exports["vkGetPhysicalDeviceSparseImageFormatProperties2"] = Napi::Function::New(env, rawGetPhysicalDeviceSparseImageFormatProperties2);
+   exports.Set("vkGetPhysicalDeviceFeatures2", Napi::Function::New(env, rawGetPhysicalDeviceFeatures2));
+   exports.Set("vkGetPhysicalDeviceProperties2", Napi::Function::New(env, rawGetPhysicalDeviceProperties2));
+   exports.Set("vkGetPhysicalDeviceFormatProperties2", Napi::Function::New(env, rawGetPhysicalDeviceFormatProperties2));
+   exports.Set("vkGetPhysicalDeviceImageFormatProperties2", Napi::Function::New(env, rawGetPhysicalDeviceImageFormatProperties2));
+   exports.Set("vkGetPhysicalDeviceQueueFamilyProperties2", Napi::Function::New(env, rawGetPhysicalDeviceQueueFamilyProperties2));
+   exports.Set("vkGetPhysicalDeviceMemoryProperties2", Napi::Function::New(env, rawGetPhysicalDeviceMemoryProperties2));
+   exports.Set("vkGetPhysicalDeviceSparseImageFormatProperties2", Napi::Function::New(env, rawGetPhysicalDeviceSparseImageFormatProperties2));
 #ifdef VK_KHR_push_descriptor
-    exports["vkCmdPushDescriptorSetKHR"] = Napi::Function::New(env, rawCmdPushDescriptorSetKHR);
+   exports.Set("vkCmdPushDescriptorSetKHR", Napi::Function::New(env, rawCmdPushDescriptorSetKHR));
 #endif
-    exports["vkTrimCommandPool"] = Napi::Function::New(env, rawTrimCommandPool);
-    exports["vkGetPhysicalDeviceExternalBufferProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceExternalBufferProperties);
+   exports.Set("vkTrimCommandPool", Napi::Function::New(env, rawTrimCommandPool));
+   exports.Set("vkGetPhysicalDeviceExternalBufferProperties", Napi::Function::New(env, rawGetPhysicalDeviceExternalBufferProperties));
 #ifdef VK_KHR_external_memory_win32
-    exports["vkGetMemoryWin32HandleKHR"] = Napi::Function::New(env, rawGetMemoryWin32HandleKHR);
+   exports.Set("vkGetMemoryWin32HandleKHR", Napi::Function::New(env, rawGetMemoryWin32HandleKHR));
 #endif
 #ifdef VK_KHR_external_memory_win32
-    exports["vkGetMemoryWin32HandlePropertiesKHR"] = Napi::Function::New(env, rawGetMemoryWin32HandlePropertiesKHR);
+   exports.Set("vkGetMemoryWin32HandlePropertiesKHR", Napi::Function::New(env, rawGetMemoryWin32HandlePropertiesKHR));
 #endif
 #ifdef VK_KHR_external_memory_fd
-    exports["vkGetMemoryFdKHR"] = Napi::Function::New(env, rawGetMemoryFdKHR);
+   exports.Set("vkGetMemoryFdKHR", Napi::Function::New(env, rawGetMemoryFdKHR));
 #endif
 #ifdef VK_KHR_external_memory_fd
-    exports["vkGetMemoryFdPropertiesKHR"] = Napi::Function::New(env, rawGetMemoryFdPropertiesKHR);
+   exports.Set("vkGetMemoryFdPropertiesKHR", Napi::Function::New(env, rawGetMemoryFdPropertiesKHR));
 #endif
 #ifdef VK_FUCHSIA_external_memory
-    exports["vkGetMemoryZirconHandleFUCHSIA"] = Napi::Function::New(env, rawGetMemoryZirconHandleFUCHSIA);
+   exports.Set("vkGetMemoryZirconHandleFUCHSIA", Napi::Function::New(env, rawGetMemoryZirconHandleFUCHSIA));
 #endif
 #ifdef VK_FUCHSIA_external_memory
-    exports["vkGetMemoryZirconHandlePropertiesFUCHSIA"] = Napi::Function::New(env, rawGetMemoryZirconHandlePropertiesFUCHSIA);
+   exports.Set("vkGetMemoryZirconHandlePropertiesFUCHSIA", Napi::Function::New(env, rawGetMemoryZirconHandlePropertiesFUCHSIA));
 #endif
 #ifdef VK_NV_external_memory_rdma
-    exports["vkGetMemoryRemoteAddressNV"] = Napi::Function::New(env, rawGetMemoryRemoteAddressNV);
+   exports.Set("vkGetMemoryRemoteAddressNV", Napi::Function::New(env, rawGetMemoryRemoteAddressNV));
 #endif
-    exports["vkGetPhysicalDeviceExternalSemaphoreProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceExternalSemaphoreProperties);
+   exports.Set("vkGetPhysicalDeviceExternalSemaphoreProperties", Napi::Function::New(env, rawGetPhysicalDeviceExternalSemaphoreProperties));
 #ifdef VK_KHR_external_semaphore_win32
-    exports["vkGetSemaphoreWin32HandleKHR"] = Napi::Function::New(env, rawGetSemaphoreWin32HandleKHR);
+   exports.Set("vkGetSemaphoreWin32HandleKHR", Napi::Function::New(env, rawGetSemaphoreWin32HandleKHR));
 #endif
 #ifdef VK_KHR_external_semaphore_win32
-    exports["vkImportSemaphoreWin32HandleKHR"] = Napi::Function::New(env, rawImportSemaphoreWin32HandleKHR);
+   exports.Set("vkImportSemaphoreWin32HandleKHR", Napi::Function::New(env, rawImportSemaphoreWin32HandleKHR));
 #endif
 #ifdef VK_KHR_external_semaphore_fd
-    exports["vkGetSemaphoreFdKHR"] = Napi::Function::New(env, rawGetSemaphoreFdKHR);
+   exports.Set("vkGetSemaphoreFdKHR", Napi::Function::New(env, rawGetSemaphoreFdKHR));
 #endif
 #ifdef VK_KHR_external_semaphore_fd
-    exports["vkImportSemaphoreFdKHR"] = Napi::Function::New(env, rawImportSemaphoreFdKHR);
+   exports.Set("vkImportSemaphoreFdKHR", Napi::Function::New(env, rawImportSemaphoreFdKHR));
 #endif
 #ifdef VK_FUCHSIA_external_semaphore
-    exports["vkGetSemaphoreZirconHandleFUCHSIA"] = Napi::Function::New(env, rawGetSemaphoreZirconHandleFUCHSIA);
+   exports.Set("vkGetSemaphoreZirconHandleFUCHSIA", Napi::Function::New(env, rawGetSemaphoreZirconHandleFUCHSIA));
 #endif
 #ifdef VK_FUCHSIA_external_semaphore
-    exports["vkImportSemaphoreZirconHandleFUCHSIA"] = Napi::Function::New(env, rawImportSemaphoreZirconHandleFUCHSIA);
+   exports.Set("vkImportSemaphoreZirconHandleFUCHSIA", Napi::Function::New(env, rawImportSemaphoreZirconHandleFUCHSIA));
 #endif
-    exports["vkGetPhysicalDeviceExternalFenceProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceExternalFenceProperties);
+   exports.Set("vkGetPhysicalDeviceExternalFenceProperties", Napi::Function::New(env, rawGetPhysicalDeviceExternalFenceProperties));
 #ifdef VK_KHR_external_fence_win32
-    exports["vkGetFenceWin32HandleKHR"] = Napi::Function::New(env, rawGetFenceWin32HandleKHR);
+   exports.Set("vkGetFenceWin32HandleKHR", Napi::Function::New(env, rawGetFenceWin32HandleKHR));
 #endif
 #ifdef VK_KHR_external_fence_win32
-    exports["vkImportFenceWin32HandleKHR"] = Napi::Function::New(env, rawImportFenceWin32HandleKHR);
+   exports.Set("vkImportFenceWin32HandleKHR", Napi::Function::New(env, rawImportFenceWin32HandleKHR));
 #endif
 #ifdef VK_KHR_external_fence_fd
-    exports["vkGetFenceFdKHR"] = Napi::Function::New(env, rawGetFenceFdKHR);
+   exports.Set("vkGetFenceFdKHR", Napi::Function::New(env, rawGetFenceFdKHR));
 #endif
 #ifdef VK_KHR_external_fence_fd
-    exports["vkImportFenceFdKHR"] = Napi::Function::New(env, rawImportFenceFdKHR);
+   exports.Set("vkImportFenceFdKHR", Napi::Function::New(env, rawImportFenceFdKHR));
 #endif
 #ifdef VK_EXT_direct_mode_display
-    exports["vkReleaseDisplayEXT"] = Napi::Function::New(env, rawReleaseDisplayEXT);
+   exports.Set("vkReleaseDisplayEXT", Napi::Function::New(env, rawReleaseDisplayEXT));
 #endif
 #ifdef VK_EXT_acquire_xlib_display
-    exports["vkAcquireXlibDisplayEXT"] = Napi::Function::New(env, rawAcquireXlibDisplayEXT);
+   exports.Set("vkAcquireXlibDisplayEXT", Napi::Function::New(env, rawAcquireXlibDisplayEXT));
 #endif
 #ifdef VK_EXT_acquire_xlib_display
-    exports["vkGetRandROutputDisplayEXT"] = Napi::Function::New(env, rawGetRandROutputDisplayEXT);
+   exports.Set("vkGetRandROutputDisplayEXT", Napi::Function::New(env, rawGetRandROutputDisplayEXT));
 #endif
 #ifdef VK_NV_acquire_winrt_display
-    exports["vkAcquireWinrtDisplayNV"] = Napi::Function::New(env, rawAcquireWinrtDisplayNV);
+   exports.Set("vkAcquireWinrtDisplayNV", Napi::Function::New(env, rawAcquireWinrtDisplayNV));
 #endif
 #ifdef VK_NV_acquire_winrt_display
-    exports["vkGetWinrtDisplayNV"] = Napi::Function::New(env, rawGetWinrtDisplayNV);
+   exports.Set("vkGetWinrtDisplayNV", Napi::Function::New(env, rawGetWinrtDisplayNV));
 #endif
 #ifdef VK_EXT_display_control
-    exports["vkDisplayPowerControlEXT"] = Napi::Function::New(env, rawDisplayPowerControlEXT);
+   exports.Set("vkDisplayPowerControlEXT", Napi::Function::New(env, rawDisplayPowerControlEXT));
 #endif
 #ifdef VK_EXT_display_control
-    exports["vkRegisterDeviceEventEXT"] = Napi::Function::New(env, rawRegisterDeviceEventEXT);
+   exports.Set("vkRegisterDeviceEventEXT", Napi::Function::New(env, rawRegisterDeviceEventEXT));
 #endif
 #ifdef VK_EXT_display_control
-    exports["vkRegisterDisplayEventEXT"] = Napi::Function::New(env, rawRegisterDisplayEventEXT);
+   exports.Set("vkRegisterDisplayEventEXT", Napi::Function::New(env, rawRegisterDisplayEventEXT));
 #endif
 #ifdef VK_EXT_display_control
-    exports["vkGetSwapchainCounterEXT"] = Napi::Function::New(env, rawGetSwapchainCounterEXT);
+   exports.Set("vkGetSwapchainCounterEXT", Napi::Function::New(env, rawGetSwapchainCounterEXT));
 #endif
 #ifdef VK_EXT_display_surface_counter
-    exports["vkGetPhysicalDeviceSurfaceCapabilities2EXT"] = Napi::Function::New(env, rawGetPhysicalDeviceSurfaceCapabilities2EXT);
+   exports.Set("vkGetPhysicalDeviceSurfaceCapabilities2EXT", Napi::Function::New(env, rawGetPhysicalDeviceSurfaceCapabilities2EXT));
 #endif
-    exports["vkEnumeratePhysicalDeviceGroups"] = Napi::Function::New(env, rawEnumeratePhysicalDeviceGroups);
-    exports["vkGetDeviceGroupPeerMemoryFeatures"] = Napi::Function::New(env, rawGetDeviceGroupPeerMemoryFeatures);
-    exports["vkBindBufferMemory2"] = Napi::Function::New(env, rawBindBufferMemory2);
-    exports["vkBindImageMemory2"] = Napi::Function::New(env, rawBindImageMemory2);
-    exports["vkCmdSetDeviceMask"] = Napi::Function::New(env, rawCmdSetDeviceMask);
+   exports.Set("vkEnumeratePhysicalDeviceGroups", Napi::Function::New(env, rawEnumeratePhysicalDeviceGroups));
+   exports.Set("vkGetDeviceGroupPeerMemoryFeatures", Napi::Function::New(env, rawGetDeviceGroupPeerMemoryFeatures));
+   exports.Set("vkBindBufferMemory2", Napi::Function::New(env, rawBindBufferMemory2));
+   exports.Set("vkBindImageMemory2", Napi::Function::New(env, rawBindImageMemory2));
+   exports.Set("vkCmdSetDeviceMask", Napi::Function::New(env, rawCmdSetDeviceMask));
 #ifdef VK_KHR_device_group
-    exports["vkGetDeviceGroupPresentCapabilitiesKHR"] = Napi::Function::New(env, rawGetDeviceGroupPresentCapabilitiesKHR);
-#endif
-#ifdef VK_KHR_device_group
-    exports["vkGetDeviceGroupSurfacePresentModesKHR"] = Napi::Function::New(env, rawGetDeviceGroupSurfacePresentModesKHR);
+   exports.Set("vkGetDeviceGroupPresentCapabilitiesKHR", Napi::Function::New(env, rawGetDeviceGroupPresentCapabilitiesKHR));
 #endif
 #ifdef VK_KHR_device_group
-    exports["vkAcquireNextImage2KHR"] = Napi::Function::New(env, rawAcquireNextImage2KHR);
+   exports.Set("vkGetDeviceGroupSurfacePresentModesKHR", Napi::Function::New(env, rawGetDeviceGroupSurfacePresentModesKHR));
 #endif
-    exports["vkCmdDispatchBase"] = Napi::Function::New(env, rawCmdDispatchBase);
 #ifdef VK_KHR_device_group
-    exports["vkGetPhysicalDevicePresentRectanglesKHR"] = Napi::Function::New(env, rawGetPhysicalDevicePresentRectanglesKHR);
+   exports.Set("vkAcquireNextImage2KHR", Napi::Function::New(env, rawAcquireNextImage2KHR));
 #endif
-    exports["vkCreateDescriptorUpdateTemplate"] = Napi::Function::New(env, rawCreateDescriptorUpdateTemplate);
-    exports["vkDestroyDescriptorUpdateTemplate"] = Napi::Function::New(env, rawDestroyDescriptorUpdateTemplate);
-    exports["vkUpdateDescriptorSetWithTemplate"] = Napi::Function::New(env, rawUpdateDescriptorSetWithTemplate);
+   exports.Set("vkCmdDispatchBase", Napi::Function::New(env, rawCmdDispatchBase));
+#ifdef VK_KHR_device_group
+   exports.Set("vkGetPhysicalDevicePresentRectanglesKHR", Napi::Function::New(env, rawGetPhysicalDevicePresentRectanglesKHR));
+#endif
+   exports.Set("vkCreateDescriptorUpdateTemplate", Napi::Function::New(env, rawCreateDescriptorUpdateTemplate));
+   exports.Set("vkDestroyDescriptorUpdateTemplate", Napi::Function::New(env, rawDestroyDescriptorUpdateTemplate));
+   exports.Set("vkUpdateDescriptorSetWithTemplate", Napi::Function::New(env, rawUpdateDescriptorSetWithTemplate));
 #ifdef VK_KHR_descriptor_update_template
-    exports["vkCmdPushDescriptorSetWithTemplateKHR"] = Napi::Function::New(env, rawCmdPushDescriptorSetWithTemplateKHR);
+   exports.Set("vkCmdPushDescriptorSetWithTemplateKHR", Napi::Function::New(env, rawCmdPushDescriptorSetWithTemplateKHR));
 #endif
 #ifdef VK_EXT_hdr_metadata
-    exports["vkSetHdrMetadataEXT"] = Napi::Function::New(env, rawSetHdrMetadataEXT);
+   exports.Set("vkSetHdrMetadataEXT", Napi::Function::New(env, rawSetHdrMetadataEXT));
 #endif
 #ifdef VK_KHR_shared_presentable_image
-    exports["vkGetSwapchainStatusKHR"] = Napi::Function::New(env, rawGetSwapchainStatusKHR);
+   exports.Set("vkGetSwapchainStatusKHR", Napi::Function::New(env, rawGetSwapchainStatusKHR));
 #endif
 #ifdef VK_GOOGLE_display_timing
-    exports["vkGetRefreshCycleDurationGOOGLE"] = Napi::Function::New(env, rawGetRefreshCycleDurationGOOGLE);
+   exports.Set("vkGetRefreshCycleDurationGOOGLE", Napi::Function::New(env, rawGetRefreshCycleDurationGOOGLE));
 #endif
 #ifdef VK_GOOGLE_display_timing
-    exports["vkGetPastPresentationTimingGOOGLE"] = Napi::Function::New(env, rawGetPastPresentationTimingGOOGLE);
+   exports.Set("vkGetPastPresentationTimingGOOGLE", Napi::Function::New(env, rawGetPastPresentationTimingGOOGLE));
 #endif
 #ifdef VK_MVK_ios_surface
-    exports["vkCreateIOSSurfaceMVK"] = Napi::Function::New(env, rawCreateIOSSurfaceMVK);
+   exports.Set("vkCreateIOSSurfaceMVK", Napi::Function::New(env, rawCreateIOSSurfaceMVK));
 #endif
 #ifdef VK_MVK_macos_surface
-    exports["vkCreateMacOSSurfaceMVK"] = Napi::Function::New(env, rawCreateMacOSSurfaceMVK);
+   exports.Set("vkCreateMacOSSurfaceMVK", Napi::Function::New(env, rawCreateMacOSSurfaceMVK));
 #endif
 #ifdef VK_EXT_metal_surface
-    exports["vkCreateMetalSurfaceEXT"] = Napi::Function::New(env, rawCreateMetalSurfaceEXT);
+   exports.Set("vkCreateMetalSurfaceEXT", Napi::Function::New(env, rawCreateMetalSurfaceEXT));
 #endif
 #ifdef VK_NV_clip_space_w_scaling
-    exports["vkCmdSetViewportWScalingNV"] = Napi::Function::New(env, rawCmdSetViewportWScalingNV);
+   exports.Set("vkCmdSetViewportWScalingNV", Napi::Function::New(env, rawCmdSetViewportWScalingNV));
 #endif
 #ifdef VK_EXT_discard_rectangles
-    exports["vkCmdSetDiscardRectangleEXT"] = Napi::Function::New(env, rawCmdSetDiscardRectangleEXT);
+   exports.Set("vkCmdSetDiscardRectangleEXT", Napi::Function::New(env, rawCmdSetDiscardRectangleEXT));
 #endif
 #ifdef VK_EXT_sample_locations
-    exports["vkCmdSetSampleLocationsEXT"] = Napi::Function::New(env, rawCmdSetSampleLocationsEXT);
+   exports.Set("vkCmdSetSampleLocationsEXT", Napi::Function::New(env, rawCmdSetSampleLocationsEXT));
 #endif
 #ifdef VK_EXT_sample_locations
-    exports["vkGetPhysicalDeviceMultisamplePropertiesEXT"] = Napi::Function::New(env, rawGetPhysicalDeviceMultisamplePropertiesEXT);
+   exports.Set("vkGetPhysicalDeviceMultisamplePropertiesEXT", Napi::Function::New(env, rawGetPhysicalDeviceMultisamplePropertiesEXT));
 #endif
 #ifdef VK_KHR_get_surface_capabilities2
-    exports["vkGetPhysicalDeviceSurfaceCapabilities2KHR"] = Napi::Function::New(env, rawGetPhysicalDeviceSurfaceCapabilities2KHR);
+   exports.Set("vkGetPhysicalDeviceSurfaceCapabilities2KHR", Napi::Function::New(env, rawGetPhysicalDeviceSurfaceCapabilities2KHR));
 #endif
 #ifdef VK_KHR_get_surface_capabilities2
-    exports["vkGetPhysicalDeviceSurfaceFormats2KHR"] = Napi::Function::New(env, rawGetPhysicalDeviceSurfaceFormats2KHR);
+   exports.Set("vkGetPhysicalDeviceSurfaceFormats2KHR", Napi::Function::New(env, rawGetPhysicalDeviceSurfaceFormats2KHR));
 #endif
 #ifdef VK_KHR_get_display_properties2
-    exports["vkGetPhysicalDeviceDisplayProperties2KHR"] = Napi::Function::New(env, rawGetPhysicalDeviceDisplayProperties2KHR);
+   exports.Set("vkGetPhysicalDeviceDisplayProperties2KHR", Napi::Function::New(env, rawGetPhysicalDeviceDisplayProperties2KHR));
 #endif
 #ifdef VK_KHR_get_display_properties2
-    exports["vkGetPhysicalDeviceDisplayPlaneProperties2KHR"] = Napi::Function::New(env, rawGetPhysicalDeviceDisplayPlaneProperties2KHR);
+   exports.Set("vkGetPhysicalDeviceDisplayPlaneProperties2KHR", Napi::Function::New(env, rawGetPhysicalDeviceDisplayPlaneProperties2KHR));
 #endif
 #ifdef VK_KHR_get_display_properties2
-    exports["vkGetDisplayModeProperties2KHR"] = Napi::Function::New(env, rawGetDisplayModeProperties2KHR);
+   exports.Set("vkGetDisplayModeProperties2KHR", Napi::Function::New(env, rawGetDisplayModeProperties2KHR));
 #endif
 #ifdef VK_KHR_get_display_properties2
-    exports["vkGetDisplayPlaneCapabilities2KHR"] = Napi::Function::New(env, rawGetDisplayPlaneCapabilities2KHR);
+   exports.Set("vkGetDisplayPlaneCapabilities2KHR", Napi::Function::New(env, rawGetDisplayPlaneCapabilities2KHR));
 #endif
-    exports["vkGetBufferMemoryRequirements2"] = Napi::Function::New(env, rawGetBufferMemoryRequirements2);
-    exports["vkGetImageMemoryRequirements2"] = Napi::Function::New(env, rawGetImageMemoryRequirements2);
-    exports["vkGetImageSparseMemoryRequirements2"] = Napi::Function::New(env, rawGetImageSparseMemoryRequirements2);
-    exports["vkGetDeviceBufferMemoryRequirements"] = Napi::Function::New(env, rawGetDeviceBufferMemoryRequirements);
-    exports["vkGetDeviceImageMemoryRequirements"] = Napi::Function::New(env, rawGetDeviceImageMemoryRequirements);
-    exports["vkGetDeviceImageSparseMemoryRequirements"] = Napi::Function::New(env, rawGetDeviceImageSparseMemoryRequirements);
-    exports["vkCreateSamplerYcbcrConversion"] = Napi::Function::New(env, rawCreateSamplerYcbcrConversion);
-    exports["vkDestroySamplerYcbcrConversion"] = Napi::Function::New(env, rawDestroySamplerYcbcrConversion);
-    exports["vkGetDeviceQueue2"] = Napi::Function::New(env, rawGetDeviceQueue2);
+   exports.Set("vkGetBufferMemoryRequirements2", Napi::Function::New(env, rawGetBufferMemoryRequirements2));
+   exports.Set("vkGetImageMemoryRequirements2", Napi::Function::New(env, rawGetImageMemoryRequirements2));
+   exports.Set("vkGetImageSparseMemoryRequirements2", Napi::Function::New(env, rawGetImageSparseMemoryRequirements2));
+   exports.Set("vkGetDeviceBufferMemoryRequirements", Napi::Function::New(env, rawGetDeviceBufferMemoryRequirements));
+   exports.Set("vkGetDeviceImageMemoryRequirements", Napi::Function::New(env, rawGetDeviceImageMemoryRequirements));
+   exports.Set("vkGetDeviceImageSparseMemoryRequirements", Napi::Function::New(env, rawGetDeviceImageSparseMemoryRequirements));
+   exports.Set("vkCreateSamplerYcbcrConversion", Napi::Function::New(env, rawCreateSamplerYcbcrConversion));
+   exports.Set("vkDestroySamplerYcbcrConversion", Napi::Function::New(env, rawDestroySamplerYcbcrConversion));
+   exports.Set("vkGetDeviceQueue2", Napi::Function::New(env, rawGetDeviceQueue2));
 #ifdef VK_EXT_validation_cache
-    exports["vkCreateValidationCacheEXT"] = Napi::Function::New(env, rawCreateValidationCacheEXT);
-#endif
-#ifdef VK_EXT_validation_cache
-    exports["vkDestroyValidationCacheEXT"] = Napi::Function::New(env, rawDestroyValidationCacheEXT);
+   exports.Set("vkCreateValidationCacheEXT", Napi::Function::New(env, rawCreateValidationCacheEXT));
 #endif
 #ifdef VK_EXT_validation_cache
-    exports["vkGetValidationCacheDataEXT"] = Napi::Function::New(env, rawGetValidationCacheDataEXT);
+   exports.Set("vkDestroyValidationCacheEXT", Napi::Function::New(env, rawDestroyValidationCacheEXT));
 #endif
 #ifdef VK_EXT_validation_cache
-    exports["vkMergeValidationCachesEXT"] = Napi::Function::New(env, rawMergeValidationCachesEXT);
+   exports.Set("vkGetValidationCacheDataEXT", Napi::Function::New(env, rawGetValidationCacheDataEXT));
 #endif
-    exports["vkGetDescriptorSetLayoutSupport"] = Napi::Function::New(env, rawGetDescriptorSetLayoutSupport);
-#ifdef VK_ANDROID_native_buffer
-    exports["vkGetSwapchainGrallocUsageANDROID"] = Napi::Function::New(env, rawGetSwapchainGrallocUsageANDROID);
+#ifdef VK_EXT_validation_cache
+   exports.Set("vkMergeValidationCachesEXT", Napi::Function::New(env, rawMergeValidationCachesEXT));
 #endif
+   exports.Set("vkGetDescriptorSetLayoutSupport", Napi::Function::New(env, rawGetDescriptorSetLayoutSupport));
 #ifdef VK_ANDROID_native_buffer
-    exports["vkGetSwapchainGrallocUsage2ANDROID"] = Napi::Function::New(env, rawGetSwapchainGrallocUsage2ANDROID);
-#endif
-#ifdef VK_ANDROID_native_buffer
-    exports["vkAcquireImageANDROID"] = Napi::Function::New(env, rawAcquireImageANDROID);
+   exports.Set("vkGetSwapchainGrallocUsageANDROID", Napi::Function::New(env, rawGetSwapchainGrallocUsageANDROID));
 #endif
 #ifdef VK_ANDROID_native_buffer
-    exports["vkQueueSignalReleaseImageANDROID"] = Napi::Function::New(env, rawQueueSignalReleaseImageANDROID);
+   exports.Set("vkGetSwapchainGrallocUsage2ANDROID", Napi::Function::New(env, rawGetSwapchainGrallocUsage2ANDROID));
+#endif
+#ifdef VK_ANDROID_native_buffer
+   exports.Set("vkAcquireImageANDROID", Napi::Function::New(env, rawAcquireImageANDROID));
+#endif
+#ifdef VK_ANDROID_native_buffer
+   exports.Set("vkQueueSignalReleaseImageANDROID", Napi::Function::New(env, rawQueueSignalReleaseImageANDROID));
 #endif
 #ifdef VK_AMD_shader_info
-    exports["vkGetShaderInfoAMD"] = Napi::Function::New(env, rawGetShaderInfoAMD);
+   exports.Set("vkGetShaderInfoAMD", Napi::Function::New(env, rawGetShaderInfoAMD));
 #endif
 #ifdef VK_AMD_display_native_hdr
-    exports["vkSetLocalDimmingAMD"] = Napi::Function::New(env, rawSetLocalDimmingAMD);
+   exports.Set("vkSetLocalDimmingAMD", Napi::Function::New(env, rawSetLocalDimmingAMD));
 #endif
 #ifdef VK_EXT_calibrated_timestamps
-    exports["vkGetPhysicalDeviceCalibrateableTimeDomainsEXT"] = Napi::Function::New(env, rawGetPhysicalDeviceCalibrateableTimeDomainsEXT);
+   exports.Set("vkGetPhysicalDeviceCalibrateableTimeDomainsEXT", Napi::Function::New(env, rawGetPhysicalDeviceCalibrateableTimeDomainsEXT));
 #endif
 #ifdef VK_EXT_calibrated_timestamps
-    exports["vkGetCalibratedTimestampsEXT"] = Napi::Function::New(env, rawGetCalibratedTimestampsEXT);
+   exports.Set("vkGetCalibratedTimestampsEXT", Napi::Function::New(env, rawGetCalibratedTimestampsEXT));
 #endif
 #ifdef VK_EXT_debug_utils
-    exports["vkSetDebugUtilsObjectNameEXT"] = Napi::Function::New(env, rawSetDebugUtilsObjectNameEXT);
+   exports.Set("vkSetDebugUtilsObjectNameEXT", Napi::Function::New(env, rawSetDebugUtilsObjectNameEXT));
 #endif
 #ifdef VK_EXT_debug_utils
-    exports["vkSetDebugUtilsObjectTagEXT"] = Napi::Function::New(env, rawSetDebugUtilsObjectTagEXT);
+   exports.Set("vkSetDebugUtilsObjectTagEXT", Napi::Function::New(env, rawSetDebugUtilsObjectTagEXT));
 #endif
 #ifdef VK_EXT_debug_utils
-    exports["vkQueueBeginDebugUtilsLabelEXT"] = Napi::Function::New(env, rawQueueBeginDebugUtilsLabelEXT);
+   exports.Set("vkQueueBeginDebugUtilsLabelEXT", Napi::Function::New(env, rawQueueBeginDebugUtilsLabelEXT));
 #endif
 #ifdef VK_EXT_debug_utils
-    exports["vkQueueEndDebugUtilsLabelEXT"] = Napi::Function::New(env, rawQueueEndDebugUtilsLabelEXT);
+   exports.Set("vkQueueEndDebugUtilsLabelEXT", Napi::Function::New(env, rawQueueEndDebugUtilsLabelEXT));
 #endif
 #ifdef VK_EXT_debug_utils
-    exports["vkQueueInsertDebugUtilsLabelEXT"] = Napi::Function::New(env, rawQueueInsertDebugUtilsLabelEXT);
+   exports.Set("vkQueueInsertDebugUtilsLabelEXT", Napi::Function::New(env, rawQueueInsertDebugUtilsLabelEXT));
 #endif
 #ifdef VK_EXT_debug_utils
-    exports["vkCmdBeginDebugUtilsLabelEXT"] = Napi::Function::New(env, rawCmdBeginDebugUtilsLabelEXT);
+   exports.Set("vkCmdBeginDebugUtilsLabelEXT", Napi::Function::New(env, rawCmdBeginDebugUtilsLabelEXT));
 #endif
 #ifdef VK_EXT_debug_utils
-    exports["vkCmdEndDebugUtilsLabelEXT"] = Napi::Function::New(env, rawCmdEndDebugUtilsLabelEXT);
+   exports.Set("vkCmdEndDebugUtilsLabelEXT", Napi::Function::New(env, rawCmdEndDebugUtilsLabelEXT));
 #endif
 #ifdef VK_EXT_debug_utils
-    exports["vkCmdInsertDebugUtilsLabelEXT"] = Napi::Function::New(env, rawCmdInsertDebugUtilsLabelEXT);
+   exports.Set("vkCmdInsertDebugUtilsLabelEXT", Napi::Function::New(env, rawCmdInsertDebugUtilsLabelEXT));
 #endif
 #ifdef VK_EXT_debug_utils
-    exports["vkCreateDebugUtilsMessengerEXT"] = Napi::Function::New(env, rawCreateDebugUtilsMessengerEXT);
+   exports.Set("vkCreateDebugUtilsMessengerEXT", Napi::Function::New(env, rawCreateDebugUtilsMessengerEXT));
 #endif
 #ifdef VK_EXT_debug_utils
-    exports["vkDestroyDebugUtilsMessengerEXT"] = Napi::Function::New(env, rawDestroyDebugUtilsMessengerEXT);
+   exports.Set("vkDestroyDebugUtilsMessengerEXT", Napi::Function::New(env, rawDestroyDebugUtilsMessengerEXT));
 #endif
 #ifdef VK_EXT_debug_utils
-    exports["vkSubmitDebugUtilsMessageEXT"] = Napi::Function::New(env, rawSubmitDebugUtilsMessageEXT);
+   exports.Set("vkSubmitDebugUtilsMessageEXT", Napi::Function::New(env, rawSubmitDebugUtilsMessageEXT));
 #endif
 #ifdef VK_EXT_external_memory_host
-    exports["vkGetMemoryHostPointerPropertiesEXT"] = Napi::Function::New(env, rawGetMemoryHostPointerPropertiesEXT);
+   exports.Set("vkGetMemoryHostPointerPropertiesEXT", Napi::Function::New(env, rawGetMemoryHostPointerPropertiesEXT));
 #endif
 #ifdef VK_AMD_buffer_marker
-    exports["vkCmdWriteBufferMarkerAMD"] = Napi::Function::New(env, rawCmdWriteBufferMarkerAMD);
+   exports.Set("vkCmdWriteBufferMarkerAMD", Napi::Function::New(env, rawCmdWriteBufferMarkerAMD));
 #endif
-    exports["vkCreateRenderPass2"] = Napi::Function::New(env, rawCreateRenderPass2);
-    exports["vkCmdBeginRenderPass2"] = Napi::Function::New(env, rawCmdBeginRenderPass2);
-    exports["vkCmdNextSubpass2"] = Napi::Function::New(env, rawCmdNextSubpass2);
-    exports["vkCmdEndRenderPass2"] = Napi::Function::New(env, rawCmdEndRenderPass2);
-    exports["vkGetSemaphoreCounterValue"] = Napi::Function::New(env, rawGetSemaphoreCounterValue);
-    exports["vkWaitSemaphores"] = Napi::Function::New(env, rawWaitSemaphores);
-    exports["vkSignalSemaphore"] = Napi::Function::New(env, rawSignalSemaphore);
+   exports.Set("vkCreateRenderPass2", Napi::Function::New(env, rawCreateRenderPass2));
+   exports.Set("vkCmdBeginRenderPass2", Napi::Function::New(env, rawCmdBeginRenderPass2));
+   exports.Set("vkCmdNextSubpass2", Napi::Function::New(env, rawCmdNextSubpass2));
+   exports.Set("vkCmdEndRenderPass2", Napi::Function::New(env, rawCmdEndRenderPass2));
+   exports.Set("vkGetSemaphoreCounterValue", Napi::Function::New(env, rawGetSemaphoreCounterValue));
+   exports.Set("vkWaitSemaphores", Napi::Function::New(env, rawWaitSemaphores));
+   exports.Set("vkSignalSemaphore", Napi::Function::New(env, rawSignalSemaphore));
 #ifdef VK_ANDROID_external_memory_android_hardware_buffer
-    exports["vkGetAndroidHardwareBufferPropertiesANDROID"] = Napi::Function::New(env, rawGetAndroidHardwareBufferPropertiesANDROID);
+   exports.Set("vkGetAndroidHardwareBufferPropertiesANDROID", Napi::Function::New(env, rawGetAndroidHardwareBufferPropertiesANDROID));
 #endif
 #ifdef VK_ANDROID_external_memory_android_hardware_buffer
-    exports["vkGetMemoryAndroidHardwareBufferANDROID"] = Napi::Function::New(env, rawGetMemoryAndroidHardwareBufferANDROID);
+   exports.Set("vkGetMemoryAndroidHardwareBufferANDROID", Napi::Function::New(env, rawGetMemoryAndroidHardwareBufferANDROID));
 #endif
-    exports["vkCmdDrawIndirectCount"] = Napi::Function::New(env, rawCmdDrawIndirectCount);
-    exports["vkCmdDrawIndexedIndirectCount"] = Napi::Function::New(env, rawCmdDrawIndexedIndirectCount);
+   exports.Set("vkCmdDrawIndirectCount", Napi::Function::New(env, rawCmdDrawIndirectCount));
+   exports.Set("vkCmdDrawIndexedIndirectCount", Napi::Function::New(env, rawCmdDrawIndexedIndirectCount));
 #ifdef VK_NV_device_diagnostic_checkpoints
-    exports["vkCmdSetCheckpointNV"] = Napi::Function::New(env, rawCmdSetCheckpointNV);
+   exports.Set("vkCmdSetCheckpointNV", Napi::Function::New(env, rawCmdSetCheckpointNV));
 #endif
 #ifdef VK_NV_device_diagnostic_checkpoints
-    exports["vkGetQueueCheckpointDataNV"] = Napi::Function::New(env, rawGetQueueCheckpointDataNV);
+   exports.Set("vkGetQueueCheckpointDataNV", Napi::Function::New(env, rawGetQueueCheckpointDataNV));
 #endif
 #ifdef VK_EXT_transform_feedback
-    exports["vkCmdBindTransformFeedbackBuffersEXT"] = Napi::Function::New(env, rawCmdBindTransformFeedbackBuffersEXT);
+   exports.Set("vkCmdBindTransformFeedbackBuffersEXT", Napi::Function::New(env, rawCmdBindTransformFeedbackBuffersEXT));
 #endif
 #ifdef VK_EXT_transform_feedback
-    exports["vkCmdBeginTransformFeedbackEXT"] = Napi::Function::New(env, rawCmdBeginTransformFeedbackEXT);
+   exports.Set("vkCmdBeginTransformFeedbackEXT", Napi::Function::New(env, rawCmdBeginTransformFeedbackEXT));
 #endif
 #ifdef VK_EXT_transform_feedback
-    exports["vkCmdEndTransformFeedbackEXT"] = Napi::Function::New(env, rawCmdEndTransformFeedbackEXT);
+   exports.Set("vkCmdEndTransformFeedbackEXT", Napi::Function::New(env, rawCmdEndTransformFeedbackEXT));
 #endif
 #ifdef VK_EXT_transform_feedback
-    exports["vkCmdBeginQueryIndexedEXT"] = Napi::Function::New(env, rawCmdBeginQueryIndexedEXT);
+   exports.Set("vkCmdBeginQueryIndexedEXT", Napi::Function::New(env, rawCmdBeginQueryIndexedEXT));
 #endif
 #ifdef VK_EXT_transform_feedback
-    exports["vkCmdEndQueryIndexedEXT"] = Napi::Function::New(env, rawCmdEndQueryIndexedEXT);
+   exports.Set("vkCmdEndQueryIndexedEXT", Napi::Function::New(env, rawCmdEndQueryIndexedEXT));
 #endif
 #ifdef VK_EXT_transform_feedback
-    exports["vkCmdDrawIndirectByteCountEXT"] = Napi::Function::New(env, rawCmdDrawIndirectByteCountEXT);
+   exports.Set("vkCmdDrawIndirectByteCountEXT", Napi::Function::New(env, rawCmdDrawIndirectByteCountEXT));
 #endif
 #ifdef VK_NV_scissor_exclusive
-    exports["vkCmdSetExclusiveScissorNV"] = Napi::Function::New(env, rawCmdSetExclusiveScissorNV);
+   exports.Set("vkCmdSetExclusiveScissorNV", Napi::Function::New(env, rawCmdSetExclusiveScissorNV));
 #endif
 #ifdef VK_NV_shading_rate_image
-    exports["vkCmdBindShadingRateImageNV"] = Napi::Function::New(env, rawCmdBindShadingRateImageNV);
+   exports.Set("vkCmdBindShadingRateImageNV", Napi::Function::New(env, rawCmdBindShadingRateImageNV));
 #endif
 #ifdef VK_NV_shading_rate_image
-    exports["vkCmdSetViewportShadingRatePaletteNV"] = Napi::Function::New(env, rawCmdSetViewportShadingRatePaletteNV);
+   exports.Set("vkCmdSetViewportShadingRatePaletteNV", Napi::Function::New(env, rawCmdSetViewportShadingRatePaletteNV));
 #endif
 #ifdef VK_NV_shading_rate_image
-    exports["vkCmdSetCoarseSampleOrderNV"] = Napi::Function::New(env, rawCmdSetCoarseSampleOrderNV);
+   exports.Set("vkCmdSetCoarseSampleOrderNV", Napi::Function::New(env, rawCmdSetCoarseSampleOrderNV));
 #endif
 #ifdef VK_NV_mesh_shader
-    exports["vkCmdDrawMeshTasksNV"] = Napi::Function::New(env, rawCmdDrawMeshTasksNV);
+   exports.Set("vkCmdDrawMeshTasksNV", Napi::Function::New(env, rawCmdDrawMeshTasksNV));
 #endif
 #ifdef VK_NV_mesh_shader
-    exports["vkCmdDrawMeshTasksIndirectNV"] = Napi::Function::New(env, rawCmdDrawMeshTasksIndirectNV);
+   exports.Set("vkCmdDrawMeshTasksIndirectNV", Napi::Function::New(env, rawCmdDrawMeshTasksIndirectNV));
 #endif
 #ifdef VK_NV_mesh_shader
-    exports["vkCmdDrawMeshTasksIndirectCountNV"] = Napi::Function::New(env, rawCmdDrawMeshTasksIndirectCountNV);
+   exports.Set("vkCmdDrawMeshTasksIndirectCountNV", Napi::Function::New(env, rawCmdDrawMeshTasksIndirectCountNV));
 #endif
 #ifdef VK_EXT_mesh_shader
-    exports["vkCmdDrawMeshTasksEXT"] = Napi::Function::New(env, rawCmdDrawMeshTasksEXT);
+   exports.Set("vkCmdDrawMeshTasksEXT", Napi::Function::New(env, rawCmdDrawMeshTasksEXT));
 #endif
 #ifdef VK_EXT_mesh_shader
-    exports["vkCmdDrawMeshTasksIndirectEXT"] = Napi::Function::New(env, rawCmdDrawMeshTasksIndirectEXT);
+   exports.Set("vkCmdDrawMeshTasksIndirectEXT", Napi::Function::New(env, rawCmdDrawMeshTasksIndirectEXT));
 #endif
 #ifdef VK_EXT_mesh_shader
-    exports["vkCmdDrawMeshTasksIndirectCountEXT"] = Napi::Function::New(env, rawCmdDrawMeshTasksIndirectCountEXT);
+   exports.Set("vkCmdDrawMeshTasksIndirectCountEXT", Napi::Function::New(env, rawCmdDrawMeshTasksIndirectCountEXT));
 #endif
 #ifdef VK_NV_ray_tracing
-    exports["vkCompileDeferredNV"] = Napi::Function::New(env, rawCompileDeferredNV);
+   exports.Set("vkCompileDeferredNV", Napi::Function::New(env, rawCompileDeferredNV));
 #endif
 #ifdef VK_NV_ray_tracing
-    exports["vkCreateAccelerationStructureNV"] = Napi::Function::New(env, rawCreateAccelerationStructureNV);
+   exports.Set("vkCreateAccelerationStructureNV", Napi::Function::New(env, rawCreateAccelerationStructureNV));
 #endif
 #ifdef VK_HUAWEI_invocation_mask
-    exports["vkCmdBindInvocationMaskHUAWEI"] = Napi::Function::New(env, rawCmdBindInvocationMaskHUAWEI);
+   exports.Set("vkCmdBindInvocationMaskHUAWEI", Napi::Function::New(env, rawCmdBindInvocationMaskHUAWEI));
 #endif
 #ifdef VK_KHR_acceleration_structure
-    exports["vkDestroyAccelerationStructureKHR"] = Napi::Function::New(env, rawDestroyAccelerationStructureKHR);
+   exports.Set("vkDestroyAccelerationStructureKHR", Napi::Function::New(env, rawDestroyAccelerationStructureKHR));
 #endif
 #ifdef VK_NV_ray_tracing
-    exports["vkDestroyAccelerationStructureNV"] = Napi::Function::New(env, rawDestroyAccelerationStructureNV);
+   exports.Set("vkDestroyAccelerationStructureNV", Napi::Function::New(env, rawDestroyAccelerationStructureNV));
 #endif
 #ifdef VK_NV_ray_tracing
-    exports["vkGetAccelerationStructureMemoryRequirementsNV"] = Napi::Function::New(env, rawGetAccelerationStructureMemoryRequirementsNV);
+   exports.Set("vkGetAccelerationStructureMemoryRequirementsNV", Napi::Function::New(env, rawGetAccelerationStructureMemoryRequirementsNV));
 #endif
 #ifdef VK_NV_ray_tracing
-    exports["vkBindAccelerationStructureMemoryNV"] = Napi::Function::New(env, rawBindAccelerationStructureMemoryNV);
+   exports.Set("vkBindAccelerationStructureMemoryNV", Napi::Function::New(env, rawBindAccelerationStructureMemoryNV));
 #endif
 #ifdef VK_NV_ray_tracing
-    exports["vkCmdCopyAccelerationStructureNV"] = Napi::Function::New(env, rawCmdCopyAccelerationStructureNV);
+   exports.Set("vkCmdCopyAccelerationStructureNV", Napi::Function::New(env, rawCmdCopyAccelerationStructureNV));
 #endif
 #ifdef VK_KHR_acceleration_structure
-    exports["vkCmdCopyAccelerationStructureKHR"] = Napi::Function::New(env, rawCmdCopyAccelerationStructureKHR);
+   exports.Set("vkCmdCopyAccelerationStructureKHR", Napi::Function::New(env, rawCmdCopyAccelerationStructureKHR));
 #endif
 #ifdef VK_KHR_acceleration_structure
-    exports["vkCopyAccelerationStructureKHR"] = Napi::Function::New(env, rawCopyAccelerationStructureKHR);
+   exports.Set("vkCopyAccelerationStructureKHR", Napi::Function::New(env, rawCopyAccelerationStructureKHR));
 #endif
 #ifdef VK_KHR_acceleration_structure
-    exports["vkCmdCopyAccelerationStructureToMemoryKHR"] = Napi::Function::New(env, rawCmdCopyAccelerationStructureToMemoryKHR);
+   exports.Set("vkCmdCopyAccelerationStructureToMemoryKHR", Napi::Function::New(env, rawCmdCopyAccelerationStructureToMemoryKHR));
 #endif
 #ifdef VK_KHR_acceleration_structure
-    exports["vkCopyAccelerationStructureToMemoryKHR"] = Napi::Function::New(env, rawCopyAccelerationStructureToMemoryKHR);
+   exports.Set("vkCopyAccelerationStructureToMemoryKHR", Napi::Function::New(env, rawCopyAccelerationStructureToMemoryKHR));
 #endif
 #ifdef VK_KHR_acceleration_structure
-    exports["vkCmdCopyMemoryToAccelerationStructureKHR"] = Napi::Function::New(env, rawCmdCopyMemoryToAccelerationStructureKHR);
+   exports.Set("vkCmdCopyMemoryToAccelerationStructureKHR", Napi::Function::New(env, rawCmdCopyMemoryToAccelerationStructureKHR));
 #endif
 #ifdef VK_KHR_acceleration_structure
-    exports["vkCopyMemoryToAccelerationStructureKHR"] = Napi::Function::New(env, rawCopyMemoryToAccelerationStructureKHR);
+   exports.Set("vkCopyMemoryToAccelerationStructureKHR", Napi::Function::New(env, rawCopyMemoryToAccelerationStructureKHR));
 #endif
 #ifdef VK_KHR_acceleration_structure
-    exports["vkCmdWriteAccelerationStructuresPropertiesKHR"] = Napi::Function::New(env, rawCmdWriteAccelerationStructuresPropertiesKHR);
+   exports.Set("vkCmdWriteAccelerationStructuresPropertiesKHR", Napi::Function::New(env, rawCmdWriteAccelerationStructuresPropertiesKHR));
 #endif
 #ifdef VK_NV_ray_tracing
-    exports["vkCmdWriteAccelerationStructuresPropertiesNV"] = Napi::Function::New(env, rawCmdWriteAccelerationStructuresPropertiesNV);
+   exports.Set("vkCmdWriteAccelerationStructuresPropertiesNV", Napi::Function::New(env, rawCmdWriteAccelerationStructuresPropertiesNV));
 #endif
 #ifdef VK_NV_ray_tracing
-    exports["vkCmdBuildAccelerationStructureNV"] = Napi::Function::New(env, rawCmdBuildAccelerationStructureNV);
+   exports.Set("vkCmdBuildAccelerationStructureNV", Napi::Function::New(env, rawCmdBuildAccelerationStructureNV));
 #endif
 #ifdef VK_KHR_acceleration_structure
-    exports["vkWriteAccelerationStructuresPropertiesKHR"] = Napi::Function::New(env, rawWriteAccelerationStructuresPropertiesKHR);
+   exports.Set("vkWriteAccelerationStructuresPropertiesKHR", Napi::Function::New(env, rawWriteAccelerationStructuresPropertiesKHR));
 #endif
 #ifdef VK_KHR_ray_tracing_pipeline
-    exports["vkCmdTraceRaysKHR"] = Napi::Function::New(env, rawCmdTraceRaysKHR);
+   exports.Set("vkCmdTraceRaysKHR", Napi::Function::New(env, rawCmdTraceRaysKHR));
 #endif
 #ifdef VK_NV_ray_tracing
-    exports["vkCmdTraceRaysNV"] = Napi::Function::New(env, rawCmdTraceRaysNV);
+   exports.Set("vkCmdTraceRaysNV", Napi::Function::New(env, rawCmdTraceRaysNV));
 #endif
 #ifdef VK_KHR_ray_tracing_pipeline
-    exports["vkGetRayTracingShaderGroupHandlesKHR"] = Napi::Function::New(env, rawGetRayTracingShaderGroupHandlesKHR);
+   exports.Set("vkGetRayTracingShaderGroupHandlesKHR", Napi::Function::New(env, rawGetRayTracingShaderGroupHandlesKHR));
 #endif
 #ifdef VK_KHR_ray_tracing_pipeline
-    exports["vkGetRayTracingCaptureReplayShaderGroupHandlesKHR"] = Napi::Function::New(env, rawGetRayTracingCaptureReplayShaderGroupHandlesKHR);
+   exports.Set("vkGetRayTracingCaptureReplayShaderGroupHandlesKHR", Napi::Function::New(env, rawGetRayTracingCaptureReplayShaderGroupHandlesKHR));
 #endif
 #ifdef VK_NV_ray_tracing
-    exports["vkGetAccelerationStructureHandleNV"] = Napi::Function::New(env, rawGetAccelerationStructureHandleNV);
+   exports.Set("vkGetAccelerationStructureHandleNV", Napi::Function::New(env, rawGetAccelerationStructureHandleNV));
 #endif
 #ifdef VK_NV_ray_tracing
-    exports["vkCreateRayTracingPipelinesNV"] = Napi::Function::New(env, rawCreateRayTracingPipelinesNV);
+   exports.Set("vkCreateRayTracingPipelinesNV", Napi::Function::New(env, rawCreateRayTracingPipelinesNV));
 #endif
 #ifdef VK_KHR_ray_tracing_pipeline
-    exports["vkCreateRayTracingPipelinesKHR"] = Napi::Function::New(env, rawCreateRayTracingPipelinesKHR);
+   exports.Set("vkCreateRayTracingPipelinesKHR", Napi::Function::New(env, rawCreateRayTracingPipelinesKHR));
 #endif
 #ifdef VK_NV_cooperative_matrix
-    exports["vkGetPhysicalDeviceCooperativeMatrixPropertiesNV"] = Napi::Function::New(env, rawGetPhysicalDeviceCooperativeMatrixPropertiesNV);
+   exports.Set("vkGetPhysicalDeviceCooperativeMatrixPropertiesNV", Napi::Function::New(env, rawGetPhysicalDeviceCooperativeMatrixPropertiesNV));
 #endif
 #ifdef VK_KHR_ray_tracing_pipeline
-    exports["vkCmdTraceRaysIndirectKHR"] = Napi::Function::New(env, rawCmdTraceRaysIndirectKHR);
+   exports.Set("vkCmdTraceRaysIndirectKHR", Napi::Function::New(env, rawCmdTraceRaysIndirectKHR));
 #endif
 #ifdef VK_KHR_ray_tracing_maintenance1
-    exports["vkCmdTraceRaysIndirect2KHR"] = Napi::Function::New(env, rawCmdTraceRaysIndirect2KHR);
+   exports.Set("vkCmdTraceRaysIndirect2KHR", Napi::Function::New(env, rawCmdTraceRaysIndirect2KHR));
 #endif
 #ifdef VK_KHR_acceleration_structure
-    exports["vkGetDeviceAccelerationStructureCompatibilityKHR"] = Napi::Function::New(env, rawGetDeviceAccelerationStructureCompatibilityKHR);
+   exports.Set("vkGetDeviceAccelerationStructureCompatibilityKHR", Napi::Function::New(env, rawGetDeviceAccelerationStructureCompatibilityKHR));
 #endif
 #ifdef VK_KHR_ray_tracing_pipeline
-    exports["vkGetRayTracingShaderGroupStackSizeKHR"] = Napi::Function::New(env, rawGetRayTracingShaderGroupStackSizeKHR);
+   exports.Set("vkGetRayTracingShaderGroupStackSizeKHR", Napi::Function::New(env, rawGetRayTracingShaderGroupStackSizeKHR));
 #endif
 #ifdef VK_KHR_ray_tracing_pipeline
-    exports["vkCmdSetRayTracingPipelineStackSizeKHR"] = Napi::Function::New(env, rawCmdSetRayTracingPipelineStackSizeKHR);
+   exports.Set("vkCmdSetRayTracingPipelineStackSizeKHR", Napi::Function::New(env, rawCmdSetRayTracingPipelineStackSizeKHR));
 #endif
 #ifdef VK_NVX_image_view_handle
-    exports["vkGetImageViewHandleNVX"] = Napi::Function::New(env, rawGetImageViewHandleNVX);
+   exports.Set("vkGetImageViewHandleNVX", Napi::Function::New(env, rawGetImageViewHandleNVX));
 #endif
 #ifdef VK_NVX_image_view_handle
-    exports["vkGetImageViewAddressNVX"] = Napi::Function::New(env, rawGetImageViewAddressNVX);
+   exports.Set("vkGetImageViewAddressNVX", Napi::Function::New(env, rawGetImageViewAddressNVX));
 #endif
 #ifdef VK_EXT_full_screen_exclusive
-    exports["vkGetPhysicalDeviceSurfacePresentModes2EXT"] = Napi::Function::New(env, rawGetPhysicalDeviceSurfacePresentModes2EXT);
+   exports.Set("vkGetPhysicalDeviceSurfacePresentModes2EXT", Napi::Function::New(env, rawGetPhysicalDeviceSurfacePresentModes2EXT));
 #endif
 #ifdef VK_EXT_full_screen_exclusive
-    exports["vkGetDeviceGroupSurfacePresentModes2EXT"] = Napi::Function::New(env, rawGetDeviceGroupSurfacePresentModes2EXT);
+   exports.Set("vkGetDeviceGroupSurfacePresentModes2EXT", Napi::Function::New(env, rawGetDeviceGroupSurfacePresentModes2EXT));
 #endif
 #ifdef VK_EXT_full_screen_exclusive
-    exports["vkAcquireFullScreenExclusiveModeEXT"] = Napi::Function::New(env, rawAcquireFullScreenExclusiveModeEXT);
+   exports.Set("vkAcquireFullScreenExclusiveModeEXT", Napi::Function::New(env, rawAcquireFullScreenExclusiveModeEXT));
 #endif
 #ifdef VK_EXT_full_screen_exclusive
-    exports["vkReleaseFullScreenExclusiveModeEXT"] = Napi::Function::New(env, rawReleaseFullScreenExclusiveModeEXT);
+   exports.Set("vkReleaseFullScreenExclusiveModeEXT", Napi::Function::New(env, rawReleaseFullScreenExclusiveModeEXT));
 #endif
 #ifdef VK_KHR_performance_query
-    exports["vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR"] = Napi::Function::New(env, rawEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR);
+   exports.Set("vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR", Napi::Function::New(env, rawEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR));
 #endif
 #ifdef VK_KHR_performance_query
-    exports["vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR);
+   exports.Set("vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR", Napi::Function::New(env, rawGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR));
 #endif
 #ifdef VK_KHR_performance_query
-    exports["vkAcquireProfilingLockKHR"] = Napi::Function::New(env, rawAcquireProfilingLockKHR);
+   exports.Set("vkAcquireProfilingLockKHR", Napi::Function::New(env, rawAcquireProfilingLockKHR));
 #endif
 #ifdef VK_KHR_performance_query
-    exports["vkReleaseProfilingLockKHR"] = Napi::Function::New(env, rawReleaseProfilingLockKHR);
+   exports.Set("vkReleaseProfilingLockKHR", Napi::Function::New(env, rawReleaseProfilingLockKHR));
 #endif
 #ifdef VK_EXT_image_drm_format_modifier
-    exports["vkGetImageDrmFormatModifierPropertiesEXT"] = Napi::Function::New(env, rawGetImageDrmFormatModifierPropertiesEXT);
+   exports.Set("vkGetImageDrmFormatModifierPropertiesEXT", Napi::Function::New(env, rawGetImageDrmFormatModifierPropertiesEXT));
 #endif
-    exports["vkGetBufferOpaqueCaptureAddress"] = Napi::Function::New(env, rawGetBufferOpaqueCaptureAddress);
-    exports["vkGetBufferDeviceAddress"] = Napi::Function::New(env, rawGetBufferDeviceAddress);
+   exports.Set("vkGetBufferOpaqueCaptureAddress", Napi::Function::New(env, rawGetBufferOpaqueCaptureAddress));
+   exports.Set("vkGetBufferDeviceAddress", Napi::Function::New(env, rawGetBufferDeviceAddress));
 #ifdef VK_EXT_headless_surface
-    exports["vkCreateHeadlessSurfaceEXT"] = Napi::Function::New(env, rawCreateHeadlessSurfaceEXT);
+   exports.Set("vkCreateHeadlessSurfaceEXT", Napi::Function::New(env, rawCreateHeadlessSurfaceEXT));
 #endif
 #ifdef VK_NV_coverage_reduction_mode
-    exports["vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV"] = Napi::Function::New(env, rawGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV);
+   exports.Set("vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV", Napi::Function::New(env, rawGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV));
 #endif
 #ifdef VK_INTEL_performance_query
-    exports["vkInitializePerformanceApiINTEL"] = Napi::Function::New(env, rawInitializePerformanceApiINTEL);
+   exports.Set("vkInitializePerformanceApiINTEL", Napi::Function::New(env, rawInitializePerformanceApiINTEL));
 #endif
 #ifdef VK_INTEL_performance_query
-    exports["vkUninitializePerformanceApiINTEL"] = Napi::Function::New(env, rawUninitializePerformanceApiINTEL);
+   exports.Set("vkUninitializePerformanceApiINTEL", Napi::Function::New(env, rawUninitializePerformanceApiINTEL));
 #endif
 #ifdef VK_INTEL_performance_query
-    exports["vkCmdSetPerformanceMarkerINTEL"] = Napi::Function::New(env, rawCmdSetPerformanceMarkerINTEL);
+   exports.Set("vkCmdSetPerformanceMarkerINTEL", Napi::Function::New(env, rawCmdSetPerformanceMarkerINTEL));
 #endif
 #ifdef VK_INTEL_performance_query
-    exports["vkCmdSetPerformanceStreamMarkerINTEL"] = Napi::Function::New(env, rawCmdSetPerformanceStreamMarkerINTEL);
+   exports.Set("vkCmdSetPerformanceStreamMarkerINTEL", Napi::Function::New(env, rawCmdSetPerformanceStreamMarkerINTEL));
 #endif
 #ifdef VK_INTEL_performance_query
-    exports["vkCmdSetPerformanceOverrideINTEL"] = Napi::Function::New(env, rawCmdSetPerformanceOverrideINTEL);
+   exports.Set("vkCmdSetPerformanceOverrideINTEL", Napi::Function::New(env, rawCmdSetPerformanceOverrideINTEL));
 #endif
 #ifdef VK_INTEL_performance_query
-    exports["vkAcquirePerformanceConfigurationINTEL"] = Napi::Function::New(env, rawAcquirePerformanceConfigurationINTEL);
+   exports.Set("vkAcquirePerformanceConfigurationINTEL", Napi::Function::New(env, rawAcquirePerformanceConfigurationINTEL));
 #endif
 #ifdef VK_INTEL_performance_query
-    exports["vkReleasePerformanceConfigurationINTEL"] = Napi::Function::New(env, rawReleasePerformanceConfigurationINTEL);
+   exports.Set("vkReleasePerformanceConfigurationINTEL", Napi::Function::New(env, rawReleasePerformanceConfigurationINTEL));
 #endif
 #ifdef VK_INTEL_performance_query
-    exports["vkQueueSetPerformanceConfigurationINTEL"] = Napi::Function::New(env, rawQueueSetPerformanceConfigurationINTEL);
+   exports.Set("vkQueueSetPerformanceConfigurationINTEL", Napi::Function::New(env, rawQueueSetPerformanceConfigurationINTEL));
 #endif
 #ifdef VK_INTEL_performance_query
-    exports["vkGetPerformanceParameterINTEL"] = Napi::Function::New(env, rawGetPerformanceParameterINTEL);
+   exports.Set("vkGetPerformanceParameterINTEL", Napi::Function::New(env, rawGetPerformanceParameterINTEL));
 #endif
-    exports["vkGetDeviceMemoryOpaqueCaptureAddress"] = Napi::Function::New(env, rawGetDeviceMemoryOpaqueCaptureAddress);
+   exports.Set("vkGetDeviceMemoryOpaqueCaptureAddress", Napi::Function::New(env, rawGetDeviceMemoryOpaqueCaptureAddress));
 #ifdef VK_KHR_pipeline_executable_properties
-    exports["vkGetPipelineExecutablePropertiesKHR"] = Napi::Function::New(env, rawGetPipelineExecutablePropertiesKHR);
-#endif
-#ifdef VK_KHR_pipeline_executable_properties
-    exports["vkGetPipelineExecutableStatisticsKHR"] = Napi::Function::New(env, rawGetPipelineExecutableStatisticsKHR);
+   exports.Set("vkGetPipelineExecutablePropertiesKHR", Napi::Function::New(env, rawGetPipelineExecutablePropertiesKHR));
 #endif
 #ifdef VK_KHR_pipeline_executable_properties
-    exports["vkGetPipelineExecutableInternalRepresentationsKHR"] = Napi::Function::New(env, rawGetPipelineExecutableInternalRepresentationsKHR);
+   exports.Set("vkGetPipelineExecutableStatisticsKHR", Napi::Function::New(env, rawGetPipelineExecutableStatisticsKHR));
+#endif
+#ifdef VK_KHR_pipeline_executable_properties
+   exports.Set("vkGetPipelineExecutableInternalRepresentationsKHR", Napi::Function::New(env, rawGetPipelineExecutableInternalRepresentationsKHR));
 #endif
 #ifdef VK_EXT_line_rasterization
-    exports["vkCmdSetLineStippleEXT"] = Napi::Function::New(env, rawCmdSetLineStippleEXT);
+   exports.Set("vkCmdSetLineStippleEXT", Napi::Function::New(env, rawCmdSetLineStippleEXT));
 #endif
-    exports["vkGetPhysicalDeviceToolProperties"] = Napi::Function::New(env, rawGetPhysicalDeviceToolProperties);
+   exports.Set("vkGetPhysicalDeviceToolProperties", Napi::Function::New(env, rawGetPhysicalDeviceToolProperties));
 #ifdef VK_KHR_acceleration_structure
-    exports["vkCreateAccelerationStructureKHR"] = Napi::Function::New(env, rawCreateAccelerationStructureKHR);
-#endif
-#ifdef VK_KHR_acceleration_structure
-    exports["vkCmdBuildAccelerationStructuresKHR"] = Napi::Function::New(env, rawCmdBuildAccelerationStructuresKHR);
+   exports.Set("vkCreateAccelerationStructureKHR", Napi::Function::New(env, rawCreateAccelerationStructureKHR));
 #endif
 #ifdef VK_KHR_acceleration_structure
-    exports["vkCmdBuildAccelerationStructuresIndirectKHR"] = Napi::Function::New(env, rawCmdBuildAccelerationStructuresIndirectKHR);
+   exports.Set("vkCmdBuildAccelerationStructuresKHR", Napi::Function::New(env, rawCmdBuildAccelerationStructuresKHR));
 #endif
 #ifdef VK_KHR_acceleration_structure
-    exports["vkBuildAccelerationStructuresKHR"] = Napi::Function::New(env, rawBuildAccelerationStructuresKHR);
+   exports.Set("vkCmdBuildAccelerationStructuresIndirectKHR", Napi::Function::New(env, rawCmdBuildAccelerationStructuresIndirectKHR));
 #endif
 #ifdef VK_KHR_acceleration_structure
-    exports["vkGetAccelerationStructureDeviceAddressKHR"] = Napi::Function::New(env, rawGetAccelerationStructureDeviceAddressKHR);
+   exports.Set("vkBuildAccelerationStructuresKHR", Napi::Function::New(env, rawBuildAccelerationStructuresKHR));
+#endif
+#ifdef VK_KHR_acceleration_structure
+   exports.Set("vkGetAccelerationStructureDeviceAddressKHR", Napi::Function::New(env, rawGetAccelerationStructureDeviceAddressKHR));
 #endif
 #ifdef VK_KHR_deferred_host_operations
-    exports["vkCreateDeferredOperationKHR"] = Napi::Function::New(env, rawCreateDeferredOperationKHR);
+   exports.Set("vkCreateDeferredOperationKHR", Napi::Function::New(env, rawCreateDeferredOperationKHR));
 #endif
 #ifdef VK_KHR_deferred_host_operations
-    exports["vkDestroyDeferredOperationKHR"] = Napi::Function::New(env, rawDestroyDeferredOperationKHR);
+   exports.Set("vkDestroyDeferredOperationKHR", Napi::Function::New(env, rawDestroyDeferredOperationKHR));
 #endif
 #ifdef VK_KHR_deferred_host_operations
-    exports["vkGetDeferredOperationMaxConcurrencyKHR"] = Napi::Function::New(env, rawGetDeferredOperationMaxConcurrencyKHR);
+   exports.Set("vkGetDeferredOperationMaxConcurrencyKHR", Napi::Function::New(env, rawGetDeferredOperationMaxConcurrencyKHR));
 #endif
 #ifdef VK_KHR_deferred_host_operations
-    exports["vkGetDeferredOperationResultKHR"] = Napi::Function::New(env, rawGetDeferredOperationResultKHR);
+   exports.Set("vkGetDeferredOperationResultKHR", Napi::Function::New(env, rawGetDeferredOperationResultKHR));
 #endif
 #ifdef VK_KHR_deferred_host_operations
-    exports["vkDeferredOperationJoinKHR"] = Napi::Function::New(env, rawDeferredOperationJoinKHR);
+   exports.Set("vkDeferredOperationJoinKHR", Napi::Function::New(env, rawDeferredOperationJoinKHR));
 #endif
-    exports["vkCmdSetCullMode"] = Napi::Function::New(env, rawCmdSetCullMode);
-    exports["vkCmdSetFrontFace"] = Napi::Function::New(env, rawCmdSetFrontFace);
-    exports["vkCmdSetPrimitiveTopology"] = Napi::Function::New(env, rawCmdSetPrimitiveTopology);
-    exports["vkCmdSetViewportWithCount"] = Napi::Function::New(env, rawCmdSetViewportWithCount);
-    exports["vkCmdSetScissorWithCount"] = Napi::Function::New(env, rawCmdSetScissorWithCount);
-    exports["vkCmdBindVertexBuffers2"] = Napi::Function::New(env, rawCmdBindVertexBuffers2);
-    exports["vkCmdSetDepthTestEnable"] = Napi::Function::New(env, rawCmdSetDepthTestEnable);
-    exports["vkCmdSetDepthWriteEnable"] = Napi::Function::New(env, rawCmdSetDepthWriteEnable);
-    exports["vkCmdSetDepthCompareOp"] = Napi::Function::New(env, rawCmdSetDepthCompareOp);
-    exports["vkCmdSetDepthBoundsTestEnable"] = Napi::Function::New(env, rawCmdSetDepthBoundsTestEnable);
-    exports["vkCmdSetStencilTestEnable"] = Napi::Function::New(env, rawCmdSetStencilTestEnable);
-    exports["vkCmdSetStencilOp"] = Napi::Function::New(env, rawCmdSetStencilOp);
+   exports.Set("vkCmdSetCullMode", Napi::Function::New(env, rawCmdSetCullMode));
+   exports.Set("vkCmdSetFrontFace", Napi::Function::New(env, rawCmdSetFrontFace));
+   exports.Set("vkCmdSetPrimitiveTopology", Napi::Function::New(env, rawCmdSetPrimitiveTopology));
+   exports.Set("vkCmdSetViewportWithCount", Napi::Function::New(env, rawCmdSetViewportWithCount));
+   exports.Set("vkCmdSetScissorWithCount", Napi::Function::New(env, rawCmdSetScissorWithCount));
+   exports.Set("vkCmdBindVertexBuffers2", Napi::Function::New(env, rawCmdBindVertexBuffers2));
+   exports.Set("vkCmdSetDepthTestEnable", Napi::Function::New(env, rawCmdSetDepthTestEnable));
+   exports.Set("vkCmdSetDepthWriteEnable", Napi::Function::New(env, rawCmdSetDepthWriteEnable));
+   exports.Set("vkCmdSetDepthCompareOp", Napi::Function::New(env, rawCmdSetDepthCompareOp));
+   exports.Set("vkCmdSetDepthBoundsTestEnable", Napi::Function::New(env, rawCmdSetDepthBoundsTestEnable));
+   exports.Set("vkCmdSetStencilTestEnable", Napi::Function::New(env, rawCmdSetStencilTestEnable));
+   exports.Set("vkCmdSetStencilOp", Napi::Function::New(env, rawCmdSetStencilOp));
 #ifdef VK_EXT_extended_dynamic_state2
-    exports["vkCmdSetPatchControlPointsEXT"] = Napi::Function::New(env, rawCmdSetPatchControlPointsEXT);
+   exports.Set("vkCmdSetPatchControlPointsEXT", Napi::Function::New(env, rawCmdSetPatchControlPointsEXT));
 #endif
-    exports["vkCmdSetRasterizerDiscardEnable"] = Napi::Function::New(env, rawCmdSetRasterizerDiscardEnable);
-    exports["vkCmdSetDepthBiasEnable"] = Napi::Function::New(env, rawCmdSetDepthBiasEnable);
+   exports.Set("vkCmdSetRasterizerDiscardEnable", Napi::Function::New(env, rawCmdSetRasterizerDiscardEnable));
+   exports.Set("vkCmdSetDepthBiasEnable", Napi::Function::New(env, rawCmdSetDepthBiasEnable));
 #ifdef VK_EXT_extended_dynamic_state2
-    exports["vkCmdSetLogicOpEXT"] = Napi::Function::New(env, rawCmdSetLogicOpEXT);
+   exports.Set("vkCmdSetLogicOpEXT", Napi::Function::New(env, rawCmdSetLogicOpEXT));
 #endif
-    exports["vkCmdSetPrimitiveRestartEnable"] = Napi::Function::New(env, rawCmdSetPrimitiveRestartEnable);
+   exports.Set("vkCmdSetPrimitiveRestartEnable", Napi::Function::New(env, rawCmdSetPrimitiveRestartEnable));
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetTessellationDomainOriginEXT"] = Napi::Function::New(env, rawCmdSetTessellationDomainOriginEXT);
-#endif
-#ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetDepthClampEnableEXT"] = Napi::Function::New(env, rawCmdSetDepthClampEnableEXT);
+   exports.Set("vkCmdSetTessellationDomainOriginEXT", Napi::Function::New(env, rawCmdSetTessellationDomainOriginEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetPolygonModeEXT"] = Napi::Function::New(env, rawCmdSetPolygonModeEXT);
+   exports.Set("vkCmdSetDepthClampEnableEXT", Napi::Function::New(env, rawCmdSetDepthClampEnableEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetRasterizationSamplesEXT"] = Napi::Function::New(env, rawCmdSetRasterizationSamplesEXT);
+   exports.Set("vkCmdSetPolygonModeEXT", Napi::Function::New(env, rawCmdSetPolygonModeEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetSampleMaskEXT"] = Napi::Function::New(env, rawCmdSetSampleMaskEXT);
+   exports.Set("vkCmdSetRasterizationSamplesEXT", Napi::Function::New(env, rawCmdSetRasterizationSamplesEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetAlphaToCoverageEnableEXT"] = Napi::Function::New(env, rawCmdSetAlphaToCoverageEnableEXT);
+   exports.Set("vkCmdSetSampleMaskEXT", Napi::Function::New(env, rawCmdSetSampleMaskEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetAlphaToOneEnableEXT"] = Napi::Function::New(env, rawCmdSetAlphaToOneEnableEXT);
+   exports.Set("vkCmdSetAlphaToCoverageEnableEXT", Napi::Function::New(env, rawCmdSetAlphaToCoverageEnableEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetLogicOpEnableEXT"] = Napi::Function::New(env, rawCmdSetLogicOpEnableEXT);
+   exports.Set("vkCmdSetAlphaToOneEnableEXT", Napi::Function::New(env, rawCmdSetAlphaToOneEnableEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetColorBlendEnableEXT"] = Napi::Function::New(env, rawCmdSetColorBlendEnableEXT);
+   exports.Set("vkCmdSetLogicOpEnableEXT", Napi::Function::New(env, rawCmdSetLogicOpEnableEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetColorBlendEquationEXT"] = Napi::Function::New(env, rawCmdSetColorBlendEquationEXT);
+   exports.Set("vkCmdSetColorBlendEnableEXT", Napi::Function::New(env, rawCmdSetColorBlendEnableEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetColorWriteMaskEXT"] = Napi::Function::New(env, rawCmdSetColorWriteMaskEXT);
+   exports.Set("vkCmdSetColorBlendEquationEXT", Napi::Function::New(env, rawCmdSetColorBlendEquationEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetRasterizationStreamEXT"] = Napi::Function::New(env, rawCmdSetRasterizationStreamEXT);
+   exports.Set("vkCmdSetColorWriteMaskEXT", Napi::Function::New(env, rawCmdSetColorWriteMaskEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetConservativeRasterizationModeEXT"] = Napi::Function::New(env, rawCmdSetConservativeRasterizationModeEXT);
+   exports.Set("vkCmdSetRasterizationStreamEXT", Napi::Function::New(env, rawCmdSetRasterizationStreamEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetExtraPrimitiveOverestimationSizeEXT"] = Napi::Function::New(env, rawCmdSetExtraPrimitiveOverestimationSizeEXT);
+   exports.Set("vkCmdSetConservativeRasterizationModeEXT", Napi::Function::New(env, rawCmdSetConservativeRasterizationModeEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetDepthClipEnableEXT"] = Napi::Function::New(env, rawCmdSetDepthClipEnableEXT);
+   exports.Set("vkCmdSetExtraPrimitiveOverestimationSizeEXT", Napi::Function::New(env, rawCmdSetExtraPrimitiveOverestimationSizeEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetSampleLocationsEnableEXT"] = Napi::Function::New(env, rawCmdSetSampleLocationsEnableEXT);
+   exports.Set("vkCmdSetDepthClipEnableEXT", Napi::Function::New(env, rawCmdSetDepthClipEnableEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetColorBlendAdvancedEXT"] = Napi::Function::New(env, rawCmdSetColorBlendAdvancedEXT);
+   exports.Set("vkCmdSetSampleLocationsEnableEXT", Napi::Function::New(env, rawCmdSetSampleLocationsEnableEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetProvokingVertexModeEXT"] = Napi::Function::New(env, rawCmdSetProvokingVertexModeEXT);
+   exports.Set("vkCmdSetColorBlendAdvancedEXT", Napi::Function::New(env, rawCmdSetColorBlendAdvancedEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetLineRasterizationModeEXT"] = Napi::Function::New(env, rawCmdSetLineRasterizationModeEXT);
+   exports.Set("vkCmdSetProvokingVertexModeEXT", Napi::Function::New(env, rawCmdSetProvokingVertexModeEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetLineStippleEnableEXT"] = Napi::Function::New(env, rawCmdSetLineStippleEnableEXT);
+   exports.Set("vkCmdSetLineRasterizationModeEXT", Napi::Function::New(env, rawCmdSetLineRasterizationModeEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetDepthClipNegativeOneToOneEXT"] = Napi::Function::New(env, rawCmdSetDepthClipNegativeOneToOneEXT);
+   exports.Set("vkCmdSetLineStippleEnableEXT", Napi::Function::New(env, rawCmdSetLineStippleEnableEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetViewportWScalingEnableNV"] = Napi::Function::New(env, rawCmdSetViewportWScalingEnableNV);
+   exports.Set("vkCmdSetDepthClipNegativeOneToOneEXT", Napi::Function::New(env, rawCmdSetDepthClipNegativeOneToOneEXT));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetViewportSwizzleNV"] = Napi::Function::New(env, rawCmdSetViewportSwizzleNV);
+   exports.Set("vkCmdSetViewportWScalingEnableNV", Napi::Function::New(env, rawCmdSetViewportWScalingEnableNV));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetCoverageToColorEnableNV"] = Napi::Function::New(env, rawCmdSetCoverageToColorEnableNV);
+   exports.Set("vkCmdSetViewportSwizzleNV", Napi::Function::New(env, rawCmdSetViewportSwizzleNV));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetCoverageToColorLocationNV"] = Napi::Function::New(env, rawCmdSetCoverageToColorLocationNV);
+   exports.Set("vkCmdSetCoverageToColorEnableNV", Napi::Function::New(env, rawCmdSetCoverageToColorEnableNV));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetCoverageModulationModeNV"] = Napi::Function::New(env, rawCmdSetCoverageModulationModeNV);
+   exports.Set("vkCmdSetCoverageToColorLocationNV", Napi::Function::New(env, rawCmdSetCoverageToColorLocationNV));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetCoverageModulationTableEnableNV"] = Napi::Function::New(env, rawCmdSetCoverageModulationTableEnableNV);
+   exports.Set("vkCmdSetCoverageModulationModeNV", Napi::Function::New(env, rawCmdSetCoverageModulationModeNV));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetCoverageModulationTableNV"] = Napi::Function::New(env, rawCmdSetCoverageModulationTableNV);
+   exports.Set("vkCmdSetCoverageModulationTableEnableNV", Napi::Function::New(env, rawCmdSetCoverageModulationTableEnableNV));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetShadingRateImageEnableNV"] = Napi::Function::New(env, rawCmdSetShadingRateImageEnableNV);
+   exports.Set("vkCmdSetCoverageModulationTableNV", Napi::Function::New(env, rawCmdSetCoverageModulationTableNV));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetCoverageReductionModeNV"] = Napi::Function::New(env, rawCmdSetCoverageReductionModeNV);
+   exports.Set("vkCmdSetShadingRateImageEnableNV", Napi::Function::New(env, rawCmdSetShadingRateImageEnableNV));
 #endif
 #ifdef VK_EXT_extended_dynamic_state3
-    exports["vkCmdSetRepresentativeFragmentTestEnableNV"] = Napi::Function::New(env, rawCmdSetRepresentativeFragmentTestEnableNV);
+   exports.Set("vkCmdSetCoverageReductionModeNV", Napi::Function::New(env, rawCmdSetCoverageReductionModeNV));
 #endif
-    exports["vkCreatePrivateDataSlot"] = Napi::Function::New(env, rawCreatePrivateDataSlot);
-    exports["vkDestroyPrivateDataSlot"] = Napi::Function::New(env, rawDestroyPrivateDataSlot);
-    exports["vkSetPrivateData"] = Napi::Function::New(env, rawSetPrivateData);
-    exports["vkGetPrivateData"] = Napi::Function::New(env, rawGetPrivateData);
-    exports["vkCmdCopyBuffer2"] = Napi::Function::New(env, rawCmdCopyBuffer2);
-    exports["vkCmdCopyImage2"] = Napi::Function::New(env, rawCmdCopyImage2);
-    exports["vkCmdBlitImage2"] = Napi::Function::New(env, rawCmdBlitImage2);
-    exports["vkCmdCopyBufferToImage2"] = Napi::Function::New(env, rawCmdCopyBufferToImage2);
-    exports["vkCmdCopyImageToBuffer2"] = Napi::Function::New(env, rawCmdCopyImageToBuffer2);
-    exports["vkCmdResolveImage2"] = Napi::Function::New(env, rawCmdResolveImage2);
+#ifdef VK_EXT_extended_dynamic_state3
+   exports.Set("vkCmdSetRepresentativeFragmentTestEnableNV", Napi::Function::New(env, rawCmdSetRepresentativeFragmentTestEnableNV));
+#endif
+   exports.Set("vkCreatePrivateDataSlot", Napi::Function::New(env, rawCreatePrivateDataSlot));
+   exports.Set("vkDestroyPrivateDataSlot", Napi::Function::New(env, rawDestroyPrivateDataSlot));
+   exports.Set("vkSetPrivateData", Napi::Function::New(env, rawSetPrivateData));
+   exports.Set("vkGetPrivateData", Napi::Function::New(env, rawGetPrivateData));
+   exports.Set("vkCmdCopyBuffer2", Napi::Function::New(env, rawCmdCopyBuffer2));
+   exports.Set("vkCmdCopyImage2", Napi::Function::New(env, rawCmdCopyImage2));
+   exports.Set("vkCmdBlitImage2", Napi::Function::New(env, rawCmdBlitImage2));
+   exports.Set("vkCmdCopyBufferToImage2", Napi::Function::New(env, rawCmdCopyBufferToImage2));
+   exports.Set("vkCmdCopyImageToBuffer2", Napi::Function::New(env, rawCmdCopyImageToBuffer2));
+   exports.Set("vkCmdResolveImage2", Napi::Function::New(env, rawCmdResolveImage2));
 #ifdef VK_KHR_fragment_shading_rate
-    exports["vkCmdSetFragmentShadingRateKHR"] = Napi::Function::New(env, rawCmdSetFragmentShadingRateKHR);
+   exports.Set("vkCmdSetFragmentShadingRateKHR", Napi::Function::New(env, rawCmdSetFragmentShadingRateKHR));
 #endif
 #ifdef VK_KHR_fragment_shading_rate
-    exports["vkGetPhysicalDeviceFragmentShadingRatesKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceFragmentShadingRatesKHR);
+   exports.Set("vkGetPhysicalDeviceFragmentShadingRatesKHR", Napi::Function::New(env, rawGetPhysicalDeviceFragmentShadingRatesKHR));
 #endif
 #ifdef VK_NV_fragment_shading_rate_enums
-    exports["vkCmdSetFragmentShadingRateEnumNV"] = Napi::Function::New(env, rawCmdSetFragmentShadingRateEnumNV);
+   exports.Set("vkCmdSetFragmentShadingRateEnumNV", Napi::Function::New(env, rawCmdSetFragmentShadingRateEnumNV));
 #endif
 #ifdef VK_KHR_acceleration_structure
-    exports["vkGetAccelerationStructureBuildSizesKHR"] = Napi::Function::New(env, rawGetAccelerationStructureBuildSizesKHR);
+   exports.Set("vkGetAccelerationStructureBuildSizesKHR", Napi::Function::New(env, rawGetAccelerationStructureBuildSizesKHR));
 #endif
 #ifdef VK_EXT_vertex_input_dynamic_state
-    exports["vkCmdSetVertexInputEXT"] = Napi::Function::New(env, rawCmdSetVertexInputEXT);
+   exports.Set("vkCmdSetVertexInputEXT", Napi::Function::New(env, rawCmdSetVertexInputEXT));
 #endif
 #ifdef VK_EXT_color_write_enable
-    exports["vkCmdSetColorWriteEnableEXT"] = Napi::Function::New(env, rawCmdSetColorWriteEnableEXT);
+   exports.Set("vkCmdSetColorWriteEnableEXT", Napi::Function::New(env, rawCmdSetColorWriteEnableEXT));
 #endif
-    exports["vkCmdSetEvent2"] = Napi::Function::New(env, rawCmdSetEvent2);
-    exports["vkCmdResetEvent2"] = Napi::Function::New(env, rawCmdResetEvent2);
-    exports["vkCmdWaitEvents2"] = Napi::Function::New(env, rawCmdWaitEvents2);
-    exports["vkCmdPipelineBarrier2"] = Napi::Function::New(env, rawCmdPipelineBarrier2);
-    exports["vkQueueSubmit2"] = Napi::Function::New(env, rawQueueSubmit2);
-    exports["vkCmdWriteTimestamp2"] = Napi::Function::New(env, rawCmdWriteTimestamp2);
+   exports.Set("vkCmdSetEvent2", Napi::Function::New(env, rawCmdSetEvent2));
+   exports.Set("vkCmdResetEvent2", Napi::Function::New(env, rawCmdResetEvent2));
+   exports.Set("vkCmdWaitEvents2", Napi::Function::New(env, rawCmdWaitEvents2));
+   exports.Set("vkCmdPipelineBarrier2", Napi::Function::New(env, rawCmdPipelineBarrier2));
+   exports.Set("vkQueueSubmit2", Napi::Function::New(env, rawQueueSubmit2));
+   exports.Set("vkCmdWriteTimestamp2", Napi::Function::New(env, rawCmdWriteTimestamp2));
 #ifdef VK_KHR_synchronization2
-    exports["vkCmdWriteBufferMarker2AMD"] = Napi::Function::New(env, rawCmdWriteBufferMarker2AMD);
+   exports.Set("vkCmdWriteBufferMarker2AMD", Napi::Function::New(env, rawCmdWriteBufferMarker2AMD));
 #endif
 #ifdef VK_KHR_synchronization2
-    exports["vkGetQueueCheckpointData2NV"] = Napi::Function::New(env, rawGetQueueCheckpointData2NV);
+   exports.Set("vkGetQueueCheckpointData2NV", Napi::Function::New(env, rawGetQueueCheckpointData2NV));
 #endif
 #ifdef VK_KHR_video_queue
-    exports["vkGetPhysicalDeviceVideoCapabilitiesKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceVideoCapabilitiesKHR);
+   exports.Set("vkGetPhysicalDeviceVideoCapabilitiesKHR", Napi::Function::New(env, rawGetPhysicalDeviceVideoCapabilitiesKHR));
 #endif
 #ifdef VK_KHR_video_queue
-    exports["vkGetPhysicalDeviceVideoFormatPropertiesKHR"] = Napi::Function::New(env, rawGetPhysicalDeviceVideoFormatPropertiesKHR);
+   exports.Set("vkGetPhysicalDeviceVideoFormatPropertiesKHR", Napi::Function::New(env, rawGetPhysicalDeviceVideoFormatPropertiesKHR));
 #endif
 #ifdef VK_KHR_video_queue
-    exports["vkCreateVideoSessionKHR"] = Napi::Function::New(env, rawCreateVideoSessionKHR);
+   exports.Set("vkCreateVideoSessionKHR", Napi::Function::New(env, rawCreateVideoSessionKHR));
 #endif
 #ifdef VK_KHR_video_queue
-    exports["vkDestroyVideoSessionKHR"] = Napi::Function::New(env, rawDestroyVideoSessionKHR);
+   exports.Set("vkDestroyVideoSessionKHR", Napi::Function::New(env, rawDestroyVideoSessionKHR));
 #endif
 #ifdef VK_KHR_video_queue
-    exports["vkCreateVideoSessionParametersKHR"] = Napi::Function::New(env, rawCreateVideoSessionParametersKHR);
+   exports.Set("vkCreateVideoSessionParametersKHR", Napi::Function::New(env, rawCreateVideoSessionParametersKHR));
 #endif
 #ifdef VK_KHR_video_queue
-    exports["vkUpdateVideoSessionParametersKHR"] = Napi::Function::New(env, rawUpdateVideoSessionParametersKHR);
+   exports.Set("vkUpdateVideoSessionParametersKHR", Napi::Function::New(env, rawUpdateVideoSessionParametersKHR));
 #endif
 #ifdef VK_KHR_video_queue
-    exports["vkDestroyVideoSessionParametersKHR"] = Napi::Function::New(env, rawDestroyVideoSessionParametersKHR);
+   exports.Set("vkDestroyVideoSessionParametersKHR", Napi::Function::New(env, rawDestroyVideoSessionParametersKHR));
 #endif
 #ifdef VK_KHR_video_queue
-    exports["vkGetVideoSessionMemoryRequirementsKHR"] = Napi::Function::New(env, rawGetVideoSessionMemoryRequirementsKHR);
+   exports.Set("vkGetVideoSessionMemoryRequirementsKHR", Napi::Function::New(env, rawGetVideoSessionMemoryRequirementsKHR));
 #endif
 #ifdef VK_KHR_video_queue
-    exports["vkBindVideoSessionMemoryKHR"] = Napi::Function::New(env, rawBindVideoSessionMemoryKHR);
+   exports.Set("vkBindVideoSessionMemoryKHR", Napi::Function::New(env, rawBindVideoSessionMemoryKHR));
 #endif
 #ifdef VK_KHR_video_decode_queue
-    exports["vkCmdDecodeVideoKHR"] = Napi::Function::New(env, rawCmdDecodeVideoKHR);
+   exports.Set("vkCmdDecodeVideoKHR", Napi::Function::New(env, rawCmdDecodeVideoKHR));
 #endif
 #ifdef VK_KHR_video_queue
-    exports["vkCmdBeginVideoCodingKHR"] = Napi::Function::New(env, rawCmdBeginVideoCodingKHR);
+   exports.Set("vkCmdBeginVideoCodingKHR", Napi::Function::New(env, rawCmdBeginVideoCodingKHR));
 #endif
 #ifdef VK_KHR_video_queue
-    exports["vkCmdControlVideoCodingKHR"] = Napi::Function::New(env, rawCmdControlVideoCodingKHR);
+   exports.Set("vkCmdControlVideoCodingKHR", Napi::Function::New(env, rawCmdControlVideoCodingKHR));
 #endif
 #ifdef VK_KHR_video_queue
-    exports["vkCmdEndVideoCodingKHR"] = Napi::Function::New(env, rawCmdEndVideoCodingKHR);
+   exports.Set("vkCmdEndVideoCodingKHR", Napi::Function::New(env, rawCmdEndVideoCodingKHR));
 #endif
 #ifdef VK_KHR_video_encode_queue
-    exports["vkCmdEncodeVideoKHR"] = Napi::Function::New(env, rawCmdEncodeVideoKHR);
+   exports.Set("vkCmdEncodeVideoKHR", Napi::Function::New(env, rawCmdEncodeVideoKHR));
 #endif
 #ifdef VK_NV_memory_decompression
-    exports["vkCmdDecompressMemoryNV"] = Napi::Function::New(env, rawCmdDecompressMemoryNV);
+   exports.Set("vkCmdDecompressMemoryNV", Napi::Function::New(env, rawCmdDecompressMemoryNV));
 #endif
 #ifdef VK_NV_memory_decompression
-    exports["vkCmdDecompressMemoryIndirectCountNV"] = Napi::Function::New(env, rawCmdDecompressMemoryIndirectCountNV);
+   exports.Set("vkCmdDecompressMemoryIndirectCountNV", Napi::Function::New(env, rawCmdDecompressMemoryIndirectCountNV));
 #endif
 #ifdef VK_NVX_binary_import
-    exports["vkCreateCuModuleNVX"] = Napi::Function::New(env, rawCreateCuModuleNVX);
+   exports.Set("vkCreateCuModuleNVX", Napi::Function::New(env, rawCreateCuModuleNVX));
 #endif
 #ifdef VK_NVX_binary_import
-    exports["vkCreateCuFunctionNVX"] = Napi::Function::New(env, rawCreateCuFunctionNVX);
+   exports.Set("vkCreateCuFunctionNVX", Napi::Function::New(env, rawCreateCuFunctionNVX));
 #endif
 #ifdef VK_NVX_binary_import
-    exports["vkDestroyCuModuleNVX"] = Napi::Function::New(env, rawDestroyCuModuleNVX);
+   exports.Set("vkDestroyCuModuleNVX", Napi::Function::New(env, rawDestroyCuModuleNVX));
 #endif
 #ifdef VK_NVX_binary_import
-    exports["vkDestroyCuFunctionNVX"] = Napi::Function::New(env, rawDestroyCuFunctionNVX);
+   exports.Set("vkDestroyCuFunctionNVX", Napi::Function::New(env, rawDestroyCuFunctionNVX));
 #endif
 #ifdef VK_NVX_binary_import
-    exports["vkCmdCuLaunchKernelNVX"] = Napi::Function::New(env, rawCmdCuLaunchKernelNVX);
+   exports.Set("vkCmdCuLaunchKernelNVX", Napi::Function::New(env, rawCmdCuLaunchKernelNVX));
 #endif
 #ifdef VK_EXT_descriptor_buffer
-    exports["vkGetDescriptorSetLayoutSizeEXT"] = Napi::Function::New(env, rawGetDescriptorSetLayoutSizeEXT);
+   exports.Set("vkGetDescriptorSetLayoutSizeEXT", Napi::Function::New(env, rawGetDescriptorSetLayoutSizeEXT));
 #endif
 #ifdef VK_EXT_descriptor_buffer
-    exports["vkGetDescriptorSetLayoutBindingOffsetEXT"] = Napi::Function::New(env, rawGetDescriptorSetLayoutBindingOffsetEXT);
+   exports.Set("vkGetDescriptorSetLayoutBindingOffsetEXT", Napi::Function::New(env, rawGetDescriptorSetLayoutBindingOffsetEXT));
 #endif
 #ifdef VK_EXT_descriptor_buffer
-    exports["vkGetDescriptorEXT"] = Napi::Function::New(env, rawGetDescriptorEXT);
+   exports.Set("vkGetDescriptorEXT", Napi::Function::New(env, rawGetDescriptorEXT));
 #endif
 #ifdef VK_EXT_descriptor_buffer
-    exports["vkCmdBindDescriptorBuffersEXT"] = Napi::Function::New(env, rawCmdBindDescriptorBuffersEXT);
+   exports.Set("vkCmdBindDescriptorBuffersEXT", Napi::Function::New(env, rawCmdBindDescriptorBuffersEXT));
 #endif
 #ifdef VK_EXT_descriptor_buffer
-    exports["vkCmdSetDescriptorBufferOffsetsEXT"] = Napi::Function::New(env, rawCmdSetDescriptorBufferOffsetsEXT);
+   exports.Set("vkCmdSetDescriptorBufferOffsetsEXT", Napi::Function::New(env, rawCmdSetDescriptorBufferOffsetsEXT));
 #endif
 #ifdef VK_EXT_descriptor_buffer
-    exports["vkCmdBindDescriptorBufferEmbeddedSamplersEXT"] = Napi::Function::New(env, rawCmdBindDescriptorBufferEmbeddedSamplersEXT);
+   exports.Set("vkCmdBindDescriptorBufferEmbeddedSamplersEXT", Napi::Function::New(env, rawCmdBindDescriptorBufferEmbeddedSamplersEXT));
 #endif
 #ifdef VK_EXT_descriptor_buffer
-    exports["vkGetBufferOpaqueCaptureDescriptorDataEXT"] = Napi::Function::New(env, rawGetBufferOpaqueCaptureDescriptorDataEXT);
+   exports.Set("vkGetBufferOpaqueCaptureDescriptorDataEXT", Napi::Function::New(env, rawGetBufferOpaqueCaptureDescriptorDataEXT));
 #endif
 #ifdef VK_EXT_descriptor_buffer
-    exports["vkGetImageOpaqueCaptureDescriptorDataEXT"] = Napi::Function::New(env, rawGetImageOpaqueCaptureDescriptorDataEXT);
+   exports.Set("vkGetImageOpaqueCaptureDescriptorDataEXT", Napi::Function::New(env, rawGetImageOpaqueCaptureDescriptorDataEXT));
 #endif
 #ifdef VK_EXT_descriptor_buffer
-    exports["vkGetImageViewOpaqueCaptureDescriptorDataEXT"] = Napi::Function::New(env, rawGetImageViewOpaqueCaptureDescriptorDataEXT);
+   exports.Set("vkGetImageViewOpaqueCaptureDescriptorDataEXT", Napi::Function::New(env, rawGetImageViewOpaqueCaptureDescriptorDataEXT));
 #endif
 #ifdef VK_EXT_descriptor_buffer
-    exports["vkGetSamplerOpaqueCaptureDescriptorDataEXT"] = Napi::Function::New(env, rawGetSamplerOpaqueCaptureDescriptorDataEXT);
+   exports.Set("vkGetSamplerOpaqueCaptureDescriptorDataEXT", Napi::Function::New(env, rawGetSamplerOpaqueCaptureDescriptorDataEXT));
 #endif
 #ifdef VK_EXT_descriptor_buffer
-    exports["vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT"] = Napi::Function::New(env, rawGetAccelerationStructureOpaqueCaptureDescriptorDataEXT);
+   exports.Set("vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT", Napi::Function::New(env, rawGetAccelerationStructureOpaqueCaptureDescriptorDataEXT));
 #endif
 #ifdef VK_EXT_pageable_device_local_memory
-    exports["vkSetDeviceMemoryPriorityEXT"] = Napi::Function::New(env, rawSetDeviceMemoryPriorityEXT);
+   exports.Set("vkSetDeviceMemoryPriorityEXT", Napi::Function::New(env, rawSetDeviceMemoryPriorityEXT));
 #endif
 #ifdef VK_EXT_acquire_drm_display
-    exports["vkAcquireDrmDisplayEXT"] = Napi::Function::New(env, rawAcquireDrmDisplayEXT);
+   exports.Set("vkAcquireDrmDisplayEXT", Napi::Function::New(env, rawAcquireDrmDisplayEXT));
 #endif
 #ifdef VK_EXT_acquire_drm_display
-    exports["vkGetDrmDisplayEXT"] = Napi::Function::New(env, rawGetDrmDisplayEXT);
+   exports.Set("vkGetDrmDisplayEXT", Napi::Function::New(env, rawGetDrmDisplayEXT));
 #endif
 #ifdef VK_KHR_present_wait
-    exports["vkWaitForPresentKHR"] = Napi::Function::New(env, rawWaitForPresentKHR);
+   exports.Set("vkWaitForPresentKHR", Napi::Function::New(env, rawWaitForPresentKHR));
 #endif
 #ifdef VK_FUCHSIA_buffer_collection
-    exports["vkCreateBufferCollectionFUCHSIA"] = Napi::Function::New(env, rawCreateBufferCollectionFUCHSIA);
+   exports.Set("vkCreateBufferCollectionFUCHSIA", Napi::Function::New(env, rawCreateBufferCollectionFUCHSIA));
 #endif
 #ifdef VK_FUCHSIA_buffer_collection
-    exports["vkSetBufferCollectionBufferConstraintsFUCHSIA"] = Napi::Function::New(env, rawSetBufferCollectionBufferConstraintsFUCHSIA);
+   exports.Set("vkSetBufferCollectionBufferConstraintsFUCHSIA", Napi::Function::New(env, rawSetBufferCollectionBufferConstraintsFUCHSIA));
 #endif
 #ifdef VK_FUCHSIA_buffer_collection
-    exports["vkSetBufferCollectionImageConstraintsFUCHSIA"] = Napi::Function::New(env, rawSetBufferCollectionImageConstraintsFUCHSIA);
+   exports.Set("vkSetBufferCollectionImageConstraintsFUCHSIA", Napi::Function::New(env, rawSetBufferCollectionImageConstraintsFUCHSIA));
 #endif
 #ifdef VK_FUCHSIA_buffer_collection
-    exports["vkDestroyBufferCollectionFUCHSIA"] = Napi::Function::New(env, rawDestroyBufferCollectionFUCHSIA);
+   exports.Set("vkDestroyBufferCollectionFUCHSIA", Napi::Function::New(env, rawDestroyBufferCollectionFUCHSIA));
 #endif
 #ifdef VK_FUCHSIA_buffer_collection
-    exports["vkGetBufferCollectionPropertiesFUCHSIA"] = Napi::Function::New(env, rawGetBufferCollectionPropertiesFUCHSIA);
+   exports.Set("vkGetBufferCollectionPropertiesFUCHSIA", Napi::Function::New(env, rawGetBufferCollectionPropertiesFUCHSIA));
 #endif
-    exports["vkCmdBeginRendering"] = Napi::Function::New(env, rawCmdBeginRendering);
-    exports["vkCmdEndRendering"] = Napi::Function::New(env, rawCmdEndRendering);
+   exports.Set("vkCmdBeginRendering", Napi::Function::New(env, rawCmdBeginRendering));
+   exports.Set("vkCmdEndRendering", Napi::Function::New(env, rawCmdEndRendering));
 #ifdef VK_VALVE_descriptor_set_host_mapping
-    exports["vkGetDescriptorSetLayoutHostMappingInfoVALVE"] = Napi::Function::New(env, rawGetDescriptorSetLayoutHostMappingInfoVALVE);
+   exports.Set("vkGetDescriptorSetLayoutHostMappingInfoVALVE", Napi::Function::New(env, rawGetDescriptorSetLayoutHostMappingInfoVALVE));
 #endif
 #ifdef VK_VALVE_descriptor_set_host_mapping
-    exports["vkGetDescriptorSetHostMappingVALVE"] = Napi::Function::New(env, rawGetDescriptorSetHostMappingVALVE);
+   exports.Set("vkGetDescriptorSetHostMappingVALVE", Napi::Function::New(env, rawGetDescriptorSetHostMappingVALVE));
 #endif
 #ifdef VK_EXT_opacity_micromap
-    exports["vkCreateMicromapEXT"] = Napi::Function::New(env, rawCreateMicromapEXT);
+   exports.Set("vkCreateMicromapEXT", Napi::Function::New(env, rawCreateMicromapEXT));
 #endif
 #ifdef VK_EXT_opacity_micromap
-    exports["vkCmdBuildMicromapsEXT"] = Napi::Function::New(env, rawCmdBuildMicromapsEXT);
+   exports.Set("vkCmdBuildMicromapsEXT", Napi::Function::New(env, rawCmdBuildMicromapsEXT));
 #endif
 #ifdef VK_EXT_opacity_micromap
-    exports["vkBuildMicromapsEXT"] = Napi::Function::New(env, rawBuildMicromapsEXT);
+   exports.Set("vkBuildMicromapsEXT", Napi::Function::New(env, rawBuildMicromapsEXT));
 #endif
 #ifdef VK_EXT_opacity_micromap
-    exports["vkDestroyMicromapEXT"] = Napi::Function::New(env, rawDestroyMicromapEXT);
+   exports.Set("vkDestroyMicromapEXT", Napi::Function::New(env, rawDestroyMicromapEXT));
 #endif
 #ifdef VK_EXT_opacity_micromap
-    exports["vkCmdCopyMicromapEXT"] = Napi::Function::New(env, rawCmdCopyMicromapEXT);
+   exports.Set("vkCmdCopyMicromapEXT", Napi::Function::New(env, rawCmdCopyMicromapEXT));
 #endif
 #ifdef VK_EXT_opacity_micromap
-    exports["vkCopyMicromapEXT"] = Napi::Function::New(env, rawCopyMicromapEXT);
+   exports.Set("vkCopyMicromapEXT", Napi::Function::New(env, rawCopyMicromapEXT));
 #endif
 #ifdef VK_EXT_opacity_micromap
-    exports["vkCmdCopyMicromapToMemoryEXT"] = Napi::Function::New(env, rawCmdCopyMicromapToMemoryEXT);
+   exports.Set("vkCmdCopyMicromapToMemoryEXT", Napi::Function::New(env, rawCmdCopyMicromapToMemoryEXT));
 #endif
 #ifdef VK_EXT_opacity_micromap
-    exports["vkCopyMicromapToMemoryEXT"] = Napi::Function::New(env, rawCopyMicromapToMemoryEXT);
+   exports.Set("vkCopyMicromapToMemoryEXT", Napi::Function::New(env, rawCopyMicromapToMemoryEXT));
 #endif
 #ifdef VK_EXT_opacity_micromap
-    exports["vkCmdCopyMemoryToMicromapEXT"] = Napi::Function::New(env, rawCmdCopyMemoryToMicromapEXT);
+   exports.Set("vkCmdCopyMemoryToMicromapEXT", Napi::Function::New(env, rawCmdCopyMemoryToMicromapEXT));
 #endif
 #ifdef VK_EXT_opacity_micromap
-    exports["vkCopyMemoryToMicromapEXT"] = Napi::Function::New(env, rawCopyMemoryToMicromapEXT);
+   exports.Set("vkCopyMemoryToMicromapEXT", Napi::Function::New(env, rawCopyMemoryToMicromapEXT));
 #endif
 #ifdef VK_EXT_opacity_micromap
-    exports["vkCmdWriteMicromapsPropertiesEXT"] = Napi::Function::New(env, rawCmdWriteMicromapsPropertiesEXT);
+   exports.Set("vkCmdWriteMicromapsPropertiesEXT", Napi::Function::New(env, rawCmdWriteMicromapsPropertiesEXT));
 #endif
 #ifdef VK_EXT_opacity_micromap
-    exports["vkWriteMicromapsPropertiesEXT"] = Napi::Function::New(env, rawWriteMicromapsPropertiesEXT);
+   exports.Set("vkWriteMicromapsPropertiesEXT", Napi::Function::New(env, rawWriteMicromapsPropertiesEXT));
 #endif
 #ifdef VK_EXT_opacity_micromap
-    exports["vkGetDeviceMicromapCompatibilityEXT"] = Napi::Function::New(env, rawGetDeviceMicromapCompatibilityEXT);
+   exports.Set("vkGetDeviceMicromapCompatibilityEXT", Napi::Function::New(env, rawGetDeviceMicromapCompatibilityEXT));
 #endif
 #ifdef VK_EXT_opacity_micromap
-    exports["vkGetMicromapBuildSizesEXT"] = Napi::Function::New(env, rawGetMicromapBuildSizesEXT);
+   exports.Set("vkGetMicromapBuildSizesEXT", Napi::Function::New(env, rawGetMicromapBuildSizesEXT));
 #endif
 #ifdef VK_EXT_shader_module_identifier
-    exports["vkGetShaderModuleIdentifierEXT"] = Napi::Function::New(env, rawGetShaderModuleIdentifierEXT);
+   exports.Set("vkGetShaderModuleIdentifierEXT", Napi::Function::New(env, rawGetShaderModuleIdentifierEXT));
 #endif
 #ifdef VK_EXT_shader_module_identifier
-    exports["vkGetShaderModuleCreateInfoIdentifierEXT"] = Napi::Function::New(env, rawGetShaderModuleCreateInfoIdentifierEXT);
+   exports.Set("vkGetShaderModuleCreateInfoIdentifierEXT", Napi::Function::New(env, rawGetShaderModuleCreateInfoIdentifierEXT));
 #endif
 #ifdef VK_EXT_image_compression_control
-    exports["vkGetImageSubresourceLayout2EXT"] = Napi::Function::New(env, rawGetImageSubresourceLayout2EXT);
+   exports.Set("vkGetImageSubresourceLayout2EXT", Napi::Function::New(env, rawGetImageSubresourceLayout2EXT));
 #endif
 #ifdef VK_EXT_pipeline_properties
-    exports["vkGetPipelinePropertiesEXT"] = Napi::Function::New(env, rawGetPipelinePropertiesEXT);
+   exports.Set("vkGetPipelinePropertiesEXT", Napi::Function::New(env, rawGetPipelinePropertiesEXT));
 #endif
 #ifdef VK_EXT_metal_objects
-    exports["vkExportMetalObjectsEXT"] = Napi::Function::New(env, rawExportMetalObjectsEXT);
+   exports.Set("vkExportMetalObjectsEXT", Napi::Function::New(env, rawExportMetalObjectsEXT));
 #endif
 #ifdef VK_QCOM_tile_properties
-    exports["vkGetFramebufferTilePropertiesQCOM"] = Napi::Function::New(env, rawGetFramebufferTilePropertiesQCOM);
+   exports.Set("vkGetFramebufferTilePropertiesQCOM", Napi::Function::New(env, rawGetFramebufferTilePropertiesQCOM));
 #endif
 #ifdef VK_QCOM_tile_properties
-    exports["vkGetDynamicRenderingTilePropertiesQCOM"] = Napi::Function::New(env, rawGetDynamicRenderingTilePropertiesQCOM);
+   exports.Set("vkGetDynamicRenderingTilePropertiesQCOM", Napi::Function::New(env, rawGetDynamicRenderingTilePropertiesQCOM));
 #endif
 #ifdef VK_NV_optical_flow
-    exports["vkGetPhysicalDeviceOpticalFlowImageFormatsNV"] = Napi::Function::New(env, rawGetPhysicalDeviceOpticalFlowImageFormatsNV);
+   exports.Set("vkGetPhysicalDeviceOpticalFlowImageFormatsNV", Napi::Function::New(env, rawGetPhysicalDeviceOpticalFlowImageFormatsNV));
 #endif
 #ifdef VK_NV_optical_flow
-    exports["vkCreateOpticalFlowSessionNV"] = Napi::Function::New(env, rawCreateOpticalFlowSessionNV);
+   exports.Set("vkCreateOpticalFlowSessionNV", Napi::Function::New(env, rawCreateOpticalFlowSessionNV));
 #endif
 #ifdef VK_NV_optical_flow
-    exports["vkDestroyOpticalFlowSessionNV"] = Napi::Function::New(env, rawDestroyOpticalFlowSessionNV);
+   exports.Set("vkDestroyOpticalFlowSessionNV", Napi::Function::New(env, rawDestroyOpticalFlowSessionNV));
 #endif
 #ifdef VK_NV_optical_flow
-    exports["vkBindOpticalFlowSessionImageNV"] = Napi::Function::New(env, rawBindOpticalFlowSessionImageNV);
+   exports.Set("vkBindOpticalFlowSessionImageNV", Napi::Function::New(env, rawBindOpticalFlowSessionImageNV));
 #endif
 #ifdef VK_NV_optical_flow
-    exports["vkCmdOpticalFlowExecuteNV"] = Napi::Function::New(env, rawCmdOpticalFlowExecuteNV);
+   exports.Set("vkCmdOpticalFlowExecuteNV", Napi::Function::New(env, rawCmdOpticalFlowExecuteNV));
 #endif
 #ifdef VK_EXT_device_fault
-    exports["vkGetDeviceFaultInfoEXT"] = Napi::Function::New(env, rawGetDeviceFaultInfoEXT);
+   exports.Set("vkGetDeviceFaultInfoEXT", Napi::Function::New(env, rawGetDeviceFaultInfoEXT));
 #endif
 
     // TODO: Unified Syntax
@@ -33729,25 +33729,25 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
     exports.Set("glfwSwapBuffers", Napi::Function::New(env, __glfwSwapBuffers));
 
     // TODO: Unified Syntax
-    exports["glfwCreateWindowSurface"] = Napi::Function::New(env, __glfwCreateWindowSurface);
-    exports["glfwVulkanSupported"] = Napi::Function::New(env, __glfwVulkanSupported);
-    exports["glfwGetRequiredInstanceExtensions"] = Napi::Function::New(env, __glfwGetRequiredInstanceExtensions);
-    exports["glfwGetPhysicalDevicePresentationSupport"] = Napi::Function::New(env, __glfwGetPhysicalDevicePresentationSupport);
+    exports.Set("glfwCreateWindowSurface", Napi::Function::New(env, __glfwCreateWindowSurface));
+    exports.Set("glfwVulkanSupported", Napi::Function::New(env, __glfwVulkanSupported));
+    exports.Set("glfwGetRequiredInstanceExtensions", Napi::Function::New(env, __glfwGetRequiredInstanceExtensions));
+    exports.Set("glfwGetPhysicalDevicePresentationSupport", Napi::Function::New(env, __glfwGetPhysicalDevicePresentationSupport));
 #endif
 
     // TODO: Unified Syntax
-    exports["vkGetStructureSizeBySType"] = Napi::Function::New(env, rawGetStructureSizeBySType);
-    exports["uint8" ] = Napi::Function::New(env, DebugUint8);
-    exports["uint16"] = Napi::Function::New(env, DebugUint16);
-    exports["uint32"] = Napi::Function::New(env, DebugUint32);
-    exports["uint64"] = Napi::Function::New(env, DebugUint64);
-    exports["float32"] = Napi::Function::New(env, DebugFloat32);
-    exports["float64"] = Napi::Function::New(env, DebugFloat64);
-    exports["nativeAddress"] = Napi::Function::New(env, GetAddressJS);
-    exports["arrayBuffer"] = Napi::Function::New(env, WrapArrayBuffer);
-    exports["buffer"] = Napi::Function::New(env, WrapBuffer);
-    exports["string"] = Napi::Function::New(env, WrapString);
-    exports["stringUtf16"] = Napi::Function::New(env, WrapStringUTF16);
+    exports.Set("vkGetStructureSizeBySType", Napi::Function::New(env, rawGetStructureSizeBySType));
+    exports.Set("uint8" , Napi::Function::New(env, DebugUint8));
+    exports.Set("uint16", Napi::Function::New(env, DebugUint16));
+    exports.Set("uint32", Napi::Function::New(env, DebugUint32));
+    exports.Set("uint64", Napi::Function::New(env, DebugUint64));
+    exports.Set("float32", Napi::Function::New(env, DebugFloat32));
+    exports.Set("float64", Napi::Function::New(env, DebugFloat64));
+    exports.Set("nativeAddress", Napi::Function::New(env, GetAddressJS));
+    exports.Set("arrayBuffer", Napi::Function::New(env, WrapArrayBuffer));
+    exports.Set("buffer", Napi::Function::New(env, WrapBuffer));
+    exports.Set("string", Napi::Function::New(env, WrapString));
+    exports.Set("stringUtf16", Napi::Function::New(env, WrapStringUTF16));
     return exports;
 }
 

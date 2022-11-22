@@ -55,13 +55,6 @@ Napi::FunctionReference *windowMaximizeCallback;
 std::map<GLFWwindow *, Napi::FunctionReference *> framebufferSizeCallbacks;
 Napi::FunctionReference *windowContentScaleCallback;
 
-// TODO: native pointers support
-// TODO: support for settings PTR
-void setObjPtr(Napi::Env env, Napi::Value obj, Napi::Value value) {
-    if (obj.IsObject() && obj.As<Napi::Object>().Has("$")) { obj.As<Napi::Object>().Set("$", value); return; };
-    decltype(auto) pObj = GetAddress(env, obj); bool lossless = true;
-}
-
 //
 template <typename T>
 T getObjPtr(Napi::Env env, Napi::Value obj) {
@@ -74,7 +67,7 @@ void __glfwMakeContextCurrent(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     glfwMakeContextCurrent(window);
 }
 
@@ -130,35 +123,24 @@ void __glfwGetVersion(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    int major = 0, minor = 0, rev = 0;
-    glfwGetVersion(&major, &minor, &rev);
-
-    setObjPtr(env, info[0], Napi::Number::New(env, major));
-    setObjPtr(env, info[1], Napi::Number::New(env, minor));
-    setObjPtr(env, info[2], Napi::Number::New(env, rev));
+    //
+    if (info.Length() == 3) {
+        glfwGetVersion((int*)GetAddress(env, info[0]), (int*)GetAddress(env, info[1]), (int*)GetAddress(env, info[2]));
+    } else {
+        glfwGetVersion((int*)GetAddress(env, info[0]), (int*)GetAddress(env, info[0]) + 1, (int*)GetAddress(env, info[0]) + 2);
+    }
 }
 
 Napi::String __glfwGetVersionString(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
-
     return Napi::String::New(env, glfwGetVersionString());
 }
 
 Napi::Number __glfwGetError(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
-
-    const char* desc = new char[1024];
-    int code = glfwGetError(&desc);
-
-    if (info.Length() > 0 && info[0].IsObject()) {
-        setObjPtr(env, info[0], Napi::String::New(env, desc, 1024));
-    }
-
-    delete[] desc;
-
-    return Napi::Number::New(env, code);
+    return Napi::Number::New(env, glfwGetError((const char**)GetAddress(env, info[0])));
 }
 
 void __glfwSetErrorCallback(const Napi::CallbackInfo &info) {
@@ -185,12 +167,14 @@ void __glfwSetErrorCallback(const Napi::CallbackInfo &info) {
     });
 }
 
+//(GLFWwindow*)GetAddress(env, info[0]);
+
 // Define input handling functions
 Napi::Number __glfwGetInputMode(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     int mode = info[1].As<Napi::Number>().Int32Value();
 
     return Napi::Number::New(env, glfwGetInputMode(window, mode));
@@ -200,7 +184,7 @@ void __glfwSetInputMode(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     int mode = info[1].As<Napi::Number>().Int32Value();
     int value = info[2].As<Napi::Number>().Int32Value();
 
@@ -237,7 +221,7 @@ Napi::Number __glfwGetKey(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     int key = info[1].As<Napi::Number>().Int32Value();
 
     return Napi::Number::New(env, glfwGetKey(window, key));
@@ -247,7 +231,7 @@ Napi::Number __glfwGetMouseButton(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     int button = info[1].As<Napi::Number>().Int32Value();
 
     return Napi::Number::New(env, glfwGetMouseButton(window, button));
@@ -257,19 +241,16 @@ void __glfwGetCursorPos(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
-    double xpos, ypos;
-    glfwGetCursorPos(window, &xpos, &ypos);
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
+    glfwGetCursorPos(window, (double*)GetAddress(env, info[0]), (double*)GetAddress(env, info[1]));
 
-    setObjPtr(env, info[1], Napi::Number::New(env, xpos));
-    setObjPtr(env, info[2], Napi::Number::New(env, ypos));
 }
 
 void __glfwSetCursorPos(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     double xpos = info[1].As<Napi::Number>().DoubleValue();
     double ypos = info[2].As<Napi::Number>().DoubleValue();
 
@@ -310,8 +291,7 @@ void __glfwDestroyCursor(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWcursor *cursor = info[0].As<Napi::External<GLFWcursor>>().Data();
-
+    GLFWcursor* cursor = (GLFWcursor*)GetAddress(env, info[0]);
     glfwDestroyCursor(cursor);
 }
 
@@ -319,8 +299,8 @@ void __glfwSetCursor(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
-    GLFWcursor *cursor = info[1].As<Napi::External<GLFWcursor>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
+    GLFWcursor* cursor = (GLFWcursor*)GetAddress(env, info[1]);
 
     glfwSetCursor(window, cursor);
 }
@@ -329,7 +309,7 @@ void __glfwSetKeyCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (info[1].IsFunction()) {
         Napi::FunctionReference *ref = new Napi::FunctionReference();
@@ -364,7 +344,7 @@ void __glfwSetCharCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (info[1].IsFunction()) {
         Napi::FunctionReference *ref = new Napi::FunctionReference();
@@ -396,7 +376,7 @@ void __glfwSetCharModsCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (info[1].IsFunction()) {
         Napi::FunctionReference *ref = new Napi::FunctionReference();
@@ -429,7 +409,7 @@ void __glfwSetMouseButtonCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (info[1].IsFunction()) {
         Napi::FunctionReference *ref = new Napi::FunctionReference();
@@ -463,7 +443,7 @@ void __glfwSetCursorPosCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (info[1].IsFunction()) {
         Napi::FunctionReference *ref = new Napi::FunctionReference();
@@ -496,7 +476,7 @@ void __glfwSetCursorEnterCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (info[1].IsFunction()) {
         Napi::FunctionReference *ref = new Napi::FunctionReference();
@@ -528,7 +508,7 @@ void __glfwSetScrollCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (info[1].IsFunction()) {
         Napi::FunctionReference *ref = new Napi::FunctionReference();
@@ -561,7 +541,7 @@ void __glfwSetDropCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (info[1].IsFunction()) {
         Napi::FunctionReference *ref = new Napi::FunctionReference();
@@ -607,17 +587,10 @@ Napi::Float32Array __glfwGetJoystickAxes(const Napi::CallbackInfo &info) {
     Napi::HandleScope scope(env);
 
     int joy = info[0].As<Napi::Number>().Int32Value();
-    int count;
-    const float *axes = glfwGetJoystickAxes(joy, &count);
-
-    Napi::Float32Array array = Napi::Float32Array::New(env, count);
-
-    for (int i = 0; i < count; i++) {
-        array.Set(i, axes[i]);
-    }
-
-    setObjPtr(env, info[1], Napi::Number::New(env, count));
-
+    int count_ = 0; int* count = info.Length() >= 2 ? (int*)GetAddress(env, info[1]) : nullptr;
+    float const* axes = glfwGetJoystickAxes(joy, count = count ? count : (&count_));
+    Napi::Float32Array array = Napi::Float32Array::New(env, *count);
+    for (int i = 0; i < (*count); i++) { array.Set(i, axes[i]); }
     return array;
 }
 
@@ -626,17 +599,10 @@ Napi::Uint8Array __glfwGetJoystickButtons(const Napi::CallbackInfo &info) {
     Napi::HandleScope scope(env);
 
     int joy = info[0].As<Napi::Number>().Int32Value();
-    int count;
-    const unsigned char *buttons = glfwGetJoystickButtons(joy, &count);
-
-    Napi::Uint8Array array = Napi::Uint8Array::New(env, count);
-
-    for (int i = 0; i < count; i++) {
-        array.Set(i, buttons[i]);
-    }
-
-    setObjPtr(env, info[1], Napi::Number::New(env, count));
-
+    int count_ = 0; int* count = info.Length() >= 2 ? (int*)GetAddress(env, info[1]) : nullptr;
+    const unsigned char *buttons = glfwGetJoystickButtons(joy, count = count ? count : (&count_));
+    Napi::Uint8Array array = Napi::Uint8Array::New(env, *count);
+    for (int i = 0; i < (*count); i++) { array.Set(i, buttons[i]); }
     return array;
 }
 
@@ -645,17 +611,10 @@ Napi::Uint8Array __glfwGetJoystickHats(const Napi::CallbackInfo &info) {
     Napi::HandleScope scope(env);
 
     int joy = info[0].As<Napi::Number>().Int32Value();
-    int count;
-    const unsigned char *hats = glfwGetJoystickHats(joy, &count);
-
-    Napi::Uint8Array array = Napi::Uint8Array::New(env, count);
-
-    for (int i = 0; i < count; i++) {
-        array.Set(i, hats[i]);
-    }
-
-    setObjPtr(env, info[1], Napi::Number::New(env, count));
-
+    int count_ = 0; int* count = info.Length() >= 2 ? (int*)GetAddress(env, info[1]) : nullptr;
+    const unsigned char *hats = glfwGetJoystickHats(joy, count = count ? count : (&count_));
+    Napi::Uint8Array array = Napi::Uint8Array::New(env, *count);
+    for (int i = 0; i < (*count); i++) { array.Set(i, hats[i]); }
     return array;
 }
 
@@ -664,7 +623,6 @@ Napi::String __glfwGetJoystickName(const Napi::CallbackInfo &info) {
     Napi::HandleScope scope(env);
 
     int joy = info[0].As<Napi::Number>().Int32Value();
-
     return Napi::String::New(env, glfwGetJoystickName(joy));
 }
 
@@ -739,7 +697,7 @@ Napi::Boolean __glfwGetGamepadState(const Napi::CallbackInfo &info) {
     Napi::HandleScope scope(env);
 
     int joy = info[0].As<Napi::Number>().Int32Value();
-    GLFWgamepadstate *state = info[1].As<Napi::External<GLFWgamepadstate>>().Data();
+    GLFWgamepadstate *state = (GLFWgamepadstate*)GetAddress(env, info[1]);
 
     return Napi::Boolean::New(env, glfwGetGamepadState(joy, state) == GLFW_TRUE);
 }
@@ -748,7 +706,7 @@ void __glfwSetClipboardString(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     const char* string = info[1].As<Napi::String>().Utf8Value().c_str();
 
     glfwSetClipboardString(window, string);
@@ -758,7 +716,7 @@ Napi::String __glfwGetClipboardString(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     return Napi::String::New(env, glfwGetClipboardString(window));
 }
@@ -798,16 +756,13 @@ Napi::Array __glfwGetMonitors(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    int count;
-    GLFWmonitor **monitors = glfwGetMonitors(&count);
+    int count_ = 0; int* count = info.Length() >= 1 ? (int*)GetAddress(env, info[0]) : nullptr;
+    GLFWmonitor **monitors = glfwGetMonitors(count = count ? count : (&count_));
 
-    Napi::Array array = Napi::Array::New(env, count);
-
-    for (int i = 0; i < count; i++) {
+    Napi::Array array = Napi::Array::New(env, *count);
+    for (int i = 0; i < (*count); i++) {
         array.Set(i, Napi::External<GLFWmonitor>::New(env, monitors[i]));
     }
-
-    setObjPtr(env, info[0], Napi::Number::New(env, count));
 
     return array;
 }
@@ -823,62 +778,42 @@ void __glfwGetMonitorPos(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWmonitor *monitor = info[0].As<Napi::External<GLFWmonitor>>().Data();
-    int xpos = 0, ypos = 0;
-
-    glfwGetMonitorPos(monitor, &xpos, &ypos);
-
-    setObjPtr(env, info[1], Napi::Number::New(env, xpos));
-    setObjPtr(env, info[2], Napi::Number::New(env, ypos));
+    GLFWmonitor* monitor= (GLFWmonitor*)GetAddress(env, info[0]);
+    if (info.Length() >= 3) { glfwGetMonitorPos(monitor, (int*)GetAddress(env, info[1]), (int*)GetAddress(env, info[2])); } else
+    if (info.Length() >= 2) { glfwGetMonitorPos(monitor, (int*)GetAddress(env, info[1]), (int*)GetAddress(env, info[1]) + 1); } 
 }
 
 void __glfwGetMonitorWorkarea(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWmonitor *monitor = info[0].As<Napi::External<GLFWmonitor>>().Data();
-    int xpos = 0, ypos = 0, width = 0, height = 0;
-
-    glfwGetMonitorWorkarea(monitor, &xpos, &ypos, &width, &height);
-
-    setObjPtr(env, info[1], Napi::Number::New(env, xpos));
-    setObjPtr(env, info[2], Napi::Number::New(env, ypos));
-    setObjPtr(env, info[3], Napi::Number::New(env, width));
-    setObjPtr(env, info[4], Napi::Number::New(env, height));
+    GLFWmonitor* monitor= (GLFWmonitor*)GetAddress(env, info[0]);
+    glfwGetMonitorWorkarea(monitor, (int*)GetAddress(env, info[1]), (int*)GetAddress(env, info[2]), (int*)GetAddress(env, info[3]), (int*)GetAddress(env, info[4]));
 }
 
 void __glfwGetMonitorPhysicalSize(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWmonitor *monitor = info[0].As<Napi::External<GLFWmonitor>>().Data();
-    int widthMM = 0, heightMM = 0;
-
-    glfwGetMonitorPhysicalSize(monitor, &widthMM, &heightMM);
-
-    setObjPtr(env, info[1], Napi::Number::New(env, widthMM));
-    setObjPtr(env, info[2], Napi::Number::New(env, heightMM));
+    GLFWmonitor* monitor= (GLFWmonitor*)GetAddress(env, info[0]);
+    if (info.Length() >= 3) { glfwGetMonitorPhysicalSize(monitor, (int*)GetAddress(env, info[1]), (int*)GetAddress(env, info[2])); } else
+    if (info.Length() >= 2) { glfwGetMonitorPhysicalSize(monitor, (int*)GetAddress(env, info[1]), (int*)GetAddress(env, info[1]) + 1); } 
 }
 
 void __glfwGetMonitorContentScale(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWmonitor *monitor = info[0].As<Napi::External<GLFWmonitor>>().Data();
-    float xscale = 0, yscale = 0;
-
-    glfwGetMonitorContentScale(monitor, &xscale, &yscale);
-
-    setObjPtr(env, info[1], Napi::Number::New(env, xscale));
-    setObjPtr(env, info[2], Napi::Number::New(env, yscale));
+    GLFWmonitor* monitor= (GLFWmonitor*)GetAddress(env, info[0]);
+    if (info.Length() >= 3) { glfwGetMonitorContentScale(monitor, (float*)GetAddress(env, info[1]), (float*)GetAddress(env, info[2])); } else
+    if (info.Length() >= 2) { glfwGetMonitorContentScale(monitor, (float*)GetAddress(env, info[1]), (float*)GetAddress(env, info[1]) + 1); } 
 }
 
 Napi::String __glfwGetMonitorName(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWmonitor *monitor = info[0].As<Napi::External<GLFWmonitor>>().Data();
-
+    GLFWmonitor* monitor= (GLFWmonitor*)GetAddress(env, info[0]);
     return Napi::String::New(env, glfwGetMonitorName(monitor));
 }
 
@@ -910,13 +845,13 @@ Napi::Array __glfwGetVideoModes(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWmonitor *monitor = info[0].As<Napi::External<GLFWmonitor>>().Data();
-    int count;
-    const GLFWvidmode *modes = glfwGetVideoModes(monitor, &count);
+    GLFWmonitor* monitor= (GLFWmonitor*)GetAddress(env, info[0]);
+    int count_ = 0; int* count = info.Length() >= 1 ? (int*)GetAddress(env, info[0]) : nullptr;
+    const GLFWvidmode *modes = glfwGetVideoModes(monitor, count);
 
-    Napi::Array array = Napi::Array::New(env, count);
+    Napi::Array array = Napi::Array::New(env, *count);
 
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < (*count); i++) {
         Napi::Object obj = Napi::Object::New(env);
 
         obj.Set("width", Napi::Number::New(env, modes[i].width));
@@ -929,8 +864,6 @@ Napi::Array __glfwGetVideoModes(const Napi::CallbackInfo &info) {
         array.Set(i, obj);
     }
 
-    setObjPtr(env, info[1], Napi::Number::New(env, count));
-
     return array;
 }
 
@@ -938,7 +871,7 @@ Napi::Object __glfwGetVideoMode(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWmonitor *monitor = info[0].As<Napi::External<GLFWmonitor>>().Data();
+    GLFWmonitor* monitor= (GLFWmonitor*)GetAddress(env, info[0]);
     const GLFWvidmode *mode = glfwGetVideoMode(monitor);
 
     Napi::Object obj = Napi::Object::New(env);
@@ -957,7 +890,7 @@ void __glfwSetGamma(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWmonitor *monitor = info[0].As<Napi::External<GLFWmonitor>>().Data();
+    GLFWmonitor* monitor= (GLFWmonitor*)GetAddress(env, info[0]);
     float gamma = info[1].As<Napi::Number>().FloatValue();
 
     glfwSetGamma(monitor, gamma);
@@ -967,7 +900,7 @@ Napi::Object __glfwGetGammaRamp(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWmonitor *monitor = info[0].As<Napi::External<GLFWmonitor>>().Data();
+    GLFWmonitor* monitor= (GLFWmonitor*)GetAddress(env, info[0]);
     const GLFWgammaramp *gamma = glfwGetGammaRamp(monitor);
 
     Napi::Object obj = Napi::Object::New(env);
@@ -986,11 +919,12 @@ Napi::Object __glfwGetGammaRamp(const Napi::CallbackInfo &info) {
     return obj;
 }
 
+// TODO: add natives support
 void __glfwSetGammaRamp(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWmonitor *monitor = info[0].As<Napi::External<GLFWmonitor>>().Data();
+    GLFWmonitor* monitor= (GLFWmonitor*)GetAddress(env, info[0]);
     Napi::Object gamma = info[1].As<Napi::Object>();
 
     GLFWgammaramp ramp;
@@ -1046,23 +980,9 @@ Napi::External<GLFWwindow> __glfwCreateWindow(const Napi::CallbackInfo &info) {
     int width = info[0].As<Napi::Number>().Int32Value();
     int height = info[1].As<Napi::Number>().Int32Value();
     std::string title = info[2].As<Napi::String>().Utf8Value();
-    GLFWmonitor *monitor;
-    GLFWwindow *share;
-
-    if (info[3].IsExternal()) {
-        monitor = info[3].As<Napi::External<GLFWmonitor>>().Data();
-    } else {
-        monitor = NULL;
-    }
-
-    if (info[4].IsExternal()) {
-        share = info[4].As<Napi::External<GLFWwindow>>().Data();
-    } else {
-        share = NULL;
-    }
-
+    GLFWmonitor *monitor = (GLFWmonitor *)GetAddress(env, info[3]);
+    GLFWwindow *share = (GLFWwindow *)GetAddress(env, info[4]);
     GLFWwindow *window = glfwCreateWindow(width, height, title.c_str(), monitor, share);
-
     return Napi::External<GLFWwindow>::New(env, window);
 }
 
@@ -1070,7 +990,7 @@ void __glfwDestroyWindow(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     glfwDestroyWindow(window);
 }
@@ -1079,7 +999,7 @@ Napi::Boolean __glfwWindowShouldClose(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     return Napi::Boolean::New(env, glfwWindowShouldClose(window));
 }
@@ -1088,7 +1008,7 @@ void __glfwSetWindowShouldClose(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     int value = info[1].As<Napi::Number>().Int32Value();
 
     glfwSetWindowShouldClose(window, value);
@@ -1098,7 +1018,7 @@ void __glfwSetWindowTitle(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     std::string title = info[1].As<Napi::String>().Utf8Value();
 
     glfwSetWindowTitle(window, title.c_str());
@@ -1108,7 +1028,7 @@ void __glfwSetWindowIcon(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     int count = info[1].As<Napi::Number>().Int32Value();
     Napi::Array array = info[2].As<Napi::Array>();
@@ -1132,20 +1052,16 @@ void __glfwGetWindowPos(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
-    int xpos = 0, ypos = 0;
-
-    glfwGetWindowPos(window, &xpos, &ypos);
-
-    setObjPtr(env, info[1], Napi::Number::New(env, xpos));
-    setObjPtr(env, info[2], Napi::Number::New(env, ypos));
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
+    if (info.Length() >= 3) { glfwGetWindowPos(window, (int*)GetAddress(env, info[1]), (int*)GetAddress(env, info[2])); } else
+    if (info.Length() >= 2) { glfwGetWindowPos(window, (int*)GetAddress(env, info[1]), (int*)GetAddress(env, info[1]) + 1); } 
 }
 
 void __glfwSetWindowPos(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     int xpos = info[1].As<Napi::Number>().Int32Value();
     int ypos = info[2].As<Napi::Number>().Int32Value();
 
@@ -1156,20 +1072,16 @@ void __glfwGetWindowSize(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
-    int width = 0, height = 0;
-
-    glfwGetWindowSize(window, &width, &height);
-
-    setObjPtr(env, info[1], Napi::Number::New(env, width));
-    setObjPtr(env, info[2], Napi::Number::New(env, height));
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
+    if (info.Length() >= 3) { glfwGetWindowSize(window, (int*)GetAddress(env, info[1]), (int*)GetAddress(env, info[2])); } else
+    if (info.Length() >= 2) { glfwGetWindowSize(window, (int*)GetAddress(env, info[1]), (int*)GetAddress(env, info[1]) + 1); } 
 }
 
 void __glfwSetWindowSizeLimits(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     int minwidth = info[1].As<Napi::Number>().Int32Value();
     int minheight = info[2].As<Napi::Number>().Int32Value();
     int maxwidth = info[3].As<Napi::Number>().Int32Value();
@@ -1182,7 +1094,7 @@ void __glfwSetWindowAspectRatio(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     int numer = info[1].As<Napi::Number>().Int32Value();
     int denom = info[2].As<Napi::Number>().Int32Value();
 
@@ -1193,7 +1105,7 @@ void __glfwSetWindowSize(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     int width = info[1].As<Napi::Number>().Int32Value();
     int height = info[2].As<Napi::Number>().Int32Value();
 
@@ -1204,48 +1116,33 @@ void __glfwGetFramebufferSize(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
-    int width = 0, height = 0;
-
-    glfwGetFramebufferSize(window, &width, &height);
-
-    setObjPtr(env, info[1], Napi::Number::New(env, width));
-    setObjPtr(env, info[2], Napi::Number::New(env, height));
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
+    if (info.Length() >= 3) { glfwGetFramebufferSize(window, (int*)GetAddress(env, info[1]), (int*)GetAddress(env, info[2])); } else
+    if (info.Length() >= 2) { glfwGetFramebufferSize(window, (int*)GetAddress(env, info[1]), (int*)GetAddress(env, info[1]) + 1); } 
 }
 
 void __glfwGetWindowFrameSize(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
-    int left = 0, top = 0, right = 0, bottom = 0;
-
-    glfwGetWindowFrameSize(window, &left, &top, &right, &bottom);
-
-    setObjPtr(env, info[1], Napi::Number::New(env, left));
-    setObjPtr(env, info[2], Napi::Number::New(env, top));
-    setObjPtr(env, info[3], Napi::Number::New(env, right));
-    setObjPtr(env, info[4], Napi::Number::New(env, bottom));
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
+    glfwGetWindowFrameSize(window, (int*)GetAddress(env, info[1]), (int*)GetAddress(env, info[2]), (int*)GetAddress(env, info[3]), (int*)GetAddress(env, info[4]));
 }
 
 void __glfwGetWindowContentScale(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
-    float xscale = 0, yscale = 0;
-
-    glfwGetWindowContentScale(window, &xscale, &yscale);
-
-    setObjPtr(env, info[1], Napi::Number::New(env, xscale));
-    setObjPtr(env, info[2], Napi::Number::New(env, yscale));
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
+    if (info.Length() >= 3) { glfwGetWindowContentScale(window, (float*)GetAddress(env, info[1]), (float*)GetAddress(env, info[2])); } else
+    if (info.Length() >= 2) { glfwGetWindowContentScale(window, (float*)GetAddress(env, info[1]), (float*)GetAddress(env, info[1]) + 1); } 
 }
 
 Napi::Number __glfwGetWindowOpacity(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     return Napi::Number::New(env, glfwGetWindowOpacity(window));
 }
@@ -1254,7 +1151,7 @@ void __glfwSetWindowOpacity(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     float opacity = info[1].As<Napi::Number>().FloatValue();
 
     glfwSetWindowOpacity(window, opacity);
@@ -1264,7 +1161,7 @@ void __glfwIconifyWindow(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     glfwIconifyWindow(window);
 }
@@ -1273,7 +1170,7 @@ void __glfwRestoreWindow(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     glfwRestoreWindow(window);
 }
@@ -1282,7 +1179,7 @@ void __glfwMaximizeWindow(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     glfwMaximizeWindow(window);
 }
@@ -1291,7 +1188,7 @@ void __glfwShowWindow(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     glfwShowWindow(window);
 }
@@ -1300,7 +1197,7 @@ void __glfwHideWindow(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     glfwHideWindow(window);
 }
@@ -1309,7 +1206,7 @@ void __glfwFocusWindow(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     glfwFocusWindow(window);
 }
@@ -1318,7 +1215,7 @@ void __glfwRequestWindowAttention(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     glfwRequestWindowAttention(window);
 }
@@ -1327,7 +1224,7 @@ Napi::External<GLFWmonitor> __glfwGetWindowMonitor(const Napi::CallbackInfo &inf
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     return Napi::External<GLFWmonitor>::New(env, glfwGetWindowMonitor(window));
 }
@@ -1342,21 +1239,16 @@ void __glfwSetWindowMonitor(const Napi::CallbackInfo &info) {
     int height = info[5].As<Napi::Number>().Int32Value();
     int refreshRate = info[6].As<Napi::Number>().Int32Value();
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
-    
-    if (info[1].IsExternal()) {
-        GLFWmonitor *monitor = info[1].As<Napi::External<GLFWmonitor>>().Data();
-        glfwSetWindowMonitor(window, monitor, xpos, ypos, width, height, refreshRate);
-    } else {
-        glfwSetWindowMonitor(window, NULL, xpos, ypos, width, height, refreshRate);
-    }
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
+    GLFWmonitor* monitor= (GLFWmonitor*)GetAddress(env, info[1]);
+    glfwSetWindowMonitor(window, monitor, xpos, ypos, width, height, refreshRate);
 }
 
 Napi::Number __glfwGetWindowAttrib(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     int attrib = info[1].As<Napi::Number>().Int32Value();
 
     return Napi::Number::New(env, glfwGetWindowAttrib(window, attrib));
@@ -1366,7 +1258,7 @@ void __glfwSetWindowAttrib(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     int attrib = info[1].As<Napi::Number>().Int32Value();
     int value = info[2].As<Napi::Number>().Int32Value();
 
@@ -1377,7 +1269,7 @@ void __glfwSetWindowPosCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (windowPosCallback == nullptr) {
         windowPosCallback = new Napi::FunctionReference();
@@ -1407,7 +1299,7 @@ void __glfwSetWindowSizeCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (windowSizeCallback == nullptr) {
         windowSizeCallback = new Napi::FunctionReference();
@@ -1437,7 +1329,7 @@ void __glfwSetWindowCloseCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (windowCloseCallback == nullptr) {
         windowCloseCallback = new Napi::FunctionReference();
@@ -1467,7 +1359,7 @@ void __glfwSetWindowRefreshCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (windowRefreshCallback == nullptr) {
         windowRefreshCallback = new Napi::FunctionReference();
@@ -1497,7 +1389,7 @@ void __glfwSetWindowFocusCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (windowFocusCallback == nullptr) {
         windowFocusCallback = new Napi::FunctionReference();
@@ -1527,7 +1419,7 @@ void __glfwSetWindowIconifyCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (windowIconifyCallback == nullptr) {
         windowIconifyCallback = new Napi::FunctionReference();
@@ -1557,7 +1449,7 @@ void __glfwSetWindowMaximizeCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (windowMaximizeCallback == nullptr) {
         windowMaximizeCallback = new Napi::FunctionReference();
@@ -1587,7 +1479,7 @@ void __glfwSetFramebufferSizeCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (info[1].IsFunction()) {
         Napi::FunctionReference *ref = new Napi::FunctionReference();
@@ -1620,7 +1512,7 @@ void __glfwSetWindowContentScaleCallback(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
 
     if (windowContentScaleCallback == nullptr) {
         windowContentScaleCallback = new Napi::FunctionReference();
@@ -1668,8 +1560,9 @@ void __glfwPostEmptyEvent(const Napi::CallbackInfo &info) {
 }
 
 void __glfwSwapBuffers(const Napi::CallbackInfo &info) {
-    GLFWwindow *window = info[0].As<Napi::External<GLFWwindow>>().Data();
-
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+    GLFWwindow *window = (GLFWwindow*)GetAddress(env, info[0]);
     glfwSwapBuffers(window);
 }
 
@@ -1678,41 +1571,40 @@ void __glfwSwapBuffers(const Napi::CallbackInfo &info) {
 
 
 // 
-Napi::Boolean __glfwVulkanSupported(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
+Napi::Boolean __glfwVulkanSupported(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
     return Napi::Boolean::New(env, ::glfwVulkanSupported());
 }
 
 // TODO: make arrays
-Napi::TypedArrayOf<uint64_t> __glfwGetRequiredInstanceExtensions(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
+Napi::TypedArrayOf<uint64_t> __glfwGetRequiredInstanceExtensions(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
     bool lossless = true;
     uint32_t count = 0u;
-    const char* const * charArr = ::glfwGetRequiredInstanceExtensions(/*(uint32_t*)GetAddress(env, info_[0])*/ &count);
+    const char* const * charArr = ::glfwGetRequiredInstanceExtensions(/*(uint32_t*)GetAddress(env, info[0])*/ &count);
     return Napi::TypedArrayOf<uint64_t>::New(env, count, Napi::ArrayBuffer::New(env, (uint64_t*)charArr, count * sizeof(const char* const *)), 0);
 }
 
 //
-Napi::Number __glfwCreateWindowSurface(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
+Napi::Number __glfwCreateWindowSurface(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
     bool lossless = true;
     return Napi::Number::New(env, ::glfwCreateWindowSurface(
-        (VkInstance)info_[0].As<Napi::BigInt>().Uint64Value(&lossless),
-        //info_[1].IsExternal() ? *info_[1].As<Napi::External<GLFWwindow*>>().Data() : (GLFWwindow*)GetAddress(env, info_[1]),
-        info_[1].IsExternal() ? info_[1].As<Napi::External<GLFWwindow>>().Data() : (GLFWwindow*)GetAddress(env, info_[1]),
-        (const VkAllocationCallbacks*)(GetAddress(env, info_[2])),
-        (VkSurfaceKHR *)(GetAddress(env, info_[3]))
+        (VkInstance)info[0].As<Napi::BigInt>().Uint64Value(&lossless),
+        (GLFWwindow*)GetAddress(env, info[1]),
+        (const VkAllocationCallbacks*)(GetAddress(env, info[2])),
+        (VkSurfaceKHR *)(GetAddress(env, info[3]))
     ));
 }
 
 //
-Napi::Boolean __glfwGetPhysicalDevicePresentationSupport(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
+Napi::Boolean __glfwGetPhysicalDevicePresentationSupport(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
     bool lossless = true;
     return Napi::Boolean::New(env, ::glfwGetPhysicalDevicePresentationSupport(
-        (VkInstance)info_[0].As<Napi::BigInt>().Uint64Value(&lossless),
-        (VkPhysicalDevice)info_[1].As<Napi::BigInt>().Uint64Value(&lossless),
-        info_[2].As<Napi::Number>().Uint32Value()
+        (VkInstance)info[0].As<Napi::BigInt>().Uint64Value(&lossless),
+        (VkPhysicalDevice)info[1].As<Napi::BigInt>().Uint64Value(&lossless),
+        info[2].As<Napi::Number>().Uint32Value()
     ));
 }
 
