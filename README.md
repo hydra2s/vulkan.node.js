@@ -6,6 +6,10 @@
 
 Our Node.JS bindings for Vulkan API support (latest version, as possible). Currently, still in development. 
 
+## Test code
+
+We made first example: https://github.com/hydra2s/vulkan.node.js/blob/main/test.js
+
 ## Made for...
 
 - Geeks
@@ -39,10 +43,6 @@ Our Node.JS bindings for Vulkan API support (latest version, as possible). Curre
 - [ ] Support for `{$: 0n}` handles (alike NVK)
 - [ ] Add native pointers, BigInt and typed arrays for GLFW
 - [ ] Better indexed operations (such address, etc.)
-
-## Test code
-
-We made first example: https://github.com/hydra2s/vulkan.node.js/blob/main/test.js
 
 ## Projects
 
