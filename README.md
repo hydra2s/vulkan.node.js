@@ -27,11 +27,8 @@ We made first example: https://github.com/hydra2s/vulkan.node.js/blob/main/test.
 - Pre-computing of enums and struct classes
 - JS generator from Vulkan XML, with C++ supplements
 - Some handmade fixes (such as bitfield structures)
-- Planned support for glMatrix fully
-- Planned support for WebAssembly bindings and memory
-- Error and exception handling support
+- Better error and exception handling support (with additional info)
 - Some syntax sugar for user-friendly
-- Better error handling (with additional info)
 - I made first hello triangle example
 
 ## TODO
@@ -43,6 +40,8 @@ We made first example: https://github.com/hydra2s/vulkan.node.js/blob/main/test.
 - [ ] Support for `{$: 0n}` handles (alike NVK)
 - [ ] Add native pointers, BigInt and typed arrays for GLFW
 - [ ] Better indexed operations (such address, etc.)
+- [ ] Planned support for glMatrix fully
+- [ ] Planned support for WebAssembly bindings and memory
 
 ## Projects
 
