@@ -264,7 +264,7 @@ const VkDescriptorImageInfo = new Proxy(C.CStructView, new C.CStruct("VkDescript
 const VkWriteDescriptorSet = new Proxy(C.CStructView, new C.CStruct("VkWriteDescriptorSet", {
     sType: "u32("+(V.VkWriteDescriptorSet_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET||0),
     pNext: "u64("+(V.VkWriteDescriptorSet_pNext_offsetof||0)+")",
-    dstSet: "VkDescriptorSet("+(V.VkWriteDescriptorSet_dstSet_offsetof||0)+")",
+    dstSet: "u64("+(V.VkWriteDescriptorSet_dstSet_offsetof||0)+")",
     dstBinding: "u32("+(V.VkWriteDescriptorSet_dstBinding_offsetof||0)+")",
     dstArrayElement: "u32("+(V.VkWriteDescriptorSet_dstArrayElement_offsetof||0)+")",
     descriptorCount: "u32("+(V.VkWriteDescriptorSet_descriptorCount_offsetof||0)+")",
@@ -278,10 +278,10 @@ const VkWriteDescriptorSet = new Proxy(C.CStructView, new C.CStruct("VkWriteDesc
 const VkCopyDescriptorSet = new Proxy(C.CStructView, new C.CStruct("VkCopyDescriptorSet", {
     sType: "u32("+(V.VkCopyDescriptorSet_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_COPY_DESCRIPTOR_SET||0),
     pNext: "u64("+(V.VkCopyDescriptorSet_pNext_offsetof||0)+")",
-    srcSet: "VkDescriptorSet("+(V.VkCopyDescriptorSet_srcSet_offsetof||0)+")",
+    srcSet: "u64("+(V.VkCopyDescriptorSet_srcSet_offsetof||0)+")",
     srcBinding: "u32("+(V.VkCopyDescriptorSet_srcBinding_offsetof||0)+")",
     srcArrayElement: "u32("+(V.VkCopyDescriptorSet_srcArrayElement_offsetof||0)+")",
-    dstSet: "VkDescriptorSet("+(V.VkCopyDescriptorSet_dstSet_offsetof||0)+")",
+    dstSet: "u64("+(V.VkCopyDescriptorSet_dstSet_offsetof||0)+")",
     dstBinding: "u32("+(V.VkCopyDescriptorSet_dstBinding_offsetof||0)+")",
     dstArrayElement: "u32("+(V.VkCopyDescriptorSet_dstArrayElement_offsetof||0)+")",
     descriptorCount: "u32("+(V.VkCopyDescriptorSet_descriptorCount_offsetof||0)+")",
@@ -598,7 +598,7 @@ const VkPipelineShaderStageCreateInfo = new Proxy(C.CStructView, new C.CStruct("
     pNext: "u64("+(V.VkPipelineShaderStageCreateInfo_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkPipelineShaderStageCreateInfo_flags_offsetof||0)+")",
     stage: "u32("+(V.VkPipelineShaderStageCreateInfo_stage_offsetof||0)+")",
-    module: "VkShaderModule("+(V.VkPipelineShaderStageCreateInfo_module_offsetof||0)+")",
+    module: "u64("+(V.VkPipelineShaderStageCreateInfo_module_offsetof||0)+")",
     pName: "u64("+(V.VkPipelineShaderStageCreateInfo_pName_offsetof||0)+")",
     pSpecializationInfo: "u64("+(V.VkPipelineShaderStageCreateInfo_pSpecializationInfo_offsetof||0)+")",
 }, (V.VkPipelineShaderStageCreateInfo_sizeof||0)));
@@ -775,7 +775,7 @@ const VkGraphicsPipelineCreateInfo = new Proxy(C.CStructView, new C.CStruct("VkG
     pColorBlendState: "u64("+(V.VkGraphicsPipelineCreateInfo_pColorBlendState_offsetof||0)+")",
     pDynamicState: "u64("+(V.VkGraphicsPipelineCreateInfo_pDynamicState_offsetof||0)+")",
     layout: "u64("+(V.VkGraphicsPipelineCreateInfo_layout_offsetof||0)+")",
-    renderPass: "VkRenderPass("+(V.VkGraphicsPipelineCreateInfo_renderPass_offsetof||0)+")",
+    renderPass: "u64("+(V.VkGraphicsPipelineCreateInfo_renderPass_offsetof||0)+")",
     subpass: "u32("+(V.VkGraphicsPipelineCreateInfo_subpass_offsetof||0)+")",
     basePipelineHandle: "u64("+(V.VkGraphicsPipelineCreateInfo_basePipelineHandle_offsetof||0)+")",
     basePipelineIndex: "i32("+(V.VkGraphicsPipelineCreateInfo_basePipelineIndex_offsetof||0)+")",
@@ -851,7 +851,7 @@ const VkCommandPoolCreateInfo = new Proxy(C.CStructView, new C.CStruct("VkComman
 const VkCommandBufferAllocateInfo = new Proxy(C.CStructView, new C.CStruct("VkCommandBufferAllocateInfo", {
     sType: "u32("+(V.VkCommandBufferAllocateInfo_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO||0),
     pNext: "u64("+(V.VkCommandBufferAllocateInfo_pNext_offsetof||0)+")",
-    commandPool: "VkCommandPool("+(V.VkCommandBufferAllocateInfo_commandPool_offsetof||0)+")",
+    commandPool: "u64("+(V.VkCommandBufferAllocateInfo_commandPool_offsetof||0)+")",
     level: "u32("+(V.VkCommandBufferAllocateInfo_level_offsetof||0)+")",
     commandBufferCount: "u32("+(V.VkCommandBufferAllocateInfo_commandBufferCount_offsetof||0)+")",
 }, (V.VkCommandBufferAllocateInfo_sizeof||0)));
@@ -860,7 +860,7 @@ const VkCommandBufferAllocateInfo = new Proxy(C.CStructView, new C.CStruct("VkCo
 const VkCommandBufferInheritanceInfo = new Proxy(C.CStructView, new C.CStruct("VkCommandBufferInheritanceInfo", {
     sType: "u32("+(V.VkCommandBufferInheritanceInfo_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO||0),
     pNext: "u64("+(V.VkCommandBufferInheritanceInfo_pNext_offsetof||0)+")",
-    renderPass: "VkRenderPass("+(V.VkCommandBufferInheritanceInfo_renderPass_offsetof||0)+")",
+    renderPass: "u64("+(V.VkCommandBufferInheritanceInfo_renderPass_offsetof||0)+")",
     subpass: "u32("+(V.VkCommandBufferInheritanceInfo_subpass_offsetof||0)+")",
     framebuffer: "u64("+(V.VkCommandBufferInheritanceInfo_framebuffer_offsetof||0)+")",
     occlusionQueryEnable: "u32("+(V.VkCommandBufferInheritanceInfo_occlusionQueryEnable_offsetof||0)+")",
@@ -880,7 +880,7 @@ const VkCommandBufferBeginInfo = new Proxy(C.CStructView, new C.CStruct("VkComma
 const VkRenderPassBeginInfo = new Proxy(C.CStructView, new C.CStruct("VkRenderPassBeginInfo", {
     sType: "u32("+(V.VkRenderPassBeginInfo_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO||0),
     pNext: "u64("+(V.VkRenderPassBeginInfo_pNext_offsetof||0)+")",
-    renderPass: "VkRenderPass("+(V.VkRenderPassBeginInfo_renderPass_offsetof||0)+")",
+    renderPass: "u64("+(V.VkRenderPassBeginInfo_renderPass_offsetof||0)+")",
     framebuffer: "u64("+(V.VkRenderPassBeginInfo_framebuffer_offsetof||0)+")",
     renderArea: "VkRect2D("+(V.VkRenderPassBeginInfo_renderArea_offsetof||0)+")",
     clearValueCount: "u32("+(V.VkRenderPassBeginInfo_clearValueCount_offsetof||0)+")",
@@ -1171,7 +1171,7 @@ const VkFramebufferCreateInfo = new Proxy(C.CStructView, new C.CStruct("VkFrameb
     sType: "u32("+(V.VkFramebufferCreateInfo_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO||0),
     pNext: "u64("+(V.VkFramebufferCreateInfo_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkFramebufferCreateInfo_flags_offsetof||0)+")",
-    renderPass: "VkRenderPass("+(V.VkFramebufferCreateInfo_renderPass_offsetof||0)+")",
+    renderPass: "u64("+(V.VkFramebufferCreateInfo_renderPass_offsetof||0)+")",
     attachmentCount: "u32("+(V.VkFramebufferCreateInfo_attachmentCount_offsetof||0)+")",
     pAttachments: "u64("+(V.VkFramebufferCreateInfo_pAttachments_offsetof||0)+")",
     width: "u32("+(V.VkFramebufferCreateInfo_width_offsetof||0)+")",
@@ -2522,7 +2522,7 @@ const VkDescriptorUpdateTemplateCreateInfo = new Proxy(C.CStructView, new C.CStr
     descriptorUpdateEntryCount: "u32("+(V.VkDescriptorUpdateTemplateCreateInfo_descriptorUpdateEntryCount_offsetof||0)+")",
     pDescriptorUpdateEntries: "u64("+(V.VkDescriptorUpdateTemplateCreateInfo_pDescriptorUpdateEntries_offsetof||0)+")",
     templateType: "u32("+(V.VkDescriptorUpdateTemplateCreateInfo_templateType_offsetof||0)+")",
-    descriptorSetLayout: "VkDescriptorSetLayout("+(V.VkDescriptorUpdateTemplateCreateInfo_descriptorSetLayout_offsetof||0)+")",
+    descriptorSetLayout: "u64("+(V.VkDescriptorUpdateTemplateCreateInfo_descriptorSetLayout_offsetof||0)+")",
     pipelineBindPoint: "u32("+(V.VkDescriptorUpdateTemplateCreateInfo_pipelineBindPoint_offsetof||0)+")",
     pipelineLayout: "u64("+(V.VkDescriptorUpdateTemplateCreateInfo_pipelineLayout_offsetof||0)+")",
     set: "u32("+(V.VkDescriptorUpdateTemplateCreateInfo_set_offsetof||0)+")",
@@ -5350,7 +5350,7 @@ const VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT = new Proxy(C.CStru
 const VkSubpassShadingPipelineCreateInfoHUAWEI = new Proxy(C.CStructView, new C.CStruct("VkSubpassShadingPipelineCreateInfoHUAWEI", {
     sType: "u32("+(V.VkSubpassShadingPipelineCreateInfoHUAWEI_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI||0),
     pNext: "u64("+(V.VkSubpassShadingPipelineCreateInfoHUAWEI_pNext_offsetof||0)+")",
-    renderPass: "VkRenderPass("+(V.VkSubpassShadingPipelineCreateInfoHUAWEI_renderPass_offsetof||0)+")",
+    renderPass: "u64("+(V.VkSubpassShadingPipelineCreateInfoHUAWEI_renderPass_offsetof||0)+")",
     subpass: "u32("+(V.VkSubpassShadingPipelineCreateInfoHUAWEI_subpass_offsetof||0)+")",
 }, (V.VkSubpassShadingPipelineCreateInfoHUAWEI_sizeof||0)));
 
@@ -7897,7 +7897,7 @@ const VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE = new Proxy(C.CStruc
 const VkDescriptorSetBindingReferenceVALVE = new Proxy(C.CStructView, new C.CStruct("VkDescriptorSetBindingReferenceVALVE", {
     sType: "u32("+(V.VkDescriptorSetBindingReferenceVALVE_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DESCRIPTOR_SET_BINDING_REFERENCE_VALVE||0),
     pNext: "u64("+(V.VkDescriptorSetBindingReferenceVALVE_pNext_offsetof||0)+")",
-    descriptorSetLayout: "VkDescriptorSetLayout("+(V.VkDescriptorSetBindingReferenceVALVE_descriptorSetLayout_offsetof||0)+")",
+    descriptorSetLayout: "u64("+(V.VkDescriptorSetBindingReferenceVALVE_descriptorSetLayout_offsetof||0)+")",
     binding: "u32("+(V.VkDescriptorSetBindingReferenceVALVE_binding_offsetof||0)+")",
 }, (V.VkDescriptorSetBindingReferenceVALVE_sizeof||0)));
 

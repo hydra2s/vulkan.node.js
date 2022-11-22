@@ -153,10 +153,6 @@ const vert_shader_spv = new Uint8Array([
     ]);
 
     //
-    let vertexBuffer = new BigUint64Array(1);
-    let vertexBufferMemory = new BigUint64Array(1);
-
-    //
     let posVertexBindingDescr = new V.VkVertexInputBindingDescription({
         binding: 0, 
         stride: 2 * vertices.BYTES_PER_ELEMENT,
@@ -186,22 +182,29 @@ const vert_shader_spv = new Uint8Array([
     const getMemoryTypeIndex = (physicalDevice, typeFilter, propertyFlag) => {
         let memoryProperties = new V.VkPhysicalDeviceMemoryProperties();
         V.vkGetPhysicalDeviceMemoryProperties(physicalDevice, memoryProperties);
-        for (let ii = 0; ii < memoryProperties.memoryTypeCount; ++ii) {
+        for (let I = 0; I < memoryProperties.memoryTypeCount; ++I) {
           if (
-            (typeFilter & (1 << ii)) &&
-            (memoryProperties.memoryTypes[ii].propertyFlags & propertyFlag) === propertyFlag
+            (typeFilter & (1 << I)) &&
+            (memoryProperties.memoryTypes[I].propertyFlags & parseInt(propertyFlag)) === parseInt(propertyFlag)
           ) {
-            return ii;
+            return I;
           }
         };
         return -1;
     };
 
     //
-    const createVertexBuffer = (device, byteLength) => {
+    const createShaderModuleInfo = (module, stage, pName = 0n)=>{
+        return new V.VkPipelineShaderStageCreateInfo({
+            stage, module, pName, pSpecializationInfo: null
+        });
+    }
+
+    //
+    const createVertexBuffer = (device, vertices) => {
         //
         let bufferInfo = new V.VkBufferCreateInfo({
-            size: byteLength,
+            size: vertices.byteLength,
             usage: V.VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
             sharingMode: V.VK_SHARING_MODE_EXCLUSIVE,
             queueFamilyIndexCount: 0,
@@ -218,29 +221,32 @@ const vert_shader_spv = new Uint8Array([
 
         //
         let propertyFlag = (
-              VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
-              VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
+              V.VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
+              V.VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
         );
 
         //
         let memAllocInfo = new V.VkMemoryAllocateInfo({
             allocationSize: memoryRequirements.size,
-            memoryTypeIndex: getMemoryTypeIndex(memoryRequirements.memoryTypeBits, propertyFlag)
+            memoryTypeIndex: getMemoryTypeIndex(physicalDevice, memoryRequirements.memoryTypeBits, propertyFlag)
         });
 
         //
         let bufferMemory = new BigUint64Array(1);
         V.vkAllocateMemory(device, memAllocInfo, null, bufferMemory);
-        V.vkBindBufferMemory(device, buffer[0], bufferMemory[0], null);
+        V.vkBindBufferMemory(device, buffer[0], bufferMemory[0], 0n);
 
         //
         let dataPtr = new BigUint64Array(1);
-        V.vkMapMemory(device, bufferMemory[0], null, bufferInfo.size, 0, dataPtr);
+        V.vkMapMemory(device, bufferMemory[0], 0n, bufferInfo.size, 0, dataPtr);
 
         // gigant spider
-        Uint8Array.fromAddress(dataPtr[0], bufferInfo.size).set(vertices);
-        V.vkUnmapMemory(device, bufferMemory);
-      };
+        new Uint8Array(ArrayBuffer.fromAddress(dataPtr[0], bufferInfo.size)).set(vertices);
+        V.vkUnmapMemory(device, bufferMemory[0]);
+
+        //
+        return buffer;
+    };
 
 
     //
@@ -444,20 +450,315 @@ const vert_shader_spv = new Uint8Array([
     }
 
     //
-    let vertShaderModule = createShaderModule(device[0], vert_shader_spv);
-    let fragShaderModule = createShaderModule(device[0], frag_shader_spv);
+    const pNameU8 = new Uint8Array(ArrayBuffer.fromAddress("main".charAddress(), 4));
 
+    //
+    const shaderStageInfoVert = createShaderModuleInfo(createShaderModule(device[0], vert_shader_spv), V.VK_SHADER_STAGE_VERTEX_BIT, pNameU8.address());
+    const shaderStageInfoFrag = createShaderModuleInfo(createShaderModule(device[0], frag_shader_spv), V.VK_SHADER_STAGE_FRAGMENT_BIT, pNameU8.address());
+
+    // TODO: better construction!!
+    const shaderStages = new V.VkPipelineShaderStageCreateInfo(2);
+    shaderStages[0].set(shaderStageInfoVert);
+    shaderStages[1].set(shaderStageInfoFrag);
+
+    //
+    const vertexInputInfo = new V.VkPipelineVertexInputStateCreateInfo({
+        vertexBindingDescriptionCount: 1,
+        pVertexBindingDescriptions: posVertexBindingDescr,
+        vertexAttributeDescriptionCount: 1,
+        pVertexAttributeDescriptions: posVertexAttrDescr
+    });
+
+    //
+    const inputAssemblyStateInfo = new V.VkPipelineInputAssemblyStateCreateInfo({
+        topology: V.VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
+        primitiveRestartEnable: false
+    });
+
+    //
+    const viewport = new V.VkViewport({
+        x: 0, y: 0, width: windowWidth.$, height: windowHeight.$, minDepth: 0.0, maxDepth: 1.0
+    });
+
+    //
+    const scissor = new V.VkRect2D({
+        offset: { x:0, y: 0 },
+        extent: { width: windowWidth.$, height: windowHeight.$ }
+    });
+
+    //
+    const viewportStateInfo = new V.VkPipelineViewportStateCreateInfo({
+        viewportCount: 1,
+        pViewports: viewport,
+        scissorCount: 1,
+        pScissors: scissor
+    });
+
+    //
+    const rasterizationInfo = new V.VkPipelineRasterizationStateCreateInfo({
+        depthClampEnable: false,
+        rasterizerDiscardEnable: false,
+        polygonMode: V.VK_POLYGON_MODE_FILL,
+        cullMode: V.VK_CULL_MODE_BACK_BIT,
+        frontFace: V.VK_FRONT_FACE_CLOCKWISE,
+        depthBiasEnable: false,
+        depthBiasConstantFactor: 0.0,
+        depthBiasClamp: 0.0,
+        depthBiasSlopeFactor: 0.0,
+        lineWidth: 1.0,
+    });
+
+    //
+    const multisampleInfo = new V.VkPipelineMultisampleStateCreateInfo({
+        rasterizationSamples: V.VK_SAMPLE_COUNT_1_BIT,
+        minSampleShading: 1.0,
+        pSampleMask: null,
+        alphaToCoverageEnable: false,
+        alphaToOneEnable: false,
+    });
+
+    //
+    const colorBlendAttachment = new V.VkPipelineColorBlendAttachmentState({
+        blendEnable: true,
+        srcColorBlendFactor: V.VK_BLEND_FACTOR_SRC_ALPHA,
+        dstColorBlendFactor: V.VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA,
+        colorBlendOp: V.VK_BLEND_OP_ADD,
+        srcAlphaBlendFactor: V.VK_BLEND_FACTOR_ONE,
+        dstAlphaBlendFactor: V.VK_BLEND_FACTOR_ZERO,
+        alphaBlendOp: V.VK_BLEND_OP_ADD,
+        colorWriteMask: parseInt(
+            V.VK_COLOR_COMPONENT_R_BIT |
+            V.VK_COLOR_COMPONENT_G_BIT |
+            V.VK_COLOR_COMPONENT_B_BIT |
+            V.VK_COLOR_COMPONENT_A_BIT
+        )
+    });
+
+    //
+    const colorBlendInfo = new V.VkPipelineColorBlendStateCreateInfo({
+        logicOpEnable: false,
+        logicOp: V.VK_LOGIC_OP_NO_OP,
+        attachmentCount: 1,
+        pAttachments: colorBlendAttachment,
+        blendConstants: [0.0, 0.0, 0.0, 0.0]
+    });
+
+    //
+    const pipelineLayoutInfo = new V.VkPipelineLayoutCreateInfo({
+        setLayoutCount: 0,
+        pushConstantRangeCount: 0
+    });
+
+    //
+    const pipelineLayout = new BigUint64Array(1);
+    V.vkCreatePipelineLayout(device[0], pipelineLayoutInfo, null, pipelineLayout);
+
+    //
+    const attachmentDescription = new V.VkAttachmentDescription({
+        flags: 0, 
+        format: V.VK_FORMAT_B8G8R8A8_UNORM,
+        samples: V.VK_SAMPLE_COUNT_1_BIT,
+        loadOp: V.VK_ATTACHMENT_LOAD_OP_CLEAR,
+        storeOp: V.VK_ATTACHMENT_STORE_OP_STORE,
+        stencilLoadOp: V.VK_ATTACHMENT_LOAD_OP_DONT_CARE,
+        stencilStoreOp: V.VK_ATTACHMENT_STORE_OP_DONT_CARE,
+        initialLayout: V.VK_IMAGE_LAYOUT_UNDEFINED,
+        finalLayout: V.VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
+    });
+
+    //
+    const attachmentReference = new V.VkAttachmentReference({
+        attachment: 0,
+        layout: V.VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL
+    });
+
+    //
+    const subpassDescription = new V.VkSubpassDescription({
+        pipelineBindPoint: V.VK_PIPELINE_BIND_POINT_GRAPHICS,
+        inputAttachmentCount: 0,
+        pInputAttachments: null,
+        colorAttachmentCount: 1,
+        pColorAttachments: attachmentReference,
+        pResolveAttachments: null,
+        pDepthStencilAttachment: null,
+        preserveAttachmentCount: 0,
+        pPreserveAttachments: null,
+    });
+    
+    //
+    const subpassDependency = new V.VkSubpassDependency({
+        pNext: null,
+        srcSubpass: V.VK_SUBPASS_EXTERNAL,
+        dstSubpass: 0,
+        srcStageMask: V.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
+        dstStageMask: V.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
+        srcAccessMask: 0,
+        dstAccessMask: parseInt(
+            V.VK_ACCESS_COLOR_ATTACHMENT_READ_BIT |
+            V.VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT
+        ),
+        dependencyFlags: 0,
+    });
+    
+    //
+    const renderPassInfo = new V.VkRenderPassCreateInfo({
+        pNext: null,
+        attachmentCount: 1,
+        pAttachments: attachmentDescription,
+        subpassCount: 1,
+        pSubpasses: subpassDescription,
+        dependencyCount: 1,
+        pDependencies: subpassDependency,
+    });
+
+    //
+    const renderPass = new BigUint64Array(1);
+    V.vkCreateRenderPass(device[0], renderPassInfo, null, renderPass);
+
+    //
+    const graphicsPipelineInfo = new V.VkGraphicsPipelineCreateInfo({
+        pNext: null,
+        stageCount: shaderStages.length,
+        pStages: shaderStages,
+        pVertexInputState: vertexInputInfo,
+        pInputAssemblyState: inputAssemblyStateInfo,
+        pTessellationState: null,
+        pViewportState: viewportStateInfo,
+        pRasterizationState: rasterizationInfo,
+        pMultisampleState: multisampleInfo,
+        pDepthStencilState: null,
+        pColorBlendState: colorBlendInfo,
+        pDynamicState: null,
+        layout: pipelineLayout[0],
+        renderPass: renderPass[0],
+        subpass: 0,
+        basePipelineHandle: null,
+        basePipelineIndex: -1,
+    });
+
+    //
+    const pipeline = new BigUint64Array(1);
+    V.vkCreateGraphicsPipelines(device[0], 0n, 1, graphicsPipelineInfo, null, pipeline);
+
+    //
+    let framebufferInfo = new V.VkFramebufferCreateInfo({
+        pNext: null,
+        renderPass: renderPass[0],
+        attachmentCount: 1,
+        width: windowWidth.$, height: windowHeight.$,
+        layers: 1
+    });
+
+    //
+    const framebuffers = new BigUint64Array(imageViews.length);
+    for (let I=0;I<imageViews.length;I++) {
+        V.vkCreateFramebuffer(device[0], framebufferInfo.set({pAttachments: imageViews.address() + BigInt(I*8)}), null, framebuffers.address() + BigInt(I*8));
+    }
+
+
+
+
+
+
+    //
+    let cmdPoolInfo = new V.VkCommandPoolCreateInfo({
+        pNext: null,
+        queueFamilyIndex: 0
+    });
+    
+    //
+    const cmdPool = new BigUint64Array(1);
+    V.vkCreateCommandPool(device[0], cmdPoolInfo, null, cmdPool);
+    
+    //
+    let cmdBufferAllocInfo = new V.VkCommandBufferAllocateInfo({
+        commandPool: cmdPool[0],
+        level: V.VK_COMMAND_BUFFER_LEVEL_PRIMARY,
+        commandBufferCount: amountOfImagesInSwapchain[0]
+    });
+
+    //
+    let cmdBuffers = new BigUint64Array(amountOfImagesInSwapchain[0]);
+    V.vkAllocateCommandBuffers(device[0], cmdBufferAllocInfo, cmdBuffers);
+    
+    //
+    let cmdBufferBeginInfo = new V.VkCommandBufferBeginInfo({
+        flags: V.VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT
+    });
+    
+    //
+    const vertexBuffer = createVertexBuffer(device[0], vertices);
+    
+    //
+    for (let I = 0; I < cmdBuffers.length; ++I) {
+        const cmdBuffer = cmdBuffers[I];
+        const clearValue = new Float32Array([0.0, 0.0, 0.0, 0.0]);
+        const renderPassBeginInfo = new V.VkRenderPassBeginInfo({
+            sType: V.VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO,
+            renderPass: renderPass[0],
+            framebuffer: framebuffers[I],
+            renderArea: { offset: {x: 0, y: 0}, extent: { width: windowWidth.$, height: windowHeight.$ } },
+            clearValueCount: 1,
+            pClearValues: clearValue,
+        });
+
+        //
+        V.vkBeginCommandBuffer(cmdBuffer, cmdBufferBeginInfo);
+        V.vkCmdBeginRenderPass(cmdBuffer, renderPassBeginInfo, V.VK_SUBPASS_CONTENTS_INLINE);
+        V.vkCmdBindPipeline(cmdBuffer, V.VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline[0]);
+        V.vkCmdBindVertexBuffers(cmdBuffer, 0, 1, vertexBuffer, new BigUint64Array([0n]));
+        V.vkCmdDraw(cmdBuffer, 3, 1, 0, 0);
+        V.vkCmdEndRenderPass(cmdBuffer);
+        V.vkEndCommandBuffer(cmdBuffer);
+    };
+
+    //
+    const semaphoreInfo = new V.VkSemaphoreCreateInfo({});
+    const semaphoreImageAvailable = new BigUint64Array(1); 
+    const semaphoreRenderingAvailable = new BigUint64Array(1); 
+
+    //
+    V.vkCreateSemaphore(device[0], semaphoreInfo, null, semaphoreImageAvailable);
+    V.vkCreateSemaphore(device[0], semaphoreInfo, null, semaphoreRenderingAvailable);
 
     //
     let tickAwait = ()=> new Promise((r)=>setImmediate(r));
 
     let terminated = false;
+    const imageIndex = new Uint32Array(1);
+
+    //
+    console.log("BEGIN RENDERING!");
+
+    //
     while (!V.glfwWindowShouldClose(window) && !terminated) { // 
         // it's reasong why you should execute it everytime!
-        V.glfwPollEvents();
-        await tickAwait(); // don't lock any other operations
+        V.glfwPollEvents(); await tickAwait(); // don't lock any other operations
+        V.vkAcquireNextImageKHR(device[0], swapchain[0], BigInt(Number.MAX_SAFE_INTEGER), semaphoreImageAvailable[0], 0n, imageIndex);
 
-        
+        //
+        const waitStageMask = new Int32Array([ parseInt(V.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT) ]);
+        const submitInfo = new V.VkSubmitInfo({
+            waitSemaphoreCount: 1,
+            pWaitSemaphores: semaphoreImageAvailable,
+            pWaitDstStageMask: waitStageMask,
+            commandBufferCount: 1,
+            pCommandBuffers: cmdBuffers.address() + BigInt(imageIndex[0]*8),
+            signalSemaphoreCount: 1,
+            pSignalSemaphores: semaphoreRenderingAvailable,
+        });
+        V.vkQueueSubmit(queue[0], 1, submitInfo, 0n);
+
+        //
+        const presentInfo = new V.VkPresentInfoKHR({
+            waitSemaphoreCount: 1,
+            pWaitSemaphores: semaphoreRenderingAvailable,
+            swapchainCount: 1,
+            pSwapchains: swapchain,
+            pImageIndices: imageIndex,
+            pResults: null,
+        });
+        V.vkQueuePresentKHR(queue[0], presentInfo);
     };
 
     // 

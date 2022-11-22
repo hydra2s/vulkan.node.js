@@ -29,7 +29,7 @@ const asBigInt = (value)=>{
         return (new Types["u64[arr]"](value)).address(); // present as u64 array
     } else
     if (typeof value == "string") {
-        return value.charAddress();
+        return value.charAddress(value.length);
     } else 
     if (typeof value == "object" && value.address) {
         return value.address();
@@ -111,12 +111,14 @@ class ArrayAccessor {
         this._set = set;
         this.byteLength = byteLength;
         this.handler = handler;
+        this.isArray = true;
     }
 
     get(Target, index) {
         if (index == "type") { return this.type; };
         if (index == "BYTES_PER_ELEMENT") { return Target[index]; }
         if (index == "fromAddress") { return Target[index].bind(Target); }
+        if (index == "isArray") { return true; };
         if (!isConstructor(Target)) {
             if (index == "") {
                 return new Proxy(Target, this);
@@ -258,7 +260,7 @@ class CStructView {
         //
         (this.struct = struct).types.forEach((tp)=>{
             // use F32 fallback for Vulkan API types
-            const array = new (tp.type || Types["u32"])(this.buffer, this.byteOffset + tp.byteOffset, 1);
+            const array = new (tp.type || Types[length > 1 ? "u32[arr]" : "u32"])(this.buffer, this.byteOffset + tp.byteOffset, tp.length);
             
             //array.parent = this; // prefer to have parent node
             Object.defineProperties(this, {
@@ -315,7 +317,7 @@ class CStructView {
             tname = tname[0];
         }
 
-        if (!type) { type = Types[tname+(length>1?"[arr]":"")]; };
+        if (!type) { type = Types[tname+(length>1?"[arr]":"")] || Types[tname]; };
         return new type(this.buffer, this.byteOffset + offset + (this.offsetof(mname)||0), (length||1))[""];
     }
 
@@ -343,81 +345,83 @@ class CStructView {
 // 
 class CStruct {
     constructor(name, struct, byteLength) {
-        this.types = [];
+        this.struct = struct;
         this.type = name;
         this.byteOffset = 0;
-        this.byteLength = byteLength;
+        this.byteLength = byteLength || 0;
         this.isStruct = true;
         if (!(name in Types)) { this._class = Types[name] = new Proxy(CStructView, this); };
-        //if (!(name in Types)) { Types[name] = new Proxy(function(...args){}, this); };
-
-        //
         this.address = this.address.bind(this);
+    }
 
-        //
-        let prev = undefined;
-        for (let name in struct) {
-            let length = 1;
-            let offset = 0;
-            let tname = null;
-            let type = null;
-            let dfv = null;
+    gerenateTypeTable() {
+        if (!this.types) { this.types = [];
+            const name = this.type, struct = this.struct, byteLength = this.byteLength;
+            
+            let prev = undefined;
+            for (let name in struct) {
+                let length = 1;
+                let offset = 0;
+                let tname = null;
+                let type = null;
+                let dfv = null;
 
-            if ((typeof struct[name] == "object" || typeof struct[name] == "function") && struct[name].type) {
-                type = struct[name];
-            } else
-            if (typeof struct[name] == "string") {
-                tname = struct[name];
+                if ((typeof struct[name] == "object" || typeof struct[name] == "function") && struct[name].type) {
+                    type = struct[name];
+                } else
+                if (typeof struct[name] == "string") {
+                    tname = struct[name];
 
-                if (tname.indexOf(";") >= 0) {
-                    let names = tname.split(";");
-                    tname = names[0];
-                    if (names.length >= 2 && names[1] && names[1] != "undefined") {
-                        dfv = JSON.parse(names[1]);//JSON.parse(`{"_stub":${names[1]||0}}`)["_stub"];
+                    if (tname.indexOf(";") >= 0) {
+                        let names = tname.split(";");
+                        tname = names[0];
+                        if (names.length >= 2 && names[1] && names[1] != "undefined") {
+                            dfv = JSON.parse(names[1]);//JSON.parse(`{"_stub":${names[1]||0}}`)["_stub"];
+                        }
+                    };
+                    if (tname.indexOf("[") >= 0 && tname.indexOf("]") >= 0) {
+                        let match = tname.match(/\[(-?\d+)\]/);
+                        length = (match ? parseInt(match[1]) : 1) || 1;
+                        tname = tname.replace(/\[\d+\]/g, "");
+                    };
+                    if (tname.indexOf("(") >= 0 && tname.indexOf(")") >= 0) {
+                        let match = tname.match(/\((-?\d+)\)/);
+                        offset = (match ? parseInt(match[1]) : 0) || 0;
+                        tname = tname.replace(/\(\d+\)/g, "");
+                    };
+                    
+                } else 
+                if (typeof struct[name] == "array") {
+                    length = struct[name][2] || 1;
+                    offset = struct[name][1] || 0;
+                    if (typeof struct[name] == "object" && struct[name].type) {
+                        type = struct[name][0];
+                    } else {
+                        tname = struct[name][0];
                     }
-                };
-                if (tname.indexOf("[") >= 0 && tname.indexOf("]") >= 0) {
-                    let match = tname.match(/\[(-?\d+)\]/);
-                    length = (match ? parseInt(match[1]) : 1) || 1;
-                    tname = tname.replace(/\[\d+\]/g, "");
-                };
-                if (tname.indexOf("(") >= 0 && tname.indexOf(")") >= 0) {
-                    let match = tname.match(/\((-?\d+)\)/);
-                    offset = (match ? parseInt(match[1]) : 0) || 0;
-                    tname = tname.replace(/\(\d+\)/g, "");
-                };
-                
-            } else 
-            if (typeof struct[name] == "array") {
-                length = struct[name][2] || 1;
-                offset = struct[name][1] || 0;
-                if (typeof struct[name] == "object" && struct[name].type) {
-                    type = struct[name][0];
-                } else {
-                    tname = struct[name][0];
                 }
+
+                // correctify offset, if not defined
+                if (!offset && prev != undefined) { offset = this.types[prev].byteOffset + this.types[prev].byteLength; }; 
+                if (!type) { type = Types[tname+(length>1?"[arr]":"")] || Types[tname]; }; // fallback by not-arrayed
+
+                //
+                prev = this.types.length; this.types.push({type, dfv, name, length, byteOffset: offset, byteLength: (type?.byteLength || 1) * length });
+
+                //
+                this.types = this.types.sort(function(a, b) {
+                    if (a.byteOffset < b.byteOffset) return -1;
+                    if (a.byteOffset > b.byteOffset) return 1;
+                    return 0;
+                });
             }
 
-            
-
-            // correctify offset, if not defined
-            if (!offset && prev != undefined) { offset = this.types[prev].byteOffset + this.types[prev].byteLength; }; 
-            if (!type) { type = Types[tname+(length>1?"[arr]":"")]; };
-
-            prev = this.types.length; this.types.push({type, dfv, name, length, byteOffset: offset, byteLength: (type?.byteLength || 1) * length });
-
-            //
-            this.types = this.types.sort(function(a, b) {
-                if (a.byteOffset < b.byteOffset) return -1;
-                if (a.byteOffset > b.byteOffset) return 1;
-                return 0;
-            });
+            // if length is not defined
+            if (!this.byteLength && this.types.length >= 1) { 
+                this.byteLength = this.types[this.types.length-1].byteOffset + this.types[this.types.length-1].byteLength; 
+            }
         }
-
-        // if length is not defined
-        if (!this.byteLength && this.types.length >= 1) { 
-            this.byteLength = this.types[this.types.length-1].byteOffset + this.types[this.types.length-1].byteLength; 
-        }
+        
     }
 
     fromAddress(address, length=1) {
@@ -462,7 +466,7 @@ class CStruct {
                 index = parseInt(index);
                 new this._class(Target.buffer, Target.byteOffset + this.byteLength * index, (Target.length||1) - index)[""] = value;
                 return true;
-            } else
+            } else 
             if (Target.struct.types.find((t)=>(t.name==index))) {
                 Target[index] = value;
                 return true;
@@ -471,16 +475,22 @@ class CStruct {
     }
 
     lengthof(name) {
+        this.gerenateTypeTable();
         let type = this.types.find((e)=>(e.name==name)) || this;
         return (type?.byteLength || 1) / (type?.BYTES_PER_ELEMENT || 1);
     }
 
     offsetof(name) {
+        this.gerenateTypeTable();
         return (this.types.find((e)=>(e.name==name)) || this)?.byteOffset || 0;
     }
 
     // 
     construct(Target, args) {
+        //
+        this.gerenateTypeTable();
+
+        //
         let [buffer, byteOffset, length] = args; byteOffset ||= 0, length ||= 1; // NEW syntax!
         if (isAbv(buffer ? (buffer.buffer || buffer) : null)) {
             return new Proxy(new CStructView(buffer.buffer || buffer, (buffer.byteOffset||0) + byteOffset, length || 1, this), this);
