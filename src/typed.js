@@ -330,7 +330,7 @@ class CStructView {
     serialize() {
         let obj = {};
         for (let t of this.struct.types) { 
-            obj[t.name] = this[t.name];
+            obj[t.name] = typeof this[t.name].serialize == "function" ? this[t.name].serialize() : this[t.name];
         };
         return obj;
     }
