@@ -55,13 +55,18 @@ Napi::FunctionReference *windowMaximizeCallback;
 std::map<GLFWwindow *, Napi::FunctionReference *> framebufferSizeCallbacks;
 Napi::FunctionReference *windowContentScaleCallback;
 
+// TODO: native pointers support
+// TODO: support for settings PTR
 void setObjPtr(Napi::Env env, Napi::Value obj, Napi::Value value) {
-    obj.As<Napi::Object>().Set("$", value);
+    if (obj.IsObject() && obj.As<Napi::Object>().Has("$")) { obj.As<Napi::Object>().Set("$", value); return; };
+    decltype(auto) pObj = GetAddress(env, obj); bool lossless = true;
 }
 
+//
 template <typename T>
-T getObjPtr(Napi::Env env, Napi::Object obj) {
-    return obj.Get("$").As<T>();
+T getObjPtr(Napi::Env env, Napi::Value obj) {
+    if (obj.IsObject() && obj.As<Napi::Object>().Has("$")) { return obj.As<Napi::Object>().Get("$").As<T>(); };
+    return *(T*)GetAddress(env, obj);
 }
 
 // Define context functions

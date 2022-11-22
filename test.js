@@ -139,12 +139,11 @@ const vert_shader_spv = new Uint8Array([
     const V = (await import("./index.js")).default;
 
     //
-    console.log(V.glfwVulkanSupported());
+    console.log("Vulkan is supported: " + V.glfwVulkanSupported());
 
     //
     const IExt64 = V.glfwGetRequiredInstanceExtensions();
     const IExtensionOpen = new Array(IExt64.length).fill("").map((_, i)=>{ return String.fromAddress(IExt64[i]); });
-    console.log(IExtensionOpen);
 
     //
     let vertices = new Float32Array([
@@ -306,27 +305,28 @@ const vert_shader_spv = new Uint8Array([
     if (deviceCount[0] <= 0) console.error("Error: No render devices available!");
     const devices = new BigUint64Array(deviceCount[0]);
     result = V.vkEnumeratePhysicalDevices(instance[0], deviceCount, devices);
+    const physicalDevice = devices[0];
     //console.log(devices);
 
     //
-    console.log(V.glfwGetPhysicalDevicePresentationSupport(instance[0], devices[0], 0));
+    console.log("Physical Device Presentation Support: " + V.glfwGetPhysicalDevicePresentationSupport(instance[0], physicalDevice, 0));
 
     //
     const dExtensionCount = new Uint32Array(1);
-    V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, null);
+    V.vkEnumerateDeviceExtensionProperties(physicalDevice, "", dExtensionCount, null);
     const dExtensions = new V.VkExtensionProperties(dExtensionCount[0]);
-    V.vkEnumerateDeviceExtensionProperties(devices[0], "", dExtensionCount, dExtensions);
+    V.vkEnumerateDeviceExtensionProperties(physicalDevice, "", dExtensionCount, dExtensions);
 
-    //
-    for (let I=0;I<dExtensionCount[0];I++) {
-        console.log(String.fromAddress(dExtensions[I].extensionName));
-    }
+    // TODO: add extensions and extension filtering
+    //for (let I=0;I<dExtensionCount[0];I++) {
+        //console.log(String.fromAddress(dExtensions[I].extensionName));
+    //}
 
     //
     const queueFamilyCount = new Uint32Array(1);
-    V.vkGetPhysicalDeviceQueueFamilyProperties(devices[0], queueFamilyCount, null);
+    V.vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, queueFamilyCount, null);
     const queueFamilyProperties = new V.VkQueueFamilyProperties(queueFamilyCount[0])
-    V.vkGetPhysicalDeviceQueueFamilyProperties(devices[0], queueFamilyCount, queueFamilyProperties);
+    V.vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, queueFamilyCount, queueFamilyProperties);
 
     //
     let queueIndex = -1;
@@ -341,15 +341,15 @@ const vert_shader_spv = new Uint8Array([
     const deviceProperties = new V.VkPhysicalDeviceProperties2();
 
     //
-    V.vkGetPhysicalDeviceProperties2(devices[0], deviceProperties);
-    V.vkGetPhysicalDeviceFeatures2(devices[0], deviceFeatures);
+    V.vkGetPhysicalDeviceProperties2(physicalDevice, deviceProperties);
+    V.vkGetPhysicalDeviceFeatures2(physicalDevice, deviceFeatures);
 
     //
     //console.log(deviceFeatures.features);
 
     // you can also hack and typecast members (californium bullets)
     //console.log(deviceFeatures.as("VkPhysicalDeviceFeatures", "features"));
-    console.log(deviceFeatures.as(V.VkPhysicalDeviceFeatures, "features"));
+    //console.log(deviceFeatures.as(V.VkPhysicalDeviceFeatures, "features"));
 
     // also, you can set or get uint32 values
     //console.log(deviceFeatures.as("u32[arr]")[0]);
@@ -360,6 +360,75 @@ const vert_shader_spv = new Uint8Array([
     // you construct struct from address
     //console.log(V.VkPhysicalDeviceFeatures.fromAddress(deviceFeatures.address()));
 
+
+    let presentModeCount = new Uint32Array(1);
+    V.vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface[0], presentModeCount, null);
+    let presentModes = new Int32Array(presentModeCount[0]);
+    V.vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface[0], presentModeCount, presentModes);
+
+    //
+    const deviceQueueInfo = new V.VkDeviceQueueCreateInfo({
+        queueFamilyIndex: 0,
+        queueCount: 1,
+        pQueuePriorities: new Float32Array([1.0, 1.0, 1.0, 1.0])
+    });
+
+    //
+    const deviceLayers = [];
+    const deviceExtensions = ["VK_KHR_swapchain"];
+    const deviceInfo = new V.VkDeviceCreateInfo({
+        pNext: deviceFeatures,
+        queueCreateInfoCount: deviceQueueInfo.length,
+        pQueueCreateInfos: deviceQueueInfo,
+        enabledExtensionCount: deviceExtensions.length,
+        ppEnabledExtensionNames: deviceExtensions
+    });
+
+    //
+    const queue = new BigUint64Array(1);
+    const device = new BigUint64Array(1);
+    V.vkCreateDevice(physicalDevice, deviceInfo, null, device);
+    V.vkGetDeviceQueue(device[0], 0, 0, queue);
+
+    //
+    const surfaceSupport = new Uint32Array([0]);
+    V.vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, 0, surface[0], surfaceSupport);
+    console.log("Surface Support By Physical Device: " + surfaceSupport);
+
+    // TODO: native pointers support for GLFW
+    let windowWidth = {$: 0}, windowHeight = {$: 0};
+    V.glfwGetWindowSize(window, windowWidth, windowHeight);
+
+    //
+    let swapchainInfo = new V.VkSwapchainCreateInfoKHR({
+        sType: V.VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR,
+        surface: surface[0],
+        minImageCount: 3,
+        imageFormat: V.VK_FORMAT_B8G8R8A8_UNORM,
+        imageColorSpace: V.VK_COLOR_SPACE_SRGB_NONLINEAR_KHR,
+        imageExtent: { width: windowWidth.$, height: windowHeight.$ },
+        imageArrayLayers: 1,
+        imageUsage: V.VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
+        imageSharingMode: V.VK_SHARING_MODE_EXCLUSIVE,
+        queueFamilyIndexCount: 0,
+        preTransform: V.VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR,
+        compositeAlpha: V.VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
+        presentMode: V.VK_PRESENT_MODE_FIFO_KHR,
+        clipped: V.VK_TRUE,
+        oldSwapchain: null,
+    });
+
+    //
+    const swapchain = new BigUint64Array(1);
+    V.vkCreateSwapchainKHR(device[0], swapchainInfo, null, swapchain);
+
+    //
+    const amountOfImagesInSwapchain = new Uint32Array(1);
+    V.vkGetSwapchainImagesKHR(device[0], swapchain[0], amountOfImagesInSwapchain, null);
+    const swapchainImages = new BigUint64Array(amountOfImagesInSwapchain[0]);
+    V.vkGetSwapchainImagesKHR(device[0], swapchain[0], amountOfImagesInSwapchain, swapchainImages);
+
+    //
     let tickAwait = ()=> new Promise((r)=>setImmediate(r));
 
     let terminated = false;
