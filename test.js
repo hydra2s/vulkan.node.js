@@ -78,7 +78,7 @@ import { Kernel32, User32 } from 'win32-api/promise'
     };
 
     //
-    const createShaderModuleInfo = (module, stage, pName = 0n)=>{
+    const createShaderModuleInfo = (module, stage, pName = "main")=>{
         return new V.VkPipelineShaderStageCreateInfo({
             stage, module, pName, pSpecializationInfo: null
         });
@@ -203,9 +203,9 @@ import { Kernel32, User32 } from 'win32-api/promise'
 
     //
     const dExtensionCount = new Uint32Array(1);
-    V.vkEnumerateDeviceExtensionProperties(physicalDevice, "", dExtensionCount, null);
+    V.vkEnumerateDeviceExtensionProperties(physicalDevice, V.AsBigInt(""), dExtensionCount, null);
     const dExtensions = new V.VkExtensionProperties(dExtensionCount[0]);
-    V.vkEnumerateDeviceExtensionProperties(physicalDevice, "", dExtensionCount, dExtensions);
+    V.vkEnumerateDeviceExtensionProperties(physicalDevice, V.AsBigInt(""), dExtensionCount, dExtensions);
 
     // TODO: add extensions and extension filtering
     //for (let I=0;I<dExtensionCount[0];I++) {
@@ -334,11 +334,8 @@ import { Kernel32, User32 } from 'win32-api/promise'
     }
 
     //
-    const pNameU8 = new Uint8Array([0x6d,0x61,0x69,0x6e,0x00]);
-
-    //
-    const shaderStageInfoVert = createShaderModuleInfo(createShaderModule(device[0], await fs.promises.readFile("shaders/triangle.vert.spv")), V.VK_SHADER_STAGE_VERTEX_BIT, pNameU8);
-    const shaderStageInfoFrag = createShaderModuleInfo(createShaderModule(device[0], await fs.promises.readFile("shaders/triangle.frag.spv")), V.VK_SHADER_STAGE_FRAGMENT_BIT, pNameU8);
+    const shaderStageInfoVert = createShaderModuleInfo(createShaderModule(device[0], await fs.promises.readFile("shaders/triangle.vert.spv")), V.VK_SHADER_STAGE_VERTEX_BIT);
+    const shaderStageInfoFrag = createShaderModuleInfo(createShaderModule(device[0], await fs.promises.readFile("shaders/triangle.frag.spv")), V.VK_SHADER_STAGE_FRAGMENT_BIT);
 
     // TODO: better construction!!
     const shaderStages = new V.VkPipelineShaderStageCreateInfo(2);

@@ -28,12 +28,13 @@ static uint64_t GetAddress(Napi::Env env, const Napi::Value& value_) {
     if (value_.IsBigInt()) {
         address = value_.As<Napi::BigInt>().Uint64Value(&lossless);
     } else
-    if (value_.IsString()) {
-        decltype(auto) STR = value_.As<Napi::String>().Utf8Value();
-        decltype(auto) ptr = Napi::Uint8Array::New(env, STR.length()); // you can't use directly c_str, it should to be context visible
-        memcpy(ptr.Data(), STR.c_str(), STR.size());
-        address = uint64_t(ptr.Data());
-    } else
+    //if (value_.IsString()) {
+        // Broken address, and have broken Null termination issues.
+        //decltype(auto) STR = value_.As<Napi::String>().Utf8Value();
+        //decltype(auto) ptr = Napi::Uint8Array::New(env, STR.size()+1);
+        //memcpy(ptr.Data(), STR.c_str(), STR.size());
+        //address = uint64_t(ptr.Data());
+    //} else
     if (value_.IsTypedArray()) {
         decltype(auto) TA = value_.As<Napi::TypedArray>();
         decltype(auto) AB = TA.ArrayBuffer();

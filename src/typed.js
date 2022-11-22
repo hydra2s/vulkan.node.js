@@ -8,8 +8,11 @@ const IsNumber = (index) => {
     return typeof index == "number" || typeof index == "bigint" || Number.isInteger(index) || typeof index == "string" && /^\+?\d+$/.test(index.trim());
 }
 
+//
+const EncoderUTF8 = new TextEncoder(); //U8Cache
+
 // 
-const asBigInt = (value)=>{
+const AsBigInt = (value)=>{
     if (!value) {
         return 0n;
     } else
@@ -28,8 +31,10 @@ const asBigInt = (value)=>{
     if (value instanceof Array || Array.isArray(value)) {
         return (new Types["u64[arr]"](value)).address(); // present as u64 array
     } else
-    if (typeof value == "string") {
-        return value.charAddress(value.length);
+    if (typeof value == "string") { // LTE - лучший тибетский интернет!
+        const arrayBuffer = new ArrayBuffer(value.length);
+        EncoderUTF8.encodeInto(value, new Uint8Array(arrayBuffer, 0, value.length));
+        return arrayBuffer.address();
     } else 
     if (typeof value == "object" && value.address) {
         return value.address();
@@ -183,7 +188,7 @@ const setInt = (Target, index = 0, value = 0) => {
 
 //
 const setBigInt = (Target, index = 0, value = 0n) => {
-    Target[index] = asBigInt(value);
+    Target[index] = AsBigInt(value);
 }
 
 // default accessor types
@@ -195,15 +200,15 @@ new NumberAccessor("f32", 4, (dv, offset)=>{ return dv.getFloat32(parseInt(offse
 new NumberAccessor("u32", 4, (dv, offset)=>{ return dv.getUint32(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setUint32(parseInt(offset)||0, parseInt(value), true); });
 new NumberAccessor("i32", 4, (dv, offset)=>{ return dv.getInt32(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setInt32(parseInt(offset)||0, parseInt(value), true); });
 new NumberAccessor("f64", 8, (dv, offset)=>{ return dv.getFloat64(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setFloat64(parseInt(offset)||0, parseFloat(value), true); });
-new NumberAccessor("u64", 8, (dv, offset)=>{ return dv.getBigUint64(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setBigUint64(parseInt(offset)||0, asBigInt(value), true); });
-new NumberAccessor("i64", 8, (dv, offset)=>{ return dv.getBigInt64(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setBigInt64(parseInt(offset)||0, asBigInt(value), true); });
+new NumberAccessor("u64", 8, (dv, offset)=>{ return dv.getBigUint64(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setBigUint64(parseInt(offset)||0, AsBigInt(value), true); });
+new NumberAccessor("i64", 8, (dv, offset)=>{ return dv.getBigInt64(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setBigInt64(parseInt(offset)||0, AsBigInt(value), true); });
 new NumberAccessor("u24", 3, 
 (dv, offset)=>{ return (dv.getUint8(parseInt(offset)||0, true)|(dv.getUint8((parseInt(offset)||0)+1, true)<<8)|(dv.getUint8((parseInt(offset)||0)+2, true)<<16)); }, 
 (dv, offset, value)=>{ dv.setUint8(parseInt(offset)||0, (parseInt(value) & 0xFF), true); dv.setUint8((parseInt(offset)||0)+1, (parseInt(value) >> 8) & 0xFF, true); dv.setUint8((parseInt(offset)||0)+2, (parseInt(value) >> 16) & 0xFF, true); });
 
 //
 const re64 = (args)=>{
-    if (typeof args[0] == "array" || Array.isArray(args[0])) { return [args[0].map(asBigInt)] };
+    if (typeof args[0] == "array" || Array.isArray(args[0])) { return [args[0].map(AsBigInt)] };
     if (IsNumber(args[0])) { return [parseInt(args[0])]; };
     if (isAbv(args[0]?.buffer || args[0])) { // PMV
         if (args.length < 2) { args.push(0); };
@@ -425,7 +430,7 @@ class CStruct {
     }
 
     fromAddress(address, length=1) {
-        return new this._class(ArrayBuffer.fromAddress(asBigInt(address), length * this.byteLength), 0, length * this.byteLength);
+        return new this._class(ArrayBuffer.fromAddress(AsBigInt(address), length * this.byteLength), 0, length * this.byteLength);
     }
 
     get(Target, index) {
@@ -512,4 +517,4 @@ class CStruct {
 }
 
 //
-export default { CStruct, CStructView, Types, ConstructProxy };
+export default { CStruct, CStructView, Types, ConstructProxy, AsBigInt, EncoderUTF8 };

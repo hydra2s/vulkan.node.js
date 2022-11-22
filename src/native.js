@@ -6,9 +6,9 @@ const fs = require('fs');
 const path = require('path');
 
 // get native address for Vulkan API 'const char*'
-String.prototype.charAddress = function (isUtf16 = false) {
-    return native.nativeAddress(this.toString(), isUtf16);
-};
+//String.prototype.charAddress = function (isUtf16 = false) {
+    //return native.nativeAddress(this.toString(), isUtf16);
+//};
 
 //
 String.fromAddress = (address, length = 0)=> { return native.string(address, length); };
