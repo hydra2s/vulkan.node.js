@@ -190,7 +190,7 @@ let getWriter = async()=>{
         //if (U64Types.indexOf(param.type) >= 0) 
         {   // any other is 64-bit number handlers
             return `
-    if (!info_[${I}].IsBigInt() && !info_[${I}].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
+    if (!info_[${I}].IsNumber() && !info_[${I}].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
     decltype(auto) ${param.name} = (${param.type})(info_[${I}].IsBigInt() ? info_[${I}].As<Napi::BigInt>().Uint64Value(&lossless) : info_[${I}].As<Napi::Number>().Int64Value());`;
         }
     };
@@ -396,13 +396,13 @@ ${structure.params.map((p)=>(writeParam(structure.name, p, map))).join(`
     let availableEnums = [];
     let cvtEnum = (e, map)=>{
         let by = map.usedBy[e.name];
-        
+        let is64bit = IsUint64(e.extends || e.type || "")?`n`:``;
         if (e.name.indexOf(`EXTENSION_NAME`) >= 0 && e.name.indexOf(`VK_MAX_EXTENSION_NAME_SIZE`) < 0) { availableEnums.push(e); return `    get ${e.name}() { return "${eval(e.value)}" },`} else
-        if ('value' in e) { availableEnums.push(e); return `    get ${e.name}() { return ${BigInt(eval(e.value))}n },`} else
+        if ('value' in e) { availableEnums.push(e); return `    get ${e.name}() { return ${BigInt(eval(e.value))}${is64bit} },`} else
         if ('bitpos' in e) {
             let value = 1n << BigInt(e.bitpos);
             availableEnums.push(e);
-            return `    get ${e.name}() { return ${BigInt(value)}n },`
+            return `    get ${e.name}() { return ${BigInt(value)}${is64bit} },`
         } else
         if ('offset' in e) {
             const extBase = 1000000000n;
@@ -413,10 +413,10 @@ ${structure.params.map((p)=>(writeParam(structure.name, p, map))).join(`
             let value = extBase + (extnumber - 1n) * extBlockSize + offset;
             if (e.dir) value *= -1n;
             availableEnums.push(e);
-            return `    get ${e.name}() { return ${BigInt(value)}n },`
+            return `    get ${e.name}() { return ${BigInt(value)}${is64bit} },`
         } else
         if ('alias' in e) {
-            return `    get ${e.name}() { return (E["${e.alias}"]||0n) },`
+            return `    get ${e.name}() { return (E["${e.alias}"]||0${is64bit}) },`
         }
         return ``;
     }

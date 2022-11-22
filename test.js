@@ -69,7 +69,7 @@ import { Kernel32, User32 } from 'win32-api/promise'
         for (let I = 0; I < memoryProperties.memoryTypeCount; ++I) {
           if (
             (typeFilter & (1 << I)) &&
-            (memoryProperties.memoryTypes[I].propertyFlags & parseInt(propertyFlag)) === parseInt(propertyFlag)
+            (memoryProperties.memoryTypes[I].propertyFlags & propertyFlag) === propertyFlag
           ) {
             return I;
           }
@@ -222,7 +222,7 @@ import { Kernel32, User32 } from 'win32-api/promise'
     //
     let queueIndex = -1;
     for (let I=0;I<queueFamilyCount[0];I++) {
-        if (queueFamilyProperties[I].queueFlags & parseInt(V.VK_QUEUE_GRAPHICS_BIT)) {
+        if (queueFamilyProperties[I].queueFlags & V.VK_QUEUE_GRAPHICS_BIT) {
             queueIndex = I; break;
         }
     }
@@ -408,7 +408,7 @@ import { Kernel32, User32 } from 'win32-api/promise'
         srcAlphaBlendFactor: V.VK_BLEND_FACTOR_ONE,
         dstAlphaBlendFactor: V.VK_BLEND_FACTOR_ZERO,
         alphaBlendOp: V.VK_BLEND_OP_ADD,
-        colorWriteMask: parseInt(
+        colorWriteMask: (
             V.VK_COLOR_COMPONENT_R_BIT |
             V.VK_COLOR_COMPONENT_G_BIT |
             V.VK_COLOR_COMPONENT_B_BIT |
@@ -475,7 +475,7 @@ import { Kernel32, User32 } from 'win32-api/promise'
         srcStageMask: V.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
         dstStageMask: V.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
         srcAccessMask: 0,
-        dstAccessMask: parseInt(
+        dstAccessMask: (
             V.VK_ACCESS_COLOR_ATTACHMENT_READ_BIT |
             V.VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT
         ),
@@ -619,7 +619,7 @@ import { Kernel32, User32 } from 'win32-api/promise'
         V.vkAcquireNextImageKHR(device[0], swapchain[0], BigInt(Number.MAX_SAFE_INTEGER), semaphoreImageAvailable[0], 0n, imageIndex);
 
         //
-        const waitStageMask = new Int32Array([ parseInt(V.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT) ]);
+        const waitStageMask = new Int32Array([ V.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT ]);
         const submitInfo = new V.VkSubmitInfo({
             waitSemaphoreCount: 1,
             pWaitSemaphores: semaphoreImageAvailable,
