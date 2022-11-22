@@ -142,10 +142,9 @@ const vert_shader_spv = new Uint8Array([
     console.log(V.glfwVulkanSupported());
 
     //
-    const ICount = new Uint32Array(1);
-    const IExtension = V.glfwGetRequiredInstanceExtensions(ICount);
-    const IExt64 = new BigUint64Array(ArrayBuffer.fromAddress(IExtension, ICount[0]*8));
-    const IExtensionOpen = new Array(ICount[0]).fill("").map((_, i)=>{ return String.fromAddress(IExt64[i]); });
+    const IExt64 = V.glfwGetRequiredInstanceExtensions();
+    const IExtensionOpen = new Array(IExt64.length).fill("").map((_, i)=>{ return String.fromAddress(IExt64[i]); });
+    console.log(IExtensionOpen);
 
     //
     let vertices = new Float32Array([

@@ -1679,10 +1679,12 @@ Napi::Boolean __glfwVulkanSupported(const Napi::CallbackInfo& info_) {
 }
 
 // TODO: make arrays
-Napi::BigInt __glfwGetRequiredInstanceExtensions(const Napi::CallbackInfo& info_) {
+Napi::TypedArrayOf<uint64_t> __glfwGetRequiredInstanceExtensions(const Napi::CallbackInfo& info_) {
     Napi::Env env = info_.Env();
     bool lossless = true;
-    return Napi::BigInt::New(env, (uint64_t)(::glfwGetRequiredInstanceExtensions((uint32_t*)GetAddress(env, info_[0]))));
+    uint32_t count = 0u;
+    const char* const * charArr = ::glfwGetRequiredInstanceExtensions(/*(uint32_t*)GetAddress(env, info_[0])*/ &count);
+    return Napi::TypedArrayOf<uint64_t>::New(env, count, Napi::ArrayBuffer::New(env, (uint64_t*)charArr, count * sizeof(const char* const *)), 0);
 }
 
 //
