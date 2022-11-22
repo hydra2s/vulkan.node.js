@@ -28,6 +28,7 @@ Our Node.JS bindings for Vulkan API support (latest version, as possible). Curre
 - Error and exception handling support
 - Some syntax sugar for user-friendly
 - Better error handling (with additional info)
+- I made first hello triangle example
 
 ## TODO
 
@@ -35,6 +36,8 @@ Our Node.JS bindings for Vulkan API support (latest version, as possible). Curre
 - [ ] Support `set` operation for everything
 - [ ] WebAssembly and AssemblyScript support
 - [ ] Fix common bugs and issues
+- [ ] Support for `{$: 0n}` handles (alike NVK)
+- [ ] Add native pointers, BigInt and typed arrays for GLFW
 
 ## Test code
 
