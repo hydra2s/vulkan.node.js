@@ -541,6 +541,7 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
 #ifdef ENABLE_GLFW_SUPPORT
     glfwInit();
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 #endif
 
     volkInitialize();

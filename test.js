@@ -169,6 +169,7 @@ import { Kernel32, User32 } from 'win32-api/promise'
     V.vkCreateInstance(pInfo, null, instance);
 
     //
+    V.glfwWindowHint(V.GLFW_RESIZABLE, V.GLFW_FALSE);
     const window = V.glfwCreateWindow(1280, 720, "Hello Triangle", null, null);
 
     // make shared GLFW surface between two versions of GLFW
