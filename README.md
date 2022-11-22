@@ -22,7 +22,7 @@ We made first example: https://github.com/hydra2s/vulkan.node.js/blob/main/test.
 
 ## Features
 
-- Using raw pointers and typed structures
+- Using raw pointers and typed structures and arrays
 - Low abstraction levels (and there is no Vulkan-HPP)
 - Pre-computing of enums and struct classes
 - JS generator from Vulkan XML, with C++ supplements
