@@ -42,6 +42,7 @@ We made first example: https://github.com/hydra2s/vulkan.node.js/blob/main/examp
 - [ ] Better indexed operations (such address, etc.)
 - [ ] Planned support for glMatrix fully
 - [ ] Planned support for WebAssembly bindings and memory
+- [ ] Much more WASM compatibility
 
 ## Projects
 
