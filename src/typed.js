@@ -266,12 +266,12 @@ class CStructView {
         Object.defineProperties(this, {
             [""]: {
                 set: (v)=>{ this.set(v); },
-                get: ()=>{ return new Proxy(this, this.struct)[""]; }
+                get: ()=>{ return new Proxy(this, this._class)[""]; }
             }
         });
 
         //
-        (this.struct = struct).types.forEach((tp)=>{
+        (this._class = struct).types.forEach((tp)=>{
             // use F32 fallback for Vulkan API types
             const array = new (tp.type || Types[length > 1 ? "u32[arr]" : "u32"])(this.buffer, this.byteOffset + tp.byteOffset, tp.length);
             
@@ -337,47 +337,39 @@ class CStructView {
     // fix extra vars problems, make as object and read-only de-facto
     serialize() {
         let obj = {};
-        for (let t of this.struct.types) { 
+        for (let t of this._class.types) { 
             obj[t.name] = typeof this[t.name].serialize == "function" ? this[t.name].serialize() : this[t.name];
         };
         return obj;
     }
 
     // member utils
-    lengthof(name) { return this.struct.lengthof(name); };
-    offsetof(name) { return this.struct.offsetof(name); };
+    lengthof(name) { return this._class.lengthof(name); };
+    offsetof(name) { return this._class.offsetof(name); };
     bufferOffsetOf(name) { return this.byteOffset + this.offsetof(name); };
     addressOffsetOf(name) { return this.address() + this.offsetof(name); };
 
     //
     set(buffer, offset = 0) {
         if (typeof buffer == "object") {
-            //let structed = this;
-            //for (let k in buffer) { if (this.types.find((t)=>(t.name == k))) { structed[k] = buffer[k]; }; }; // reduce the some time
-            //for (let t of this.struct.types) { let k = t.name; if (k in buffer) { structed[k] = buffer[k]; }; }; // supports correct order
-            //return structed;
-
             // serialization are required for avoid keys conflicts
-            buffer = typeof buffer.serialize == "function" ? buffer.serialize() : buffer;
-
-            //
             let types = [], raws = [];
-            let keys = Object.keys(buffer).map((k,i)=>{
+            let keys = Object.keys(typeof buffer.serialize == "function" ? buffer.serialize() : buffer).map((k,i)=>{
                 let names = k.split(":")||[];
                 types.push(names[1]), raws.push(k);
                 return names[0]||k;
             });
 
-            let structed = this;
-            //for (let k in buffer) { if (this.struct.types.find((t)=>(t.name == k))) { structed[k] = buffer[k]; }; }; // reduce the some time
+            // prefer a proxy
+            let structed = new Proxy(this, this._class);
 
-            for (let t of this.struct.types) { 
+            // needs votes and feedback!
+            // supports correct order
+            for (let t of this._class.types) { 
                 let k = t.name, f = keys.indexOf(k), type = types[f];
-                if (f >= 0) 
-                    if (type) 
-                        { structed.as(type, k)[""] = (buffer[k] || buffer[raws[f]]); } else 
-                        { structed[k] = (buffer[k] || buffer[raws[f]]); }
-            }; // supports correct order
+                //if (f >= 0) structed[raws[f]] = (buffer[k] || buffer[raws[f]]); // may to assign as is
+                if (f >= 0) structed[raws[f]] = (buffer[raws[f]] || buffer[k]); // may to typecast when getting firstly
+            };
             return structed;
         }
         return this;
@@ -483,7 +475,7 @@ class CStruct {
                 index = parseInt(index);
                 return new this._class(Target.buffer, Target.byteOffset + this.byteLength * index, Target.byteLength - this.byteLength * index)[""];
             } else 
-            if (["length", "byteOffset", "byteLength"].indexOf(index) >= 0) {
+            if (["length", "byteOffset", "byteLength", "_class"].indexOf(index) >= 0) {
                 return Target[index];
             } else 
             if (["set", "address", "as", "offsetof", "bufferOffsetOf", "addressOffsetOf", "serialize"].indexOf(index) >= 0) {
@@ -492,7 +484,7 @@ class CStruct {
             if (typeof index == "string") {
                 // TODO: make function for splitting index string
                 let names = (index.startsWith(":") ? ["", index.substring(1)] : index.split(":"))||[]; if (index.startsWith(":")) index = ""; index = names[0]||index; let type = names[1];
-                if (Target.struct.types.find((t)=>(t.name==index)) || index == "") {
+                if (Target._class.types.find((t)=>(t.name==index)) || index == "") {
                     return type ? Target.as(type, index)[""] : Target[index];
                 }
             }
@@ -521,7 +513,7 @@ class CStruct {
             if (typeof index == "string") {
                 // TODO: make function for splitting index string
                 let names = (index.startsWith(":") ? ["", index.substring(1)] : index.split(":"))||[]; if (index.startsWith(":")) index = ""; index = names[0]||index; let type = names[1];
-                if (Target.struct.types.find((t)=>(t.name==index)) || index == "") {
+                if (Target._class.types.find((t)=>(t.name==index)) || index == "") {
                     if (type) 
                         { Target.as(type, index)[""] = value; } else
                         { Target[index] = value; }
