@@ -473,15 +473,19 @@ class CStruct {
             if (IsNumber(index)) {
                 index = parseInt(index);
                 return new this._class(Target.buffer, Target.byteOffset + this.byteLength * index, Target.byteLength - this.byteLength * index)[""];
-            } else // TODO: support type casting support
-            if (Target.struct.types.find((t)=>(t.name==index))) {
-                return Target[index];
-            } else
+            } else 
             if (["length", "byteOffset", "byteLength"].indexOf(index) >= 0) {
                 return Target[index];
             } else 
             if (["set", "address", "as", "offsetof", "bufferOffsetOf", "addressOffsetOf", "serialize"].indexOf(index) >= 0) {
                 return Target[index].bind(Target);
+            } else 
+            if (typeof index == "string") {
+                //Target.struct.types.find((t)=>(t.name==index))
+                let names = index.split(":"); index = names[0]||index; let type = names[1];
+                if (Target.struct.types.find((t)=>(t.name==index))) {
+                    return type ? Target.as(type, index)[""] : Target[index];
+                }
             }
         } else {
             this.gerenateTypeTable();
@@ -504,10 +508,15 @@ class CStruct {
                 index = parseInt(index);
                 new this._class(Target.buffer, Target.byteOffset + this.byteLength * index, (Target.length||1) - index)[""] = value;
                 return true;
-            } else // TODO: support type casting support
-            if (Target.struct.types.find((t)=>(t.name==index))) {
-                Target[index] = value;
-                return true;
+            } else 
+            if (typeof index == "string") {
+                let names = index.split(":"); index = names[0]||index; let type = names[1];
+                if (Target.struct.types.find((t)=>(t.name==index))) {
+                    if (type) 
+                        { Target.as(type, index)[""] = value; } else
+                        { Target[index] = value; }
+                    return true;
+                }
             }
         }
     }
