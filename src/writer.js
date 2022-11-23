@@ -3,12 +3,14 @@ let getWriter = async()=>{
     const fs = await import('fs');
 
     //
-    let Handles = ["VkCommandPool", "VkDescriptorSetLayout", "VkDescriptorSet", "VkShaderModule", "VkPipelineCache", "VkRenderPass", "VkImageView", "VkImage", "VkBuffer", "VkAccelerationStructureKHR", "VkQueue", "VkDeviceMemory", "HANDLE", "VkPhysicalDevice", "VkCommandBuffer", "VkSurfaceKHR", "VkFramebuffer", "VkSwapchainKHR", "VkSurfaceKHR", "VkPipeline", "VkPipelineLayout", "VkSemaphore", "VkSampler", "VkFence"];
+    let HandleTypes = ["VK_DEFINE_NON_DISPATCHABLE_HANDLE", "VK_DEFINE_HANDLE"];
+    let Handles = [];
+    //let Handles = ["VkCommandPool", "VkDescriptorSetLayout", "VkDescriptorSet", "VkShaderModule", "VkPipelineCache", "VkRenderPass", "VkImageView", "VkImage", "VkBuffer", "VkAccelerationStructureKHR", "VkQueue", "VkDeviceMemory", "HANDLE", "VkPhysicalDevice", "VkCommandBuffer", "VkSurfaceKHR", "VkFramebuffer", "VkSwapchainKHR", "VkSurfaceKHR", "VkPipeline", "VkPipelineLayout", "VkSemaphore", "VkSampler", "VkFence"];
     let F64Types = ["double", "float64_t"];
     let F32Types = ["float", "float32_t"];
     let U8Types = ["uint8_t", "char8_t", "char"];
     let U16Types = ["uint16_t"];
-    let U64Types = ["LPCWSTR", "uint64_t", "uintptr_t", "size_t", "VkDeviceSize", "VkDeviceAddress", "VkDeviceOffset", "VkDeviceOrHostAddressKHR", "VkFlags64"].concat(Handles);
+    let U64Types = ["HANDLE", "LPCWSTR", "uint64_t", "uintptr_t", "size_t", "VkDeviceSize", "VkDeviceAddress", "VkDeviceOffset", "VkDeviceOrHostAddressKHR", "VkFlags64"];
     let U32Types = ["DWORD", "uint32_t", "VkFlags", "VkBool32", "VkStructureType"];
     let Pointables = ["VkOffset2D","VkExtent2D","VkRect2D","VkTransformMatrixKHR","VkTransformMatrixNV","VkPhysicalDeviceFeatures","VkPhysicalDeviceProperties","VkMemoryRequirements"];
     let U24Types = ["uint24_t"];
@@ -33,7 +35,7 @@ let getWriter = async()=>{
 
     //
     let IsUint64 = (T,B=0)=>{
-        return U64Types.indexOf(T) >= 0 || T.indexOf("Flags64") >= 0 || T.indexOf("Flags2") >= 0 || T.indexOf("FlagBits2") >= 0 || T.indexOf("uint64") >= 0 || B == 64;
+        return Handles.indexOf(T) >= 0 || U64Types.indexOf(T) >= 0 || T.indexOf("Flags64") >= 0 || T.indexOf("Flags2") >= 0 || T.indexOf("FlagBits2") >= 0 || T.indexOf("uint64") >= 0 || B == 64;
     }
 
     //
@@ -187,7 +189,7 @@ let getWriter = async()=>{
     decltype(auto) ${param.name} = (${param.type})(info_[${I}].IsBigInt() ? info_[${I}].As<Napi::BigInt>().Int64Value(&lossless) : info_[${I}].As<Napi::Number>().Int32Value());`;
         } else 
 
-        //if (U64Types.indexOf(param.type) >= 0) 
+        //if (U64Types.indexOf(param.type) >= 0 || Handles.indexOf(T) >= 0) 
         {   // any other is 64-bit number handlers
             return `
     if (!info_[${I}].IsNumber() && !info_[${I}].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at ${I} argument (${param.name})").ThrowAsJavaScriptException(); return env.Null(); }
@@ -428,7 +430,13 @@ ${structure.params.map((p)=>(writeParam(structure.name, p, map))).join(`
 
     // 
     let writeCodes = async (map)=>{
+        // auto-handle
+        map.parsedTypes.map((T)=>{
+            if (HandleTypes.indexOf(T.type) >= 0) Handles.push(T.name);
+        });
+        console.log(Handles);
 
+        //
         availableEnums = [];
         await fs.promises.writeFile("./vulkan-enums.js", `
 
