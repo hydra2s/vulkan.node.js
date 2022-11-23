@@ -305,7 +305,7 @@
     // TODO: resolve address indexing problems
     const imageViews = new BigUint64Array(amountOfImagesInSwapchain[0]);
     for (let I=0;I<amountOfImagesInSwapchain[0];I++) {
-        V.vkCreateImageView(device[0], imageViewInfo.set({image: swapchainImages[I]}), null, imageViews.address() + BigInt(I*8)); // bit-tricky by device address
+        V.vkCreateImageView(device[0], imageViewInfo.set({image: swapchainImages[I]}), null, imageViews.addressOffsetOf(I)); // bit-tricky by device address
     }
 
     // TODO: better construction!!
@@ -505,7 +505,7 @@
     // TODO: resolve address indexing problems
     const framebuffers = new BigUint64Array(imageViews.length);
     for (let I=0;I<imageViews.length;I++) {
-        V.vkCreateFramebuffer(device[0], framebufferInfo.set({pAttachments: imageViews.address() + BigInt(I*8)}), null, framebuffers.address() + BigInt(I*8));
+        V.vkCreateFramebuffer(device[0], framebufferInfo.set({pAttachments: imageViews.addressOffsetOf(I)}), null, framebuffers.addressOffsetOf(I));
     }
 
 
@@ -596,7 +596,7 @@
             pWaitSemaphores: semaphoreImageAvailable,
             pWaitDstStageMask: waitStageMask,
             commandBufferCount: 1,
-            pCommandBuffers: cmdBuffers.address() + BigInt(imageIndex[0]*8),
+            pCommandBuffers: cmdBuffers.addressOffsetOf(imageIndex[0]),
             signalSemaphoreCount: 1,
             pSignalSemaphores: semaphoreRenderingAvailable,
         });

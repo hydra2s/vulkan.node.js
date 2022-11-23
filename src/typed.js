@@ -106,7 +106,7 @@ class TypePrototype {
             if (["byteLength", "byteOffset", "length", "_class"].indexOf(index) >= 0) {
                 return Target[index];
             } else
-            if (["address", "set", "offsetof"].indexOf(index) >= 0) {
+            if (["address", "set", "offsetof", "bufferOffsetOf", "addressOffsetOf"].indexOf(index) >= 0) {
                 return Target[index].bind(Target);
             } else 
             if (typeof index == "string") {
@@ -155,20 +155,19 @@ class TypeView {
     as(...args) {
         return this._class.as(this, ...args);
     }
+
+    bufferOffsetOf(name) { return this.byteOffset + this.offsetof(name); };
+    addressOffsetOf(name) { return this.address() + BigInt(this.offsetof(name)); };
 }
 
 // Black Jack
-Object.assign(DataView.prototype, TypeView.prototype);
-Object.assign(Uint8Array.prototype, TypeView.prototype);
-Object.assign(Uint16Array.prototype, TypeView.prototype);
-Object.assign(Uint32Array.prototype, TypeView.prototype);
-Object.assign(BigUint64Array.prototype, TypeView.prototype);
-Object.assign(Int8Array.prototype, TypeView.prototype);
-Object.assign(Int16Array.prototype, TypeView.prototype);
-Object.assign(Int32Array.prototype, TypeView.prototype);
-Object.assign(BigInt64Array.prototype, TypeView.prototype);
-Object.assign(Float32Array.prototype, TypeView.prototype);
-Object.assign(Float64Array.prototype, TypeView.prototype);
+let classes = [DataView, Uint8Array, Uint16Array, Uint32Array, BigUint64Array, Int8Array, Int16Array, Int32Array, BigInt64Array, Float32Array, Float64Array];
+classes.map((C)=>{
+    Object.defineProperty(C, "_class", { get() { return TypePrototype; }, configurable: true });
+    Object.defineProperty(C.prototype, "_class", { get() { return TypePrototype; }, configurable: true });
+    ["addressOffsetOf", "bufferOffsetOf"].map((N)=>(C.prototype[N]=TypeView.prototype[N]));
+    C.prototype.offsetof = function (index = 0) { return index * (this.BYTES_PER_ELEMENT || 0); };
+});
 
 //
 class ConstructProxy extends TypePrototype {
@@ -195,10 +194,10 @@ function isConstructor(obj) {
 
 // 
 class NumberAccessor extends TypePrototype {
-    constructor(name, byteLength, get, set, construct = DataView, bigEndian = false) {
+    constructor(name, byteLength, get, set, construct_ = DataView, bigEndian = false) {
         super();
 
-        if (!(name in Types)) { Types[name] = new Proxy(this._class = construct, this); };
+        if (!(name in Types)) { Types[name] = new Proxy(this._class = construct_, this); };
         this.type = name;
         this.bigEndian = bigEndian;
         this._get = get;//.bind(this);
@@ -218,16 +217,18 @@ class NumberAccessor extends TypePrototype {
 
     construct(Target, args) {
         if (args.length >= 3) { args[2] = (args[2]||1) * this.byteLength; } else if (args.length >= 2) { args.push(this.byteLength); } else if (args.length >= 1) { args.push(0); args.push(this.byteLength); };
-        return new Proxy(new Target(...args), this);
+        const _class = new Target(...args);
+        Object.defineProperty(_class, "_class", { get() { return this; }, configurable: true });
+        return new Proxy(_class, this);
     }
 }
 
 // 
 class ArrayAccessor extends TypePrototype {
-    constructor(name, byteLength, get, set, construct, handler, bigEndian = false) {
+    constructor(name, byteLength, get, set, construct_, handler, bigEndian = false) {
         super();
 
-        if (!((name+"[arr]") in Types)) { Types[name+"[arr]"] = new Proxy(this._class = construct, this); };
+        if (!((name+"[arr]") in Types)) { Types[name+"[arr]"] = new Proxy(this._class = construct_, this); };
         this.type = name+"[arr]";
         this.bigEndian = bigEndian;
         this._get = (...args) => { return IsNumber(args[1]) ? get.bind(this)(...args) : new Proxy(args[0], this); }
@@ -235,6 +236,10 @@ class ArrayAccessor extends TypePrototype {
         this.byteLength = byteLength;
         this.handler = handler;
         this.isArray = true;
+
+        //
+        Object.defineProperty(construct_, "_class", { get() { return this; }, configurable: true });
+        Object.defineProperty(construct_.prototype, "_class", { get() { return this; }, configurable: true });
     }
 
     get(Target, index) {
@@ -367,7 +372,8 @@ class CStructView extends TypeView {
         Object.defineProperties(this, {
             [""]: {
                 set: (v)=>{ this.set(v); },
-                get: ()=>{ return new Proxy(this, this._class)[""]; }
+                get: ()=>{ return new Proxy(this, this._class)[""]; },
+                configurable: true
             }
         });
 
@@ -380,7 +386,8 @@ class CStructView extends TypeView {
             Object.defineProperties(this, {
                 [tp.name]: {
                     set: (v)=>{ array[""] = v; },
-                    get: ()=>{ return array[""]; }
+                    get: ()=>{ return array[""]; },
+                    configurable: true
                 }
             });
 
@@ -408,8 +415,6 @@ class CStructView extends TypeView {
     // member utils
     lengthof(name) { return this._class.lengthof(name); };
     offsetof(name) { return this._class.offsetof(name); };
-    bufferOffsetOf(name) { return this.byteOffset + this.offsetof(name); };
-    addressOffsetOf(name) { return this.address() + this.offsetof(name); };
 
     //
     set(buffer, offset = 0) {
