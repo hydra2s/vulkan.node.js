@@ -262,6 +262,14 @@ class CStructView {
         this.parent = null;
         this.length = length;
 
+        // implicit support for type-casting and setting
+        Object.defineProperties(this, {
+            [""]: {
+                set: (v)=>{ this.set(v); },
+                get: ()=>{ return new Proxy(this, this.struct)[""]; }
+            }
+        });
+
         //
         (this.struct = struct).types.forEach((tp)=>{
             // use F32 fallback for Vulkan API types
@@ -340,6 +348,7 @@ class CStructView {
     offsetof(name) { return this.struct.offsetof(name); };
     bufferOffsetOf(name) { return this.byteOffset + this.offsetof(name); };
     addressOffsetOf(name) { return this.address() + this.offsetof(name); };
+
     //
     set(buffer, offset = 0) {
         if (typeof buffer == "object") {
@@ -482,7 +491,7 @@ class CStruct {
             } else 
             if (typeof index == "string") {
                 //Target.struct.types.find((t)=>(t.name==index))
-                let names = index.split(":"); index = names[0]||index; let type = names[1];
+                let names = index.split(":")||[]; index = names[0]||index; let type = names[1];
                 if (Target.struct.types.find((t)=>(t.name==index))) {
                     return type ? Target.as(type, index)[""] : Target[index];
                 }
@@ -510,7 +519,7 @@ class CStruct {
                 return true;
             } else 
             if (typeof index == "string") {
-                let names = index.split(":"); index = names[0]||index; let type = names[1];
+                let names = index.split(":")||[]; index = names[0]||index; let type = names[1];
                 if (Target.struct.types.find((t)=>(t.name==index))) {
                     if (type) 
                         { Target.as(type, index)[""] = value; } else
