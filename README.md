@@ -38,7 +38,7 @@ We made first example: https://github.com/hydra2s/vulkan.node.js/blob/main/examp
 - [ ] WebAssembly and AssemblyScript support
 - [ ] Fix common bugs and issues
 - [ ] Support for `{$: 0n}` handles (alike NVK)
-- [ ] Add native pointers, BigInt and typed arrays for GLFW
+- [ ] Add native pointers, BigInt and typed arrays for GLFW, and WASM compatible
 - [ ] Better indexed operations (such address, etc.)
 - [ ] Planned support for glMatrix fully
 - [ ] Planned support for WebAssembly bindings and memory
