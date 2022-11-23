@@ -118,7 +118,7 @@ class TypePrototype {
         } else {
             if (index == "prototype") { return Target.prototype; };
             if (index == "type") { return this.type; };
-            if (index == "fromAddress") { return Target[index].bind(Target); }
+            if (index == "fromAddress") { return Target[index] ? Target[index].fromAddress(Target) : this[index].bind(this); }
             if (index == "byteLength") { return this.byteLength; };
         }
         return null;
