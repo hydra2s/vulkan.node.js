@@ -1,0 +1,32 @@
+{
+  "name": "@assemblyscript/i64-example",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "asbuild:debug": "asc --target debug",
+    "asbuild:release": "asc --target release",
+    "asbuild": "npm run asbuild:debug && npm run asbuild:release",
+    "test": "node tests",
+    "start": "npx serve ."
+  },
+  "files": [
+    "assembly/",
+    "build/release.wasm",
+    "build/release.wasm.map",
+    "index.d.ts",
+    "index.js",
+    "README.md"
+  ],
+  "devDependencies": {
+    "assemblyscript": "latest"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./build/release.js",
+      "types": "./build/release.d.ts"
+    }
+  }
+}

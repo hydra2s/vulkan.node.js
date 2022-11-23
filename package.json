@@ -5,12 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node test.js",
-    "test2": "electron main.cjs",
-    "install": "cd src && node main.js && cd ../ && cmake-js -r node --debug",
-    "asbuild:debug": "asc assembly/index.ts --target debug",
-    "asbuild:release": "asc assembly/index.ts --target release",
-    "asbuild": "npm run asbuild:debug && npm run asbuild:release",
-    "start": "npx serve ."
+    "install": "cd src && node main.js && cd ../ && cmake-js -r node --debug"
   },
   "cmake-js": {
     "runtime": "node",
@@ -41,11 +36,5 @@
     "assemblyscript": "^0.24.0",
     "cmake-js": "^7.0.0"
   },
-  "type": "module",
-  "exports": {
-    ".": {
-      "import": "./build/release.js",
-      "types": "./build/release.d.ts"
-    }
-  }
+  "type": "module"
 }
