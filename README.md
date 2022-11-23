@@ -33,6 +33,7 @@ We made first example: https://github.com/hydra2s/vulkan.node.js/blob/main/examp
 
 ## TODO
 
+- [ ] Special unit test for `typed.js` library
 - [ ] Fix common bugs and issues (especially of numbers and arrays)
 - [ ] Support `set` operation for everything
 - [ ] WebAssembly and AssemblyScript support
