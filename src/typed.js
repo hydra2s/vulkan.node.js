@@ -72,7 +72,7 @@ function isConstructor(obj) {
     return !!obj.prototype && !!obj.prototype.constructor.name;
 }
 
-// 
+// TODO: add better type casting, setters and getters
 class NumberAccessor {
     constructor(name, byteLength, get, set, construct = DataView, bigEndian = false) {
         if (!(name in Types)) { Types[name] = new Proxy(this._class = construct, this); };
@@ -111,7 +111,7 @@ class NumberAccessor {
     }
 }
 
-// 
+// TODO: add better type casting, setters and getters
 class ArrayAccessor {
     constructor(name, byteLength, get, set, construct, handler, bigEndian = false) {
         if (!((name+"[arr]") in Types)) { Types[name+"[arr]"] = new Proxy(this._class = construct, this); };
@@ -483,8 +483,6 @@ class CStruct {
                 return Target[index].bind(Target);
             } else 
             if (typeof index == "string") {
-                // TODO: make function for splitting index string
-                //let names = (index.startsWith(":") ? ["", index.substring(1)] : index.split(":"))||[]; if (index.startsWith(":")) index = ""; index = names[0]||index; let type = names[1];
                 let type = null; [index, type] = index.vsplit(":");
                 if (Target._class.types.find((t)=>(t.name==index)) || index == "") {
                     return type ? Target.as(type, index)[""] : Target[index];
@@ -513,7 +511,6 @@ class CStruct {
                 return true;
             } else 
             if (typeof index == "string") {
-                // TODO: make function for splitting index string
                 let type = null; [index, type] = index.vsplit(":");
                 if (Target._class.types.find((t)=>(t.name==index)) || index == "") {
                     if (type) 
