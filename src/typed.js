@@ -12,8 +12,8 @@ const IsNumber = (index) => {
 const EncoderUTF8 = new TextEncoder(); //U8Cache
 
 //
-String.prototype.vsplit = function(){
-    return (this.startsWith(":") ? ["", ...this.substring(1).vsplit()] : this.split(":"))||[this];
+String.prototype.vsplit = function(symbol){
+    return (this.startsWith(symbol) ? ["", ...this.substring(1).vsplit()] : this.split(symbol))||[this];
 }
 
 // 
