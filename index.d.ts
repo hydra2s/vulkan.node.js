@@ -1,7 +1,4 @@
-type Pointer<T> = {
-    $: T;
-}
-
+type Pointer<T> = BigInt64Array|BigUint64Array|BigInt|Uint32Array|Uint16Array|Float32Array|Float64Array|Int32Array|Int16Array
 type Nullable<T> = T | null;
 type GLFWglproc = (() => void) | null;
 
