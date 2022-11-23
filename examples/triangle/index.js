@@ -605,11 +605,23 @@
     };
 
     //
-    const awaitRenderer = async()=> {
+    const awaitFenceGen = async function*(device, fence){
+        let status = V.VK_NOT_READY;
+        do {
+            await awaitTick();
+            yield status;
+            if (status == V.VK_ERROR_DEVICE_LOST) { throw Error("Vulkan Device Lost"); break; };
+            if (status != V.VK_NOT_READY) break;
+        } while((status = V.vkGetFenceStatus(device, fence)) != V.VK_SUCCESS);
+        return status;
+    };
+
+    //
+    const renderGen = async function*() {
         V.vkAcquireNextImageKHR(device[0], swapchain[0], BigInt(Number.MAX_SAFE_INTEGER), semaphoreImageAvailable[0], 0n, imageIndex);
 
         // await fence before rendering (and poll events)
-        await awaitFenceAsync(device[0], fence[imageIndex[0]]);
+        for await (let R of awaitFenceGen(device[0], fence[imageIndex[0]])) { yield R; };
 
         //
         const submitInfo = new V.VkSubmitInfo({
@@ -633,13 +645,22 @@
             pImageIndices: imageIndex,
             pResults: null,
         }));
+
+        //
+        return V.VK_SUCCESS;
     }
+
+    //
+    let renderer = renderGen();
+    let status = V.VK_NOT_READY;
 
     //
     console.log("Begin rendering...");
     while (!V.glfwWindowShouldClose(window) && !terminated) {
         // but generators is better idea
-        await awaitRenderer();
+        V.glfwPollEvents();
+        let iterator = await renderer.next();
+        if (iterator.done) { renderer = renderGen(); };
     };
 
     // 
