@@ -490,9 +490,9 @@ class CStruct {
                 return Target[index].bind(Target);
             } else 
             if (typeof index == "string") {
-                //Target.struct.types.find((t)=>(t.name==index))
-                let names = index.split(":")||[]; index = names[0]||index; let type = names[1];
-                if (Target.struct.types.find((t)=>(t.name==index))) {
+                // TODO: make function for splitting index string
+                let names = (index.startsWith(":") ? ["", index.substring(1)] : index.split(":"))||[]; if (index.startsWith(":")) index = ""; index = names[0]||index; let type = names[1];
+                if (Target.struct.types.find((t)=>(t.name==index)) || index == "") {
                     return type ? Target.as(type, index)[""] : Target[index];
                 }
             }
@@ -519,8 +519,9 @@ class CStruct {
                 return true;
             } else 
             if (typeof index == "string") {
-                let names = index.split(":")||[]; index = names[0]||index; let type = names[1];
-                if (Target.struct.types.find((t)=>(t.name==index))) {
+                // TODO: make function for splitting index string
+                let names = (index.startsWith(":") ? ["", index.substring(1)] : index.split(":"))||[]; if (index.startsWith(":")) index = ""; index = names[0]||index; let type = names[1];
+                if (Target.struct.types.find((t)=>(t.name==index)) || index == "") {
                     if (type) 
                         { Target.as(type, index)[""] = value; } else
                         { Target[index] = value; }

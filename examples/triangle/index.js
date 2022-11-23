@@ -328,8 +328,9 @@
 
     //
     const viewport = new V.VkViewport({
-        x: 0, y: 0, width: windowSize[0], height: windowSize[1], minDepth: 0.0, maxDepth: 1.0
+        //x: 0, y: 0, width: windowSize[0], height: windowSize[1], minDepth: 0.0, maxDepth: 1.0
     });
+    viewport[":f32[6]"] = [0, 0, windowSize[0], windowSize[1], 0.0, 1.0];
 
     //
     const scissor = new V.VkRect2D({
