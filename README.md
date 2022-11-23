@@ -33,7 +33,7 @@ We made first example: https://github.com/hydra2s/vulkan.node.js/blob/main/examp
 
 ## TODO
 
-- [ ] More type casting
+- [ ] More type casting (for arrays and numbers)
 - [ ] Support `set` operation for everything
 - [ ] WebAssembly and AssemblyScript support
 - [ ] Fix common bugs and issues
