@@ -8,7 +8,7 @@ Our Node.JS bindings for Vulkan API support (latest version, as possible). Curre
 
 ## Test code
 
-We made first example: https://github.com/hydra2s/vulkan.node.js/blob/main/test.js
+We made first example: https://github.com/hydra2s/vulkan.node.js/blob/main/examples/triangle/index.js
 
 ## Made for...
 
