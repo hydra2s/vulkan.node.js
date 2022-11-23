@@ -588,27 +588,26 @@
     let terminated = false;
 
     // await fence while async ops
+    const waitStageMask = new Int32Array([ V.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT ]);
     const imageIndex = new Uint32Array(1);
     const awaitTick = ()=> new Promise(setImmediate);
     const awaitFenceAsync = async (device, fence)=>{
         let status = V.VK_NOT_READY;
         do {
+            V.glfwPollEvents();
+            await awaitTick();
             if (status == V.VK_ERROR_DEVICE_LOST) { throw Error("Vulkan Device Lost"); break; };
             if (status != V.VK_NOT_READY) break;
-            await awaitTick();
         } while((status = V.vkGetFenceStatus(device, fence)) != V.VK_SUCCESS);
     };
 
     //
     console.log("Begin rendering...");
     while (!V.glfwWindowShouldClose(window) && !terminated) { // 
-        // it's reasong why you should execute it everytime!
-        V.glfwPollEvents(); //await tickAwait(); // don't lock any other operations
         V.vkAcquireNextImageKHR(device[0], swapchain[0], BigInt(Number.MAX_SAFE_INTEGER), semaphoreImageAvailable[0], 0n, imageIndex);
         await awaitFenceAsync(device[0], fence[imageIndex[0]]);
 
         //
-        const waitStageMask = new Int32Array([ V.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT ]);
         const submitInfo = new V.VkSubmitInfo({
             waitSemaphoreCount: 1,
             pWaitSemaphores: semaphoreImageAvailable,
@@ -622,17 +621,14 @@
         //
         V.vkResetFences(device[0], 1, fence.addressOffsetOf(imageIndex[0]));
         V.vkQueueSubmit(queue[0], 1, submitInfo, fence[imageIndex[0]]);
-
-        //
-        const presentInfo = new V.VkPresentInfoKHR({
+        V.vkQueuePresentKHR(queue[0], new V.VkPresentInfoKHR({
             waitSemaphoreCount: 1,
             pWaitSemaphores: semaphoreRenderingAvailable,
             swapchainCount: 1,
             pSwapchains: swapchain,
             pImageIndices: imageIndex,
             pResults: null,
-        });
-        V.vkQueuePresentKHR(queue[0], presentInfo);
+        }));
     };
 
     // 
