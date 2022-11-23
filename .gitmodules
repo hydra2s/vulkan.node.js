@@ -5,7 +5,7 @@
 	path = generator
 	url = https://github.com/TartanLlama/generator.git
 [submodule "glm"]
-	path = glm
+	path = deps/glm
 	url = https://github.com/g-truc/glm.git
 [submodule "tinygltf"]
 	path = tinygltf
@@ -17,17 +17,17 @@
 	path = itlib
 	url = https://github.com/iboB/itlib.git
 [submodule "volk"]
-	path = volk
+	path = deps/volk
 	url = https://github.com/zeux/volk.git
 [submodule "Vulkan-Docs"]
-	path = Vulkan-Docs
+	path = deps/Vulkan-Docs
 	url = https://github.com/KhronosGroup/Vulkan-Docs.git
 [submodule "gl-matrix"]
-	path = gl-matrix
+	path = deps/gl-matrix
 	url = https://github.com/toji/gl-matrix.git
 [submodule "Vulkan-Headers"]
-	path = Vulkan-Headers
+	path = deps/Vulkan-Headers
 	url = https://github.com/KhronosGroup/Vulkan-Headers
 [submodule "glfw"]
-	path = glfw
+	path = deps/glfw
 	url = https://github.com/glfw/glfw.git

@@ -31,7 +31,7 @@ add_definitions(-DNAPI_VERSION=${napi_build_version})
 add_definitions(-DNAPI_EXPERIMENTAL)
 add_definitions(-DCMAKE_JS_VERSION=${napi_build_version})
 add_definitions(-DVK_USE_PLATFORM_WIN32_KHR)
-add_subdirectory(glfw)
+add_subdirectory(deps/glfw)
 cmake_policy(SET CMP0091 NEW)
 cmake_policy(SET CMP0042 NEW)
 
@@ -45,8 +45,8 @@ file(GLOB_RECURSE _source_list
   "${_src_root_path}/src/*.cpp"
   "${_src_root_path}/src/*.h"
   "${_src_root_path}/src/*.hpp"
-  "${_src_root_path}/volk/volk.h"
-  "${_src_root_path}/volk/volk.c"
+  "${_src_root_path}/deps/volk/volk.h"
+  "${_src_root_path}/deps/volk/volk.c"
   "${CMAKE_JS_SRC}"
 )
 
@@ -60,22 +60,24 @@ add_library(${PROJECT_NAME} SHARED ${_source_list})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
 target_link_libraries(${PROJECT_NAME} ${Vulkan_LIBRARIES} ${CMAKE_JS_LIB} glfw)
 target_link_directories(${PROJECT_NAME} PUBLIC )
-target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=${napi_build_version} NAPI_EXPERIMENTAL VK_USE_PLATFORM_WIN32_KHR ENABLE_GLFW_SUPPORT)
+target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=${napi_build_version} NAPI_EXPERIMENTAL VK_NO_PROTOTYPES VK_USE_PLATFORM_WIN32_KHR ENABLE_GLFW_SUPPORT)
 target_include_directories(${PROJECT_NAME} PUBLIC 
   ${PROJECT_SOURCE_DIR}/include
-  ${PROJECT_SOURCE_DIR}/*/include 
-  ${PROJECT_SOURCE_DIR}/glm/glm
-  ${PROJECT_SOURCE_DIR}/glm
-  ${PROJECT_SOURCE_DIR}/volk
+  ${PROJECT_SOURCE_DIR}/*/include
+  ${PROJECT_SOURCE_DIR}/deps/
+  ${PROJECT_SOURCE_DIR}/deps/include
+  ${PROJECT_SOURCE_DIR}/deps/*/include
+  ${PROJECT_SOURCE_DIR}/deps/glm/glm
+  ${PROJECT_SOURCE_DIR}/deps/glm
+  ${PROJECT_SOURCE_DIR}/deps/volk
+  ${PROJECT_SOURCE_DIR}/deps/glfw/include
   ${PROJECT_SOURCE_DIR}/node_modules/node-api-headers/include
   ${PROJECT_SOURCE_DIR}/node_modules/node-addon-api/
   ${PROJECT_SOURCE_DIR}/../*
   ${PROJECT_SOURCE_DIR}/../*/include
-  ${PROJECT_SOURCE_DIR}/Vulkan-Headers/include/
   ${Vulkan_INCLUDE_DIR}
   ${Vulkan_INCLUDE_DIRS}
   ${CMAKE_JS_INC}
-  glfw/include
 )
 
 #

@@ -6,7 +6,7 @@ let getReader = async()=>{
     const {JSOX}  = (await import('jsox'));
 
     // 
-    let getDocs = async (path = "../Vulkan-Docs/xml/vk.xml") => {
+    let getDocs = async (path = "../deps/Vulkan-Docs/xml/vk.xml") => {
         return parseXml((await fs.promises.readFile(path,"utf8")).replace(/\r?\n|\r/g, " ").replace(/\s+/g,' ').trim());
     };
 
@@ -266,7 +266,7 @@ let getReader = async()=>{
     }
 
     // 
-    let parseDocs = async (path = "../Vulkan-Docs/xml/vk.xml")=>{
+    let parseDocs = async (path = "../deps/Vulkan-Docs/xml/vk.xml")=>{
         let docs = await getDocs(path); await fs.promises.writeFile("vulkan.json", JSON.stringify(filterNoSpaced(JSON5.parse(JSON5.stringify(docs))), null, 2).trim(), "utf8");
         let loaded = getComponents(docs); 
         loaded.enums = preloadFromExtensions(loaded.enums, loaded.extensions);
