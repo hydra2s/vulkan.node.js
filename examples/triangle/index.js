@@ -1,7 +1,7 @@
 (async()=>{
 
     //
-    const V = (await import("./index.js")).default;
+    const V = (await import("../../index.js")).default;
     const fs = await import("fs");
     
     //
