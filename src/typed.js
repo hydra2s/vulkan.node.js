@@ -5,7 +5,7 @@ const isAbv = (value) => {
 
 //
 const IsNumber = (index) => {
-    return typeof index == "number" || typeof index == "bigint" || Number.isInteger(index) || typeof index == "string" && /^\+?\d+$/.test(index.trim());
+    return typeof index == "number" || typeof index == "bigint" || Number.isInteger(index) || typeof index == "string" && index.trim() != "" && /^\+?\d+$/.test(index.trim());
 }
 
 //
@@ -13,7 +13,10 @@ const EncoderUTF8 = new TextEncoder(); //U8Cache
 
 //
 String.prototype.vsplit = function(symbol){
-    return (this.startsWith(symbol) ? ["", ...this.substring(1).vsplit()] : this.split(symbol))||[this];
+    if (this != "") {
+        return (this.startsWith(symbol) ? ["", ...this.substring(1).vsplit()] : this.split(symbol))||[this];
+    }
+    return [this];
 }
 
 // 
@@ -50,9 +53,127 @@ const AsBigInt = (value)=>{
 //
 const Types = {};
 
-// TODO: add getters and methods support, from alias
-class ConstructProxy {
+//
+class TypePrototype {
+    // for conversion struct or member
+    as(Target, tname, mname = "") {
+        let length = 1;
+        let offset = 0;
+        let dfv = null;
+        let type = null;
+
+        if ((typeof tname == "object" || typeof tname == "function") && tname.type) {
+            type = tname;
+        } else
+
+        if (typeof tname == "string") {
+            if (tname.indexOf(";") >= 0) {
+                [tname, dfv] = tname.vsplit(";");
+                if (dfv == "undefined") dfv = null;
+            };
+            if (tname.indexOf("[") >= 0 && tname.indexOf("]") >= 0) {
+                let match = tname.match(/\[(-?\d+)\]/);
+                length = (match ? parseIntFix(match[1]) : 1) || 1;
+                tname = tname.replace(/\[\d+\]/g, "");
+            };
+            if (tname.indexOf("(") >= 0 && tname.indexOf(")") >= 0) {
+                let match = tname.match(/\((-?\d+)\)/);
+                offset = (match ? parseIntFix(match[1]) : 0) || 0;
+                tname = tname.replace(/\(\d+\)/g, "");
+            };
+        } else 
+
+        if (typeof tname == "array") {
+            length = tname[2] || 1;
+            offset = tname[1] || 0;
+            tname = tname[0];
+        }
+
+        if (!type) { type = Types[tname+(length>1?"[arr]":"")] || Types[tname]; };
+        return new type(Target.buffer, Target.byteOffset + offset + (Target.offsetof(mname)||0), (length||1))[""];
+    }
+
+    get(Target, index) {
+        if (index == "BYTES_PER_ELEMENT") { return Target[index]; }
+        if (!isConstructor(Target)) {
+            if (index == "") {
+                return this._get ? this._get(Target) : new Proxy(Target, this);
+                //return new Proxy(Target, this);
+            } else
+            if (IsNumber(index)) {
+                return this._get ? this._get(Target, parseIntFix(index)) : Target[parseIntFix(index)];
+            } else
+            if (["byteLength", "byteOffset", "length", "_class"].indexOf(index) >= 0) {
+                return Target[index];
+            } else
+            if (["address", "set", "offsetof"].indexOf(index) >= 0) {
+                return Target[index].bind(Target);
+            } else 
+            if (typeof index == "string") {
+                let type = null; [index, type] = index.vsplit(":");
+                return type ? Target.as(type, index)[""] : Target[index];
+            } else {
+                return this._get ? this._get(Target, index) : Target[index];
+            }
+        } else {
+            if (index == "prototype") { return Target.prototype; };
+            if (index == "type") { return this.type; };
+            if (index == "fromAddress") { return Target[index].bind(Target); }
+            if (index == "byteLength") { return this.byteLength; };
+        }
+        return null;
+    }
+
+    set(Target, index, value) {
+        //console.log(index, value, Target.set, Target);
+        if (!isConstructor(Target)) {
+            if (index == "") {
+                if (Target.set) {
+                    Target.set(value);
+                }
+                return this._set ? this._set(Target, "", value) : (Target[""] = value);
+            } else
+            if (IsNumber(index)) {
+                return this._set ? this._set(Target, parseIntFix(index), value) : (Target[parseIntFix(index)] = value);
+            } else
+            if (typeof index == "string" && index != "") {
+                let type = null; [index, type] = index.vsplit(":");
+                if (type) 
+                    { Target.as(type, index)[""] = value; } else
+                    { Target[index] = value; }
+                return true;
+            } else {
+                return this._set ? this._set(Target, index, value) : (Target[index] = value);
+            }
+        }
+    }
+}
+
+//
+class TypeView {
+    // for conversion struct or member
+    as(...args) {
+        return this._class.as(this, ...args);
+    }
+}
+
+// Black Jack
+Object.assign(DataView.prototype, TypeView.prototype);
+Object.assign(Uint8Array.prototype, TypeView.prototype);
+Object.assign(Uint16Array.prototype, TypeView.prototype);
+Object.assign(Uint32Array.prototype, TypeView.prototype);
+Object.assign(BigUint64Array.prototype, TypeView.prototype);
+Object.assign(Int8Array.prototype, TypeView.prototype);
+Object.assign(Int16Array.prototype, TypeView.prototype);
+Object.assign(Int32Array.prototype, TypeView.prototype);
+Object.assign(BigInt64Array.prototype, TypeView.prototype);
+Object.assign(Float32Array.prototype, TypeView.prototype);
+Object.assign(Float64Array.prototype, TypeView.prototype);
+
+//
+class ConstructProxy extends TypePrototype {
     constructor(target) {
+        super();
         this.target = target;
     }
     construct(_stub, args) {
@@ -72,9 +193,11 @@ function isConstructor(obj) {
     return !!obj.prototype && !!obj.prototype.constructor.name;
 }
 
-// TODO: add better type casting, setters and getters
-class NumberAccessor {
+// 
+class NumberAccessor extends TypePrototype {
     constructor(name, byteLength, get, set, construct = DataView, bigEndian = false) {
+        super();
+
         if (!(name in Types)) { Types[name] = new Proxy(this._class = construct, this); };
         this.type = name;
         this.bigEndian = bigEndian;
@@ -84,25 +207,13 @@ class NumberAccessor {
     }
 
     get(Target, index) {
-        if (index == "type") { return this.type; };
-        if (index == "BYTES_PER_ELEMENT") { return 1; }
-        if (["byteLength"].indexOf(index) >= 0) {
-            return this[index];
-        } else
-        if (index == "length") {
-            return 1;
-        } else
-        if (!isConstructor(Target)) {
-            return this._get(Target, index);
-        }
-        return null;
+        if (index == "BYTES_PER_ELEMENT") { return 1; } else
+        if (index == "length") { return 1; } else
+        { return super.get(Target, index); }
     }
 
     set(Target, index, value) {
-        if (!isConstructor(Target)) {
-            this._set(Target, index, value);
-            return true;
-        }
+        return super.set(Target, index, value);
     }
 
     construct(Target, args) {
@@ -111,59 +222,42 @@ class NumberAccessor {
     }
 }
 
-// TODO: add better type casting, setters and getters
-class ArrayAccessor {
+// 
+class ArrayAccessor extends TypePrototype {
     constructor(name, byteLength, get, set, construct, handler, bigEndian = false) {
+        super();
+
         if (!((name+"[arr]") in Types)) { Types[name+"[arr]"] = new Proxy(this._class = construct, this); };
         this.type = name+"[arr]";
         this.bigEndian = bigEndian;
-        this._get = get;
-        this._set = set;
+        this._get = (...args) => { return IsNumber(args[1]) ? get.bind(this)(...args) : new Proxy(args[0], this); }
+        this._set = (...args) => { return set.bind(this)(...args); /*return new Proxy(args[0], this);*/ }
         this.byteLength = byteLength;
         this.handler = handler;
         this.isArray = true;
     }
 
     get(Target, index) {
-        if (index == "type") { return this.type; };
-        if (index == "BYTES_PER_ELEMENT") { return Target[index]; }
-        if (index == "fromAddress") { return Target[index].bind(Target); }
-        if (index == "isArray") { return true; };
-        if (!isConstructor(Target)) {
-            if (index == "") {
-                return new Proxy(Target, this);
-            } else
-            if (IsNumber(index)) {
-                return this._get(Target, parseInt(index));
-            } else 
-            if (["byteLength", "byteOffset", "length"].indexOf(index) >= 0) {
-                return Target[index];
-            } else 
-            if (["address", "set"].indexOf(index) >= 0) {
-                return Target[index].bind(Target);
-            }
-        } else {
-            if (index == "byteLength") { return this.byteLength; };
-        }
-        return null;
+        return super.get(Target, index);
     }
 
     set(Target, index, value) {
-        if (!isConstructor(Target)) {
-            if (index == "") {
-                Target.set(value);
-                return true;
-            } else
-            if (IsNumber(index)) {
-                this._set(Target, index, value);
-                return true;
-            }
-        }
+        return super.set(Target, index, value);
     }
 
     construct(Target, args) {
         return new Proxy(new Target(...this.handler(args)), this);
     }
+}
+
+//
+const parseIntFix = (index) => {
+    return IsNumber(index) ? parseInt(index) : 0;
+}
+
+//
+const parseFloatFix = (index) => {
+    return IsNumber(index) ? parseFloat(index) : 0;
 }
 
 //
@@ -183,38 +277,38 @@ const getFloat = (Target, index = 0) => {
 
 //
 const setFloat = (Target, index = 0, value = 0) => {
-    Target[index] = parseFloat(value);
+    Target[index] = parseFloatFix(value); return true;
 }
 
 //
 const setInt = (Target, index = 0, value = 0) => {
-    Target[index] = parseInt(value);
+    Target[index] = parseIntFix(value); return true;
 }
 
 //
 const setBigInt = (Target, index = 0, value = 0n) => {
-    Target[index] = AsBigInt(value);
+    Target[index] = AsBigInt(value); return true;
 }
 
 // default accessor types
-new NumberAccessor("u8", 1, (dv, offset)=>{ return dv.getUint8(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setUint8(parseInt(offset)||0, parseInt(value), true); });
-new NumberAccessor("i8", 1, (dv, offset)=>{ return dv.getInt8(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setInt8(parseInt(offset)||0, parseInt(value), true); });
-new NumberAccessor("u16", 2, (dv, offset)=>{ return dv.getUint16(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setUint16(parseInt(offset)||0, parseInt(value), true); });
-new NumberAccessor("i16", 2, (dv, offset)=>{ return dv.getInt16(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setInt16(parseInt(offset)||0, parseInt(value), true); });
-new NumberAccessor("f32", 4, (dv, offset)=>{ return dv.getFloat32(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setFloat32(parseInt(offset)||0, parseFloat(value), true); });
-new NumberAccessor("u32", 4, (dv, offset)=>{ return dv.getUint32(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setUint32(parseInt(offset)||0, parseInt(value), true); });
-new NumberAccessor("i32", 4, (dv, offset)=>{ return dv.getInt32(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setInt32(parseInt(offset)||0, parseInt(value), true); });
-new NumberAccessor("f64", 8, (dv, offset)=>{ return dv.getFloat64(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setFloat64(parseInt(offset)||0, parseFloat(value), true); });
-new NumberAccessor("u64", 8, (dv, offset)=>{ return dv.getBigUint64(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setBigUint64(parseInt(offset)||0, AsBigInt(value), true); });
-new NumberAccessor("i64", 8, (dv, offset)=>{ return dv.getBigInt64(parseInt(offset)||0, true); }, (dv, offset, value)=>{ dv.setBigInt64(parseInt(offset)||0, AsBigInt(value), true); });
+new NumberAccessor("u8", 1, (dv, offset=0)=>{ return dv.getUint8(parseIntFix(offset)||0, true); }, (dv, offset, value)=>{ dv.setUint8(parseIntFix(offset)||0, parseIntFix(value), true); return true; });
+new NumberAccessor("i8", 1, (dv, offset=0)=>{ return dv.getInt8(parseIntFix(offset)||0, true); }, (dv, offset, value)=>{ dv.setInt8(parseIntFix(offset)||0, parseIntFix(value), true); return true; });
+new NumberAccessor("u16", 2, (dv, offset=0)=>{ return dv.getUint16(parseIntFix(offset)||0, true); }, (dv, offset, value)=>{ dv.setUint16(parseIntFix(offset)||0, parseIntFix(value), true); return true; });
+new NumberAccessor("i16", 2, (dv, offset=0)=>{ return dv.getInt16(parseIntFix(offset)||0, true); }, (dv, offset, value)=>{ dv.setInt16(parseIntFix(offset)||0, parseIntFix(value), true); return true; });
+new NumberAccessor("f32", 4, (dv, offset=0)=>{ return dv.getFloat32(parseIntFix(offset)||0, true); }, (dv, offset, value)=>{ dv.setFloat32(parseIntFix(offset)||0, parseFloatFix(value), true); return true; });
+new NumberAccessor("u32", 4, (dv, offset=0)=>{ return dv.getUint32(parseIntFix(offset)||0, true); }, (dv, offset, value)=>{ dv.setUint32(parseIntFix(offset)||0, parseIntFix(value), true); return true; });
+new NumberAccessor("i32", 4, (dv, offset=0)=>{ return dv.getInt32(parseIntFix(offset)||0, true); }, (dv, offset, value)=>{ dv.setInt32(parseIntFix(offset)||0, parseIntFix(value), true); return true; });
+new NumberAccessor("f64", 8, (dv, offset=0)=>{ return dv.getFloat64(parseIntFix(offset)||0, true); }, (dv, offset, value)=>{ dv.setFloat64(parseIntFix(offset)||0, parseFloatFix(value), true); return true; });
+new NumberAccessor("u64", 8, (dv, offset=0)=>{ return dv.getBigUint64(parseIntFix(offset)||0, true); }, (dv, offset, value)=>{ dv.setBigUint64(parseIntFix(offset)||0, AsBigInt(value), true); return true; });
+new NumberAccessor("i64", 8, (dv, offset=0)=>{ return dv.getBigInt64(parseIntFix(offset)||0, true); }, (dv, offset, value)=>{ dv.setBigInt64(parseIntFix(offset)||0, AsBigInt(value), true); return true; });
 new NumberAccessor("u24", 3, 
-(dv, offset)=>{ return (dv.getUint8(parseInt(offset)||0, true)|(dv.getUint8((parseInt(offset)||0)+1, true)<<8)|(dv.getUint8((parseInt(offset)||0)+2, true)<<16)); }, 
-(dv, offset, value)=>{ dv.setUint8(parseInt(offset)||0, (parseInt(value) & 0xFF), true); dv.setUint8((parseInt(offset)||0)+1, (parseInt(value) >> 8) & 0xFF, true); dv.setUint8((parseInt(offset)||0)+2, (parseInt(value) >> 16) & 0xFF, true); });
+(dv, offset=0)=>{ return (dv.getUint8(parseIntFix(offset)||0, true)|(dv.getUint8((parseIntFix(offset)||0)+1, true)<<8)|(dv.getUint8((parseIntFix(offset)||0)+2, true)<<16)); }, 
+(dv, offset, value)=>{ dv.setUint8(parseIntFix(offset)||0, (parseIntFix(value) & 0xFF), true); dv.setUint8((parseIntFix(offset)||0)+1, (parseIntFix(value) >> 8) & 0xFF, true); dv.setUint8((parseIntFix(offset)||0)+2, (parseIntFix(value) >> 16) & 0xFF, true); });
 
 //
 const re64 = (args)=>{
     if (typeof args[0] == "array" || Array.isArray(args[0])) { return [args[0].map(AsBigInt)] };
-    if (IsNumber(args[0])) { return [parseInt(args[0])]; };
+    if (IsNumber(args[0])) { return [parseIntFix(args[0])]; };
     if (isAbv(args[0]?.buffer || args[0])) { // PMV
         if (args.length < 2) { args.push(0); };
         if (args.length < 3) { args.push(1); };
@@ -225,7 +319,7 @@ const re64 = (args)=>{
 
 //
 const rei = (args)=>{
-    if (IsNumber(args[0])) { return [parseInt(args[0])]; };
+    if (IsNumber(args[0])) { return [parseIntFix(args[0])]; };
     if (isAbv(args[0]?.buffer || args[0])) { // PMV
         if (args.length < 2) { args.push(0); };
         if (args.length < 3) { args.push(1); };
@@ -236,7 +330,7 @@ const rei = (args)=>{
 
 //
 const ref = (args)=>{
-    if (IsNumber(args[0])) { return [parseInt(args[0])]; };
+    if (IsNumber(args[0])) { return [parseIntFix(args[0])]; };
     if (isAbv(args[0]?.buffer || args[0])) { // PMV
         if (args.length < 2) { args.push(0); };
         if (args.length < 3) { args.push(1); };
@@ -258,8 +352,10 @@ new ArrayAccessor("u64", 8, getBigInt, setBigInt, BigUint64Array, re64);
 new ArrayAccessor("i64", 8, getBigInt, setBigInt, BigInt64Array, re64);
 
 // 
-class CStructView {
+class CStructView extends TypeView {
     constructor(buffer, byteOffset = 0, length = 0, struct = null) {
+        super();
+
         this.buffer = buffer;
         this.byteOffset = byteOffset + struct.byteOffset;
         this.byteLength =     length * struct.byteLength;
@@ -279,7 +375,7 @@ class CStructView {
         (this._class = struct).types.forEach((tp)=>{
             // use F32 fallback for Vulkan API types
             const array = new (tp.type || Types[length > 1 ? "u32[arr]" : "u32"])(this.buffer, this.byteOffset + tp.byteOffset, tp.length);
-            
+
             //array.parent = this; // prefer to have parent node
             Object.defineProperties(this, {
                 [tp.name]: {
@@ -298,43 +394,7 @@ class CStructView {
         this.address = this.address.bind(this);
     }
 
-    // for conversion struct or member
-    as(tname, mname = "") {
-        let length = 1;
-        let offset = 0;
-        let dfv = null;
-        let type = null;
-
-        if ((typeof tname == "object" || typeof tname == "function") && tname.type) {
-            type = tname;
-        } else
-
-        if (typeof tname == "string") {
-            if (tname.indexOf(";") >= 0) {
-                [tname, dfv] = tname.vsplit(";");
-                if (dfv == "undefined") dfv = null;
-            };
-            if (tname.indexOf("[") >= 0 && tname.indexOf("]") >= 0) {
-                let match = tname.match(/\[(-?\d+)\]/);
-                length = (match ? parseInt(match[1]) : 1) || 1;
-                tname = tname.replace(/\[\d+\]/g, "");
-            };
-            if (tname.indexOf("(") >= 0 && tname.indexOf(")") >= 0) {
-                let match = tname.match(/\((-?\d+)\)/);
-                offset = (match ? parseInt(match[1]) : 0) || 0;
-                tname = tname.replace(/\(\d+\)/g, "");
-            };
-        } else 
-
-        if (typeof tname == "array") {
-            length = tname[2] || 1;
-            offset = tname[1] || 0;
-            tname = tname[0];
-        }
-
-        if (!type) { type = Types[tname+(length>1?"[arr]":"")] || Types[tname]; };
-        return new type(this.buffer, this.byteOffset + offset + (this.offsetof(mname)||0), (length||1))[""];
-    }
+    
 
     // fix extra vars problems, make as object and read-only de-facto
     serialize() {
@@ -382,15 +442,16 @@ class CStructView {
 }
 
 // 
-class CStruct {
+class CStruct extends TypePrototype {
     constructor(name, struct, byteLength) {
+        super();
+
         this.struct = struct;
         this.type = name;
         this.byteOffset = 0;
         this.byteLength = byteLength || 0;
         this.isStruct = true;
         if (!(name in Types)) { this._class = Types[name] = new Proxy(CStructView, this); };
-        this.address = this.address.bind(this);
     }
 
     gerenateTypeTable() {
@@ -412,7 +473,7 @@ class CStruct {
                     tname = struct[name];
 
                     if (tname.indexOf(";") >= 0) {
-                        let names = tname.split(";");
+                        let names = tname.vsplit(";");
                         tname = names[0];
                         if (names.length >= 2 && names[1] && names[1] != "undefined") {
                             dfv = JSON.parse(names[1]);//JSON.parse(`{"_stub":${names[1]||0}}`)["_stub"];
@@ -420,12 +481,12 @@ class CStruct {
                     };
                     if (tname.indexOf("[") >= 0 && tname.indexOf("]") >= 0) {
                         let match = tname.match(/\[(-?\d+)\]/);
-                        length = (match ? parseInt(match[1]) : 1) || 1;
+                        length = (match ? parseIntFix(match[1]) : 1) || 1;
                         tname = tname.replace(/\[\d+\]/g, "");
                     };
                     if (tname.indexOf("(") >= 0 && tname.indexOf(")") >= 0) {
                         let match = tname.match(/\((-?\d+)\)/);
-                        offset = (match ? parseInt(match[1]) : 0) || 0;
+                        offset = (match ? parseIntFix(match[1]) : 0) || 0;
                         tname = tname.replace(/\(\d+\)/g, "");
                     };
                     
@@ -469,57 +530,39 @@ class CStruct {
 
     get(Target, index) {
         if (!isConstructor(Target)) {
-            if (index == "") {
-                return new Proxy(Target, this);
-            } else
+            if (index != "" && ["bufferOffsetOf", "addressOffsetOf", "serialize"].indexOf(index) >= 0) { return Target[index].bind(Target); }
             if (IsNumber(index)) {
-                index = parseInt(index);
-                return new this._class(Target.buffer, Target.byteOffset + this.byteLength * index, Target.byteLength - this.byteLength * index)[""];
+                return new this._class(Target.buffer, Target.byteOffset + this.byteLength * parseIntFix(index), (Target.length||1) - parseIntFix(index))[""];
             } else 
-            if (["length", "byteOffset", "byteLength", "_class"].indexOf(index) >= 0) {
-                return Target[index];
-            } else 
-            if (["set", "address", "as", "offsetof", "bufferOffsetOf", "addressOffsetOf", "serialize"].indexOf(index) >= 0) {
-                return Target[index].bind(Target);
-            } else 
-            if (typeof index == "string") {
+            if (typeof index == "string" && index != "") {
                 let type = null; [index, type] = index.vsplit(":");
-                if (Target._class.types.find((t)=>(t.name==index)) || index == "") {
+                if (index == "" || Target._class.types.find((t)=>(t.name==index))) {
                     return type ? Target.as(type, index)[""] : Target[index];
                 }
             }
         } else {
             this.gerenateTypeTable();
-            if (index == "fromAddress") { return this.fromAddress.bind(this); };
-            if (index == "type") { return this.type; };
-            if (index == "sizeof") { return this.byteLength; };
-            if (index == "byteLength") { return this.byteLength; };
-            if (index == "BYTES_PER_ELEMENT") { return this.byteLength; };
         }
-        return null;
+        return super.get(Target, index);
     }
 
     set(Target, index, value) {
         if (!isConstructor(Target)) {
-            if (index == "") {
-                Target.set(value);
+            if (IsNumber(index)) {
+                new this._class(Target.buffer, Target.byteOffset + this.byteLength * parseIntFix(index), (Target.length||1) - parseIntFix(index))[""] = value;
                 return true;
             } else
-            if (IsNumber(index)) {
-                index = parseInt(index);
-                new this._class(Target.buffer, Target.byteOffset + this.byteLength * index, (Target.length||1) - index)[""] = value;
-                return true;
-            } else 
-            if (typeof index == "string") {
+            if (typeof index == "string" && index != "") {
                 let type = null; [index, type] = index.vsplit(":");
-                if (Target._class.types.find((t)=>(t.name==index)) || index == "") {
+                if (index == "" || Target._class.types.find((t)=>(t.name==index))) {
                     if (type) 
                         { Target.as(type, index)[""] = value; } else
                         { Target[index] = value; }
-                    return true;
                 }
+                return true;
             }
         }
+        return super.set(Target, index, value);
     }
 
     lengthof(name) {
@@ -535,27 +578,25 @@ class CStruct {
 
     // 
     construct(Target, args) {
-        //
         this.gerenateTypeTable();
 
         //
         let [buffer, byteOffset, length] = args; byteOffset ||= 0, length ||= 1; // NEW syntax!
+        let cargs = [];
         if (isAbv(buffer ? (buffer.buffer || buffer) : null)) {
-            return new Proxy(new CStructView(buffer.buffer || buffer, (buffer.byteOffset||0) + byteOffset, length || 1, this), this);
+            cargs = [buffer.buffer || buffer, (buffer.byteOffset||0) + byteOffset, length || 1];
         } else 
         if (typeof buffer == "number") {
-            return new Proxy(new CStructView(new ArrayBuffer((this.byteLength * buffer) || 1), 0, buffer || 1, this), this);
+            cargs = [new ArrayBuffer((this.byteLength * buffer) || 1), 0, buffer || 1];
         } else 
         if (typeof buffer == "object") {
-            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength || 1), 0, 1, this).set(buffer), this);
-        } else
-        {
-            return new Proxy(new CStructView(new ArrayBuffer(this.byteLength || 1), 0, 1, this), this);
+            cargs = [new ArrayBuffer(this.byteLength || 1), 0, 1];
+        } else {
+            cargs = [new ArrayBuffer(this.byteLength || 1), 0, 1];
         }
-    }
-
-    address() {
-        return this.buffer.address() + BigInt(this.byteOffset);
+        const result = new Proxy(new CStructView(...cargs, this), this);
+        if (typeof buffer == "object") { result.set(buffer); };
+        return result;
     }
 }
 

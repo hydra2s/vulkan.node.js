@@ -33,10 +33,9 @@ We made first example: https://github.com/hydra2s/vulkan.node.js/blob/main/examp
 
 ## TODO
 
-- [ ] More type casting (for arrays and numbers)
+- [ ] Fix common bugs and issues (especially of numbers and arrays)
 - [ ] Support `set` operation for everything
 - [ ] WebAssembly and AssemblyScript support
-- [ ] Fix common bugs and issues
 - [ ] Support for `{$: 0n}` handles (alike NVK)
 - [ ] Add native pointers, BigInt and typed arrays for GLFW, and WASM compatible
 - [ ] Better indexed operations (such address, etc.)
