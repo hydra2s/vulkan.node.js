@@ -31,3 +31,6 @@
 [submodule "glfw"]
 	path = deps/glfw
 	url = https://github.com/glfw/glfw.git
+[submodule "deps/typed.js"]
+	path = deps/typed.js
+	url = https://github.com/hydra2s/typed.js

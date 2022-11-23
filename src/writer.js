@@ -451,7 +451,7 @@ export default E;
         await fs.promises.writeFile("./vulkan-structs.js", `
 import {default as V} from "./native.js";
 import {default as E} from "./vulkan-enums.js";
-import {default as C} from "./typed.js";
+import {default as C} from "./../deps/typed.js/index.js";
 const callof = (fn)=>{ return fn ? fn() : 0; };
 
 const VK_MAKE_API_VERSION = (variant, major, minor, patch) => {
