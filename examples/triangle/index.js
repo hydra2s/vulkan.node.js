@@ -148,7 +148,9 @@
 
     // 
     const instance = new BigUint64Array(1);
+    //const instanceU32 = instance.as("u32[2]");
     V.vkCreateInstance(pInfo, null, instance);
+    //console.log(instanceU32);
 
     //
     console.log("GLFW Window creation...");

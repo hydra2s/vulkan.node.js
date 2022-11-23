@@ -163,9 +163,9 @@ class TypeView {
 // Black Jack
 let classes = [DataView, Uint8Array, Uint16Array, Uint32Array, BigUint64Array, Int8Array, Int16Array, Int32Array, BigInt64Array, Float32Array, Float64Array];
 classes.map((C)=>{
-    Object.defineProperty(C, "_class", { get() { return TypePrototype; }, configurable: true });
-    Object.defineProperty(C.prototype, "_class", { get() { return TypePrototype; }, configurable: true });
-    ["addressOffsetOf", "bufferOffsetOf"].map((N)=>(C.prototype[N]=TypeView.prototype[N]));
+    Object.defineProperty(C, "_class", { get() { return new TypePrototype(); }, configurable: true });
+    Object.defineProperty(C.prototype, "_class", { get() { return new TypePrototype(); }, configurable: true });
+    ["addressOffsetOf", "bufferOffsetOf", "as"].map((N)=>(C.prototype[N]=TypeView.prototype[N]));
     C.prototype.offsetof = function (index = 0) { return index * (this.BYTES_PER_ELEMENT || 0); };
 });
 
@@ -218,7 +218,8 @@ class NumberAccessor extends TypePrototype {
     construct(Target, args) {
         if (args.length >= 3) { args[2] = (args[2]||1) * this.byteLength; } else if (args.length >= 2) { args.push(this.byteLength); } else if (args.length >= 1) { args.push(0); args.push(this.byteLength); };
         const _class = new Target(...args);
-        Object.defineProperty(_class, "_class", { get() { return this; }, configurable: true });
+        const self = this;
+        Object.defineProperty(_class, "_class", { get() { return self; }, configurable: true });
         return new Proxy(_class, this);
     }
 }
@@ -238,8 +239,9 @@ class ArrayAccessor extends TypePrototype {
         this.isArray = true;
 
         //
-        Object.defineProperty(construct_, "_class", { get() { return this; }, configurable: true });
-        Object.defineProperty(construct_.prototype, "_class", { get() { return this; }, configurable: true });
+        const self = this;
+        Object.defineProperty(construct_, "_class", { get() { return self; }, configurable: true });
+        Object.defineProperty(construct_.prototype, "_class", { get() { return self; }, configurable: true });
     }
 
     get(Target, index) {
