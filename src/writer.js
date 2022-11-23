@@ -434,7 +434,6 @@ ${structure.params.map((p)=>(writeParam(structure.name, p, map))).join(`
         map.parsedTypes.map((T)=>{
             if (HandleTypes.indexOf(T.type) >= 0) Handles.push(T.name);
         });
-        console.log(Handles);
 
         //
         availableEnums = [];

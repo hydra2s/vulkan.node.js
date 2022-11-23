@@ -582,40 +582,49 @@ Napi::Boolean __glfwJoystickPresent(const Napi::CallbackInfo &info) {
     return Napi::Boolean::New(env, glfwJoystickPresent(joy) == GLFW_TRUE);
 }
 
-Napi::Float32Array __glfwGetJoystickAxes(const Napi::CallbackInfo &info) {
+Napi::Value __glfwGetJoystickAxes(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
     int joy = info[0].As<Napi::Number>().Int32Value();
     int count_ = 0; int* count = info.Length() >= 2 ? (int*)GetAddress(env, info[1]) : nullptr;
     float const* axes = glfwGetJoystickAxes(joy, count = count ? count : (&count_));
-    Napi::Float32Array array = Napi::Float32Array::New(env, *count);
-    for (int i = 0; i < (*count); i++) { array.Set(i, axes[i]); }
-    return array;
+
+    if (info.Length() >= 2) {
+        return Napi::BigInt::New(env, (uint64_t)(axes));
+    }
+
+    return Napi::Float32Array::New(env, size_t(*count), Napi::ArrayBuffer::New(env, (void*)axes, size_t(*count)*sizeof(float)), 0u);
 }
 
-Napi::Uint8Array __glfwGetJoystickButtons(const Napi::CallbackInfo &info) {
+Napi::Value __glfwGetJoystickButtons(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
     int joy = info[0].As<Napi::Number>().Int32Value();
     int count_ = 0; int* count = info.Length() >= 2 ? (int*)GetAddress(env, info[1]) : nullptr;
     const unsigned char *buttons = glfwGetJoystickButtons(joy, count = count ? count : (&count_));
-    Napi::Uint8Array array = Napi::Uint8Array::New(env, *count);
-    for (int i = 0; i < (*count); i++) { array.Set(i, buttons[i]); }
-    return array;
+
+    if (info.Length() >= 2) {
+        return Napi::BigInt::New(env, (uint64_t)(buttons));
+    }
+
+    return Napi::Uint8Array::New(env, size_t(*count), Napi::ArrayBuffer::New(env, (void*)buttons, size_t(*count)), 0u);
 }
 
-Napi::Uint8Array __glfwGetJoystickHats(const Napi::CallbackInfo &info) {
+Napi::Value __glfwGetJoystickHats(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
     int joy = info[0].As<Napi::Number>().Int32Value();
     int count_ = 0; int* count = info.Length() >= 2 ? (int*)GetAddress(env, info[1]) : nullptr;
     const unsigned char *hats = glfwGetJoystickHats(joy, count = count ? count : (&count_));
-    Napi::Uint8Array array = Napi::Uint8Array::New(env, *count);
-    for (int i = 0; i < (*count); i++) { array.Set(i, hats[i]); }
-    return array;
+
+    if (info.Length() >= 2) {
+        return Napi::BigInt::New(env, (uint64_t)(hats));
+    }
+
+    return Napi::Uint8Array::New(env, size_t(*count), Napi::ArrayBuffer::New(env, (void*)hats, size_t(*count)), 0u);
 }
 
 Napi::String __glfwGetJoystickName(const Napi::CallbackInfo &info) {
@@ -752,19 +761,18 @@ Napi::Number __glfwGetTimerFrequency(const Napi::CallbackInfo &info) {
 }
 
 // Monitor functions
-Napi::Array __glfwGetMonitors(const Napi::CallbackInfo &info) {
+Napi::Value __glfwGetMonitors(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
     int count_ = 0; int* count = info.Length() >= 1 ? (int*)GetAddress(env, info[0]) : nullptr;
     GLFWmonitor **monitors = glfwGetMonitors(count = count ? count : (&count_));
 
-    Napi::Array array = Napi::Array::New(env, *count);
-    for (int i = 0; i < (*count); i++) {
-        array.Set(i, Napi::External<GLFWmonitor>::New(env, monitors[i]));
+    if (info.Length() >= 1) {
+        return Napi::BigInt::New(env, (uint64_t)(monitors));
     }
 
-    return array;
+    return Napi::BigUint64Array::New(env, size_t(*count), Napi::ArrayBuffer::New(env, (void*)monitors, size_t(*count)*sizeof(GLFWmonitor **)), 0u);
 }
 
 Napi::External<GLFWmonitor> __glfwGetPrimaryMonitor(const Napi::CallbackInfo &info) {
@@ -1568,21 +1576,22 @@ void __glfwSwapBuffers(const Napi::CallbackInfo &info) {
 
 
 
-
-
 // 
 Napi::Boolean __glfwVulkanSupported(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
     return Napi::Boolean::New(env, ::glfwVulkanSupported());
 }
 
-// TODO: make arrays
-Napi::TypedArrayOf<uint64_t> __glfwGetRequiredInstanceExtensions(const Napi::CallbackInfo& info) {
+// made compatible with WASM
+Napi::Value __glfwGetRequiredInstanceExtensions(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
     bool lossless = true;
-    uint32_t count = 0u;
-    const char* const * charArr = ::glfwGetRequiredInstanceExtensions(/*(uint32_t*)GetAddress(env, info[0])*/ &count);
-    return Napi::TypedArrayOf<uint64_t>::New(env, count, Napi::ArrayBuffer::New(env, (uint64_t*)charArr, count * sizeof(const char* const *)), 0);
+    uint32_t count_ = 0u; uint32_t* count = info.Length() >= 1 ? (uint32_t*)GetAddress(env, info[0]) : &count_;
+    const char* const * charArr = ::glfwGetRequiredInstanceExtensions(count);
+    if (info.Length() >= 1) {
+        return Napi::BigInt::New(env, (uint64_t)(charArr)); // WASM compatible
+    }
+    return Napi::BigUint64Array::New(env, *count, Napi::ArrayBuffer::New(env, (uint64_t*)charArr, (*count) * sizeof(const char* const *)), 0);
 }
 
 //
