@@ -311,11 +311,8 @@ class CStructView {
 
         if (typeof tname == "string") {
             if (tname.indexOf(";") >= 0) {
-                let names = tname.split(";");
-                tname = names[0];
-                if (names.length >= 2 && names[1] && names[1] != "undefined") {
-                    dfv = JSON.parse(names[1]);//JSON.parse(`{"_stub":${names[1]||0}}`)["_stub"];
-                }
+                [tname, dfv] = tname.vsplit(";");
+                if (dfv == "undefined") dfv = null;
             };
             if (tname.indexOf("[") >= 0 && tname.indexOf("]") >= 0) {
                 let match = tname.match(/\[(-?\d+)\]/);
