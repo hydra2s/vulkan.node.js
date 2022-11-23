@@ -56,7 +56,7 @@ const Types = {};
 //
 class TypePrototype {
     // for conversion struct or member
-    as(Target, tname, mname = "") {
+    _as(Target, tname, mname = "") {
         let length = 1;
         let offset = 0;
         let dfv = null;
@@ -91,7 +91,7 @@ class TypePrototype {
 
         if (IsNumber(mname)) { mname = parseIntFix(mname); };
         if (!type) { type = Types[tname+(length>1?"[arr]":"")] || Types[tname]; };
-        return new type(Target.buffer, Target.byteOffset + offset + (Target.offsetof(mname)||0), (length||1))[""];
+        return new type(Target.buffer, Target.byteOffset + offset + (Target.offsetof(mname)||0), (length||1));//[""];
     }
 
     get(Target, index) {
@@ -112,7 +112,7 @@ class TypePrototype {
             } else 
             if (typeof index == "string") {
                 let type = null; [index, type] = index.vsplit(":");
-                return type ? Target.as(type, index)[""] : Target[index];
+                return type ? Target._as(type, index)[""] : Target[index];
             } else {
                 return this._get ? this._get(Target, index) : Target[index];
             }
@@ -140,7 +140,7 @@ class TypePrototype {
             if (typeof index == "string" && index != "") {
                 let type = null; [index, type] = index.vsplit(":");
                 if (type) 
-                    { Target.as(type, index)[""] = value; } else
+                    { Target._as(type, index)[""] = value; } else
                     { Target[index] = value; }
                 return true;
             } else {
@@ -153,10 +153,12 @@ class TypePrototype {
 //
 class TypeView {
     // for conversion struct or member
-    as(...args) {
-        return this._class.as(this, ...args);
-    }
+    as(...args) { return this._class._as(this, ...args)[""]; }
 
+    // internal version of (without casting)
+    _as(...args) { return this._class._as(this, ...args); }
+
+    //
     bufferOffsetOf(name) { return this.byteOffset + this.offsetof(name); };
     addressOffsetOf(name) { return this.address() + BigInt(this.offsetof(name)); };
 }
@@ -233,7 +235,7 @@ class ArrayAccessor extends TypePrototype {
         if (!((name+"[arr]") in Types)) { Types[name+"[arr]"] = new Proxy(this._class = construct_, this); };
         this.type = name+"[arr]";
         this.bigEndian = bigEndian;
-        this._get = (...args) => { return IsNumber(args[1]) ? get.bind(this)(...args) : new Proxy(args[0], this); }
+        this._get = (...args) => { return get.bind(this)(...args);/*IsNumber(args[1]) ? get.bind(this)(...args) : new Proxy(args[0], this)*/; }
         this._set = (...args) => { return set.bind(this)(...args); /*return new Proxy(args[0], this);*/ }
         this.byteLength = byteLength;
         this.handler = handler;
@@ -545,7 +547,7 @@ class CStruct extends TypePrototype {
             if (typeof index == "string" && index != "") {
                 let type = null; [index, type] = index.vsplit(":");
                 if (index == "" || Target._class.types.find((t)=>(t.name==index))) {
-                    return type ? Target.as(type, index)[""] : Target[index];
+                    return type ? Target._as(type, index)[""] : Target[index];
                 }
             }
         } else {
@@ -564,7 +566,7 @@ class CStruct extends TypePrototype {
                 let type = null; [index, type] = index.vsplit(":");
                 if (index == "" || Target._class.types.find((t)=>(t.name==index))) {
                     if (type) 
-                        { Target.as(type, index)[""] = value; } else
+                        { Target._as(type, index)[""] = value; } else
                         { Target[index] = value; }
                 }
                 return true;
