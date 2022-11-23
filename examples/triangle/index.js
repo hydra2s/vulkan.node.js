@@ -590,6 +590,8 @@
     // await fence while async ops
     const waitStageMask = new Int32Array([ V.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT ]);
     const imageIndex = new Uint32Array(1);
+
+    // but for use `V.glfwPollEvents` in while loop, needs generators
     const awaitTick = ()=> new Promise(setImmediate);
     const awaitFenceAsync = async (device, fence)=>{
         let status = V.VK_NOT_READY;
@@ -602,9 +604,10 @@
     };
 
     //
-    console.log("Begin rendering...");
-    while (!V.glfwWindowShouldClose(window) && !terminated) { // 
+    const awaitRenderer = async()=> {
         V.vkAcquireNextImageKHR(device[0], swapchain[0], BigInt(Number.MAX_SAFE_INTEGER), semaphoreImageAvailable[0], 0n, imageIndex);
+
+        // await fence before rendering (and poll events)
         await awaitFenceAsync(device[0], fence[imageIndex[0]]);
 
         //
@@ -629,6 +632,13 @@
             pImageIndices: imageIndex,
             pResults: null,
         }));
+    }
+
+    //
+    console.log("Begin rendering...");
+    while (!V.glfwWindowShouldClose(window) && !terminated) {
+        // but generators is better idea
+        await awaitRenderer();
     };
 
     // 
