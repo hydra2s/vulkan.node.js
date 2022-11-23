@@ -267,33 +267,33 @@ let getReader = async()=>{
 
     // 
     let parseDocs = async (path = "../deps/Vulkan-Docs/xml/vk.xml")=>{
-        let docs = await getDocs(path); await fs.promises.writeFile("vulkan.json", JSON.stringify(filterNoSpaced(JSON5.parse(JSON5.stringify(docs))), null, 2).trim(), "utf8");
+        let docs = await getDocs(path); await fs.promises.writeFile("raw/vulkan.json", JSON.stringify(filterNoSpaced(JSON5.parse(JSON5.stringify(docs))), null, 2).trim(), "utf8");
         let loaded = getComponents(docs); 
         loaded.enums = preloadFromExtensions(loaded.enums, loaded.extensions);
         loaded.enums = preloadFromFeatures(loaded.enums, loaded.features);
-        await fs.promises.writeFile("commands.json", JSON.stringify(loaded.commands, null, 2).trim(), "utf8");
-        await fs.promises.writeFile("types.json", JSON.stringify(loaded.types, null, 2).trim(), "utf8");
-        await fs.promises.writeFile("enums.json", (JSON.stringify(loaded.enums, null, 2)||"").trim(), "utf8");
-        await fs.promises.writeFile("features.json", (JSON.stringify(loaded.features, null, 2)||"").trim(), "utf8");
+        await fs.promises.writeFile("raw/commands.json", JSON.stringify(loaded.commands, null, 2).trim(), "utf8");
+        await fs.promises.writeFile("raw/types.json", JSON.stringify(loaded.types, null, 2).trim(), "utf8");
+        await fs.promises.writeFile("raw/enums.json", (JSON.stringify(loaded.enums, null, 2)||"").trim(), "utf8");
+        await fs.promises.writeFile("raw/features.json", (JSON.stringify(loaded.features, null, 2)||"").trim(), "utf8");
         
         //
         let parsed = parseCommands(loaded.commands[0].children);
-        await fs.promises.writeFile("parsed-commands.json", JSON.stringify(parsed, null, 2).trim(), "utf8");
+        await fs.promises.writeFile("parsed/commands.json", JSON.stringify(parsed, null, 2).trim(), "utf8");
 
         //
         let parsedStructs = parseStructs(loaded.types.children);
         let parsedTypes = parseTypes(loaded.types.children);
         let parsedEnums = loaded.enums.map((m)=>((m&&m.children)?parseEnums(m.children):[])).flat().filter((value, index, self) => index == self.findIndex((t) => (value && t ? t.name == value.name : false)));
         let parsedRequirements = parseRequirements(loaded.types.children);
-        await fs.promises.writeFile("parsed-enums.json", JSON.stringify(parsedEnums, null, 2).trim(), "utf8");
-        await fs.promises.writeFile("parsed-types.json", JSON.stringify(parsedTypes, null, 2).trim(), "utf8");
-        await fs.promises.writeFile("parsed-requirements.json", JSON.stringify(parsedRequirements, null, 2).trim(), "utf8");
-        await fs.promises.writeFile("parsed-structs.json", JSON.stringify(parsedStructs, null, 2).trim(), "utf8");
+        await fs.promises.writeFile("parsed/enums.json", JSON.stringify(parsedEnums, null, 2).trim(), "utf8");
+        await fs.promises.writeFile("parsed/types.json", JSON.stringify(parsedTypes, null, 2).trim(), "utf8");
+        await fs.promises.writeFile("parsed/requirements.json", JSON.stringify(parsedRequirements, null, 2).trim(), "utf8");
+        await fs.promises.writeFile("parsed/structs.json", JSON.stringify(parsedStructs, null, 2).trim(), "utf8");
 
         //
         let usedBy = formExtensionTypeMap(loaded.extensions);
         let sTypeMap = formSTypeMap(filterSType(loaded.structs));
-        await fs.promises.writeFile("used-by.json", JSON.stringify(usedBy, null, 2).trim(), "utf8");
+        await fs.promises.writeFile("parsed/used-by.json", JSON.stringify(usedBy, null, 2).trim(), "utf8");
         return {usedBy, sTypeMap, parsed, parsedStructs, parsedRequirements, parsedTypes, parsedEnums};
     };
 

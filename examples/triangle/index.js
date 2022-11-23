@@ -571,25 +571,43 @@
     const semaphoreInfo = new V.VkSemaphoreCreateInfo({});
     const semaphoreImageAvailable = new BigUint64Array(1); 
     const semaphoreRenderingAvailable = new BigUint64Array(1); 
+    const fenceInfo = new V.VkFenceCreateInfo({
+        flags: V.VK_FENCE_CREATE_SIGNALED_BIT
+    });
+    const fence = new BigUint64Array(amountOfImagesInSwapchain[0]);
+
 
     //
+    for (let I=0;I<amountOfImagesInSwapchain[0];I++) {
+        V.vkCreateFence(device[0], fenceInfo, null, fence.addressOffsetOf(I));
+    }
     V.vkCreateSemaphore(device[0], semaphoreInfo, null, semaphoreImageAvailable);
     V.vkCreateSemaphore(device[0], semaphoreInfo, null, semaphoreRenderingAvailable);
 
     //
-    let tickAwait = ()=> new Promise((r)=>setImmediate(r));
-
     let terminated = false;
     const imageIndex = new Uint32Array(1);
+    const tickAwait = ()=> new Promise(setImmediate);
 
     //
     console.log("Begin rendering...");
 
+    // await fence while async ops
+    const awaitFenceAsync = async (device, fence)=>{
+        let status = V.VK_NOT_READY;
+        do {
+            if (status == V.VK_ERROR_DEVICE_LOST) { throw Error("Vulkan Device Lost"); break; };
+            if (status != V.VK_NOT_READY) break;
+            await tickAwait();
+        } while((status = V.vkGetFenceStatus(device, fence)) != V.VK_SUCCESS);
+    };
+
     //
     while (!V.glfwWindowShouldClose(window) && !terminated) { // 
         // it's reasong why you should execute it everytime!
-        V.glfwPollEvents(); await tickAwait(); // don't lock any other operations
+        V.glfwPollEvents(); //await tickAwait(); // don't lock any other operations
         V.vkAcquireNextImageKHR(device[0], swapchain[0], BigInt(Number.MAX_SAFE_INTEGER), semaphoreImageAvailable[0], 0n, imageIndex);
+        await awaitFenceAsync(device[0], fence[imageIndex[0]]);
 
         //
         const waitStageMask = new Int32Array([ V.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT ]);
@@ -602,7 +620,10 @@
             signalSemaphoreCount: 1,
             pSignalSemaphores: semaphoreRenderingAvailable,
         });
-        V.vkQueueSubmit(queue[0], 1, submitInfo, 0n);
+
+        //
+        V.vkResetFences(device[0], 1, fence.addressOffsetOf(imageIndex[0]));
+        V.vkQueueSubmit(queue[0], 1, submitInfo, fence[imageIndex[0]]);
 
         //
         const presentInfo = new V.VkPresentInfoKHR({
