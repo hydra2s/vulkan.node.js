@@ -586,23 +586,21 @@
 
     //
     let terminated = false;
-    const imageIndex = new Uint32Array(1);
-    const tickAwait = ()=> new Promise(setImmediate);
-
-    //
-    console.log("Begin rendering...");
 
     // await fence while async ops
+    const imageIndex = new Uint32Array(1);
+    const awaitTick = ()=> new Promise(setImmediate);
     const awaitFenceAsync = async (device, fence)=>{
         let status = V.VK_NOT_READY;
         do {
             if (status == V.VK_ERROR_DEVICE_LOST) { throw Error("Vulkan Device Lost"); break; };
             if (status != V.VK_NOT_READY) break;
-            await tickAwait();
+            await awaitTick();
         } while((status = V.vkGetFenceStatus(device, fence)) != V.VK_SUCCESS);
     };
 
     //
+    console.log("Begin rendering...");
     while (!V.glfwWindowShouldClose(window) && !terminated) { // 
         // it's reasong why you should execute it everytime!
         V.glfwPollEvents(); //await tickAwait(); // don't lock any other operations
