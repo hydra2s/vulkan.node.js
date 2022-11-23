@@ -89,7 +89,7 @@ class TypePrototype {
             tname = tname[0];
         }
 
-        if (IsNumber(mname)) { tname = parseIntFix(mname); };
+        if (IsNumber(mname)) { mname = parseIntFix(mname); };
         if (!type) { type = Types[tname+(length>1?"[arr]":"")] || Types[tname]; };
         return new type(Target.buffer, Target.byteOffset + offset + (Target.offsetof(mname)||0), (length||1))[""];
     }
