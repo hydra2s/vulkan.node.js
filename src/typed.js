@@ -11,6 +11,11 @@ const IsNumber = (index) => {
 //
 const EncoderUTF8 = new TextEncoder(); //U8Cache
 
+//
+String.prototype.vsplit = function(){
+    return (this.startsWith(":") ? ["", ...this.substring(1).vsplit()] : this.split(":"))||[this];
+}
+
 // 
 const AsBigInt = (value)=>{
     if (!value) {
@@ -354,10 +359,9 @@ class CStructView {
         if (typeof buffer == "object") {
             // serialization are required for avoid keys conflicts
             let types = [], raws = [];
-            let keys = Object.keys(typeof buffer.serialize == "function" ? buffer.serialize() : buffer).map((k,i)=>{
-                let names = k.split(":")||[];
-                types.push(names[1]), raws.push(k);
-                return names[0]||k;
+            let keys = Object.keys(typeof buffer.serialize == "function" ? buffer.serialize() : buffer).map((k,i)=>{ 
+                raws.push(k); let names = k.vsplit(":");
+                types.push(names[1]); return names[0];
             });
 
             // prefer a proxy
@@ -483,7 +487,8 @@ class CStruct {
             } else 
             if (typeof index == "string") {
                 // TODO: make function for splitting index string
-                let names = (index.startsWith(":") ? ["", index.substring(1)] : index.split(":"))||[]; if (index.startsWith(":")) index = ""; index = names[0]||index; let type = names[1];
+                //let names = (index.startsWith(":") ? ["", index.substring(1)] : index.split(":"))||[]; if (index.startsWith(":")) index = ""; index = names[0]||index; let type = names[1];
+                let type = null; [index, type] = index.vsplit(":");
                 if (Target._class.types.find((t)=>(t.name==index)) || index == "") {
                     return type ? Target.as(type, index)[""] : Target[index];
                 }
@@ -512,7 +517,7 @@ class CStruct {
             } else 
             if (typeof index == "string") {
                 // TODO: make function for splitting index string
-                let names = (index.startsWith(":") ? ["", index.substring(1)] : index.split(":"))||[]; if (index.startsWith(":")) index = ""; index = names[0]||index; let type = names[1];
+                let type = null; [index, type] = index.vsplit(":");
                 if (Target._class.types.find((t)=>(t.name==index)) || index == "") {
                     if (type) 
                         { Target.as(type, index)[""] = value; } else
