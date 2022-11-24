@@ -202,7 +202,10 @@
     }
 
     //
-    const deviceFeatures = new V.VkPhysicalDeviceFeatures2();
+    const deviceFeatures11 = new V.VkPhysicalDeviceVulkan11Features();
+    const deviceFeatures12 = new V.VkPhysicalDeviceVulkan12Features({pNext: deviceFeatures11});
+    const deviceFeatures13 = new V.VkPhysicalDeviceVulkan13Features({pNext: deviceFeatures12});
+    const deviceFeatures = new V.VkPhysicalDeviceFeatures2({pNext: deviceFeatures13});
     const deviceProperties = new V.VkPhysicalDeviceProperties2();
 
     //
@@ -409,70 +412,15 @@
     V.vkCreatePipelineLayout(device[0], pipelineLayoutInfo, null, pipelineLayout);
 
     //
-    const attachmentDescription = new V.VkAttachmentDescription({
-        flags: 0, 
-        format: V.VK_FORMAT_B8G8R8A8_UNORM,
-        samples: V.VK_SAMPLE_COUNT_1_BIT,
-        loadOp: V.VK_ATTACHMENT_LOAD_OP_CLEAR,
-        storeOp: V.VK_ATTACHMENT_STORE_OP_STORE,
-        stencilLoadOp: V.VK_ATTACHMENT_LOAD_OP_DONT_CARE,
-        stencilStoreOp: V.VK_ATTACHMENT_STORE_OP_DONT_CARE,
-        initialLayout: V.VK_IMAGE_LAYOUT_UNDEFINED,
-        finalLayout: V.VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
+    const attachmentFormats = new Uint32Array([V.VK_FORMAT_B8G8R8A8_UNORM]);
+    const dynamicRenderingPipelineInfo = new V.VkPipelineRenderingCreateInfoKHR({
+        colorAttachmentCount: attachmentFormats.length,
+        pColorAttachmentFormats: attachmentFormats
     });
-
-    //
-    const attachmentReference = new V.VkAttachmentReference({
-        attachment: 0,
-        layout: V.VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL
-    });
-
-    //
-    const subpassDescription = new V.VkSubpassDescription({
-        pipelineBindPoint: V.VK_PIPELINE_BIND_POINT_GRAPHICS,
-        inputAttachmentCount: 0,
-        pInputAttachments: null,
-        colorAttachmentCount: 1,
-        pColorAttachments: attachmentReference,
-        pResolveAttachments: null,
-        pDepthStencilAttachment: null,
-        preserveAttachmentCount: 0,
-        pPreserveAttachments: null,
-    });
-    
-    //
-    const subpassDependency = new V.VkSubpassDependency({
-        pNext: null,
-        srcSubpass: V.VK_SUBPASS_EXTERNAL,
-        dstSubpass: 0,
-        srcStageMask: V.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
-        dstStageMask: V.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
-        srcAccessMask: 0,
-        dstAccessMask: (
-            V.VK_ACCESS_COLOR_ATTACHMENT_READ_BIT |
-            V.VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT
-        ),
-        dependencyFlags: 0,
-    });
-    
-    //
-    const renderPassInfo = new V.VkRenderPassCreateInfo({
-        pNext: null,
-        attachmentCount: 1,
-        pAttachments: attachmentDescription,
-        subpassCount: 1,
-        pSubpasses: subpassDescription,
-        dependencyCount: 1,
-        pDependencies: subpassDependency,
-    });
-
-    //
-    const renderPass = new BigUint64Array(1);
-    V.vkCreateRenderPass(device[0], renderPassInfo, null, renderPass);
 
     //
     const graphicsPipelineInfo = new V.VkGraphicsPipelineCreateInfo({
-        pNext: null,
+        pNext: dynamicRenderingPipelineInfo,
         stageCount: shaderStages.length,
         pStages: shaderStages,
         pVertexInputState: vertexInputInfo,
@@ -485,7 +433,6 @@
         pColorBlendState: colorBlendInfo,
         pDynamicState: null,
         layout: pipelineLayout[0],
-        renderPass: renderPass[0],
         subpass: 0,
         basePipelineHandle: null,
         basePipelineIndex: -1,
@@ -496,90 +443,109 @@
     V.vkCreateGraphicsPipelines(device[0], 0n, 1, graphicsPipelineInfo, null, pipeline);
 
     //
-    let framebufferInfo = new V.VkFramebufferCreateInfo({
-        pNext: null,
-        renderPass: renderPass[0],
-        attachmentCount: 1,
-        width: windowSize[0], height: windowSize[1],
-        layers: 1
-    });
+    const imageTransitionBarrierForPresent = new V.VkImageMemoryBarrier2(imageViews.length);
+    const imageTransitionBarrierForGeneral = new V.VkImageMemoryBarrier2(imageViews.length);
+    const imageTransitionBarrierFromUndefined = new V.VkImageMemoryBarrier2(imageViews.length);
 
-    // TODO: resolve address indexing problems
-    const framebuffers = new BigUint64Array(imageViews.length);
+    //
+    const dynamicRenderingInfo = new V.VkRenderingAttachmentInfo(imageViews.length);
     for (let I=0;I<imageViews.length;I++) {
-        V.vkCreateFramebuffer(device[0], framebufferInfo.set({pAttachments: imageViews.addressOffsetOf(I)}), null, framebuffers.addressOffsetOf(I));
+        // I remember you: we assign partially!
+        dynamicRenderingInfo[I] = {
+            imageView: imageViews[I],
+            imageLayout: V.VK_IMAGE_LAYOUT_GENERAL,
+            loadOp: V.VK_ATTACHMENT_LOAD_OP_CLEAR,
+            storeOp: V.VK_ATTACHMENT_STORE_OP_STORE,
+            "clearValue:f32[4]": [0.0, 0.0, 0.0, 0.0] 
+        };
+
+        //
+        imageTransitionBarrierFromUndefined[I] = {
+            srcStageMask: V.VK_PIPELINE_STAGE_2_NONE,
+            srcAccessMask: V.VK_ACCESS_2_NONE,
+            dstStageMask: V.VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT,
+            dstAccessMask: V.VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT | V.VK_ACCESS_2_COLOR_ATTACHMENT_READ_BIT,
+            oldLayout: V.VK_IMAGE_LAYOUT_UNDEFINED,
+            newLayout: V.VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
+            image: swapchainImages[I],
+            subresourceRange: { aspectMask: V.VK_IMAGE_ASPECT_COLOR_BIT, baseMipLevel: 0, levelCount: 1, baseArrayLayer: 0, layerCount: 1 }
+        };
+
+        //
+        imageTransitionBarrierForGeneral[I] = {
+            srcStageMask: V.VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT,
+            srcAccessMask: V.VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT | V.VK_ACCESS_2_COLOR_ATTACHMENT_READ_BIT,
+            dstStageMask: V.VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT,
+            dstAccessMask: V.VK_ACCESS_2_SHADER_WRITE_BIT | V.VK_ACCESS_2_SHADER_READ_BIT,
+            oldLayout: V.VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
+            newLayout: V.VK_IMAGE_LAYOUT_GENERAL,
+            image: swapchainImages[I],
+            subresourceRange: { aspectMask: V.VK_IMAGE_ASPECT_COLOR_BIT, baseMipLevel: 0, levelCount: 1, baseArrayLayer: 0, layerCount: 1 }
+        };
+
+        //
+        imageTransitionBarrierForPresent[I] = {
+            srcStageMask: V.VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT,
+            srcAccessMask: V.VK_ACCESS_2_SHADER_WRITE_BIT | V.VK_ACCESS_2_SHADER_READ_BIT,
+            dstStageMask: V.VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT,
+            dstAccessMask: V.VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT | V.VK_ACCESS_2_COLOR_ATTACHMENT_READ_BIT,
+            oldLayout: V.VK_IMAGE_LAYOUT_GENERAL,
+            newLayout: V.VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
+            image: swapchainImages[I],
+            subresourceRange: { aspectMask: V.VK_IMAGE_ASPECT_COLOR_BIT, baseMipLevel: 0, levelCount: 1, baseArrayLayer: 0, layerCount: 1 }
+        };
     }
 
-
-
-
-
-
-    //
-    let cmdPoolInfo = new V.VkCommandPoolCreateInfo({
-        pNext: null,
-        queueFamilyIndex: 0
-    });
-    
     //
     const cmdPool = new BigUint64Array(1);
-    V.vkCreateCommandPool(device[0], cmdPoolInfo, null, cmdPool);
-    
+    V.vkCreateCommandPool(device[0], new V.VkCommandPoolCreateInfo({
+        pNext: null,
+        queueFamilyIndex: 0
+    }), null, cmdPool);
+
+    // single time command
+    let cmdBuf = new BigUint64Array(1);
+    V.vkAllocateCommandBuffers(device[0], new V.VkCommandBufferAllocateInfo({ commandPool: cmdPool[0], level: V.VK_COMMAND_BUFFER_LEVEL_PRIMARY, commandBufferCount: cmdBuf.length }), cmdBuf);
+    V.vkBeginCommandBuffer(cmdBuf[0], new V.VkCommandBufferBeginInfo({ flags: V.VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT }));
+    V.vkCmdPipelineBarrier2(cmdBuf[0], new V.VkDependencyInfoKHR({ imageMemoryBarrierCount: imageTransitionBarrierFromUndefined.length, pImageMemoryBarriers: imageTransitionBarrierFromUndefined }));
+    V.vkEndCommandBuffer(cmdBuf[0]);
+    V.vkQueueSubmit(queue[0], 1, new V.VkSubmitInfo({ commandBufferCount: cmdBuf.length, pCommandBuffers: cmdBuf }), 0n);
+
     //
-    let cmdBufferAllocInfo = new V.VkCommandBufferAllocateInfo({
+    const cmdBufferAllocInfo = new V.VkCommandBufferAllocateInfo({
         commandPool: cmdPool[0],
         level: V.VK_COMMAND_BUFFER_LEVEL_PRIMARY,
         commandBufferCount: amountOfImagesInSwapchain[0]
     });
 
     //
-    let cmdBuffers = new BigUint64Array(amountOfImagesInSwapchain[0]);
-    V.vkAllocateCommandBuffers(device[0], cmdBufferAllocInfo, cmdBuffers);
-    
-    //
-    let cmdBufferBeginInfo = new V.VkCommandBufferBeginInfo({
-        flags: V.VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT
-    });
-    
-    //
+    const cmdBuffers = new BigUint64Array(amountOfImagesInSwapchain[0]);
     const vertexBuffer = createVertexBuffer(device[0], vertices);
-    
+    V.vkAllocateCommandBuffers(device[0], cmdBufferAllocInfo, cmdBuffers);
+
     //
     for (let I = 0; I < cmdBuffers.length; ++I) {
         const cmdBuffer = cmdBuffers[I];
-        const clearValue = new Float32Array([0.0, 0.0, 0.0, 0.0]);
-        const renderPassBeginInfo = new V.VkRenderPassBeginInfo({
-            sType: V.VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO,
-            renderPass: renderPass[0],
-            framebuffer: framebuffers[I],
-            renderArea: { ["offset:u32[2]"]: [0,0], ["extent:u32[2]"]: windowSize },
-            clearValueCount: 1,
-            pClearValues: clearValue,
-        });
-
-        //
-        V.vkBeginCommandBuffer(cmdBuffer, cmdBufferBeginInfo);
-        V.vkCmdBeginRenderPass(cmdBuffer, renderPassBeginInfo, V.VK_SUBPASS_CONTENTS_INLINE);
+        V.vkBeginCommandBuffer(cmdBuffer, new V.VkCommandBufferBeginInfo({ flags: V.VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT }));
+        V.vkCmdPipelineBarrier2(cmdBuffer, new V.VkDependencyInfoKHR({ imageMemoryBarrierCount: 1, pImageMemoryBarriers: imageTransitionBarrierForGeneral.addressOffsetOf(I) }));
+        V.vkCmdBeginRendering(cmdBuffer, new V.VkRenderingInfoKHR({ renderArea: { ["offset:u32[2]"]: [0,0], ["extent:u32[2]"]: windowSize }, layerCount: 1, viewMask: 0x0, colorAttachmentCount: 1, pColorAttachments: dynamicRenderingInfo.addressOffsetOf(I) }));
         V.vkCmdBindPipeline(cmdBuffer, V.VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline[0]);
         V.vkCmdBindVertexBuffers(cmdBuffer, 0, 1, vertexBuffer, new BigUint64Array([0n]));
         V.vkCmdDraw(cmdBuffer, 3, 1, 0, 0);
-        V.vkCmdEndRenderPass(cmdBuffer);
+        V.vkCmdEndRendering(cmdBuffer);
+        V.vkCmdPipelineBarrier2(cmdBuffer, new V.VkDependencyInfoKHR({ imageMemoryBarrierCount: 1, pImageMemoryBarriers: imageTransitionBarrierForPresent.addressOffsetOf(I) }));
         V.vkEndCommandBuffer(cmdBuffer);
     };
 
     //
     const semaphoreInfo = new V.VkSemaphoreCreateInfo({});
     const semaphoreImageAvailable = new BigUint64Array(1); 
-    const semaphoreRenderingAvailable = new BigUint64Array(1); 
-    const fenceInfo = new V.VkFenceCreateInfo({
-        flags: V.VK_FENCE_CREATE_SIGNALED_BIT
-    });
+    const semaphoreRenderingAvailable = new BigUint64Array(1);
     const fence = new BigUint64Array(amountOfImagesInSwapchain[0]);
-
 
     //
     for (let I=0;I<amountOfImagesInSwapchain[0];I++) {
-        V.vkCreateFence(device[0], fenceInfo, null, fence.addressOffsetOf(I));
+        V.vkCreateFence(device[0], new V.VkFenceCreateInfo({ flags: V.VK_FENCE_CREATE_SIGNALED_BIT }), null, fence.addressOffsetOf(I));
     }
     V.vkCreateSemaphore(device[0], semaphoreInfo, null, semaphoreImageAvailable);
     V.vkCreateSemaphore(device[0], semaphoreInfo, null, semaphoreRenderingAvailable);
@@ -590,7 +556,6 @@
     // 
     const waitStageMask = new Int32Array([ V.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT ]);
     const imageIndex = new Uint32Array(1);
-
 
     //
     const awaitTick = ()=> new Promise(setImmediate);
