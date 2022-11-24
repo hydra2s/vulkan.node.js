@@ -1,6 +1,37 @@
 #version 460 core
 #extension GL_ARB_separate_shader_objects : enable
+#extension GL_EXT_ray_query : enable
+#extension GL_EXT_ray_tracing : enable
+#extension GL_EXT_shader_explicit_arithmetic_types_int64 : enable
+#extension GL_EXT_shader_explicit_arithmetic_types_int32 : enable
+
+layout( push_constant ) uniform constants
+{
+	uint64_t accStruct;
+    uint32_t imageIndex;
+    uint32_t reserved;
+} PC;
+
+layout (binding = 0, rgba8) uniform image2D images[3];
+layout (local_size_x = 32, local_size_y = 4, local_size_z = 1) in;
 
 void main() {
-	
+	const vec3 dir = vec3(0, 0, 1);
+    const vec3 origin = vec3(vec2(gl_GlobalInvocationID.xy) / vec2(1280, 720) * 2.f - 1.f, -1);
+
+    //
+    rayQueryEXT rayQuery;
+    rayQueryInitializeEXT(rayQuery, accelerationStructureEXT(PC.accStruct), gl_RayFlagsTerminateOnFirstHitEXT, 0xFF, origin, 0.0001f, dir, 10000.f);
+
+    //
+    while(rayQueryProceedEXT(rayQuery)) {
+        rayQueryConfirmIntersectionEXT(rayQuery);
+    }
+
+    //
+    if (rayQueryGetIntersectionTypeEXT(rayQuery, true) == gl_RayQueryCommittedIntersectionTriangleEXT) {
+        imageStore(images[PC.imageIndex], ivec2(gl_GlobalInvocationID.xy), vec4(1, 0, 0, 1));
+    } else {
+        imageStore(images[PC.imageIndex], ivec2(gl_GlobalInvocationID.xy), vec4(0, 0, 0, 1));
+    }
 }
