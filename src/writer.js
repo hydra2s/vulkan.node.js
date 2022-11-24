@@ -10,7 +10,7 @@ let getWriter = async()=>{
     let F32Types = ["float", "float32_t"];
     let U8Types = ["uint8_t", "char8_t", "char"];
     let U16Types = ["uint16_t"];
-    let U64Types = ["HANDLE", "LPCWSTR", "uint64_t", "uintptr_t", "size_t", "VkDeviceSize", "VkDeviceAddress", "VkDeviceOffset", "VkDeviceOrHostAddressKHR", "VkFlags64"];
+    let U64Types = ["HANDLE", "LPCWSTR", "uint64_t", "uintptr_t", "size_t", "VkDeviceSize", "VkDeviceAddress", "VkDeviceOffset", "VkDeviceOrHostAddressKHR", "VkDeviceOrHostAddressConstKHR", "VkFlags64"];
     let U32Types = ["DWORD", "uint32_t", "VkFlags", "VkBool32", "VkStructureType"];
     let Pointables = ["VkOffset2D","VkExtent2D","VkRect2D","VkTransformMatrixKHR","VkTransformMatrixNV","VkPhysicalDeviceFeatures","VkPhysicalDeviceProperties","VkMemoryRequirements"];
     let U24Types = ["uint24_t"];
@@ -346,19 +346,21 @@ return params.join(`
     }
 
     let writeParam = (name, param, map)=>{
-        let paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u32")},`
-if (IsPointableValue(param, map))              { paramStr = `    ${param.name}: ${AsFixedArray(name, param, param.type)},` } else 
-if (IsHandle(param))                      { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u64")},` } else 
-if (IsBigIntValue(param))                 { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u64")},` } else 
-if (IsUint8 (param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u8" )},` } else 
-if (IsUint16(param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u16")},` } else 
-if (IsUint24(param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u24")},` } else 
-if (IsUint32(param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "u32")},` } else 
-if (IsInt8  (param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "i8" )},` } else 
-if (IsInt16 (param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "i16")},` } else 
-if (IsInt32 (param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "i32")},` } else 
-if ( IsFloat(param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "f32")},` } else 
-if (IsDouble(param.type, param.bitfield)) { paramStr = `    ${param.name}: ${AsFixedArray(name, param, "f64")},` } 
+        let pname = param.name;
+        if (pname == "buffer" || pname == "address") { pname = `$${param.name}`; }; // conflict names
+        let                                 paramStr = `    ${pname}: ${AsFixedArray(name, param, "u32")},`
+if (IsPointableValue(param, map))         { paramStr = `    ${pname}: ${AsFixedArray(name, param, param.type)},` } else 
+if (IsHandle(param))                      { paramStr = `    ${pname}: ${AsFixedArray(name, param, "u64")},` } else 
+if (IsBigIntValue(param))                 { paramStr = `    ${pname}: ${AsFixedArray(name, param, "u64")},` } else 
+if (IsUint8 (param.type, param.bitfield)) { paramStr = `    ${pname}: ${AsFixedArray(name, param, "u8" )},` } else 
+if (IsUint16(param.type, param.bitfield)) { paramStr = `    ${pname}: ${AsFixedArray(name, param, "u16")},` } else 
+if (IsUint24(param.type, param.bitfield)) { paramStr = `    ${pname}: ${AsFixedArray(name, param, "u24")},` } else 
+if (IsUint32(param.type, param.bitfield)) { paramStr = `    ${pname}: ${AsFixedArray(name, param, "u32")},` } else 
+if (IsInt8  (param.type, param.bitfield)) { paramStr = `    ${pname}: ${AsFixedArray(name, param, "i8" )},` } else 
+if (IsInt16 (param.type, param.bitfield)) { paramStr = `    ${pname}: ${AsFixedArray(name, param, "i16")},` } else 
+if (IsInt32 (param.type, param.bitfield)) { paramStr = `    ${pname}: ${AsFixedArray(name, param, "i32")},` } else 
+if ( IsFloat(param.type, param.bitfield)) { paramStr = `    ${pname}: ${AsFixedArray(name, param, "f32")},` } else 
+if (IsDouble(param.type, param.bitfield)) { paramStr = `    ${pname}: ${AsFixedArray(name, param, "f64")},` } 
 return paramStr;
     };
 

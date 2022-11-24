@@ -248,7 +248,7 @@ const VkImageFormatProperties = new Proxy(C.CStructView, new C.CStruct("VkImageF
 
 
 const VkDescriptorBufferInfo = new Proxy(C.CStructView, new C.CStruct("VkDescriptorBufferInfo", {
-    buffer: "u64("+(V.VkDescriptorBufferInfo_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkDescriptorBufferInfo_buffer_offsetof||0)+")",
     offset: "u64("+(V.VkDescriptorBufferInfo_offset_offsetof||0)+")",
     range: "u64("+(V.VkDescriptorBufferInfo_range_offsetof||0)+")",
 }, (V.VkDescriptorBufferInfo_sizeof||0)));
@@ -304,7 +304,7 @@ const VkBufferViewCreateInfo = new Proxy(C.CStructView, new C.CStruct("VkBufferV
     sType: "u32("+(V.VkBufferViewCreateInfo_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_BUFFER_VIEW_CREATE_INFO||0),
     pNext: "u64("+(V.VkBufferViewCreateInfo_pNext_offsetof||0)+")",
     flags: "u32("+(V.VkBufferViewCreateInfo_flags_offsetof||0)+")",
-    buffer: "u64("+(V.VkBufferViewCreateInfo_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkBufferViewCreateInfo_buffer_offsetof||0)+")",
     format: "u32("+(V.VkBufferViewCreateInfo_format_offsetof||0)+")",
     offset: "u64("+(V.VkBufferViewCreateInfo_offset_offsetof||0)+")",
     range: "u64("+(V.VkBufferViewCreateInfo_range_offsetof||0)+")",
@@ -350,7 +350,7 @@ const VkBufferMemoryBarrier = new Proxy(C.CStructView, new C.CStruct("VkBufferMe
     dstAccessMask: "u32("+(V.VkBufferMemoryBarrier_dstAccessMask_offsetof||0)+")",
     srcQueueFamilyIndex: "u32("+(V.VkBufferMemoryBarrier_srcQueueFamilyIndex_offsetof||0)+")",
     dstQueueFamilyIndex: "u32("+(V.VkBufferMemoryBarrier_dstQueueFamilyIndex_offsetof||0)+")",
-    buffer: "u64("+(V.VkBufferMemoryBarrier_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkBufferMemoryBarrier_buffer_offsetof||0)+")",
     offset: "u64("+(V.VkBufferMemoryBarrier_offset_offsetof||0)+")",
     size: "u64("+(V.VkBufferMemoryBarrier_size_offsetof||0)+")",
 }, (V.VkBufferMemoryBarrier_sizeof||0)));
@@ -437,7 +437,7 @@ const VkSparseImageMemoryBind = new Proxy(C.CStructView, new C.CStruct("VkSparse
 
 
 const VkSparseBufferMemoryBindInfo = new Proxy(C.CStructView, new C.CStruct("VkSparseBufferMemoryBindInfo", {
-    buffer: "u64("+(V.VkSparseBufferMemoryBindInfo_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkSparseBufferMemoryBindInfo_buffer_offsetof||0)+")",
     bindCount: "u32("+(V.VkSparseBufferMemoryBindInfo_bindCount_offsetof||0)+")",
     pBinds: "u64("+(V.VkSparseBufferMemoryBindInfo_pBinds_offsetof||0)+")",
 }, (V.VkSparseBufferMemoryBindInfo_sizeof||0)));
@@ -1523,7 +1523,7 @@ const VkDedicatedAllocationMemoryAllocateInfoNV = new Proxy(C.CStructView, new C
     sType: "u32("+(V.VkDedicatedAllocationMemoryAllocateInfoNV_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV||0),
     pNext: "u64("+(V.VkDedicatedAllocationMemoryAllocateInfoNV_pNext_offsetof||0)+")",
     image: "u64("+(V.VkDedicatedAllocationMemoryAllocateInfoNV_image_offsetof||0)+")",
-    buffer: "u64("+(V.VkDedicatedAllocationMemoryAllocateInfoNV_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkDedicatedAllocationMemoryAllocateInfoNV_buffer_offsetof||0)+")",
 }, (V.VkDedicatedAllocationMemoryAllocateInfoNV_sizeof||0)));
 
 
@@ -1679,7 +1679,7 @@ const VkSetStateFlagsIndirectCommandNV = new Proxy(C.CStructView, new C.CStruct(
 
 
 const VkIndirectCommandsStreamNV = new Proxy(C.CStructView, new C.CStruct("VkIndirectCommandsStreamNV", {
-    buffer: "u64("+(V.VkIndirectCommandsStreamNV_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkIndirectCommandsStreamNV_buffer_offsetof||0)+")",
     offset: "u64("+(V.VkIndirectCommandsStreamNV_offset_offsetof||0)+")",
 }, (V.VkIndirectCommandsStreamNV_sizeof||0)));
 
@@ -2358,7 +2358,7 @@ const VkMemoryAllocateFlagsInfoKHR = new Proxy(C.CStructView, new C.ConstructPro
 const VkBindBufferMemoryInfo = new Proxy(C.CStructView, new C.CStruct("VkBindBufferMemoryInfo", {
     sType: "u32("+(V.VkBindBufferMemoryInfo_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_BIND_BUFFER_MEMORY_INFO||0),
     pNext: "u64("+(V.VkBindBufferMemoryInfo_pNext_offsetof||0)+")",
-    buffer: "u64("+(V.VkBindBufferMemoryInfo_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkBindBufferMemoryInfo_buffer_offsetof||0)+")",
     memory: "u64("+(V.VkBindBufferMemoryInfo_memory_offsetof||0)+")",
     memoryOffset: "u64("+(V.VkBindBufferMemoryInfo_memoryOffset_offsetof||0)+")",
 }, (V.VkBindBufferMemoryInfo_sizeof||0)));
@@ -2812,7 +2812,7 @@ const VkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR = new Proxy(C.CStru
 const VkBufferMemoryRequirementsInfo2 = new Proxy(C.CStructView, new C.CStruct("VkBufferMemoryRequirementsInfo2", {
     sType: "u32("+(V.VkBufferMemoryRequirementsInfo2_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2||0),
     pNext: "u64("+(V.VkBufferMemoryRequirementsInfo2_pNext_offsetof||0)+")",
-    buffer: "u64("+(V.VkBufferMemoryRequirementsInfo2_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkBufferMemoryRequirementsInfo2_buffer_offsetof||0)+")",
 }, (V.VkBufferMemoryRequirementsInfo2_sizeof||0)));
 
 const VkBufferMemoryRequirementsInfo2KHR = new Proxy(C.CStructView, new C.ConstructProxy("VkBufferMemoryRequirementsInfo2"));
@@ -2896,7 +2896,7 @@ const VkMemoryDedicatedAllocateInfo = new Proxy(C.CStructView, new C.CStruct("Vk
     sType: "u32("+(V.VkMemoryDedicatedAllocateInfo_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_MEMORY_DEDICATED_ALLOCATE_INFO||0),
     pNext: "u64("+(V.VkMemoryDedicatedAllocateInfo_pNext_offsetof||0)+")",
     image: "u64("+(V.VkMemoryDedicatedAllocateInfo_image_offsetof||0)+")",
-    buffer: "u64("+(V.VkMemoryDedicatedAllocateInfo_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkMemoryDedicatedAllocateInfo_buffer_offsetof||0)+")",
 }, (V.VkMemoryDedicatedAllocateInfo_sizeof||0)));
 
 const VkMemoryDedicatedAllocateInfoKHR = new Proxy(C.CStructView, new C.ConstructProxy("VkMemoryDedicatedAllocateInfo"));
@@ -2991,7 +2991,7 @@ const VkTextureLODGatherFormatPropertiesAMD = new Proxy(C.CStructView, new C.CSt
 const VkConditionalRenderingBeginInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkConditionalRenderingBeginInfoEXT", {
     sType: "u32("+(V.VkConditionalRenderingBeginInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_CONDITIONAL_RENDERING_BEGIN_INFO_EXT||0),
     pNext: "u64("+(V.VkConditionalRenderingBeginInfoEXT_pNext_offsetof||0)+")",
-    buffer: "u64("+(V.VkConditionalRenderingBeginInfoEXT_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkConditionalRenderingBeginInfoEXT_buffer_offsetof||0)+")",
     offset: "u64("+(V.VkConditionalRenderingBeginInfoEXT_offset_offsetof||0)+")",
     flags: "u32("+(V.VkConditionalRenderingBeginInfoEXT_flags_offsetof||0)+")",
 }, (V.VkConditionalRenderingBeginInfoEXT_sizeof||0)));
@@ -3850,7 +3850,7 @@ const VkPhysicalDevicePCIBusInfoPropertiesEXT = new Proxy(C.CStructView, new C.C
 const VkImportAndroidHardwareBufferInfoANDROID = new Proxy(C.CStructView, new C.CStruct("VkImportAndroidHardwareBufferInfoANDROID", {
     sType: "u32("+(V.VkImportAndroidHardwareBufferInfoANDROID_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID||0),
     pNext: "u64("+(V.VkImportAndroidHardwareBufferInfoANDROID_pNext_offsetof||0)+")",
-    buffer: "u64("+(V.VkImportAndroidHardwareBufferInfoANDROID_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkImportAndroidHardwareBufferInfoANDROID_buffer_offsetof||0)+")",
 }, (V.VkImportAndroidHardwareBufferInfoANDROID_sizeof||0)));
 
 
@@ -4795,7 +4795,7 @@ const VkPhysicalDeviceBufferAddressFeaturesEXT = new Proxy(C.CStructView, new C.
 const VkBufferDeviceAddressInfo = new Proxy(C.CStructView, new C.CStruct("VkBufferDeviceAddressInfo", {
     sType: "u32("+(V.VkBufferDeviceAddressInfo_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_INFO||0),
     pNext: "u64("+(V.VkBufferDeviceAddressInfo_pNext_offsetof||0)+")",
-    buffer: "u64("+(V.VkBufferDeviceAddressInfo_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkBufferDeviceAddressInfo_buffer_offsetof||0)+")",
 }, (V.VkBufferDeviceAddressInfo_sizeof||0)));
 
 const VkBufferDeviceAddressInfoKHR = new Proxy(C.CStructView, new C.ConstructProxy("VkBufferDeviceAddressInfo"));
@@ -5710,19 +5710,19 @@ const VkAccelerationStructureGeometryTrianglesDataKHR = new Proxy(C.CStructView,
     sType: "u32("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR||0),
     pNext: "u64("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_pNext_offsetof||0)+")",
     vertexFormat: "u32("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_vertexFormat_offsetof||0)+")",
-    vertexData: "VkDeviceOrHostAddressConstKHR("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_vertexData_offsetof||0)+")",
+    vertexData: "u64("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_vertexData_offsetof||0)+")",
     vertexStride: "u64("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_vertexStride_offsetof||0)+")",
     maxVertex: "u32("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_maxVertex_offsetof||0)+")",
     indexType: "u32("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_indexType_offsetof||0)+")",
-    indexData: "VkDeviceOrHostAddressConstKHR("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_indexData_offsetof||0)+")",
-    transformData: "VkDeviceOrHostAddressConstKHR("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_transformData_offsetof||0)+")",
+    indexData: "u64("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_indexData_offsetof||0)+")",
+    transformData: "u64("+(V.VkAccelerationStructureGeometryTrianglesDataKHR_transformData_offsetof||0)+")",
 }, (V.VkAccelerationStructureGeometryTrianglesDataKHR_sizeof||0)));
 
 
 const VkAccelerationStructureGeometryAabbsDataKHR = new Proxy(C.CStructView, new C.CStruct("VkAccelerationStructureGeometryAabbsDataKHR", {
     sType: "u32("+(V.VkAccelerationStructureGeometryAabbsDataKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR||0),
     pNext: "u64("+(V.VkAccelerationStructureGeometryAabbsDataKHR_pNext_offsetof||0)+")",
-    data: "VkDeviceOrHostAddressConstKHR("+(V.VkAccelerationStructureGeometryAabbsDataKHR_data_offsetof||0)+")",
+    data: "u64("+(V.VkAccelerationStructureGeometryAabbsDataKHR_data_offsetof||0)+")",
     stride: "u64("+(V.VkAccelerationStructureGeometryAabbsDataKHR_stride_offsetof||0)+")",
 }, (V.VkAccelerationStructureGeometryAabbsDataKHR_sizeof||0)));
 
@@ -5731,7 +5731,7 @@ const VkAccelerationStructureGeometryInstancesDataKHR = new Proxy(C.CStructView,
     sType: "u32("+(V.VkAccelerationStructureGeometryInstancesDataKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR||0),
     pNext: "u64("+(V.VkAccelerationStructureGeometryInstancesDataKHR_pNext_offsetof||0)+")",
     arrayOfPointers: "u32("+(V.VkAccelerationStructureGeometryInstancesDataKHR_arrayOfPointers_offsetof||0)+")",
-    data: "VkDeviceOrHostAddressConstKHR("+(V.VkAccelerationStructureGeometryInstancesDataKHR_data_offsetof||0)+")",
+    data: "u64("+(V.VkAccelerationStructureGeometryInstancesDataKHR_data_offsetof||0)+")",
 }, (V.VkAccelerationStructureGeometryInstancesDataKHR_sizeof||0)));
 
 
@@ -5771,7 +5771,7 @@ const VkAccelerationStructureCreateInfoKHR = new Proxy(C.CStructView, new C.CStr
     sType: "u32("+(V.VkAccelerationStructureCreateInfoKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CREATE_INFO_KHR||0),
     pNext: "u64("+(V.VkAccelerationStructureCreateInfoKHR_pNext_offsetof||0)+")",
     createFlags: "u32("+(V.VkAccelerationStructureCreateInfoKHR_createFlags_offsetof||0)+")",
-    buffer: "u64("+(V.VkAccelerationStructureCreateInfoKHR_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkAccelerationStructureCreateInfoKHR_buffer_offsetof||0)+")",
     offset: "u64("+(V.VkAccelerationStructureCreateInfoKHR_offset_offsetof||0)+")",
     size: "u64("+(V.VkAccelerationStructureCreateInfoKHR_size_offsetof||0)+")",
     type: "u32("+(V.VkAccelerationStructureCreateInfoKHR_type_offsetof||0)+")",
@@ -5848,7 +5848,7 @@ const VkCopyAccelerationStructureToMemoryInfoKHR = new Proxy(C.CStructView, new 
 const VkCopyMemoryToAccelerationStructureInfoKHR = new Proxy(C.CStructView, new C.CStruct("VkCopyMemoryToAccelerationStructureInfoKHR", {
     sType: "u32("+(V.VkCopyMemoryToAccelerationStructureInfoKHR_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_COPY_MEMORY_TO_ACCELERATION_STRUCTURE_INFO_KHR||0),
     pNext: "u64("+(V.VkCopyMemoryToAccelerationStructureInfoKHR_pNext_offsetof||0)+")",
-    src: "VkDeviceOrHostAddressConstKHR("+(V.VkCopyMemoryToAccelerationStructureInfoKHR_src_offsetof||0)+")",
+    src: "u64("+(V.VkCopyMemoryToAccelerationStructureInfoKHR_src_offsetof||0)+")",
     dst: "u64("+(V.VkCopyMemoryToAccelerationStructureInfoKHR_dst_offsetof||0)+")",
     mode: "u32("+(V.VkCopyMemoryToAccelerationStructureInfoKHR_mode_offsetof||0)+")",
 }, (V.VkCopyMemoryToAccelerationStructureInfoKHR_sizeof||0)));
@@ -6468,7 +6468,7 @@ const VkBufferMemoryBarrier2 = new Proxy(C.CStructView, new C.CStruct("VkBufferM
     dstAccessMask: "u64("+(V.VkBufferMemoryBarrier2_dstAccessMask_offsetof||0)+")",
     srcQueueFamilyIndex: "u32("+(V.VkBufferMemoryBarrier2_srcQueueFamilyIndex_offsetof||0)+")",
     dstQueueFamilyIndex: "u32("+(V.VkBufferMemoryBarrier2_dstQueueFamilyIndex_offsetof||0)+")",
-    buffer: "u64("+(V.VkBufferMemoryBarrier2_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkBufferMemoryBarrier2_buffer_offsetof||0)+")",
     offset: "u64("+(V.VkBufferMemoryBarrier2_offset_offsetof||0)+")",
     size: "u64("+(V.VkBufferMemoryBarrier2_size_offsetof||0)+")",
 }, (V.VkBufferMemoryBarrier2_sizeof||0)));
@@ -7359,7 +7359,7 @@ const VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT = new Proxy(C.CStr
 const VkDescriptorAddressInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkDescriptorAddressInfoEXT", {
     sType: "u32("+(V.VkDescriptorAddressInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DESCRIPTOR_ADDRESS_INFO_EXT||0),
     pNext: "u64("+(V.VkDescriptorAddressInfoEXT_pNext_offsetof||0)+")",
-    address: "u64("+(V.VkDescriptorAddressInfoEXT_address_offsetof||0)+")",
+    $address: "u64("+(V.VkDescriptorAddressInfoEXT_address_offsetof||0)+")",
     range: "u64("+(V.VkDescriptorAddressInfoEXT_range_offsetof||0)+")",
     format: "u32("+(V.VkDescriptorAddressInfoEXT_format_offsetof||0)+")",
 }, (V.VkDescriptorAddressInfoEXT_sizeof||0)));
@@ -7368,7 +7368,7 @@ const VkDescriptorAddressInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkDes
 const VkDescriptorBufferBindingInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkDescriptorBufferBindingInfoEXT", {
     sType: "u32("+(V.VkDescriptorBufferBindingInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_INFO_EXT||0),
     pNext: "u64("+(V.VkDescriptorBufferBindingInfoEXT_pNext_offsetof||0)+")",
-    address: "u64("+(V.VkDescriptorBufferBindingInfoEXT_address_offsetof||0)+")",
+    $address: "u64("+(V.VkDescriptorBufferBindingInfoEXT_address_offsetof||0)+")",
     usage: "u32("+(V.VkDescriptorBufferBindingInfoEXT_usage_offsetof||0)+")",
 }, (V.VkDescriptorBufferBindingInfoEXT_sizeof||0)));
 
@@ -7376,7 +7376,7 @@ const VkDescriptorBufferBindingInfoEXT = new Proxy(C.CStructView, new C.CStruct(
 const VkDescriptorBufferBindingPushDescriptorBufferHandleEXT = new Proxy(C.CStructView, new C.CStruct("VkDescriptorBufferBindingPushDescriptorBufferHandleEXT", {
     sType: "u32("+(V.VkDescriptorBufferBindingPushDescriptorBufferHandleEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT||0),
     pNext: "u64("+(V.VkDescriptorBufferBindingPushDescriptorBufferHandleEXT_pNext_offsetof||0)+")",
-    buffer: "u64("+(V.VkDescriptorBufferBindingPushDescriptorBufferHandleEXT_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkDescriptorBufferBindingPushDescriptorBufferHandleEXT_buffer_offsetof||0)+")",
 }, (V.VkDescriptorBufferBindingPushDescriptorBufferHandleEXT_sizeof||0)));
 
 
@@ -7391,7 +7391,7 @@ const VkDescriptorGetInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkDescrip
 const VkBufferCaptureDescriptorDataInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkBufferCaptureDescriptorDataInfoEXT", {
     sType: "u32("+(V.VkBufferCaptureDescriptorDataInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT||0),
     pNext: "u64("+(V.VkBufferCaptureDescriptorDataInfoEXT_pNext_offsetof||0)+")",
-    buffer: "u64("+(V.VkBufferCaptureDescriptorDataInfoEXT_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkBufferCaptureDescriptorDataInfoEXT_buffer_offsetof||0)+")",
 }, (V.VkBufferCaptureDescriptorDataInfoEXT_sizeof||0)));
 
 
@@ -7515,7 +7515,7 @@ const VkPhysicalDeviceRayTracingMotionBlurFeaturesNV = new Proxy(C.CStructView, 
 const VkAccelerationStructureGeometryMotionTrianglesDataNV = new Proxy(C.CStructView, new C.CStruct("VkAccelerationStructureGeometryMotionTrianglesDataNV", {
     sType: "u32("+(V.VkAccelerationStructureGeometryMotionTrianglesDataNV_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV||0),
     pNext: "u64("+(V.VkAccelerationStructureGeometryMotionTrianglesDataNV_pNext_offsetof||0)+")",
-    vertexData: "VkDeviceOrHostAddressConstKHR("+(V.VkAccelerationStructureGeometryMotionTrianglesDataNV_vertexData_offsetof||0)+")",
+    vertexData: "u64("+(V.VkAccelerationStructureGeometryMotionTrianglesDataNV_vertexData_offsetof||0)+")",
 }, (V.VkAccelerationStructureGeometryMotionTrianglesDataNV_sizeof||0)));
 
 
@@ -8035,9 +8035,9 @@ const VkMicromapBuildInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkMicroma
     usageCountsCount: "u32("+(V.VkMicromapBuildInfoEXT_usageCountsCount_offsetof||0)+")",
     pUsageCounts: "u64("+(V.VkMicromapBuildInfoEXT_pUsageCounts_offsetof||0)+")",
     ppUsageCounts: "u64("+(V.VkMicromapBuildInfoEXT_ppUsageCounts_offsetof||0)+")",
-    data: "VkDeviceOrHostAddressConstKHR("+(V.VkMicromapBuildInfoEXT_data_offsetof||0)+")",
+    data: "u64("+(V.VkMicromapBuildInfoEXT_data_offsetof||0)+")",
     scratchData: "u64("+(V.VkMicromapBuildInfoEXT_scratchData_offsetof||0)+")",
-    triangleArray: "VkDeviceOrHostAddressConstKHR("+(V.VkMicromapBuildInfoEXT_triangleArray_offsetof||0)+")",
+    triangleArray: "u64("+(V.VkMicromapBuildInfoEXT_triangleArray_offsetof||0)+")",
     triangleArrayStride: "u64("+(V.VkMicromapBuildInfoEXT_triangleArrayStride_offsetof||0)+")",
 }, (V.VkMicromapBuildInfoEXT_sizeof||0)));
 
@@ -8046,7 +8046,7 @@ const VkMicromapCreateInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkMicrom
     sType: "u32("+(V.VkMicromapCreateInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_MICROMAP_CREATE_INFO_EXT||0),
     pNext: "u64("+(V.VkMicromapCreateInfoEXT_pNext_offsetof||0)+")",
     createFlags: "u32("+(V.VkMicromapCreateInfoEXT_createFlags_offsetof||0)+")",
-    buffer: "u64("+(V.VkMicromapCreateInfoEXT_buffer_offsetof||0)+")",
+    $buffer: "u64("+(V.VkMicromapCreateInfoEXT_buffer_offsetof||0)+")",
     offset: "u64("+(V.VkMicromapCreateInfoEXT_offset_offsetof||0)+")",
     size: "u64("+(V.VkMicromapCreateInfoEXT_size_offsetof||0)+")",
     type: "u32("+(V.VkMicromapCreateInfoEXT_type_offsetof||0)+")",
@@ -8082,7 +8082,7 @@ const VkCopyMicromapToMemoryInfoEXT = new Proxy(C.CStructView, new C.CStruct("Vk
 const VkCopyMemoryToMicromapInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkCopyMemoryToMicromapInfoEXT", {
     sType: "u32("+(V.VkCopyMemoryToMicromapInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_COPY_MEMORY_TO_MICROMAP_INFO_EXT||0),
     pNext: "u64("+(V.VkCopyMemoryToMicromapInfoEXT_pNext_offsetof||0)+")",
-    src: "VkDeviceOrHostAddressConstKHR("+(V.VkCopyMemoryToMicromapInfoEXT_src_offsetof||0)+")",
+    src: "u64("+(V.VkCopyMemoryToMicromapInfoEXT_src_offsetof||0)+")",
     dst: "u64("+(V.VkCopyMemoryToMicromapInfoEXT_dst_offsetof||0)+")",
     mode: "u32("+(V.VkCopyMemoryToMicromapInfoEXT_mode_offsetof||0)+")",
 }, (V.VkCopyMemoryToMicromapInfoEXT_sizeof||0)));
@@ -8132,7 +8132,7 @@ const VkAccelerationStructureTrianglesOpacityMicromapEXT = new Proxy(C.CStructVi
     sType: "u32("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT||0),
     pNext: "u64("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_pNext_offsetof||0)+")",
     indexType: "u32("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_indexType_offsetof||0)+")",
-    indexBuffer: "VkDeviceOrHostAddressConstKHR("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_indexBuffer_offsetof||0)+")",
+    indexBuffer: "u64("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_indexBuffer_offsetof||0)+")",
     indexStride: "u64("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_indexStride_offsetof||0)+")",
     baseTriangle: "u32("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_baseTriangle_offsetof||0)+")",
     usageCountsCount: "u32("+(V.VkAccelerationStructureTrianglesOpacityMicromapEXT_usageCountsCount_offsetof||0)+")",
