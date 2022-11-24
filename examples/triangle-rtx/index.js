@@ -706,12 +706,14 @@
 
         const cmdBuffer = cmdBuffers[I];
         V.vkBeginCommandBuffer(cmdBuffer, new V.VkCommandBufferBeginInfo({ flags: V.VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT }));
-        V.vkCmdPipelineBarrier2(cmdBuffer, new V.VkDependencyInfoKHR({ imageMemoryBarrierCount: 1, pImageMemoryBarriers: imageTransitionBarrierForGeneral.addressOffsetOf(I) }));
+        //V.vkCmdPipelineBarrier2(cmdBuffer, new V.VkDependencyInfoKHR({ imageMemoryBarrierCount: 1, pImageMemoryBarriers: imageTransitionBarrierForGeneral.addressOffsetOf(I) }));
+        V.vkCmdPipelineBarrier2(cmdBuffer, new V.VkDependencyInfoKHR({ imageMemoryBarrierCount: imageTransitionBarrierForGeneral.length, pImageMemoryBarriers: imageTransitionBarrierForGeneral }));
         V.vkCmdPushConstants(cmdBuffer, pipelineLayout[0], V.VK_SHADER_STAGE_COMPUTE_BIT, 0, 16, AB);
         V.vkCmdBindDescriptorSets(cmdBuffer, V.VK_PIPELINE_BIND_POINT_COMPUTE, pipelineLayout[0], 0, descriptorSets.length, descriptorSets, 0, 0n);
         V.vkCmdBindPipeline(cmdBuffer, V.VK_PIPELINE_BIND_POINT_COMPUTE, computeShader[0]);
         V.vkCmdDispatch(cmdBuffer, 1280/32, 720/4, 1);
-        V.vkCmdPipelineBarrier2(cmdBuffer, new V.VkDependencyInfoKHR({ imageMemoryBarrierCount: 1, pImageMemoryBarriers: imageTransitionBarrierForPresent.addressOffsetOf(I) }));
+        V.vkCmdPipelineBarrier2(cmdBuffer, new V.VkDependencyInfoKHR({ imageMemoryBarrierCount: imageTransitionBarrierForPresent.length, pImageMemoryBarriers: imageTransitionBarrierForPresent }));
+        //V.vkCmdPipelineBarrier2(cmdBuffer, new V.VkDependencyInfoKHR({ imageMemoryBarrierCount: 1, pImageMemoryBarriers: imageTransitionBarrierForPresent.addressOffsetOf(I) }));
         V.vkEndCommandBuffer(cmdBuffer);
     };
 

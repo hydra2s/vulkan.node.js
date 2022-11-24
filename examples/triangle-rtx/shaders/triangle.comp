@@ -4,6 +4,7 @@
 #extension GL_EXT_ray_tracing : enable
 #extension GL_EXT_shader_explicit_arithmetic_types_int64 : enable
 #extension GL_EXT_shader_explicit_arithmetic_types_int32 : enable
+#extension GL_EXT_nonuniform_qualifier : enable
 
 layout( push_constant ) uniform constants
 {
@@ -12,7 +13,7 @@ layout( push_constant ) uniform constants
     uint32_t reserved;
 } PC;
 
-layout (binding = 0, rgba8) uniform image2D images[3];
+layout (binding = 0, rgba8) uniform image2D images[];
 layout (local_size_x = 32, local_size_y = 4, local_size_z = 1) in;
 
 void main() {
