@@ -591,37 +591,47 @@
     const waitStageMask = new Int32Array([ V.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT ]);
     const imageIndex = new Uint32Array(1);
 
-    // await fence while async ops
-    // but for use `V.glfwPollEvents` in while loop, needs generators
-    const awaitTick = ()=> new Promise(setImmediate);
-    const awaitFenceAsync = async (device, fence)=>{
-        let status = V.VK_NOT_READY;
-        do {
-            V.glfwPollEvents();
-            await awaitTick();
-            if (status == V.VK_ERROR_DEVICE_LOST) { throw Error("Vulkan Device Lost"); break; };
-            if (status != V.VK_NOT_READY) break;
-        } while((status = V.vkGetFenceStatus(device, fence)) != V.VK_SUCCESS);
-    };
 
     //
-    const awaitFenceGen = async function*(device, fence){
+    const awaitTick = ()=> new Promise(setImmediate);
+    const makeState = (promise)=>{
+        const state_ = { status: 'pending' };
+        promise.then(()=>{state_.status="ready"; return awaitTick();});
+        promise.catch(()=>{state_.status="reject"; });
+        return new Proxy(promise, {
+            get(target, prop) {
+                if (target instanceof Promise) {
+                    if (prop == "status") {
+                        return state_[prop];
+                    } else {
+                        return target[prop].bind(target);
+                    }
+                }
+            }
+        });
+    }
+
+    // await fence while async ops
+    //const awaitFenceAsync = async(device, fence) => {
+    const awaitFenceAsync = async function*(device, fence) {
         let status = V.VK_NOT_READY;
         do {
-            await awaitTick();
-            yield status;
+            await awaitTick(); yield status;
             if (status == V.VK_ERROR_DEVICE_LOST) { throw Error("Vulkan Device Lost"); break; };
             if (status != V.VK_NOT_READY) break;
         } while((status = V.vkGetFenceStatus(device, fence)) != V.VK_SUCCESS);
         return status;
     };
 
-    //
+    // async are NOT trivially terminatable!
+    // generators can be simply terminated...
+    //const renderGen = async() => {
     const renderGen = async function*() {
         V.vkAcquireNextImageKHR(device[0], swapchain[0], BigInt(Number.MAX_SAFE_INTEGER), semaphoreImageAvailable[0], 0n, imageIndex);
 
         // await fence before rendering (and poll events)
-        for await (let R of awaitFenceGen(device[0], fence[imageIndex[0]])) { yield R; };
+        //await awaitFenceAsync(device[0], fence[imageIndex[0]]);
+        for await (let R of awaitFenceAsync(device[0], fence[imageIndex[0]])) { yield R; };
 
         //
         const submitInfo = new V.VkSubmitInfo({
@@ -647,23 +657,29 @@
         }));
 
         //
+        //console.log("Is Rendering!");
+
+        //
         return V.VK_SUCCESS;
     }
 
     //
-    let renderer = renderGen();
+    let renderer = null, iterator = null;
     let status = V.VK_NOT_READY;
 
     //
     console.log("Begin rendering...");
     while (!V.glfwWindowShouldClose(window) && !terminated) {
-        // but generators is better idea
         V.glfwPollEvents();
-        let iterator = await renderer.next();
-        if (iterator.done) { renderer = renderGen(); };
+        //await awaitTick(); // crap, it's needed for async!
+
+        // as you can see, async isn't so async
+        //if (!renderer || renderer.status == "ready") { renderer = makeState(renderGen()); };
+        if (!renderer || iterator.done) { renderer = renderGen(); };
+        iterator = await renderer.next();
     };
 
     // 
-    V.glfwTerminate(); 
+    V.glfwTerminate();
 
 })();
