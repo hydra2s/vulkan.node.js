@@ -72,7 +72,7 @@
         //
         const bufferInfo = new V.VkBufferCreateInfo({
             size: byteSize,
-            usage: usage,
+            usage: usage | V.VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT | V.VK_BUFFER_USAGE_TRANSFER_SRC_BIT | V.VK_BUFFER_USAGE_TRANSFER_DST_BIT,
             sharingMode: V.VK_SHARING_MODE_EXCLUSIVE,
             queueFamilyIndexCount: 0,
             pQueueFamilyIndices: null
@@ -125,12 +125,12 @@
 
     //
     const createVertexBuffer = (device, vertices) => {
-        return createTypedBuffer(device, V.VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | V.VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT | V.VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR, vertices.byteLength, vertices);
+        return createTypedBuffer(device, V.VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | V.VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR, vertices.byteLength, vertices);
     }
 
     //
     const createInstanceBuffer = (device, instances) => {
-        return createTypedBuffer(device, V.VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR | V.VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT | V.VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR, instances.byteLength, instances);
+        return createTypedBuffer(device, V.VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR | V.VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR, instances.byteLength, instances);
     }
 
     //
@@ -143,6 +143,147 @@
         return V.vkGetAccelerationStructureDeviceAddressKHR(device, new V.VkAccelerationStructureDeviceAddressInfoKHR({ accelerationStructure }));
     }
 
+
+
+    // TODO: user-define opaque flags support
+    class AccelerationStructure {
+        constructor(device, asLevel, options) {
+            this.device = device;
+            this.asLevel = asLevel;
+            this.asGeometryInfo = this.asLevel == V.VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR ? new V.VkAccelerationStructureGeometryKHR({
+                flags: V.VK_GEOMETRY_OPAQUE_BIT_KHR,
+                geometryType: V.VK_GEOMETRY_TYPE_INSTANCES_KHR,
+                ["geometry:VkAccelerationStructureGeometryInstancesDataKHR"]: {
+                    sType: V.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR,
+                    arrayOfPointers: false,
+                    ...options.instances
+                }
+            }) : new V.VkAccelerationStructureGeometryKHR(new Array(options.geometries.length).fill({}).map((_, I)=>({
+                flags: V.VK_GEOMETRY_OPAQUE_BIT_KHR,
+                geometryType: V.VK_GEOMETRY_TYPE_TRIANGLES_KHR,
+                ["geometry:VkAccelerationStructureGeometryTrianglesDataKHR"]: {
+                    sType: V.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR,
+                    vertexFormat: V.VK_FORMAT_R32G32_SFLOAT,
+                    vertexData: 0n,
+                    vertexStride: 8,
+                    maxVertex: 3,
+                    indexType: V.VK_INDEX_TYPE_NONE_KHR,
+                    indexData: 0n,
+                    ...options.geometries[I]
+                }
+            })));
+
+            //
+            const asBuildSizeGeometryInfo = new V.VkAccelerationStructureBuildGeometryInfoKHR({
+                type: this.asLevel,
+                flags: V.VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_KHR,
+                geometryCount: this.asGeometryInfo.length,
+                pGeometries: this.asGeometryInfo
+            });
+    
+            // 
+            const asPrimitiveCount = new Uint32Array(options.primitiveCounts);
+            const asBuildSizesInfo = new V.VkAccelerationStructureBuildSizesInfoKHR({});
+            V.vkGetAccelerationStructureBuildSizesKHR(this.device, V.VK_ACCELERATION_STRUCTURE_BUILD_TYPE_DEVICE_KHR, asBuildSizeGeometryInfo, asPrimitiveCount, asBuildSizesInfo);
+    
+            //
+            this.buffer = createTypedBuffer(this.device, V.VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR | V.VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT, asBuildSizesInfo.accelerationStructureSize);
+            this.bufferBarrier = this.asLevel == V.VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR ? new V.VkBufferMemoryBarrier2({
+                srcStageMask: V.VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR,
+                srcAccessMask: V.VK_ACCESS_2_ACCELERATION_STRUCTURE_WRITE_BIT_KHR,
+                dstStageMask: V.VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT,
+                dstAccessMask: V.VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_KHR | V.VK_ACCESS_2_SHADER_READ_BIT,
+                srcQueueFamilyIndex: 0,
+                dstQueueFamilyIndex: 0,
+                $buffer: this.buffer,
+                offset: 0,
+                size: asBuildSizesInfo.accelerationStructureSize
+            }) : new V.VkBufferMemoryBarrier2({
+                srcStageMask: V.VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR,
+                srcAccessMask: V.VK_ACCESS_2_ACCELERATION_STRUCTURE_WRITE_BIT_KHR | V.VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_KHR,
+                dstStageMask: V.VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT,
+                dstAccessMask: V.VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_KHR | V.VK_ACCESS_2_SHADER_READ_BIT,
+                srcQueueFamilyIndex: 0,
+                dstQueueFamilyIndex: 0,
+                $buffer: this.buffer,
+                offset: 0,
+                size: asBuildSizesInfo.accelerationStructureSize
+            });
+
+            //
+            this.AS = new BigUint64Array(1);
+            V.vkCreateAccelerationStructureKHR(this.device, new V.VkAccelerationStructureCreateInfoKHR({
+                $buffer: this.buffer,
+                size: asBuildSizesInfo.accelerationStructureSize,
+                type: this.asLevel
+            }), null, this.AS);
+
+            //
+            this.scratchMemory = createTypedBuffer(this.device, V.VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | V.VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR | V.VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT, asBuildSizesInfo.buildScratchSize);
+            this.scratchBarrier = new V.VkBufferMemoryBarrier2({
+                srcStageMask: V.VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR,
+                srcAccessMask: V.VK_ACCESS_2_ACCELERATION_STRUCTURE_WRITE_BIT_KHR,
+                dstStageMask: V.VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT | V.VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR,
+                dstAccessMask: V.VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_KHR | V.VK_ACCESS_2_SHADER_READ_BIT | V.VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_KHR,
+                srcQueueFamilyIndex: 0,
+                dstQueueFamilyIndex: 0,
+                $buffer: this.scratchMemory,
+                offset: 0,
+                size: asBuildSizesInfo.buildScratchSize
+            });
+        }
+
+        getDeviceAddress() {
+            return getAcceelerationStructureAddress(this.device, this.AS[0]);
+        }
+
+        cmdBuild(cmdBuf, geometries) {
+            const asBufferBarriers = new V.VkBufferMemoryBarrier2([this.bufferBarrier, this.scratchBarrier]);
+            const asBuildGeometryInfo = new V.VkAccelerationStructureBuildGeometryInfoKHR({
+                type: this.asLevel,
+                flags: V.VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_KHR,
+                mode: V.VK_BUILD_ACCELERATION_STRUCTURE_MODE_BUILD_KHR,
+                dstAccelerationStructure: this.AS[0],
+                geometryCount: this.asGeometryInfo.length,
+                pGeometries: this.asGeometryInfo,
+                scratchData: getBufferDeviceAddress(this.device, this.scratchMemory)
+            });
+            const asBuildRangeInfo = new V.VkAccelerationStructureBuildRangeInfoKHR(new Array(geometries.length).fill({}).map((_, I)=>({
+                primitiveCount: 1,
+                primitiveOffset: 0,
+                firstVertex: 0,
+                transformOffset: 0,
+                ...geometries[I]
+            })));
+
+            // TODO: multiple bottom levels support
+            const asBuildRangeInfoPtr = new BigUint64Array([ asBuildRangeInfo.address() ]);
+            V.vkCmdBuildAccelerationStructuresKHR(cmdBuf, 1, asBuildGeometryInfo, asBuildRangeInfoPtr);
+            V.vkCmdPipelineBarrier2(cmdBuf, new V.VkDependencyInfoKHR({ bufferMemoryBarrierCount: asBufferBarriers.length, pBufferMemoryBarriers: asBufferBarriers }));
+        }
+    };
+
+    //
+    class TopLevelAccelerationStructure extends AccelerationStructure {
+        constructor(device, instances) {
+            super(device, V.VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR, {
+                instances: {},
+                primitiveCounts: [instances.length]
+            });
+            this.instances = new V.VkAccelerationStructureInstanceKHR(instances);
+            this.instanceBuffer = createInstanceBuffer(this.device, this.instances);
+            this.asGeometryInfo["geometry:VkAccelerationStructureGeometryInstancesDataKHR"].data = getBufferDeviceAddress(this.device, this.instanceBuffer);
+        }
+    };
+
+    //
+    class BottomLevelAccelerationStructure extends AccelerationStructure {
+        constructor(device, geometries, primitiveCounts = [1]) {
+            super(device, V.VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR, {
+                geometries, primitiveCounts
+            });
+        }
+    };
 
     
 
@@ -486,10 +627,6 @@
     }), null, cmdPool);
 
     //
-    const bottomLevelAS = new BigUint64Array(1);
-    const topLevelAS = new BigUint64Array(1);
-
-    //
     const cmdBufferAllocInfo = new V.VkCommandBufferAllocateInfo({
         commandPool: cmdPool[0],
         level: V.VK_COMMAND_BUFFER_LEVEL_PRIMARY,
@@ -498,195 +635,44 @@
 
     //
     const vertexBuffer = createVertexBuffer(device[0], vertices);
-    const lwAsGeometryInfo = new V.VkAccelerationStructureGeometryKHR({
-        flags: V.VK_GEOMETRY_OPAQUE_BIT_KHR,
-        geometryType: V.VK_GEOMETRY_TYPE_TRIANGLES_KHR,
-        ["geometry:VkAccelerationStructureGeometryTrianglesDataKHR"]: {
-            sType: V.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR,
-            vertexData: getBufferDeviceAddress(device[0], vertexBuffer),
-            indexData: 0n,
-            vertexFormat: V.VK_FORMAT_R32G32_SFLOAT,
-            maxVertex: 3,
-            vertexStride: 8,
-            indexType: V.VK_INDEX_TYPE_NONE_KHR,
-        }
-    });
+    const bottomLevel = new BottomLevelAccelerationStructure(device[0], [{
+        vertexFormat: V.VK_FORMAT_R32G32_SFLOAT,
+        vertexData: getBufferDeviceAddress(device[0], vertexBuffer),
+        vertexStride: 8,
+        maxVertex: 3
+    }], [1]);
 
     //
-    const asBuildSizeGeometryInfo = new V.VkAccelerationStructureBuildGeometryInfoKHR({
-        type: V.VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR,
-        flags: V.VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_KHR,
-        geometryCount: 1,
-        pGeometries: lwAsGeometryInfo
-    });
-
-    // 
-    const primitiveCount = new Uint32Array([1]);
-    const asBuildSizesInfo = new V.VkAccelerationStructureBuildSizesInfoKHR({});
-    V.vkGetAccelerationStructureBuildSizesKHR(device[0], V.VK_ACCELERATION_STRUCTURE_BUILD_TYPE_DEVICE_KHR, asBuildSizeGeometryInfo, primitiveCount, asBuildSizesInfo);
-    
-    //
-    const lwBuffer = createTypedBuffer(device[0], V.VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR | V.VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT, asBuildSizesInfo.accelerationStructureSize);
-    const lwBufferBarrier = new V.VkBufferMemoryBarrier2({
-        srcStageMask: V.VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR,
-        srcAccessMask: V.VK_ACCESS_2_ACCELERATION_STRUCTURE_WRITE_BIT_KHR,
-        dstStageMask: V.VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT,
-        dstAccessMask: V.VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_KHR | V.VK_ACCESS_2_SHADER_READ_BIT,
-        srcQueueFamilyIndex: 0,
-        dstQueueFamilyIndex: 0,
-        $buffer: lwBuffer,
-        offset: 0,
-        size: asBuildSizesInfo.accelerationStructureSize
-    });
-
-    //
-    V.vkCreateAccelerationStructureKHR(device[0], new V.VkAccelerationStructureCreateInfoKHR({
-        $buffer: lwBuffer,
-        size: asBuildSizesInfo.accelerationStructureSize,
-        type: V.VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR
-    }), null, bottomLevelAS);
-
-    //
-    const lwScratchMemory = createTypedBuffer(device[0], V.VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | V.VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR | V.VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT, asBuildSizesInfo.buildScratchSize);
-    const lwScratchBarrier = new V.VkBufferMemoryBarrier2({
-        srcStageMask: V.VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR,
-        srcAccessMask: V.VK_ACCESS_2_ACCELERATION_STRUCTURE_WRITE_BIT_KHR,
-        dstStageMask: V.VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT | V.VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR,
-        dstAccessMask: V.VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_KHR | V.VK_ACCESS_2_SHADER_READ_BIT | V.VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_KHR,
-        srcQueueFamilyIndex: 0,
-        dstQueueFamilyIndex: 0,
-        $buffer: lwScratchMemory,
-        offset: 0,
-        size: asBuildSizesInfo.buildScratchSize
-    });
-
-    //
-    const instances = new V.VkAccelerationStructureInstanceKHR(1);
-    instances[0] = {
+    const topLevel = new TopLevelAccelerationStructure(device[0], [{
         instanceCustomIndex: 0,
         mask: 0xFF,
         instanceShaderBindingTableRecordOffset: 0,
         flags: 0,
-        accelerationStructureReference: getAcceelerationStructureAddress(device[0], bottomLevelAS[0])
-    };
-
-    //
-    const instanceBuffer = createInstanceBuffer(device[0], instances);
-    const tpAsInstanceInfo = new V.VkAccelerationStructureGeometryKHR({
-        flags: V.VK_GEOMETRY_OPAQUE_BIT_KHR,
-        geometryType: V.VK_GEOMETRY_TYPE_INSTANCES_KHR,
-        ["geometry:VkAccelerationStructureGeometryInstancesDataKHR"]: {
-            sType: V.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR,
-            arrayOfPointers: false,
-            data: getBufferDeviceAddress(device[0], instanceBuffer)
-        }
-    });
-
-    //
-    asBuildSizeGeometryInfo[""] = {
-        type: V.VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR,
-        flags: V.VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_KHR,
-        geometryCount: 1,
-        pGeometries: tpAsInstanceInfo
-    };
-
-    // 
-    V.vkGetAccelerationStructureBuildSizesKHR(device[0], V.VK_ACCELERATION_STRUCTURE_BUILD_TYPE_DEVICE_KHR, asBuildSizeGeometryInfo, primitiveCount, asBuildSizesInfo);
-
-    //
-    const tpBuffer = createTypedBuffer(device[0], V.VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR | V.VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT, asBuildSizesInfo.accelerationStructureSize);
-    const tpBufferBarrier = new V.VkBufferMemoryBarrier2({
-        srcStageMask: V.VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR,
-        srcAccessMask: V.VK_ACCESS_2_ACCELERATION_STRUCTURE_WRITE_BIT_KHR | V.VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_KHR,
-        dstStageMask: V.VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT,
-        dstAccessMask: V.VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_KHR | V.VK_ACCESS_2_SHADER_READ_BIT,
-        srcQueueFamilyIndex: 0,
-        dstQueueFamilyIndex: 0,
-        $buffer: tpBuffer,
-        offset: 0,
-        size: asBuildSizesInfo.accelerationStructureSize
-    });
-
-    //
-    V.vkCreateAccelerationStructureKHR(device[0], new V.VkAccelerationStructureCreateInfoKHR({
-        $buffer: tpBuffer,
-        size: asBuildSizesInfo.accelerationStructureSize,
-        type: V.VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR
-    }), null, topLevelAS);
-
-    //
-    const tpScratchMemory = createTypedBuffer(device[0], V.VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | V.VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR | V.VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT, asBuildSizesInfo.buildScratchSize);
-    const tpScratchBarrier = new V.VkBufferMemoryBarrier2({
-        srcStageMask: V.VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR,
-        srcAccessMask: V.VK_ACCESS_2_ACCELERATION_STRUCTURE_WRITE_BIT_KHR,
-        dstStageMask: V.VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT,
-        dstAccessMask: V.VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_KHR | V.VK_ACCESS_2_SHADER_READ_BIT,
-        srcQueueFamilyIndex: 0,
-        dstQueueFamilyIndex: 0,
-        $buffer: tpScratchMemory,
-        offset: 0,
-        size: asBuildSizesInfo.buildScratchSize
-    });
-
-    //
-    const lwBufferBarriers = new V.VkBufferMemoryBarrier2(2);
-    const tpBufferBarriers = new V.VkBufferMemoryBarrier2(2);
-    lwBufferBarriers[0] = lwBufferBarrier;
-    lwBufferBarriers[1] = lwScratchBarrier;
-    tpBufferBarriers[0] = tpBufferBarrier;
-    tpBufferBarriers[1] = tpScratchBarrier;
-
-
-    //
-    const lwAsBuildGeometryInfo = new V.VkAccelerationStructureBuildGeometryInfoKHR({
-        type: V.VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR,
-        flags: V.VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_KHR,
-        mode: V.VK_BUILD_ACCELERATION_STRUCTURE_MODE_BUILD_KHR,
-        dstAccelerationStructure: bottomLevelAS[0],
-        geometryCount: 1,
-        pGeometries: lwAsGeometryInfo,
-        scratchData: getBufferDeviceAddress(device[0], lwScratchMemory)
-    });
-
-    //
-    const lwAsBuildRangeInfo = new V.VkAccelerationStructureBuildRangeInfoKHR([{
-        primitiveCount: 1,
-        primitiveOffset: 0,
-        firstVertex: 0,
-        transformOffset: 0
+        accelerationStructureReference: bottomLevel.getDeviceAddress()
     }]);
-
-    //
-    const tpAsBuildGeometryInfo = new V.VkAccelerationStructureBuildGeometryInfoKHR({
-        type: V.VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR,
-        flags: V.VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_KHR,
-        mode: V.VK_BUILD_ACCELERATION_STRUCTURE_MODE_BUILD_KHR,
-        dstAccelerationStructure: topLevelAS[0],
-        geometryCount: 1,
-        pGeometries: tpAsInstanceInfo,
-        scratchData: getBufferDeviceAddress(device[0], tpScratchMemory)
-    });
-
-    //
-    const tpAsBuildRangeInfo = new V.VkAccelerationStructureBuildRangeInfoKHR([{
-        primitiveCount: 1,
-        primitiveOffset: 0,
-        firstVertex: 0,
-        transformOffset: 0
-    }]);
-
-    //
-    const lwAsBuildRangeInfoPtr = new BigUint64Array([ lwAsBuildRangeInfo.address() ]);
-    const tpAsBuildRangeInfoPtr = new BigUint64Array([ tpAsBuildRangeInfo.address() ]);
 
     // single time command
     let cmdBuf = new BigUint64Array(1);
     V.vkAllocateCommandBuffers(device[0], new V.VkCommandBufferAllocateInfo({ commandPool: cmdPool[0], level: V.VK_COMMAND_BUFFER_LEVEL_PRIMARY, commandBufferCount: cmdBuf.length }), cmdBuf);
     V.vkBeginCommandBuffer(cmdBuf[0], new V.VkCommandBufferBeginInfo({ flags: V.VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT }));
-    V.vkCmdBuildAccelerationStructuresKHR(cmdBuf[0], 1, lwAsBuildGeometryInfo, lwAsBuildRangeInfoPtr);
-    V.vkCmdPipelineBarrier2(cmdBuf[0], new V.VkDependencyInfoKHR({ bufferMemoryBarrierCount: lwBufferBarriers.length, pBufferMemoryBarriers: lwBufferBarriers }));
-    V.vkCmdBuildAccelerationStructuresKHR(cmdBuf[0], 1, tpAsBuildGeometryInfo, tpAsBuildRangeInfoPtr);
-    V.vkCmdPipelineBarrier2(cmdBuf[0], new V.VkDependencyInfoKHR({ bufferMemoryBarrierCount: tpBufferBarriers.length, pBufferMemoryBarriers: tpBufferBarriers }));
+    
+    //
+    bottomLevel.cmdBuild(cmdBuf[0], [{
+        primitiveCount: 1,
+        primitiveOffset: 0,
+        firstVertex: 0,
+        transformOffset: 0
+    }]);
+
+    //
+    topLevel.cmdBuild(cmdBuf[0], [{
+        primitiveCount: 1,
+        primitiveOffset: 0,
+        firstVertex: 0,
+        transformOffset: 0
+    }]);
+
+    //
     V.vkCmdPipelineBarrier2(cmdBuf[0], new V.VkDependencyInfoKHR({ imageMemoryBarrierCount: imageTransitionBarrierFromUndefined.length, pImageMemoryBarriers: imageTransitionBarrierFromUndefined }));
     V.vkEndCommandBuffer(cmdBuf[0]);
     V.vkQueueSubmit(queue[0], 1, new V.VkSubmitInfo({ commandBufferCount: cmdBuf.length, pCommandBuffers: cmdBuf }), 0n);
@@ -701,7 +687,7 @@
         const U64 = new BigUint64Array(AB, 0, 1);
         const U32 = new Uint32Array(AB, 8, 1);
 
-        U64[0] = getAcceelerationStructureAddress(device[0], topLevelAS[0]);
+        U64[0] = topLevel.getDeviceAddress();
         U32[0] = I;
 
         const cmdBuffer = cmdBuffers[I];
