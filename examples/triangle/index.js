@@ -2,6 +2,7 @@
 
     //
     const V = (await import("../../index.js")).default;
+    const L = (await import("../library/index.js")).default;
     const fs = await import("fs");
     
     //
@@ -32,88 +33,6 @@
         format: V.VK_FORMAT_R32G32_SFLOAT,
         offset: 0
     });
-
-    //
-    const createShaderModule = (device, shaderSrc) => {
-        let shaderModuleInfo = new V.VkShaderModuleCreateInfo({
-            pCode: shaderSrc,
-            codeSize: shaderSrc.byteLength
-        });
-        const shaderModule = new BigUint64Array(1);
-        V.vkCreateShaderModule(device, shaderModuleInfo, null, shaderModule);
-        return shaderModule[0];
-    }
-
-    //
-    const getMemoryTypeIndex = (physicalDevice, typeFilter, propertyFlag) => {
-        let memoryProperties = new V.VkPhysicalDeviceMemoryProperties();
-        V.vkGetPhysicalDeviceMemoryProperties(physicalDevice, memoryProperties);
-        for (let I = 0; I < memoryProperties.memoryTypeCount; ++I) {
-          if (
-            (typeFilter & (1 << I)) &&
-            (memoryProperties.memoryTypes[I].propertyFlags & propertyFlag) === propertyFlag
-          ) {
-            return I;
-          }
-        };
-        return -1;
-    };
-
-    //
-    const createShaderModuleInfo = (module, stage, pName = "main")=>{
-        return new V.VkPipelineShaderStageCreateInfo({
-            flags: 0, stage, module, pName, pSpecializationInfo: null
-        });
-    }
-
-    //
-    const createVertexBuffer = (device, vertices) => {
-        //
-        let bufferInfo = new V.VkBufferCreateInfo({
-            size: vertices.byteLength,
-            usage: V.VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
-            sharingMode: V.VK_SHARING_MODE_EXCLUSIVE,
-            queueFamilyIndexCount: 0,
-            pQueueFamilyIndices: null
-        });
-
-        //
-        const buffer = new BigUint64Array(1);
-        V.vkCreateBuffer(device, bufferInfo, null, buffer);
-
-        //
-        let memoryRequirements = new V.VkMemoryRequirements();
-        V.vkGetBufferMemoryRequirements(device, buffer[0], memoryRequirements);
-
-        //
-        let propertyFlag = (
-              V.VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
-              V.VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
-        );
-
-        //
-        let memAllocInfo = new V.VkMemoryAllocateInfo({
-            allocationSize: memoryRequirements.size,
-            memoryTypeIndex: getMemoryTypeIndex(physicalDevice, memoryRequirements.memoryTypeBits, propertyFlag)
-        });
-
-        //
-        let bufferMemory = new BigUint64Array(1);
-        V.vkAllocateMemory(device, memAllocInfo, null, bufferMemory);
-        V.vkBindBufferMemory(device, buffer[0], bufferMemory[0], 0n);
-
-        //
-        let dataPtr = new BigUint64Array(1);
-        V.vkMapMemory(device, bufferMemory[0], 0n, bufferInfo.size, 0, dataPtr);
-
-        // gigant spider
-        ArrayBuffer.fromAddress(dataPtr[0], bufferInfo.size).set(vertices);
-        V.vkUnmapMemory(device, bufferMemory[0]);
-
-        //
-        return buffer;
-    };
-
 
     //
     const appInfo = new V.VkApplicationInfo({
@@ -315,8 +234,8 @@
 
     // TODO: better construction!!
     const shaderStages = new V.VkPipelineShaderStageCreateInfo(2);
-    shaderStages[0] = createShaderModuleInfo(createShaderModule(device[0], await fs.promises.readFile("shaders/triangle.vert.spv")), V.VK_SHADER_STAGE_VERTEX_BIT);
-    shaderStages[1] = createShaderModuleInfo(createShaderModule(device[0], await fs.promises.readFile("shaders/triangle.frag.spv")), V.VK_SHADER_STAGE_FRAGMENT_BIT);
+    shaderStages[0] = L.createShaderModuleInfo(L.createShaderModule(device[0], await fs.promises.readFile("shaders/triangle.vert.spv")), V.VK_SHADER_STAGE_VERTEX_BIT);
+    shaderStages[1] = L.createShaderModuleInfo(L.createShaderModule(device[0], await fs.promises.readFile("shaders/triangle.frag.spv")), V.VK_SHADER_STAGE_FRAGMENT_BIT);
 
     //
     const vertexInputInfo = new V.VkPipelineVertexInputStateCreateInfo({
@@ -520,7 +439,7 @@
 
     //
     const cmdBuffers = new BigUint64Array(amountOfImagesInSwapchain[0]);
-    const vertexBuffer = createVertexBuffer(device[0], vertices);
+    const vertexBuffer = L.createVertexBuffer(physicalDevice, device[0], vertices);
     V.vkAllocateCommandBuffers(device[0], cmdBufferAllocInfo, cmdBuffers);
 
     //
@@ -530,7 +449,7 @@
         V.vkCmdPipelineBarrier2(cmdBuffer, new V.VkDependencyInfoKHR({ imageMemoryBarrierCount: 1, pImageMemoryBarriers: imageTransitionBarrierForGeneral.addressOffsetOf(I) }));
         V.vkCmdBeginRendering(cmdBuffer, new V.VkRenderingInfoKHR({ renderArea: { ["offset:u32[2]"]: [0,0], ["extent:u32[2]"]: windowSize }, layerCount: 1, viewMask: 0x0, colorAttachmentCount: 1, pColorAttachments: dynamicRenderingInfo.addressOffsetOf(I) }));
         V.vkCmdBindPipeline(cmdBuffer, V.VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline[0]);
-        V.vkCmdBindVertexBuffers(cmdBuffer, 0, 1, vertexBuffer, new BigUint64Array([0n]));
+        V.vkCmdBindVertexBuffers(cmdBuffer, 0, 1, new BigUint64Array([vertexBuffer]), new BigUint64Array([0n]));
         V.vkCmdDraw(cmdBuffer, 3, 1, 0, 0);
         V.vkCmdEndRendering(cmdBuffer);
         V.vkCmdPipelineBarrier2(cmdBuffer, new V.VkDependencyInfoKHR({ imageMemoryBarrierCount: 1, pImageMemoryBarriers: imageTransitionBarrierForPresent.addressOffsetOf(I) }));
@@ -557,36 +476,9 @@
     const waitStageMask = new Int32Array([ V.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT ]);
     const imageIndex = new Uint32Array(1);
 
-    //
-    const awaitTick = ()=> new Promise(setImmediate);
-    const makeState = (promise)=>{
-        const state_ = { status: 'pending' };
-        promise.then(()=>{state_.status="ready"; return awaitTick();});
-        promise.catch(()=>{state_.status="reject"; });
-        return new Proxy(promise, {
-            get(target, prop) {
-                if (target instanceof Promise) {
-                    if (prop == "status") {
-                        return state_[prop];
-                    } else {
-                        return target[prop].bind(target);
-                    }
-                }
-            }
-        });
-    }
-
     // await fence while async ops
     //const awaitFenceAsync = async(device, fence) => {
-    const awaitFenceAsync = async function*(device, fence) {
-        let status = V.VK_NOT_READY;
-        do {
-            await awaitTick(); yield status;
-            if (status == V.VK_ERROR_DEVICE_LOST) { throw Error("Vulkan Device Lost"); break; };
-            if (status != V.VK_NOT_READY) break;
-        } while((status = V.vkGetFenceStatus(device, fence)) != V.VK_SUCCESS);
-        return status;
-    };
+    
 
     // async are NOT trivially terminatable!
     // generators can be simply terminated...
@@ -596,7 +488,7 @@
 
         // await fence before rendering (and poll events)
         //await awaitFenceAsync(device[0], fence[imageIndex[0]]);
-        for await (let R of awaitFenceAsync(device[0], fence[imageIndex[0]])) { yield R; };
+        for await (let R of L.awaitFenceAsync(device[0], fence[imageIndex[0]])) { yield R; };
 
         //
         const submitInfo = new V.VkSubmitInfo({
