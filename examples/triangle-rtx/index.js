@@ -151,15 +151,15 @@
             this.device = device;
             this.asLevel = asLevel;
             this.asGeometryInfo = this.asLevel == V.VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR ? new V.VkAccelerationStructureGeometryKHR({
-                flags: V.VK_GEOMETRY_OPAQUE_BIT_KHR,
+                flags: (options.opaque ? V.VK_GEOMETRY_OPAQUE_BIT_KHR : 0),
                 geometryType: V.VK_GEOMETRY_TYPE_INSTANCES_KHR,
                 ["geometry:VkAccelerationStructureGeometryInstancesDataKHR"]: {
                     sType: V.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR,
                     arrayOfPointers: false,
-                    ...options.instances
+                    ...options.instanced
                 }
             }) : new V.VkAccelerationStructureGeometryKHR(new Array(options.geometries.length).fill({}).map((_, I)=>({
-                flags: V.VK_GEOMETRY_OPAQUE_BIT_KHR,
+                flags: (options.geometries[I].opaque ? V.VK_GEOMETRY_OPAQUE_BIT_KHR : 0),
                 geometryType: V.VK_GEOMETRY_TYPE_TRIANGLES_KHR,
                 ["geometry:VkAccelerationStructureGeometryTrianglesDataKHR"]: {
                     sType: V.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR,
@@ -169,7 +169,7 @@
                     maxVertex: 3,
                     indexType: V.VK_INDEX_TYPE_NONE_KHR,
                     indexData: 0n,
-                    ...options.geometries[I]
+                    ...options.geometries[I].geometry
                 }
             })));
 
@@ -182,7 +182,7 @@
             });
     
             // 
-            const asPrimitiveCount = new Uint32Array(options.primitiveCounts);
+            const asPrimitiveCount = new Uint32Array(this.asLevel == V.VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR ? [options.primitiveCount] : new Array(options.geometries.length).fill({}).map((_, I)=>(options.geometries[I].primitiveCount)));
             const asBuildSizesInfo = new V.VkAccelerationStructureBuildSizesInfoKHR({});
             V.vkGetAccelerationStructureBuildSizesKHR(this.device, V.VK_ACCELERATION_STRUCTURE_BUILD_TYPE_DEVICE_KHR, asBuildSizeGeometryInfo, asPrimitiveCount, asBuildSizesInfo);
     
@@ -265,23 +265,27 @@
 
     //
     class TopLevelAccelerationStructure extends AccelerationStructure {
-        constructor(device, instances) {
+        constructor(device, options) {
             super(device, V.VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR, {
-                instances: {},
-                primitiveCounts: [instances.length]
+                opaque: options.opaque,
+                instanced: options.instanced?.length ? {} : options.instanced,
+                primitiveCount: options.instanced?.length || options.primitiveCount
             });
-            this.instances = new V.VkAccelerationStructureInstanceKHR(instances);
-            this.instanceBuffer = createInstanceBuffer(this.device, this.instances);
+            this.instanced = options.instanced?.length ? new V.VkAccelerationStructureInstanceKHR(options.instanced) : null;
+            this.instanceBuffer = createInstanceBuffer(this.device, this.instanced);
             this.asGeometryInfo["geometry:VkAccelerationStructureGeometryInstancesDataKHR"].data = getBufferDeviceAddress(this.device, this.instanceBuffer);
+        }
+
+        // TODO: support for upload instance data
+        uploadInstanceData() {
+            
         }
     };
 
     //
     class BottomLevelAccelerationStructure extends AccelerationStructure {
-        constructor(device, geometries, primitiveCounts = [1]) {
-            super(device, V.VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR, {
-                geometries, primitiveCounts
-            });
+        constructor(device, options) {
+            super(device, V.VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR, options);
         }
     };
 
@@ -635,21 +639,30 @@
 
     //
     const vertexBuffer = createVertexBuffer(device[0], vertices);
-    const bottomLevel = new BottomLevelAccelerationStructure(device[0], [{
-        vertexFormat: V.VK_FORMAT_R32G32_SFLOAT,
-        vertexData: getBufferDeviceAddress(device[0], vertexBuffer),
-        vertexStride: 8,
-        maxVertex: 3
-    }], [1]);
+    const bottomLevel = new BottomLevelAccelerationStructure(device[0], {
+        geometries: [{
+            opaque: false,
+            primitiveCount: 1,
+            geometry: {
+                vertexFormat: V.VK_FORMAT_R32G32_SFLOAT,
+                vertexData: getBufferDeviceAddress(device[0], vertexBuffer),
+                vertexStride: 8,
+                maxVertex: 3
+            }
+        }]
+    });
 
     //
-    const topLevel = new TopLevelAccelerationStructure(device[0], [{
-        instanceCustomIndex: 0,
-        mask: 0xFF,
-        instanceShaderBindingTableRecordOffset: 0,
-        flags: 0,
-        accelerationStructureReference: bottomLevel.getDeviceAddress()
-    }]);
+    const topLevel = new TopLevelAccelerationStructure(device[0], {
+        opaque: false,
+        instanced: [{
+            instanceCustomIndex: 0,
+            mask: 0xFF,
+            instanceShaderBindingTableRecordOffset: 0,
+            flags: 0,
+            accelerationStructureReference: bottomLevel.getDeviceAddress()
+        }]
+    });
 
     // single time command
     let cmdBuf = new BigUint64Array(1);
