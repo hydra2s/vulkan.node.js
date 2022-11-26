@@ -509,6 +509,7 @@ export default {
 //
 #include "./sizes.h"
 #include "./native.hpp"
+#include "./vk-utils.h"
 
 //
 #ifdef ENABLE_GLFW_SUPPORT
@@ -529,6 +530,29 @@ ${map.parsed.map((cmd,i)=>makeCommand(cmd,i,map)).join(`
 `)}
 
 static std::vector<std::function<void(unsigned int u, EXCEPTION_POINTERS* pExp)>> EXC_HANDLERS = {};
+
+
+static Napi::Value _getCorrectAccessMaskByImageLayout2(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    return Napi::Number::New(env, uint32_t(vku::getCorrectAccessMaskByImageLayout<VkAccessFlagBits2, VkImageLayout>(VkImageLayout(info_[0].As<Napi::Number>().Uint32Value()))));
+}
+
+static Napi::Value _getAccessMaskByBufferUsage2(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    return Napi::Number::New(env, uint32_t(vku::getAccessMaskByBufferUsage<VkAccessFlagBits2, VkBufferUsageFlagBits>(VkBufferUsageFlagBits(info_[0].As<Napi::Number>().Uint32Value()))));
+}
+
+static Napi::Value _getAccessMaskByImageUsage2(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    return Napi::Number::New(env, uint32_t(vku::getAccessMaskByImageUsage<VkAccessFlagBits2, VkImageUsageFlagBits>(VkImageUsageFlagBits(info_[0].As<Napi::Number>().Uint32Value()))));
+}
+
+static Napi::Value _getCorrectPipelineStagesByAccessMask2(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    return Napi::Number::New(env, uint32_t(vku::getCorrectPipelineStagesByAccessMask<VkPipelineStageFlagBits2, VkAccessFlagBits2>(VkAccessFlagBits2(info_[0].As<Napi::Number>().Uint32Value()))));
+}
+
+
 
 static Napi::Object Init(Napi::Env env, Napi::Object exports) {
 #ifdef _WIN32
@@ -710,6 +734,14 @@ ${map.parsed.map((cmd,i)=>{
     exports.Set("buffer", Napi::Function::New(env, WrapBuffer));
     exports.Set("string", Napi::Function::New(env, WrapString));
     exports.Set("stringUtf16", Napi::Function::New(env, WrapStringUTF16));
+
+    //
+    exports.Set("getCorrectAccessMaskByImageLayout2", Napi::Function::New(env, _getCorrectAccessMaskByImageLayout2));
+    exports.Set("getAccessMaskByBufferUsage2", Napi::Function::New(env, _getAccessMaskByBufferUsage2));
+    exports.Set("getAccessMaskByImageUsage2", Napi::Function::New(env, _getAccessMaskByImageUsage2));
+    exports.Set("getCorrectPipelineStagesByAccessMask2", Napi::Function::New(env, _getCorrectPipelineStagesByAccessMask2));
+
+    //
     return exports;
 }
 
