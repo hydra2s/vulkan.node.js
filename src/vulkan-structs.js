@@ -5,7 +5,7 @@ import {default as C} from "./../deps/typed.js/index.js";
 const callof = (fn)=>{ return fn ? fn() : 0; };
 
 const VK_MAKE_API_VERSION = (variant, major, minor, patch) => {
-    return ((((variant)) << 29) | (((major)) << 22) | (((minor)) << 12) | ((patch)));
+    return parseInt((((BigInt(variant)) << 29n) | ((BigInt(major)) << 22n) | ((BigInt(minor)) << 12n) | (BigInt(patch))));
 };
 
 //
