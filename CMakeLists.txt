@@ -62,13 +62,12 @@ target_link_libraries(${PROJECT_NAME} ${Vulkan_LIBRARIES} ${CMAKE_JS_LIB} glfw)
 target_link_directories(${PROJECT_NAME} PUBLIC )
 target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=${napi_build_version} NAPI_EXPERIMENTAL VK_NO_PROTOTYPES VK_USE_PLATFORM_WIN32_KHR ENABLE_GLFW_SUPPORT)
 target_include_directories(${PROJECT_NAME} PUBLIC 
-  ${Vulkan_INCLUDE_DIR}
-  ${Vulkan_INCLUDE_DIRS}
   ${PROJECT_SOURCE_DIR}/include
   ${PROJECT_SOURCE_DIR}/*/include
   ${PROJECT_SOURCE_DIR}/deps/
   ${PROJECT_SOURCE_DIR}/deps/include
   ${PROJECT_SOURCE_DIR}/deps/*/include
+  ${PROJECT_SOURCE_DIR}/deps/Vulkan-Headers/include
   ${PROJECT_SOURCE_DIR}/deps/glm/glm
   ${PROJECT_SOURCE_DIR}/deps/glm
   ${PROJECT_SOURCE_DIR}/deps/volk
