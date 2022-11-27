@@ -10,7 +10,7 @@ let getWriter = async()=>{
     let F32Types = ["float", "float32_t"];
     let U8Types = ["uint8_t", "char8_t", "char"];
     let U16Types = ["uint16_t"];
-    let U64Types = ["HANDLE", "LPCWSTR", "uint64_t", "uintptr_t", "size_t", "VkDeviceSize", "VkDeviceAddress", "VkDeviceOffset", "VkDeviceOrHostAddressKHR", "VkDeviceOrHostAddressConstKHR", "VkFlags64"];
+    let U64Types = ["HANDLE", "LPCWSTR", "uint64_t", "uintptr_t", "size_t", "VkDeviceSize", "VkDeviceAddress", "VkDeviceOffset", "VkDeviceOrHostAddressKHR", "VkDeviceOrHostAddressConstKHR", "VkFlags64", "VkDescriptorDataEXT"];
     let U32Types = ["DWORD", "uint32_t", "VkFlags", "VkBool32", "VkStructureType"];
     let Pointables = ["VkOffset2D","VkExtent2D","VkRect2D","VkTransformMatrixKHR","VkTransformMatrixNV","VkPhysicalDeviceFeatures","VkPhysicalDeviceProperties","VkMemoryRequirements"];
     let U24Types = ["uint24_t"];

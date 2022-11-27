@@ -7384,7 +7384,7 @@ const VkDescriptorGetInfoEXT = new Proxy(C.CStructView, new C.CStruct("VkDescrip
     sType: "u32("+(V.VkDescriptorGetInfoEXT_sType_offsetof||0)+")"+";"+(E.VK_STRUCTURE_TYPE_DESCRIPTOR_GET_INFO_EXT||0),
     pNext: "u64("+(V.VkDescriptorGetInfoEXT_pNext_offsetof||0)+")",
     type: "u32("+(V.VkDescriptorGetInfoEXT_type_offsetof||0)+")",
-    data: "VkDescriptorDataEXT("+(V.VkDescriptorGetInfoEXT_data_offsetof||0)+")",
+    data: "u64("+(V.VkDescriptorGetInfoEXT_data_offsetof||0)+")",
 }, (V.VkDescriptorGetInfoEXT_sizeof||0)));
 
 
