@@ -402,6 +402,7 @@
     const topLevel = new L.TopLevelAccelerationStructure(physicalDevice, device[0], {
         opaque: false,
         instanced: [{
+            "transform:f32[12]": [1.0, 0.0, 0.0, 0.0,  0.0, 1.0, 0.0, 0.0,  0.0, 0.0, 1.0, 0.0],
             instanceCustomIndex: 0,
             mask: 0xFF,
             instanceShaderBindingTableRecordOffset: 0,
