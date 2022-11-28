@@ -23,6 +23,7 @@
   "gypfile": true,
   "dependencies": {
     "@mapbox/node-pre-gyp": "^1.0.10",
+    "@petamoriken/float16": "^3.6.6",
     "@rgrove/parse-xml": "^4.0.1",
     "bindings": "^1.5.0",
     "gl-matrix": "^3.4.3",
