@@ -741,6 +741,9 @@ ${map.parsed.map((cmd,i)=>{
     exports.Set("getAccessMaskByImageUsage2", Napi::Function::New(env, _getAccessMaskByImageUsage2));
     exports.Set("getCorrectPipelineStagesByAccessMask2", Napi::Function::New(env, _getCorrectPipelineStagesByAccessMask2));
 
+    // native operations
+    exports.Set("memcpy", Napi::Function::New(env, Memcpy));
+
     //
     return exports;
 }

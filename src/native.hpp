@@ -218,3 +218,16 @@ static Napi::Number DebugFloat64(const Napi::CallbackInfo& info_) {
     return Napi::Number::New(env, *((double*)address));
 }
 
+static Napi::BigInt Memcpy(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    uint64_t dst = GetAddress(env, info_[0]);
+    uint64_t src = GetAddress(env, info_[1]);
+
+    bool lossless = true;
+    size_t byteLength = 0ull;
+    if (info_[2].IsBigInt()) { byteLength = info_[2].As<Napi::BigInt>().Uint64Value(&lossless); } else
+    if (info_[2].IsNumber()) { byteLength = info_[2].As<Napi::Number>().Uint32Value(); }
+    memcpy((void*)dst, (void*)src, byteLength);
+
+    return Napi::BigInt::New(env, dst);
+}
