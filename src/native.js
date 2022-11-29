@@ -5,6 +5,12 @@ const native = require('bindings')('native');
 const fs = require('fs');
 const path = require('path');
 
+import {
+    Float16Array, isFloat16Array, isTypedArray,
+    getFloat16, setFloat16,
+    hfround,
+} from "@petamoriken/float16";
+
 // get native address for Vulkan API 'const char*'
 //String.prototype.charAddress = function (isUtf16 = false) {
     //return native.nativeAddress(this.toString(), isUtf16);
@@ -29,6 +35,7 @@ Float64Array.prototype.address = function () { return native.nativeAddress(this)
 ArrayBuffer.prototype.address = function () { return native.nativeAddress(this); }
 SharedArrayBuffer.prototype.address = function () { return native.nativeAddress(this); }
 DataView.prototype.address = function () { return (native.nativeAddress(this.buffer) + BigInt(this.byteOffset)); }
+Float16Array.prototype.address = function () { return (this.buffer.address() + BigInt(this.byteOffset)); }
 
 // 
 Buffer.fromAddress = native.buffer;
