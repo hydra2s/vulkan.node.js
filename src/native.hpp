@@ -4,7 +4,7 @@
 #include <napi.h>
 #include <string>
 #include <sstream>
-//#include <half.hpp>
+#include <half.hpp>
 
 //
 static Napi::Value Dealloc(const Napi::CallbackInfo& info_) {

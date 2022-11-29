@@ -26,6 +26,7 @@ find_package(Vulkan REQUIRED)
 #
 set(CMAKE_JS_VERSION 8)
 set(napi_build_version 8)
+add_definitions(-DNOMINMAX)
 add_definitions(-DENABLE_GLFW_SUPPORT)
 add_definitions(-DNAPI_VERSION=${napi_build_version})
 add_definitions(-DNAPI_EXPERIMENTAL)
@@ -60,7 +61,7 @@ add_library(${PROJECT_NAME} SHARED ${_source_list})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
 target_link_libraries(${PROJECT_NAME} ${Vulkan_LIBRARIES} ${CMAKE_JS_LIB} glfw)
 target_link_directories(${PROJECT_NAME} PUBLIC )
-target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=${napi_build_version} NAPI_EXPERIMENTAL VK_NO_PROTOTYPES VK_USE_PLATFORM_WIN32_KHR ENABLE_GLFW_SUPPORT)
+target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=${napi_build_version} NAPI_EXPERIMENTAL NOMINMAX VK_NO_PROTOTYPES VK_USE_PLATFORM_WIN32_KHR ENABLE_GLFW_SUPPORT)
 target_include_directories(${PROJECT_NAME} PUBLIC 
   ${PROJECT_SOURCE_DIR}/include
   ${PROJECT_SOURCE_DIR}/*/include
