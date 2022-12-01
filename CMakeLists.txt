@@ -20,9 +20,6 @@ MACRO(ADD_MSVC_PRECOMPILED_HEADER PrecompiledHeader PrecompiledSource SourcesVar
   ENDIF(MSVC)
 ENDMACRO(ADD_MSVC_PRECOMPILED_HEADER)
 
-# 
-find_package(Vulkan REQUIRED)
-
 #
 set(CMAKE_JS_VERSION 8)
 set(napi_build_version 8)
@@ -59,7 +56,7 @@ endif()
 # 
 add_library(${PROJECT_NAME} SHARED ${_source_list})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
-target_link_libraries(${PROJECT_NAME} ${Vulkan_LIBRARIES} ${CMAKE_JS_LIB} glfw)
+target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB} glfw)
 target_link_directories(${PROJECT_NAME} PUBLIC )
 target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=${napi_build_version} NAPI_EXPERIMENTAL NOMINMAX VK_NO_PROTOTYPES VK_USE_PLATFORM_WIN32_KHR ENABLE_GLFW_SUPPORT)
 target_include_directories(${PROJECT_NAME} PUBLIC 
