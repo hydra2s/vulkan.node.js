@@ -6,6 +6,7 @@
   "scripts": {
     "triangle": "cd examples/triangle && node index.js",
     "triangle-rtx": "cd examples/triangle-rtx && node index.js",
+    "test": "cd examples/init-test && node index.js",
     "install": "cd src && node main.js && cd ../ && cmake-js -r node --debug"
   },
   "cmake-js": {
