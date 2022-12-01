@@ -12,10 +12,11 @@ on:
 jobs:
   build:
 
-    runs-on: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
+        os: [self-hosted, windows-latest, ubuntu-latest]
         node-version: [19.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
