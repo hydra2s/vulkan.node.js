@@ -10,15 +10,41 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-ubuntu:
     env:
       GIT_SUBMODULE_STRATEGY: recursive
     
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        os: [self-hosted, windows-latest, ubuntu-latest]
+        node-version: [19.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev wayland-protocols libwayland-dev libxkbcommon-dev
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci --if-present
+  
+  build-windows:
+    env:
+      GIT_SUBMODULE_STRATEGY: recursive
+    
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
         node-version: [19.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
@@ -34,3 +60,30 @@ jobs:
         cache: 'npm'
     - run: npm ci --if-present
     
+  build-self-hosted:
+    env:
+      GIT_SUBMODULE_STRATEGY: recursive
+    
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [19.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev wayland-protocols libwayland-dev libxkbcommon-dev
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci --if-present
+
