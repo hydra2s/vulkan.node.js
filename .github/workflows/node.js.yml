@@ -29,7 +29,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev wayland-protocols libwayland-dev libxkbcommon-dev
+        sudo apt install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev wayland-protocols libwayland-dev libxkbcommon-dev build-essential libgl1-mesa-dev
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -79,7 +79,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev wayland-protocols libwayland-dev libxkbcommon-dev
+        sudo apt install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev wayland-protocols libwayland-dev libxkbcommon-dev build-essential libgl1-mesa-dev
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
