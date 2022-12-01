@@ -28,7 +28,9 @@ add_definitions(-DENABLE_GLFW_SUPPORT)
 add_definitions(-DNAPI_VERSION=${napi_build_version})
 add_definitions(-DNAPI_EXPERIMENTAL)
 add_definitions(-DCMAKE_JS_VERSION=${napi_build_version})
+if(WIN32)
 add_definitions(-DVK_USE_PLATFORM_WIN32_KHR)
+endif()
 add_subdirectory(deps/glfw)
 cmake_policy(SET CMP0091 NEW)
 cmake_policy(SET CMP0042 NEW)
@@ -53,12 +55,18 @@ if(MSVC AND CMAKE_JS_NODELIB_DEF AND CMAKE_JS_NODELIB_TARGET)
   execute_process(COMMAND ${CMAKE_AR}  /def:NAPI_EXPERIMENTAL /def:${CMAKE_JS_NODELIB_DEF} /out:${CMAKE_JS_NODELIB_TARGET} ${CMAKE_STATIC_LINKER_FLAGS})
 endif()
 
+#
+set (USED_PLATFORM )
+if(WIN32)
+set (USED_PLATFORM VK_USE_PLATFORM_WIN32_KHR)
+endif()
+
 # 
 add_library(${PROJECT_NAME} SHARED ${_source_list})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
 target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB} glfw)
 target_link_directories(${PROJECT_NAME} PUBLIC )
-target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=${napi_build_version} NAPI_EXPERIMENTAL NOMINMAX VK_NO_PROTOTYPES VK_USE_PLATFORM_WIN32_KHR ENABLE_GLFW_SUPPORT)
+target_compile_definitions(${PROJECT_NAME} PUBLIC USE_CMAKE_PCH NAPI_VERSION=${napi_build_version} NAPI_EXPERIMENTAL NOMINMAX VK_NO_PROTOTYPES ENABLE_GLFW_SUPPORT ${USED_PLATFORM})
 target_include_directories(${PROJECT_NAME} PUBLIC 
   ${PROJECT_SOURCE_DIR}/include
   ${PROJECT_SOURCE_DIR}/*/include
