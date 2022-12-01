@@ -204,7 +204,7 @@ let getWriter = async()=>{
         decltype(auto) result = ${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
         returnable = (uint64_t)(result);
         return Napi::BigInt::New(env, result);
-    } catch(std::exception e) {
+    } catch(EXCEPTION e) {
         std::cerr << "Exception with ${proto.name} command." << std::endl;
         std::cerr << "Caller pointer: " << ((uint64_t)(${proto.name})) << std::endl;
         std::cerr << "Argument list: " << std::endl;
@@ -224,12 +224,12 @@ let getWriter = async()=>{
             std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
             std::cerr << errorMsg << std::endl;
             //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
-            throw std::exception(errorMsg.c_str());
+            throw EXCEPTION(errorMsg.c_str());
         }
         ${proto.name == "vkCreateInstance" ? "volkLoadInstance(*pInstance);" : ""}
         ${proto.name == "vkCreateDevice" ? "volkLoadDevice(*pDevice);" : ""}
         return Napi::Number::New(env, result);
-    } catch(std::exception e) {
+    } catch(EXCEPTION e) {
         std::cerr << "Exception with ${proto.name} command." << std::endl;
         std::cerr << "Caller pointer: " << ((uint64_t)(${proto.name})) << std::endl;
         std::cerr << "Argument list: " << std::endl;
@@ -244,7 +244,7 @@ let getWriter = async()=>{
         if (proto.type.indexOf("void") >= 0 || proto.type.indexOf("PFN_vkVoidFunction") >= 0) {
         return `try {
         ${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
-    } catch(std::exception e) {
+    } catch(EXCEPTION e) {
         std::cerr << "Exception with ${proto.name} command." << std::endl;
         std::cerr << "Caller pointer: " << ((uint64_t)(${proto.name})) << std::endl;
         std::cerr << "Argument list: " << std::endl;
@@ -261,7 +261,7 @@ let getWriter = async()=>{
         decltype(auto) result = ${proto.name}(${params.map((p)=>{return p.name}).join(", ")});
         returnable = (int32_t)(result);
         return Napi::BigInt::New(env, result);
-    } catch(std::exception e) {
+    } catch(EXCEPTION e) {
         std::cerr << "Exception with ${proto.name} command." << std::endl;
         std::cerr << "Caller pointer: " << ((uint64_t)(${proto.name})) << std::endl;
         std::cerr << "Argument list: " << std::endl;
@@ -497,11 +497,19 @@ export default {
 #endif
 
 //
+#ifdef _WIN32
+#include <exception>
+#define EXCEPTION std::exception
+#else
+#include <stdexcept>
+#define EXCEPTION std::runtime_error
+#endif
+
+//
 #include <volk/volk.h>
 
 //
 #include <iostream>
-#include <exception>
 #include <string>
 #include <sstream>
 #include <napi.h>
@@ -562,7 +570,7 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
         error += "Unexpected Error (" + std::string(result) + ")";
         Napi::Error::New(env, error).ThrowAsJavaScriptException();
         std::cerr << error << std::endl;
-        throw std::exception(error.c_str());
+        throw EXCEPTION(error.c_str());
     });
 
     _set_se_translator([](unsigned int u, EXCEPTION_POINTERS* pExp) {
