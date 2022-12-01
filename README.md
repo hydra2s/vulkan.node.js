@@ -49,7 +49,7 @@ We made first example: https://github.com/hydra2s/vulkan.node.js/blob/main/examp
 ### 📀 [vk-utils](https://github.com/hydra2s/vk-utils), our helpers for Vulkan API development 
 ### 🥀 [about](https://github.com/hydra2s-info/about), our idiology
 ### 🌋 [CopperRT](https://github.com/hydra2s/CopperRT), our renderer
-### 🍵 [Node.JS Vulkan API](https://github.com/hydra2s/node-vulkan-api), our nodejs bindings (alike LWJGL)
+### 🍵 [Node.JS Vulkan API](https://github.com/hydra2s/vulkan.node.js), our nodejs bindings (alike LWJGL)
 ### 🖥️ [LG-24UD58-EDID-FIX](https://github.com/hydra2s/LG-24UD58-EDID-FIX), EDID fix for our monitor
 ### 📻 [WS-Comlink](https://github.com/hydra2s/ws-comlink), our comlink JS protocol
 ### 🧩 [Typed.js](https://github.com/hydra2s/typed.js), our struct JS library
