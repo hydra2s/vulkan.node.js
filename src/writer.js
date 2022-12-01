@@ -537,8 +537,9 @@ static Napi::Value rawGetStructureSizeBySType(const Napi::CallbackInfo& info_) {
 ${map.parsed.map((cmd,i)=>makeCommand(cmd,i,map)).join(`
 `)}
 
-static std::vector<std::function<void(unsigned int u, STD_EXCEPTION_POINTERS* pExp)>> EXC_HANDLERS = {};
-
+#ifdef _WIN32
+static std::vector<std::function<void(unsigned int u, EXCEPTION_POINTERS* pExp)>> EXC_HANDLERS = {};
+#endif
 
 static Napi::Value _getCorrectAccessMaskByImageLayout2(const Napi::CallbackInfo& info_) {
     Napi::Env env = info_.Env();
@@ -564,7 +565,7 @@ static Napi::Value _getCorrectPipelineStagesByAccessMask2(const Napi::CallbackIn
 
 static Napi::Object Init(Napi::Env env, Napi::Object exports) {
 #ifdef _WIN32
-    EXC_HANDLERS.push_back([env](unsigned int u, STD_EXCEPTION_POINTERS* pExp) {
+    EXC_HANDLERS.push_back([env](unsigned int u, EXCEPTION_POINTERS* pExp) {
         std::string error = "SE Exception: ";
         char result[11]; sprintf_s(result, 11, "0x%08X", u);
         error += "Unexpected Error (" + std::string(result) + ")";
@@ -573,7 +574,7 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
         throw STD_EXCEPTION(error.c_str());
     });
 
-    _set_se_translator([](unsigned int u, STD_EXCEPTION_POINTERS* pExp) {
+    _set_se_translator([](unsigned int u, EXCEPTION_POINTERS* pExp) {
         for (auto fx : EXC_HANDLERS) { fx(u, pExp); }
     });
 #endif
