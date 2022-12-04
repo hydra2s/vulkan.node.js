@@ -1,11 +1,13 @@
 #pragma once
 
 //
+//#define HALF_ENABLE_F16C_INTRINSICS 1
+
+//
 #include <napi.h>
 #include <string>
 #include <sstream>
-#include <half.hpp>
-#include <immintrin.h>
+#include <intrin.h>
 
 //
 static Napi::Value Dealloc(const Napi::CallbackInfo& info_) {
@@ -234,21 +236,15 @@ static Napi::BigInt Memcpy(const Napi::CallbackInfo& info_) {
     return Napi::BigInt::New(env, dst);
 }
 
-static Napi::BigInt __mm_cvtps_ph(const Napi::CallbackInfo& info_) {
+static Napi::BigInt convertF32toF16x4(const Napi::CallbackInfo& info_) {
     Napi::Env env = info_.Env();
     uint64_t dst = GetAddress(env, info_[0]);
     uint64_t src = GetAddress(env, info_[1]);
-    //if (info_[2].IsNumber()) { sae = info_[2].As<Napi::Number>().Int32Value(); }
-    //const auto res = _mm_cvtps_ph(*(__m128*)(src), _MM_FROUND_NO_EXC);
-    //memcpy((void*)dst, &res, 8);
-    _mm_storel_epi64((__m128i*)dst, _mm_cvtps_ph(_mm_loadu_ps((float*)(src)), _MM_FROUND_NO_EXC));
-    return Napi::BigInt::New(env, dst);
-}
 
-static Napi::BigInt __mm_cvtph_ps(const Napi::CallbackInfo& info_) {
-    Napi::Env env = info_.Env();
-    uint64_t dst = GetAddress(env, info_[0]);
-    uint64_t src = GetAddress(env, info_[1]);
-    _mm_store_ps((float*)(dst), _mm_cvtph_ps(_mm_loadl_epi64((__m128i*)src)));
+    // 
+    __m128 fsrc = _mm_load_ps((float*)src);
+    __m128i fdst = _mm_cvtps_ph(fsrc, 0);
+    _mm_storel_epi64((__m128i*)dst, fdst);
+
     return Napi::BigInt::New(env, dst);
 }

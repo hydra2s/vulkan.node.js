@@ -754,8 +754,7 @@ ${map.parsed.map((cmd,i)=>{
     exports.Set("memcpy", Napi::Function::New(env, Memcpy));
 
     // faster FP16 operations
-    exports.Set("mm_cvtps_ph", Napi::Function::New(env, __mm_cvtps_ph));
-    exports.Set("mm_cvtph_ps", Napi::Function::New(env, __mm_cvtph_ps));
+    exports.Set("convertF32toF16x4", Napi::Function::New(env, convertF32toF16x4));
 
     //
     return exports;
