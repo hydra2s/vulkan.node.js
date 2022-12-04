@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include <half.hpp>
+#include <immintrin.h>
 
 //
 static Napi::Value Dealloc(const Napi::CallbackInfo& info_) {
@@ -230,5 +231,23 @@ static Napi::BigInt Memcpy(const Napi::CallbackInfo& info_) {
     if (info_[2].IsNumber()) { byteLength = info_[2].As<Napi::Number>().Uint32Value(); }
     memcpy((void*)dst, (void*)src, byteLength);
 
+    return Napi::BigInt::New(env, dst);
+}
+
+static Napi::BigInt __mm_cvtps_ph(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    uint64_t dst = GetAddress(env, info_[0]);
+    uint64_t src = GetAddress(env, info_[1]);
+    constexpr int32_t sae = 0;
+    //if (info_[2].IsNumber()) { sae = info_[2].As<Napi::Number>().Int32Value(); }
+    *(__m128i*)(dst) = _mm_cvtps_ph(*(__m128*)(src), sae);
+    return Napi::BigInt::New(env, dst);
+}
+
+static Napi::BigInt __mm_cvtph_ps(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    uint64_t dst = GetAddress(env, info_[0]);
+    uint64_t src = GetAddress(env, info_[1]);
+    *(__m128*)(dst) = _mm_cvtph_ps(*(__m128i*)(src));
     return Napi::BigInt::New(env, dst);
 }

@@ -33791,6 +33791,10 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
     // native operations
     exports.Set("memcpy", Napi::Function::New(env, Memcpy));
 
+    // faster FP16 operations
+    exports.Set("mm_cvtps_ph", Napi::Function::New(env, __mm_cvtps_ph));
+    exports.Set("mm_cvtph_ps", Napi::Function::New(env, __mm_cvtph_ps));
+
     //
     return exports;
 }
