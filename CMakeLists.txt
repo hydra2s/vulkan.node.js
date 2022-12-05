@@ -63,9 +63,9 @@ endif()
 
 # 
 if (MSVC)
-    add_compile_options(/Werror=padded /EHa /arch:AVX2)
+    add_compile_options(/EHa /arch:AVX2)
 else()
-    add_compile_options(-march=skylake -Werror=padded)
+    add_compile_options(-march=skylake)
 endif()
 
 # 
