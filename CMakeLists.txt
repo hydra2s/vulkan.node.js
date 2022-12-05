@@ -91,8 +91,12 @@ ADD_MSVC_PRECOMPILED_HEADER(
 
 # 
 if (MSVC)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}" /Werror=padded -Werror=padded /EHa /arch:AVX2)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}" /Werror=padded /EHa /arch:AVX2)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}" /EHa /arch:AVX2)
+    set(CMAKE_EXE_LINKER_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+else()
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}" -mavx2 -mf16c -Werror=padded )
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}" -mavx2 -mf16c -Werror=padded )
     set(CMAKE_EXE_LINKER_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 endif()
 
