@@ -62,6 +62,13 @@ set (USED_PLATFORM VK_USE_PLATFORM_WIN32_KHR)
 endif()
 
 # 
+if (MSVC)
+    add_compile_options(/Werror=padded /EHa /arch:AVX2)
+else()
+    add_compile_options(-march=skylake -Werror=padded)
+endif()
+
+# 
 add_library(${PROJECT_NAME} SHARED ${_source_list})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
 target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB} glfw)
@@ -88,17 +95,6 @@ ADD_MSVC_PRECOMPILED_HEADER(
   "${PROJECT_SOURCE_DIR}/cmake_pch.hpp" 
   "${PROJECT_SOURCE_DIR}/cmake_pch.cpp" 
   HSOURCES)
-
-# 
-if (MSVC)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}" /Werror=padded /EHa /arch:AVX2)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}" /EHa /arch:AVX2)
-    set(CMAKE_EXE_LINKER_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-else()
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}" -march=skylake -Werror=padded )
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}" -march=skylake -Werror=padded )
-    set(CMAKE_EXE_LINKER_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-endif()
 
 # 
 foreach(_source IN ITEMS ${_source_list})
