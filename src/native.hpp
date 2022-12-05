@@ -248,3 +248,16 @@ static Napi::BigInt convertF32toF16x4(const Napi::CallbackInfo& info_) {
 
     return Napi::BigInt::New(env, dst);
 }
+
+static Napi::BigInt convertF32toF16x8(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    uint64_t dst = GetAddress(env, info_[0]);
+    uint64_t src = GetAddress(env, info_[1]);
+
+    // 
+    __m256 fsrc = _mm256_load_ps((float*)src);
+    __m128i fdst = _mm256_cvtps_ph(fsrc, 0);
+    _mm_store_si128((__m128i*)dst, fdst);
+
+    return Napi::BigInt::New(env, dst);
+}

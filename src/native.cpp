@@ -33793,6 +33793,7 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
 
     // faster FP16 operations
     exports.Set("convertF32toF16x4", Napi::Function::New(env, convertF32toF16x4));
+    exports.Set("convertF32toF16x8", Napi::Function::New(env, convertF32toF16x8));
 
     //
     return exports;
