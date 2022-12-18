@@ -63,7 +63,7 @@ endif()
 
 # 
 if (MSVC)
-    add_compile_options(/EHa /arch:AVX2)
+    add_compile_options(/EHa /arch:AVX2 /MP)
 else()
     add_compile_options(-march=skylake)
 endif()
