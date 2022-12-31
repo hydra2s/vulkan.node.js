@@ -1877,8 +1877,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -1889,8 +1887,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -1901,8 +1897,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -1913,8 +1907,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -1925,8 +1917,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -1937,8 +1927,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -1949,8 +1937,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -1961,8 +1947,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -1973,8 +1957,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -1985,8 +1967,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -1997,8 +1977,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2009,8 +1987,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2021,8 +1997,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2033,8 +2007,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2045,8 +2017,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2057,8 +2027,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2069,8 +2037,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2081,8 +2047,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2093,8 +2057,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2105,8 +2067,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2117,8 +2077,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2129,8 +2087,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2141,8 +2097,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2153,8 +2107,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2165,8 +2117,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2177,8 +2127,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2189,8 +2137,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2201,8 +2147,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2213,8 +2157,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2225,8 +2167,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2237,8 +2177,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2249,8 +2187,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2261,8 +2197,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2273,8 +2207,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2285,8 +2217,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2297,8 +2227,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2309,8 +2237,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2321,8 +2247,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2333,8 +2257,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2345,8 +2267,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2357,8 +2277,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2369,8 +2287,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2381,8 +2297,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2393,8 +2307,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2405,8 +2317,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2417,8 +2327,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2429,8 +2337,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2441,8 +2347,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2453,8 +2357,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2465,8 +2367,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2477,8 +2377,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2489,8 +2387,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2501,8 +2397,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2513,8 +2407,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2525,8 +2417,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2537,8 +2427,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2549,8 +2437,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2561,8 +2447,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2573,8 +2457,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2585,8 +2467,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2597,8 +2477,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2609,8 +2487,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2621,8 +2497,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2633,8 +2507,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2645,8 +2517,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2657,8 +2527,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2669,8 +2537,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2681,8 +2547,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2693,8 +2557,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2705,8 +2567,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2717,8 +2577,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2729,8 +2587,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2741,8 +2597,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2753,8 +2607,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2765,8 +2617,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2777,8 +2627,6 @@
     "requires": "VK_KHR_get_physical_device_properties2,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "Tony Zlatinski @tzlatinski",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan",
     "requiresCore": "1.1"
   },
@@ -2789,8 +2637,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_KHR_VIDEO_DECODE_QUEUE_EXTENSION_NAME": {
@@ -2800,8 +2646,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_STRUCTURE_TYPE_VIDEO_DECODE_INFO_KHR": {
@@ -2811,8 +2655,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_STRUCTURE_TYPE_VIDEO_DECODE_CAPABILITIES_KHR": {
@@ -2822,8 +2664,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_STRUCTURE_TYPE_VIDEO_DECODE_USAGE_INFO_KHR": {
@@ -2833,8 +2673,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_QUEUE_VIDEO_DECODE_BIT_KHR": {
@@ -2844,8 +2682,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_PIPELINE_STAGE_2_VIDEO_DECODE_BIT_KHR": {
@@ -2855,8 +2691,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_ACCESS_2_VIDEO_DECODE_READ_BIT_KHR": {
@@ -2866,8 +2700,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_ACCESS_2_VIDEO_DECODE_WRITE_BIT_KHR": {
@@ -2877,8 +2709,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_BUFFER_USAGE_VIDEO_DECODE_SRC_BIT_KHR": {
@@ -2888,8 +2718,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_BUFFER_USAGE_VIDEO_DECODE_DST_BIT_KHR": {
@@ -2899,8 +2727,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR": {
@@ -2910,8 +2736,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_IMAGE_USAGE_VIDEO_DECODE_SRC_BIT_KHR": {
@@ -2921,8 +2745,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR": {
@@ -2932,8 +2754,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_FORMAT_FEATURE_VIDEO_DECODE_OUTPUT_BIT_KHR": {
@@ -2943,8 +2763,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_FORMAT_FEATURE_VIDEO_DECODE_DPB_BIT_KHR": {
@@ -2954,8 +2772,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR": {
@@ -2965,8 +2781,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_IMAGE_LAYOUT_VIDEO_DECODE_SRC_KHR": {
@@ -2976,8 +2790,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR": {
@@ -2987,8 +2799,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VkVideoDecodeCapabilityFlagBitsKHR": {
@@ -2998,8 +2808,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VkVideoDecodeCapabilityFlagsKHR": {
@@ -3009,8 +2817,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VkVideoDecodeCapabilitiesKHR": {
@@ -3020,8 +2826,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VkVideoDecodeUsageFlagBitsKHR": {
@@ -3031,8 +2835,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VkVideoDecodeUsageFlagsKHR": {
@@ -3042,8 +2844,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VkVideoDecodeUsageInfoKHR": {
@@ -3053,8 +2853,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VkVideoDecodeFlagsKHR": {
@@ -3064,8 +2862,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VkVideoDecodeInfoKHR": {
@@ -3075,8 +2871,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "vkCmdDecodeVideoKHR": {
@@ -3086,8 +2880,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_FORMAT_FEATURE_2_VIDEO_DECODE_OUTPUT_BIT_KHR": {
@@ -3097,8 +2889,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_FORMAT_FEATURE_2_VIDEO_DECODE_DPB_BIT_KHR": {
@@ -3108,8 +2898,6 @@
     "requires": "VK_KHR_video_queue,VK_KHR_synchronization2",
     "author": "KHR",
     "contact": "jake.beju@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_AMD_GCN_SHADER_SPEC_VERSION": {
@@ -4572,191 +4360,157 @@
     "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_EXT_VIDEO_DECODE_H264_SPEC_VERSION": {
-    "name": "VK_EXT_video_decode_h264",
+  "VK_KHR_VIDEO_DECODE_H264_SPEC_VERSION": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_EXT_VIDEO_DECODE_H264_EXTENSION_NAME": {
-    "name": "VK_EXT_video_decode_h264",
+  "VK_KHR_VIDEO_DECODE_H264_EXTENSION_NAME": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_EXT": {
-    "name": "VK_EXT_video_decode_h264",
+  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_EXT": {
-    "name": "VK_EXT_video_decode_h264",
+  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_EXT": {
-    "name": "VK_EXT_video_decode_h264",
+  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_EXT": {
-    "name": "VK_EXT_video_decode_h264",
+  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_EXT": {
-    "name": "VK_EXT_video_decode_h264",
+  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_DPB_SLOT_INFO_EXT": {
-    "name": "VK_EXT_video_decode_h264",
+  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_EXT": {
-    "name": "VK_EXT_video_decode_h264",
+  "VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VkVideoDecodeH264PictureLayoutFlagBitsEXT": {
-    "name": "VK_EXT_video_decode_h264",
+  "VkVideoDecodeH264PictureLayoutFlagBitsKHR": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VkVideoDecodeH264PictureLayoutFlagsEXT": {
-    "name": "VK_EXT_video_decode_h264",
+  "VkVideoDecodeH264PictureLayoutFlagsKHR": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VkVideoDecodeH264ProfileInfoEXT": {
-    "name": "VK_EXT_video_decode_h264",
+  "VkVideoDecodeH264ProfileInfoKHR": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VkVideoDecodeH264CapabilitiesEXT": {
-    "name": "VK_EXT_video_decode_h264",
+  "VkVideoDecodeH264CapabilitiesKHR": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VkVideoDecodeH264SessionParametersCreateInfoEXT": {
-    "name": "VK_EXT_video_decode_h264",
+  "VkVideoDecodeH264SessionParametersCreateInfoKHR": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VkVideoDecodeH264SessionParametersAddInfoEXT": {
-    "name": "VK_EXT_video_decode_h264",
+  "VkVideoDecodeH264SessionParametersAddInfoKHR": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VkVideoDecodeH264PictureInfoEXT": {
-    "name": "VK_EXT_video_decode_h264",
+  "VkVideoDecodeH264PictureInfoKHR": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VkVideoDecodeH264DpbSlotInfoEXT": {
-    "name": "VK_EXT_video_decode_h264",
+  "VkVideoDecodeH264DpbSlotInfoKHR": {
+    "name": "VK_KHR_video_decode_h264",
     "number": "41",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_AMD_TEXTURE_GATHER_BIAS_LOD_SPEC_VERSION": {
@@ -18290,169 +18044,139 @@
     "contact": "Daniel Rakos @drakos-amd",
     "supported": "disabled"
   },
-  "VK_EXT_VIDEO_DECODE_H265_SPEC_VERSION": {
-    "name": "VK_EXT_video_decode_h265",
+  "VK_KHR_VIDEO_DECODE_H265_SPEC_VERSION": {
+    "name": "VK_KHR_video_decode_h265",
     "number": "188",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_EXT_VIDEO_DECODE_H265_EXTENSION_NAME": {
-    "name": "VK_EXT_video_decode_h265",
+  "VK_KHR_VIDEO_DECODE_H265_EXTENSION_NAME": {
+    "name": "VK_KHR_video_decode_h265",
     "number": "188",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_CAPABILITIES_EXT": {
-    "name": "VK_EXT_video_decode_h265",
+  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_CAPABILITIES_KHR": {
+    "name": "VK_KHR_video_decode_h265",
     "number": "188",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_EXT": {
-    "name": "VK_EXT_video_decode_h265",
+  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR": {
+    "name": "VK_KHR_video_decode_h265",
     "number": "188",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_EXT": {
-    "name": "VK_EXT_video_decode_h265",
+  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR": {
+    "name": "VK_KHR_video_decode_h265",
     "number": "188",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PROFILE_INFO_EXT": {
-    "name": "VK_EXT_video_decode_h265",
+  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PROFILE_INFO_KHR": {
+    "name": "VK_KHR_video_decode_h265",
     "number": "188",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PICTURE_INFO_EXT": {
-    "name": "VK_EXT_video_decode_h265",
+  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PICTURE_INFO_KHR": {
+    "name": "VK_KHR_video_decode_h265",
     "number": "188",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_DPB_SLOT_INFO_EXT": {
-    "name": "VK_EXT_video_decode_h265",
+  "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR": {
+    "name": "VK_KHR_video_decode_h265",
     "number": "188",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_EXT": {
-    "name": "VK_EXT_video_decode_h265",
+  "VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR": {
+    "name": "VK_KHR_video_decode_h265",
     "number": "188",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VkVideoDecodeH265ProfileInfoEXT": {
-    "name": "VK_EXT_video_decode_h265",
+  "VkVideoDecodeH265ProfileInfoKHR": {
+    "name": "VK_KHR_video_decode_h265",
     "number": "188",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VkVideoDecodeH265CapabilitiesEXT": {
-    "name": "VK_EXT_video_decode_h265",
+  "VkVideoDecodeH265CapabilitiesKHR": {
+    "name": "VK_KHR_video_decode_h265",
     "number": "188",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VkVideoDecodeH265SessionParametersCreateInfoEXT": {
-    "name": "VK_EXT_video_decode_h265",
+  "VkVideoDecodeH265SessionParametersCreateInfoKHR": {
+    "name": "VK_KHR_video_decode_h265",
     "number": "188",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VkVideoDecodeH265SessionParametersAddInfoEXT": {
-    "name": "VK_EXT_video_decode_h265",
+  "VkVideoDecodeH265SessionParametersAddInfoKHR": {
+    "name": "VK_KHR_video_decode_h265",
     "number": "188",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VkVideoDecodeH265PictureInfoEXT": {
-    "name": "VK_EXT_video_decode_h265",
+  "VkVideoDecodeH265PictureInfoKHR": {
+    "name": "VK_KHR_video_decode_h265",
     "number": "188",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
-  "VkVideoDecodeH265DpbSlotInfoEXT": {
-    "name": "VK_EXT_video_decode_h265",
+  "VkVideoDecodeH265DpbSlotInfoKHR": {
+    "name": "VK_KHR_video_decode_h265",
     "number": "188",
     "type": "device",
     "requires": "VK_KHR_video_decode_queue",
     "author": "KHR",
     "contact": "peter.fang@amd.com",
-    "provisional": "true",
-    "platform": "provisional",
     "supported": "vulkan"
   },
   "VK_KHR_GLOBAL_PRIORITY_SPEC_VERSION": {
@@ -23928,37 +23652,257 @@
     "contact": "Jason Ekstrand @jekstrand",
     "supported": "vulkan"
   },
-  "VK_KHR_EXTENSION_275_SPEC_VERSION": {
-    "name": "VK_KHR_extension_275",
+  "VK_EXT_SURFACE_MAINTENANCE_1_SPEC_VERSION": {
+    "name": "VK_EXT_surface_maintenance1",
     "number": "275",
     "type": "instance",
-    "author": "KHR",
-    "contact": "Lionel Landwerlin @llandwerlin",
-    "supported": "disabled"
+    "requires": "VK_KHR_surface,VK_KHR_get_surface_capabilities2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
   },
-  "VK_KHR_EXTENSION_275_EXTENSION_NAME": {
-    "name": "VK_KHR_extension_275",
+  "VK_EXT_SURFACE_MAINTENANCE_1_EXTENSION_NAME": {
+    "name": "VK_EXT_surface_maintenance1",
     "number": "275",
     "type": "instance",
-    "author": "KHR",
-    "contact": "Lionel Landwerlin @llandwerlin",
-    "supported": "disabled"
+    "requires": "VK_KHR_surface,VK_KHR_get_surface_capabilities2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
   },
-  "VK_KHR_EXTENSION_276_SPEC_VERSION": {
-    "name": "VK_KHR_extension_276",
+  "VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_EXT": {
+    "name": "VK_EXT_surface_maintenance1",
+    "number": "275",
+    "type": "instance",
+    "requires": "VK_KHR_surface,VK_KHR_get_surface_capabilities2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT": {
+    "name": "VK_EXT_surface_maintenance1",
+    "number": "275",
+    "type": "instance",
+    "requires": "VK_KHR_surface,VK_KHR_get_surface_capabilities2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_COMPATIBILITY_EXT": {
+    "name": "VK_EXT_surface_maintenance1",
+    "number": "275",
+    "type": "instance",
+    "requires": "VK_KHR_surface,VK_KHR_get_surface_capabilities2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VkSurfacePresentModeEXT": {
+    "name": "VK_EXT_surface_maintenance1",
+    "number": "275",
+    "type": "instance",
+    "requires": "VK_KHR_surface,VK_KHR_get_surface_capabilities2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VkPresentScalingFlagBitsEXT": {
+    "name": "VK_EXT_surface_maintenance1",
+    "number": "275",
+    "type": "instance",
+    "requires": "VK_KHR_surface,VK_KHR_get_surface_capabilities2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VkPresentScalingFlagsEXT": {
+    "name": "VK_EXT_surface_maintenance1",
+    "number": "275",
+    "type": "instance",
+    "requires": "VK_KHR_surface,VK_KHR_get_surface_capabilities2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VkPresentGravityFlagBitsEXT": {
+    "name": "VK_EXT_surface_maintenance1",
+    "number": "275",
+    "type": "instance",
+    "requires": "VK_KHR_surface,VK_KHR_get_surface_capabilities2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VkPresentGravityFlagsEXT": {
+    "name": "VK_EXT_surface_maintenance1",
+    "number": "275",
+    "type": "instance",
+    "requires": "VK_KHR_surface,VK_KHR_get_surface_capabilities2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VkSurfacePresentScalingCapabilitiesEXT": {
+    "name": "VK_EXT_surface_maintenance1",
+    "number": "275",
+    "type": "instance",
+    "requires": "VK_KHR_surface,VK_KHR_get_surface_capabilities2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VkSurfacePresentModeCompatibilityEXT": {
+    "name": "VK_EXT_surface_maintenance1",
+    "number": "275",
+    "type": "instance",
+    "requires": "VK_KHR_surface,VK_KHR_get_surface_capabilities2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VK_EXT_SWAPCHAIN_MAINTENANCE_1_SPEC_VERSION": {
+    "name": "VK_EXT_swapchain_maintenance1",
     "number": "276",
     "type": "device",
-    "author": "KHR",
-    "contact": "James Jones @cubanismo",
-    "supported": "disabled"
+    "requires": "VK_KHR_swapchain,VK_EXT_surface_maintenance1,VK_KHR_get_physical_device_properties2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
   },
-  "VK_KHR_EXTENSION_276_EXTENSION_NAME": {
-    "name": "VK_KHR_extension_276",
+  "VK_EXT_SWAPCHAIN_MAINTENANCE_1_EXTENSION_NAME": {
+    "name": "VK_EXT_swapchain_maintenance1",
     "number": "276",
     "type": "device",
-    "author": "KHR",
-    "contact": "James Jones @cubanismo",
-    "supported": "disabled"
+    "requires": "VK_KHR_swapchain,VK_EXT_surface_maintenance1,VK_KHR_get_physical_device_properties2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT": {
+    "name": "VK_EXT_swapchain_maintenance1",
+    "number": "276",
+    "type": "device",
+    "requires": "VK_KHR_swapchain,VK_EXT_surface_maintenance1,VK_KHR_get_physical_device_properties2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_EXT": {
+    "name": "VK_EXT_swapchain_maintenance1",
+    "number": "276",
+    "type": "device",
+    "requires": "VK_KHR_swapchain,VK_EXT_surface_maintenance1,VK_KHR_get_physical_device_properties2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODES_CREATE_INFO_EXT": {
+    "name": "VK_EXT_swapchain_maintenance1",
+    "number": "276",
+    "type": "device",
+    "requires": "VK_KHR_swapchain,VK_EXT_surface_maintenance1,VK_KHR_get_physical_device_properties2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODE_INFO_EXT": {
+    "name": "VK_EXT_swapchain_maintenance1",
+    "number": "276",
+    "type": "device",
+    "requires": "VK_KHR_swapchain,VK_EXT_surface_maintenance1,VK_KHR_get_physical_device_properties2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_EXT": {
+    "name": "VK_EXT_swapchain_maintenance1",
+    "number": "276",
+    "type": "device",
+    "requires": "VK_KHR_swapchain,VK_EXT_surface_maintenance1,VK_KHR_get_physical_device_properties2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VK_STRUCTURE_TYPE_RELEASE_SWAPCHAIN_IMAGES_INFO_EXT": {
+    "name": "VK_EXT_swapchain_maintenance1",
+    "number": "276",
+    "type": "device",
+    "requires": "VK_KHR_swapchain,VK_EXT_surface_maintenance1,VK_KHR_get_physical_device_properties2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT": {
+    "name": "VK_EXT_swapchain_maintenance1",
+    "number": "276",
+    "type": "device",
+    "requires": "VK_KHR_swapchain,VK_EXT_surface_maintenance1,VK_KHR_get_physical_device_properties2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT": {
+    "name": "VK_EXT_swapchain_maintenance1",
+    "number": "276",
+    "type": "device",
+    "requires": "VK_KHR_swapchain,VK_EXT_surface_maintenance1,VK_KHR_get_physical_device_properties2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VkSwapchainPresentFenceInfoEXT": {
+    "name": "VK_EXT_swapchain_maintenance1",
+    "number": "276",
+    "type": "device",
+    "requires": "VK_KHR_swapchain,VK_EXT_surface_maintenance1,VK_KHR_get_physical_device_properties2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VkSwapchainPresentModesCreateInfoEXT": {
+    "name": "VK_EXT_swapchain_maintenance1",
+    "number": "276",
+    "type": "device",
+    "requires": "VK_KHR_swapchain,VK_EXT_surface_maintenance1,VK_KHR_get_physical_device_properties2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VkSwapchainPresentModeInfoEXT": {
+    "name": "VK_EXT_swapchain_maintenance1",
+    "number": "276",
+    "type": "device",
+    "requires": "VK_KHR_swapchain,VK_EXT_surface_maintenance1,VK_KHR_get_physical_device_properties2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VkSwapchainPresentScalingCreateInfoEXT": {
+    "name": "VK_EXT_swapchain_maintenance1",
+    "number": "276",
+    "type": "device",
+    "requires": "VK_KHR_swapchain,VK_EXT_surface_maintenance1,VK_KHR_get_physical_device_properties2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "VkReleaseSwapchainImagesInfoEXT": {
+    "name": "VK_EXT_swapchain_maintenance1",
+    "number": "276",
+    "type": "device",
+    "requires": "VK_KHR_swapchain,VK_EXT_surface_maintenance1,VK_KHR_get_physical_device_properties2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
+  },
+  "vkReleaseSwapchainImagesEXT": {
+    "name": "VK_EXT_swapchain_maintenance1",
+    "number": "276",
+    "type": "device",
+    "requires": "VK_KHR_swapchain,VK_EXT_surface_maintenance1,VK_KHR_get_physical_device_properties2",
+    "author": "EXT",
+    "contact": "Shahbaz Youssefi @syoussefi",
+    "supported": "vulkan"
   },
   "VK_EXT_SHADER_DEMOTE_TO_HELPER_INVOCATION_SPEC_VERSION": {
     "name": "VK_EXT_shader_demote_to_helper_invocation",
@@ -34598,13 +34542,6 @@
     "contact": "Ralph Potter gitlab:@r_potter",
     "supported": "disabled"
   },
-  "VK_SWAPCHAIN_CREATE_RESERVED_3_BIT_SEC": {
-    "name": "VK_SEC_extension_448",
-    "number": "448",
-    "author": "SEC",
-    "contact": "Ralph Potter gitlab:@r_potter",
-    "supported": "disabled"
-  },
   "VK_SEC_EXTENSION_449_SPEC_VERSION": {
     "name": "VK_SEC_extension_449",
     "number": "449",
@@ -35465,19 +35402,77 @@
     "contact": "Ting Wei @catweiting",
     "supported": "vulkan"
   },
-  "VK_EXT_EXTENSION_460_SPEC_VERSION": {
-    "name": "VK_EXT_extension_460",
+  "VK_LUNARG_DIRECT_DRIVER_LOADING_SPEC_VERSION": {
+    "name": "VK_LUNARG_direct_driver_loading",
     "number": "460",
-    "author": "EXT",
+    "type": "instance",
+    "author": "LUNARG",
     "contact": "Charles Giessen @charles-lunarg",
-    "supported": "disabled"
+    "supported": "vulkan"
   },
-  "VK_EXT_EXTENSION_460_EXTENSION_NAME": {
-    "name": "VK_EXT_extension_460",
+  "VK_LUNARG_DIRECT_DRIVER_LOADING_EXTENSION_NAME": {
+    "name": "VK_LUNARG_direct_driver_loading",
     "number": "460",
-    "author": "EXT",
+    "type": "instance",
+    "author": "LUNARG",
     "contact": "Charles Giessen @charles-lunarg",
-    "supported": "disabled"
+    "supported": "vulkan"
+  },
+  "VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_INFO_LUNARG": {
+    "name": "VK_LUNARG_direct_driver_loading",
+    "number": "460",
+    "type": "instance",
+    "author": "LUNARG",
+    "contact": "Charles Giessen @charles-lunarg",
+    "supported": "vulkan"
+  },
+  "VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG": {
+    "name": "VK_LUNARG_direct_driver_loading",
+    "number": "460",
+    "type": "instance",
+    "author": "LUNARG",
+    "contact": "Charles Giessen @charles-lunarg",
+    "supported": "vulkan"
+  },
+  "VkDirectDriverLoadingFlagsLUNARG": {
+    "name": "VK_LUNARG_direct_driver_loading",
+    "number": "460",
+    "type": "instance",
+    "author": "LUNARG",
+    "contact": "Charles Giessen @charles-lunarg",
+    "supported": "vulkan"
+  },
+  "VkDirectDriverLoadingModeLUNARG": {
+    "name": "VK_LUNARG_direct_driver_loading",
+    "number": "460",
+    "type": "instance",
+    "author": "LUNARG",
+    "contact": "Charles Giessen @charles-lunarg",
+    "supported": "vulkan"
+  },
+  "VkDirectDriverLoadingInfoLUNARG": {
+    "name": "VK_LUNARG_direct_driver_loading",
+    "number": "460",
+    "type": "instance",
+    "author": "LUNARG",
+    "contact": "Charles Giessen @charles-lunarg",
+    "supported": "vulkan"
+  },
+  "VkDirectDriverLoadingListLUNARG": {
+    "name": "VK_LUNARG_direct_driver_loading",
+    "number": "460",
+    "type": "instance",
+    "author": "LUNARG",
+    "contact": "Charles Giessen @charles-lunarg",
+    "supported": "vulkan"
+  },
+  "PFN_vkGetInstanceProcAddrLUNARG": {
+    "name": "VK_LUNARG_direct_driver_loading",
+    "number": "460",
+    "type": "instance",
+    "author": "LUNARG",
+    "contact": "Charles Giessen @charles-lunarg",
+    "supported": "vulkan"
   },
   "VK_EXT_EXTENSION_461_SPEC_VERSION": {
     "name": "VK_EXT_extension_461",
@@ -36639,19 +36634,37 @@
     "contact": "Shahbaz Youssefi @syoussefi",
     "supported": "disabled"
   },
-  "VK_QCOM_EXTENSION_489_SPEC_VERSION": {
-    "name": "VK_QCOM_extension_489",
+  "VK_QCOM_MULTIVIEW_PER_VIEW_VIEWPORTS_SPEC_VERSION": {
+    "name": "VK_QCOM_multiview_per_view_viewports",
     "number": "489",
+    "type": "device",
     "author": "QCOM",
     "contact": "Jeff Leger @jackohound",
-    "supported": "disabled"
+    "supported": "vulkan"
   },
-  "VK_QCOM_EXTENSION_489_EXTENSION_NAME": {
-    "name": "VK_QCOM_extension_489",
+  "VK_QCOM_MULTIVIEW_PER_VIEW_VIEWPORTS_EXTENSION_NAME": {
+    "name": "VK_QCOM_multiview_per_view_viewports",
     "number": "489",
+    "type": "device",
     "author": "QCOM",
     "contact": "Jeff Leger @jackohound",
-    "supported": "disabled"
+    "supported": "vulkan"
+  },
+  "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM": {
+    "name": "VK_QCOM_multiview_per_view_viewports",
+    "number": "489",
+    "type": "device",
+    "author": "QCOM",
+    "contact": "Jeff Leger @jackohound",
+    "supported": "vulkan"
+  },
+  "VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM": {
+    "name": "VK_QCOM_multiview_per_view_viewports",
+    "number": "489",
+    "type": "device",
+    "author": "QCOM",
+    "contact": "Jeff Leger @jackohound",
+    "supported": "vulkan"
   },
   "VK_NV_EXTENSION_490_SPEC_VERSION": {
     "name": "VK_NV_extension_490",
@@ -37046,6 +37059,38 @@
     "author": "NV",
     "contact": "Piers Daniell @pdaniell-nv",
     "type": "instance",
+    "supported": "disabled"
+  },
+  "VK_EXT_EXTENSION_505_SPEC_VERSION": {
+    "name": "VK_EXT_extension_505",
+    "number": "505",
+    "author": "EXT",
+    "contact": "Jamie Madill @jmadill",
+    "type": "device",
+    "supported": "disabled"
+  },
+  "VK_EXT_EXTENSION_505_EXTENSION_NAME": {
+    "name": "VK_EXT_extension_505",
+    "number": "505",
+    "author": "EXT",
+    "contact": "Jamie Madill @jmadill",
+    "type": "device",
+    "supported": "disabled"
+  },
+  "VK_NV_EXTENSION_506_SPEC_VERSION": {
+    "name": "VK_NV_extension_506",
+    "number": "506",
+    "author": "NV",
+    "contact": "Charles Hansen @cshansen",
+    "type": "device",
+    "supported": "disabled"
+  },
+  "VK_NV_EXTENSION_506_EXTENSION_NAME": {
+    "name": "VK_NV_extension_506",
+    "number": "506",
+    "author": "NV",
+    "contact": "Charles Hansen @cshansen",
+    "type": "device",
     "supported": "disabled"
   }
 }

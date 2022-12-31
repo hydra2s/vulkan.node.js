@@ -441,6 +441,10 @@
   },
   {
     "type": "VkFlags",
+    "name": "VkDirectDriverLoadingFlagsLUNARG"
+  },
+  {
+    "type": "VkFlags",
     "name": "VkCompositeAlphaFlagsKHR"
   },
   {
@@ -709,6 +713,14 @@
   },
   {
     "type": "VkFlags",
+    "name": "VkPresentScalingFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
+    "name": "VkPresentGravityFlagsEXT"
+  },
+  {
+    "type": "VkFlags",
     "name": "VkVideoCodecOperationFlagsKHR"
   },
   {
@@ -749,7 +761,7 @@
   },
   {
     "type": "VkFlags",
-    "name": "VkVideoDecodeH264PictureLayoutFlagsEXT"
+    "name": "VkVideoDecodeH264PictureLayoutFlagsKHR"
   },
   {
     "type": "VkFlags",
@@ -1037,6 +1049,10 @@
   {
     "name": "PFN_vkDeviceMemoryReportCallbackEXT",
     "type": "void"
+  },
+  {
+    "name": "PFN_vkGetInstanceProcAddrLUNARG",
+    "type": "char"
   },
   {
     "type": "void",

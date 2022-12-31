@@ -22506,7 +22506,7 @@
         "type": "element",
         "name": "command",
         "attributes": {
-          "queues": "graphics,compute,decode,encode",
+          "queues": "graphics,compute,decode,encode,opticalflow",
           "renderpass": "outside",
           "cmdbufferlevel": "primary,secondary",
           "tasks": "action"
@@ -22665,7 +22665,7 @@
         "type": "element",
         "name": "command",
         "attributes": {
-          "queues": "transfer,graphics,compute,decode,encode",
+          "queues": "transfer,graphics,compute,decode,encode,opticalflow",
           "renderpass": "both",
           "videocoding": "both",
           "cmdbufferlevel": "primary,secondary",
@@ -73291,7 +73291,7 @@
         "name": "command",
         "attributes": {
           "successcodes": "VK_SUCCESS",
-          "errorcodes": "VK_ERROR_INITIALIZATION_FAILED,VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY,VK_ERROR_TOO_MANY_OBJECTS"
+          "errorcodes": "VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY,VK_ERROR_INITIALIZATION_FAILED"
         },
         "children": [
           {
@@ -73468,7 +73468,7 @@
         "name": "command",
         "attributes": {
           "successcodes": "VK_SUCCESS",
-          "errorcodes": "VK_ERROR_INITIALIZATION_FAILED,VK_ERROR_TOO_MANY_OBJECTS"
+          "errorcodes": "VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY"
         },
         "children": [
           {
@@ -73737,8 +73737,7 @@
         "type": "element",
         "name": "command",
         "attributes": {
-          "successcodes": "VK_SUCCESS,VK_INCOMPLETE",
-          "errorcodes": "VK_ERROR_INITIALIZATION_FAILED"
+          "successcodes": "VK_SUCCESS,VK_INCOMPLETE"
         },
         "children": [
           {
@@ -73906,7 +73905,7 @@
         "name": "command",
         "attributes": {
           "successcodes": "VK_SUCCESS",
-          "errorcodes": "VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY,VK_ERROR_INITIALIZATION_FAILED"
+          "errorcodes": "VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY"
         },
         "children": [
           {
@@ -83125,6 +83124,111 @@
                   {
                     "type": "text",
                     "text": "pFaultInfo"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "successcodes": "VK_SUCCESS",
+          "errorcodes": "VK_ERROR_SURFACE_LOST_KHR"
+        },
+        "children": [
+          {
+            "type": "element",
+            "name": "proto",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkResult"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "vkReleaseSwapchainImagesEXT"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkDevice"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "device"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "name": "param",
+            "attributes": {},
+            "children": [
+              {
+                "type": "text",
+                "text": "const"
+              },
+              {
+                "type": "element",
+                "name": "type",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "VkReleaseSwapchainImagesInfoEXT"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "*"
+              },
+              {
+                "type": "element",
+                "name": "name",
+                "attributes": {},
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "pReleaseInfo"
                   }
                 ]
               }

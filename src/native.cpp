@@ -19359,6 +19359,42 @@ static Napi::Value rawGetDeviceFaultInfoEXT(const Napi::CallbackInfo& info_) {
     return Napi::Number::New(env, returnable);
 }
 #endif
+#ifdef VK_EXT_swapchain_maintenance1
+static Napi::Value rawReleaseSwapchainImagesEXT(const Napi::CallbackInfo& info_) {
+    Napi::Env env = info_.Env();
+    bool lossless = true;
+    if (info_.Length() < 2) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException(); return env.Null();
+    }
+    
+    if (!info_[0].IsNumber() && !info_[0].IsBigInt()) { Napi::TypeError::New(env, "Wrong type, needs Number or BigInt (handle) at 0 argument (device)").ThrowAsJavaScriptException(); return env.Null(); }
+    decltype(auto) device = (VkDevice)(info_[0].IsBigInt() ? info_[0].As<Napi::BigInt>().Uint64Value(&lossless) : info_[0].As<Napi::Number>().Int64Value());
+
+    decltype(auto) pReleaseInfo = (VkReleaseSwapchainImagesInfoEXT const*)GetAddress(env, info_[1]);
+    int32_t returnable = 0; try {
+        decltype(auto) result = vkReleaseSwapchainImagesEXT(device, pReleaseInfo);
+        returnable = (int32_t)(result);
+        if (typeid(decltype(result)) == typeid(VkResult) && result < 0) {
+            std::string errorMsg = "Vulkan API Exception: " + std::to_string(result);
+            std::cerr << errorMsg << std::endl;
+            //Napi::Error::New(env, errorMsg).ThrowAsJavaScriptException();
+            throw STD_EXCEPTION(errorMsg.c_str());
+        }
+        
+        
+        return Napi::Number::New(env, result);
+    } catch(STD_EXCEPTION e) {
+        std::cerr << "Exception with vkReleaseSwapchainImagesEXT command." << std::endl;
+        std::cerr << "Caller pointer: " << ((uint64_t)(vkReleaseSwapchainImagesEXT)) << std::endl;
+        std::cerr << "Argument list: " << std::endl;
+                std::cerr << "    device: " << (uint64_t)(device) << std::endl;
+        std::cerr << "    pReleaseInfo: " << (uint64_t)(pReleaseInfo) << std::endl;
+        Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+        throw e;
+    }
+    return Napi::Number::New(env, returnable);
+}
+#endif
 
 #ifdef _WIN32
 static std::vector<std::function<void(unsigned int u, EXCEPTION_POINTERS* pExp)>> EXC_HANDLERS = {};
@@ -28946,206 +28982,206 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
 #ifdef VK_KHR_video_decode_queue
     exports["VkVideoDecodeInfoKHR_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeInfoKHR));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264ProfileInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264ProfileInfoEXT, sType));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264ProfileInfoKHR_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264ProfileInfoKHR, sType));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264ProfileInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264ProfileInfoEXT, pNext));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264ProfileInfoKHR_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264ProfileInfoKHR, pNext));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264ProfileInfoEXT_stdProfileIdc_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264ProfileInfoEXT, stdProfileIdc));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264ProfileInfoKHR_stdProfileIdc_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264ProfileInfoKHR, stdProfileIdc));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264ProfileInfoEXT_pictureLayout_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264ProfileInfoEXT, pictureLayout));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264ProfileInfoKHR_pictureLayout_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264ProfileInfoKHR, pictureLayout));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264ProfileInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH264ProfileInfoEXT));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264ProfileInfoKHR_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH264ProfileInfoKHR));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264CapabilitiesEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264CapabilitiesEXT, sType));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264CapabilitiesKHR_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264CapabilitiesKHR, sType));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264CapabilitiesEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264CapabilitiesEXT, pNext));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264CapabilitiesKHR_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264CapabilitiesKHR, pNext));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264CapabilitiesEXT_maxLevelIdc_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264CapabilitiesEXT, maxLevelIdc));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264CapabilitiesKHR_maxLevelIdc_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264CapabilitiesKHR, maxLevelIdc));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264CapabilitiesEXT_fieldOffsetGranularity_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264CapabilitiesEXT, fieldOffsetGranularity));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264CapabilitiesKHR_fieldOffsetGranularity_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264CapabilitiesKHR, fieldOffsetGranularity));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264CapabilitiesEXT_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH264CapabilitiesEXT));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264CapabilitiesKHR_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH264CapabilitiesKHR));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264SessionParametersAddInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersAddInfoEXT, sType));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264SessionParametersAddInfoKHR_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersAddInfoKHR, sType));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264SessionParametersAddInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersAddInfoEXT, pNext));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264SessionParametersAddInfoKHR_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersAddInfoKHR, pNext));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264SessionParametersAddInfoEXT_stdSPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersAddInfoEXT, stdSPSCount));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264SessionParametersAddInfoKHR_stdSPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersAddInfoKHR, stdSPSCount));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264SessionParametersAddInfoEXT_pStdSPSs_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersAddInfoEXT, pStdSPSs));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264SessionParametersAddInfoKHR_pStdSPSs_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersAddInfoKHR, pStdSPSs));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264SessionParametersAddInfoEXT_stdPPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersAddInfoEXT, stdPPSCount));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264SessionParametersAddInfoKHR_stdPPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersAddInfoKHR, stdPPSCount));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264SessionParametersAddInfoEXT_pStdPPSs_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersAddInfoEXT, pStdPPSs));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264SessionParametersAddInfoKHR_pStdPPSs_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersAddInfoKHR, pStdPPSs));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264SessionParametersAddInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH264SessionParametersAddInfoEXT));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264SessionParametersAddInfoKHR_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH264SessionParametersAddInfoKHR));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264SessionParametersCreateInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersCreateInfoEXT, sType));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264SessionParametersCreateInfoKHR_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersCreateInfoKHR, sType));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264SessionParametersCreateInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersCreateInfoEXT, pNext));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264SessionParametersCreateInfoKHR_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersCreateInfoKHR, pNext));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264SessionParametersCreateInfoEXT_maxStdSPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersCreateInfoEXT, maxStdSPSCount));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264SessionParametersCreateInfoKHR_maxStdSPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersCreateInfoKHR, maxStdSPSCount));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264SessionParametersCreateInfoEXT_maxStdPPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersCreateInfoEXT, maxStdPPSCount));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264SessionParametersCreateInfoKHR_maxStdPPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersCreateInfoKHR, maxStdPPSCount));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264SessionParametersCreateInfoEXT_pParametersAddInfo_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersCreateInfoEXT, pParametersAddInfo));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264SessionParametersCreateInfoKHR_pParametersAddInfo_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264SessionParametersCreateInfoKHR, pParametersAddInfo));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264SessionParametersCreateInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH264SessionParametersCreateInfoEXT));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264SessionParametersCreateInfoKHR_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH264SessionParametersCreateInfoKHR));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264PictureInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264PictureInfoEXT, sType));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264PictureInfoKHR_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264PictureInfoKHR, sType));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264PictureInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264PictureInfoEXT, pNext));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264PictureInfoKHR_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264PictureInfoKHR, pNext));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264PictureInfoEXT_pStdPictureInfo_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264PictureInfoEXT, pStdPictureInfo));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264PictureInfoKHR_pStdPictureInfo_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264PictureInfoKHR, pStdPictureInfo));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264PictureInfoEXT_sliceCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264PictureInfoEXT, sliceCount));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264PictureInfoKHR_sliceCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264PictureInfoKHR, sliceCount));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264PictureInfoEXT_pSliceOffsets_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264PictureInfoEXT, pSliceOffsets));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264PictureInfoKHR_pSliceOffsets_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264PictureInfoKHR, pSliceOffsets));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264PictureInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH264PictureInfoEXT));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264PictureInfoKHR_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH264PictureInfoKHR));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264DpbSlotInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264DpbSlotInfoEXT, sType));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264DpbSlotInfoKHR_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264DpbSlotInfoKHR, sType));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264DpbSlotInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264DpbSlotInfoEXT, pNext));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264DpbSlotInfoKHR_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264DpbSlotInfoKHR, pNext));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264DpbSlotInfoEXT_pStdReferenceInfo_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264DpbSlotInfoEXT, pStdReferenceInfo));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264DpbSlotInfoKHR_pStdReferenceInfo_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH264DpbSlotInfoKHR, pStdReferenceInfo));
 #endif
-#ifdef VK_EXT_video_decode_h264
-    exports["VkVideoDecodeH264DpbSlotInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH264DpbSlotInfoEXT));
+#ifdef VK_KHR_video_decode_h264
+    exports["VkVideoDecodeH264DpbSlotInfoKHR_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH264DpbSlotInfoKHR));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265ProfileInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265ProfileInfoEXT, sType));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265ProfileInfoKHR_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265ProfileInfoKHR, sType));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265ProfileInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265ProfileInfoEXT, pNext));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265ProfileInfoKHR_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265ProfileInfoKHR, pNext));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265ProfileInfoEXT_stdProfileIdc_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265ProfileInfoEXT, stdProfileIdc));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265ProfileInfoKHR_stdProfileIdc_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265ProfileInfoKHR, stdProfileIdc));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265ProfileInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH265ProfileInfoEXT));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265ProfileInfoKHR_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH265ProfileInfoKHR));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265CapabilitiesEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265CapabilitiesEXT, sType));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265CapabilitiesKHR_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265CapabilitiesKHR, sType));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265CapabilitiesEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265CapabilitiesEXT, pNext));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265CapabilitiesKHR_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265CapabilitiesKHR, pNext));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265CapabilitiesEXT_maxLevelIdc_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265CapabilitiesEXT, maxLevelIdc));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265CapabilitiesKHR_maxLevelIdc_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265CapabilitiesKHR, maxLevelIdc));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265CapabilitiesEXT_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH265CapabilitiesEXT));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265CapabilitiesKHR_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH265CapabilitiesKHR));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265SessionParametersAddInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersAddInfoEXT, sType));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265SessionParametersAddInfoKHR_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersAddInfoKHR, sType));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265SessionParametersAddInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersAddInfoEXT, pNext));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265SessionParametersAddInfoKHR_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersAddInfoKHR, pNext));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265SessionParametersAddInfoEXT_stdVPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersAddInfoEXT, stdVPSCount));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265SessionParametersAddInfoKHR_stdVPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersAddInfoKHR, stdVPSCount));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265SessionParametersAddInfoEXT_pStdVPSs_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersAddInfoEXT, pStdVPSs));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265SessionParametersAddInfoKHR_pStdVPSs_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersAddInfoKHR, pStdVPSs));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265SessionParametersAddInfoEXT_stdSPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersAddInfoEXT, stdSPSCount));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265SessionParametersAddInfoKHR_stdSPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersAddInfoKHR, stdSPSCount));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265SessionParametersAddInfoEXT_pStdSPSs_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersAddInfoEXT, pStdSPSs));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265SessionParametersAddInfoKHR_pStdSPSs_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersAddInfoKHR, pStdSPSs));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265SessionParametersAddInfoEXT_stdPPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersAddInfoEXT, stdPPSCount));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265SessionParametersAddInfoKHR_stdPPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersAddInfoKHR, stdPPSCount));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265SessionParametersAddInfoEXT_pStdPPSs_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersAddInfoEXT, pStdPPSs));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265SessionParametersAddInfoKHR_pStdPPSs_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersAddInfoKHR, pStdPPSs));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265SessionParametersAddInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH265SessionParametersAddInfoEXT));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265SessionParametersAddInfoKHR_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH265SessionParametersAddInfoKHR));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265SessionParametersCreateInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersCreateInfoEXT, sType));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265SessionParametersCreateInfoKHR_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersCreateInfoKHR, sType));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265SessionParametersCreateInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersCreateInfoEXT, pNext));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265SessionParametersCreateInfoKHR_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersCreateInfoKHR, pNext));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265SessionParametersCreateInfoEXT_maxStdVPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersCreateInfoEXT, maxStdVPSCount));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265SessionParametersCreateInfoKHR_maxStdVPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersCreateInfoKHR, maxStdVPSCount));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265SessionParametersCreateInfoEXT_maxStdSPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersCreateInfoEXT, maxStdSPSCount));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265SessionParametersCreateInfoKHR_maxStdSPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersCreateInfoKHR, maxStdSPSCount));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265SessionParametersCreateInfoEXT_maxStdPPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersCreateInfoEXT, maxStdPPSCount));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265SessionParametersCreateInfoKHR_maxStdPPSCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersCreateInfoKHR, maxStdPPSCount));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265SessionParametersCreateInfoEXT_pParametersAddInfo_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersCreateInfoEXT, pParametersAddInfo));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265SessionParametersCreateInfoKHR_pParametersAddInfo_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265SessionParametersCreateInfoKHR, pParametersAddInfo));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265SessionParametersCreateInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH265SessionParametersCreateInfoEXT));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265SessionParametersCreateInfoKHR_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH265SessionParametersCreateInfoKHR));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265PictureInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265PictureInfoEXT, sType));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265PictureInfoKHR_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265PictureInfoKHR, sType));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265PictureInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265PictureInfoEXT, pNext));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265PictureInfoKHR_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265PictureInfoKHR, pNext));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265PictureInfoEXT_pStdPictureInfo_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265PictureInfoEXT, pStdPictureInfo));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265PictureInfoKHR_pStdPictureInfo_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265PictureInfoKHR, pStdPictureInfo));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265PictureInfoEXT_sliceCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265PictureInfoEXT, sliceCount));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265PictureInfoKHR_sliceSegmentCount_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265PictureInfoKHR, sliceSegmentCount));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265PictureInfoEXT_pSliceOffsets_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265PictureInfoEXT, pSliceOffsets));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265PictureInfoKHR_pSliceSegmentOffsets_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265PictureInfoKHR, pSliceSegmentOffsets));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265PictureInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH265PictureInfoEXT));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265PictureInfoKHR_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH265PictureInfoKHR));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265DpbSlotInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265DpbSlotInfoEXT, sType));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265DpbSlotInfoKHR_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265DpbSlotInfoKHR, sType));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265DpbSlotInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265DpbSlotInfoEXT, pNext));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265DpbSlotInfoKHR_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265DpbSlotInfoKHR, pNext));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265DpbSlotInfoEXT_pStdReferenceInfo_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265DpbSlotInfoEXT, pStdReferenceInfo));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265DpbSlotInfoKHR_pStdReferenceInfo_offsetof"] = Napi::Number::New(env, offsetof(VkVideoDecodeH265DpbSlotInfoKHR, pStdReferenceInfo));
 #endif
-#ifdef VK_EXT_video_decode_h265
-    exports["VkVideoDecodeH265DpbSlotInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH265DpbSlotInfoEXT));
+#ifdef VK_KHR_video_decode_h265
+    exports["VkVideoDecodeH265DpbSlotInfoKHR_sizeof"] = Napi::Number::New(env, sizeof(VkVideoDecodeH265DpbSlotInfoKHR));
 #endif
 #ifdef VK_KHR_video_queue
     exports["VkVideoSessionCreateInfoKHR_sType_offsetof"] = Napi::Number::New(env, offsetof(VkVideoSessionCreateInfoKHR, sType));
@@ -32407,6 +32443,150 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
 #ifdef VK_ARM_shader_core_builtins
     exports["VkPhysicalDeviceShaderCoreBuiltinsFeaturesARM_sizeof"] = Napi::Number::New(env, sizeof(VkPhysicalDeviceShaderCoreBuiltinsFeaturesARM));
 #endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentModeEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkSurfacePresentModeEXT, sType));
+#endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentModeEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkSurfacePresentModeEXT, pNext));
+#endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentModeEXT_presentMode_offsetof"] = Napi::Number::New(env, offsetof(VkSurfacePresentModeEXT, presentMode));
+#endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentModeEXT_sizeof"] = Napi::Number::New(env, sizeof(VkSurfacePresentModeEXT));
+#endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentScalingCapabilitiesEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkSurfacePresentScalingCapabilitiesEXT, sType));
+#endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentScalingCapabilitiesEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkSurfacePresentScalingCapabilitiesEXT, pNext));
+#endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentScalingCapabilitiesEXT_supportedPresentScaling_offsetof"] = Napi::Number::New(env, offsetof(VkSurfacePresentScalingCapabilitiesEXT, supportedPresentScaling));
+#endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentScalingCapabilitiesEXT_supportedPresentGravityX_offsetof"] = Napi::Number::New(env, offsetof(VkSurfacePresentScalingCapabilitiesEXT, supportedPresentGravityX));
+#endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentScalingCapabilitiesEXT_supportedPresentGravityY_offsetof"] = Napi::Number::New(env, offsetof(VkSurfacePresentScalingCapabilitiesEXT, supportedPresentGravityY));
+#endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentScalingCapabilitiesEXT_minScaledImageExtent_offsetof"] = Napi::Number::New(env, offsetof(VkSurfacePresentScalingCapabilitiesEXT, minScaledImageExtent));
+#endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentScalingCapabilitiesEXT_maxScaledImageExtent_offsetof"] = Napi::Number::New(env, offsetof(VkSurfacePresentScalingCapabilitiesEXT, maxScaledImageExtent));
+#endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentScalingCapabilitiesEXT_sizeof"] = Napi::Number::New(env, sizeof(VkSurfacePresentScalingCapabilitiesEXT));
+#endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentModeCompatibilityEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkSurfacePresentModeCompatibilityEXT, sType));
+#endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentModeCompatibilityEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkSurfacePresentModeCompatibilityEXT, pNext));
+#endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentModeCompatibilityEXT_presentModeCount_offsetof"] = Napi::Number::New(env, offsetof(VkSurfacePresentModeCompatibilityEXT, presentModeCount));
+#endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentModeCompatibilityEXT_pPresentModes_offsetof"] = Napi::Number::New(env, offsetof(VkSurfacePresentModeCompatibilityEXT, pPresentModes));
+#endif
+#ifdef VK_EXT_surface_maintenance1
+    exports["VkSurfacePresentModeCompatibilityEXT_sizeof"] = Napi::Number::New(env, sizeof(VkSurfacePresentModeCompatibilityEXT));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT, sType));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT, pNext));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT_swapchainMaintenance1_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT, swapchainMaintenance1));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT_sizeof"] = Napi::Number::New(env, sizeof(VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentFenceInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentFenceInfoEXT, sType));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentFenceInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentFenceInfoEXT, pNext));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentFenceInfoEXT_swapchainCount_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentFenceInfoEXT, swapchainCount));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentFenceInfoEXT_pFences_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentFenceInfoEXT, pFences));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentFenceInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkSwapchainPresentFenceInfoEXT));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentModesCreateInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentModesCreateInfoEXT, sType));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentModesCreateInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentModesCreateInfoEXT, pNext));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentModesCreateInfoEXT_presentModeCount_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentModesCreateInfoEXT, presentModeCount));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentModesCreateInfoEXT_pPresentModes_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentModesCreateInfoEXT, pPresentModes));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentModesCreateInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkSwapchainPresentModesCreateInfoEXT));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentModeInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentModeInfoEXT, sType));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentModeInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentModeInfoEXT, pNext));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentModeInfoEXT_swapchainCount_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentModeInfoEXT, swapchainCount));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentModeInfoEXT_pPresentModes_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentModeInfoEXT, pPresentModes));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentModeInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkSwapchainPresentModeInfoEXT));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentScalingCreateInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentScalingCreateInfoEXT, sType));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentScalingCreateInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentScalingCreateInfoEXT, pNext));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentScalingCreateInfoEXT_scalingBehavior_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentScalingCreateInfoEXT, scalingBehavior));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentScalingCreateInfoEXT_presentGravityX_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentScalingCreateInfoEXT, presentGravityX));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentScalingCreateInfoEXT_presentGravityY_offsetof"] = Napi::Number::New(env, offsetof(VkSwapchainPresentScalingCreateInfoEXT, presentGravityY));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkSwapchainPresentScalingCreateInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkSwapchainPresentScalingCreateInfoEXT));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkReleaseSwapchainImagesInfoEXT_sType_offsetof"] = Napi::Number::New(env, offsetof(VkReleaseSwapchainImagesInfoEXT, sType));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkReleaseSwapchainImagesInfoEXT_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkReleaseSwapchainImagesInfoEXT, pNext));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkReleaseSwapchainImagesInfoEXT_swapchain_offsetof"] = Napi::Number::New(env, offsetof(VkReleaseSwapchainImagesInfoEXT, swapchain));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkReleaseSwapchainImagesInfoEXT_imageIndexCount_offsetof"] = Napi::Number::New(env, offsetof(VkReleaseSwapchainImagesInfoEXT, imageIndexCount));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkReleaseSwapchainImagesInfoEXT_pImageIndices_offsetof"] = Napi::Number::New(env, offsetof(VkReleaseSwapchainImagesInfoEXT, pImageIndices));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+    exports["VkReleaseSwapchainImagesInfoEXT_sizeof"] = Napi::Number::New(env, sizeof(VkReleaseSwapchainImagesInfoEXT));
+#endif
 #ifdef VK_NV_ray_tracing_invocation_reorder
     exports["VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV_sType_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV, sType));
 #endif
@@ -32430,6 +32610,51 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
 #endif
 #ifdef VK_NV_ray_tracing_invocation_reorder
     exports["VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV_sizeof"] = Napi::Number::New(env, sizeof(VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV));
+#endif
+#ifdef VK_LUNARG_direct_driver_loading
+    exports["VkDirectDriverLoadingInfoLUNARG_sType_offsetof"] = Napi::Number::New(env, offsetof(VkDirectDriverLoadingInfoLUNARG, sType));
+#endif
+#ifdef VK_LUNARG_direct_driver_loading
+    exports["VkDirectDriverLoadingInfoLUNARG_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkDirectDriverLoadingInfoLUNARG, pNext));
+#endif
+#ifdef VK_LUNARG_direct_driver_loading
+    exports["VkDirectDriverLoadingInfoLUNARG_flags_offsetof"] = Napi::Number::New(env, offsetof(VkDirectDriverLoadingInfoLUNARG, flags));
+#endif
+#ifdef VK_LUNARG_direct_driver_loading
+    exports["VkDirectDriverLoadingInfoLUNARG_pfnGetInstanceProcAddr_offsetof"] = Napi::Number::New(env, offsetof(VkDirectDriverLoadingInfoLUNARG, pfnGetInstanceProcAddr));
+#endif
+#ifdef VK_LUNARG_direct_driver_loading
+    exports["VkDirectDriverLoadingInfoLUNARG_sizeof"] = Napi::Number::New(env, sizeof(VkDirectDriverLoadingInfoLUNARG));
+#endif
+#ifdef VK_LUNARG_direct_driver_loading
+    exports["VkDirectDriverLoadingListLUNARG_sType_offsetof"] = Napi::Number::New(env, offsetof(VkDirectDriverLoadingListLUNARG, sType));
+#endif
+#ifdef VK_LUNARG_direct_driver_loading
+    exports["VkDirectDriverLoadingListLUNARG_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkDirectDriverLoadingListLUNARG, pNext));
+#endif
+#ifdef VK_LUNARG_direct_driver_loading
+    exports["VkDirectDriverLoadingListLUNARG_mode_offsetof"] = Napi::Number::New(env, offsetof(VkDirectDriverLoadingListLUNARG, mode));
+#endif
+#ifdef VK_LUNARG_direct_driver_loading
+    exports["VkDirectDriverLoadingListLUNARG_driverCount_offsetof"] = Napi::Number::New(env, offsetof(VkDirectDriverLoadingListLUNARG, driverCount));
+#endif
+#ifdef VK_LUNARG_direct_driver_loading
+    exports["VkDirectDriverLoadingListLUNARG_pDrivers_offsetof"] = Napi::Number::New(env, offsetof(VkDirectDriverLoadingListLUNARG, pDrivers));
+#endif
+#ifdef VK_LUNARG_direct_driver_loading
+    exports["VkDirectDriverLoadingListLUNARG_sizeof"] = Napi::Number::New(env, sizeof(VkDirectDriverLoadingListLUNARG));
+#endif
+#ifdef VK_QCOM_multiview_per_view_viewports
+    exports["VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM_sType_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM, sType));
+#endif
+#ifdef VK_QCOM_multiview_per_view_viewports
+    exports["VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM_pNext_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM, pNext));
+#endif
+#ifdef VK_QCOM_multiview_per_view_viewports
+    exports["VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM_multiviewPerViewViewports_offsetof"] = Napi::Number::New(env, offsetof(VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM, multiviewPerViewViewports));
+#endif
+#ifdef VK_QCOM_multiview_per_view_viewports
+    exports["VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM_sizeof"] = Napi::Number::New(env, sizeof(VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM));
 #endif
 
    exports.Set("vkCreateInstance", Napi::Function::New(env, rawCreateInstance));
@@ -33639,6 +33864,9 @@ static Napi::Object Init(Napi::Env env, Napi::Object exports) {
 #endif
 #ifdef VK_EXT_device_fault
    exports.Set("vkGetDeviceFaultInfoEXT", Napi::Function::New(env, rawGetDeviceFaultInfoEXT));
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+   exports.Set("vkReleaseSwapchainImagesEXT", Napi::Function::New(env, rawReleaseSwapchainImagesEXT));
 #endif
 
     // TODO: Unified Syntax

@@ -1280,41 +1280,41 @@ size_t vkGetStructureSizeBySType(VkStructureType sType) {
 #ifdef VK_KHR_video_decode_queue
         case VK_STRUCTURE_TYPE_VIDEO_DECODE_INFO_KHR: return sizeof(VkVideoDecodeInfoKHR); break;
 #endif
-#ifdef VK_EXT_video_decode_h264
-        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_EXT: return sizeof(VkVideoDecodeH264ProfileInfoEXT); break;
+#ifdef VK_KHR_video_decode_h264
+        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR: return sizeof(VkVideoDecodeH264ProfileInfoKHR); break;
 #endif
-#ifdef VK_EXT_video_decode_h264
-        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_EXT: return sizeof(VkVideoDecodeH264CapabilitiesEXT); break;
+#ifdef VK_KHR_video_decode_h264
+        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR: return sizeof(VkVideoDecodeH264CapabilitiesKHR); break;
 #endif
-#ifdef VK_EXT_video_decode_h264
-        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_EXT: return sizeof(VkVideoDecodeH264SessionParametersAddInfoEXT); break;
+#ifdef VK_KHR_video_decode_h264
+        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR: return sizeof(VkVideoDecodeH264SessionParametersAddInfoKHR); break;
 #endif
-#ifdef VK_EXT_video_decode_h264
-        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_EXT: return sizeof(VkVideoDecodeH264SessionParametersCreateInfoEXT); break;
+#ifdef VK_KHR_video_decode_h264
+        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR: return sizeof(VkVideoDecodeH264SessionParametersCreateInfoKHR); break;
 #endif
-#ifdef VK_EXT_video_decode_h264
-        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_EXT: return sizeof(VkVideoDecodeH264PictureInfoEXT); break;
+#ifdef VK_KHR_video_decode_h264
+        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR: return sizeof(VkVideoDecodeH264PictureInfoKHR); break;
 #endif
-#ifdef VK_EXT_video_decode_h264
-        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_DPB_SLOT_INFO_EXT: return sizeof(VkVideoDecodeH264DpbSlotInfoEXT); break;
+#ifdef VK_KHR_video_decode_h264
+        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR: return sizeof(VkVideoDecodeH264DpbSlotInfoKHR); break;
 #endif
-#ifdef VK_EXT_video_decode_h265
-        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PROFILE_INFO_EXT: return sizeof(VkVideoDecodeH265ProfileInfoEXT); break;
+#ifdef VK_KHR_video_decode_h265
+        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PROFILE_INFO_KHR: return sizeof(VkVideoDecodeH265ProfileInfoKHR); break;
 #endif
-#ifdef VK_EXT_video_decode_h265
-        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_CAPABILITIES_EXT: return sizeof(VkVideoDecodeH265CapabilitiesEXT); break;
+#ifdef VK_KHR_video_decode_h265
+        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_CAPABILITIES_KHR: return sizeof(VkVideoDecodeH265CapabilitiesKHR); break;
 #endif
-#ifdef VK_EXT_video_decode_h265
-        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_EXT: return sizeof(VkVideoDecodeH265SessionParametersAddInfoEXT); break;
+#ifdef VK_KHR_video_decode_h265
+        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR: return sizeof(VkVideoDecodeH265SessionParametersAddInfoKHR); break;
 #endif
-#ifdef VK_EXT_video_decode_h265
-        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_EXT: return sizeof(VkVideoDecodeH265SessionParametersCreateInfoEXT); break;
+#ifdef VK_KHR_video_decode_h265
+        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR: return sizeof(VkVideoDecodeH265SessionParametersCreateInfoKHR); break;
 #endif
-#ifdef VK_EXT_video_decode_h265
-        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PICTURE_INFO_EXT: return sizeof(VkVideoDecodeH265PictureInfoEXT); break;
+#ifdef VK_KHR_video_decode_h265
+        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PICTURE_INFO_KHR: return sizeof(VkVideoDecodeH265PictureInfoKHR); break;
 #endif
-#ifdef VK_EXT_video_decode_h265
-        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_DPB_SLOT_INFO_EXT: return sizeof(VkVideoDecodeH265DpbSlotInfoEXT); break;
+#ifdef VK_KHR_video_decode_h265
+        case VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR: return sizeof(VkVideoDecodeH265DpbSlotInfoKHR); break;
 #endif
 #ifdef VK_KHR_video_queue
         case VK_STRUCTURE_TYPE_VIDEO_SESSION_CREATE_INFO_KHR: return sizeof(VkVideoSessionCreateInfoKHR); break;
@@ -1789,11 +1789,47 @@ size_t vkGetStructureSizeBySType(VkStructureType sType) {
 #ifdef VK_ARM_shader_core_builtins
         case VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM: return sizeof(VkPhysicalDeviceShaderCoreBuiltinsFeaturesARM); break;
 #endif
+#ifdef VK_EXT_surface_maintenance1
+        case VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_EXT: return sizeof(VkSurfacePresentModeEXT); break;
+#endif
+#ifdef VK_EXT_surface_maintenance1
+        case VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT: return sizeof(VkSurfacePresentScalingCapabilitiesEXT); break;
+#endif
+#ifdef VK_EXT_surface_maintenance1
+        case VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_COMPATIBILITY_EXT: return sizeof(VkSurfacePresentModeCompatibilityEXT); break;
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+        case VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT: return sizeof(VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT); break;
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+        case VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_EXT: return sizeof(VkSwapchainPresentFenceInfoEXT); break;
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+        case VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODES_CREATE_INFO_EXT: return sizeof(VkSwapchainPresentModesCreateInfoEXT); break;
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+        case VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODE_INFO_EXT: return sizeof(VkSwapchainPresentModeInfoEXT); break;
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+        case VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_EXT: return sizeof(VkSwapchainPresentScalingCreateInfoEXT); break;
+#endif
+#ifdef VK_EXT_swapchain_maintenance1
+        case VK_STRUCTURE_TYPE_RELEASE_SWAPCHAIN_IMAGES_INFO_EXT: return sizeof(VkReleaseSwapchainImagesInfoEXT); break;
+#endif
 #ifdef VK_NV_ray_tracing_invocation_reorder
         case VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV: return sizeof(VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV); break;
 #endif
 #ifdef VK_NV_ray_tracing_invocation_reorder
         case VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV: return sizeof(VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV); break;
+#endif
+#ifdef VK_LUNARG_direct_driver_loading
+        case VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_INFO_LUNARG: return sizeof(VkDirectDriverLoadingInfoLUNARG); break;
+#endif
+#ifdef VK_LUNARG_direct_driver_loading
+        case VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG: return sizeof(VkDirectDriverLoadingListLUNARG); break;
+#endif
+#ifdef VK_QCOM_multiview_per_view_viewports
+        case VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM: return sizeof(VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM); break;
 #endif
         //default: 
     };

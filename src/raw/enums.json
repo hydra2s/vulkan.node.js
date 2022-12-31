@@ -426,8 +426,7 @@
         "attributes": {
           "offset": "0",
           "extends": "VkImageLayout",
-          "name": "VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR"
         }
       },
       {
@@ -436,8 +435,7 @@
         "attributes": {
           "offset": "1",
           "extends": "VkImageLayout",
-          "name": "VK_IMAGE_LAYOUT_VIDEO_DECODE_SRC_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_IMAGE_LAYOUT_VIDEO_DECODE_SRC_KHR"
         }
       },
       {
@@ -446,8 +444,7 @@
         "attributes": {
           "offset": "2",
           "extends": "VkImageLayout",
-          "name": "VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR"
         }
       },
       {
@@ -1264,8 +1261,7 @@
         "attributes": {
           "offset": "0",
           "extends": "VkQueryType",
-          "name": "VK_QUERY_TYPE_RESULT_STATUS_ONLY_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_QUERY_TYPE_RESULT_STATUS_ONLY_KHR"
         }
       },
       {
@@ -6578,8 +6574,7 @@
         "attributes": {
           "offset": "0",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_PROFILE_INFO_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_PROFILE_INFO_KHR"
         }
       },
       {
@@ -6588,8 +6583,7 @@
         "attributes": {
           "offset": "1",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_CAPABILITIES_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_CAPABILITIES_KHR"
         }
       },
       {
@@ -6598,8 +6592,7 @@
         "attributes": {
           "offset": "2",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_PICTURE_RESOURCE_INFO_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_PICTURE_RESOURCE_INFO_KHR"
         }
       },
       {
@@ -6608,8 +6601,7 @@
         "attributes": {
           "offset": "3",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR"
         }
       },
       {
@@ -6618,8 +6610,7 @@
         "attributes": {
           "offset": "4",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_BIND_VIDEO_SESSION_MEMORY_INFO_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_BIND_VIDEO_SESSION_MEMORY_INFO_KHR"
         }
       },
       {
@@ -6628,8 +6619,7 @@
         "attributes": {
           "offset": "5",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_SESSION_CREATE_INFO_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_SESSION_CREATE_INFO_KHR"
         }
       },
       {
@@ -6638,8 +6628,7 @@
         "attributes": {
           "offset": "6",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR"
         }
       },
       {
@@ -6648,8 +6637,7 @@
         "attributes": {
           "offset": "7",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_SESSION_PARAMETERS_UPDATE_INFO_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_SESSION_PARAMETERS_UPDATE_INFO_KHR"
         }
       },
       {
@@ -6658,8 +6646,7 @@
         "attributes": {
           "offset": "8",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_BEGIN_CODING_INFO_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_BEGIN_CODING_INFO_KHR"
         }
       },
       {
@@ -6668,8 +6655,7 @@
         "attributes": {
           "offset": "9",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_END_CODING_INFO_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_END_CODING_INFO_KHR"
         }
       },
       {
@@ -6678,8 +6664,7 @@
         "attributes": {
           "offset": "10",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_CODING_CONTROL_INFO_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_CODING_CONTROL_INFO_KHR"
         }
       },
       {
@@ -6688,8 +6673,7 @@
         "attributes": {
           "offset": "11",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR"
         }
       },
       {
@@ -6698,8 +6682,7 @@
         "attributes": {
           "offset": "12",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_QUEUE_FAMILY_VIDEO_PROPERTIES_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_QUEUE_FAMILY_VIDEO_PROPERTIES_KHR"
         }
       },
       {
@@ -6708,8 +6691,7 @@
         "attributes": {
           "offset": "13",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_PROFILE_LIST_INFO_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_PROFILE_LIST_INFO_KHR"
         }
       },
       {
@@ -6718,8 +6700,7 @@
         "attributes": {
           "offset": "14",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR"
         }
       },
       {
@@ -6728,8 +6709,7 @@
         "attributes": {
           "offset": "15",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_FORMAT_PROPERTIES_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_FORMAT_PROPERTIES_KHR"
         }
       },
       {
@@ -6738,8 +6718,7 @@
         "attributes": {
           "offset": "16",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR"
         }
       },
       {
@@ -6748,8 +6727,7 @@
         "attributes": {
           "offset": "0",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_INFO_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_INFO_KHR"
         }
       },
       {
@@ -6758,8 +6736,7 @@
         "attributes": {
           "offset": "1",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_CAPABILITIES_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_CAPABILITIES_KHR"
         }
       },
       {
@@ -6768,8 +6745,7 @@
         "attributes": {
           "offset": "2",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_USAGE_INFO_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_USAGE_INFO_KHR"
         }
       },
       {
@@ -7097,8 +7073,7 @@
         "attributes": {
           "offset": "0",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_EXT",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR"
         }
       },
       {
@@ -7107,8 +7082,7 @@
         "attributes": {
           "offset": "1",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_EXT",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR"
         }
       },
       {
@@ -7117,8 +7091,7 @@
         "attributes": {
           "offset": "3",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_EXT",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR"
         }
       },
       {
@@ -7127,8 +7100,7 @@
         "attributes": {
           "offset": "4",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_EXT",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR"
         }
       },
       {
@@ -7137,8 +7109,7 @@
         "attributes": {
           "offset": "5",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_EXT",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR"
         }
       },
       {
@@ -7147,8 +7118,7 @@
         "attributes": {
           "offset": "6",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_DPB_SLOT_INFO_EXT",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR"
         }
       },
       {
@@ -9534,8 +9504,7 @@
         "attributes": {
           "offset": "0",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_CAPABILITIES_EXT",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_CAPABILITIES_KHR"
         }
       },
       {
@@ -9544,8 +9513,7 @@
         "attributes": {
           "offset": "1",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_EXT",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR"
         }
       },
       {
@@ -9554,8 +9522,7 @@
         "attributes": {
           "offset": "2",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_EXT",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR"
         }
       },
       {
@@ -9564,8 +9531,7 @@
         "attributes": {
           "offset": "3",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PROFILE_INFO_EXT",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PROFILE_INFO_KHR"
         }
       },
       {
@@ -9574,8 +9540,7 @@
         "attributes": {
           "offset": "4",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PICTURE_INFO_EXT",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PICTURE_INFO_KHR"
         }
       },
       {
@@ -9584,8 +9549,7 @@
         "attributes": {
           "offset": "5",
           "extends": "VkStructureType",
-          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_DPB_SLOT_INFO_EXT",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR"
         }
       },
       {
@@ -10572,6 +10536,87 @@
           "offset": "0",
           "extends": "VkStructureType",
           "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "0",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "1",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "2",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_COMPATIBILITY_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "0",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "1",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "2",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODES_CREATE_INFO_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "3",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODE_INFO_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "4",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_EXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "5",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_RELEASE_SWAPCHAIN_IMAGES_INFO_EXT"
         }
       },
       {
@@ -12523,6 +12568,24 @@
         "attributes": {
           "offset": "0",
           "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_INFO_LUNARG"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "1",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "0",
+          "extends": "VkStructureType",
           "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT"
         }
       },
@@ -12678,6 +12741,15 @@
           "offset": "1",
           "extends": "VkStructureType",
           "name": "VK_STRUCTURE_TYPE_AMIGO_PROFILING_SUBMIT_INFO_SEC"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "offset": "0",
+          "extends": "VkStructureType",
+          "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM"
         }
       },
       {
@@ -14758,8 +14830,7 @@
           "offset": "0",
           "extends": "VkResult",
           "dir": "-",
-          "name": "VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR"
         }
       },
       {
@@ -14769,8 +14840,7 @@
           "offset": "1",
           "extends": "VkResult",
           "dir": "-",
-          "name": "VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR"
         }
       },
       {
@@ -14780,8 +14850,7 @@
           "offset": "2",
           "extends": "VkResult",
           "dir": "-",
-          "name": "VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR"
         }
       },
       {
@@ -14791,8 +14860,7 @@
           "offset": "3",
           "extends": "VkResult",
           "dir": "-",
-          "name": "VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR"
         }
       },
       {
@@ -14802,8 +14870,7 @@
           "offset": "4",
           "extends": "VkResult",
           "dir": "-",
-          "name": "VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR"
         }
       },
       {
@@ -14813,8 +14880,7 @@
           "offset": "5",
           "extends": "VkResult",
           "dir": "-",
-          "name": "VK_ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR"
         }
       },
       {
@@ -16150,8 +16216,7 @@
           "offset": "0",
           "extends": "VkObjectType",
           "name": "VK_OBJECT_TYPE_VIDEO_SESSION_KHR",
-          "comment": "VkVideoSessionKHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "comment": "VkVideoSessionKHR"
         }
       },
       {
@@ -16161,8 +16226,7 @@
           "offset": "1",
           "extends": "VkObjectType",
           "name": "VK_OBJECT_TYPE_VIDEO_SESSION_PARAMETERS_KHR",
-          "comment": "VkVideoSessionParametersKHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "comment": "VkVideoSessionParametersKHR"
         }
       },
       {
@@ -16365,6 +16429,34 @@
     "type": "element",
     "name": "enums",
     "attributes": {
+      "name": "VkDirectDriverLoadingModeLUNARG",
+      "type": "enum"
+    },
+    "children": [
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "value": "0",
+          "name": "VK_DIRECT_DRIVER_LOADING_MODE_EXCLUSIVE_LUNARG",
+          "extends": "VkDirectDriverLoadingModeLUNARG"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "value": "1",
+          "name": "VK_DIRECT_DRIVER_LOADING_MODE_INCLUSIVE_LUNARG",
+          "extends": "VkDirectDriverLoadingModeLUNARG"
+        }
+      }
+    ]
+  },
+  {
+    "type": "element",
+    "name": "enums",
+    "attributes": {
       "name": "VkQueueFlagBits",
       "type": "bitmask"
     },
@@ -16415,8 +16507,7 @@
         "attributes": {
           "bitpos": "5",
           "extends": "VkQueueFlagBits",
-          "name": "VK_QUEUE_VIDEO_DECODE_BIT_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_QUEUE_VIDEO_DECODE_BIT_KHR"
         }
       },
       {
@@ -17100,8 +17191,7 @@
         "attributes": {
           "bitpos": "13",
           "extends": "VkBufferUsageFlagBits",
-          "name": "VK_BUFFER_USAGE_VIDEO_DECODE_SRC_BIT_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_BUFFER_USAGE_VIDEO_DECODE_SRC_BIT_KHR"
         }
       },
       {
@@ -17110,8 +17200,7 @@
         "attributes": {
           "bitpos": "14",
           "extends": "VkBufferUsageFlagBits",
-          "name": "VK_BUFFER_USAGE_VIDEO_DECODE_DST_BIT_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_BUFFER_USAGE_VIDEO_DECODE_DST_BIT_KHR"
         }
       },
       {
@@ -17687,8 +17776,7 @@
         "attributes": {
           "bitpos": "10",
           "extends": "VkImageUsageFlagBits",
-          "name": "VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR"
         }
       },
       {
@@ -17697,8 +17785,7 @@
         "attributes": {
           "bitpos": "11",
           "extends": "VkImageUsageFlagBits",
-          "name": "VK_IMAGE_USAGE_VIDEO_DECODE_SRC_BIT_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_IMAGE_USAGE_VIDEO_DECODE_SRC_BIT_KHR"
         }
       },
       {
@@ -17707,8 +17794,7 @@
         "attributes": {
           "bitpos": "12",
           "extends": "VkImageUsageFlagBits",
-          "name": "VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR"
         }
       },
       {
@@ -18762,8 +18848,7 @@
         "attributes": {
           "bitpos": "25",
           "extends": "VkFormatFeatureFlagBits",
-          "name": "VK_FORMAT_FEATURE_VIDEO_DECODE_OUTPUT_BIT_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_FORMAT_FEATURE_VIDEO_DECODE_OUTPUT_BIT_KHR"
         }
       },
       {
@@ -18772,8 +18857,7 @@
         "attributes": {
           "bitpos": "26",
           "extends": "VkFormatFeatureFlagBits",
-          "name": "VK_FORMAT_FEATURE_VIDEO_DECODE_DPB_BIT_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_FORMAT_FEATURE_VIDEO_DECODE_DPB_BIT_KHR"
         }
       },
       {
@@ -19096,8 +19180,7 @@
         "attributes": {
           "bitpos": "4",
           "extends": "VkQueryResultFlagBits",
-          "name": "VK_QUERY_RESULT_WITH_STATUS_BIT_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_QUERY_RESULT_WITH_STATUS_BIT_KHR"
         }
       }
     ]
@@ -22820,6 +22903,15 @@
           "bitpos": "2",
           "extends": "VkSwapchainCreateFlagBitsKHR",
           "name": "VK_SWAPCHAIN_CREATE_MUTABLE_FORMAT_BIT_KHR"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "bitpos": "3",
+          "extends": "VkSwapchainCreateFlagBitsKHR",
+          "name": "VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT"
         }
       }
     ]
@@ -27249,8 +27341,7 @@
         "attributes": {
           "bitpos": "35",
           "extends": "VkAccessFlagBits2",
-          "name": "VK_ACCESS_2_VIDEO_DECODE_READ_BIT_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_ACCESS_2_VIDEO_DECODE_READ_BIT_KHR"
         }
       },
       {
@@ -27259,8 +27350,7 @@
         "attributes": {
           "bitpos": "36",
           "extends": "VkAccessFlagBits2",
-          "name": "VK_ACCESS_2_VIDEO_DECODE_WRITE_BIT_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_ACCESS_2_VIDEO_DECODE_WRITE_BIT_KHR"
         }
       },
       {
@@ -27971,8 +28061,7 @@
         "attributes": {
           "bitpos": "26",
           "extends": "VkPipelineStageFlagBits2",
-          "name": "VK_PIPELINE_STAGE_2_VIDEO_DECODE_BIT_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_PIPELINE_STAGE_2_VIDEO_DECODE_BIT_KHR"
         }
       },
       {
@@ -28470,6 +28559,80 @@
     "type": "element",
     "name": "enums",
     "attributes": {
+      "name": "VkPresentScalingFlagBitsEXT",
+      "type": "bitmask"
+    },
+    "children": [
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "bitpos": "0",
+          "name": "VK_PRESENT_SCALING_ONE_TO_ONE_BIT_EXT",
+          "extends": "VkPresentScalingFlagBitsEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "bitpos": "1",
+          "name": "VK_PRESENT_SCALING_ASPECT_RATIO_STRETCH_BIT_EXT",
+          "extends": "VkPresentScalingFlagBitsEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "bitpos": "2",
+          "name": "VK_PRESENT_SCALING_STRETCH_BIT_EXT",
+          "extends": "VkPresentScalingFlagBitsEXT"
+        }
+      }
+    ]
+  },
+  {
+    "type": "element",
+    "name": "enums",
+    "attributes": {
+      "name": "VkPresentGravityFlagBitsEXT",
+      "type": "bitmask"
+    },
+    "children": [
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "bitpos": "0",
+          "name": "VK_PRESENT_GRAVITY_MIN_BIT_EXT",
+          "extends": "VkPresentGravityFlagBitsEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "bitpos": "1",
+          "name": "VK_PRESENT_GRAVITY_MAX_BIT_EXT",
+          "extends": "VkPresentGravityFlagBitsEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "bitpos": "2",
+          "name": "VK_PRESENT_GRAVITY_CENTERED_BIT_EXT",
+          "extends": "VkPresentGravityFlagBitsEXT"
+        }
+      }
+    ]
+  },
+  {
+    "type": "element",
+    "name": "enums",
+    "attributes": {
       "name": "VkVideoCodecOperationFlagBitsKHR",
       "type": "bitmask"
     },
@@ -28509,8 +28672,7 @@
         "attributes": {
           "bitpos": "0",
           "extends": "VkVideoCodecOperationFlagBitsKHR",
-          "name": "VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_EXT",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR"
         }
       },
       {
@@ -28519,8 +28681,7 @@
         "attributes": {
           "bitpos": "1",
           "extends": "VkVideoCodecOperationFlagBitsKHR",
-          "name": "VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_EXT",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR"
         }
       }
     ]
@@ -28679,7 +28840,7 @@
     "type": "element",
     "name": "enums",
     "attributes": {
-      "name": "VkVideoDecodeH264PictureLayoutFlagBitsEXT",
+      "name": "VkVideoDecodeH264PictureLayoutFlagBitsKHR",
       "type": "bitmask"
     },
     "children": [
@@ -28688,8 +28849,8 @@
         "name": "enum",
         "attributes": {
           "value": "0",
-          "name": "VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_PROGRESSIVE_EXT",
-          "extends": "VkVideoDecodeH264PictureLayoutFlagBitsEXT"
+          "name": "VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_PROGRESSIVE_KHR",
+          "extends": "VkVideoDecodeH264PictureLayoutFlagBitsKHR"
         }
       },
       {
@@ -28697,8 +28858,8 @@
         "name": "enum",
         "attributes": {
           "bitpos": "0",
-          "name": "VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_INTERLEAVED_LINES_BIT_EXT",
-          "extends": "VkVideoDecodeH264PictureLayoutFlagBitsEXT"
+          "name": "VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_INTERLEAVED_LINES_BIT_KHR",
+          "extends": "VkVideoDecodeH264PictureLayoutFlagBitsKHR"
         }
       },
       {
@@ -28706,8 +28867,8 @@
         "name": "enum",
         "attributes": {
           "bitpos": "1",
-          "name": "VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_EXT",
-          "extends": "VkVideoDecodeH264PictureLayoutFlagBitsEXT"
+          "name": "VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_KHR",
+          "extends": "VkVideoDecodeH264PictureLayoutFlagBitsKHR"
         }
       }
     ]
@@ -29985,8 +30146,7 @@
         "attributes": {
           "bitpos": "25",
           "extends": "VkFormatFeatureFlagBits2",
-          "name": "VK_FORMAT_FEATURE_2_VIDEO_DECODE_OUTPUT_BIT_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_FORMAT_FEATURE_2_VIDEO_DECODE_OUTPUT_BIT_KHR"
         }
       },
       {
@@ -29995,8 +30155,7 @@
         "attributes": {
           "bitpos": "26",
           "extends": "VkFormatFeatureFlagBits2",
-          "name": "VK_FORMAT_FEATURE_2_VIDEO_DECODE_DPB_BIT_KHR",
-          "protect": "VK_ENABLE_BETA_EXTENSIONS"
+          "name": "VK_FORMAT_FEATURE_2_VIDEO_DECODE_DPB_BIT_KHR"
         }
       },
       {
@@ -32732,7 +32891,7 @@
         "type": "element",
         "name": "enum",
         "attributes": {
-          "value": "7",
+          "value": "8",
           "name": "VK_KHR_VIDEO_QUEUE_SPEC_VERSION"
         }
       },
@@ -33077,7 +33236,7 @@
         "type": "element",
         "name": "enum",
         "attributes": {
-          "value": "6",
+          "value": "7",
           "name": "VK_KHR_VIDEO_DECODE_QUEUE_SPEC_VERSION"
         }
       },
@@ -33843,72 +34002,72 @@
         "type": "element",
         "name": "enum",
         "attributes": {
-          "value": "7",
-          "name": "VK_EXT_VIDEO_DECODE_H264_SPEC_VERSION"
+          "value": "8",
+          "name": "VK_KHR_VIDEO_DECODE_H264_SPEC_VERSION"
         }
       },
       {
         "type": "element",
         "name": "enum",
         "attributes": {
-          "value": "\"VK_EXT_video_decode_h264\"",
-          "name": "VK_EXT_VIDEO_DECODE_H264_EXTENSION_NAME"
+          "value": "\"VK_KHR_video_decode_h264\"",
+          "name": "VK_KHR_VIDEO_DECODE_H264_EXTENSION_NAME"
         }
       },
       {
         "type": "element",
         "name": "type",
         "attributes": {
-          "name": "VkVideoDecodeH264PictureLayoutFlagBitsEXT"
+          "name": "VkVideoDecodeH264PictureLayoutFlagBitsKHR"
         }
       },
       {
         "type": "element",
         "name": "type",
         "attributes": {
-          "name": "VkVideoDecodeH264PictureLayoutFlagsEXT"
+          "name": "VkVideoDecodeH264PictureLayoutFlagsKHR"
         }
       },
       {
         "type": "element",
         "name": "type",
         "attributes": {
-          "name": "VkVideoDecodeH264ProfileInfoEXT"
+          "name": "VkVideoDecodeH264ProfileInfoKHR"
         }
       },
       {
         "type": "element",
         "name": "type",
         "attributes": {
-          "name": "VkVideoDecodeH264CapabilitiesEXT"
+          "name": "VkVideoDecodeH264CapabilitiesKHR"
         }
       },
       {
         "type": "element",
         "name": "type",
         "attributes": {
-          "name": "VkVideoDecodeH264SessionParametersCreateInfoEXT"
+          "name": "VkVideoDecodeH264SessionParametersCreateInfoKHR"
         }
       },
       {
         "type": "element",
         "name": "type",
         "attributes": {
-          "name": "VkVideoDecodeH264SessionParametersAddInfoEXT"
+          "name": "VkVideoDecodeH264SessionParametersAddInfoKHR"
         }
       },
       {
         "type": "element",
         "name": "type",
         "attributes": {
-          "name": "VkVideoDecodeH264PictureInfoEXT"
+          "name": "VkVideoDecodeH264PictureInfoKHR"
         }
       },
       {
         "type": "element",
         "name": "type",
         "attributes": {
-          "name": "VkVideoDecodeH264DpbSlotInfoEXT"
+          "name": "VkVideoDecodeH264DpbSlotInfoKHR"
         }
       },
       {
@@ -39925,58 +40084,58 @@
         "type": "element",
         "name": "enum",
         "attributes": {
-          "value": "5",
-          "name": "VK_EXT_VIDEO_DECODE_H265_SPEC_VERSION"
+          "value": "7",
+          "name": "VK_KHR_VIDEO_DECODE_H265_SPEC_VERSION"
         }
       },
       {
         "type": "element",
         "name": "enum",
         "attributes": {
-          "value": "\"VK_EXT_video_decode_h265\"",
-          "name": "VK_EXT_VIDEO_DECODE_H265_EXTENSION_NAME"
+          "value": "\"VK_KHR_video_decode_h265\"",
+          "name": "VK_KHR_VIDEO_DECODE_H265_EXTENSION_NAME"
         }
       },
       {
         "type": "element",
         "name": "type",
         "attributes": {
-          "name": "VkVideoDecodeH265ProfileInfoEXT"
+          "name": "VkVideoDecodeH265ProfileInfoKHR"
         }
       },
       {
         "type": "element",
         "name": "type",
         "attributes": {
-          "name": "VkVideoDecodeH265CapabilitiesEXT"
+          "name": "VkVideoDecodeH265CapabilitiesKHR"
         }
       },
       {
         "type": "element",
         "name": "type",
         "attributes": {
-          "name": "VkVideoDecodeH265SessionParametersCreateInfoEXT"
+          "name": "VkVideoDecodeH265SessionParametersCreateInfoKHR"
         }
       },
       {
         "type": "element",
         "name": "type",
         "attributes": {
-          "name": "VkVideoDecodeH265SessionParametersAddInfoEXT"
+          "name": "VkVideoDecodeH265SessionParametersAddInfoKHR"
         }
       },
       {
         "type": "element",
         "name": "type",
         "attributes": {
-          "name": "VkVideoDecodeH265PictureInfoEXT"
+          "name": "VkVideoDecodeH265PictureInfoKHR"
         }
       },
       {
         "type": "element",
         "name": "type",
         "attributes": {
-          "name": "VkVideoDecodeH265DpbSlotInfoEXT"
+          "name": "VkVideoDecodeH265DpbSlotInfoKHR"
         }
       },
       {
@@ -42493,6 +42652,136 @@
         "name": "type",
         "attributes": {
           "name": "VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "value": "1",
+          "name": "VK_EXT_SURFACE_MAINTENANCE_1_SPEC_VERSION"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "value": "\"VK_EXT_surface_maintenance1\"",
+          "name": "VK_EXT_SURFACE_MAINTENANCE_1_EXTENSION_NAME"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkSurfacePresentModeEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkPresentScalingFlagBitsEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkPresentScalingFlagsEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkPresentGravityFlagBitsEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkPresentGravityFlagsEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkSurfacePresentScalingCapabilitiesEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkSurfacePresentModeCompatibilityEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "value": "1",
+          "name": "VK_EXT_SWAPCHAIN_MAINTENANCE_1_SPEC_VERSION"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "value": "\"VK_EXT_swapchain_maintenance1\"",
+          "name": "VK_EXT_SWAPCHAIN_MAINTENANCE_1_EXTENSION_NAME"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkSwapchainPresentFenceInfoEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkSwapchainPresentModesCreateInfoEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkSwapchainPresentModeInfoEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkSwapchainPresentScalingCreateInfoEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkReleaseSwapchainImagesInfoEXT"
+        }
+      },
+      {
+        "type": "element",
+        "name": "command",
+        "attributes": {
+          "name": "vkReleaseSwapchainImagesEXT"
         }
       },
       {
@@ -47103,6 +47392,58 @@
         "name": "enum",
         "attributes": {
           "value": "1",
+          "name": "VK_LUNARG_DIRECT_DRIVER_LOADING_SPEC_VERSION"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "value": "\"VK_LUNARG_direct_driver_loading\"",
+          "name": "VK_LUNARG_DIRECT_DRIVER_LOADING_EXTENSION_NAME"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkDirectDriverLoadingFlagsLUNARG",
+          "comment": "Will add VkDirectDriverLoadingFlagBitsLUNARG when bits are defined in the future"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkDirectDriverLoadingModeLUNARG"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkDirectDriverLoadingInfoLUNARG"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkDirectDriverLoadingListLUNARG"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "PFN_vkGetInstanceProcAddrLUNARG"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "value": "1",
           "name": "VK_EXT_SHADER_MODULE_IDENTIFIER_SPEC_VERSION"
         }
       },
@@ -47524,6 +47865,29 @@
         "name": "type",
         "attributes": {
           "name": "VkAmigoProfilingSubmitInfoSEC"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "value": "1",
+          "name": "VK_QCOM_MULTIVIEW_PER_VIEW_VIEWPORTS_SPEC_VERSION"
+        }
+      },
+      {
+        "type": "element",
+        "name": "enum",
+        "attributes": {
+          "value": "\"VK_QCOM_multiview_per_view_viewports\"",
+          "name": "VK_QCOM_MULTIVIEW_PER_VIEW_VIEWPORTS_EXTENSION_NAME"
+        }
+      },
+      {
+        "type": "element",
+        "name": "type",
+        "attributes": {
+          "name": "VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM"
         }
       },
       {

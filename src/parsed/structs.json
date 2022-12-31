@@ -3025,7 +3025,6 @@
   {
     "category": "struct",
     "name": "VkSubresourceLayout",
-    "returnedonly": "true",
     "params": [
       {
         "name": "offset",
@@ -54179,12 +54178,12 @@
   },
   {
     "category": "struct",
-    "name": "VkVideoDecodeH264ProfileInfoEXT",
+    "name": "VkVideoDecodeH264ProfileInfoKHR",
     "structextends": "VkVideoProfileInfoKHR,VkQueryPoolCreateInfo",
     "params": [
       {
-        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_EXT",
-        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_EXT",
+        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR",
+        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR",
         "name": "sType",
         "type": "VkStructureType",
         "isPointer": false,
@@ -54226,13 +54225,13 @@
       {
         "optional": "true",
         "name": "pictureLayout",
-        "type": "VkVideoDecodeH264PictureLayoutFlagBitsEXT",
+        "type": "VkVideoDecodeH264PictureLayoutFlagBitsKHR",
         "isPointer": false,
         "isConst": false,
         "isPointerSet": false,
-        "text": "VkVideoDecodeH264PictureLayoutFlagBitsEXT pictureLayout",
+        "text": "VkVideoDecodeH264PictureLayoutFlagBitsKHR pictureLayout",
         "parts": [
-          "VkVideoDecodeH264PictureLayoutFlagBitsEXT",
+          "VkVideoDecodeH264PictureLayoutFlagBitsKHR",
           "pictureLayout"
         ]
       }
@@ -54240,13 +54239,13 @@
   },
   {
     "category": "struct",
-    "name": "VkVideoDecodeH264CapabilitiesEXT",
+    "name": "VkVideoDecodeH264CapabilitiesKHR",
     "returnedonly": "true",
     "structextends": "VkVideoCapabilitiesKHR",
     "params": [
       {
-        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_EXT",
-        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_EXT",
+        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR",
+        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR",
         "name": "sType",
         "type": "VkStructureType",
         "isPointer": false,
@@ -54300,12 +54299,12 @@
   },
   {
     "category": "struct",
-    "name": "VkVideoDecodeH264SessionParametersAddInfoEXT",
+    "name": "VkVideoDecodeH264SessionParametersAddInfoKHR",
     "structextends": "VkVideoSessionParametersUpdateInfoKHR",
     "params": [
       {
-        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_EXT",
-        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_EXT",
+        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR",
+        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR",
         "name": "sType",
         "type": "VkStructureType",
         "isPointer": false,
@@ -54392,12 +54391,12 @@
   },
   {
     "category": "struct",
-    "name": "VkVideoDecodeH264SessionParametersCreateInfoEXT",
+    "name": "VkVideoDecodeH264SessionParametersCreateInfoKHR",
     "structextends": "VkVideoSessionParametersCreateInfoKHR",
     "params": [
       {
-        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_EXT",
-        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_EXT",
+        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR",
+        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR",
         "name": "sType",
         "type": "VkStructureType",
         "isPointer": false,
@@ -54451,14 +54450,14 @@
       {
         "optional": "true",
         "name": "pParametersAddInfo",
-        "type": "VkVideoDecodeH264SessionParametersAddInfoEXT",
+        "type": "VkVideoDecodeH264SessionParametersAddInfoKHR",
         "isPointer": true,
         "isConst": true,
         "isPointerSet": false,
-        "text": "const VkVideoDecodeH264SessionParametersAddInfoEXT * pParametersAddInfo",
+        "text": "const VkVideoDecodeH264SessionParametersAddInfoKHR * pParametersAddInfo",
         "parts": [
           "const",
-          "VkVideoDecodeH264SessionParametersAddInfoEXT",
+          "VkVideoDecodeH264SessionParametersAddInfoKHR",
           "*",
           "pParametersAddInfo"
         ]
@@ -54467,12 +54466,12 @@
   },
   {
     "category": "struct",
-    "name": "VkVideoDecodeH264PictureInfoEXT",
+    "name": "VkVideoDecodeH264PictureInfoKHR",
     "structextends": "VkVideoDecodeInfoKHR",
     "params": [
       {
-        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_EXT",
-        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_EXT",
+        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR",
+        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR",
         "name": "sType",
         "type": "VkStructureType",
         "isPointer": false,
@@ -54544,12 +54543,12 @@
   },
   {
     "category": "struct",
-    "name": "VkVideoDecodeH264DpbSlotInfoEXT",
+    "name": "VkVideoDecodeH264DpbSlotInfoKHR",
     "structextends": "VkVideoReferenceSlotInfoKHR",
     "params": [
       {
-        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_DPB_SLOT_INFO_EXT",
-        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_DPB_SLOT_INFO_EXT",
+        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR",
+        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR",
         "name": "sType",
         "type": "VkStructureType",
         "isPointer": false,
@@ -54594,12 +54593,12 @@
   },
   {
     "category": "struct",
-    "name": "VkVideoDecodeH265ProfileInfoEXT",
+    "name": "VkVideoDecodeH265ProfileInfoKHR",
     "structextends": "VkVideoProfileInfoKHR,VkQueryPoolCreateInfo",
     "params": [
       {
-        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PROFILE_INFO_EXT",
-        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PROFILE_INFO_EXT",
+        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PROFILE_INFO_KHR",
+        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PROFILE_INFO_KHR",
         "name": "sType",
         "type": "VkStructureType",
         "isPointer": false,
@@ -54642,13 +54641,13 @@
   },
   {
     "category": "struct",
-    "name": "VkVideoDecodeH265CapabilitiesEXT",
+    "name": "VkVideoDecodeH265CapabilitiesKHR",
     "returnedonly": "true",
     "structextends": "VkVideoCapabilitiesKHR",
     "params": [
       {
-        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_CAPABILITIES_EXT",
-        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_CAPABILITIES_EXT",
+        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_CAPABILITIES_KHR",
+        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_CAPABILITIES_KHR",
         "name": "sType",
         "type": "VkStructureType",
         "isPointer": false,
@@ -54690,12 +54689,12 @@
   },
   {
     "category": "struct",
-    "name": "VkVideoDecodeH265SessionParametersAddInfoEXT",
+    "name": "VkVideoDecodeH265SessionParametersAddInfoKHR",
     "structextends": "VkVideoSessionParametersUpdateInfoKHR",
     "params": [
       {
-        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_EXT",
-        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_EXT",
+        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR",
+        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR",
         "name": "sType",
         "type": "VkStructureType",
         "isPointer": false,
@@ -54810,12 +54809,12 @@
   },
   {
     "category": "struct",
-    "name": "VkVideoDecodeH265SessionParametersCreateInfoEXT",
+    "name": "VkVideoDecodeH265SessionParametersCreateInfoKHR",
     "structextends": "VkVideoSessionParametersCreateInfoKHR",
     "params": [
       {
-        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_EXT",
-        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_EXT",
+        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR",
+        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR",
         "name": "sType",
         "type": "VkStructureType",
         "isPointer": false,
@@ -54881,14 +54880,14 @@
       {
         "optional": "true",
         "name": "pParametersAddInfo",
-        "type": "VkVideoDecodeH265SessionParametersAddInfoEXT",
+        "type": "VkVideoDecodeH265SessionParametersAddInfoKHR",
         "isPointer": true,
         "isConst": true,
         "isPointerSet": false,
-        "text": "const VkVideoDecodeH265SessionParametersAddInfoEXT * pParametersAddInfo",
+        "text": "const VkVideoDecodeH265SessionParametersAddInfoKHR * pParametersAddInfo",
         "parts": [
           "const",
-          "VkVideoDecodeH265SessionParametersAddInfoEXT",
+          "VkVideoDecodeH265SessionParametersAddInfoKHR",
           "*",
           "pParametersAddInfo"
         ]
@@ -54897,12 +54896,12 @@
   },
   {
     "category": "struct",
-    "name": "VkVideoDecodeH265PictureInfoEXT",
+    "name": "VkVideoDecodeH265PictureInfoKHR",
     "structextends": "VkVideoDecodeInfoKHR",
     "params": [
       {
-        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PICTURE_INFO_EXT",
-        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PICTURE_INFO_EXT",
+        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PICTURE_INFO_KHR",
+        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PICTURE_INFO_KHR",
         "name": "sType",
         "type": "VkStructureType",
         "isPointer": false,
@@ -54943,42 +54942,42 @@
         ]
       },
       {
-        "name": "sliceCount",
+        "name": "sliceSegmentCount",
         "type": "uint32_t",
         "isPointer": false,
         "isConst": false,
         "isPointerSet": false,
-        "text": "uint32_t sliceCount",
+        "text": "uint32_t sliceSegmentCount",
         "parts": [
           "uint32_t",
-          "sliceCount"
+          "sliceSegmentCount"
         ]
       },
       {
-        "len": "sliceCount",
-        "name": "pSliceOffsets",
+        "len": "sliceSegmentCount",
+        "name": "pSliceSegmentOffsets",
         "type": "uint32_t",
         "isPointer": true,
         "isConst": true,
         "isPointerSet": false,
-        "text": "const uint32_t * pSliceOffsets",
+        "text": "const uint32_t * pSliceSegmentOffsets",
         "parts": [
           "const",
           "uint32_t",
           "*",
-          "pSliceOffsets"
+          "pSliceSegmentOffsets"
         ]
       }
     ]
   },
   {
     "category": "struct",
-    "name": "VkVideoDecodeH265DpbSlotInfoEXT",
+    "name": "VkVideoDecodeH265DpbSlotInfoKHR",
     "structextends": "VkVideoReferenceSlotInfoKHR",
     "params": [
       {
-        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_DPB_SLOT_INFO_EXT",
-        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_DPB_SLOT_INFO_EXT",
+        "value": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR",
+        "values": "VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR",
         "name": "sType",
         "type": "VkStructureType",
         "isPointer": false,
@@ -69033,6 +69032,599 @@
   },
   {
     "category": "struct",
+    "name": "VkSurfacePresentModeEXT",
+    "structextends": "VkPhysicalDeviceSurfaceInfo2KHR",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_EXT",
+        "values": "VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pNext",
+        "parts": [
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "presentMode",
+        "type": "VkPresentModeKHR",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkPresentModeKHR presentMode",
+        "parts": [
+          "VkPresentModeKHR",
+          "presentMode"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkSurfacePresentScalingCapabilitiesEXT",
+    "structextends": "VkSurfaceCapabilities2KHR",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT",
+        "values": "VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pNext",
+        "parts": [
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "supportedPresentScaling",
+        "type": "VkPresentScalingFlagsEXT",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkPresentScalingFlagsEXT supportedPresentScaling",
+        "parts": [
+          "VkPresentScalingFlagsEXT",
+          "supportedPresentScaling"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "supportedPresentGravityX",
+        "type": "VkPresentGravityFlagsEXT",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkPresentGravityFlagsEXT supportedPresentGravityX",
+        "parts": [
+          "VkPresentGravityFlagsEXT",
+          "supportedPresentGravityX"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "supportedPresentGravityY",
+        "type": "VkPresentGravityFlagsEXT",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkPresentGravityFlagsEXT supportedPresentGravityY",
+        "parts": [
+          "VkPresentGravityFlagsEXT",
+          "supportedPresentGravityY"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "minScaledImageExtent",
+        "type": "VkExtent2D",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkExtent2D minScaledImageExtent",
+        "parts": [
+          "VkExtent2D",
+          "minScaledImageExtent"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "maxScaledImageExtent",
+        "type": "VkExtent2D",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkExtent2D maxScaledImageExtent",
+        "parts": [
+          "VkExtent2D",
+          "maxScaledImageExtent"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkSurfacePresentModeCompatibilityEXT",
+    "structextends": "VkSurfaceCapabilities2KHR",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_COMPATIBILITY_EXT",
+        "values": "VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_COMPATIBILITY_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pNext",
+        "parts": [
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "presentModeCount",
+        "type": "uint32_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "uint32_t presentModeCount",
+        "parts": [
+          "uint32_t",
+          "presentModeCount"
+        ]
+      },
+      {
+        "optional": "true",
+        "len": "presentModeCount",
+        "name": "pPresentModes",
+        "type": "VkPresentModeKHR",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkPresentModeKHR * pPresentModes",
+        "parts": [
+          "VkPresentModeKHR",
+          "*",
+          "pPresentModes"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT",
+    "structextends": "VkPhysicalDeviceFeatures2,VkDeviceCreateInfo",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT",
+        "values": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pNext",
+        "parts": [
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "swapchainMaintenance1",
+        "type": "VkBool32",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkBool32 swapchainMaintenance1",
+        "parts": [
+          "VkBool32",
+          "swapchainMaintenance1"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkSwapchainPresentFenceInfoEXT",
+    "structextends": "VkPresentInfoKHR",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_EXT",
+        "values": "VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pNext",
+        "parts": [
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "swapchainCount",
+        "type": "uint32_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "uint32_t swapchainCount",
+        "parts": [
+          "uint32_t",
+          "swapchainCount"
+        ]
+      },
+      {
+        "len": "swapchainCount",
+        "name": "pFences",
+        "type": "VkFence",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const VkFence * pFences",
+        "parts": [
+          "const",
+          "VkFence",
+          "*",
+          "pFences"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkSwapchainPresentModesCreateInfoEXT",
+    "structextends": "VkSwapchainCreateInfoKHR",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODES_CREATE_INFO_EXT",
+        "values": "VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODES_CREATE_INFO_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pNext",
+        "parts": [
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "presentModeCount",
+        "type": "uint32_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "uint32_t presentModeCount",
+        "parts": [
+          "uint32_t",
+          "presentModeCount"
+        ]
+      },
+      {
+        "len": "presentModeCount",
+        "name": "pPresentModes",
+        "type": "VkPresentModeKHR",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const VkPresentModeKHR * pPresentModes",
+        "parts": [
+          "const",
+          "VkPresentModeKHR",
+          "*",
+          "pPresentModes"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkSwapchainPresentModeInfoEXT",
+    "structextends": "VkPresentInfoKHR",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODE_INFO_EXT",
+        "values": "VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODE_INFO_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pNext",
+        "parts": [
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "swapchainCount",
+        "type": "uint32_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "uint32_t swapchainCount",
+        "parts": [
+          "uint32_t",
+          "swapchainCount"
+        ]
+      },
+      {
+        "len": "swapchainCount",
+        "name": "pPresentModes",
+        "type": "VkPresentModeKHR",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const VkPresentModeKHR * pPresentModes",
+        "parts": [
+          "const",
+          "VkPresentModeKHR",
+          "*",
+          "pPresentModes"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkSwapchainPresentScalingCreateInfoEXT",
+    "structextends": "VkSwapchainCreateInfoKHR",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_EXT",
+        "values": "VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const void * pNext",
+        "parts": [
+          "const",
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "scalingBehavior",
+        "type": "VkPresentScalingFlagsEXT",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkPresentScalingFlagsEXT scalingBehavior",
+        "parts": [
+          "VkPresentScalingFlagsEXT",
+          "scalingBehavior"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "presentGravityX",
+        "type": "VkPresentGravityFlagsEXT",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkPresentGravityFlagsEXT presentGravityX",
+        "parts": [
+          "VkPresentGravityFlagsEXT",
+          "presentGravityX"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "presentGravityY",
+        "type": "VkPresentGravityFlagsEXT",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkPresentGravityFlagsEXT presentGravityY",
+        "parts": [
+          "VkPresentGravityFlagsEXT",
+          "presentGravityY"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkReleaseSwapchainImagesInfoEXT",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_RELEASE_SWAPCHAIN_IMAGES_INFO_EXT",
+        "values": "VK_STRUCTURE_TYPE_RELEASE_SWAPCHAIN_IMAGES_INFO_EXT",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const void * pNext",
+        "parts": [
+          "const",
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "externsync": "true",
+        "name": "swapchain",
+        "type": "VkSwapchainKHR",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkSwapchainKHR swapchain",
+        "parts": [
+          "VkSwapchainKHR",
+          "swapchain"
+        ]
+      },
+      {
+        "name": "imageIndexCount",
+        "type": "uint32_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "uint32_t imageIndexCount",
+        "parts": [
+          "uint32_t",
+          "imageIndexCount"
+        ]
+      },
+      {
+        "len": "imageIndexCount",
+        "name": "pImageIndices",
+        "type": "uint32_t",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const uint32_t * pImageIndices",
+        "parts": [
+          "const",
+          "uint32_t",
+          "*",
+          "pImageIndices"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
     "name": "VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV",
     "structextends": "VkPhysicalDeviceFeatures2,VkDeviceCreateInfo",
     "params": [
@@ -69125,6 +69717,188 @@
         "parts": [
           "VkRayTracingInvocationReorderModeNV",
           "rayTracingInvocationReorderReorderingHint"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkDirectDriverLoadingInfoLUNARG",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_INFO_LUNARG",
+        "values": "VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_INFO_LUNARG",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "noautovalidity": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pNext",
+        "parts": [
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "flags",
+        "type": "VkDirectDriverLoadingFlagsLUNARG",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDirectDriverLoadingFlagsLUNARG flags",
+        "parts": [
+          "VkDirectDriverLoadingFlagsLUNARG",
+          "flags"
+        ]
+      },
+      {
+        "noautovalidity": "true",
+        "name": "pfnGetInstanceProcAddr",
+        "type": "PFN_vkGetInstanceProcAddrLUNARG",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "PFN_vkGetInstanceProcAddrLUNARG pfnGetInstanceProcAddr",
+        "parts": [
+          "PFN_vkGetInstanceProcAddrLUNARG",
+          "pfnGetInstanceProcAddr"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkDirectDriverLoadingListLUNARG",
+    "structextends": "VkInstanceCreateInfo",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG",
+        "values": "VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "noautovalidity": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pNext",
+        "parts": [
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "mode",
+        "type": "VkDirectDriverLoadingModeLUNARG",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDirectDriverLoadingModeLUNARG mode",
+        "parts": [
+          "VkDirectDriverLoadingModeLUNARG",
+          "mode"
+        ]
+      },
+      {
+        "name": "driverCount",
+        "type": "uint32_t",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "uint32_t driverCount",
+        "parts": [
+          "uint32_t",
+          "driverCount"
+        ]
+      },
+      {
+        "len": "driverCount",
+        "name": "pDrivers",
+        "type": "VkDirectDriverLoadingInfoLUNARG",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const VkDirectDriverLoadingInfoLUNARG * pDrivers",
+        "parts": [
+          "const",
+          "VkDirectDriverLoadingInfoLUNARG",
+          "*",
+          "pDrivers"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "struct",
+    "name": "VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM",
+    "structextends": "VkPhysicalDeviceFeatures2,VkDeviceCreateInfo",
+    "params": [
+      {
+        "value": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM",
+        "values": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM",
+        "name": "sType",
+        "type": "VkStructureType",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkStructureType sType",
+        "parts": [
+          "VkStructureType",
+          "sType"
+        ]
+      },
+      {
+        "optional": "true",
+        "name": "pNext",
+        "type": "void",
+        "isPointer": true,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "void * pNext",
+        "parts": [
+          "void",
+          "*",
+          "pNext"
+        ]
+      },
+      {
+        "name": "multiviewPerViewViewports",
+        "type": "VkBool32",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkBool32 multiviewPerViewViewports",
+        "parts": [
+          "VkBool32",
+          "multiviewPerViewViewports"
         ]
       }
     ]

@@ -32665,5 +32665,47 @@
         ]
       }
     ]
+  },
+  {
+    "proto": {
+      "name": "vkReleaseSwapchainImagesEXT",
+      "type": "VkResult",
+      "isPointer": false,
+      "isConst": false,
+      "isPointerSet": false,
+      "text": "VkResult vkReleaseSwapchainImagesEXT",
+      "parts": [
+        "VkResult",
+        "vkReleaseSwapchainImagesEXT"
+      ]
+    },
+    "params": [
+      {
+        "name": "device",
+        "type": "VkDevice",
+        "isPointer": false,
+        "isConst": false,
+        "isPointerSet": false,
+        "text": "VkDevice device",
+        "parts": [
+          "VkDevice",
+          "device"
+        ]
+      },
+      {
+        "name": "pReleaseInfo",
+        "type": "VkReleaseSwapchainImagesInfoEXT",
+        "isPointer": true,
+        "isConst": true,
+        "isPointerSet": false,
+        "text": "const VkReleaseSwapchainImagesInfoEXT * pReleaseInfo",
+        "parts": [
+          "const",
+          "VkReleaseSwapchainImagesInfoEXT",
+          "*",
+          "pReleaseInfo"
+        ]
+      }
+    ]
   }
 ]
